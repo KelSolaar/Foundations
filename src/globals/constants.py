@@ -60,7 +60,7 @@ class Constants():
 
 	logger = "Foundations_Logger"
 	verbosityLevel = 3
-	verbosityLabels = ["Critical", "Error", "Warning", "Info", "Debug"]
+	verbosityLabels = ("Critical", "Error", "Warning", "Info", "Debug")
 	loggingSeparators = "*" * 96
 
 	encodingFormat = "utf-8"
