@@ -55,7 +55,7 @@ from collections import OrderedDict
 #***********************************************************************************************
 #***	Internal Imports
 #***********************************************************************************************
-import foundations.namespace
+import foundations.namespace as namespace
 import foundations.parser
 from foundations.parser import Parser
 
@@ -237,8 +237,8 @@ class ParserTestCase(unittest.TestCase):
 			parser.read()
 			parser.parse(False)
 			for attribute in RANDOM_ATTRIBUTES[type].keys():
-				self.assertTrue(parser.attributeExists(attribute, foundations.namespace.getNamespace(attribute, rootOnly=True)))
-				self.assertFalse(parser.attributeExists("Unknown", foundations.namespace.getNamespace(attribute, rootOnly=True)))
+				self.assertTrue(parser.attributeExists(attribute, namespace.getNamespace(attribute, rootOnly=True)))
+				self.assertFalse(parser.attributeExists("Unknown", namespace.getNamespace(attribute, rootOnly=True)))
 
 	def testGetAttributes(self):
 		'''
@@ -264,9 +264,9 @@ class ParserTestCase(unittest.TestCase):
 			parser.read()
 			parser.parse(False)
 			for attribute, value in RANDOM_ATTRIBUTES[type].items():
-				self.assertIsInstance(parser.getValue(attribute, foundations.namespace.getNamespace(attribute, rootOnly=True)), str)
-				self.assertIsInstance(parser.getValue(attribute, foundations.namespace.getNamespace(attribute, rootOnly=True), encode=True), unicode)
-				self.assertEqual(parser.getValue(attribute, foundations.namespace.getNamespace(attribute, rootOnly=True)), value)
+				self.assertIsInstance(parser.getValue(attribute, namespace.getNamespace(attribute, rootOnly=True)), str)
+				self.assertIsInstance(parser.getValue(attribute, namespace.getNamespace(attribute, rootOnly=True), encode=True), unicode)
+				self.assertEqual(parser.getValue(attribute, namespace.getNamespace(attribute, rootOnly=True)), value)
 
 class GetAttributeCompoundTestCase(unittest.TestCase):
 	'''

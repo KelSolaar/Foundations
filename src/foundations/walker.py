@@ -58,7 +58,7 @@ import hashlib
 #***********************************************************************************************
 import core
 import foundations.exceptions
-import foundations.strings
+import foundations.strings as strings
 from globals.constants import Constants
 
 #***********************************************************************************************
@@ -217,7 +217,7 @@ class Walker(object):
 				for root, dirs, files in os.walk(self._root, topdown=False):
 					for item in files:
 						LOGGER.debug("> Current File : '{0}' In '{1}'.".format(item, self._root))
-						itemPath = foundations.strings.toForwardSlashes(os.path.join(root, item))
+						itemPath = strings.toForwardSlashes(os.path.join(root, item))
 						if os.path.isfile(itemPath):
 							if filtersIn:
 								filterMatched = False

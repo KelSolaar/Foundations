@@ -110,6 +110,19 @@ def getVersionRank(version):
 	return rank
 
 @core.executionTrace
+def getSplitextBasename(path):
+	'''
+	This Definition Get The Basename Of A Path Without Its Extension.
+
+	@param path: Path To Extract The Basename Without Extension. ( String )
+	@return: Splitext Basename. ( String )
+	'''
+
+	basename = os.path.splitext(os.path.basename(os.path.normpath(path)))[0]
+	LOGGER.debug("> Splitext Basename : '{0}'.".format(basename))
+	return basename
+
+@core.executionTrace
 def replace(string, datas):
 	'''
 	This Definition Replaces The Datas Occurences In The String.

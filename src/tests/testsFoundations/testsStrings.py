@@ -54,7 +54,7 @@ import unittest
 #***********************************************************************************************
 #***	Internal Imports
 #***********************************************************************************************
-import foundations.strings
+import foundations.strings as strings
 
 #***********************************************************************************************
 #***	Overall Variables
@@ -73,11 +73,11 @@ class GetNiceNameTestCase(unittest.TestCase):
 		This Method Tests The "getNiceName" Definition.
 		'''
 
-		self.assertIsInstance(foundations.strings.getNiceName("testGetNiceName"), str)
-		self.assertEqual(foundations.strings.getNiceName("testGetNiceName"), "Test Get Nice Name")
-		self.assertEqual(foundations.strings.getNiceName("TestGetNiceName"), "Test Get Nice Name")
-		self.assertEqual(foundations.strings.getNiceName("_testGetNiceName"), "_test Get Nice Name")
-		self.assertEqual(foundations.strings.getNiceName("Test Get NiceName"), "Test Get NiceName")
+		self.assertIsInstance(strings.getNiceName("testGetNiceName"), str)
+		self.assertEqual(strings.getNiceName("testGetNiceName"), "Test Get Nice Name")
+		self.assertEqual(strings.getNiceName("TestGetNiceName"), "Test Get Nice Name")
+		self.assertEqual(strings.getNiceName("_testGetNiceName"), "_test Get Nice Name")
+		self.assertEqual(strings.getNiceName("Test Get NiceName"), "Test Get NiceName")
 
 class GetVersionRankTestCase(unittest.TestCase):
 	'''
@@ -89,11 +89,26 @@ class GetVersionRankTestCase(unittest.TestCase):
 		This Method Tests The "getVersionRank" Definition.
 		'''
 
-		self.assertIsInstance(foundations.strings.getVersionRank("0.0.0"), int)
-		self.assertEqual(foundations.strings.getVersionRank("0.0.0"), 0)
-		self.assertEqual(foundations.strings.getVersionRank("0.1.0"), 10)
-		self.assertEqual(foundations.strings.getVersionRank("1.1.0"), 110)
-		self.assertEqual(foundations.strings.getVersionRank("1.2.3.4.5"), 12345)
+		self.assertIsInstance(strings.getVersionRank("0.0.0"), int)
+		self.assertEqual(strings.getVersionRank("0.0.0"), 0)
+		self.assertEqual(strings.getVersionRank("0.1.0"), 10)
+		self.assertEqual(strings.getVersionRank("1.1.0"), 110)
+		self.assertEqual(strings.getVersionRank("1.2.3.4.5"), 12345)
+
+class GetSplitextBasenameTestCase(unittest.TestCase):
+	'''
+	This Class Is The GetSplitextBasenameTestCase Class.
+	'''
+
+	def testGetSplitextBasename(self):
+		'''
+		This Method Tests The "getSplitextBasename" Definition.
+		'''
+
+		self.assertIsInstance(strings.getSplitextBasename("/Users/JohnDoe/Documents"), str)
+		self.assertEqual(strings.getSplitextBasename("/Users/JohnDoe/Documents/Test.txt"), "Test")
+		self.assertEqual(strings.getSplitextBasename("/Users/JohnDoe/Documents/Test"), "Test")
+		self.assertEqual(strings.getSplitextBasename("/Users/JohnDoe/Documents/Test/"), "Test")
 
 class ReplaceTestCase(unittest.TestCase):
 	'''
@@ -105,9 +120,9 @@ class ReplaceTestCase(unittest.TestCase):
 		This Method Tests The "replace" Definition.
 		'''
 
-		self.assertIsInstance(foundations.strings.replace("To@Forward|Slashes@Test|Case", {}), str)
-		self.assertEqual(foundations.strings.replace("To@Forward|Slashes@Test|Case", {"@":"|", "|":":"}), "To:Forward:Slashes:Test:Case")
-		self.assertEqual(foundations.strings.replace("To@Forward@Slashes@Test@Case", {"@":"|", "|":"@", "@":"|" }), "To@Forward@Slashes@Test@Case")
+		self.assertIsInstance(strings.replace("To@Forward|Slashes@Test|Case", {}), str)
+		self.assertEqual(strings.replace("To@Forward|Slashes@Test|Case", {"@":"|", "|":":"}), "To:Forward:Slashes:Test:Case")
+		self.assertEqual(strings.replace("To@Forward@Slashes@Test@Case", {"@":"|", "|":"@", "@":"|" }), "To@Forward@Slashes@Test@Case")
 
 class ToForwardSlashesTestCase(unittest.TestCase):
 	'''
@@ -119,9 +134,9 @@ class ToForwardSlashesTestCase(unittest.TestCase):
 		This Method Tests The "toForwardSlashes" Definition.
 		'''
 
-		self.assertIsInstance(foundations.strings.toForwardSlashes("To\Forward\Slashes\Test\Case"), str)
-		self.assertEqual(foundations.strings.toForwardSlashes("To\Forward\Slashes\Test\Case"), "To/Forward/Slashes/Test/Case")
-		self.assertEqual(foundations.strings.toForwardSlashes("\Users/JohnDoe\Documents"), "/Users/JohnDoe/Documents")
+		self.assertIsInstance(strings.toForwardSlashes("To\Forward\Slashes\Test\Case"), str)
+		self.assertEqual(strings.toForwardSlashes("To\Forward\Slashes\Test\Case"), "To/Forward/Slashes/Test/Case")
+		self.assertEqual(strings.toForwardSlashes("\Users/JohnDoe\Documents"), "/Users/JohnDoe/Documents")
 
 class ToBackwardSlashesTestCase(unittest.TestCase):
 	'''
@@ -133,9 +148,9 @@ class ToBackwardSlashesTestCase(unittest.TestCase):
 		This Method Tests The "toBackwardSlashes" Definition.
 		'''
 
-		self.assertIsInstance(foundations.strings.toBackwardSlashes("\Users\JohnDoe\Documents"), str)
-		self.assertEqual(foundations.strings.toBackwardSlashes("To/Forward/Slashes/Test/Case"), "To\Forward\Slashes\Test\Case")
-		self.assertEqual(foundations.strings.toBackwardSlashes("/Users/JohnDoe/Documents"), "\Users\JohnDoe\Documents")
+		self.assertIsInstance(strings.toBackwardSlashes("\Users\JohnDoe\Documents"), str)
+		self.assertEqual(strings.toBackwardSlashes("To/Forward/Slashes/Test/Case"), "To\Forward\Slashes\Test\Case")
+		self.assertEqual(strings.toBackwardSlashes("/Users/JohnDoe/Documents"), "\Users\JohnDoe\Documents")
 
 class GetNormalizedPathTestCase(unittest.TestCase):
 	'''
@@ -147,14 +162,14 @@ class GetNormalizedPathTestCase(unittest.TestCase):
 		This Method Tests The "getNormalizedPath" Definition.
 		'''
 
-		self.assertIsInstance(foundations.strings.getNormalizedPath("/Users/JohnDoe/Documents"), str)
+		self.assertIsInstance(strings.getNormalizedPath("/Users/JohnDoe/Documents"), str)
 		if platform.system() == "Windows" or platform.system() == "Microsoft":
-			self.assertEqual(foundations.strings.getNormalizedPath("C:/Users\JohnDoe/Documents"), r"C:\\Users\\JohnDoe\\Documents")
-			self.assertEqual(foundations.strings.getNormalizedPath("C://Users\/JohnDoe//Documents/"), r"C:\\Users\\JohnDoe\\Documents")
-			self.assertEqual(foundations.strings.getNormalizedPath("C:\\Users\\JohnDoe\\Documents"), r"C:\\Users\\JohnDoe\\Documents")
+			self.assertEqual(strings.getNormalizedPath("C:/Users\JohnDoe/Documents"), r"C:\\Users\\JohnDoe\\Documents")
+			self.assertEqual(strings.getNormalizedPath("C://Users\/JohnDoe//Documents/"), r"C:\\Users\\JohnDoe\\Documents")
+			self.assertEqual(strings.getNormalizedPath("C:\\Users\\JohnDoe\\Documents"), r"C:\\Users\\JohnDoe\\Documents")
 		else:
-			self.assertEqual(foundations.strings.getNormalizedPath("/Users/JohnDoe/Documents/"), "/Users/JohnDoe/Documents")
-			self.assertEqual(foundations.strings.getNormalizedPath("/Users\JohnDoe/Documents"), "/Users\JohnDoe/Documents")
+			self.assertEqual(strings.getNormalizedPath("/Users/JohnDoe/Documents/"), "/Users/JohnDoe/Documents")
+			self.assertEqual(strings.getNormalizedPath("/Users\JohnDoe/Documents"), "/Users\JohnDoe/Documents")
 
 class IsEmailTestCase(unittest.TestCase):
 	'''
@@ -166,11 +181,11 @@ class IsEmailTestCase(unittest.TestCase):
 		This Method Tests The "isEmail" Definition.
 		'''
 
-		self.assertIsInstance(foundations.strings.isEmail("john.doe@domain.com"), bool)
-		self.assertTrue(foundations.strings.isEmail("john.doe@domain.com"))
-		self.assertTrue(foundations.strings.isEmail("john.doe@domain.server.department.company.com"))
-		self.assertFalse(foundations.strings.isEmail("john.doe"))
-		self.assertFalse(foundations.strings.isEmail("john.doe@domain"))
+		self.assertIsInstance(strings.isEmail("john.doe@domain.com"), bool)
+		self.assertTrue(strings.isEmail("john.doe@domain.com"))
+		self.assertTrue(strings.isEmail("john.doe@domain.server.department.company.com"))
+		self.assertFalse(strings.isEmail("john.doe"))
+		self.assertFalse(strings.isEmail("john.doe@domain"))
 
 class IsWebsiteTestCase(unittest.TestCase):
 	'''
@@ -182,14 +197,14 @@ class IsWebsiteTestCase(unittest.TestCase):
 		This Method Tests The "isWebsite" Definition.
 		'''
 
-		self.assertIsInstance(foundations.strings.isWebsite("http://domain.com"), bool)
-		self.assertTrue(foundations.strings.isWebsite("http://www.domain.com"))
-		self.assertTrue(foundations.strings.isWebsite("http://domain.com"))
-		self.assertTrue(foundations.strings.isWebsite("https://domain.com"))
-		self.assertTrue(foundations.strings.isWebsite("ftp://domain.com"))
-		self.assertTrue(foundations.strings.isWebsite("http://domain.subdomain.com"))
-		self.assertFalse(foundations.strings.isWebsite(".com"))
-		self.assertFalse(foundations.strings.isWebsite("domain.com"))
+		self.assertIsInstance(strings.isWebsite("http://domain.com"), bool)
+		self.assertTrue(strings.isWebsite("http://www.domain.com"))
+		self.assertTrue(strings.isWebsite("http://domain.com"))
+		self.assertTrue(strings.isWebsite("https://domain.com"))
+		self.assertTrue(strings.isWebsite("ftp://domain.com"))
+		self.assertTrue(strings.isWebsite("http://domain.subdomain.com"))
+		self.assertFalse(strings.isWebsite(".com"))
+		self.assertFalse(strings.isWebsite("domain.com"))
 
 if __name__ == "__main__":
 	import tests.utilities
