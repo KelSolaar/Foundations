@@ -465,7 +465,7 @@ class Parser(io.File):
 
 		if self.sectionsExists(section):
 			dictionary = orderedDictionary and OrderedDict or dict
-			attributes = useNamespace and self._sections[section] or dictionary([(namespace.removeNamespace(attribute), self._sections[section][attribute]) for attribute in self._sections[section].keys()])
+			attributes = useNamespace and self._sections[section] or dictionary(((namespace.removeNamespace(attribute), self._sections[section][attribute]) for attribute in self._sections[section].keys()))
 			LOGGER.debug("> Attributes : '{0}'.".format(attributes))
 			return attributes
 		else:

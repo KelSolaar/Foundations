@@ -77,7 +77,7 @@ def exceptionsHandler(handler=None, raise_=False, *args):
 	@return: Object. ( Object )
 	'''
 
-	exceptions = tuple([exception for exception in args])
+	exceptions = tuple((exception for exception in args))
 	handler = handler or defaultExceptionsHandler
 
 	def wrapper(object_):

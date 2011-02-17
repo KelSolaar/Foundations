@@ -105,7 +105,7 @@ def getVersionRank(version):
 	'''
 
 	tokens = version.split(".")
-	rank = sum([int(10 ** (i - 1)) * int(tokens[-i]) for i in range(len(tokens), 0, -1)])
+	rank = sum((int(10 ** (i - 1)) * int(tokens[-i]) for i in range(len(tokens), 0, -1)))
 	LOGGER.debug("> Rank : '{0}'.".format(rank))
 	return rank
 
