@@ -25,13 +25,6 @@
 # The Following Code Is Protected By GNU GPL V3 Licence.
 #
 #***********************************************************************************************
-#
-# If You Are A HDRI Ressources Vendor And Are Interested In Making Your Sets SmartIBL Compliant:
-# Please Contact Us At HDRLabs:
-# Christian Bloch - blochi@edenfx.com
-# Thomas Mansencal - thomas.mansencal@gmail.com
-#
-#***********************************************************************************************
 
 '''
 ************************************************************************************************
@@ -63,7 +56,6 @@ import sys
 #***********************************************************************************************
 import foundations.core as core
 from globals.constants import Constants
-from globals.runtimeConstants import RuntimeConstants
 
 #***********************************************************************************************
 #***	Overall Variables
@@ -71,9 +63,9 @@ from globals.runtimeConstants import RuntimeConstants
 LOGGER = logging.getLogger(Constants.logger)
 
 # Starting The Console Handler.
-RuntimeConstants.loggingConsoleHandler = logging.StreamHandler(sys.__stdout__)
-RuntimeConstants.loggingConsoleHandler.setFormatter(core.LOGGING_FORMATTER)
-LOGGER.addHandler(RuntimeConstants.loggingConsoleHandler)
+LOGGING_CONSOLE_HANDLER = logging.StreamHandler(sys.__stdout__)
+LOGGING_CONSOLE_HANDLER.setFormatter(core.LOGGING_FORMATTER)
+LOGGER.addHandler(LOGGING_CONSOLE_HANDLER)
 
 #***********************************************************************************************
 #***	Module Classes And Definitions

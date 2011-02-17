@@ -24,13 +24,6 @@
 # The Following Code Is Protected By GNU GPL V3 Licence.
 #
 #***********************************************************************************************
-#
-# If You Are A HDRI Ressources Vendor And Are Interested In Making Your Sets SmartIBL Compliant:
-# Please Contact Us At HDRLabs:
-# Christian Bloch - blochi@edenfx.com
-# Thomas Mansencal - thomas.mansencal@gmail.com
-#
-#***********************************************************************************************
 
 '''
 ************************************************************************************************

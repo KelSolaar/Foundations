@@ -24,13 +24,6 @@
 # The Following Code Is Protected By GNU GPL V3 Licence.
 #
 #***********************************************************************************************
-#
-# If You Are A HDRI Ressources Vendor And Are Interested In Making Your Sets SmartIBL Compliant:
-# Please Contact Us At HDRLabs:
-# Christian Bloch - blochi@edenfx.com
-# Thomas Mansencal - thomas.mansencal@gmail.com
-#
-#***********************************************************************************************
 
 '''
 ************************************************************************************************
@@ -67,16 +60,17 @@ from foundations.library import Library, LibraryHook
 #***********************************************************************************************
 #***	Overall Variables
 #***********************************************************************************************
-LIBRARIES_DIRECTORY = "libraries"
+RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
+LIBRARIES_DIRECTORY = os.path.join(RESOURCES_DIRECTORY, "libraries")
 if platform.system() == "Windows" or platform.system() == "Microsoft":
-	FREEIMAGE_LIBRARY = os.path.join(LIBRARIES_DIRECTORY, "freeImage/resources/FreeImage.dll")
+	FREEIMAGE_LIBRARY = os.path.join(LIBRARIES_DIRECTORY, "freeImage/FreeImage.dll")
 elif platform.system() == "Darwin":
-	FREEIMAGE_LIBRARY = os.path.join(LIBRARIES_DIRECTORY, "freeImage/resources/libfreeimage.dylib")
+	FREEIMAGE_LIBRARY = os.path.join(LIBRARIES_DIRECTORY, "freeImage/libfreeimage.dylib")
 elif platform.system() == "Linux":
-	FREEIMAGE_LIBRARY = os.path.join(LIBRARIES_DIRECTORY, "freeImage/resources/libfreeimage.so")
+	FREEIMAGE_LIBRARY = os.path.join(LIBRARIES_DIRECTORY, "freeImage/libfreeimage.so")
 
 
-LIBRARIES = {"freeImage":os.path.normpath(os.path.join(os.path.dirname(__file__), "../../", FREEIMAGE_LIBRARY))}
+LIBRARIES = {"freeImage":os.path.normpath(os.path.join(os.path.dirname(__file__), FREEIMAGE_LIBRARY))}
 
 LIBRARIES_FUNCTIONS = {"freeImage":(LibraryHook(name="FreeImage_GetVersion" , affixe="@0", argumentsType=None, returnValue=ctypes.c_char_p),
 								LibraryHook(name="FreeImage_GetCopyrightMessage" , affixe="@0", argumentsType=None, returnValue=ctypes.c_char_p))}
