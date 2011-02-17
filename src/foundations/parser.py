@@ -58,6 +58,7 @@ from collections import OrderedDict
 import core
 import foundations.exceptions
 import io
+import namespace
 from globals.constants import Constants
 
 #***********************************************************************************************
@@ -441,7 +442,7 @@ class Parser(io.File):
 		@return: Attribute Existence. ( Boolean )
 		'''
 
-		if removeNamespace(attribute) in self.getAttributes(section, True, False):
+		if namespace.removeNamespace(attribute) in self.getAttributes(section, True, False):
 			LOGGER.debug("> '{0}' Attribute Exists In '{1}' Section.".format(attribute, section))
 			return True
 		else:
@@ -464,7 +465,7 @@ class Parser(io.File):
 
 		if self.sectionsExists(section):
 			dictionary = orderedDictionary and OrderedDict or dict
-			attributes = useNamespace and self._sections[section] or dictionary([(removeNamespace(attribute), self._sections[section][attribute]) for attribute in self._sections[section].keys()])
+			attributes = useNamespace and self._sections[section] or dictionary([(namespace.removeNamespace(attribute), self._sections[section][attribute]) for attribute in self._sections[section].keys()])
 			LOGGER.debug("> Attributes : '{0}'.".format(attributes))
 			return attributes
 		else:
@@ -488,61 +489,11 @@ class Parser(io.File):
 		if self.attributeExists(attribute, section):
 			if attribute in self._sections[section].keys():
 				value = self._sections[section][attribute]
-			elif setNamespace(section, attribute) in self._sections[section].keys():
-				value = self._sections[section][setNamespace(section, attribute)]
+			elif namespace.setNamespace(section, attribute) in self._sections[section].keys():
+				value = self._sections[section][namespace.setNamespace(section, attribute)]
 			LOGGER.debug("> Attribute : '{0}', Value : '{1}'.".format(attribute, value))
 			value = encode and unicode(value, Constants.encodingFormat, Constants.encodingError) or value
 			return value
-
-@core.executionTrace
-def setNamespace(section, attribute, namespaceSplitter="|"):
-	'''
-	This Definition Returns The Compounded Attribute And Compounded Namespace.
-
-	@param section: Section. ( String )
-	@param attribute: Attribute. ( String )
-	@param namespaceSplitter: Namespace Splitter Character. ( String )
-	@return: Namespaced Attribute. ( String )
-	'''
-
-	longName = str(section + namespaceSplitter + attribute)
-	LOGGER.debug("> Section : '{0}', Attribute : '{1}', Long Name : '{2}'.".format(section, attribute, longName))
-	return longName
-
-@core.executionTrace
-def getNamespace(attribute, namespaceSplitter="|"):
-	'''
-	This Definition Returns The Attribute Namespace.
-
-	@param attribute: Attribute. ( String )
-	@param namespaceSplitter: Namespace Splitter Character. ( String )
-	@return: Attribute Namespace. ( String )
-	'''
-
-	attributeTokens = attribute.split(namespaceSplitter)
-	if len(attributeTokens) == 1:
-		LOGGER.debug("> Attribute : '{0}', Namespace : '{1}'.".format(attribute, Constants.nullObject))
-		return None
-	else:
-		namespace = attributeTokens[0:-1]
-		LOGGER.debug("> Attribute : '{0}', Namespace : '{1}'.".format(attribute, namespace))
-		return namespace
-
-@core.executionTrace
-def removeNamespace(attribute, namespaceSplitter="|", rootOnly=False):
-	'''
-	This Definition Returns The Attribute Without Namespace.
-
-	@param attribute: Attribute. ( String )
-	@param namespaceSplitter: Namespace Splitter Character. ( String )
-	@param rootOnly: Remove Only Root Namespace. ( Boolean )
-	@return: Attribute Without Namespace. ( String )
-	'''
-
-	attributeTokens = attribute.split(namespaceSplitter)
-	strippedAttribute = rootOnly and namespaceSplitter.join(attributeTokens[1:]) or attributeTokens[len(attributeTokens) - 1]
-	LOGGER.debug("> Attribute : '{0}', Stripped Attribute : '{1}'.".format(attribute, strippedAttribute))
-	return strippedAttribute
 
 @core.executionTrace
 def getAttributeCompound(attribute, value=None, splitter="|", bindingIdentifier="@"):

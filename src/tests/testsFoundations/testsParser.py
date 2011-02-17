@@ -55,6 +55,7 @@ from collections import OrderedDict
 #***********************************************************************************************
 #***	Internal Imports
 #***********************************************************************************************
+import foundations.namespace
 import foundations.parser
 from foundations.parser import Parser
 
@@ -236,8 +237,8 @@ class ParserTestCase(unittest.TestCase):
 			parser.read()
 			parser.parse(False)
 			for attribute in RANDOM_ATTRIBUTES[type].keys():
-				self.assertTrue(parser.attributeExists(attribute, foundations.parser.getNamespace(attribute)[0]))
-				self.assertFalse(parser.attributeExists("Unknown", foundations.parser.getNamespace(attribute)[0]))
+				self.assertTrue(parser.attributeExists(attribute, foundations.namespace.getNamespace(attribute, rootOnly=True)))
+				self.assertFalse(parser.attributeExists("Unknown", foundations.namespace.getNamespace(attribute, rootOnly=True)))
 
 	def testGetAttributes(self):
 		'''
@@ -263,54 +264,9 @@ class ParserTestCase(unittest.TestCase):
 			parser.read()
 			parser.parse(False)
 			for attribute, value in RANDOM_ATTRIBUTES[type].items():
-				self.assertIsInstance(parser.getValue(attribute, foundations.parser.getNamespace(attribute)[0]), str)
-				self.assertIsInstance(parser.getValue(attribute, foundations.parser.getNamespace(attribute)[0], encode=True), unicode)
-				self.assertEqual(parser.getValue(attribute, foundations.parser.getNamespace(attribute)[0]), value)
-
-class SetNamespaceTestCase(unittest.TestCase):
-	'''
-	This Class Is The SetNamespaceTestCase Class.
-	'''
-
-	def testSetNamespace(self):
-		'''
-		This Method Tests The "setNamespace" Definition.
-		'''
-
-		self.assertIsInstance(foundations.parser.setNamespace("Section", "Attribute"), str)
-		self.assertEqual(foundations.parser.setNamespace("Section", "Attribute"), "Section|Attribute")
-		self.assertEqual(foundations.parser.setNamespace("Section", "Attribute", ":"), "Section:Attribute")
-
-class GetNamespaceTestCase(unittest.TestCase):
-	'''
-	This Class Is The GetNamespaceTestCase Class.
-	'''
-
-	def testGetNamespace(self):
-		'''
-		This Method Tests The "getNamespace" Definition.
-		'''
-
-		self.assertIsInstance(foundations.parser.getNamespace("Section:Attribute", ":"), list)
-		self.assertEqual(foundations.parser.getNamespace("Section|Attribute"), ["Section"])
-		self.assertEqual(foundations.parser.getNamespace("Section:Attribute", ":"), ["Section"])
-		self.assertIsNone(foundations.parser.getNamespace("Section"))
-
-class RemoveNamespaceTestCase(unittest.TestCase):
-	'''
-	This Class Is The RemoveNamespaceTestCase Class.
-	'''
-
-	def testRemoveNamespace(self):
-		'''
-		This Method Tests The "testRemoveNamespace" Definition.
-		'''
-
-		self.assertIsInstance(foundations.parser.removeNamespace("Section|Attribute"), str)
-		self.assertEqual(foundations.parser.removeNamespace("Section|Attribute"), "Attribute")
-		self.assertEqual(foundations.parser.removeNamespace("Section:Attribute", ":"), "Attribute")
-		self.assertEqual(foundations.parser.removeNamespace("Section|Attribute|Value"), "Value")
-		self.assertEqual(foundations.parser.removeNamespace("Section|Attribute|Value", rootOnly=True), "Attribute|Value")
+				self.assertIsInstance(parser.getValue(attribute, foundations.namespace.getNamespace(attribute, rootOnly=True)), str)
+				self.assertIsInstance(parser.getValue(attribute, foundations.namespace.getNamespace(attribute, rootOnly=True), encode=True), unicode)
+				self.assertEqual(parser.getValue(attribute, foundations.namespace.getNamespace(attribute, rootOnly=True)), value)
 
 class GetAttributeCompoundTestCase(unittest.TestCase):
 	'''
