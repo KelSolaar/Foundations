@@ -34,7 +34,7 @@
 ***		Windows, Linux, Mac Os X
 ***
 ***	Description:
-***      	sIBL Input And Output Module.
+***      Parser Module.
 ***
 ***	Others:
 ***
