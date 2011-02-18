@@ -72,9 +72,9 @@ class SetNamespaceTestCase(unittest.TestCase):
 		This Method Tests The "setNamespace" Definition.
 		'''
 
-		self.assertIsInstance(namespace.setNamespace("Section", "Attribute"), str)
-		self.assertEqual(namespace.setNamespace("Section", "Attribute"), "Section|Attribute")
-		self.assertEqual(namespace.setNamespace("Section", "Attribute", ":"), "Section:Attribute")
+		self.assertIsInstance(namespace.setNamespace("Namespace", "Attribute"), str)
+		self.assertEqual(namespace.setNamespace("Namespace", "Attribute"), "Namespace|Attribute")
+		self.assertEqual(namespace.setNamespace("Namespace", "Attribute", ":"), "Namespace:Attribute")
 
 class GetNamespaceTestCase(unittest.TestCase):
 	'''
@@ -86,11 +86,11 @@ class GetNamespaceTestCase(unittest.TestCase):
 		This Method Tests The "getNamespace" Definition.
 		'''
 
-		self.assertIsInstance(namespace.getNamespace("Section:Attribute", ":"), str)
-		self.assertEqual(namespace.getNamespace("Section|Attribute"), "Section")
-		self.assertEqual(namespace.getNamespace("Section:Attribute", ":"), "Section")
-		self.assertEqual(namespace.getNamespace("Section|Attribute|Value", rootOnly=True), "Section")
-		self.assertIsNone(namespace.getNamespace("Section"))
+		self.assertIsInstance(namespace.getNamespace("Namespace:Attribute", ":"), str)
+		self.assertEqual(namespace.getNamespace("Namespace|Attribute"), "Namespace")
+		self.assertEqual(namespace.getNamespace("Namespace:Attribute", ":"), "Namespace")
+		self.assertEqual(namespace.getNamespace("Namespace|Attribute|Value", rootOnly=True), "Namespace")
+		self.assertIsNone(namespace.getNamespace("Namespace"))
 
 class RemoveNamespaceTestCase(unittest.TestCase):
 	'''
@@ -102,11 +102,11 @@ class RemoveNamespaceTestCase(unittest.TestCase):
 		This Method Tests The "testRemoveNamespace" Definition.
 		'''
 
-		self.assertIsInstance(namespace.removeNamespace("Section|Attribute"), str)
-		self.assertEqual(namespace.removeNamespace("Section|Attribute"), "Attribute")
-		self.assertEqual(namespace.removeNamespace("Section:Attribute", ":"), "Attribute")
-		self.assertEqual(namespace.removeNamespace("Section|Attribute|Value"), "Value")
-		self.assertEqual(namespace.removeNamespace("Section|Attribute|Value", rootOnly=True), "Attribute|Value")
+		self.assertIsInstance(namespace.removeNamespace("Namespace|Attribute"), str)
+		self.assertEqual(namespace.removeNamespace("Namespace|Attribute"), "Attribute")
+		self.assertEqual(namespace.removeNamespace("Namespace:Attribute", ":"), "Attribute")
+		self.assertEqual(namespace.removeNamespace("Namespace|Attribute|Value"), "Value")
+		self.assertEqual(namespace.removeNamespace("Namespace|Attribute|Value", rootOnly=True), "Attribute|Value")
 
 if __name__ == "__main__":
 	import tests.utilities

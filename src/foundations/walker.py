@@ -58,6 +58,7 @@ import hashlib
 #***********************************************************************************************
 import core
 import foundations.exceptions
+import foundations.namespace as namespace
 import foundations.strings as strings
 from globals.constants import Constants
 
@@ -75,12 +76,11 @@ class Walker(object):
 	'''
 
 	@core.executionTrace
-	def __init__(self, root=None, nameSeparator="|"):
+	def __init__(self, root=None, hashSize=8):
 		'''
 		This Method Initializes The Class.
 
 		@param root: Root Directory Path To Recurse. ( String )
-		@param nameSeparator: Namespace Splitter Character. ( String )
 		'''
 
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
@@ -88,8 +88,8 @@ class Walker(object):
 		# --- Setting Class Attributes. ---
 		self._root = None
 		self.root = root
-		self._nameSeparator = None
-		self.nameSeparator = nameSeparator
+		self._hashSize = None
+		self.hashSize = hashSize
 
 		self._files = None
 
@@ -130,38 +130,36 @@ class Walker(object):
 		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable !".format("root"))
 
 	@property
-	def nameSeparator(self):
+	def hashSize(self):
 		'''
-		This Method Is The Property For The _nameSeparator Attribute.
+		This Method Is The Property For The _hashSize Attribute.
 
-		@return: self._nameSeparator. ( String )
+		@return: self._hashSize. ( String )
 		'''
 
-		return self._nameSeparator
+		return self._hashSize
 
-	@nameSeparator.setter
+	@hashSize.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
-	def nameSeparator(self, value):
+	def hashSize(self, value):
 		'''
-		This Method Is The Setter Method For The _nameSeparator Attribute.
-
+		This Method Is The Setter Method For The _hashSize Attribute.
+		
 		@param value: Attribute Value. ( String )
 		'''
 
 		if value:
-			assert type(value) in (str, unicode), "'{0}' Attribute : '{1}' Type Is Not 'str' or 'unicode' !".format("nameSeparator", value)
-			assert len(value) == 1, "'{0}' Attribute : '{1}' Has Multiples Characters !".format("nameSeparator", value)
-			assert not re.search("\w", value), "'{0}' Attribute : '{1}' Is An AlphaNumeric Character !".format("nameSeparator", value)
-		self._nameSeparator = value
+			assert type(value) is int, "'{0}' Attribute : '{1}' Type Is Not 'int' !".format("hashSize", value)
+		self._hashSize = value
 
-	@nameSeparator.deleter
+	@hashSize.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
-	def nameSeparator(self):
+	def hashSize(self):
 		'''
-		This Method Is The Deleter Method For The _nameSeparator Attribute.
+		This Method Is The Deleter Method For The _hashSize Attribute.
 		'''
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable !".format("nameSeparator"))
+		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable !".format("hashSize"))
 
 	@property
 	def files(self):
@@ -200,7 +198,7 @@ class Walker(object):
 	#***************************************************************************************
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler()
-	def walk(self, filtersIn=None, filtersOut=None):
+	def walk(self, filtersIn=None, filtersOut=None, shorterHashKey=True):
 		'''
 		This Method Gets Root Directory Files List As A Dictionary.
 
@@ -242,7 +240,8 @@ class Walker(object):
 
 							LOGGER.debug("> '{0}' File Filtered In !".format(itemPath))
 
-							itemName = "{0}{1}{2}".format(os.path.splitext(item)[0], self._nameSeparator, hashlib.md5(itemPath).hexdigest())
+							hashKey = hashlib.md5(itemPath).hexdigest()
+							itemName = namespace.setNamespace(os.path.splitext(item)[0], shorterHashKey and hashKey[:self._hashSize] or hashKey)
 							LOGGER.debug("> Adding '{0}' With Path : '{1}' To Files List.".format(itemName, itemPath))
 							self._files[itemName] = itemPath
 

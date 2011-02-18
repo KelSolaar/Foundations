@@ -66,18 +66,18 @@ NAMESPACE_SPLITTER = "|"
 #***	Module Classes And Definitions
 #***********************************************************************************************
 @core.executionTrace
-def setNamespace(section, attribute, namespaceSplitter=NAMESPACE_SPLITTER):
+def setNamespace(namespace, attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 	'''
 	This Definition Returns The Compounded Attribute And Compounded Namespace.
 
-	@param section: Section. ( String )
+	@param namespace: Namespace. ( String )
 	@param attribute: Attribute. ( String )
 	@param namespaceSplitter: Namespace Splitter Character. ( String )
 	@return: Namespaced Attribute. ( String )
 	'''
 
-	longName = str(section + namespaceSplitter + attribute)
-	LOGGER.debug("> Section : '{0}', Attribute : '{1}', Long Name : '{2}'.".format(section, attribute, longName))
+	longName = str(namespace + namespaceSplitter + attribute)
+	LOGGER.debug("> Namespace : '{0}', Attribute : '{1}', Long Name : '{2}'.".format(namespace, attribute, longName))
 	return longName
 
 @core.executionTrace

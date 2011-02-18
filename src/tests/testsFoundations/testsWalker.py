@@ -54,7 +54,8 @@ import unittest
 #***********************************************************************************************
 #***	Internal Imports
 #***********************************************************************************************
-from foundations.strings import replace
+import foundations.namespace as namespace
+import foundations.strings as strings
 from foundations.walker import Walker
 
 #***********************************************************************************************
@@ -82,6 +83,7 @@ class WalkerTestCase(unittest.TestCase):
 
 		walker = Walker(RESOURCES_DIRECTORY)
 		requiredAttributes = ("_root",
+								"_hashSize",
 								"_files")
 
 		for attribute in requiredAttributes:
@@ -109,24 +111,29 @@ class WalkerTestCase(unittest.TestCase):
 		for path in walker.files.values():
 			self.assertTrue(os.path.exists(path))
 
-		referencePaths = [replace(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY, path), {"/":"|", "\\":"|"}) for path in TREE_HIERARCHY]
-		walkerFiles = [replace(path, {"/":"|", "\\":"|"}) for path in walker.files.values()]
+		referencePaths = [strings.replace(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY, path), {"/":"|", "\\":"|"}) for path in TREE_HIERARCHY]
+		walkerFiles = [strings.replace(path, {"/":"|", "\\":"|"}) for path in walker.files.values()]
 		for item in referencePaths:
 			self.assertIn(item, walkerFiles)
 
 		walker.walk(filtersOut=("\.rc$",))
-		walkerFiles = [replace(path, {"/":"|", "\\":"|"}) for path in walker.files.values()]
+		walkerFiles = [strings.replace(path, {"/":"|", "\\":"|"}) for path in walker.files.values()]
 		for item in walkerFiles:
 				self.assertTrue(not re.search("\.rc$", item))
 
 		walker.walk(filtersOut=("\.ibl", "\.rc$", "\.sIBLT$", "\.txt$"))
 		self.assertTrue(not walker.files)
 
-		referencePaths = [replace(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY, path), {"/":"|", "\\":"|"}) for path in TREE_HIERARCHY if re.search("\.rc$", path)]
+		referencePaths = [strings.replace(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY, path), {"/":"|", "\\":"|"}) for path in TREE_HIERARCHY if re.search("\.rc$", path)]
 		walker.walk(filtersIn=("\.rc$",))
-		walkerFiles = [replace(path, {"/":"|", "\\":"|"}) for path in walker.files.values()]
+		walkerFiles = [strings.replace(path, {"/":"|", "\\":"|"}) for path in walker.files.values()]
 		for item in referencePaths:
 			self.assertIn(item, walkerFiles)
+
+		walker.hashSize = 24
+		walker.walk()
+		for item in walker.files.keys():
+			self.assertEqual(len(namespace.removeNamespace(item)), walker.hashSize)
 
 if __name__ == "__main__":
 	import tests.utilities
