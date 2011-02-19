@@ -119,16 +119,19 @@ class WalkerTestCase(unittest.TestCase):
 		walker.walk(filtersOut=("\.rc$",))
 		walkerFiles = [strings.replace(path, {"/":"|", "\\":"|"}) for path in walker.files.values()]
 		for item in walkerFiles:
-				self.assertTrue(not re.search("\.rc$", item))
+			self.assertTrue(not re.search("\.rc$", item))
 
 		walker.walk(filtersOut=("\.ibl", "\.rc$", "\.sIBLT$", "\.txt$"))
 		self.assertTrue(not walker.files)
 
 		referencePaths = [strings.replace(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY, path), {"/":"|", "\\":"|"}) for path in TREE_HIERARCHY if re.search("\.rc$", path)]
-		walker.walk(filtersIn=("\.rc$",))
+		filter = "\.rc$"
+		walker.walk(filtersIn=(filter,))
 		walkerFiles = [strings.replace(path, {"/":"|", "\\":"|"}) for path in walker.files.values()]
 		for item in referencePaths:
 			self.assertIn(item, walkerFiles)
+		for item in walkerFiles:
+			self.assertTrue(re.search(filter, item))
 
 		walker.hashSize = 24
 		walker.walk()

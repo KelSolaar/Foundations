@@ -123,6 +123,56 @@ def getSplitextBasename(path):
 	return basename
 
 @core.executionTrace
+def getWords(datas):
+	'''
+	This Method Extracts The Words From Provided String.
+	
+	@param datas: Datas To Extract Words From. ( String )
+	@return: Words. ( List )
+	'''
+
+	words = re.findall("\w+", datas)
+	LOGGER.debug("> Words : '{0}'".format(", ".join(words)))
+	return words
+
+@core.executionTrace
+def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
+	'''
+	This Method Filters The Words Using The Provided Filters.
+	
+	@param filtersIn: Regex filtersIn List. ( List / Tuple )
+	@param filtersIn: Regex filtersOut List. ( List / Tuple )
+	@param flags: Regex Flags. ( Object )
+	@return: Filtered Words. ( List )
+	'''
+
+	filteredWords = []
+	for word in words :
+		if filtersIn:
+			filterMatched = False
+			for filter in filtersIn:
+				if not re.search(filter, word, flags):
+					LOGGER.debug("> '{0}' Word Skipped, Filter In '{1}' Not Matched !.".format(word, filter))
+				else:
+					filterMatched = True
+					break
+			if not filterMatched:
+				continue
+
+		if filtersOut:
+			filterMatched = False
+			for filter in filtersOut:
+				if re.search(filter, word, flags):
+					LOGGER.debug("> '{0}' Word Skipped, Filter Out '{1}' Matched !.".format(word, filter))
+					filterMatched = True
+					break
+			if filterMatched:
+				continue
+		filteredWords.append(word)
+	LOGGER.debug("> Filtered Words : '{0}'".format(", ".join(filteredWords)))
+	return filteredWords
+
+@core.executionTrace
 def replace(string, datas):
 	'''
 	This Definition Replaces The Datas Occurences In The String.

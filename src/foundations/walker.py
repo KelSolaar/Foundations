@@ -198,12 +198,13 @@ class Walker(object):
 	#***************************************************************************************
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler()
-	def walk(self, filtersIn=None, filtersOut=None, shorterHashKey=True):
+	def walk(self, filtersIn=None, filtersOut=None, flags=0, shorterHashKey=True):
 		'''
 		This Method Gets Root Directory Files List As A Dictionary.
 
 		@param filtersIn: Regex filtersIn List. ( List / Tuple )
 		@param filtersIn: Regex filtersOut List. ( List / Tuple )
+		@param flags: Regex Flags. ( Object )
 		@return: Files List. ( Dictionary Or None )
 		'''
 
@@ -217,26 +218,8 @@ class Walker(object):
 						LOGGER.debug("> Current File : '{0}' In '{1}'.".format(item, self._root))
 						itemPath = strings.toForwardSlashes(os.path.join(root, item))
 						if os.path.isfile(itemPath):
-							if filtersIn:
-								filterMatched = False
-								for filter in filtersIn:
-									if not re.search(filter, itemPath):
-										LOGGER.debug("> '{0}' File Skipped, Filter In '{1}' Not Matched !.".format(itemPath, filter))
-									else:
-										filterMatched = True
-										break
-								if not filterMatched:
-									continue
-
-							if filtersOut:
-								filterMatched = False
-								for filter in filtersOut:
-									if re.search(filter, itemPath):
-										LOGGER.debug("> '{0}' File Skipped, Filter Out '{1}' Matched !.".format(itemPath, filter))
-										filterMatched = True
-										break
-								if filterMatched:
-									continue
+							if not strings.filterWords((itemPath,), filtersIn, filtersOut, flags):
+								continue
 
 							LOGGER.debug("> '{0}' File Filtered In !".format(itemPath))
 

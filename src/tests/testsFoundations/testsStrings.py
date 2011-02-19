@@ -49,6 +49,7 @@
 #***	External Imports
 #***********************************************************************************************
 import platform
+import re
 import unittest
 
 #***********************************************************************************************
@@ -109,6 +110,38 @@ class GetSplitextBasenameTestCase(unittest.TestCase):
 		self.assertEqual(strings.getSplitextBasename("/Users/JohnDoe/Documents/Test.txt"), "Test")
 		self.assertEqual(strings.getSplitextBasename("/Users/JohnDoe/Documents/Test"), "Test")
 		self.assertEqual(strings.getSplitextBasename("/Users/JohnDoe/Documents/Test/"), "Test")
+
+class GetWordsTestCase(unittest.TestCase):
+	'''
+	This Class Is The GetWordsTestCase Class.
+	'''
+
+	def testGetWords(self):
+		'''
+		This Method Tests The "getWords" Definition.
+		'''
+
+		self.assertIsInstance(strings.getWords("Users are John Doe and Jane Doe."), list)
+		self.assertListEqual(strings.getWords("Users are John Doe and Jane Doe."), "Users are John Doe and Jane Doe".split())
+		self.assertListEqual(strings.getWords("Users are : John Doe, Jane Doe, Z6PO."), "Users are John Doe Jane Doe Z6PO".split())
+
+class FilterWordsTestCase(unittest.TestCase):
+	'''
+	This Class Is The FilterWordsTestCase Class.
+	'''
+
+	def testFilterWords(self):
+		'''
+		This Method Tests The "filterWords" Definition.
+		'''
+
+		self.assertIsInstance(strings.filterWords("Users are John Doe and Jane Doe".split()), list)
+		self.assertListEqual(strings.filterWords("Users are John Doe and Jane Doe".split(), filtersIn=("Users", "John")), "Users John".split())
+		self.assertListEqual(strings.filterWords("Users are John Doe and Jane Doe".split(), filtersIn=("users", "john"), flags=re.IGNORECASE), "Users John".split())
+		self.assertListEqual(strings.filterWords("Users are John Doe and Jane Doe".split(), filtersIn=("Nemo",)), [])
+		self.assertListEqual(strings.filterWords("Users are John Doe and Jane Doe".split(), filtersOut=("Users", "John")), "are Doe and Jane Doe".split())
+		self.assertListEqual(strings.filterWords("Users are John Doe and Jane Doe".split(), filtersOut=("Users are John Doe and Jane Doe".split())), [])
+		self.assertListEqual(strings.filterWords("Users are John Doe and Jane Doe".split(), filtersIn=("Users",), filtersOut=("Users",)), [])
 
 class ReplaceTestCase(unittest.TestCase):
 	'''
