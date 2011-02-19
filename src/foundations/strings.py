@@ -147,7 +147,7 @@ def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 	'''
 
 	filteredWords = []
-	for word in words :
+	for word in words:
 		if filtersIn:
 			filterMatched = False
 			for filter in filtersIn:
