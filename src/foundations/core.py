@@ -114,7 +114,7 @@ class StandardMessageHook(object):
 		@param value: Attribute Value. ( Object )
 		'''
 
-		raise Exception("'{0}' Attribute Is Read Only !".format("logger"))
+		raise Exception("'{0}' Attribute Is Read Only!".format("logger"))
 
 	@logger.deleter
 	def logger(self):
@@ -122,7 +122,7 @@ class StandardMessageHook(object):
 		This Method Is The Deleter Method For The _logger Attribute.
 		'''
 
-		raise Exception("'{0}' Attribute Is Not Deletable !".format("logger"))
+		raise Exception("'{0}' Attribute Is Not Deletable!".format("logger"))
 
 	#***************************************************************************************
 	#***	Class Methods
@@ -142,7 +142,7 @@ class StandardMessageHook(object):
 #***********************************************************************************************
 LOGGER = logging.getLogger(Constants.logger)
 
-LOGGING_FORMATTER = logging.Formatter("%(levelname)-8s : %(message)s")
+LOGGING_FORMATTER = logging.Formatter("%(levelname)-8s: %(message)s")
 LOGGING_STANDARD_FORMATTER = logging.Formatter()
 
 IGNORED_CODE_LAYERS = ("getFrame",

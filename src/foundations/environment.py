@@ -109,8 +109,8 @@ class Environment(object):
 		'''
 
 		if value:
-			assert type(value) in (str, unicode), "'{0}' Attribute : '{1}' Type Is Not 'str' or 'unicode' !".format("variable", value)
-			assert not re.search("\W", value), "'{0}' Attribute : '{1}' Contains Non AlphaNumerics Characters !".format("variable", value)
+			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("variable", value)
+			assert not re.search("\W", value), "'{0}' Attribute: '{1}' Contains Non AlphaNumerics Characters!".format("variable", value)
 		self._variable = value
 
 	@variable.deleter
@@ -120,7 +120,7 @@ class Environment(object):
 		This Method Is The Deleter Method For The _variable Attribute.
 		'''
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable !".format("variable"))
+		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("variable"))
 
 	#***************************************************************************************
 	#***	Class Methods
@@ -134,8 +134,8 @@ class Environment(object):
 		'''
 
 		if self._variable:
-			LOGGER.debug("> Current Environment Variable : '{0}'.".format(self._variable))
-			LOGGER.debug("> Available System Environment Variables : '{0}'".format(os.environ.keys()))
+			LOGGER.debug("> Current Environment Variable: '{0}'.".format(self._variable))
+			LOGGER.debug("> Available System Environment Variables: '{0}'".format(os.environ.keys()))
 
 			if self._variable in os.environ.keys():
 				return os.environ[self._variable]

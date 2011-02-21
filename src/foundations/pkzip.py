@@ -111,8 +111,8 @@ class Pkzip(object):
 		'''
 
 		if value:
-			assert type(value) in (str, unicode), "'{0}' Attribute : '{1}' Type Is Not 'str' or 'unicode' !".format("archive", value)
-			assert os.path.exists(value), "'{0}' Attribute : '{1}' File Doesn't Exists !".format("archive", value)
+			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("archive", value)
+			assert os.path.exists(value), "'{0}' Attribute: '{1}' File Doesn't Exists!".format("archive", value)
 		self._archive = value
 
 	@archive.deleter
@@ -122,7 +122,7 @@ class Pkzip(object):
 		This Method Is The Deleter Method For The _archive Attribute.
 		'''
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable !".format("archive"))
+		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("archive"))
 
 	#***************************************************************************************
 	#***	Class Methods
@@ -149,7 +149,7 @@ class Pkzip(object):
 			not os.path.isdir(os.path.join(target, folder)) and io.setLocalDirectory(os.path.join(target, folder))
 
 		for file in files:
-			LOGGER.info("{0} | Extracting '{1}' File !".format(self.__class__.__name__, file))
+			LOGGER.info("{0} | Extracting '{1}' File!".format(self.__class__.__name__, file))
 			with open(os.path.join(target, file), "w") as output:
 				buffer = StringIO(archive.read(file))
 				bufferSize = 2 ** 20

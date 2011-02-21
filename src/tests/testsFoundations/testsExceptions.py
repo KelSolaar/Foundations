@@ -101,9 +101,9 @@ class ExceptionsTestCase(unittest.TestCase):
 		'''
 
 		for exception in EXCEPTIONS:
-			exceptionInstance = exception("{0} Exception Raised !".format(exception.__class__))
+			exceptionInstance = exception("{0} Exception Raised!".format(exception.__class__))
 			self.assertIsInstance(exceptionInstance.__str__(), str)
-			exceptionInstance = exception([exception.__class__, "Exception Raised !"])
+			exceptionInstance = exception([exception.__class__, "Exception Raised!"])
 			self.assertIsInstance(exceptionInstance.__str__(), str)
 			exceptionInstance = exception(0)
 			self.assertIsInstance(exceptionInstance.__str__(), str)

@@ -116,8 +116,8 @@ class Walker(object):
 		'''
 
 		if value:
-			assert type(value) in (str, unicode), "'{0}' Attribute : '{1}' Type Is Not 'str' or 'unicode' !".format("root", value)
-			assert os.path.exists(value), "'{0}' Attribute : '{1}' Directory Doesn't Exists !".format("root", value)
+			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("root", value)
+			assert os.path.exists(value), "'{0}' Attribute: '{1}' Directory Doesn't Exists!".format("root", value)
 		self._root = value
 
 	@root.deleter
@@ -127,7 +127,7 @@ class Walker(object):
 		This Method Is The Deleter Method For The _root Attribute.
 		'''
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable !".format("root"))
+		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("root"))
 
 	@property
 	def hashSize(self):
@@ -149,7 +149,7 @@ class Walker(object):
 		'''
 
 		if value:
-			assert type(value) is int, "'{0}' Attribute : '{1}' Type Is Not 'int' !".format("hashSize", value)
+			assert type(value) is int, "'{0}' Attribute: '{1}' Type Is Not 'int'!".format("hashSize", value)
 		self._hashSize = value
 
 	@hashSize.deleter
@@ -159,7 +159,7 @@ class Walker(object):
 		This Method Is The Deleter Method For The _hashSize Attribute.
 		'''
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable !".format("hashSize"))
+		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("hashSize"))
 
 	@property
 	def files(self):
@@ -181,7 +181,7 @@ class Walker(object):
 		'''
 
 		if value:
-			assert type(value) is dict, "'{0}' Attribute : '{1}' Type Is Not 'dict' !".format("files", value)
+			assert type(value) is dict, "'{0}' Attribute: '{1}' Type Is Not 'dict'!".format("files", value)
 		self._files = value
 
 	@files.deleter
@@ -191,7 +191,7 @@ class Walker(object):
 		This Method Is The Deleter Method For The _files Attribute.
 		'''
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable !".format("files"))
+		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("files"))
 
 	#***************************************************************************************
 	#***	Class Methods
@@ -209,23 +209,23 @@ class Walker(object):
 		'''
 
 		if filtersIn:
-			LOGGER.debug("> Current filtersIn : '{0}'.".format(filtersIn))
+			LOGGER.debug("> Current filtersIn: '{0}'.".format(filtersIn))
 
 		if self._root:
 				self._files = {}
 				for root, dirs, files in os.walk(self._root, topdown=False):
 					for item in files:
-						LOGGER.debug("> Current File : '{0}' In '{1}'.".format(item, self._root))
+						LOGGER.debug("> Current File: '{0}' In '{1}'.".format(item, self._root))
 						itemPath = strings.toForwardSlashes(os.path.join(root, item))
 						if os.path.isfile(itemPath):
 							if not strings.filterWords((itemPath,), filtersIn, filtersOut, flags):
 								continue
 
-							LOGGER.debug("> '{0}' File Filtered In !".format(itemPath))
+							LOGGER.debug("> '{0}' File Filtered In!".format(itemPath))
 
 							hashKey = hashlib.md5(itemPath).hexdigest()
 							itemName = namespace.setNamespace(os.path.splitext(item)[0], shorterHashKey and hashKey[:self._hashSize] or hashKey)
-							LOGGER.debug("> Adding '{0}' With Path : '{1}' To Files List.".format(itemName, itemPath))
+							LOGGER.debug("> Adding '{0}' With Path: '{1}' To Files List.".format(itemName, itemPath))
 							self._files[itemName] = itemPath
 
 				return self._files

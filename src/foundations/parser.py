@@ -146,9 +146,9 @@ class Parser(io.File):
 		'''
 
 		if value:
-			assert type(value) in (str, unicode), "'{0}' Attribute : '{1}' Type Is Not 'str' or 'unicode' !".format("splitter", value)
-			assert len(value) == 1, "'{0}' Attribute : '{1}' Has Multiples Characters !".format("splitter", value)
-			assert not re.search("\w", value), "'{0}' Attribute : '{1}' Is An AlphaNumeric Character !".format("splitter", value)
+			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("splitter", value)
+			assert len(value) == 1, "'{0}' Attribute: '{1}' Has Multiples Characters!".format("splitter", value)
+			assert not re.search("\w", value), "'{0}' Attribute: '{1}' Is An AlphaNumeric Character!".format("splitter", value)
 		self._splitter = value
 
 	@splitter.deleter
@@ -158,7 +158,7 @@ class Parser(io.File):
 		This Method Is The Deleter Method For The _splitter Attribute.
 		'''
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable !".format("splitter"))
+		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("splitter"))
 
 	@property
 	def namespaceSplitter(self):
@@ -180,9 +180,9 @@ class Parser(io.File):
 		'''
 
 		if value:
-			assert type(value) in (str, unicode), "'{0}' Attribute : '{1}' Type Is Not 'str' or 'unicode' !".format("namespaceSplitter", value)
-			assert len(value) == 1, "'{0}' Attribute : '{1}' Has Multiples Characters !".format("namespaceSplitter", value)
-			assert not re.search("\w", value), "'{0}' Attribute : '{1}' Is An AlphaNumeric Character !".format("namespaceSplitter", value)
+			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("namespaceSplitter", value)
+			assert len(value) == 1, "'{0}' Attribute: '{1}' Has Multiples Characters!".format("namespaceSplitter", value)
+			assert not re.search("\w", value), "'{0}' Attribute: '{1}' Is An AlphaNumeric Character!".format("namespaceSplitter", value)
 		self._namespaceSplitter = value
 
 	@namespaceSplitter.deleter
@@ -192,7 +192,7 @@ class Parser(io.File):
 		This Method Is The Deleter Method For The _namespaceSplitter Attribute.
 		'''
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable !".format("namespaceSplitter"))
+		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("namespaceSplitter"))
 
 	@property
 	def commentLimiter(self):
@@ -214,8 +214,8 @@ class Parser(io.File):
 		'''
 
 		if value:
-			assert type(value) in (str, unicode), "'{0}' Attribute : '{1}' Type Is Not 'str' or 'unicode' !".format("commentLimiter", value)
-			assert not re.search("\w", value), "'{0}' Attribute : '{1}' Is An AlphaNumeric Character !".format("commentLimiter", value)
+			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("commentLimiter", value)
+			assert not re.search("\w", value), "'{0}' Attribute: '{1}' Is An AlphaNumeric Character!".format("commentLimiter", value)
 		self._commentLimiter = value
 
 	@commentLimiter.deleter
@@ -225,7 +225,7 @@ class Parser(io.File):
 		This Method Is The Deleter Method For The _commentLimiter Attribute.
 		'''
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable !".format("commentLimiter"))
+		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("commentLimiter"))
 
 	@property
 	def commentMarker(self):
@@ -247,8 +247,8 @@ class Parser(io.File):
 		'''
 
 		if value:
-			assert type(value) in (str, unicode), "'{0}' Attribute : '{1}' Type Is Not 'str' or 'unicode' !".format("commentMarker", value)
-			assert not re.search("\w", value), "'{0}' Attribute : '{1}' Is An AlphaNumeric Character !".format("commentMarker", value)
+			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("commentMarker", value)
+			assert not re.search("\w", value), "'{0}' Attribute: '{1}' Is An AlphaNumeric Character!".format("commentMarker", value)
 		self._commentMarker = value
 
 	@commentMarker.deleter
@@ -258,7 +258,7 @@ class Parser(io.File):
 		This Method Is The Deleter Method For The _commentMarker Attribute.
 		'''
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable !".format("commentMarker"))
+		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("commentMarker"))
 
 	@property
 	def rawSectionContentIdentifier(self):
@@ -280,7 +280,7 @@ class Parser(io.File):
 		'''
 
 		if value:
-			assert type(value) in (str, unicode), "'{0}' Attribute : '{1}' Type Is Not 'str' or 'unicode' !".format("rawSectionContentIdentifier", value)
+			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("rawSectionContentIdentifier", value)
 		self._rawSectionContentIdentifier = value
 
 	@rawSectionContentIdentifier.deleter
@@ -290,7 +290,7 @@ class Parser(io.File):
 		This Method Is The Deleter Method For The _rawSectionContentIdentifier Attribute.
 		'''
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable !".format("rawSectionContentIdentifier"))
+		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("rawSectionContentIdentifier"))
 
 	@property
 	def sections(self):
@@ -312,7 +312,7 @@ class Parser(io.File):
 		'''
 
 		if value:
-			assert type(value) is dict, "'{0}' Attribute : '{1}' Type Is Not 'dict' !".format("sections", value)
+			assert type(value) is dict, "'{0}' Attribute: '{1}' Type Is Not 'dict'!".format("sections", value)
 		self._sections = value
 
 	@sections.deleter
@@ -322,7 +322,7 @@ class Parser(io.File):
 		This Method Is The Deleter Method For The _sections Attribute.
 		'''
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable !".format("sections"))
+		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("sections"))
 
 	@property
 	def comments(self):
@@ -345,7 +345,7 @@ class Parser(io.File):
 		'''
 
 		if value:
-			assert type(value) is dict, "'{0}' Attribute : '{1}' Type Is Not 'dict' !".format("comments", value)
+			assert type(value) is dict, "'{0}' Attribute: '{1}' Type Is Not 'dict'!".format("comments", value)
 		self._comments = value
 
 	@comments.deleter
@@ -355,7 +355,7 @@ class Parser(io.File):
 		This Method Is The Deleter Method For The _comments Attribute.
 		'''
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable !".format("comments"))
+		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("comments"))
 
 	#***************************************************************************************
 	#***	Class Methods
@@ -372,7 +372,7 @@ class Parser(io.File):
 		@return: Parsing Success. ( Boolean )
 		'''
 
-		LOGGER.debug("> Reading Sections From : '{0}'.".format(self._file))
+		LOGGER.debug("> Reading Sections From: '{0}'.".format(self._file))
 		if self._content:
 			if re.search("^\[.*\]", self._content[0]):
 				if not orderedDictionary:
@@ -408,12 +408,12 @@ class Parser(io.File):
 									attributes[section + self._namespaceSplitter + lineTokens[0].strip()] = lineTokens[1].strip().strip("\"")
 						self._sections[section] = attributes
 
-				LOGGER.debug("> Sections : '{0}'.".format(self._sections))
-				LOGGER.debug("> '{0}' File Parsing Done !".format(self._file))
+				LOGGER.debug("> Sections: '{0}'.".format(self._sections))
+				LOGGER.debug("> '{0}' File Parsing Done!".format(self._file))
 				return True
 
 			else:
-				raise foundations.exceptions.FileStructureError("'{0}' Structure Is Invalid : No Section Found At First Line !".format(self._file))
+				raise foundations.exceptions.FileStructureError("'{0}' Structure Is Invalid: No Section Found At First Line!".format(self._file))
 
 	@core.executionTrace
 	def sectionsExists(self, section):
@@ -466,13 +466,13 @@ class Parser(io.File):
 		if self.sectionsExists(section):
 			dictionary = orderedDictionary and OrderedDict or dict
 			attributes = useNamespace and self._sections[section] or dictionary(((namespace.removeNamespace(attribute), self._sections[section][attribute]) for attribute in self._sections[section].keys()))
-			LOGGER.debug("> Attributes : '{0}'.".format(attributes))
+			LOGGER.debug("> Attributes: '{0}'.".format(attributes))
 			return attributes
 		else:
 			if raise_:
-				raise KeyError("'{0}' Section Doesn't Exists In '{1}' Sections !".format(section, self._file))
+				raise KeyError("'{0}' Section Doesn't Exists In '{1}' Sections!".format(section, self._file))
 			else:
-				LOGGER.warning("!> {0} | '{1}' Section Doesn't Exists In '{2}' Sections !".format(self.__class__.__name__, section, self._file))
+				LOGGER.warning("!> {0} | '{1}' Section Doesn't Exists In '{2}' Sections!".format(self.__class__.__name__, section, self._file))
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, KeyError)
@@ -491,7 +491,7 @@ class Parser(io.File):
 				value = self._sections[section][attribute]
 			elif namespace.setNamespace(section, attribute) in self._sections[section].keys():
 				value = self._sections[section][namespace.setNamespace(section, attribute)]
-			LOGGER.debug("> Attribute : '{0}', Value : '{1}'.".format(attribute, value))
+			LOGGER.debug("> Attribute: '{0}', Value: '{1}'.".format(attribute, value))
 			value = encode and unicode(value, Constants.encodingFormat, Constants.encodingError) or value
 			return value
 
@@ -507,7 +507,7 @@ def getAttributeCompound(attribute, value=None, splitter="|", bindingIdentifier=
 	@return: Attribute Compound. ( AttributeObject )
 	'''
 
-	LOGGER.debug("> Attribute : '{0}', Value : '{1}'.".format(attribute, value))
+	LOGGER.debug("> Attribute: '{0}', Value: '{1}'.".format(attribute, value))
 
 	if value:
 		if splitter in value:

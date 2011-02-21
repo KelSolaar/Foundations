@@ -111,7 +111,7 @@ class File(object):
 		'''
 
 		if value:
-			assert type(value) in (str, unicode), "'{0}' Attribute : '{1}' Type Is Not 'str' or 'unicode' !".format("file", value)
+			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("file", value)
 		self._file = value
 
 	@file.deleter
@@ -121,7 +121,7 @@ class File(object):
 		This Method Is The Deleter Method For The _file Attribute.
 		'''
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable !".format("file"))
+		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("file"))
 
 	@property
 	def content(self):
@@ -143,7 +143,7 @@ class File(object):
 		'''
 
 		if value:
-			assert type(value) is list, "'{0}' Attribute : '{1}' Type Is Not 'list' !".format("content", value)
+			assert type(value) is list, "'{0}' Attribute: '{1}' Type Is Not 'list'!".format("content", value)
 		self._content = value
 
 	@content.deleter
@@ -153,7 +153,7 @@ class File(object):
 		This Method Is The Deleter Method For The _content Attribute.
 		'''
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable !".format("content"))
+		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("content"))
 
 	#***************************************************************************************
 	#***	Class Methods
@@ -168,7 +168,7 @@ class File(object):
 		@return: Read Succes. ( Boolean )
 		'''
 
-		LOGGER.debug("> Current File Path : '{0}'.".format(self._file))
+		LOGGER.debug("> Current File Path: '{0}'.".format(self._file))
 		LOGGER.debug("> Reading Current File Content.")
 
 		with open(self._file, mode) as file:
@@ -185,7 +185,7 @@ class File(object):
 		@return: Write Succes. ( Boolean )
 		'''
 
-		LOGGER.debug("> Current File Path : '{0}'.".format(self._file))
+		LOGGER.debug("> Current File Path: '{0}'.".format(self._file))
 
 		with open(self._file, mode) as file:
 			for line in self._content:
@@ -202,7 +202,7 @@ class File(object):
 		@return: Append Succes. ( Boolean )
 		'''
 
-		LOGGER.debug("> Current File Path : '{0}'.".format(self._file))
+		LOGGER.debug("> Current File Path: '{0}'.".format(self._file))
 
 		with open(self._file, mode) as file:
 			for line in self._content:
@@ -220,11 +220,11 @@ def setLocalDirectory(path):
 	'''
 
 	if not os.path.exists(path):
-		LOGGER.debug("> Creating Directory : '{0}'.".format(path))
+		LOGGER.debug("> Creating Directory: '{0}'.".format(path))
 		os.makedirs(path)
 		return True
 	else:
-		LOGGER.debug("> '{0}' Directory Already Exist, Skipping Creation !".format(path))
+		LOGGER.debug("> '{0}' Directory Already Exist, Skipping Creation!".format(path))
 		return True
 
 #***********************************************************************************************

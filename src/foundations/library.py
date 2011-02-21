@@ -114,7 +114,7 @@ class Library(object):
 				self._librariesInstances[args[0]] = object.__new__(self)
 			return self._librariesInstances[args[0]]
 		else:
-			raise foundations.exceptions.LibraryInstantiationError("'{0}' Library Path Doesn't Exists !".format(libraryPath))
+			raise foundations.exceptions.LibraryInstantiationError("'{0}' Library Path Doesn't Exists!".format(libraryPath))
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.LibraryInitializationError)
@@ -149,7 +149,7 @@ class Library(object):
 		if self.libraryPath:
 			self._library = loadingFunction.LoadLibrary(libraryPath)
 		else:
-			raise foundations.exceptions.LibraryInitializationError, "'{0}' Library Not Found !".format(self.__class__.__name__)
+			raise foundations.exceptions.LibraryInitializationError, "'{0}' Library Not Found!".format(self.__class__.__name__)
 
 		self.bindLibrary()
 
@@ -175,7 +175,7 @@ class Library(object):
 		@param value: Attribute Value. ( String )
 		'''
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Settable !".format("libraryInstantiated"))
+		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Settable!".format("libraryInstantiated"))
 
 	@libraryInstantiated.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -184,7 +184,7 @@ class Library(object):
 		This Method Is The Deleter Method For The _libraryInstantiated Attribute.
 		'''
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable !".format("libraryInstantiated"))
+		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("libraryInstantiated"))
 
 	@property
 	def libraryPath(self):
@@ -206,8 +206,8 @@ class Library(object):
 		'''
 
 		if value:
-			assert type(value) in (str, unicode), "'{0}' Attribute : '{1}' Type Is Not 'str' or 'unicode' !".format("libraryPath", value)
-			assert os.path.exists(value), "'{0}' Attribute : '{1}' File Doesn't Exists !".format("libraryPath", value)
+			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("libraryPath", value)
+			assert os.path.exists(value), "'{0}' Attribute: '{1}' File Doesn't Exists!".format("libraryPath", value)
 		self._libraryPath = value
 
 	@libraryPath.deleter
@@ -217,7 +217,7 @@ class Library(object):
 		This Method Is The Deleter Method For The _libraryPath Attribute.
 		'''
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable !".format("libraryPath"))
+		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("libraryPath"))
 
 	@property
 	def functions(self):
@@ -239,7 +239,7 @@ class Library(object):
 		'''
 
 		if value:
-			assert type(value) is tuple, "'{0}' Attribute : '{1}' Type Is Not 'tuple' !".format("functions", value)
+			assert type(value) is tuple, "'{0}' Attribute: '{1}' Type Is Not 'tuple'!".format("functions", value)
 		self._functions = value
 
 	@functions.deleter
@@ -249,7 +249,7 @@ class Library(object):
 		This Method Is The Deleter Method For The _functions Attribute.
 		'''
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable !".format("functions"))
+		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("functions"))
 
 	@property
 	def library(self):
@@ -279,7 +279,7 @@ class Library(object):
 		This Method Is The Deleter Method For The _library Attribute.
 		'''
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable !".format("library"))
+		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("library"))
 
 	#***************************************************************************************
 	#***	Class Methods

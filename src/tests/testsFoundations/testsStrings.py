@@ -123,7 +123,7 @@ class GetWordsTestCase(unittest.TestCase):
 
 		self.assertIsInstance(strings.getWords("Users are John Doe and Jane Doe."), list)
 		self.assertListEqual(strings.getWords("Users are John Doe and Jane Doe."), "Users are John Doe and Jane Doe".split())
-		self.assertListEqual(strings.getWords("Users are : John Doe, Jane Doe, Z6PO."), "Users are John Doe Jane Doe Z6PO".split())
+		self.assertListEqual(strings.getWords("Users are: John Doe, Jane Doe, Z6PO."), "Users are John Doe Jane Doe Z6PO".split())
 
 class FilterWordsTestCase(unittest.TestCase):
 	'''

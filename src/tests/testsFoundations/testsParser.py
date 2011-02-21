@@ -106,11 +106,11 @@ RANDOM_COMMENTS = {"component":{"Component|#0":{'content': ' Component Comment F
 					"template":{"Template|#0":{'content': ' Template Comment For Tests Purpose.', 'id': 0}, "sIBL File Attributes|#1":{'content': ' sIBL File Attributes Comment For Tests Purpose.', 'id': 1}}}
 
 SCRIPT_RAW_SECTION = [ "// @OutputScript - @Release For @Software @Version\n",
-						"// Author : @Author\n",
-						"// EMail : @Email\n",
-						"// Homepage : @Url\n",
-						"// Template Path : @Path\n",
-						"// Template Last Modified : @Date\n",
+						"// Author: @Author\n",
+						"// EMail: @Email\n",
+						"// Homepage: @Url\n",
+						"// Template Path: @Path\n",
+						"// Template Last Modified: @Date\n",
 						"// sIBL_GUI\n",
 						"string $backgroundFilePath = \"@BGfile\";\n",
 						"int $backgroundWidth = @BGheight*2;\n",

@@ -77,7 +77,7 @@ def setNamespace(namespace, attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 	'''
 
 	longName = str(namespace + namespaceSplitter + attribute)
-	LOGGER.debug("> Namespace : '{0}', Attribute : '{1}', Long Name : '{2}'.".format(namespace, attribute, longName))
+	LOGGER.debug("> Namespace: '{0}', Attribute: '{1}', Long Name: '{2}'.".format(namespace, attribute, longName))
 	return longName
 
 @core.executionTrace
@@ -93,11 +93,11 @@ def getNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False
 
 	attributeTokens = attribute.split(namespaceSplitter)
 	if len(attributeTokens) == 1:
-		LOGGER.debug("> Attribute : '{0}', Namespace : '{1}'.".format(attribute, Constants.nullObject))
+		LOGGER.debug("> Attribute: '{0}', Namespace: '{1}'.".format(attribute, Constants.nullObject))
 		return None
 	else:
 		namespace = rootOnly and attributeTokens[0] or namespaceSplitter.join(attributeTokens[0:-1])
-		LOGGER.debug("> Attribute : '{0}', Namespace : '{1}'.".format(attribute, namespace))
+		LOGGER.debug("> Attribute: '{0}', Namespace: '{1}'.".format(attribute, namespace))
 		return namespace
 
 @core.executionTrace
@@ -113,7 +113,7 @@ def removeNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=Fa
 
 	attributeTokens = attribute.split(namespaceSplitter)
 	strippedAttribute = rootOnly and namespaceSplitter.join(attributeTokens[1:]) or attributeTokens[len(attributeTokens) - 1]
-	LOGGER.debug("> Attribute : '{0}', Stripped Attribute : '{1}'.".format(attribute, strippedAttribute))
+	LOGGER.debug("> Attribute: '{0}', Stripped Attribute: '{1}'.".format(attribute, strippedAttribute))
 	return strippedAttribute
 
 #***********************************************************************************************

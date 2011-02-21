@@ -107,7 +107,7 @@ class ConstantsTestCase(unittest.TestCase):
 		'''
 
 		self.assertIsInstance(Constants.verbosityLabels, tuple)
-		for label in Constants.verbosityLabels :
+		for label in Constants.verbosityLabels:
 			self.assertIsInstance(label, str)
 
 	def testLoggingSeparatorsAttribute(self):

@@ -109,7 +109,7 @@ def closeHandler(logger, handler):
 	@param handler: Current Handler. ( Object )
 	'''
 
-	len(logger.__dict__["handlers"]) and LOGGER.debug("> Stopping Handler : '{0}'.".format(handler))
+	len(logger.__dict__["handlers"]) and LOGGER.debug("> Stopping Handler: '{0}'.".format(handler))
 	logger.removeHandler(handler)
 
 @core.executionTrace
@@ -122,7 +122,7 @@ def exit(exitCode, logger, handlers):
 	@param handlers: Handlers. ( Object )
 	'''
 
-	LOGGER.debug("> {0} | Exiting Current Process !".format(core.getModule(exit).__name__))
+	LOGGER.debug("> {0} | Exiting Current Process!".format(core.getModule(exit).__name__))
 
 	LOGGER.debug("> Stopping Logging Handlers And Logger, Then Exiting.")
 
@@ -139,7 +139,7 @@ def wait(waitTime):
 	@param waitTime: Current Sleep Time In Seconds. ( Integer )
 	'''
 
-	LOGGER.debug("> Waiting '{0}' Seconds !".format(waitTime))
+	LOGGER.debug("> Waiting '{0}' Seconds!".format(waitTime))
 
 	time.sleep(waitTime)
 

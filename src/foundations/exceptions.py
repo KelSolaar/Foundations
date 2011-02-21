@@ -127,8 +127,8 @@ def defaultExceptionsHandler(exception, origin, *args, **kwargs):
 	LOGGER.error("!> {0}".format(Constants.loggingSeparators))
 
 	LOGGER.error("!> Exception In '{0}'.".format(origin))
-	LOGGER.error("!> Exception Class : '{0}'.".format(exception.__class__.__name__))
-	LOGGER.error("!> Exception Description : '{0}'.".format(exception.__doc__ and exception.__doc__.strip() or Constants.nullObject))
+	LOGGER.error("!> Exception Class: '{0}'.".format(exception.__class__.__name__))
+	LOGGER.error("!> Exception Description: '{0}'.".format(exception.__doc__ and exception.__doc__.strip() or Constants.nullObject))
 	LOGGER.error("!> Error Raised: '{0}'.".format(exception))
 
 	LOGGER.error("!> {0}".format(Constants.loggingSeparators))

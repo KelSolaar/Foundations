@@ -84,7 +84,7 @@ class StreamObject(object):
 		'''
 
 		if value:
-			assert type(value) is list, "'{0}' Attribute : '{1}' Type Is Not 'list' !".format("stream", value)
+			assert type(value) is list, "'{0}' Attribute: '{1}' Type Is Not 'list'!".format("stream", value)
 		self._stream = value
 
 	@stream.deleter
@@ -93,7 +93,7 @@ class StreamObject(object):
 		This Method Is The Deleter Method For The _stream Attribute.
 		'''
 
-		raise Exception("'{0}' Attribute Is Not Deletable !".format("stream"))
+		raise Exception("'{0}' Attribute Is Not Deletable!".format("stream"))
 
 	#***************************************************************************************
 	#***	Class Methods

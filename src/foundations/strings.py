@@ -70,7 +70,7 @@ LOGGER = logging.getLogger(Constants.logger)
 @core.executionTrace
 def getNiceName(name):
 	'''
-	This Definition Converts A String To Nice String : currentLogText -> Current Log Text.
+	This Definition Converts A String To Nice String: currentLogText -> Current Log Text.
 
 	@param name: Current String To Be Nicified. ( String )
 	@return: Nicified String. ( String )
@@ -106,7 +106,7 @@ def getVersionRank(version):
 
 	tokens = version.split(".")
 	rank = sum((int(10 ** (i - 1)) * int(tokens[-i]) for i in range(len(tokens), 0, -1)))
-	LOGGER.debug("> Rank : '{0}'.".format(rank))
+	LOGGER.debug("> Rank: '{0}'.".format(rank))
 	return rank
 
 @core.executionTrace
@@ -119,7 +119,7 @@ def getSplitextBasename(path):
 	'''
 
 	basename = os.path.splitext(os.path.basename(os.path.normpath(path)))[0]
-	LOGGER.debug("> Splitext Basename : '{0}'.".format(basename))
+	LOGGER.debug("> Splitext Basename: '{0}'.".format(basename))
 	return basename
 
 @core.executionTrace
@@ -132,7 +132,7 @@ def getWords(datas):
 	'''
 
 	words = re.findall("\w+", datas)
-	LOGGER.debug("> Words : '{0}'".format(", ".join(words)))
+	LOGGER.debug("> Words: '{0}'".format(", ".join(words)))
 	return words
 
 @core.executionTrace
@@ -152,7 +152,7 @@ def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 			filterMatched = False
 			for filter in filtersIn:
 				if not re.search(filter, word, flags):
-					LOGGER.debug("> '{0}' Word Skipped, Filter In '{1}' Not Matched !.".format(word, filter))
+					LOGGER.debug("> '{0}' Word Skipped, Filter In '{1}' Not Matched!".format(word, filter))
 				else:
 					filterMatched = True
 					break
@@ -163,13 +163,13 @@ def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 			filterMatched = False
 			for filter in filtersOut:
 				if re.search(filter, word, flags):
-					LOGGER.debug("> '{0}' Word Skipped, Filter Out '{1}' Matched !.".format(word, filter))
+					LOGGER.debug("> '{0}' Word Skipped, Filter Out '{1}' Matched!".format(word, filter))
 					filterMatched = True
 					break
 			if filterMatched:
 				continue
 		filteredWords.append(word)
-	LOGGER.debug("> Filtered Words : '{0}'".format(", ".join(filteredWords)))
+	LOGGER.debug("> Filtered Words: '{0}'".format(", ".join(filteredWords)))
 	return filteredWords
 
 @core.executionTrace
@@ -195,7 +195,7 @@ def toForwardSlashes(datas):
 	'''
 
 	datas = datas.replace("\\", "/")
-	LOGGER.debug("> Datas : '{0}' To Forward Slashes.".format(datas))
+	LOGGER.debug("> Datas: '{0}' To Forward Slashes.".format(datas))
 	return datas
 
 @core.executionTrace
@@ -208,7 +208,7 @@ def toBackwardSlashes(datas):
 	'''
 
 	datas = datas.replace("/", "\\")
-	LOGGER.debug("> Datas : '{0}' To Backward Slashes.".format(datas))
+	LOGGER.debug("> Datas: '{0}' To Backward Slashes.".format(datas))
 	return datas
 
 @core.executionTrace
@@ -222,11 +222,11 @@ def getNormalizedPath(path):
 
 	if platform.system() == "Windows" or platform.system() == "Microsoft":
 		path = os.path.normpath(path).replace("\\", "\\\\")
-		LOGGER.debug("> Path : '{0}', Normalized Path.".format(path))
+		LOGGER.debug("> Path: '{0}', Normalized Path.".format(path))
 		return path
 	else:
 		path = os.path.normpath(path)
-		LOGGER.debug("> Path : '{0}', Normalized Path.".format(path))
+		LOGGER.debug("> Path: '{0}', Normalized Path.".format(path))
 		return path
 
 @core.executionTrace
