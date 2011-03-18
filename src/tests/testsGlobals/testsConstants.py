@@ -152,7 +152,7 @@ class ConstantsTestCase(unittest.TestCase):
 		This Method Tests The "providerDirectory" Attribute.
 		'''
 
-		self.assertRegexpMatches(Constants.providerDirectory, "\w")
+		self.assertRegexpMatches(Constants.providerDirectory, "\.*\w")
 
 	def testNullObjectAttribute(self):
 		'''
