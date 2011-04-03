@@ -51,6 +51,7 @@
 import logging
 import os
 import platform
+import posixpath
 import re
 
 #***********************************************************************************************
@@ -210,6 +211,19 @@ def toBackwardSlashes(datas):
 	datas = datas.replace("/", "\\")
 	LOGGER.debug("> Datas: '{0}' To Backward Slashes.".format(datas))
 	return datas
+
+@core.executionTrace
+def toPosixPath(path):
+	'''
+	This Definition Converts Windows Path To Posix Path While Stripping Drives Letters And Network Server Slashes.
+	
+	@param path: Windows Path. ( String )
+	@return: Path Converted To Posix Path. ( String )
+	'''
+	
+	posixPath = posixpath.normpath(toForwardSlashes(re.sub("[a-zA-Z]:\\\\|\\\\\\\\", "/", os.path.normpath(path))))
+	LOGGER.debug("> Stripped Converted To Posix Path: '{0}'.".format(posixPath))
+	return posixPath
 
 @core.executionTrace
 def getNormalizedPath(path):

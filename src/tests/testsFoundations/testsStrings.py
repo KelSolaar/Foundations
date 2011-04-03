@@ -185,6 +185,20 @@ class ToBackwardSlashesTestCase(unittest.TestCase):
 		self.assertEqual(strings.toBackwardSlashes("To/Forward/Slashes/Test/Case"), "To\Forward\Slashes\Test\Case")
 		self.assertEqual(strings.toBackwardSlashes("/Users/JohnDoe/Documents"), "\Users\JohnDoe\Documents")
 
+class ToPosixPathTestCase(unittest.TestCase):
+	'''
+	This Class Is The ToPosixPathTestCase Class.
+	'''
+
+	def testToPosixPath(self):
+		'''
+		This Method Tests The "toPosixPath" Definition.
+		'''
+
+		self.assertIsInstance(strings.toPosixPath("c:\\Users\\JohnDoe\\Documents"), str)
+		self.assertEqual(strings.toPosixPath("c:\\Users\\JohnDoe\\Documents"), "/Users/JohnDoe/Documents")
+		self.assertEqual(strings.toPosixPath("\\Server\Users\\JohnDoe\\Documents"), "/Server/Users/JohnDoe/Documents")
+
 class GetNormalizedPathTestCase(unittest.TestCase):
 	'''
 	This Class Is The GetNormalizedPathTestCase Class.
