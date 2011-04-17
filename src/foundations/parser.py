@@ -404,7 +404,7 @@ class Parser(io.File):
 									self._comments[section + self._namespaceSplitter + self._commentMarker + str(commentId)] = {"id" : commentId, "content" : line.strip().strip(self._commentLimiter)}
 									commentId += 1
 								elif self._splitter in line:
-									lineTokens = line.split(self._splitter)
+									lineTokens = line.split(self._splitter, 1)
 									attributes[section + self._namespaceSplitter + lineTokens[0].strip()] = lineTokens[1].strip().strip("\"")
 						self._sections[section] = attributes
 
