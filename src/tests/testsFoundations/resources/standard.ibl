@@ -5,7 +5,7 @@ ICOfile = "Icon.jpg"
 Name = "Standard"
 Author = "Thomas Mansencal"
 Location = "Outerspace"
-Comment = "Testing Purpose Ibl Set."
+Comment = "Testing Foundations With Units Tests = Fun!"
 GEOlat = 64.12864321684200
 GEOlong = -96.12864321684200
 Link = "http://www.thomasmansencal.com"
