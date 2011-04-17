@@ -1,17 +1,22 @@
-h1=. Foundations - 1.0.2 - Stable
+h1=. Foundations - 1.0.3 - Stable
 
 h2=. Change Log
 
+h3. 1.0.3 - Stable
+
+* Ensured that the parser will split attributes only one time.
+* Added "toPosixPath" method to "strings" module and associated units tests.
+
 h3. 1.0.2 - Stable
 
-* Add "getWords" and "filterWords" to "strings" module and associated units tests.
-* Implement "filterWords" in "walker" module.
-* Add "getSplitextBasename" definition to "strings" module and associated units tests to "testsStrings" module.
-* Replace list comprehension expressions by generators.
+* Added "getWords" and "filterWords" methods to "strings" module and associated units tests.
+* Implemented "filterWords" in "walker" module.
+* Added "getSplitextBasename" definition to "strings" module and associated units tests to "testsStrings" module.
+* Replaced list comprehension expressions by generators.
 
 h3. 1.0.1 - Stable
 
-* Add "namespace" module and associated "testsGlobals" units tests module.
+* Added "namespace" module and associated "testsGlobals" units tests module.
 
 h3. 1.0.0 - Stable
 
