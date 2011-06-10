@@ -26,7 +26,7 @@
 #
 #***********************************************************************************************
 
-'''
+"""
 ************************************************************************************************
 ***	testsParser.py
 ***
@@ -39,7 +39,7 @@
 ***	Others:
 ***
 ************************************************************************************************
-'''
+"""
 
 #***********************************************************************************************
 #***	Python Begin
@@ -120,14 +120,14 @@ SCRIPT_RAW_SECTION = [ "// @OutputScript - @Release For @Software @Version\n",
 #***	Module Classes And Definitions
 #***********************************************************************************************
 class ParserTestCase(unittest.TestCase):
-	'''
+	"""
 	This Class Is The ParserTestCase Class.
-	'''
+	"""
 
 	def testRequiredAttributes(self):
-		'''
+		"""
 		This Method Tests Presence Of Required Attributes.
-		'''
+		"""
 
 		parser = Parser(IBL_SET_FILE)
 		requiredAttributes = ("_file",
@@ -144,9 +144,9 @@ class ParserTestCase(unittest.TestCase):
 			self.assertIn(attribute, parser.__dict__)
 
 	def testRequiredMethods(self):
-		'''
+		"""
 		This Method Tests Presence Of Required Methods.
-		'''
+		"""
 
 		parser = Parser(IBL_SET_FILE)
 		requiredMethods = ("parse",
@@ -159,9 +159,9 @@ class ParserTestCase(unittest.TestCase):
 			self.assertIn(method, dir(parser))
 
 	def testParse(self):
-		'''
+		"""
 		This Method Tests The "Parser" Class "parse" Method.
-		'''
+		"""
 
 		for type, file in FILES.items():
 			parser = Parser(file)
@@ -176,9 +176,9 @@ class ParserTestCase(unittest.TestCase):
 			self.assertIsInstance(parser.comments, dict)
 
 	def testSections(self):
-		'''
+		"""
 		This Method Tests The "Parser" Class Sections.
-		'''
+		"""
 
 		for type, file in FILES.items():
 			parser = Parser(file)
@@ -190,9 +190,9 @@ class ParserTestCase(unittest.TestCase):
 				self.assertIn(section, parser.sections.keys())
 
 	def testRawSections(self):
-		'''
+		"""
 		This Method Tests The "Parser" Class Raw Sections.
-		'''
+		"""
 
 		parser = Parser(TEMPLATE_FILE)
 		parser.read()
@@ -200,9 +200,9 @@ class ParserTestCase(unittest.TestCase):
 		self.assertListEqual(parser.sections["Script"]["Script|_rawSectionContent"][0:10], SCRIPT_RAW_SECTION)
 
 	def testComments(self):
-		'''
+		"""
 		This Method Tests The "Parser" Class Comments.
-		'''
+		"""
 
 		for type, file in FILES.items():
 			parser = Parser(file)
@@ -215,9 +215,9 @@ class ParserTestCase(unittest.TestCase):
 				self.assertEqual(value["id"], parser.comments[comment]["id"])
 
 	def testSectionExists(self):
-		'''
+		"""
 		This Method Tests The "Parser" Class "sectionsExists" Method.
-		'''
+		"""
 
 		for type, file in FILES.items():
 			parser = Parser(file)
@@ -228,9 +228,9 @@ class ParserTestCase(unittest.TestCase):
 			self.assertFalse(parser.sectionsExists("Unknown"))
 
 	def testAttributeExists(self):
-		'''
+		"""
 		This Method Tests The "Parser" Class "attributeExists" Method.
-		'''
+		"""
 
 		for type, file in FILES.items():
 			parser = Parser(file)
@@ -241,9 +241,9 @@ class ParserTestCase(unittest.TestCase):
 				self.assertFalse(parser.attributeExists("Unknown", namespace.getNamespace(attribute, rootOnly=True)))
 
 	def testGetAttributes(self):
-		'''
+		"""
 		This Method Tests The "Parser" Class "getAttributes" Method.
-		'''
+		"""
 
 		for type, file in FILES.items():
 			parser = Parser(file)
@@ -255,9 +255,9 @@ class ParserTestCase(unittest.TestCase):
 					self.assertListEqual(parser.getAttributes(section).keys(), SECTIONS_AND_ATTRIBUTES[type][section]["namespaced"])
 
 	def testGetValue(self):
-		'''
+		"""
 		This Method Tests The "Parser" Class "getValue" Method.
-		'''
+		"""
 
 		for type, file in FILES.items():
 			parser = Parser(file)
@@ -269,14 +269,14 @@ class ParserTestCase(unittest.TestCase):
 				self.assertEqual(parser.getValue(attribute, namespace.getNamespace(attribute, rootOnly=True)), value)
 
 class GetAttributeCompoundTestCase(unittest.TestCase):
-	'''
+	"""
 	This Class Is The GetAttributeCompoundTestCase Class.
-	'''
+	"""
 
 	def testGetAttributeCompound(self):
-		'''
+		"""
 		This Method Tests The "getAttributeCompound" Definition.
-		'''
+		"""
 
 		self.assertIsInstance(foundations.parser.getAttributeCompound("Attribute", "Value"), foundations.parser.AttributeCompound)
 

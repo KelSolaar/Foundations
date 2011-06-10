@@ -26,7 +26,7 @@
 #
 #***********************************************************************************************
 
-'''
+"""
 ************************************************************************************************
 ***	testsEnvironment.py
 ***
@@ -39,7 +39,7 @@
 ***	Others:
 ***
 ************************************************************************************************
-'''
+"""
 
 #***********************************************************************************************
 #***	Python Begin
@@ -64,14 +64,14 @@ from foundations.environment import Environment
 #***	Module Classes And Definitions
 #***********************************************************************************************
 class EnvironmentTestCase(unittest.TestCase):
-	'''
+	"""
 	This Class Is The EnvironmentTestCase Class.
-	'''
+	"""
 
 	def testRequiredAttributes(self):
-		'''
+		"""
 		This Method Tests Presence Of Required Attributes.
-		'''
+		"""
 
 		environment = Environment()
 		requiredAttributes = ("_variable",)
@@ -80,9 +80,9 @@ class EnvironmentTestCase(unittest.TestCase):
 			self.assertIn(attribute, environment.__dict__)
 
 	def testRequiredMethods(self):
-		'''
+		"""
 		This Method Tests Presence Of Required Methods.
-		'''
+		"""
 
 		environment = Environment()
 		requiredMethods = ("getPath",)
@@ -91,9 +91,9 @@ class EnvironmentTestCase(unittest.TestCase):
 			self.assertIn(method, dir(environment))
 
 	def testGetPath(self):
-		'''
+		"""
 		This Method Tests The "Environment" Class "getPath" Method.
-		'''
+		"""
 
 		if platform.system() == "Windows" or platform.system() == "Microsoft":
 			environment = Environment("APPDATA")

@@ -25,7 +25,7 @@
 #
 #***********************************************************************************************
 
-'''
+"""
 ************************************************************************************************
 ***	testsPkzip.py
 ***
@@ -38,7 +38,7 @@
 ***	Others:
 ***
 ************************************************************************************************
-'''
+"""
 
 #***********************************************************************************************
 #***	Python Begin
@@ -71,14 +71,14 @@ TREE_HIERARCHY = ("level_0", "loremIpsum.txt", "standard.ibl", "standard.rc", "s
 #***	Module Classes And Definitions
 #***********************************************************************************************
 class PkzipTestCase(unittest.TestCase):
-	'''
+	"""
 	This Class Is The PkzipTestCase Class.
-	'''
+	"""
 
 	def testRequiredAttributes(self):
-		'''
+		"""
 		This Method Tests Presence Of Required Attributes.
-		'''
+		"""
 
 		zipFile = Pkzip(TEST_FILE)
 		requiredAttributes = ("_archive",)
@@ -87,9 +87,9 @@ class PkzipTestCase(unittest.TestCase):
 			self.assertIn(attribute, zipFile.__dict__)
 
 	def testRequiredMethods(self):
-		'''
+		"""
 		This Method Tests Presence Of Required Methods.
-		'''
+		"""
 
 		zipFile = Pkzip(TEST_FILE)
 		requiredMethods = ("extract",)
@@ -98,9 +98,9 @@ class PkzipTestCase(unittest.TestCase):
 			self.assertIn(method, dir(zipFile))
 
 	def testRead(self):
-		'''
+		"""
 		This Method Tests The "Pkzip" Class "extract" Method.
-		'''
+		"""
 
 		zipFile = Pkzip(TEST_FILE)
 		tempDirectory = tempfile.mkdtemp()

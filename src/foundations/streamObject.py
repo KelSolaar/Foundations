@@ -26,7 +26,7 @@
 #
 #***********************************************************************************************
 
-'''
+"""
 ************************************************************************************************
 ***	streamObject.py
 ***
@@ -39,7 +39,7 @@
 ***	Others:
 ***
 ************************************************************************************************
-'''
+"""
 
 #***********************************************************************************************
 #***	Python Begin
@@ -49,16 +49,16 @@
 #***	Module Classes And Definitions
 #***********************************************************************************************
 class StreamObject(object):
-	'''
+	"""
 	This Class Is The StreamObject Class.
-	'''
+	"""
 
 	def __init__(self, stream=None):
-		'''
+		"""
 		This Method Initializes The Class.
 		
 		@param stream: Stream Object. ( Object )
-		'''
+		"""
 
 		self._stream = []
 
@@ -67,21 +67,21 @@ class StreamObject(object):
 	#***************************************************************************************
 	@property
 	def stream(self):
-		'''
+		"""
 		This Method Is The Property For The _stream Attribute.
 		
 		@return: self._stream. ( List )
-		'''
+		"""
 
 		return self._stream
 
 	@stream.setter
 	def stream(self, value):
-		'''
+		"""
 		This Method Is The Setter Method For The _stream Attribute.
 		
 		@param value: Attribute Value. ( List )
-		'''
+		"""
 
 		if value:
 			assert type(value) is list, "'{0}' Attribute: '{1}' Type Is Not 'list'!".format("stream", value)
@@ -89,9 +89,9 @@ class StreamObject(object):
 
 	@stream.deleter
 	def stream(self):
-		'''
+		"""
 		This Method Is The Deleter Method For The _stream Attribute.
-		'''
+		"""
 
 		raise Exception("'{0}' Attribute Is Not Deletable!".format("stream"))
 
@@ -99,18 +99,18 @@ class StreamObject(object):
 	#***	Class Methods
 	#***************************************************************************************
 	def write(self, message):
-		'''
+		"""
 		This Method Provides Write Ability To The Class.
 
 		@param message: Current Message. ( String )
-		'''
+		"""
 
 		self._stream.append(message)
 
 	def flush(self):
-		'''
+		"""
 		This Method Flushes The Current Stream.
-		'''
+		"""
 
 		pass
 

@@ -26,7 +26,7 @@
 #
 #***********************************************************************************************
 
-'''
+"""
 ************************************************************************************************
 ***	Walker.py
 ***
@@ -39,7 +39,7 @@
 ***	Others:
 ***
 ************************************************************************************************
-'''
+"""
 
 #***********************************************************************************************
 #***	Python Begin
@@ -71,17 +71,17 @@ LOGGER = logging.getLogger(Constants.logger)
 #***	Module Classes And Definitions
 #***********************************************************************************************
 class Walker(object):
-	'''
+	"""
 	This Class Provides Methods For Walking In A Directory.
-	'''
+	"""
 
 	@core.executionTrace
 	def __init__(self, root=None, hashSize=8):
-		'''
+		"""
 		This Method Initializes The Class.
 
 		@param root: Root Directory Path To Recurse. ( String )
-		'''
+		"""
 
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
@@ -98,22 +98,22 @@ class Walker(object):
 	#***************************************************************************************
 	@property
 	def root(self):
-		'''
+		"""
 		This Method Is The Property For The _root Attribute.
 
 		@return: self._root. ( String )
-		'''
+		"""
 
 		return self._root
 
 	@root.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def root(self, value):
-		'''
+		"""
 		This Method Is The Setter Method For The _root Attribute.
 		
 		@param value: Attribute Value. ( String )
-		'''
+		"""
 
 		if value:
 			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("root", value)
@@ -123,30 +123,30 @@ class Walker(object):
 	@root.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def root(self):
-		'''
+		"""
 		This Method Is The Deleter Method For The _root Attribute.
-		'''
+		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("root"))
 
 	@property
 	def hashSize(self):
-		'''
+		"""
 		This Method Is The Property For The _hashSize Attribute.
 
 		@return: self._hashSize. ( String )
-		'''
+		"""
 
 		return self._hashSize
 
 	@hashSize.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def hashSize(self, value):
-		'''
+		"""
 		This Method Is The Setter Method For The _hashSize Attribute.
 		
 		@param value: Attribute Value. ( String )
-		'''
+		"""
 
 		if value:
 			assert type(value) is int, "'{0}' Attribute: '{1}' Type Is Not 'int'!".format("hashSize", value)
@@ -155,30 +155,30 @@ class Walker(object):
 	@hashSize.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def hashSize(self):
-		'''
+		"""
 		This Method Is The Deleter Method For The _hashSize Attribute.
-		'''
+		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("hashSize"))
 
 	@property
 	def files(self):
-		'''
+		"""
 		This Method Is The Property For The _files Attribute.
 
 		@return: self._files. ( Dictionary )
-		'''
+		"""
 
 		return self._files
 
 	@files.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def files(self, value):
-		'''
+		"""
 		This Method Is The Setter Method For The _files Attribute.
 		
 		@param value: Attribute Value. ( Dictionary )
-		'''
+		"""
 
 		if value:
 			assert type(value) is dict, "'{0}' Attribute: '{1}' Type Is Not 'dict'!".format("files", value)
@@ -187,9 +187,9 @@ class Walker(object):
 	@files.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def files(self):
-		'''
+		"""
 		This Method Is The Deleter Method For The _files Attribute.
-		'''
+		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("files"))
 
@@ -199,14 +199,14 @@ class Walker(object):
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler()
 	def walk(self, filtersIn=None, filtersOut=None, flags=0, shorterHashKey=True):
-		'''
+		"""
 		This Method Gets Root Directory Files List As A Dictionary.
 
 		@param filtersIn: Regex filtersIn List. ( List / Tuple )
 		@param filtersIn: Regex filtersOut List. ( List / Tuple )
 		@param flags: Regex Flags. ( Object )
 		@return: Files List. ( Dictionary Or None )
-		'''
+		"""
 
 		if filtersIn:
 			LOGGER.debug("> Current filtersIn: '{0}'.".format(filtersIn))

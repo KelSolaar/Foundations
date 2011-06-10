@@ -26,7 +26,7 @@
 #
 #***********************************************************************************************
 
-'''
+"""
 ************************************************************************************************
 ***	testsCommon.py
 ***
@@ -39,7 +39,7 @@
 ***	Others:
 ***
 ************************************************************************************************
-'''
+"""
 
 #***********************************************************************************************
 #***	Python Begin
@@ -64,28 +64,28 @@ import foundations.common
 #***	Module Classes And Definitions
 #***********************************************************************************************
 class GetSystemApplicationDatasDirectoryTestCase(unittest.TestCase):
-	'''
+	"""
 	This Class Is The GetSystemApplicationDatasDirectoryTestCase Class.
-	'''
+	"""
 
 	def testGetSystemApplicationDatasDirectory(self):
-		'''
+		"""
 		This Method Tests The "getSystemApplicationDatasDirectory" definition.
-		'''
+		"""
 
 		path = foundations.common.getSystemApplicationDatasDirectory()
 		self.assertIsInstance(path, str)
 		self.assertTrue(os.path.exists(path))
 
 class GetUserApplicationDatasDirectoryTestCase(unittest.TestCase):
-	'''
+	"""
 	This Class Is The GetUserApplicationDatasDirectory Class.
-	'''
+	"""
 
 	def testGetUserApplicationDatasDirectory(self):
-		'''
+		"""
 		This Method Tests The "getUserApplicationDatasDirectory" definition.
-		'''
+		"""
 
 		path = foundations.common.getUserApplicationDatasDirectory()
 		self.assertIsInstance(path, str)

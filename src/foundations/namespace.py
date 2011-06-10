@@ -26,7 +26,7 @@
 #
 #***********************************************************************************************
 
-'''
+"""
 ************************************************************************************************
 ***	Namespace.py
 ***
@@ -39,7 +39,7 @@
 ***	Others:
 ***
 ************************************************************************************************
-'''
+"""
 
 #***********************************************************************************************
 #***	Python Begin
@@ -67,14 +67,14 @@ NAMESPACE_SPLITTER = "|"
 #***********************************************************************************************
 @core.executionTrace
 def setNamespace(namespace, attribute, namespaceSplitter=NAMESPACE_SPLITTER):
-	'''
+	"""
 	This Definition Returns The Compounded Attribute And Compounded Namespace.
 
 	@param namespace: Namespace. ( String )
 	@param attribute: Attribute. ( String )
 	@param namespaceSplitter: Namespace Splitter Character. ( String )
 	@return: Namespaced Attribute. ( String )
-	'''
+	"""
 
 	longName = str(namespace + namespaceSplitter + attribute)
 	LOGGER.debug("> Namespace: '{0}', Attribute: '{1}', Long Name: '{2}'.".format(namespace, attribute, longName))
@@ -82,14 +82,14 @@ def setNamespace(namespace, attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 
 @core.executionTrace
 def getNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False):
-	'''
+	"""
 	This Definition Returns The Attribute Namespace.
 
 	@param attribute: Attribute. ( String )
 	@param namespaceSplitter: Namespace Splitter Character. ( String )
 	@param rootOnly: Return Only Root Namespace. ( Boolean )
 	@return: Attribute Namespace. ( String )
-	'''
+	"""
 
 	attributeTokens = attribute.split(namespaceSplitter)
 	if len(attributeTokens) == 1:
@@ -102,14 +102,14 @@ def getNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False
 
 @core.executionTrace
 def removeNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False):
-	'''
+	"""
 	This Definition Returns The Attribute Without Namespace.
 
 	@param attribute: Attribute. ( String )
 	@param namespaceSplitter: Namespace Splitter Character. ( String )
 	@param rootOnly: Remove Only Root Namespace. ( Boolean )
 	@return: Attribute Without Namespace. ( String )
-	'''
+	"""
 
 	attributeTokens = attribute.split(namespaceSplitter)
 	strippedAttribute = rootOnly and namespaceSplitter.join(attributeTokens[1:]) or attributeTokens[len(attributeTokens) - 1]

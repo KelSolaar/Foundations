@@ -26,7 +26,7 @@
 #
 #***********************************************************************************************
 
-'''
+"""
 ************************************************************************************************
 ***	testsNamespace.py
 ***
@@ -39,7 +39,7 @@
 ***	Others:
 ***
 ************************************************************************************************
-'''
+"""
 
 #***********************************************************************************************
 #***	Python Begin
@@ -63,28 +63,28 @@ import foundations.namespace as namespace
 #***	Module Classes And Definitions
 #***********************************************************************************************
 class SetNamespaceTestCase(unittest.TestCase):
-	'''
+	"""
 	This Class Is The SetNamespaceTestCase Class.
-	'''
+	"""
 
 	def testSetNamespace(self):
-		'''
+		"""
 		This Method Tests The "setNamespace" Definition.
-		'''
+		"""
 
 		self.assertIsInstance(namespace.setNamespace("Namespace", "Attribute"), str)
 		self.assertEqual(namespace.setNamespace("Namespace", "Attribute"), "Namespace|Attribute")
 		self.assertEqual(namespace.setNamespace("Namespace", "Attribute", ":"), "Namespace:Attribute")
 
 class GetNamespaceTestCase(unittest.TestCase):
-	'''
+	"""
 	This Class Is The GetNamespaceTestCase Class.
-	'''
+	"""
 
 	def testGetNamespace(self):
-		'''
+		"""
 		This Method Tests The "getNamespace" Definition.
-		'''
+		"""
 
 		self.assertIsInstance(namespace.getNamespace("Namespace:Attribute", ":"), str)
 		self.assertEqual(namespace.getNamespace("Namespace|Attribute"), "Namespace")
@@ -93,14 +93,14 @@ class GetNamespaceTestCase(unittest.TestCase):
 		self.assertIsNone(namespace.getNamespace("Namespace"))
 
 class RemoveNamespaceTestCase(unittest.TestCase):
-	'''
+	"""
 	This Class Is The RemoveNamespaceTestCase Class.
-	'''
+	"""
 
 	def testRemoveNamespace(self):
-		'''
+		"""
 		This Method Tests The "testRemoveNamespace" Definition.
-		'''
+		"""
 
 		self.assertIsInstance(namespace.removeNamespace("Namespace|Attribute"), str)
 		self.assertEqual(namespace.removeNamespace("Namespace|Attribute"), "Attribute")

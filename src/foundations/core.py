@@ -26,7 +26,7 @@
 #
 #***********************************************************************************************
 
-'''
+"""
 ************************************************************************************************
 ***	core.py
 ***
@@ -39,7 +39,7 @@
 ***	Others:
 ***
 ************************************************************************************************
-'''
+"""
 
 #***********************************************************************************************
 #***	Python Begin
@@ -62,11 +62,11 @@ from globals.constants import Constants
 #***	Logging Classes And Definitions
 #***********************************************************************************************
 def setVerbosityLevel(verbosityLevel):
-	'''
+	"""
 	This Definition Provides Overall Verbosity Levels Through An Integer.
 
 	@param verbosityLevel: Verbosity Level. ( Integer )
-	'''
+	"""
 
 	if verbosityLevel == 0:
 		LOGGER.setLevel(logging.CRITICAL)
@@ -80,16 +80,16 @@ def setVerbosityLevel(verbosityLevel):
 		LOGGER.setLevel(logging.DEBUG)
 
 class StandardMessageHook(object):
-	'''
+	"""
 	This Is The StandardMessageHook Class.
-	'''
+	"""
 
 	def __init__(self, logger):
-		'''
+		"""
 		This Method Initializes The Class.
 
 		@param logger: LOGGER. ( Object )
-		'''
+		"""
 
 		self._logger = logger
 
@@ -98,29 +98,29 @@ class StandardMessageHook(object):
 	#***************************************************************************************
 	@property
 	def logger(self):
-		'''
+		"""
 		This Method Is The Property For The _logger Attribute.
 
 		@return: self._logger. ( Object )
-		'''
+		"""
 
 		return self._logger
 
 	@logger.setter
 	def logger(self, value):
-		'''
+		"""
 		This Method Is The Setter Method For The _logger Attribute.
 		
 		@param value: Attribute Value. ( Object )
-		'''
+		"""
 
 		raise Exception("'{0}' Attribute Is Read Only!".format("logger"))
 
 	@logger.deleter
 	def logger(self):
-		'''
+		"""
 		This Method Is The Deleter Method For The _logger Attribute.
-		'''
+		"""
 
 		raise Exception("'{0}' Attribute Is Not Deletable!".format("logger"))
 
@@ -128,11 +128,11 @@ class StandardMessageHook(object):
 	#***	Class Methods
 	#***************************************************************************************
 	def write(self, message):
-		'''
+		"""
 		This Method Logs The Current StdOut Message.
 		
 		@param message: Message. ( String )
-		'''
+		"""
 
 		for handler in self._logger.__dict__["handlers"]:
 			handler.stream.write(message)
@@ -159,21 +159,21 @@ UNDEFINED_OBJECT = "UndefinedObject"
 #***	Module Classes And Definitions
 #***********************************************************************************************
 def getFrame(index):
-	'''
+	"""
 	This Definition Returns The Requested Frame.
 
 	@param level: Frame Index. ( Object )
 	@return: Frame. ( Frame )
-	'''
+	"""
 
 	return sys._getframe(index)
 
 def getCodeLayerName():
-	'''
+	"""
 	This Definition Returns The Frame Code Layer Name.
 
 	@return: Code Layer Name. ( String )
-	'''
+	"""
 
 	for frameIndex in range(len(inspect.stack())):
 		frame = getFrame(frameIndex)
@@ -182,22 +182,22 @@ def getCodeLayerName():
 	return UNDEFINED_CODE_LAYER
 
 def getModule(object_):
-	'''
+	"""
 	This Definition Returns The Frame Module Name.
 
 	@param object_: Object. ( Object )
 	@return: Frame Module. ( Module )
-	'''
+	"""
 
 	return inspect.getmodule(object_)
 
 def getObjectName(object_):
-	'''
+	"""
 	This Definition Returns The Object Name Related To The Provided Frame.
 
 	@param object_: Object. ( Object )
 	@return: Object Name. ( String )
-	'''
+	"""
 
 	moduleName = getModule(inspect.getmodule(object_)).__name__
 	codeLayerName = getCodeLayerName()
@@ -206,24 +206,24 @@ def getObjectName(object_):
 	return hasattr(object_, "__name__") and "{0} | {1}{2}()".format(moduleName, codeLayerName, object_.__name__) or UNDEFINED_OBJECT
 
 def executionTrace(object_):
-	'''
+	"""
 	This Decorator Is Used For Function Tracing.
 
 	@param object_: Object To Decorate. ( Object )
 	@return: Object. ( Object )
-	'''
+	"""
 
 	origin = getObjectName(object_)
 
 	@functools.wraps(object_)
 	def function(*args, **kwargs):
-		'''
+		"""
 		This Decorator Is Used For Function Tracing.
 		
 		@param *args: Arguments. ( * )
 		@param **kwargs: Arguments. ( * )
 		@return: Object. ( Object )
-		'''
+		"""
 
 		LOGGER and LOGGER.__dict__["handlers"] != {} and LOGGER.debug("--->>> '{0}' <<<---".format(origin))
 
@@ -236,17 +236,17 @@ def executionTrace(object_):
 	return function
 
 class Structure(object):
-	'''
+	"""
 	This Is The Structure Class.
-	'''
+	"""
 
 	@executionTrace
 	def __init__(self, **kwargs):
-		'''
+		"""
 		This Method Initializes The Class.
 
 		@param kwargs: Key / Value Pairs. ( Key / Value Pairs )
-		'''
+		"""
 
 		self.__dict__.update(kwargs)
 

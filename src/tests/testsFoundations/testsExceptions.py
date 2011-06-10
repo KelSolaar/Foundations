@@ -26,7 +26,7 @@
 #
 #***********************************************************************************************
 
-'''
+"""
 ************************************************************************************************
 ***	testsExceptions.py
 ***
@@ -39,7 +39,7 @@
 ***	Others:
 ***
 ************************************************************************************************
-'''
+"""
 
 #***********************************************************************************************
 #***	Python Begin
@@ -80,14 +80,14 @@ EXCEPTIONS = (foundations.exceptions.AttributeStructureError,
 #***********************************************************************************************
 
 class ExceptionsTestCase(unittest.TestCase):
-	'''
+	"""
 	This Class Is The ExceptionsTestCase Class.
-	'''
+	"""
 
 	def testRequiredAttributes(self):
-		'''
+		"""
 		This Method Tests Presence Of Required Attributes.
-		'''
+		"""
 
 		requiredAttributes = ("value",)
 		for exception in EXCEPTIONS:
@@ -96,9 +96,9 @@ class ExceptionsTestCase(unittest.TestCase):
 				self.assertIn(attribute, exceptionInstance.__dict__)
 
 	def test__str__(self):
-		'''
+		"""
 		This Method Tests The "Exceptions" Class "__str__" Method.
-		'''
+		"""
 
 		for exception in EXCEPTIONS:
 			exceptionInstance = exception("{0} Exception Raised!".format(exception.__class__))

@@ -26,7 +26,7 @@
 #
 #***********************************************************************************************
 
-'''
+"""
 ************************************************************************************************
 ***	strings.py
 ***
@@ -39,7 +39,7 @@
 ***	Others:
 ***
 ************************************************************************************************
-'''
+"""
 
 #***********************************************************************************************
 #***	Python Begin
@@ -70,12 +70,12 @@ LOGGER = logging.getLogger(Constants.logger)
 #***********************************************************************************************
 @core.executionTrace
 def getNiceName(name):
-	'''
+	"""
 	This Definition Converts A String To Nice String: currentLogText -> Current Log Text.
 
 	@param name: Current String To Be Nicified. ( String )
 	@return: Nicified String. ( String )
-	'''
+	"""
 
 	niceName = ""
 	for index in range(len(name)):
@@ -98,12 +98,12 @@ def getNiceName(name):
 
 @core.executionTrace
 def getVersionRank(version):
-	'''
+	"""
 	This Definition Converts A Version String To It's Rank.
 
 	@param version: Current Version To Calculate Rank. ( String )
 	@return: Rank. ( Integer )
-	'''
+	"""
 
 	tokens = version.split(".")
 	rank = sum((int(10 ** (i - 1)) * int(tokens[-i]) for i in range(len(tokens), 0, -1)))
@@ -112,12 +112,12 @@ def getVersionRank(version):
 
 @core.executionTrace
 def getSplitextBasename(path):
-	'''
+	"""
 	This Definition Get The Basename Of A Path Without Its Extension.
 
 	@param path: Path To Extract The Basename Without Extension. ( String )
 	@return: Splitext Basename. ( String )
-	'''
+	"""
 
 	basename = os.path.splitext(os.path.basename(os.path.normpath(path)))[0]
 	LOGGER.debug("> Splitext Basename: '{0}'.".format(basename))
@@ -125,12 +125,12 @@ def getSplitextBasename(path):
 
 @core.executionTrace
 def getWords(datas):
-	'''
+	"""
 	This Method Extracts The Words From Provided String.
 	
 	@param datas: Datas To Extract Words From. ( String )
 	@return: Words. ( List )
-	'''
+	"""
 
 	words = re.findall("\w+", datas)
 	LOGGER.debug("> Words: '{0}'".format(", ".join(words)))
@@ -138,14 +138,14 @@ def getWords(datas):
 
 @core.executionTrace
 def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
-	'''
+	"""
 	This Method Filters The Words Using The Provided Filters.
 	
 	@param filtersIn: Regex filtersIn List. ( List / Tuple )
 	@param filtersIn: Regex filtersOut List. ( List / Tuple )
 	@param flags: Regex Flags. ( Object )
 	@return: Filtered Words. ( List )
-	'''
+	"""
 
 	filteredWords = []
 	for word in words:
@@ -175,12 +175,12 @@ def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 
 @core.executionTrace
 def replace(string, datas):
-	'''
+	"""
 	This Definition Replaces The Datas Occurences In The String.
 	@param string: String To Manipulate. ( String )
 	@param datas: Replacement Occurences. ( Dictionary )
 	@return: Manipulated String. ( String )
-	'''
+	"""
 
 	for old, new in datas.items():
 		string = string.replace(old, new)
@@ -188,12 +188,12 @@ def replace(string, datas):
 
 @core.executionTrace
 def toForwardSlashes(datas):
-	'''
+	"""
 	This Definition Converts Backward Slashes To Forward Slashes.
 
 	@param datas: Datas To Convert. ( String )	
 	@return: Converted Path. ( String )
-	'''
+	"""
 
 	datas = datas.replace("\\", "/")
 	LOGGER.debug("> Datas: '{0}' To Forward Slashes.".format(datas))
@@ -201,12 +201,12 @@ def toForwardSlashes(datas):
 
 @core.executionTrace
 def toBackwardSlashes(datas):
-	'''
+	"""
 	This Definition Converts Forward Slashes To Backward Slashes.
 
 	@param datas: Datas To Convert. ( String )	
 	@return: Converted Path. ( String )
-	'''
+	"""
 
 	datas = datas.replace("/", "\\")
 	LOGGER.debug("> Datas: '{0}' To Backward Slashes.".format(datas))
@@ -214,12 +214,12 @@ def toBackwardSlashes(datas):
 
 @core.executionTrace
 def toPosixPath(path):
-	'''
+	"""
 	This Definition Converts Windows Path To Posix Path While Stripping Drives Letters And Network Server Slashes.
 	
 	@param path: Windows Path. ( String )
 	@return: Path Converted To Posix Path. ( String )
-	'''
+	"""
 	
 	posixPath = posixpath.normpath(toForwardSlashes(re.sub("[a-zA-Z]:\\\\|\\\\\\\\", "/", os.path.normpath(path))))
 	LOGGER.debug("> Stripped Converted To Posix Path: '{0}'.".format(posixPath))
@@ -227,12 +227,12 @@ def toPosixPath(path):
 
 @core.executionTrace
 def getNormalizedPath(path):
-	'''
+	"""
 	This Definition Normalizes A Path, Escaping Slashes If Needed On Windows.
 
 	@param path: Path To Normalize. ( String )
 	@return: Normalized Path. ( String )
-	'''
+	"""
 
 	if platform.system() == "Windows" or platform.system() == "Microsoft":
 		path = os.path.normpath(path).replace("\\", "\\\\")
@@ -245,12 +245,12 @@ def getNormalizedPath(path):
 
 @core.executionTrace
 def isEmail(datas):
-	'''
+	"""
 	This Definition Check If Provided Datas String Is An Email.
 
 	@param datas: Datas To Check. ( String )	
 	@return: Is Email. ( Boolean )
-	'''
+	"""
 
 	if re.match("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}", datas):
 		LOGGER.debug("> {0}' Is Matched As Email.".format(datas))
@@ -261,12 +261,12 @@ def isEmail(datas):
 
 @core.executionTrace
 def isWebsite(datas):
-	'''
+	"""
 	This Definition Check If Provided Datas String Is A Website.
 
 	@param datas: Datas To Check. ( String )	
 	@return: Is Website. ( Boolean )
-	'''
+	"""
 
 	if re.match("(http|ftp|https)://([a-zA-Z0-9\-\.]+)/?", datas):
 		LOGGER.debug("> {0}' Is Matched As Website.".format(datas))

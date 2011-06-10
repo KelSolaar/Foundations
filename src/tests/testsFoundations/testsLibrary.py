@@ -25,7 +25,7 @@
 #
 #***********************************************************************************************
 
-'''
+"""
 ************************************************************************************************
 ***	testsLibrary.py
 ***
@@ -38,7 +38,7 @@
 ***	Others:
 ***
 ************************************************************************************************
-'''
+"""
 
 #***********************************************************************************************
 #***	Python Begin
@@ -81,14 +81,14 @@ LIBRARIES_TESTS_CASES = {"freeImage":{"FreeImage_GetVersion":"3.13.1",
 #***	Module Classes And Definitions
 #***********************************************************************************************
 class LibraryTestCase(unittest.TestCase):
-	'''
+	"""
 	This Class Is The LibraryTestCase Class.
-	'''
+	"""
 
 	def testRequiredAttributes(self):
-		'''
+		"""
 		This Method Tests Presence Of Required Attributes.
-		'''
+		"""
 
 		library = Library(LIBRARIES["freeImage"], LIBRARIES_FUNCTIONS["freeImage"])
 		requiredAttributes = ("_libraryInstantiated",
@@ -105,9 +105,9 @@ class LibraryTestCase(unittest.TestCase):
 			self.assertIn(classAttribute, dir(library))
 
 	def testRequiredMethods(self):
-		'''
+		"""
 		This Method Tests Presence Of Required Methods.
-		'''
+		"""
 
 		library = Library(LIBRARIES["freeImage"], LIBRARIES_FUNCTIONS["freeImage"])
 		requiredMethods = ("bindLibrary",
@@ -117,9 +117,9 @@ class LibraryTestCase(unittest.TestCase):
 			self.assertIn(method, dir(library))
 
 	def testBindFunction(self):
-		'''
+		"""
 		This Method Tests The "Library" Class "bindFunction" Method.
-		'''
+		"""
 
 		for name, path in LIBRARIES.items():
 			library = Library(path)
@@ -130,9 +130,9 @@ class LibraryTestCase(unittest.TestCase):
 				self.assertTrue(hasattr(library, function.name))
 
 	def testBindLibrary(self):
-		'''
+		"""
 		This Method Tests The "Library" Class "bindLibrary" Method.
-		'''
+		"""
 
 		for name, path in LIBRARIES.items():
 			library = Library(path)
@@ -144,9 +144,9 @@ class LibraryTestCase(unittest.TestCase):
 				self.assertTrue(hasattr(library, function.name))
 
 	def testLibrary(self):
-		'''
+		"""
 		This Method Tests The "Library" Class Binding.
-		'''
+		"""
 
 		for name, path in LIBRARIES.items():
 			library = Library(path, LIBRARIES_FUNCTIONS[name])

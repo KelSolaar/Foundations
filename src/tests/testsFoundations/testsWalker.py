@@ -25,7 +25,7 @@
 #
 #***********************************************************************************************
 
-'''
+"""
 ************************************************************************************************
 ***	testsWalker.py
 ***
@@ -38,7 +38,7 @@
 ***	Others:
 ***
 ************************************************************************************************
-'''
+"""
 
 #***********************************************************************************************
 #***	Python Begin
@@ -72,14 +72,14 @@ TREE_HIERARCHY = ("loremIpsum.txt", "standard.ibl", "standard.rc", "standard.sIB
 #***	Module Classes And Definitions
 #***********************************************************************************************
 class WalkerTestCase(unittest.TestCase):
-	'''
+	"""
 	This Class Is The WalkerTestCase Class.
-	'''
+	"""
 
 	def testRequiredAttributes(self):
-		'''
+		"""
 		This Method Tests Presence Of Required Attributes.
-		'''
+		"""
 
 		walker = Walker(RESOURCES_DIRECTORY)
 		requiredAttributes = ("_root",
@@ -90,9 +90,9 @@ class WalkerTestCase(unittest.TestCase):
 			self.assertIn(attribute, walker.__dict__)
 
 	def testRequiredMethods(self):
-		'''
+		"""
 		This Method Tests Presence Of Required Methods.
-		'''
+		"""
 
 		walker = Walker(RESOURCES_DIRECTORY)
 		requiredMethods = ("walk",)
@@ -101,9 +101,9 @@ class WalkerTestCase(unittest.TestCase):
 			self.assertIn(method, dir(walker))
 
 	def testWalk(self):
-		'''
+		"""
 		This Method Tests The "Walker" Class "walk" Method.
-		'''
+		"""
 
 		walker = Walker()
 		walker.root = os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY)

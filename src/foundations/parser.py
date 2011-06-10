@@ -26,7 +26,7 @@
 #
 #***********************************************************************************************
 
-'''
+"""
 ************************************************************************************************
 ***	Parser.py
 ***
@@ -39,7 +39,7 @@
 ***	Others:
 ***
 ************************************************************************************************
-'''
+"""
 
 #***********************************************************************************************
 #***	Python Begin
@@ -70,17 +70,17 @@ LOGGER = logging.getLogger(Constants.logger)
 #***	Module Classes And Definitions
 #***********************************************************************************************
 class AttributeCompound(core.Structure):
-	'''
+	"""
 	This Is The AttributeCompound Class.
-	'''
+	"""
 
 	@core.executionTrace
 	def __init__(self, **kwargs):
-		'''
+		"""
 		This Method Initializes The Class.
 
 		@param kwargs: name, value, link, type, alias. ( Key / Value Pairs )
-		'''
+		"""
 
 		core.Structure.__init__(self, **kwargs)
 
@@ -88,13 +88,13 @@ class AttributeCompound(core.Structure):
 		self.__dict__.update(kwargs)
 
 class Parser(io.File):
-	'''
+	"""
 	This Class Provides Methods To Parse Sections File Format Files.
-	'''
+	"""
 
 	@core.executionTrace
 	def __init__(self, file=None, splitter="=", namespaceSplitter="|", commentLimiter=";", commentMarker="#", rawSectionContentIdentifier="_rawSectionContent"):
-		'''
+		"""
 		This Method Initializes The Class.
 
 		@param file: Current File Path. ( String ) 
@@ -102,7 +102,7 @@ class Parser(io.File):
 		@param namespaceSplitter: Namespace Splitter Character. ( String )
 		@param commentLimiter: Comment Limiter Character. ( String )
 		@param rawSectionContentIdentifier: Raw Section Content Identifier. ( String )
-		'''
+		"""
 
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
@@ -128,22 +128,22 @@ class Parser(io.File):
 	#***************************************************************************************
 	@property
 	def splitter(self):
-		'''
+		"""
 		This Method Is The Property For The _splitter Attribute.
 
 		@return: self._splitter. ( String )
-		'''
+		"""
 
 		return self._splitter
 
 	@splitter.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def splitter(self, value):
-		'''
+		"""
 		This Method Is The Setter Method For The _splitter Attribute.
 
 		@param value: Attribute Value. ( String )
-		'''
+		"""
 
 		if value:
 			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("splitter", value)
@@ -154,30 +154,30 @@ class Parser(io.File):
 	@splitter.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def splitter(self):
-		'''
+		"""
 		This Method Is The Deleter Method For The _splitter Attribute.
-		'''
+		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("splitter"))
 
 	@property
 	def namespaceSplitter(self):
-		'''
+		"""
 		This Method Is The Property For The _namespaceSplitter Attribute.
 
 		@return: self._namespaceSplitter. ( String )
-		'''
+		"""
 
 		return self._namespaceSplitter
 
 	@namespaceSplitter.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def namespaceSplitter(self, value):
-		'''
+		"""
 		This Method Is The Setter Method For The _namespaceSplitter Attribute.
 
 		@param value: Attribute Value. ( String )
-		'''
+		"""
 
 		if value:
 			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("namespaceSplitter", value)
@@ -188,30 +188,30 @@ class Parser(io.File):
 	@namespaceSplitter.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def namespaceSplitter(self):
-		'''
+		"""
 		This Method Is The Deleter Method For The _namespaceSplitter Attribute.
-		'''
+		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("namespaceSplitter"))
 
 	@property
 	def commentLimiter(self):
-		'''
+		"""
 		This Method Is The Property For The _commentLimiter Attribute.
 
 		@return: self._commentLimiter. ( String )
-		'''
+		"""
 
 		return self._commentLimiter
 
 	@commentLimiter.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def commentLimiter(self, value):
-		'''
+		"""
 		This Method Is The Setter Method For The _commentLimiter Attribute.
 	
 		@param value: Attribute Value. ( String )
-		'''
+		"""
 
 		if value:
 			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("commentLimiter", value)
@@ -221,30 +221,30 @@ class Parser(io.File):
 	@commentLimiter.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def commentLimiter(self):
-		'''
+		"""
 		This Method Is The Deleter Method For The _commentLimiter Attribute.
-		'''
+		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("commentLimiter"))
 
 	@property
 	def commentMarker(self):
-		'''
+		"""
 		This Method Is The Property For The _commentMarker Attribute.
 
 		@return: self._commentMarker. ( String )
-		'''
+		"""
 
 		return self._commentMarker
 
 	@commentMarker.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def commentMarker(self, value):
-		'''
+		"""
 		This Method Is The Setter Method For The _commentMarker Attribute.
 	
 		@param value: Attribute Value. ( String )
-		'''
+		"""
 
 		if value:
 			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("commentMarker", value)
@@ -254,30 +254,30 @@ class Parser(io.File):
 	@commentMarker.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def commentMarker(self):
-		'''
+		"""
 		This Method Is The Deleter Method For The _commentMarker Attribute.
-		'''
+		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("commentMarker"))
 
 	@property
 	def rawSectionContentIdentifier(self):
-		'''
+		"""
 		This Method Is The Property For The _rawSectionContentIdentifier Attribute.
 
 		@return: self._rawSectionContentIdentifier. ( String )
-		'''
+		"""
 
 		return self._rawSectionContentIdentifier
 
 	@rawSectionContentIdentifier.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def rawSectionContentIdentifier(self, value):
-		'''
+		"""
 		This Method Is The Setter Method For The _rawSectionContentIdentifier Attribute.
 	
 		@param value: Attribute Value. ( String )
-		'''
+		"""
 
 		if value:
 			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("rawSectionContentIdentifier", value)
@@ -286,30 +286,30 @@ class Parser(io.File):
 	@rawSectionContentIdentifier.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def rawSectionContentIdentifier(self):
-		'''
+		"""
 		This Method Is The Deleter Method For The _rawSectionContentIdentifier Attribute.
-		'''
+		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("rawSectionContentIdentifier"))
 
 	@property
 	def sections(self):
-		'''
+		"""
 		This Method Is The Property For The _sections Attribute.
 
 		@return: self._sections. ( Dictionary )
-		'''
+		"""
 
 		return self._sections
 
 	@sections.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def sections(self, value):
-		'''
+		"""
 		This Method Is The Setter Method For The _sections Attribute.
 		
 		@param value: Attribute Value. ( Dictionary )
-		'''
+		"""
 
 		if value:
 			assert type(value) is dict, "'{0}' Attribute: '{1}' Type Is Not 'dict'!".format("sections", value)
@@ -318,19 +318,19 @@ class Parser(io.File):
 	@sections.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def sections(self):
-		'''
+		"""
 		This Method Is The Deleter Method For The _sections Attribute.
-		'''
+		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("sections"))
 
 	@property
 	def comments(self):
-		'''
+		"""
 		This Method Is The Property For The _comments Attribute.
 
 		@return: self._comments. ( Dictionary )
-		'''
+		"""
 
 		return self._comments
 
@@ -338,11 +338,11 @@ class Parser(io.File):
 	@comments.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def comments(self, value):
-		'''
+		"""
 		This Method Is The Setter Method For The _comments Attribute.
 
 		@param value: Attribute Value. ( Dictionary )
-		'''
+		"""
 
 		if value:
 			assert type(value) is dict, "'{0}' Attribute: '{1}' Type Is Not 'dict'!".format("comments", value)
@@ -351,9 +351,9 @@ class Parser(io.File):
 	@comments.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def comments(self):
-		'''
+		"""
 		This Method Is The Deleter Method For The _comments Attribute.
-		'''
+		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("comments"))
 
@@ -363,14 +363,14 @@ class Parser(io.File):
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.FileStructureError)
 	def parse(self, orderedDictionary=True, rawSections=None, stripComments=True):
-		'''
+		"""
 		This Method Process The File Content To Extract The Sections As A Dictionary.
 
 		@param orderedDictionary: Parser Data Is Stored In Ordered Dictionaries. ( Boolean )
 		@param rawSections: Section Is Not Parsed. ( Boolean )
 		@param stripComments: Comments Are Stripped. ( Boolean )
 		@return: Parsing Success. ( Boolean )
-		'''
+		"""
 
 		LOGGER.debug("> Reading Sections From: '{0}'.".format(self._file))
 		if self._content:
@@ -417,12 +417,12 @@ class Parser(io.File):
 
 	@core.executionTrace
 	def sectionsExists(self, section):
-		'''
+		"""
 		This Method Checks If A Section Exists.
 
 		@param section: Section To Check Existence. ( String )
 		@return: Section Existence. ( Boolean )
-		'''
+		"""
 
 		if section in self._sections.keys():
 			LOGGER.debug("> '{0}' Section Exists In '{1}'.".format(section, self))
@@ -434,13 +434,13 @@ class Parser(io.File):
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, KeyError)
 	def attributeExists(self, attribute, section):
-		'''
+		"""
 		This Method Checks If An Attribute Exists.
 
 		@param attribute: Attribute To Check Existence. ( String )
 		@param section: Section To Search Attribute Into. ( String )
 		@return: Attribute Existence. ( Boolean )
-		'''
+		"""
 
 		if namespace.removeNamespace(attribute) in self.getAttributes(section, True, False):
 			LOGGER.debug("> '{0}' Attribute Exists In '{1}' Section.".format(attribute, section))
@@ -452,14 +452,14 @@ class Parser(io.File):
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, KeyError)
 	def getAttributes(self, section, orderedDictionary=True, useNamespace=True, raise_=True):
-		'''
+		"""
 		This Method Returns The Section / Files Attributes.
 
 		@param section: Section Containing The Searched Attribute. ( String )
 		@param useNamespace: Use Namespace While Getting Attributes. ( Boolean )
 		@param raise_: Raise If Section Doesn't Exists. ( Boolean )
 		@return: Attributes. ( Dictionary )
-		'''
+		"""
 
 		LOGGER.debug("> Getting Section '{0}' Attributes.".format(section))
 
@@ -477,14 +477,14 @@ class Parser(io.File):
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, KeyError)
 	def getValue(self, attribute, section, encode=False):
-		'''
+		"""
 		This Method Returns The Requested Attribute Value Abstracting The Namespace.
 
 		@param attribute: Attribute Name. ( String )
 		@param section: Section Containing The Searched Attribute. ( String )
 		@param encode: Encode Value To Unicode. ( Boolean )
 		@return: Attribute Value. ( String )
-		'''
+		"""
 
 		if self.attributeExists(attribute, section):
 			if attribute in self._sections[section].keys():
@@ -497,7 +497,7 @@ class Parser(io.File):
 
 @core.executionTrace
 def getAttributeCompound(attribute, value=None, splitter="|", bindingIdentifier="@"):
-	'''
+	"""
 	This Definition Gets An Attribute Compound.
 
 	@param attribute: Attribute. ( String )
@@ -505,7 +505,7 @@ def getAttributeCompound(attribute, value=None, splitter="|", bindingIdentifier=
 	@param splitter: Splitter. ( String )
 	@param bindingIdentifier: Binding Identifier. ( String )
 	@return: Attribute Compound. ( AttributeObject )
-	'''
+	"""
 
 	LOGGER.debug("> Attribute: '{0}', Value: '{1}'.".format(attribute, value))
 

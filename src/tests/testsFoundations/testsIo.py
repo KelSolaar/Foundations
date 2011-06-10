@@ -25,7 +25,7 @@
 #
 #***********************************************************************************************
 
-'''
+"""
 ************************************************************************************************
 ***	testsIo.py
 ***
@@ -38,7 +38,7 @@
 ***	Others:
 ***
 ************************************************************************************************
-'''
+"""
 
 #***********************************************************************************************
 #***	Python Begin
@@ -72,14 +72,14 @@ FILE_CONTENT = ["Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed d
 #***	Module Classes And Definitions
 #***********************************************************************************************
 class FileTestCase(unittest.TestCase):
-	'''
+	"""
 	This Class Is The FileTestCase Class.
-	'''
+	"""
 
 	def testRequiredAttributes(self):
-		'''
+		"""
 		This Method Tests Presence Of Required Attributes.
-		'''
+		"""
 
 		ioFile = File(TEST_FILE)
 		requiredAttributes = ("_file",
@@ -89,9 +89,9 @@ class FileTestCase(unittest.TestCase):
 			self.assertIn(attribute, ioFile.__dict__)
 
 	def testRequiredMethods(self):
-		'''
+		"""
 		This Method Tests Presence Of Required Methods.
-		'''
+		"""
 
 		ioFile = File(TEST_FILE)
 		requiredMethods = ("read",
@@ -102,9 +102,9 @@ class FileTestCase(unittest.TestCase):
 			self.assertIn(method, dir(ioFile))
 
 	def testRead(self):
-		'''
+		"""
 		This Method Tests The "File" Class "read" Method.
-		'''
+		"""
 
 		ioFile = File(TEST_FILE)
 		readSuccess = ioFile.read()
@@ -113,9 +113,9 @@ class FileTestCase(unittest.TestCase):
 		self.assertListEqual(ioFile.content, FILE_CONTENT)
 
 	def testWrite(self):
-		'''
+		"""
 		This Method Tests The "File" Class "write" Method.
-		'''
+		"""
 
 		ioFile = File(tempfile.mkstemp()[1])
 		ioFile.content = FILE_CONTENT
@@ -126,9 +126,9 @@ class FileTestCase(unittest.TestCase):
 		os.remove(ioFile.file)
 
 	def testAppend(self):
-		'''
+		"""
 		This Method Tests The "File" Class "append" Method.
-		'''
+		"""
 
 		ioFile = File(tempfile.mkstemp()[1])
 		ioFile.content = FILE_CONTENT
@@ -140,14 +140,14 @@ class FileTestCase(unittest.TestCase):
 		os.remove(ioFile.file)
 
 class SetLocalDirectoryTestCase(unittest.TestCase):
-	'''
+	"""
 	This Class Is The SetLocalDirectoryTestCase Class.
-	'''
+	"""
 
 	def testSetLocalDirectory(self):
-		'''
+		"""
 		This Method Tests The "setLocalDirectory" Definition.
-		'''
+		"""
 
 		tempDirectory = tempfile.mkdtemp()
 		directoriesTree = "tests/io/setLocalDirectory"

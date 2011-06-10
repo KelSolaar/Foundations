@@ -26,7 +26,7 @@
 #
 #***********************************************************************************************
 
-'''
+"""
 ************************************************************************************************
 ***	common.py
 ***
@@ -39,7 +39,7 @@
 ***	Others:
 ***
 ************************************************************************************************
-'''
+"""
 
 #***********************************************************************************************
 #***	Python Begin
@@ -72,11 +72,11 @@ LOGGER = logging.getLogger(Constants.logger)
 #***********************************************************************************************
 @core.executionTrace
 def getSystemApplicationDatasDirectory():
-	'''
+	"""
 	This Definition Gets The System Application Datas Directory.
 
 	@return: User Application Datas Directory. ( String )
-	'''
+	"""
 
 	if platform.system() == "Windows" or platform.system() == "Microsoft":
 		environmentVariable = Environment("APPDATA")
@@ -92,35 +92,35 @@ def getSystemApplicationDatasDirectory():
 
 @core.executionTrace
 def getUserApplicationDatasDirectory():
-	'''
+	"""
 	This Definition Gets The User Application Directory.
 
 	@return: User Application Directory. ( String )
-	'''
+	"""
 
 	return os.path.join(getSystemApplicationDatasDirectory(), Constants.providerDirectory, Constants.applicationDirectory)
 
 @core.executionTrace
 def closeHandler(logger, handler):
-	'''
+	"""
 	This Definition Shuts Down The Provided Handler.
 
 	@param logger: Current Logger. ( Object )
 	@param handler: Current Handler. ( Object )
-	'''
+	"""
 
 	len(logger.__dict__["handlers"]) and LOGGER.debug("> Stopping Handler: '{0}'.".format(handler))
 	logger.removeHandler(handler)
 
 @core.executionTrace
 def exit(exitCode, logger, handlers):
-	'''
+	"""
 	This Definition Shuts Down The Logging And Exit The Current Process.
 
 	@param exitCode: Current Exit Code. ( Integer )
 	@param logger: Current Logger. ( Object )
 	@param handlers: Handlers. ( Object )
-	'''
+	"""
 
 	LOGGER.debug("> {0} | Exiting Current Process!".format(core.getModule(exit).__name__))
 
@@ -133,11 +133,11 @@ def exit(exitCode, logger, handlers):
 
 @core.executionTrace
 def wait(waitTime):
-	'''
+	"""
 	This Definition Is A Wait Timer.
 
 	@param waitTime: Current Sleep Time In Seconds. ( Integer )
-	'''
+	"""
 
 	LOGGER.debug("> Waiting '{0}' Seconds!".format(waitTime))
 

@@ -26,7 +26,7 @@
 #
 #***********************************************************************************************
 
-'''
+"""
 ************************************************************************************************
 ***	pkzip.py
 ***
@@ -39,7 +39,7 @@
 ***	Others:
 ***
 ************************************************************************************************
-'''
+"""
 
 #***********************************************************************************************
 #***	Python Begin
@@ -70,17 +70,17 @@ LOGGER = logging.getLogger(Constants.logger)
 #***	Module Classes And Definitions
 #***********************************************************************************************
 class Pkzip(object):
-	'''
+	"""
 	This Class Provides Methods To Manipulate Zip Files.
-	'''
+	"""
 
 	@core.executionTrace
 	def __init__(self, archive=None):
-		'''
+		"""
 		This Method Initializes The Class.
 
 		@param archive: Variable To Manipulate. ( String )
-		'''
+		"""
 
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
@@ -93,22 +93,22 @@ class Pkzip(object):
 	#***************************************************************************************
 	@property
 	def archive(self):
-		'''
+		"""
 		This Method Is The Property For The _archive Attribute.
 		
 		@return: self._archive. ( String )
-		'''
+		"""
 
 		return self._archive
 
 	@archive.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def archive(self, value):
-		'''
+		"""
 		This Method Is The Setter Method For The _archive Attribute.
 		
 		@param value: Attribute Value. ( String )
-		'''
+		"""
 
 		if value:
 			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("archive", value)
@@ -118,9 +118,9 @@ class Pkzip(object):
 	@archive.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def archive(self):
-		'''
+		"""
 		This Method Is The Deleter Method For The _archive Attribute.
-		'''
+		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("archive"))
 
@@ -130,11 +130,11 @@ class Pkzip(object):
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, OSError)
 	def extract(self, target):
-		'''
+		"""
 		This Method Extracts The Archive File To The Provided Folder.
 		
 		@return: Extraction Success. ( Boolean )
-		'''
+		"""
 
 		archive = zipfile.ZipFile(self._archive)
 		content = archive.namelist()

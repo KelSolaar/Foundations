@@ -26,7 +26,7 @@
 #
 #***********************************************************************************************
 
-'''
+"""
 ************************************************************************************************
 ***	testsStreamObject.py
 ***
@@ -39,7 +39,7 @@
 ***	Others:
 ***
 ************************************************************************************************
-'''
+"""
 
 #***********************************************************************************************
 #***	Python Begin
@@ -63,14 +63,14 @@ from foundations.streamObject import StreamObject
 #***	Module Classes And Definitions
 #***********************************************************************************************
 class StreamObjectTestCase(unittest.TestCase):
-	'''
+	"""
 	This Class Is The StreamObjectTestCase Class.
-	'''
+	"""
 
 	def testRequiredAttributes(self):
-		'''
+		"""
 		This Method Tests Presence Of Required Attributes.
-		'''
+		"""
 
 		streamObject = StreamObject()
 		requiredAttributes = ("_stream",)
@@ -79,9 +79,9 @@ class StreamObjectTestCase(unittest.TestCase):
 			self.assertIn(attribute, streamObject.__dict__)
 
 	def testRequiredMethods(self):
-		'''
+		"""
 		This Method Tests Presence Of Required Methods.
-		'''
+		"""
 
 		streamObject = StreamObject()
 		requiredMethods = ("write",

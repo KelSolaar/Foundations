@@ -26,7 +26,7 @@
 #
 #***********************************************************************************************
 
-'''
+"""
 ************************************************************************************************
 ***	testsCore.py
 ***
@@ -39,7 +39,7 @@
 ***	Others:
 ***
 ************************************************************************************************
-'''
+"""
 
 #***********************************************************************************************
 #***	Python Begin
@@ -67,14 +67,14 @@ from globals.constants import Constants
 #***	Module Classes And Definitions
 #***********************************************************************************************
 class StandardMessageHookTestCase(unittest.TestCase):
-	'''
+	"""
 	This Class Is The StandardMessageHookTestCase Class.
-	'''
+	"""
 
 	def testRequiredAttributes(self):
-		'''
+		"""
 		This Method Tests Presence Of Required Attributes.
-		'''
+		"""
 
 		hook = core.StandardMessageHook(None)
 		requiredAttributes = ("_logger",)
@@ -83,9 +83,9 @@ class StandardMessageHookTestCase(unittest.TestCase):
 			self.assertIn(attribute, hook.__dict__)
 
 	def testRequiredMethods(self):
-		'''
+		"""
 		This Method Tests Presence Of Required Methods.
-		'''
+		"""
 
 		hook = core.StandardMessageHook(None)
 		requiredMethods = ("write",)
@@ -94,14 +94,14 @@ class StandardMessageHookTestCase(unittest.TestCase):
 			self.assertIn(method, dir(hook))
 
 class SetVerbosityLevelTestCase(unittest.TestCase):
-	'''
+	"""
 	This Class Is The SetVerbosityLevelTestCase Class.
-	'''
+	"""
 
 	def testSetVerbosityLevel(self):
-		'''
+		"""
 		This Method Tests The "setVerbosityLevel" definition.
-		'''
+		"""
 
 		LOGGER = logging.getLogger(Constants.logger)
 		levels = {logging.CRITICAL:0, logging.ERROR:1, logging.WARNING:2, logging.INFO:3, logging.DEBUG:4  }
@@ -110,53 +110,53 @@ class SetVerbosityLevelTestCase(unittest.TestCase):
 			self.assertEqual(level, LOGGER.level)
 
 class GetFrameTestCase(unittest.TestCase):
-	'''
+	"""
 	This Class Is The GetFrameTestCase Class.
-	'''
+	"""
 
 	def testGetFrame(self):
-		'''
+		"""
 		This Method Tests The "getFrame" definition.
-		'''
+		"""
 
 		self.assertIsInstance(core.getFrame(0), inspect.currentframe().__class__)
 
 class GetCodeLayerNameTestCase(unittest.TestCase):
-	'''
+	"""
 	This Class Is The GetCodeLayerNameTestCase Class.
-	'''
+	"""
 
 	def testGetCodeLayerName(self):
-		'''
+		"""
 		This Method Tests The "getCodeLayerName" definition.
-		'''
+		"""
 
 		codeLayerName = core.getCodeLayerName()
 		self.assertIsInstance(codeLayerName, str)
 		self.assertEqual(codeLayerName, inspect.currentframe().f_code.co_name)
 
 class GetModuleTestCase(unittest.TestCase):
-	'''
+	"""
 	This Class Is The GetCodeLayerNameTestCase Class.
-	'''
+	"""
 
 	def testGetModule(self):
-		'''
+		"""
 		This Method Tests The "getModule" definition.
-		'''
+		"""
 
 		self.assertEqual(type(core.getModule(object)), types.ModuleType)
 		self.assertEqual(core.getModule(object), inspect.getmodule(object))
 
 class GetObjectNameTestCase(unittest.TestCase):
-	'''
+	"""
 	This Class Is The GetObjectNameTestCase Class.
-	'''
+	"""
 
 	def testGetObjectName(self):
-		'''
+		"""
 		This Method Tests The "getObjectName" definition.
-		'''
+		"""
 
 		objectName = core.getObjectName(object)
 		self.assertIsInstance(objectName, str)
