@@ -1,6 +1,10 @@
-h1=. Foundations - 1.0.3 - Stable
+h1=. Foundations - 1.0.4 - Stable
 
 h2=. Change Log
+
+h3. 1.0.4 - Stable
+
+* Add "rotatingBackup" module and associated "testsRotatingBackup" units tests module.
 
 h3. 1.0.3 - Stable
 
