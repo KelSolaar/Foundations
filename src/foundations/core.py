@@ -181,41 +181,41 @@ def getCodeLayerName():
 			return frame.f_code.co_name
 	return UNDEFINED_CODE_LAYER
 
-def getModule(object_):
+def getModule(object):
 	"""
 	This Definition Returns The Frame Module Name.
 
-	@param object_: Object. ( Object )
+	@param object: Object. ( Object )
 	@return: Frame Module. ( Module )
 	"""
 
-	return inspect.getmodule(object_)
+	return inspect.getmodule(object)
 
-def getObjectName(object_):
+def getObjectName(object):
 	"""
 	This Definition Returns The Object Name Related To The Provided Frame.
 
-	@param object_: Object. ( Object )
+	@param object: Object. ( Object )
 	@return: Object Name. ( String )
 	"""
 
-	moduleName = getModule(inspect.getmodule(object_)).__name__
+	moduleName = getModule(inspect.getmodule(object)).__name__
 	codeLayerName = getCodeLayerName()
 	codeLayerName = codeLayerName != UNDEFINED_CODE_LAYER and codeLayerName != "<module>" and "{0}.".format(codeLayerName) or ""
 
-	return hasattr(object_, "__name__") and "{0} | {1}{2}()".format(moduleName, codeLayerName, object_.__name__) or UNDEFINED_OBJECT
+	return hasattr(object, "__name__") and "{0} | {1}{2}()".format(moduleName, codeLayerName, object.__name__) or UNDEFINED_OBJECT
 
-def executionTrace(object_):
+def executionTrace(object):
 	"""
 	This Decorator Is Used For Function Tracing.
 
-	@param object_: Object To Decorate. ( Object )
+	@param object: Object To Decorate. ( Object )
 	@return: Object. ( Object )
 	"""
 
-	origin = getObjectName(object_)
+	origin = getObjectName(object)
 
-	@functools.wraps(object_)
+	@functools.wraps(object)
 	def function(*args, **kwargs):
 		"""
 		This Decorator Is Used For Function Tracing.
@@ -227,7 +227,7 @@ def executionTrace(object_):
 
 		LOGGER and LOGGER.__dict__["handlers"] != {} and LOGGER.debug("--->>> '{0}' <<<---".format(origin))
 
-		value = object_(*args, **kwargs)
+		value = object(*args, **kwargs)
 
 		LOGGER and LOGGER.__dict__["handlers"] != {} and LOGGER.debug("---<<< '{0}' >>>---".format(origin))
 
