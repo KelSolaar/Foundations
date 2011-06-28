@@ -109,19 +109,19 @@ class Parser(io.File):
 		io.File.__init__(self, file)
 
 		# --- Setting Class Attributes. ---
-		self._splitter = None
+		self.__splitter = None
 		self.splitter = splitter
-		self._namespaceSplitter = None
+		self.__namespaceSplitter = None
 		self.namespaceSplitter = namespaceSplitter
-		self._commentLimiter = None
+		self.__commentLimiter = None
 		self.commentLimiter = commentLimiter
-		self._commentMarker = None
+		self.__commentMarker = None
 		self.commentMarker = commentMarker
-		self._rawSectionContentIdentifier = None
+		self.__rawSectionContentIdentifier = None
 		self.rawSectionContentIdentifier = rawSectionContentIdentifier
 
-		self._sections = None
-		self._comments = None
+		self.__sections = None
+		self.__comments = None
 
 	#***************************************************************************************
 	#***	Attributes Properties
@@ -131,10 +131,10 @@ class Parser(io.File):
 		"""
 		This Method Is The Property For The _splitter Attribute.
 
-		@return: self._splitter. ( String )
+		@return: self.__splitter. ( String )
 		"""
 
-		return self._splitter
+		return self.__splitter
 
 	@splitter.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
@@ -149,7 +149,7 @@ class Parser(io.File):
 			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("splitter", value)
 			assert len(value) == 1, "'{0}' Attribute: '{1}' Has Multiples Characters!".format("splitter", value)
 			assert not re.search("\w", value), "'{0}' Attribute: '{1}' Is An AlphaNumeric Character!".format("splitter", value)
-		self._splitter = value
+		self.__splitter = value
 
 	@splitter.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -165,10 +165,10 @@ class Parser(io.File):
 		"""
 		This Method Is The Property For The _namespaceSplitter Attribute.
 
-		@return: self._namespaceSplitter. ( String )
+		@return: self.__namespaceSplitter. ( String )
 		"""
 
-		return self._namespaceSplitter
+		return self.__namespaceSplitter
 
 	@namespaceSplitter.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
@@ -183,7 +183,7 @@ class Parser(io.File):
 			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("namespaceSplitter", value)
 			assert len(value) == 1, "'{0}' Attribute: '{1}' Has Multiples Characters!".format("namespaceSplitter", value)
 			assert not re.search("\w", value), "'{0}' Attribute: '{1}' Is An AlphaNumeric Character!".format("namespaceSplitter", value)
-		self._namespaceSplitter = value
+		self.__namespaceSplitter = value
 
 	@namespaceSplitter.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -199,10 +199,10 @@ class Parser(io.File):
 		"""
 		This Method Is The Property For The _commentLimiter Attribute.
 
-		@return: self._commentLimiter. ( String )
+		@return: self.__commentLimiter. ( String )
 		"""
 
-		return self._commentLimiter
+		return self.__commentLimiter
 
 	@commentLimiter.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
@@ -216,7 +216,7 @@ class Parser(io.File):
 		if value:
 			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("commentLimiter", value)
 			assert not re.search("\w", value), "'{0}' Attribute: '{1}' Is An AlphaNumeric Character!".format("commentLimiter", value)
-		self._commentLimiter = value
+		self.__commentLimiter = value
 
 	@commentLimiter.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -232,10 +232,10 @@ class Parser(io.File):
 		"""
 		This Method Is The Property For The _commentMarker Attribute.
 
-		@return: self._commentMarker. ( String )
+		@return: self.__commentMarker. ( String )
 		"""
 
-		return self._commentMarker
+		return self.__commentMarker
 
 	@commentMarker.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
@@ -249,7 +249,7 @@ class Parser(io.File):
 		if value:
 			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("commentMarker", value)
 			assert not re.search("\w", value), "'{0}' Attribute: '{1}' Is An AlphaNumeric Character!".format("commentMarker", value)
-		self._commentMarker = value
+		self.__commentMarker = value
 
 	@commentMarker.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -265,10 +265,10 @@ class Parser(io.File):
 		"""
 		This Method Is The Property For The _rawSectionContentIdentifier Attribute.
 
-		@return: self._rawSectionContentIdentifier. ( String )
+		@return: self.__rawSectionContentIdentifier. ( String )
 		"""
 
-		return self._rawSectionContentIdentifier
+		return self.__rawSectionContentIdentifier
 
 	@rawSectionContentIdentifier.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
@@ -281,7 +281,7 @@ class Parser(io.File):
 
 		if value:
 			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("rawSectionContentIdentifier", value)
-		self._rawSectionContentIdentifier = value
+		self.__rawSectionContentIdentifier = value
 
 	@rawSectionContentIdentifier.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -297,10 +297,10 @@ class Parser(io.File):
 		"""
 		This Method Is The Property For The _sections Attribute.
 
-		@return: self._sections. ( Dictionary )
+		@return: self.__sections. ( Dictionary )
 		"""
 
-		return self._sections
+		return self.__sections
 
 	@sections.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
@@ -313,7 +313,7 @@ class Parser(io.File):
 
 		if value:
 			assert type(value) is dict, "'{0}' Attribute: '{1}' Type Is Not 'dict'!".format("sections", value)
-		self._sections = value
+		self.__sections = value
 
 	@sections.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -329,10 +329,10 @@ class Parser(io.File):
 		"""
 		This Method Is The Property For The _comments Attribute.
 
-		@return: self._comments. ( Dictionary )
+		@return: self.__comments. ( Dictionary )
 		"""
 
-		return self._comments
+		return self.__comments
 
 
 	@comments.setter
@@ -346,7 +346,7 @@ class Parser(io.File):
 
 		if value:
 			assert type(value) is dict, "'{0}' Attribute: '{1}' Type Is Not 'dict'!".format("comments", value)
-		self._comments = value
+		self.__comments = value
 
 	@comments.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -372,18 +372,18 @@ class Parser(io.File):
 		@return: Parsing Success. ( Boolean )
 		"""
 
-		LOGGER.debug("> Reading Sections From: '{0}'.".format(self._file))
-		if self._content:
-			if re.search("^\[.*\]", self._content[0]):
+		LOGGER.debug("> Reading Sections From: '{0}'.".format(self.file))
+		if self.content:
+			if re.search("^\[.*\]", self.content[0]):
 				if not orderedDictionary:
-					self._sections = {}
-					self._comments = {}
+					self.__sections = {}
+					self.__comments = {}
 				else:
-					self._sections = OrderedDict()
-					self._comments = OrderedDict()
+					self.__sections = OrderedDict()
+					self.__comments = OrderedDict()
 				rawSections = rawSections or []
 				commentId = 0
-				for line in self._content:
+				for line in self.content:
 					if re.search("^\[.*\]", line):
 						section = re.search("(?<=^\[)(.*)(?=\])", line)
 						section = section.group(0)
@@ -395,25 +395,25 @@ class Parser(io.File):
 					else:
 						if section in rawSections:
 							rawContent.append(line)
-							attributes[section + self._namespaceSplitter + self._rawSectionContentIdentifier] = rawContent
+							attributes[section + self.__namespaceSplitter + self.__rawSectionContentIdentifier] = rawContent
 						else:
 							if re.search("^ *\n", line) or re.search("^ *\r\n", line):
 								continue
 							else:
-								if line.startswith(self._commentLimiter) and not stripComments:
-									self._comments[section + self._namespaceSplitter + self._commentMarker + str(commentId)] = {"id" : commentId, "content" : line.strip().strip(self._commentLimiter)}
+								if line.startswith(self.__commentLimiter) and not stripComments:
+									self.__comments[section + self.__namespaceSplitter + self.__commentMarker + str(commentId)] = {"id" : commentId, "content" : line.strip().strip(self.__commentLimiter)}
 									commentId += 1
-								elif self._splitter in line:
-									lineTokens = line.split(self._splitter, 1)
-									attributes[section + self._namespaceSplitter + lineTokens[0].strip()] = lineTokens[1].strip().strip("\"")
-						self._sections[section] = attributes
+								elif self.__splitter in line:
+									lineTokens = line.split(self.__splitter, 1)
+									attributes[section + self.__namespaceSplitter + lineTokens[0].strip()] = lineTokens[1].strip().strip("\"")
+						self.__sections[section] = attributes
 
-				LOGGER.debug("> Sections: '{0}'.".format(self._sections))
-				LOGGER.debug("> '{0}' File Parsing Done!".format(self._file))
+				LOGGER.debug("> Sections: '{0}'.".format(self.__sections))
+				LOGGER.debug("> '{0}' File Parsing Done!".format(self.file))
 				return True
 
 			else:
-				raise foundations.exceptions.FileStructureError("'{0}' Structure Is Invalid: No Section Found At First Line!".format(self._file))
+				raise foundations.exceptions.FileStructureError("'{0}' Structure Is Invalid: No Section Found At First Line!".format(self.file))
 
 	@core.executionTrace
 	def sectionsExists(self, section):
@@ -424,7 +424,7 @@ class Parser(io.File):
 		@return: Section Existence. ( Boolean )
 		"""
 
-		if section in self._sections.keys():
+		if section in self.__sections.keys():
 			LOGGER.debug("> '{0}' Section Exists In '{1}'.".format(section, self))
 			return True
 		else:
@@ -465,14 +465,14 @@ class Parser(io.File):
 
 		if self.sectionsExists(section):
 			dictionary = orderedDictionary and OrderedDict or dict
-			attributes = useNamespace and self._sections[section] or dictionary(((namespace.removeNamespace(attribute), self._sections[section][attribute]) for attribute in self._sections[section].keys()))
+			attributes = useNamespace and self.__sections[section] or dictionary(((namespace.removeNamespace(attribute), self.__sections[section][attribute]) for attribute in self.__sections[section].keys()))
 			LOGGER.debug("> Attributes: '{0}'.".format(attributes))
 			return attributes
 		else:
 			if raise_:
-				raise KeyError("'{0}' Section Doesn't Exists In '{1}' Sections!".format(section, self._file))
+				raise KeyError("'{0}' Section Doesn't Exists In '{1}' Sections!".format(section, self.file))
 			else:
-				LOGGER.warning("!> {0} | '{1}' Section Doesn't Exists In '{2}' Sections!".format(self.__class__.__name__, section, self._file))
+				LOGGER.warning("!> {0} | '{1}' Section Doesn't Exists In '{2}' Sections!".format(self.__class__.__name__, section, self.file))
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, KeyError)
@@ -487,10 +487,10 @@ class Parser(io.File):
 		"""
 
 		if self.attributeExists(attribute, section):
-			if attribute in self._sections[section].keys():
-				value = self._sections[section][attribute]
-			elif namespace.setNamespace(section, attribute) in self._sections[section].keys():
-				value = self._sections[section][namespace.setNamespace(section, attribute)]
+			if attribute in self.__sections[section].keys():
+				value = self.__sections[section][attribute]
+			elif namespace.setNamespace(section, attribute) in self.__sections[section].keys():
+				value = self.__sections[section][namespace.setNamespace(section, attribute)]
 			LOGGER.debug("> Attribute: '{0}', Value: '{1}'.".format(attribute, value))
 			value = encode and unicode(value, Constants.encodingFormat, Constants.encodingError) or value
 			return value

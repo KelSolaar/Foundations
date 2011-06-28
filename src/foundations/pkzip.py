@@ -85,7 +85,7 @@ class Pkzip(object):
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
 		# --- Setting Class Attributes. ---
-		self._archive = None
+		self.__archive = None
 		self.archive = archive
 
 	#***************************************************************************************
@@ -96,10 +96,10 @@ class Pkzip(object):
 		"""
 		This Method Is The Property For The _archive Attribute.
 		
-		@return: self._archive. ( String )
+		@return: self.__archive. ( String )
 		"""
 
-		return self._archive
+		return self.__archive
 
 	@archive.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
@@ -113,7 +113,7 @@ class Pkzip(object):
 		if value:
 			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("archive", value)
 			assert os.path.exists(value), "'{0}' Attribute: '{1}' File Doesn't Exists!".format("archive", value)
-		self._archive = value
+		self.__archive = value
 
 	@archive.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -136,7 +136,7 @@ class Pkzip(object):
 		@return: Extraction Success. ( Boolean )
 		"""
 
-		archive = zipfile.ZipFile(self._archive)
+		archive = zipfile.ZipFile(self.__archive)
 		content = archive.namelist()
 
 		folders = [item for item in content if item.endswith("/")]

@@ -74,10 +74,10 @@ class EnvironmentTestCase(unittest.TestCase):
 		"""
 
 		environment = Environment()
-		requiredAttributes = ("_variable",)
+		requiredAttributes = ("variable",)
 
 		for attribute in requiredAttributes:
-			self.assertIn(attribute, environment.__dict__)
+			self.assertIn(attribute, dir(environment))
 
 	def testRequiredMethods(self):
 		"""

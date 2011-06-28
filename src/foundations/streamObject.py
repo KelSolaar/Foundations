@@ -60,7 +60,7 @@ class StreamObject(object):
 		@param stream: Stream Object. ( Object )
 		"""
 
-		self._stream = []
+		self.__stream = []
 
 	#***************************************************************************************
 	#***	Attributes Properties
@@ -70,10 +70,10 @@ class StreamObject(object):
 		"""
 		This Method Is The Property For The _stream Attribute.
 		
-		@return: self._stream. ( List )
+		@return: self.__stream. ( List )
 		"""
 
-		return self._stream
+		return self.__stream
 
 	@stream.setter
 	def stream(self, value):
@@ -85,7 +85,7 @@ class StreamObject(object):
 
 		if value:
 			assert type(value) is list, "'{0}' Attribute: '{1}' Type Is Not 'list'!".format("stream", value)
-		self._stream = value
+		self.__stream = value
 
 	@stream.deleter
 	def stream(self):
@@ -105,7 +105,7 @@ class StreamObject(object):
 		@param message: Current Message. ( String )
 		"""
 
-		self._stream.append(message)
+		self.__stream.append(message)
 
 	def flush(self):
 		"""

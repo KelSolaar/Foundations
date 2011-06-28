@@ -73,10 +73,10 @@ class StreamObjectTestCase(unittest.TestCase):
 		"""
 
 		streamObject = StreamObject()
-		requiredAttributes = ("_stream",)
+		requiredAttributes = ("stream",)
 
 		for attribute in requiredAttributes:
-			self.assertIn(attribute, streamObject.__dict__)
+			self.assertIn(attribute, dir(streamObject))
 
 	def testRequiredMethods(self):
 		"""

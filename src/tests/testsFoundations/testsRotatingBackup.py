@@ -79,10 +79,12 @@ class RotatingBackupTestCase(unittest.TestCase):
 		"""
 
 		rotatingBackup = RotatingBackup()
-		requiredAttributes = ("_source", "_destination", "_count")
+		requiredAttributes = ("source",
+							"destination",
+							"count")
 
 		for attribute in requiredAttributes:
-			self.assertIn(attribute, rotatingBackup.__dict__)
+			self.assertIn(attribute, dir(rotatingBackup))
 
 	def testRequiredMethods(self):
 		"""
@@ -104,7 +106,7 @@ class RotatingBackupTestCase(unittest.TestCase):
 		rotatingBackup = RotatingBackup(TEST_FILE, tempDirectory, 3)
 		rotatingBackup.backup()
 		self.assertTrue(os.path.exists(os.path.join(tempDirectory, os.path.basename(TEST_FILE))))
-		for i in range(1,4):
+		for i in range(1, 4):
 			rotatingBackup.backup()
 			self.assertTrue(os.path.exists(os.path.join(tempDirectory, os.path.basename("{0}.{1}".format(TEST_FILE, i)))))
 		rotatingBackup.backup()

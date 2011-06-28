@@ -91,7 +91,7 @@ class StandardMessageHook(object):
 		@param logger: LOGGER. ( Object )
 		"""
 
-		self._logger = logger
+		self.__logger = logger
 
 	#***************************************************************************************
 	#***	Attributes Properties
@@ -101,10 +101,10 @@ class StandardMessageHook(object):
 		"""
 		This Method Is The Property For The _logger Attribute.
 
-		@return: self._logger. ( Object )
+		@return: self.__logger. ( Object )
 		"""
 
-		return self._logger
+		return self.__logger
 
 	@logger.setter
 	def logger(self, value):
@@ -134,7 +134,7 @@ class StandardMessageHook(object):
 		@param message: Message. ( String )
 		"""
 
-		for handler in self._logger.__dict__["handlers"]:
+		for handler in self.__logger.__dict__["handlers"]:
 			handler.stream.write(message)
 
 #***********************************************************************************************

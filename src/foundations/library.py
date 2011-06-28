@@ -91,12 +91,12 @@ class Library(object):
 	This Class Provides Methods To Bind A C / C++ Library.
 	"""
 
-	_librariesInstances = {}
+	librariesInstances = {}
 
 	if platform.system() == "Windows" or platform.system() == "Microsoft":
-		_callback = ctypes.WINFUNCTYPE(ctypes.c_void_p, ctypes.c_int, ctypes.c_char_p)
+		callback = ctypes.WINFUNCTYPE(ctypes.c_void_p, ctypes.c_int, ctypes.c_char_p)
 	else:
-		_callback = ctypes.CFUNCTYPE(ctypes.c_void_p, ctypes.c_int, ctypes.c_char_p)
+		callback = ctypes.CFUNCTYPE(ctypes.c_void_p, ctypes.c_int, ctypes.c_char_p)
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.LibraryInstantiationError)
@@ -110,9 +110,9 @@ class Library(object):
 
 		libraryPath = args[0]
 		if os.path.exists(libraryPath):
-			if not args[0] in self._librariesInstances.keys():
-				self._librariesInstances[args[0]] = object.__new__(self)
-			return self._librariesInstances[args[0]]
+			if not args[0] in self.librariesInstances.keys():
+				self.librariesInstances[args[0]] = object.__new__(self)
+			return self.librariesInstances[args[0]]
 		else:
 			raise foundations.exceptions.LibraryInstantiationError("'{0}' Library Path Doesn't Exists!".format(libraryPath))
 
@@ -126,20 +126,20 @@ class Library(object):
 		@param functions: Binding Functions List. ( Tuple )
 		"""
 
-		if hasattr(self._librariesInstances[libraryPath], "_libraryInstantiated"):
+		if hasattr(self.librariesInstances[libraryPath], "_libraryInstantiated"):
 			return
 
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
 		# --- Setting Class Attributes. ---
-		self._libraryInstantiated = True
+		self.__libraryInstantiated = True
 
-		self._libraryPath = None
+		self.__libraryPath = None
 		self.libraryPath = libraryPath
-		self._functions = None
+		self.__functions = None
 		self.functions = functions
 
-		self._library = None
+		self.__library = None
 
 		if platform.system() == "Windows" or platform.system() == "Microsoft":
 			loadingFunction = ctypes.windll
@@ -147,7 +147,7 @@ class Library(object):
 			loadingFunction = ctypes.cdll
 
 		if self.libraryPath:
-			self._library = loadingFunction.LoadLibrary(libraryPath)
+			self.__library = loadingFunction.LoadLibrary(libraryPath)
 		else:
 			raise foundations.exceptions.LibraryInitializationError, "'{0}' Library Not Found!".format(self.__class__.__name__)
 
@@ -161,10 +161,10 @@ class Library(object):
 		"""
 		This Method Is The Property For The _libraryInstantiated Attribute.
 		
-		@return: self._libraryInstantiated. ( String )
+		@return: self.__libraryInstantiated. ( String )
 		"""
 
-		return self._libraryInstantiated
+		return self.__libraryInstantiated
 
 	@libraryInstantiated.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
@@ -191,10 +191,10 @@ class Library(object):
 		"""
 		This Method Is The Property For The _libraryPath Attribute.
 		
-		@return: self._libraryPath. ( String )
+		@return: self.__libraryPath. ( String )
 		"""
 
-		return self._libraryPath
+		return self.__libraryPath
 
 	@libraryPath.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
@@ -208,7 +208,7 @@ class Library(object):
 		if value:
 			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("libraryPath", value)
 			assert os.path.exists(value), "'{0}' Attribute: '{1}' File Doesn't Exists!".format("libraryPath", value)
-		self._libraryPath = value
+		self.__libraryPath = value
 
 	@libraryPath.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -224,10 +224,10 @@ class Library(object):
 		"""
 		This Method Is The Property For The _functions Attribute.
 		
-		@return: self._functions. ( String )
+		@return: self.__functions. ( String )
 		"""
 
-		return self._functions
+		return self.__functions
 
 	@functions.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
@@ -240,7 +240,7 @@ class Library(object):
 
 		if value:
 			assert type(value) is tuple, "'{0}' Attribute: '{1}' Type Is Not 'tuple'!".format("functions", value)
-		self._functions = value
+		self.__functions = value
 
 	@functions.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -256,10 +256,10 @@ class Library(object):
 		"""
 		This Method Is The Property For The _library Attribute.
 		
-		@return: self._library. ( Object )
+		@return: self.__library. ( Object )
 		"""
 
-		return self._library
+		return self.__library
 
 	@library.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
@@ -270,7 +270,7 @@ class Library(object):
 		@param value: Attribute Value. ( Object )
 		"""
 
-		self._library = value
+		self.__library = value
 
 	@library.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -297,9 +297,9 @@ class Library(object):
 		returnType = function.returnValue
 
 		if platform.system() == "Windows" or platform.system() == "Microsoft":
-			functionObject = getattr(self._library, "{0}".format(function.name, function.affixe))
+			functionObject = getattr(self.__library, "{0}".format(function.name, function.affixe))
 		else:
-			functionObject = getattr(self._library, function.name)
+			functionObject = getattr(self.__library, function.name)
 
 		setattr(self, function.name, functionObject)
 
@@ -313,8 +313,8 @@ class Library(object):
 		This Method Bind The Library.
 		"""
 
-		if self._functions:
-			for function in self._functions:
+		if self.__functions:
+			for function in self.__functions:
 				self.bindFunction(function)
 
 #***********************************************************************************************

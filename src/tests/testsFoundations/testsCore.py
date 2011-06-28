@@ -77,10 +77,10 @@ class StandardMessageHookTestCase(unittest.TestCase):
 		"""
 
 		hook = core.StandardMessageHook(None)
-		requiredAttributes = ("_logger",)
+		requiredAttributes = ("logger",)
 
 		for attribute in requiredAttributes:
-			self.assertIn(attribute, hook.__dict__)
+			self.assertIn(attribute, dir(hook))
 
 	def testRequiredMethods(self):
 		"""

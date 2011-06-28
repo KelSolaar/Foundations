@@ -85,12 +85,12 @@ class RotatingBackup(object):
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
 		# --- Setting Class Attributes. ---
-		self._source = None
-		self._source = source
-		self._destination = None
-		self._destination = destination
-		self._count = None
-		self._count = count
+		self.__source = None
+		self.__source = source
+		self.__destination = None
+		self.__destination = destination
+		self.__count = None
+		self.__count = count
 
 	#***************************************************************************************
 	#***	Attributes Properties
@@ -100,10 +100,10 @@ class RotatingBackup(object):
 		"""
 		This Method Is The Property For The _source Attribute.
 
-		@return: self._source. ( String )
+		@return: self.__source. ( String )
 		"""
 
-		return self._source
+		return self.__source
 
 	@source.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
@@ -117,7 +117,7 @@ class RotatingBackup(object):
 		if value:
 			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("source", value)
 			assert os.path.exists(value), "'{0}' Attribute: '{1}' File Doesn't Exists!".format("source", value)
-		self._source = value
+		self.__source = value
 
 	@source.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -133,10 +133,10 @@ class RotatingBackup(object):
 		"""
 		This Method Is The Property For The _destination Attribute.
 
-		@return: self._destination. ( String )
+		@return: self.__destination. ( String )
 		"""
 
-		return self._destination
+		return self.__destination
 
 	@destination.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
@@ -149,7 +149,7 @@ class RotatingBackup(object):
 
 		if value:
 			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("destination", value)
-		self._destination = value
+		self.__destination = value
 
 	@destination.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -165,10 +165,10 @@ class RotatingBackup(object):
 		"""
 		This Method Is The Property For The _count Attribute.
 
-		@return: self._count. ( Integer )
+		@return: self.__count. ( Integer )
 		"""
 
-		return self._count
+		return self.__count
 
 	@count.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
@@ -202,12 +202,12 @@ class RotatingBackup(object):
 		This Method Does The Rotating Backup.
 		"""
 
-		LOGGER.debug("> Storing '{0}' File Backup.".format(self._source))
+		LOGGER.debug("> Storing '{0}' File Backup.".format(self.__source))
 
-		if self._source and self._destination:
-			os.path.exists(self._destination) or os.mkdir(self._destination)
-			destination = os.path.join(self._destination, os.path.basename(self._source))
-			for i in range(self._count - 1, 0, -1):
+		if self.__source and self.__destination:
+			os.path.exists(self.__destination) or os.mkdir(self.__destination)
+			destination = os.path.join(self.__destination, os.path.basename(self.__source))
+			for i in range(self.__count - 1, 0, -1):
 				sfn = "{0}.{1}".format(destination, i)
 				dfn = "{0}.{1}".format(destination, i + 1)
 				if os.path.exists(sfn):
@@ -215,7 +215,7 @@ class RotatingBackup(object):
 						self.delete(dfn)
 					os.renames(sfn, dfn)
 			os.path.exists(destination) and os.rename(destination, destination + ".1")
-			self.copy(self._source, destination)
+			self.copy(self.__source, destination)
 
 	@foundations.exceptions.exceptionsHandler(None, False, OSError)
 	@core.executionTrace

@@ -130,18 +130,18 @@ class ParserTestCase(unittest.TestCase):
 		"""
 
 		parser = Parser(IBL_SET_FILE)
-		requiredAttributes = ("_file",
-								"_content",
-								"_splitter",
-								"_namespaceSplitter",
-								"_commentLimiter",
-								"_commentMarker",
-								"_rawSectionContentIdentifier",
-								"_sections",
-								"_comments")
+		requiredAttributes = ("file",
+								"content",
+								"splitter",
+								"namespaceSplitter",
+								"commentLimiter",
+								"commentMarker",
+								"rawSectionContentIdentifier",
+								"sections",
+								"comments")
 
 		for attribute in requiredAttributes:
-			self.assertIn(attribute, parser.__dict__)
+			self.assertIn(attribute, dir(parser))
 
 	def testRequiredMethods(self):
 		"""

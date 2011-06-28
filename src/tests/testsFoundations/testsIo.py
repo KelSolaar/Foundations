@@ -82,11 +82,11 @@ class FileTestCase(unittest.TestCase):
 		"""
 
 		ioFile = File(TEST_FILE)
-		requiredAttributes = ("_file",
-								"_content")
+		requiredAttributes = ("file",
+								"content")
 
 		for attribute in requiredAttributes:
-			self.assertIn(attribute, ioFile.__dict__)
+			self.assertIn(attribute, dir(ioFile))
 
 	def testRequiredMethods(self):
 		"""

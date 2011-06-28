@@ -81,10 +81,10 @@ class PkzipTestCase(unittest.TestCase):
 		"""
 
 		zipFile = Pkzip(TEST_FILE)
-		requiredAttributes = ("_archive",)
+		requiredAttributes = ("archive",)
 
 		for attribute in requiredAttributes:
-			self.assertIn(attribute, zipFile.__dict__)
+			self.assertIn(attribute, dir(zipFile))
 
 	def testRequiredMethods(self):
 		"""

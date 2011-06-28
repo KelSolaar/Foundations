@@ -83,9 +83,9 @@ class File(object):
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
 		# --- Setting Class Attributes. ---
-		self._file = None
+		self.__file = None
 		self.file = file
-		self._content = None
+		self.__content = None
 		self.content = content
 
 	#***************************************************************************************
@@ -96,10 +96,10 @@ class File(object):
 		"""
 		This Method Is The Property For The _file Attribute.
 
-		@return: self._file. ( String )
+		@return: self.__file. ( String )
 		"""
 
-		return self._file
+		return self.__file
 
 	@file.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
@@ -112,7 +112,7 @@ class File(object):
 
 		if value:
 			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("file", value)
-		self._file = value
+		self.__file = value
 
 	@file.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -128,10 +128,10 @@ class File(object):
 		"""
 		This Method Is The Property For The _content Attribute.
 		
-		@return: self._content. ( List )
+		@return: self.__content. ( List )
 		"""
 
-		return self._content
+		return self.__content
 
 	@content.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
@@ -144,7 +144,7 @@ class File(object):
 
 		if value:
 			assert type(value) is list, "'{0}' Attribute: '{1}' Type Is Not 'list'!".format("content", value)
-		self._content = value
+		self.__content = value
 
 	@content.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -168,11 +168,11 @@ class File(object):
 		@return: Read Succes. ( Boolean )
 		"""
 
-		LOGGER.debug("> Current File Path: '{0}'.".format(self._file))
+		LOGGER.debug("> Current File Path: '{0}'.".format(self.__file))
 		LOGGER.debug("> Reading Current File Content.")
 
-		with open(self._file, mode) as file:
-			self._content = file.readlines()
+		with open(self.__file, mode) as file:
+			self.__content = file.readlines()
 			return True
 
 	@core.executionTrace
@@ -185,10 +185,10 @@ class File(object):
 		@return: Write Succes. ( Boolean )
 		"""
 
-		LOGGER.debug("> Current File Path: '{0}'.".format(self._file))
+		LOGGER.debug("> Current File Path: '{0}'.".format(self.__file))
 
-		with open(self._file, mode) as file:
-			for line in self._content:
+		with open(self.__file, mode) as file:
+			for line in self.__content:
 				file.write(line)
 			return True
 
@@ -202,10 +202,10 @@ class File(object):
 		@return: Append Succes. ( Boolean )
 		"""
 
-		LOGGER.debug("> Current File Path: '{0}'.".format(self._file))
+		LOGGER.debug("> Current File Path: '{0}'.".format(self.__file))
 
-		with open(self._file, mode) as file:
-			for line in self._content:
+		with open(self.__file, mode) as file:
+			for line in self.__content:
 				file.write(line)
 			return True
 

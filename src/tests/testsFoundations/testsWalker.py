@@ -82,12 +82,12 @@ class WalkerTestCase(unittest.TestCase):
 		"""
 
 		walker = Walker(RESOURCES_DIRECTORY)
-		requiredAttributes = ("_root",
-								"_hashSize",
-								"_files")
+		requiredAttributes = ("root",
+								"hashSize",
+								"files")
 
 		for attribute in requiredAttributes:
-			self.assertIn(attribute, walker.__dict__)
+			self.assertIn(attribute, dir(walker))
 
 	def testRequiredMethods(self):
 		"""

@@ -91,16 +91,15 @@ class LibraryTestCase(unittest.TestCase):
 		"""
 
 		library = Library(LIBRARIES["freeImage"], LIBRARIES_FUNCTIONS["freeImage"])
-		requiredAttributes = ("_libraryInstantiated",
-								"_libraryPath",
-								"_functions",
-								"_library")
+		requiredAttributes = ("libraryInstantiated",
+								"libraryPath",
+								"functions",
+								"library")
 		for attribute in requiredAttributes:
-			self.assertIn(attribute, library.__dict__)
+			self.assertIn(attribute, dir(library))
 
-		requiredClassAttributes = ("_librariesInstances",
-								"_callback",
-								)
+		requiredClassAttributes = ("librariesInstances",
+								"callback",)
 		for classAttribute in requiredClassAttributes:
 			self.assertIn(classAttribute, dir(library))
 

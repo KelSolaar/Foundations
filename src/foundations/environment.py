@@ -83,7 +83,7 @@ class Environment(object):
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
 		# --- Setting Class Attributes. ---
-		self._variable = None
+		self.__variable = None
 		self.variable = variable
 
 	#***************************************************************************************
@@ -94,10 +94,10 @@ class Environment(object):
 		"""
 		This Method Is The Property For The _variable Attribute.
 		
-		@return: self._variable. ( String )
+		@return: self.__variable. ( String )
 		"""
 
-		return self._variable
+		return self.__variable
 
 	@variable.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
@@ -111,7 +111,7 @@ class Environment(object):
 		if value:
 			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("variable", value)
 			assert not re.search("\W", value), "'{0}' Attribute: '{1}' Contains Non AlphaNumerics Characters!".format("variable", value)
-		self._variable = value
+		self.__variable = value
 
 	@variable.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -133,12 +133,12 @@ class Environment(object):
 		@return: Variable Path. ( String )
 		"""
 
-		if self._variable:
-			LOGGER.debug("> Current Environment Variable: '{0}'.".format(self._variable))
+		if self.__variable:
+			LOGGER.debug("> Current Environment Variable: '{0}'.".format(self.__variable))
 			LOGGER.debug("> Available System Environment Variables: '{0}'".format(os.environ.keys()))
 
-			if self._variable in os.environ.keys():
-				return os.environ[self._variable]
+			if self.__variable in os.environ.keys():
+				return os.environ[self.__variable]
 
 #***********************************************************************************************
 #***	Python End

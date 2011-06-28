@@ -86,12 +86,12 @@ class Walker(object):
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
 		# --- Setting Class Attributes. ---
-		self._root = None
+		self.__root = None
 		self.root = root
-		self._hashSize = None
+		self.__hashSize = None
 		self.hashSize = hashSize
 
-		self._files = None
+		self.__files = None
 
 	#***************************************************************************************
 	#***	Attributes Properties
@@ -101,10 +101,10 @@ class Walker(object):
 		"""
 		This Method Is The Property For The _root Attribute.
 
-		@return: self._root. ( String )
+		@return: self.__root. ( String )
 		"""
 
-		return self._root
+		return self.__root
 
 	@root.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
@@ -118,7 +118,7 @@ class Walker(object):
 		if value:
 			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("root", value)
 			assert os.path.exists(value), "'{0}' Attribute: '{1}' Directory Doesn't Exists!".format("root", value)
-		self._root = value
+		self.__root = value
 
 	@root.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -134,10 +134,10 @@ class Walker(object):
 		"""
 		This Method Is The Property For The _hashSize Attribute.
 
-		@return: self._hashSize. ( String )
+		@return: self.__hashSize. ( String )
 		"""
 
-		return self._hashSize
+		return self.__hashSize
 
 	@hashSize.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
@@ -150,7 +150,7 @@ class Walker(object):
 
 		if value:
 			assert type(value) is int, "'{0}' Attribute: '{1}' Type Is Not 'int'!".format("hashSize", value)
-		self._hashSize = value
+		self.__hashSize = value
 
 	@hashSize.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -166,10 +166,10 @@ class Walker(object):
 		"""
 		This Method Is The Property For The _files Attribute.
 
-		@return: self._files. ( Dictionary )
+		@return: self.__files. ( Dictionary )
 		"""
 
-		return self._files
+		return self.__files
 
 	@files.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
@@ -182,7 +182,7 @@ class Walker(object):
 
 		if value:
 			assert type(value) is dict, "'{0}' Attribute: '{1}' Type Is Not 'dict'!".format("files", value)
-		self._files = value
+		self.__files = value
 
 	@files.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -211,11 +211,11 @@ class Walker(object):
 		if filtersIn:
 			LOGGER.debug("> Current filtersIn: '{0}'.".format(filtersIn))
 
-		if self._root:
-				self._files = {}
-				for root, dirs, files in os.walk(self._root, topdown=False):
+		if self.__root:
+				self.__files = {}
+				for root, dirs, files in os.walk(self.__root, topdown=False):
 					for item in files:
-						LOGGER.debug("> Current File: '{0}' In '{1}'.".format(item, self._root))
+						LOGGER.debug("> Current File: '{0}' In '{1}'.".format(item, self.__root))
 						itemPath = strings.toForwardSlashes(os.path.join(root, item))
 						if os.path.isfile(itemPath):
 							if not strings.filterWords((itemPath,), filtersIn, filtersOut, flags):
@@ -224,11 +224,11 @@ class Walker(object):
 							LOGGER.debug("> '{0}' File Filtered In!".format(itemPath))
 
 							hashKey = hashlib.md5(itemPath).hexdigest()
-							itemName = namespace.setNamespace(os.path.splitext(item)[0], shorterHashKey and hashKey[:self._hashSize] or hashKey)
+							itemName = namespace.setNamespace(os.path.splitext(item)[0], shorterHashKey and hashKey[:self.__hashSize] or hashKey)
 							LOGGER.debug("> Adding '{0}' With Path: '{1}' To Files List.".format(itemName, itemPath))
-							self._files[itemName] = itemPath
+							self.__files[itemName] = itemPath
 
-				return self._files
+				return self.__files
 
 #***********************************************************************************************
 #***	Python End
