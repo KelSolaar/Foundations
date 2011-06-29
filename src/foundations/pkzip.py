@@ -131,7 +131,7 @@ class Pkzip(object):
 	@foundations.exceptions.exceptionsHandler(None, False, OSError)
 	def extract(self, target):
 		"""
-		This Method Extracts The Archive File To The Provided Folder.
+		This Method Extracts The Archive File To The Provided Directory.
 		
 		@return: Extraction Success. ( Boolean )
 		"""
@@ -139,14 +139,14 @@ class Pkzip(object):
 		archive = zipfile.ZipFile(self.__archive)
 		content = archive.namelist()
 
-		folders = [item for item in content if item.endswith("/")]
+		directories = [item for item in content if item.endswith("/")]
 		files = [item for item in content if not item.endswith("/")]
 
-		folders.sort()
-		folders.reverse()
+		directories.sort()
+		directories.reverse()
 
-		for folder in folders:
-			not os.path.isdir(os.path.join(target, folder)) and io.setLocalDirectory(os.path.join(target, folder))
+		for directory in directories:
+			not os.path.isdir(os.path.join(target, directory)) and io.setLocalDirectory(os.path.join(target, directory))
 
 		for file in files:
 			LOGGER.info("{0} | Extracting '{1}' File!".format(self.__class__.__name__, file))
