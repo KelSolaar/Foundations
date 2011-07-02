@@ -506,6 +506,34 @@ class ComponentDeactivationError(Exception):
 
 		return str(self.value)
 
+class ComponentReloadError(Exception):
+	"""
+	This Class Is Used For Component Reload Errors.
+	"""
+
+	@core.executionTrace
+	def __init__(self, value):
+		"""
+		This Method Initializes The Class.
+
+		@param value: Error Value Or Message. ( String )
+		"""
+
+		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
+
+		# --- Setting Class Attributes. ---
+		self.value = value
+
+	@core.executionTrace
+	def __str__(self):
+		"""
+		This Method Returns The Exception Representation.
+		
+		@return: Exception Representation. ( String )
+		"""
+
+		return str(self.value)
+
 class LibraryInstantiationError(Exception):
 	"""
 	This Class Is Used For Library Instantiation Errors.
