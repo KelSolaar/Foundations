@@ -64,7 +64,7 @@ LOGGER = logging.getLogger(Constants.logger)
 
 # Starting The Console Handler.
 LOGGING_CONSOLE_HANDLER = logging.StreamHandler(sys.__stdout__)
-LOGGING_CONSOLE_HANDLER.setFormatter(core.LOGGING_FORMATTER)
+LOGGING_CONSOLE_HANDLER.setFormatter(core.LOGGING_DEFAULT_FORMATTER)
 LOGGER.addHandler(LOGGING_CONSOLE_HANDLER)
 
 #***********************************************************************************************

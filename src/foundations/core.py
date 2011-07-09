@@ -153,7 +153,7 @@ class StandardMessageHook(object):
 #***********************************************************************************************
 LOGGER = logging.getLogger(Constants.logger)
 
-LOGGING_FORMATTER = logging.Formatter("%(levelname)-8s: %(message)s")
+LOGGING_DEFAULT_FORMATTER = logging.Formatter("%(levelname)-8s: %(message)s")
 
 LOGGING_EXTENDED_FORMATTER = logging.Formatter("%(asctime)s - %(threadName)s - %(levelname)-8s: %(message)s")
 
