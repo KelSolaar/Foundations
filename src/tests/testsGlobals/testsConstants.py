@@ -75,6 +75,7 @@ class ConstantsTestCase(unittest.TestCase):
 		requiredAttributes = ("logger",
 								"verbosityLevel",
 								"verbosityLabels",
+								"loggingDefaultFormatter",
 								"loggingSeparators",
 								"encodingFormat",
 								"encodingError",
@@ -109,6 +110,13 @@ class ConstantsTestCase(unittest.TestCase):
 		self.assertIsInstance(Constants.verbosityLabels, tuple)
 		for label in Constants.verbosityLabels:
 			self.assertIsInstance(label, str)
+
+	def testLoggingDefaultFormaterAttribute(self):
+		"""
+		This Method Tests The "loggingDefaultFormatter" Attribute.
+		"""
+
+		self.assertIsInstance(Constants.loggingDefaultFormatter, str)
 
 	def testLoggingSeparatorsAttribute(self):
 		"""
