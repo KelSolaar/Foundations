@@ -49,9 +49,11 @@
 #***	External Imports
 #***********************************************************************************************
 import functools
+import hashlib
 import inspect
 import logging
 import sys
+import threading
 
 #***********************************************************************************************
 #***	Internal Imports
@@ -61,6 +63,15 @@ from globals.constants import Constants
 #***********************************************************************************************
 #***	Logging Classes And Definitions
 #***********************************************************************************************
+def _LogRecord_getAttribute(self, name):
+	if name == "__dict__":
+		object.__getattribute__(self, name)["threadName"] = hashlib.md5(threading.currentThread().name).hexdigest()[:8]
+		return object.__getattribute__(self, name)
+	else:
+		return object.__getattribute__(self, name)
+
+logging.LogRecord.__getattribute__ = _LogRecord_getAttribute
+
 def setVerbosityLevel(verbosityLevel):
 	"""
 	This Definition Provides Overall Verbosity Levels Through An Integer.
@@ -143,14 +154,16 @@ class StandardMessageHook(object):
 LOGGER = logging.getLogger(Constants.logger)
 
 LOGGING_FORMATTER = logging.Formatter("%(levelname)-8s: %(message)s")
+
+LOGGING_EXTENDED_FORMATTER = logging.Formatter("%(asctime)s - %(threadName)s - %(levelname)-8s: %(message)s")
+
 LOGGING_STANDARD_FORMATTER = logging.Formatter()
 
 IGNORED_CODE_LAYERS = ("getFrame",
 					"getCodeLayerName",
 					"getObjectName",
 					"executionTrace",
-					"wrapper"
-					)
+					"wrapper")
 
 UNDEFINED_CODE_LAYER = "UndefinedCodeLayer"
 UNDEFINED_OBJECT = "UndefinedObject"
