@@ -69,6 +69,7 @@ LOGGER = logging.getLogger(Constants.logger)
 #***	Module Classes And Definitions
 #***********************************************************************************************
 @core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getNiceName(name):
 	"""
 	This Definition Converts A String To Nice String: currentLogText -> Current Log Text.
@@ -97,6 +98,7 @@ def getNiceName(name):
 	return niceName
 
 @core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getVersionRank(version):
 	"""
 	This Definition Converts A Version String To It's Rank.
@@ -111,6 +113,7 @@ def getVersionRank(version):
 	return rank
 
 @core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getSplitextBasename(path):
 	"""
 	This Definition Get The Basename Of A Path Without Its Extension.
@@ -124,6 +127,7 @@ def getSplitextBasename(path):
 	return basename
 
 @core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getWords(datas):
 	"""
 	This Method Extracts The Words From Provided String.
@@ -137,6 +141,7 @@ def getWords(datas):
 	return words
 
 @core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
 def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 	"""
 	This Method Filters The Words Using The Provided Filters.
@@ -174,6 +179,7 @@ def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 	return filteredWords
 
 @core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
 def replace(string, datas):
 	"""
 	This Definition Replaces The Datas Occurences In The String.
@@ -187,6 +193,7 @@ def replace(string, datas):
 	return string
 
 @core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
 def toForwardSlashes(datas):
 	"""
 	This Definition Converts Backward Slashes To Forward Slashes.
@@ -213,6 +220,7 @@ def toBackwardSlashes(datas):
 	return datas
 
 @core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
 def toPosixPath(path):
 	"""
 	This Definition Converts Windows Path To Posix Path While Stripping Drives Letters And Network Server Slashes.
@@ -220,12 +228,13 @@ def toPosixPath(path):
 	@param path: Windows Path. ( String )
 	@return: Path Converted To Posix Path. ( String )
 	"""
-	
+
 	posixPath = posixpath.normpath(toForwardSlashes(re.sub("[a-zA-Z]:\\\\|\\\\\\\\", "/", os.path.normpath(path))))
 	LOGGER.debug("> Stripped Converted To Posix Path: '{0}'.".format(posixPath))
 	return posixPath
 
 @core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getNormalizedPath(path):
 	"""
 	This Definition Normalizes A Path, Escaping Slashes If Needed On Windows.
@@ -244,6 +253,7 @@ def getNormalizedPath(path):
 		return path
 
 @core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
 def isEmail(datas):
 	"""
 	This Definition Check If Provided Datas String Is An Email.
@@ -260,6 +270,7 @@ def isEmail(datas):
 		return False
 
 @core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
 def isWebsite(datas):
 	"""
 	This Definition Check If Provided Datas String Is A Website.

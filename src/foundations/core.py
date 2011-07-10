@@ -77,6 +77,7 @@ def setVerbosityLevel(verbosityLevel):
 	This Definition Provides Overall Verbosity Levels Through An Integer.
 
 	@param verbosityLevel: Verbosity Level. ( Integer )
+	@return: Definition Success. ( Boolean )		
 	"""
 
 	if verbosityLevel == 0:
@@ -89,6 +90,7 @@ def setVerbosityLevel(verbosityLevel):
 		LOGGER.setLevel(logging.INFO)
 	elif verbosityLevel == 4:
 		LOGGER.setLevel(logging.DEBUG)
+	return True
 
 class StandardMessageHook(object):
 	"""
@@ -143,10 +145,12 @@ class StandardMessageHook(object):
 		This Method Logs The Current StdOut Message.
 		
 		@param message: Message. ( String )
+		@return: Method Success. ( Boolean )		
 		"""
 
 		for handler in self.__logger.__dict__["handlers"]:
 			handler.stream.write(message)
+		return True
 
 #***********************************************************************************************
 #***	Global Variables

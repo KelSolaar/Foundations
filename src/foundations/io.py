@@ -165,7 +165,7 @@ class File(object):
 		This Method Reads Provided File And Return The Content As A List.
 
 		@param mode: File Read Mode. ( String )
-		@return: Read Succes. ( Boolean )
+		@return: Method Success. ( Boolean )		
 		"""
 
 		LOGGER.debug("> Current File Path: '{0}'.".format(self.__file))
@@ -182,7 +182,7 @@ class File(object):
 		This Method Writes Content To Provided File.
 		
 		@param mode: File Write Mode. ( String )
-		@return: Write Succes. ( Boolean )
+		@return: Method Success. ( Boolean )		
 		"""
 
 		LOGGER.debug("> Current File Path: '{0}'.".format(self.__file))
@@ -199,7 +199,7 @@ class File(object):
 		This Method Append Content To Provided File.
 		
 		@param mode: File Write Mode. ( String )
-		@return: Append Succes. ( Boolean )
+		@return: Method Success. ( Boolean )		
 		"""
 
 		LOGGER.debug("> Current File Path: '{0}'.".format(self.__file))
@@ -216,7 +216,7 @@ def setLocalDirectory(path):
 	This Definition Creates A Directory With Provided Path.
 
 	@param path: Directory Path. ( String )
-	@return: Directory Creation Success. ( Boolean )
+	@return: Definition Success. ( Boolean )		
 	"""
 
 	if not os.path.exists(path):

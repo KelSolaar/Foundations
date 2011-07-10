@@ -285,37 +285,41 @@ class Library(object):
 	#***	Class Methods
 	#***************************************************************************************
 	@core.executionTrace
+	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def bindFunction(self, function):
 		"""
 		This Method Bind A Function.
 		
 		@param function: Function To Bind. ( Tuple )
+		@return: Method Success. ( Boolean )		
 		"""
 
 		LOGGER.debug("> Binding '{0}' Library '{1}' Function.".format(self.__class__.__name__, function.name))
 
 		returnType = function.returnValue
-
 		if platform.system() == "Windows" or platform.system() == "Microsoft":
 			functionObject = getattr(self.__library, "{0}".format(function.name, function.affixe))
 		else:
 			functionObject = getattr(self.__library, function.name)
-
 		setattr(self, function.name, functionObject)
-
 		if returnType:
 			functionObject.restype = returnType
+
+		return True
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, AttributeError)
 	def bindLibrary(self):
 		"""
 		This Method Bind The Library.
+
+		@return: Method Success. ( Boolean )		
 		"""
 
 		if self.__functions:
 			for function in self.__functions:
 				self.bindFunction(function)
+		return True
 
 #***********************************************************************************************
 #***	Python End

@@ -126,6 +126,7 @@ class Environment(object):
 	#***	Class Methods
 	#***************************************************************************************
 	@core.executionTrace
+	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def getPath(self):
 		"""
 		This Method Gets The Chosen Environment Variable Path As A String.
@@ -133,12 +134,13 @@ class Environment(object):
 		@return: Variable Path. ( String )
 		"""
 
-		if self.__variable:
-			LOGGER.debug("> Current Environment Variable: '{0}'.".format(self.__variable))
-			LOGGER.debug("> Available System Environment Variables: '{0}'".format(os.environ.keys()))
+		if not self.__variable: return
 
-			if self.__variable in os.environ.keys():
-				return os.environ[self.__variable]
+		LOGGER.debug("> Current Environment Variable: '{0}'.".format(self.__variable))
+		LOGGER.debug("> Available System Environment Variables: '{0}'".format(os.environ.keys()))
+
+		if self.__variable in os.environ.keys():
+			return os.environ[self.__variable]
 
 #***********************************************************************************************
 #***	Python End

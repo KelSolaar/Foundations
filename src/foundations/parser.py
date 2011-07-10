@@ -369,7 +369,7 @@ class Parser(io.File):
 		@param orderedDictionary: Parser Data Is Stored In Ordered Dictionaries. ( Boolean )
 		@param rawSections: Section Is Not Parsed. ( Boolean )
 		@param stripComments: Comments Are Stripped. ( Boolean )
-		@return: Parsing Success. ( Boolean )
+		@return: Method Success. ( Boolean )		
 		"""
 
 		LOGGER.debug("> Reading Sections From: '{0}'.".format(self.file))

@@ -71,6 +71,7 @@ LOGGER = logging.getLogger(Constants.logger)
 #***	Module Classes And Definitions
 #***********************************************************************************************
 @core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getSystemApplicationDatasDirectory():
 	"""
 	This Definition Gets The System Application Datas Directory.
@@ -91,6 +92,7 @@ def getSystemApplicationDatasDirectory():
 		return environmentVariable.getPath()
 
 @core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getUserApplicationDatasDirectory():
 	"""
 	This Definition Gets The User Application Directory.
@@ -101,16 +103,19 @@ def getUserApplicationDatasDirectory():
 	return os.path.join(getSystemApplicationDatasDirectory(), Constants.providerDirectory, Constants.applicationDirectory)
 
 @core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
 def closeHandler(logger, handler):
 	"""
 	This Definition Shuts Down The Provided Handler.
 
 	@param logger: Current Logger. ( Object )
 	@param handler: Current Handler. ( Object )
+	@return: Definition Success. ( Boolean )		
 	"""
 
 	len(logger.__dict__["handlers"]) and LOGGER.debug("> Stopping Handler: '{0}'.".format(handler))
 	logger.removeHandler(handler)
+	return True
 
 @core.executionTrace
 def exit(exitCode, logger, handlers):
@@ -132,16 +137,19 @@ def exit(exitCode, logger, handlers):
 	sys.exit(exitCode)
 
 @core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
 def wait(waitTime):
 	"""
 	This Definition Is A Wait Timer.
 
 	@param waitTime: Current Sleep Time In Seconds. ( Integer )
+	@return: Definition Success. ( Boolean )		
 	"""
 
 	LOGGER.debug("> Waiting '{0}' Seconds!".format(waitTime))
 
 	time.sleep(waitTime)
+	return True
 
 #***********************************************************************************************
 #***	Python End

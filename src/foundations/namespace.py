@@ -94,7 +94,6 @@ def getNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False
 	attributeTokens = attribute.split(namespaceSplitter)
 	if len(attributeTokens) == 1:
 		LOGGER.debug("> Attribute: '{0}', Namespace: '{1}'.".format(attribute, Constants.nullObject))
-		return None
 	else:
 		namespace = rootOnly and attributeTokens[0] or namespaceSplitter.join(attributeTokens[0:-1])
 		LOGGER.debug("> Attribute: '{0}', Namespace: '{1}'.".format(attribute, namespace))

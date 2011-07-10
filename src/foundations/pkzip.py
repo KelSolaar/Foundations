@@ -133,7 +133,7 @@ class Pkzip(object):
 		"""
 		This Method Extracts The Archive File To The Provided Directory.
 		
-		@return: Extraction Success. ( Boolean )
+		@return: Method Success. ( Boolean )		
 		"""
 
 		archive = zipfile.ZipFile(self.__archive)

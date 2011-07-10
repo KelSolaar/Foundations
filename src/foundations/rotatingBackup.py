@@ -197,34 +197,40 @@ class RotatingBackup(object):
 	#***	Class Methods
 	#***************************************************************************************
 	@core.executionTrace
+	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def backup(self):
 		"""
 		This Method Does The Rotating Backup.
+		
+		@return: Method Success. ( Boolean )		
 		"""
 
 		LOGGER.debug("> Storing '{0}' File Backup.".format(self.__source))
 
-		if self.__source and self.__destination:
-			os.path.exists(self.__destination) or os.mkdir(self.__destination)
-			destination = os.path.join(self.__destination, os.path.basename(self.__source))
-			for i in range(self.__count - 1, 0, -1):
-				sfn = "{0}.{1}".format(destination, i)
-				dfn = "{0}.{1}".format(destination, i + 1)
-				if os.path.exists(sfn):
-					if os.path.exists(dfn):
-						self.delete(dfn)
-					os.renames(sfn, dfn)
-			os.path.exists(destination) and os.rename(destination, destination + ".1")
-			self.copy(self.__source, destination)
+		if not self.__source and not self.__destination: return True
 
-	@foundations.exceptions.exceptionsHandler(None, False, OSError)
+		os.path.exists(self.__destination) or os.mkdir(self.__destination)
+		destination = os.path.join(self.__destination, os.path.basename(self.__source))
+		for i in range(self.__count - 1, 0, -1):
+			sfn = "{0}.{1}".format(destination, i)
+			dfn = "{0}.{1}".format(destination, i + 1)
+			if os.path.exists(sfn):
+				if os.path.exists(dfn):
+					self.delete(dfn)
+				os.renames(sfn, dfn)
+		os.path.exists(destination) and os.rename(destination, destination + ".1")
+		self.copy(self.__source, destination)
+		return True
+
 	@core.executionTrace
+	@foundations.exceptions.exceptionsHandler(None, False, OSError)
 	def copy(self, source, destination):
 		"""
 		This Method Copies The Provided Path To Destination.
 
 		@param source: Source To Copy From. ( String )
 		@param destination: Destination To Copy To. ( String )
+		@return: Method Success. ( Boolean )		
 		"""
 
 		LOGGER.debug("> Copying '{0}' File To '{1}'.".format(source, destination))
@@ -233,14 +239,16 @@ class RotatingBackup(object):
 			shutil.copyfile(source, destination)
 		else:
 			shutil.copytree(source, destination)
+		return True
 
-	@foundations.exceptions.exceptionsHandler(None, False, OSError)
 	@core.executionTrace
+	@foundations.exceptions.exceptionsHandler(None, False, OSError)
 	def delete(self, path):
 		"""
 		This Method Deletes The Provided Resource.
 
 		@param path: Resource To Delete. ( String )
+		@return: Method Success. ( Boolean )		
 		"""
 
 		LOGGER.debug("> Removing '{0}' File.".format(path))
@@ -249,6 +257,7 @@ class RotatingBackup(object):
 			os.remove(path)
 		elif os.path.isdir(path):
 			shutil.rmtree(path)
+		return True
 
 #***********************************************************************************************
 #***	Python End
