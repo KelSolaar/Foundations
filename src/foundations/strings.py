@@ -58,6 +58,7 @@ import re
 #***	Internal Imports
 #***********************************************************************************************
 import core
+import foundations.exceptions
 from globals.constants import Constants
 
 #***********************************************************************************************
