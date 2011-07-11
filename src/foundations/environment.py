@@ -134,7 +134,8 @@ class Environment(object):
 		@return: Variable Path. ( String )
 		"""
 
-		if not self.__variable: return
+		if not self.__variable:
+			return
 
 		LOGGER.debug("> Current Environment Variable: '{0}'.".format(self.__variable))
 		LOGGER.debug("> Available System Environment Variables: '{0}'".format(os.environ.keys()))

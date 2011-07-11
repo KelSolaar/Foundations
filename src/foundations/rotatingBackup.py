@@ -207,7 +207,8 @@ class RotatingBackup(object):
 
 		LOGGER.debug("> Storing '{0}' File Backup.".format(self.__source))
 
-		if not self.__source and not self.__destination: return True
+		if not self.__source and not self.__destination:
+			return True
 
 		os.path.exists(self.__destination) or os.mkdir(self.__destination)
 		destination = os.path.join(self.__destination, os.path.basename(self.__source))
