@@ -58,7 +58,9 @@ class Constants():
 	This Class Is The Constants Class.
 	"""
 
-	logger = "Foundations_Logger"
+	applicationName = "Foundations"
+
+	logger = "Default_Logger"
 	verbosityLevel = 3
 	verbosityLabels = ("Critical", "Error", "Warning", "Info", "Debug")
 	loggingDefaultFormatter = "Default"

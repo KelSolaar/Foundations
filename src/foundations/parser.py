@@ -55,11 +55,11 @@ from collections import OrderedDict
 #***********************************************************************************************
 #***	Internal Imports
 #***********************************************************************************************
-import core
+import foundations.core as core
 import foundations.exceptions
-import io
-import namespace
-from globals.constants import Constants
+import foundations.io as io
+import foundations.namespace as namespace
+from foundations.globals.constants import Constants
 
 #***********************************************************************************************
 #***	Overall Variables

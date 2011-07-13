@@ -56,11 +56,11 @@ import hashlib
 #***********************************************************************************************
 #***	Internal Imports
 #***********************************************************************************************
-import core
+import foundations.core as core
 import foundations.exceptions
 import foundations.namespace as namespace
 import foundations.strings as strings
-from globals.constants import Constants
+from foundations.globals.constants import Constants
 
 #***********************************************************************************************
 #***	Global Variables

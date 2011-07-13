@@ -53,7 +53,7 @@ import unittest
 #***********************************************************************************************
 #***	Internal Imports
 #***********************************************************************************************
-from globals.constants import Constants
+from foundations.globals.constants import Constants
 
 #***********************************************************************************************
 #***	Overall Variables
@@ -72,7 +72,8 @@ class ConstantsTestCase(unittest.TestCase):
 		This Method Tests Presence Of Required Attributes.
 		"""
 
-		requiredAttributes = ("logger",
+		requiredAttributes = ("applicationName",
+								"logger",
 								"verbosityLevel",
 								"verbosityLabels",
 								"loggingDefaultFormatter",
@@ -85,6 +86,13 @@ class ConstantsTestCase(unittest.TestCase):
 
 		for attribute in requiredAttributes:
 			self.assertIn(attribute, Constants.__dict__)
+
+	def testApplicationNameAttribute(self):
+		"""
+		This Method Tests The "applicationName" Attribute.
+		"""
+
+		self.assertRegexpMatches(Constants.applicationName, "\w")
 
 	def testLoggerAttribute(self):
 		"""

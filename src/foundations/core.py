@@ -58,7 +58,7 @@ import threading
 #***********************************************************************************************
 #***	Internal Imports
 #***********************************************************************************************
-from globals.constants import Constants
+from foundations.globals.constants import Constants
 
 #***********************************************************************************************
 #***	Logging Classes And Definitions

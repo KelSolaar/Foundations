@@ -57,10 +57,10 @@ import time
 #***********************************************************************************************
 #***	Internal Imports
 #***********************************************************************************************
-import core
+import foundations.core as core
 import foundations.exceptions
-from environment import Environment
-from globals.constants import Constants
+from foundations.environment import Environment
+from foundations.globals.constants import Constants
 
 #***********************************************************************************************
 #***	Overall Variables
