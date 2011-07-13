@@ -55,7 +55,7 @@ import sys
 #***	Internal Imports
 #***********************************************************************************************
 import foundations.core as core
-from globals.constants import Constants
+from foundations.globals.constants import Constants
 
 #***********************************************************************************************
 #***	Overall Variables

@@ -55,8 +55,8 @@ import traceback
 #***********************************************************************************************
 #***	internal Imports
 #***********************************************************************************************
-import core
-from globals.constants import Constants
+import foundations.core as core
+from foundations.globals.constants import Constants
 
 #***********************************************************************************************
 #***	Global Variables

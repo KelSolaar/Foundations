@@ -55,9 +55,9 @@ import shutil
 #***********************************************************************************************
 #***	Internal Imports
 #***********************************************************************************************
-import core
+import foundations.core as core
 import foundations.exceptions
-from globals.constants import Constants
+from foundations.globals.constants import Constants
 
 #***********************************************************************************************
 #***	Global Variables

@@ -56,10 +56,10 @@ import zipfile
 #***********************************************************************************************
 #***	Internal Imports
 #***********************************************************************************************
-import core
-import io
+import foundations.core as core
+import foundations.io as io
 import foundations.exceptions
-from globals.constants import Constants
+from foundations.globals.constants import Constants
 
 #***********************************************************************************************
 #***	Overall Variables
