@@ -60,7 +60,7 @@ class Constants():
 
 	applicationName = "Foundations"
 
-	logger = "Default_Logger"
+	logger = "Foundations_Logger"
 	verbosityLevel = 3
 	verbosityLabels = ("Critical", "Error", "Warning", "Info", "Debug")
 	loggingDefaultFormatter = "Default"
