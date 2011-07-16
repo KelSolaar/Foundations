@@ -4,6 +4,7 @@ h2=. Change Log
 
 h3. 1.0.4 - Stable
 
+* Reorganize package directories structure.
 * Add "rotatingBackup" module and associated "testsRotatingBackup" units tests module.
 
 h3. 1.0.3 - Stable
