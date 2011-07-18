@@ -92,14 +92,14 @@ class ConstantsTestCase(unittest.TestCase):
 		This Method Tests The "applicationName" Attribute.
 		"""
 
-		self.assertRegexpMatches(Constants.applicationName, "\w")
+		self.assertRegexpMatches(Constants.applicationName, "\w+")
 
 	def testLoggerAttribute(self):
 		"""
 		This Method Tests The "logger" Attribute.
 		"""
 
-		self.assertRegexpMatches(Constants.logger, "\w")
+		self.assertRegexpMatches(Constants.logger, "\w+")
 
 	def testVerbosityLevelAttribute(self):
 		"""
@@ -161,7 +161,7 @@ class ConstantsTestCase(unittest.TestCase):
 		This Method Tests The "applicationDirectory" Attribute.
 		"""
 
-		self.assertRegexpMatches(Constants.applicationDirectory, "\w")
+		self.assertRegexpMatches(Constants.applicationDirectory, "\w+")
 
 	def testProviderDirectoryAttribute(self):
 		"""
@@ -175,7 +175,7 @@ class ConstantsTestCase(unittest.TestCase):
 		This Method Tests The "nullObject" Attribute.
 		"""
 
-		self.assertRegexpMatches(Constants.nullObject, "\w")
+		self.assertRegexpMatches(Constants.nullObject, "\w+")
 
 if __name__ == '__main__':
 	unittest.main()
