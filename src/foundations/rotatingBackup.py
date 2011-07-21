@@ -27,18 +27,16 @@
 #***********************************************************************************************
 
 """
-************************************************************************************************
-***	rotatingBackup.py
-***
-***	Platform:
-***		Windows, Linux, Mac Os X
-***
-***	Description:
-***		Rotating Backup Module.
-***
-***	Others:
-***		Code Extracted From rotatingbackup.py Written By leo.ss.pku@gmail.com
-************************************************************************************************
+**rotatingBackup.py**
+
+**Platform:**
+	Windows, Linux, Mac Os X.
+
+**Description:**
+	Rotating Backup Module.
+
+**Others:**
+	Code Extracted From rotatingbackup.py Written By leo.ss.pku@gmail.com
 """
 
 #***********************************************************************************************
