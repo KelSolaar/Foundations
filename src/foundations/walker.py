@@ -211,7 +211,7 @@ class Walker(object):
 
 		if self.__root:
 				self.__files = {}
-				for root, dirs, files in os.walk(self.__root, topdown=False):
+				for root, dirs, files in os.walk(self.__root, topdown=False, followlinks=True):
 					for item in files:
 						LOGGER.debug("> Current File: '{0}' In '{1}'.".format(item, self.__root))
 						itemPath = strings.toForwardSlashes(os.path.join(root, item))
