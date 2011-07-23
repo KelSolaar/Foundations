@@ -84,7 +84,7 @@ class File(object):
 		self.__file = None
 		self.file = file
 		self.__content = None
-		self.content = content
+		self.content = content or []
 
 	#***************************************************************************************
 	#***	Attributes Properties

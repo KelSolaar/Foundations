@@ -105,6 +105,7 @@ class FileTestCase(unittest.TestCase):
 		"""
 
 		ioFile = File(TEST_FILE)
+		self.assertIsInstance(ioFile.content, list)
 		readSuccess = ioFile.read()
 		self.assertTrue(readSuccess)
 		self.assertIsInstance(ioFile.content, list)
@@ -116,6 +117,7 @@ class FileTestCase(unittest.TestCase):
 		"""
 
 		ioFile = File(tempfile.mkstemp()[1])
+		self.assertIsInstance(ioFile.content, list)
 		ioFile.content = FILE_CONTENT
 		writeSuccess = ioFile.write()
 		self.assertTrue(writeSuccess)
@@ -129,6 +131,7 @@ class FileTestCase(unittest.TestCase):
 		"""
 
 		ioFile = File(tempfile.mkstemp()[1])
+		self.assertIsInstance(ioFile.content, list)
 		ioFile.content = FILE_CONTENT
 		ioFile.write()
 		append = ioFile.append()
