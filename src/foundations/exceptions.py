@@ -138,7 +138,7 @@ def defaultExceptionsHandler(exception, origin, *args, **kwargs):
 		LOGGER.error("!> {0}".format(Constants.loggingSeparators))
 
 class FileStructureError(Exception):
-	"""	
+	""" 
 	This Class Is Used For File Content Structure Errors.
 	"""
 

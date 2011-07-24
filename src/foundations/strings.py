@@ -84,7 +84,7 @@ def getNiceName(name):
 		else:
 			if name[ index ].upper() == name[ index ]:
 				if index + 1 < len(name):
-					if  name[ index + 1 ].upper() != name[ index + 1 ]:
+					if name[ index + 1 ].upper() != name[ index + 1 ]:
 						niceName += " " + name[ index ]
 					else:
 						LOGGER.debug("> '{0}' To '{1}'.".format(name, name))
