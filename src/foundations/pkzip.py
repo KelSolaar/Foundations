@@ -93,7 +93,7 @@ class Pkzip(object):
 	def archive(self):
 		"""
 		This Method Is The Property For The _archive Attribute.
-		
+
 		@return: self.__archive. ( String )
 		"""
 
@@ -104,7 +104,7 @@ class Pkzip(object):
 	def archive(self, value):
 		"""
 		This Method Is The Setter Method For The _archive Attribute.
-		
+
 		@param value: Attribute Value. ( String )
 		"""
 
@@ -130,8 +130,8 @@ class Pkzip(object):
 	def extract(self, target):
 		"""
 		This Method Extracts The Archive File To The Provided Directory.
-		
-		@return: Method Success. ( Boolean )		
+
+		@return: Method Success. ( Boolean )
 		"""
 
 		archive = zipfile.ZipFile(self.__archive)

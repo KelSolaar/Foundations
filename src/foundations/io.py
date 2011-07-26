@@ -104,7 +104,7 @@ class File(object):
 	def file(self, value):
 		"""
 		This Method Is The Setter Method For The _file Attribute.
-		
+
 		@param value: Attribute Value. ( String )
 		"""
 
@@ -125,7 +125,7 @@ class File(object):
 	def content(self):
 		"""
 		This Method Is The Property For The _content Attribute.
-		
+
 		@return: self.__content. ( List )
 		"""
 
@@ -136,7 +136,7 @@ class File(object):
 	def content(self, value):
 		"""
 		This Method Is The Setter Method For The _content Attribute.
-		
+
 		@param value: Attribute Value. ( List )
 		"""
 
@@ -163,7 +163,7 @@ class File(object):
 		This Method Reads Provided File And Return The Content As A List.
 
 		@param mode: File Read Mode. ( String )
-		@return: Method Success. ( Boolean )		
+		@return: Method Success. ( Boolean )
 		"""
 
 		LOGGER.debug("> Current File Path: '{0}'.".format(self.__file))
@@ -178,9 +178,9 @@ class File(object):
 	def write(self, mode="w"):
 		"""
 		This Method Writes Content To Provided File.
-		
+
 		@param mode: File Write Mode. ( String )
-		@return: Method Success. ( Boolean )		
+		@return: Method Success. ( Boolean )
 		"""
 
 		LOGGER.debug("> Current File Path: '{0}'.".format(self.__file))
@@ -195,9 +195,9 @@ class File(object):
 	def append(self, mode="a"):
 		"""
 		This Method Append Content To Provided File.
-		
+
 		@param mode: File Write Mode. ( String )
-		@return: Method Success. ( Boolean )		
+		@return: Method Success. ( Boolean )
 		"""
 
 		LOGGER.debug("> Current File Path: '{0}'.".format(self.__file))
@@ -214,7 +214,7 @@ def setLocalDirectory(path):
 	This Definition Creates A Directory With Provided Path.
 
 	@param path: Directory Path. ( String )
-	@return: Definition Success. ( Boolean )		
+	@return: Definition Success. ( Boolean )
 	"""
 
 	if not os.path.exists(path):

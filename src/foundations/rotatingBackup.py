@@ -108,7 +108,7 @@ class RotatingBackup(object):
 	def source(self, value):
 		"""
 		This Method Is The Setter Method For The _source Attribute.
-		
+
 		@param value: Attribute Value. ( String )
 		"""
 
@@ -141,7 +141,7 @@ class RotatingBackup(object):
 	def destination(self, value):
 		"""
 		This Method Is The Setter Method For The _destination Attribute.
-		
+
 		@param value: Attribute Value. ( String )
 		"""
 
@@ -173,7 +173,7 @@ class RotatingBackup(object):
 	def count(self, value):
 		"""
 		This Method Is The Setter Method For The _count Attribute.
-		
+
 		@param value: Attribute Value. ( Integer )
 		"""
 
@@ -199,8 +199,8 @@ class RotatingBackup(object):
 	def backup(self):
 		"""
 		This Method Does The Rotating Backup.
-		
-		@return: Method Success. ( Boolean )		
+
+		@return: Method Success. ( Boolean )
 		"""
 
 		LOGGER.debug("> Storing '{0}' File Backup.".format(self.__source))
@@ -229,7 +229,7 @@ class RotatingBackup(object):
 
 		@param source: Source To Copy From. ( String )
 		@param destination: Destination To Copy To. ( String )
-		@return: Method Success. ( Boolean )		
+		@return: Method Success. ( Boolean )
 		"""
 
 		LOGGER.debug("> Copying '{0}' File To '{1}'.".format(source, destination))
@@ -247,7 +247,7 @@ class RotatingBackup(object):
 		This Method Deletes The Provided Resource.
 
 		@param path: Resource To Delete. ( String )
-		@return: Method Success. ( Boolean )		
+		@return: Method Success. ( Boolean )
 		"""
 
 		LOGGER.debug("> Removing '{0}' File.".format(path))

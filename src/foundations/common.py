@@ -108,7 +108,7 @@ def closeHandler(logger, handler):
 
 	@param logger: Current Logger. ( Object )
 	@param handler: Current Handler. ( Object )
-	@return: Definition Success. ( Boolean )		
+	@return: Definition Success. ( Boolean )
 	"""
 
 	len(logger.__dict__["handlers"]) and LOGGER.debug("> Stopping Handler: '{0}'.".format(handler))
@@ -141,7 +141,7 @@ def wait(waitTime):
 	This Definition Is A Wait Timer.
 
 	@param waitTime: Current Sleep Time In Seconds. ( Integer )
-	@return: Definition Success. ( Boolean )		
+	@return: Definition Success. ( Boolean )
 	"""
 
 	LOGGER.debug("> Waiting '{0}' Seconds!".format(waitTime))

@@ -91,7 +91,7 @@ class Environment(object):
 	def variable(self):
 		"""
 		This Method Is The Property For The _variable Attribute.
-		
+
 		@return: self.__variable. ( String )
 		"""
 
@@ -102,7 +102,7 @@ class Environment(object):
 	def variable(self, value):
 		"""
 		This Method Is The Setter Method For The _variable Attribute.
-		
+
 		@param value: Attribute Value. ( String )
 		"""
 

@@ -75,7 +75,7 @@ def setVerbosityLevel(verbosityLevel):
 	This Definition Provides Overall Verbosity Levels Through An Integer.
 
 	@param verbosityLevel: Verbosity Level. ( Integer )
-	@return: Definition Success. ( Boolean )		
+	@return: Definition Success. ( Boolean )
 	"""
 
 	if verbosityLevel == 0:
@@ -121,7 +121,7 @@ class StandardMessageHook(object):
 	def logger(self, value):
 		"""
 		This Method Is The Setter Method For The _logger Attribute.
-		
+
 		@param value: Attribute Value. ( Object )
 		"""
 
@@ -141,9 +141,9 @@ class StandardMessageHook(object):
 	def write(self, message):
 		"""
 		This Method Logs The Current StdOut Message.
-		
+
 		@param message: Message. ( String )
-		@return: Method Success. ( Boolean )		
+		@return: Method Success. ( Boolean )
 		"""
 
 		for handler in self.__logger.__dict__["handlers"]:
@@ -234,7 +234,7 @@ def executionTrace(object):
 	def function(*args, **kwargs):
 		"""
 		This Decorator Is Used For Function Tracing.
-		
+
 		@param *args: Arguments. ( * )
 		@param **kwargs: Arguments. ( * )
 		@return: Object. ( Object )

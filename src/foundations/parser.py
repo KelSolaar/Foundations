@@ -95,7 +95,7 @@ class Parser(io.File):
 		"""
 		This Method Initializes The Class.
 
-		@param file: Current File Path. ( String ) 
+		@param file: Current File Path. ( String )
 		@param splitter: Splitter Character. ( String )
 		@param namespaceSplitter: Namespace Splitter Character. ( String )
 		@param commentLimiter: Comment Limiter Character. ( String )
@@ -207,7 +207,7 @@ class Parser(io.File):
 	def commentLimiter(self, value):
 		"""
 		This Method Is The Setter Method For The _commentLimiter Attribute.
-	
+
 		@param value: Attribute Value. ( String )
 		"""
 
@@ -240,7 +240,7 @@ class Parser(io.File):
 	def commentMarker(self, value):
 		"""
 		This Method Is The Setter Method For The _commentMarker Attribute.
-	
+
 		@param value: Attribute Value. ( String )
 		"""
 
@@ -273,7 +273,7 @@ class Parser(io.File):
 	def rawSectionContentIdentifier(self, value):
 		"""
 		This Method Is The Setter Method For The _rawSectionContentIdentifier Attribute.
-	
+
 		@param value: Attribute Value. ( String )
 		"""
 
@@ -305,7 +305,7 @@ class Parser(io.File):
 	def sections(self, value):
 		"""
 		This Method Is The Setter Method For The _sections Attribute.
-		
+
 		@param value: Attribute Value. ( Dictionary )
 		"""
 
@@ -367,7 +367,7 @@ class Parser(io.File):
 		@param orderedDictionary: Parser Data Is Stored In Ordered Dictionaries. ( Boolean )
 		@param rawSections: Section Is Not Parsed. ( Boolean )
 		@param stripComments: Comments Are Stripped. ( Boolean )
-		@return: Method Success. ( Boolean )		
+		@return: Method Success. ( Boolean )
 		"""
 
 		LOGGER.debug("> Reading Sections From: '{0}'.".format(self.file))

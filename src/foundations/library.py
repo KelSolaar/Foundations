@@ -101,7 +101,7 @@ class Library(object):
 	def __new__(self, *args, **kwargs):
 		"""
 		This Method Is The Constructor Of The Class.
-		
+
 		@param *args: Arguments. ( * )
 		@param **kwargs: Arguments. ( * )
 		"""
@@ -119,7 +119,7 @@ class Library(object):
 	def __init__(self, libraryPath, functions=None):
 		"""
 		This Method Initializes The Class.
-		
+
 		@param libraryPath: Library Path. ( String )
 		@param functions: Binding Functions List. ( Tuple )
 		"""
@@ -158,7 +158,7 @@ class Library(object):
 	def libraryInstantiated(self):
 		"""
 		This Method Is The Property For The _libraryInstantiated Attribute.
-		
+
 		@return: self.__libraryInstantiated. ( String )
 		"""
 
@@ -169,7 +169,7 @@ class Library(object):
 	def libraryInstantiated(self, value):
 		"""
 		This Method Is The Setter Method For The _libraryInstantiated Attribute.
-		
+
 		@param value: Attribute Value. ( String )
 		"""
 
@@ -188,7 +188,7 @@ class Library(object):
 	def libraryPath(self):
 		"""
 		This Method Is The Property For The _libraryPath Attribute.
-		
+
 		@return: self.__libraryPath. ( String )
 		"""
 
@@ -199,7 +199,7 @@ class Library(object):
 	def libraryPath(self, value):
 		"""
 		This Method Is The Setter Method For The _libraryPath Attribute.
-		
+
 		@param value: Attribute Value. ( String )
 		"""
 
@@ -221,7 +221,7 @@ class Library(object):
 	def functions(self):
 		"""
 		This Method Is The Property For The _functions Attribute.
-		
+
 		@return: self.__functions. ( String )
 		"""
 
@@ -232,7 +232,7 @@ class Library(object):
 	def functions(self, value):
 		"""
 		This Method Is The Setter Method For The _functions Attribute.
-		
+
 		@param value: Attribute Value. ( String )
 		"""
 
@@ -253,7 +253,7 @@ class Library(object):
 	def library(self):
 		"""
 		This Method Is The Property For The _library Attribute.
-		
+
 		@return: self.__library. ( Object )
 		"""
 
@@ -264,7 +264,7 @@ class Library(object):
 	def library(self, value):
 		"""
 		This Method Is The Setter Method For The _library Attribute.
-		
+
 		@param value: Attribute Value. ( Object )
 		"""
 
@@ -287,9 +287,9 @@ class Library(object):
 	def bindFunction(self, function):
 		"""
 		This Method Bind A Function.
-		
+
 		@param function: Function To Bind. ( Tuple )
-		@return: Method Success. ( Boolean )		
+		@return: Method Success. ( Boolean )
 		"""
 
 		LOGGER.debug("> Binding '{0}' Library '{1}' Function.".format(self.__class__.__name__, function.name))
@@ -311,7 +311,7 @@ class Library(object):
 		"""
 		This Method Bind The Library.
 
-		@return: Method Success. ( Boolean )		
+		@return: Method Success. ( Boolean )
 		"""
 
 		if self.__functions:

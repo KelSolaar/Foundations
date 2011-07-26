@@ -54,7 +54,7 @@ class StreamObject(object):
 	def __init__(self, stream=None):
 		"""
 		This Method Initializes The Class.
-		
+
 		@param stream: Stream Object. ( Object )
 		"""
 
@@ -67,7 +67,7 @@ class StreamObject(object):
 	def stream(self):
 		"""
 		This Method Is The Property For The _stream Attribute.
-		
+
 		@return: self.__stream. ( List )
 		"""
 
@@ -77,7 +77,7 @@ class StreamObject(object):
 	def stream(self, value):
 		"""
 		This Method Is The Setter Method For The _stream Attribute.
-		
+
 		@param value: Attribute Value. ( List )
 		"""
 

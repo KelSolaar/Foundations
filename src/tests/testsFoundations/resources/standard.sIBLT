@@ -214,14 +214,14 @@ global proc sIBL_Maya_MR_setup(string $backgroundFilePath,
 		string $sessionStoredAttributes[] = {};
 		if( $preserveSessionSettings )
 			$sessionStoredAttributes = sIBL_Maya_MR_storeSessionAttributes($sessionPreservedAttributes);
-		
+
 		sIBL_Maya_MR_activateMentalRay();
 
 		sIBL_Maya_MR_environmentDeletion();
 
 		$feedbackRadius  = sIBL_Maya_MR_getExtendedFeedbackRadius($feedbackRadius);
 		$camerasList = sIBL_Maya_MR_filterNonExistingNodes($camerasList);
-		
+
 		sIBL_Maya_MR_getMainLocator();
 
 		if ($hideLights)
@@ -271,10 +271,10 @@ global proc sIBL_Maya_MR_setup(string $backgroundFilePath,
 
 			if ($activateLinearWorkflow)
 				sIBL_Maya_MR_activateLinearWorkflow($camerasList, $createBackground, $photographicTonemapper, $framebufferGamma);
-			
+
 			if( $preserveSessionSettings )
 				sIBL_Maya_MR_restoreSessionAttributes($sessionStoredAttributes);
-			
+
 			print("sIBL_GUI | sIBL File Import Finished!\n");
 
 			if( `exists sIBL_Maya_postProcessCallback` )
@@ -464,7 +464,7 @@ global proc sIBL_Maya_MR_environmentDeletion()
 
 	// sIBL Expressions Deletion.
 	sIBL_Maya_MR_deleteType("expression", "sIBL*");
-	
+
 	// sIBL mia_exposure_photographic Shaders Deletion.
 	sIBL_Maya_MR_deleteType("mia_exposure_photographic", "sIBL*");
 
@@ -473,13 +473,13 @@ global proc sIBL_Maya_MR_environmentDeletion()
 
 	// sIBL mia_physicalsun Shaders Deletion.
 	sIBL_Maya_MR_deleteType("mia_physicalsun", "sIBL*");
-	
+
 	// sIBL Condition Nodes Deletion.
 	sIBL_Maya_MR_deleteType("condition", "sIBL*");
-	
+
 	// sIBL mib_color_alpha Nodes Deletion.
 	sIBL_Maya_MR_deleteType("mib_color_alpha", "sIBL*");
-	
+
 	// sIBL displayLayer Nodes Deletion.
 	sIBL_Maya_MR_deleteType("displayLayer", "sIBL*");
 }
@@ -488,35 +488,35 @@ global proc sIBL_Maya_MR_getMainLocator()
 {
 	string $sIBLGroup = sIBL_Maya_MR_getSIBLGroup();
 	string $sIBLLocator = `createNode "annotationShape"`;
-	
+
 	setAttr ($sIBLLocator + ".displayArrow") 0;
 	setAttr -lock true -keyable false ($sIBLLocator + ".displayArrow");
 	setAttr -type "string" ($sIBLLocator + ".text") "[ Smart IBL Controls ]";
-	
+
 	string $sIBLLocatorTransform = sIBL_Maya_MR_getTransform($sIBLLocator);
-	
+
 	// Adding Attributes For Various Toggling And CC Controls.
 	addAttr -ln "renderTogglers" -nn "[ Render Togglers ]" -at "enum" -en "Smart IBL" $sIBLLocatorTransform;
 	setAttr -e-keyable true ($sIBLLocatorTransform + "." + "renderTogglers" );
 	setAttr -lock true ($sIBLLocatorTransform + "." + "renderTogglers" );
 
 	string $componentsList[] = { "Background", "Reflection", "Lighting" };
-	
+
 	for( $component in $componentsList )
-	{	
+	{
 		addAttr -ln ( "toggle" + $component )  -nn ( $component ) -at bool  $sIBLLocatorTransform;
 		setAttr -e-keyable true ($sIBLLocatorTransform + ( ".toggle" + $component ) );
 		setAttr ($sIBLLocatorTransform + ( ".toggle" + $component ) ) true;
 	}
-	
+
 	string $controlsList[] = { "Gamma", "Gain" };
 
 	for( $component in $componentsList )
-	{	
+	{
 		addAttr -ln ("cc" + $component) -nn ( "[ " + $component + " CC ]" ) -at "enum" -en "Smart IBL" $sIBLLocatorTransform;
 		setAttr -e-keyable true ($sIBLLocatorTransform + "." + ("cc" + $component) );
 		setAttr -lock true ($sIBLLocatorTransform + "." + ("cc" + $component) );
-		
+
 		for( $control in $controlsList )
 		{
 			string $lowerCaseComponent = `tolower $component`;
@@ -532,24 +532,24 @@ global proc sIBL_Maya_MR_getMainLocator()
 		setAttr -lock true -keyable false ($sIBLLocatorTransform + "." + $lock);
 
 	parent $sIBLLocatorTransform $sIBLGroup;
-	
+
 	rename ( "sIBL" + $sIBLLocatorTransform) "sIBL_Controls";
 }
 
 global proc sIBL_Maya_MR_getEnvironmentShadersBranch(string $raySwitch, string $connectionEntries[], string $filePath, string $prefix, int $useOverride)
 {
 	string $gammaGain = `shadingNode -asUtility "mip_gamma_gain"`;
-	
+
 	if($useOverride)
 	{
 		string $conditionNode = `shadingNode -asUtility "condition"`;
 		setAttr ($conditionNode + ".secondTerm") 1;
 		connectAttr -f ($gammaGain + ".outValue") ($conditionNode + ".colorIfTrue");
-			
+
 		string $colorAlphaNode = `shadingNode -asUtility "mib_color_alpha"`;
 		setAttr ($colorAlphaNode + ".factor") 0;
 		connectAttr -f ($colorAlphaNode + ".outValue") ($conditionNode + ".colorIfFalse");
-		
+
 		for($entry in $connectionEntries)
 		{
 			connectAttr -f ($conditionNode + ".outColor") ($raySwitch + "." + $entry);
@@ -647,8 +647,8 @@ global proc string sIBL_Maya_MR_getFeedbackGeometry(float $feedbackRadius)
 
 	string $locksList[] = { "tx", "ty", "tz", "ry", "rz" };
 	for( $lock in $locksList )
-		setAttr -lock true -keyable false ($feedback[0] + "." + $lock);	
-	
+		setAttr -lock true -keyable false ($feedback[0] + "." + $lock);
+
 	string $feedBackShapes[] = sIBL_Maya_MR_getShapes($feedback[0]);
 	string $renderStats[] = { "doubleSided", "opposite" };
 	for( $stat in $renderStats )
@@ -715,7 +715,7 @@ global proc string sIBL_Maya_MR_getLigthsTargetLocator()
 	}
 
 	$sIBL_Lights_Target_Locator = `ls -fl "sIBL_Lights_Target_Locator"`;
-	
+
 	sIBL_Maya_MR_addToDisplayLayer("sIBL_Lighting_Layer", $sIBL_Lights_Target_Locator[0]);
 
 	return $sIBL_Lights_Target_Locator[0];
@@ -789,9 +789,9 @@ global proc sIBL_Maya_MR_bridgeFeedbackControlsAndShaders( string $componentsLis
 {
 	connectAttr -f ( "sIBL_Controls.toggle" + $target )  ( "sIBL_" + $target + "_condition.firstTerm") ;
 	string $lowerCaseTarget = `tolower $target`;
-	
+
 	for( $component in $componentsList)
-	{			
+	{
 		string $lowerCaseComponent = `tolower $component`;
 		connectAttr -f ( "sIBL_Controls." + $lowerCaseTarget + $component )  ("sIBL_" + $target + "_mip_gamma_gain." + $lowerCaseComponent);
 	}
@@ -846,7 +846,7 @@ global proc sIBL_Maya_MR_activateLinearWorkflow(string $camerasList[], int $crea
 	{
 			connectAttr -f ($tonemapper + ".message") ($camera + ".miLensShader");
 	}
-	
+
 	if ($framebufferGamma)
 	{
 		setAttr "miDefaultFramebuffer.gamma" 0.454545;
@@ -856,7 +856,7 @@ global proc sIBL_Maya_MR_activateLinearWorkflow(string $camerasList[], int $crea
 	{
 		setAttr "miDefaultFramebuffer.gamma" 1.0;
 		setAttr ($tonemapper + ".gamma") 2.2;
-		
+
 		// Adjust Background Color Space Because Of The Tonemapper
 		if ($createBackground)
 			setAttr  "sIBL_Controls.backgroundGamma" 0.454545;
@@ -905,10 +905,10 @@ global proc sIBL_Maya_MR_getGround(float $feedbackRadius, int $shadowCatcher)
 		else
 			warning("sIBL_GUI | No Background Detected, Shadow Catcher Will Not Be Set!\n");
 	}
-	
+
 	sIBL_Maya_MR_addToDisplayLayer("sIBL_Ground_Layer", $ground[0]);
-	
-	rename $ground[0] "sIBL_Ground";		
+
+	rename $ground[0] "sIBL_Ground";
 }
 
 global proc sIBL_Maya_MR_activateMentalRay()
@@ -930,12 +930,12 @@ global proc float sIBL_Maya_MR_getSceneExtent()
 
 	for($geometry in $geometries)
 		$transforms[size($transforms)] = sIBL_Maya_MR_getTransform($geometry);
-	    
+
 	float $sceneExtent = 0;
 	for($transform in $transforms)
 	{
 		float $boundingBox[] = `xform -q -bb $transform`;
-			
+
 		for( $i=0; $i < size( $boundingBox ); $i++ )
 			if( abs($boundingBox[$i]) > $sceneExtent )
 				$sceneExtent = abs($boundingBox[$i]);
@@ -946,7 +946,7 @@ global proc float sIBL_Maya_MR_getSceneExtent()
 global proc float sIBL_Maya_MR_truncFloatNumber(float $number, float $truncValue)
 {
 	if($truncValue != 0)
-		return `trunc ($number / $truncValue)` * $truncValue; 
+		return `trunc ($number / $truncValue)` * $truncValue;
 	else
 		return $number;
 }

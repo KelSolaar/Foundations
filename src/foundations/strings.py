@@ -130,7 +130,7 @@ def getSplitextBasename(path):
 def getWords(datas):
 	"""
 	This Method Extracts The Words From Provided String.
-	
+
 	@param datas: Datas To Extract Words From. ( String )
 	@return: Words. ( List )
 	"""
@@ -144,7 +144,7 @@ def getWords(datas):
 def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 	"""
 	This Method Filters The Words Using The Provided Filters.
-	
+
 	@param filtersIn: Regex filtersIn List. ( List / Tuple )
 	@param filtersIn: Regex filtersOut List. ( List / Tuple )
 	@param flags: Regex Flags. ( Object )
@@ -197,7 +197,7 @@ def toForwardSlashes(datas):
 	"""
 	This Definition Converts Backward Slashes To Forward Slashes.
 
-	@param datas: Datas To Convert. ( String )	
+	@param datas: Datas To Convert. ( String )
 	@return: Converted Path. ( String )
 	"""
 
@@ -210,7 +210,7 @@ def toBackwardSlashes(datas):
 	"""
 	This Definition Converts Forward Slashes To Backward Slashes.
 
-	@param datas: Datas To Convert. ( String )	
+	@param datas: Datas To Convert. ( String )
 	@return: Converted Path. ( String )
 	"""
 
@@ -223,7 +223,7 @@ def toBackwardSlashes(datas):
 def toPosixPath(path):
 	"""
 	This Definition Converts Windows Path To Posix Path While Stripping Drives Letters And Network Server Slashes.
-	
+
 	@param path: Windows Path. ( String )
 	@return: Path Converted To Posix Path. ( String )
 	"""
@@ -257,7 +257,7 @@ def isEmail(datas):
 	"""
 	This Definition Check If Provided Datas String Is An Email.
 
-	@param datas: Datas To Check. ( String )	
+	@param datas: Datas To Check. ( String )
 	@return: Is Email. ( Boolean )
 	"""
 
@@ -274,7 +274,7 @@ def isWebsite(datas):
 	"""
 	This Definition Check If Provided Datas String Is A Website.
 
-	@param datas: Datas To Check. ( String )	
+	@param datas: Datas To Check. ( String )
 	@return: Is Website. ( Boolean )
 	"""
 

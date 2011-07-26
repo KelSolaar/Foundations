@@ -109,7 +109,7 @@ class Walker(object):
 	def root(self, value):
 		"""
 		This Method Is The Setter Method For The _root Attribute.
-		
+
 		@param value: Attribute Value. ( String )
 		"""
 
@@ -142,7 +142,7 @@ class Walker(object):
 	def hashSize(self, value):
 		"""
 		This Method Is The Setter Method For The _hashSize Attribute.
-		
+
 		@param value: Attribute Value. ( String )
 		"""
 
@@ -174,7 +174,7 @@ class Walker(object):
 	def files(self, value):
 		"""
 		This Method Is The Setter Method For The _files Attribute.
-		
+
 		@param value: Attribute Value. ( Dictionary )
 		"""
 
