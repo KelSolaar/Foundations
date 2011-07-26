@@ -51,7 +51,7 @@ import logging
 import traceback
 
 #***********************************************************************************************
-#***	internal Imports.
+#***    Internal Imports.
 #***********************************************************************************************
 import foundations.core as core
 from foundations.globals.constants import Constants
