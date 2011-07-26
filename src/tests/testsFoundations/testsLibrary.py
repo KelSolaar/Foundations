@@ -21,7 +21,7 @@
 #
 #***********************************************************************************************
 #
-# The Following Code Is Protected By GNU GPL V3 Licence.
+# The following code is protected by GNU GPL V3 Licence.
 #
 #***********************************************************************************************
 
@@ -39,11 +39,11 @@
 """
 
 #***********************************************************************************************
-#***	Python Begin.
+#***	Python begin.
 #***********************************************************************************************
 
 #***********************************************************************************************
-#***	External Imports.
+#***	External imports.
 #***********************************************************************************************
 import ctypes
 import os
@@ -51,12 +51,12 @@ import platform
 import unittest
 
 #***********************************************************************************************
-#***	Internal Imports.
+#***	Internal imports.
 #***********************************************************************************************
 from foundations.library import Library, LibraryHook
 
 #***********************************************************************************************
-#***	Overall Variables.
+#***	Overall variables.
 #***********************************************************************************************
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
 LIBRARIES_DIRECTORY = os.path.join(RESOURCES_DIRECTORY, "libraries")
@@ -76,7 +76,7 @@ LIBRARIES_FUNCTIONS = {"freeImage":(LibraryHook(name="FreeImage_GetVersion" , af
 LIBRARIES_TESTS_CASES = {"freeImage":{"FreeImage_GetVersion":"3.13.1",
 							"FreeImage_GetCopyrightMessage":"This program uses FreeImage, a free, open source image library supporting all common bitmap formats. See http://freeimage.sourceforge.net for details"}}
 #***********************************************************************************************
-#***	Module Classes And Definitions.
+#***	Module classes and definitions.
 #***********************************************************************************************
 class LibraryTestCase(unittest.TestCase):
 	"""
@@ -155,5 +155,5 @@ if __name__ == "__main__":
 	unittest.main()
 
 #***********************************************************************************************
-#***	Python End.
+#***	Python end.
 #***********************************************************************************************

@@ -21,7 +21,7 @@
 #
 #***********************************************************************************************
 #
-# The Following Code Is Protected By GNU GPL V3 Licence.
+# The following code is protected by GNU GPL V3 Licence.
 #
 #***********************************************************************************************
 
@@ -39,11 +39,11 @@
 """
 
 #***********************************************************************************************
-#***	Python Begin.
+#***	Python begin.
 #***********************************************************************************************
 
 #***********************************************************************************************
-#***	External Imports.
+#***	External imports.
 #***********************************************************************************************
 import os
 import shutil
@@ -51,13 +51,13 @@ import tempfile
 import unittest
 
 #***********************************************************************************************
-#***	Internal Imports.
+#***	Internal imports.
 #***********************************************************************************************
 import foundations.io
 from foundations.io import File
 
 #***********************************************************************************************
-#***	Overall Variables.
+#***	Overall variables.
 #***********************************************************************************************
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
 TEST_FILE = os.path.join(RESOURCES_DIRECTORY, "loremIpsum.txt")
@@ -67,7 +67,7 @@ FILE_CONTENT = ["Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed d
 			"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n"]
 
 #***********************************************************************************************
-#***	Module Classes And Definitions.
+#***	Module classes and definitions.
 #***********************************************************************************************
 class FileTestCase(unittest.TestCase):
 	"""
@@ -162,5 +162,5 @@ if __name__ == "__main__":
 	unittest.main()
 
 #***********************************************************************************************
-#***	Python End.
+#***	Python end.
 #***********************************************************************************************

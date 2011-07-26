@@ -22,7 +22,7 @@
 #
 #***********************************************************************************************
 #
-# The Following Code Is Protected By GNU GPL V3 Licence.
+# The following code is protected by GNU GPL V3 Licence.
 #
 #***********************************************************************************************
 
@@ -40,11 +40,11 @@
 """
 
 #***********************************************************************************************
-#***	Python Begin.
+#***	Python begin.
 #***********************************************************************************************
 
 #***********************************************************************************************
-#***	External Imports.
+#***	External imports.
 #***********************************************************************************************
 import ctypes
 import logging
@@ -52,19 +52,19 @@ import os
 import platform
 
 #***********************************************************************************************
-#***	Internal Imports.
+#***	Internal imports.
 #***********************************************************************************************
 import foundations.core as core
 import foundations.exceptions
 from foundations.globals.constants import Constants
 
 #***********************************************************************************************
-#***	Overall Variables.
+#***	Overall variables.
 #***********************************************************************************************
 LOGGER = logging.getLogger(Constants.logger)
 
 #***********************************************************************************************
-#***	Module Classes And Definitions.
+#***	Module classes and definitions.
 #***********************************************************************************************
 class LibraryHook(core.Structure):
 	"""
@@ -81,7 +81,7 @@ class LibraryHook(core.Structure):
 
 		core.Structure.__init__(self, **kwargs)
 
-		# --- Setting Class Attributes. ---
+		# --- Setting class attributes. ---
 		self.__dict__.update(kwargs)
 
 class Library(object):
@@ -129,7 +129,7 @@ class Library(object):
 
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
-		# --- Setting Class Attributes. ---
+		# --- Setting class attributes. ---
 		self.__libraryInstantiated = True
 
 		self.__libraryPath = None
@@ -152,7 +152,7 @@ class Library(object):
 		self.bindLibrary()
 
 	#***********************************************************************************************
-	#***	Attributes Properties.
+	#***	Attributes properties.
 	#***********************************************************************************************
 	@property
 	def libraryInstantiated(self):
@@ -280,7 +280,7 @@ class Library(object):
 		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("library"))
 
 	#***********************************************************************************************
-	#***	Class Methods.
+	#***	Class methods.
 	#***********************************************************************************************
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
@@ -320,5 +320,5 @@ class Library(object):
 		return True
 
 #***********************************************************************************************
-#***	Python End.
+#***	Python end.
 #***********************************************************************************************

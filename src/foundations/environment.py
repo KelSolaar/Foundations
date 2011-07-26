@@ -22,7 +22,7 @@
 #
 #***********************************************************************************************
 #
-# The Following Code Is Protected By GNU GPL V3 Licence.
+# The following code is protected by GNU GPL V3 Licence.
 #
 #***********************************************************************************************
 
@@ -40,30 +40,30 @@
 """
 
 #***********************************************************************************************
-#***	Python Begin.
+#***	Python begin.
 #***********************************************************************************************
 
 #***********************************************************************************************
-#***	External Imports.
+#***	External imports.
 #***********************************************************************************************
 import logging
 import os
 import re
 
 #***********************************************************************************************
-#***	Internal Imports.
+#***	Internal imports.
 #***********************************************************************************************
 import foundations.core as core
 import foundations.exceptions
 from foundations.globals.constants import Constants
 
 #***********************************************************************************************
-#***	Overall Variables.
+#***	Overall variables.
 #***********************************************************************************************
 LOGGER = logging.getLogger(Constants.logger)
 
 #***********************************************************************************************
-#***	Module Classes And Definitions.
+#***	Module classes and definitions.
 #***********************************************************************************************
 class Environment(object):
 	"""
@@ -80,12 +80,12 @@ class Environment(object):
 
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
-		# --- Setting Class Attributes. ---
+		# --- Setting class attributes. ---
 		self.__variable = None
 		self.variable = variable
 
 	#***********************************************************************************************
-	#***	Attributes Properties.
+	#***	Attributes properties.
 	#***********************************************************************************************
 	@property
 	def variable(self):
@@ -121,7 +121,7 @@ class Environment(object):
 		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("variable"))
 
 	#***********************************************************************************************
-	#***	Class Methods.
+	#***	Class methods.
 	#***********************************************************************************************
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
@@ -142,5 +142,5 @@ class Environment(object):
 			return os.environ[self.__variable]
 
 #***********************************************************************************************
-#***	Python End.
+#***	Python end.
 #***********************************************************************************************

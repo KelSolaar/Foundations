@@ -22,7 +22,7 @@
 #
 #***********************************************************************************************
 #
-# The Following Code Is Protected By GNU GPL V3 Licence.
+# The following code is protected by GNU GPL V3 Licence.
 #
 #***********************************************************************************************
 
@@ -40,11 +40,11 @@
 """
 
 #***********************************************************************************************
-#***	Python Begin.
+#***	Python begin.
 #***********************************************************************************************
 
 #***********************************************************************************************
-#***	External Imports.
+#***	External imports.
 #***********************************************************************************************
 from cStringIO import StringIO
 import logging
@@ -52,7 +52,7 @@ import os
 import zipfile
 
 #***********************************************************************************************
-#***	Internal Imports.
+#***	Internal imports.
 #***********************************************************************************************
 import foundations.core as core
 import foundations.io as io
@@ -60,12 +60,12 @@ import foundations.exceptions
 from foundations.globals.constants import Constants
 
 #***********************************************************************************************
-#***	Overall Variables.
+#***	Overall variables.
 #***********************************************************************************************
 LOGGER = logging.getLogger(Constants.logger)
 
 #***********************************************************************************************
-#***	Module Classes And Definitions.
+#***	Module classes and definitions.
 #***********************************************************************************************
 class Pkzip(object):
 	"""
@@ -82,12 +82,12 @@ class Pkzip(object):
 
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
-		# --- Setting Class Attributes. ---
+		# --- Setting class attributes. ---
 		self.__archive = None
 		self.archive = archive
 
 	#***********************************************************************************************
-	#***	Attributes Properties.
+	#***	Attributes properties.
 	#***********************************************************************************************
 	@property
 	def archive(self):
@@ -123,7 +123,7 @@ class Pkzip(object):
 		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("archive"))
 
 	#***********************************************************************************************
-	#***	Class Methods.
+	#***	Class methods.
 	#***********************************************************************************************
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, OSError)
@@ -158,5 +158,5 @@ class Pkzip(object):
 		return True
 
 #***********************************************************************************************
-#***	Python End.
+#***	Python end.
 #***********************************************************************************************

@@ -22,7 +22,7 @@
 #
 #***********************************************************************************************
 #
-# The Following Code Is Protected By GNU GPL V3 Licence.
+# The following code is protected by GNU GPL V3 Licence.
 #
 #***********************************************************************************************
 
@@ -40,29 +40,29 @@
 """
 
 #***********************************************************************************************
-#***	Python Begin.
+#***	Python begin.
 #***********************************************************************************************
 
 #***********************************************************************************************
-#***	External Imports.
+#***	External imports.
 #***********************************************************************************************
 import functools
 import logging
 import traceback
 
 #***********************************************************************************************
-#***    Internal Imports.
+#***	Internal imports.
 #***********************************************************************************************
 import foundations.core as core
 from foundations.globals.constants import Constants
 
 #***********************************************************************************************
-#***	Global Variables.
+#***	Global variables.
 #***********************************************************************************************
 LOGGER = logging.getLogger(Constants.logger)
 
 #***********************************************************************************************
-#***	Module Classes And Definitions.
+#***	Module classes and definitions.
 #***********************************************************************************************
 def exceptionsHandler(handler=None, raise_=False, *args):
 	"""
@@ -152,7 +152,7 @@ class FileStructureError(Exception):
 
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
-		# --- Setting Class Attributes. ---
+		# --- Setting class attributes. ---
 		self.value = value
 
 	@core.executionTrace
@@ -180,7 +180,7 @@ class AttributeStructureError(Exception):
 
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
-		# --- Setting Class Attributes. ---
+		# --- Setting class attributes. ---
 		self.value = value
 
 	@core.executionTrace
@@ -209,7 +209,7 @@ class DirectoryExistsError(Exception):
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
 
-		# --- Setting Class Attributes. ---
+		# --- Setting class attributes. ---
 		self.value = value
 
 	@core.executionTrace
@@ -238,7 +238,7 @@ class FileExistsError(Exception):
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
 
-		# --- Setting Class Attributes. ---
+		# --- Setting class attributes. ---
 		self.value = value
 
 	@core.executionTrace
@@ -266,7 +266,7 @@ class ObjectTypeError(Exception):
 
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
-		# --- Setting Class Attributes. ---
+		# --- Setting class attributes. ---
 		self.value = value
 
 	@core.executionTrace
@@ -294,7 +294,7 @@ class ObjectExistsError(Exception):
 
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
-		# --- Setting Class Attributes. ---
+		# --- Setting class attributes. ---
 		self.value = value
 
 	@core.executionTrace
@@ -322,7 +322,7 @@ class DatabaseOperationError(Exception):
 
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
-		# --- Setting Class Attributes. ---
+		# --- Setting class attributes. ---
 		self.value = value
 
 	@core.executionTrace
@@ -350,7 +350,7 @@ class ProgrammingError(Exception):
 
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
-		# --- Setting Class Attributes. ---
+		# --- Setting class attributes. ---
 		self.value = value
 
 	@core.executionTrace
@@ -378,7 +378,7 @@ class UserError(Exception):
 
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
-		# --- Setting Class Attributes. ---
+		# --- Setting class attributes. ---
 		self.value = value
 
 	@core.executionTrace
@@ -406,7 +406,7 @@ class NetworkError(Exception):
 
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
-		# --- Setting Class Attributes. ---
+		# --- Setting class attributes. ---
 		self.value = value
 
 	@core.executionTrace
@@ -434,7 +434,7 @@ class SocketConnectionError(Exception):
 
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
-		# --- Setting Class Attributes. ---
+		# --- Setting class attributes. ---
 		self.value = value
 
 	@core.executionTrace
@@ -462,7 +462,7 @@ class ComponentActivationError(Exception):
 
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
-		# --- Setting Class Attributes. ---
+		# --- Setting class attributes. ---
 		self.value = value
 
 	@core.executionTrace
@@ -490,7 +490,7 @@ class ComponentDeactivationError(Exception):
 
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
-		# --- Setting Class Attributes. ---
+		# --- Setting class attributes. ---
 		self.value = value
 
 	@core.executionTrace
@@ -518,7 +518,7 @@ class ComponentReloadError(Exception):
 
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
-		# --- Setting Class Attributes. ---
+		# --- Setting class attributes. ---
 		self.value = value
 
 	@core.executionTrace
@@ -546,7 +546,7 @@ class LibraryInstantiationError(Exception):
 
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
-		# --- Setting Class Attributes. ---
+		# --- Setting class attributes. ---
 		self.value = value
 
 	@core.executionTrace
@@ -574,7 +574,7 @@ class LibraryInitializationError(Exception):
 
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
-		# --- Setting Class Attributes. ---
+		# --- Setting class attributes. ---
 		self.value = value
 
 	@core.executionTrace
@@ -602,7 +602,7 @@ class LibraryExecutionError(Exception):
 
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
-		# --- Setting Class Attributes. ---
+		# --- Setting class attributes. ---
 		self.value = value
 
 	@core.executionTrace
@@ -615,5 +615,5 @@ class LibraryExecutionError(Exception):
 
 		return str(self.value)
 #***********************************************************************************************
-#***	Python End.
+#***	Python end.
 #***********************************************************************************************

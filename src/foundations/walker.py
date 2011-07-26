@@ -22,7 +22,7 @@
 #
 #***********************************************************************************************
 #
-# The Following Code Is Protected By GNU GPL V3 Licence.
+# The following code is protected by GNU GPL V3 Licence.
 #
 #***********************************************************************************************
 
@@ -40,11 +40,11 @@
 """
 
 #***********************************************************************************************
-#***	Python Begin.
+#***	Python begin.
 #***********************************************************************************************
 
 #***********************************************************************************************
-#***	External Imports.
+#***	External imports.
 #***********************************************************************************************
 import logging
 import os
@@ -52,7 +52,7 @@ import re
 import hashlib
 
 #***********************************************************************************************
-#***	Internal Imports.
+#***	Internal imports.
 #***********************************************************************************************
 import foundations.core as core
 import foundations.exceptions
@@ -61,12 +61,12 @@ import foundations.strings as strings
 from foundations.globals.constants import Constants
 
 #***********************************************************************************************
-#***	Global Variables.
+#***	Global variables.
 #***********************************************************************************************
 LOGGER = logging.getLogger(Constants.logger)
 
 #***********************************************************************************************
-#***	Module Classes And Definitions.
+#***	Module classes and definitions.
 #***********************************************************************************************
 class Walker(object):
 	"""
@@ -83,7 +83,7 @@ class Walker(object):
 
 		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
 
-		# --- Setting Class Attributes. ---
+		# --- Setting class attributes. ---
 		self.__root = None
 		self.root = root
 		self.__hashSize = None
@@ -92,7 +92,7 @@ class Walker(object):
 		self.__files = None
 
 	#***********************************************************************************************
-	#***	Attributes Properties.
+	#***	Attributes properties.
 	#***********************************************************************************************
 	@property
 	def root(self):
@@ -192,7 +192,7 @@ class Walker(object):
 		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("files"))
 
 	#***********************************************************************************************
-	#***	Class Methods.
+	#***	Class methods.
 	#***********************************************************************************************
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler()
@@ -229,5 +229,5 @@ class Walker(object):
 				return self.__files
 
 #***********************************************************************************************
-#***	Python End.
+#***	Python end.
 #***********************************************************************************************

@@ -22,7 +22,7 @@
 #
 #***********************************************************************************************
 #
-# The Following Code Is Protected By GNU GPL V3 Licence.
+# The following code is protected by GNU GPL V3 Licence.
 #
 #***********************************************************************************************
 
@@ -40,18 +40,18 @@
 """
 
 #***********************************************************************************************
-#***	Python Begin.
+#***	Python begin.
 #***********************************************************************************************
 
 #***********************************************************************************************
-#***	External Imports.
+#***	External imports.
 #***********************************************************************************************
 import logging
 import re
 from collections import OrderedDict
 
 #***********************************************************************************************
-#***	Internal Imports.
+#***	Internal imports.
 #***********************************************************************************************
 import foundations.core as core
 import foundations.exceptions
@@ -60,12 +60,12 @@ import foundations.namespace as namespace
 from foundations.globals.constants import Constants
 
 #***********************************************************************************************
-#***	Overall Variables.
+#***	Overall variables.
 #***********************************************************************************************
 LOGGER = logging.getLogger(Constants.logger)
 
 #***********************************************************************************************
-#***	Module Classes And Definitions.
+#***	Module classes and definitions.
 #***********************************************************************************************
 class AttributeCompound(core.Structure):
 	"""
@@ -82,7 +82,7 @@ class AttributeCompound(core.Structure):
 
 		core.Structure.__init__(self, **kwargs)
 
-		# --- Setting Class Attributes. ---
+		# --- Setting class attributes. ---
 		self.__dict__.update(kwargs)
 
 class Parser(io.File):
@@ -106,7 +106,7 @@ class Parser(io.File):
 
 		io.File.__init__(self, file)
 
-		# --- Setting Class Attributes. ---
+		# --- Setting class attributes. ---
 		self.__splitter = None
 		self.splitter = splitter
 		self.__namespaceSplitter = None
@@ -122,7 +122,7 @@ class Parser(io.File):
 		self.__comments = None
 
 	#***********************************************************************************************
-	#***	Attributes Properties.
+	#***	Attributes properties.
 	#***********************************************************************************************
 	@property
 	def splitter(self):
@@ -356,7 +356,7 @@ class Parser(io.File):
 		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("comments"))
 
 	#***********************************************************************************************
-	#***	Class Methods.
+	#***	Class methods.
 	#***********************************************************************************************
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.FileStructureError)
@@ -519,5 +519,5 @@ def getAttributeCompound(attribute, value=None, splitter="|", bindingIdentifier=
 	return AttributeCompound(name=attribute, value=value, link=None, type=None, alias=None)
 
 #***********************************************************************************************
-#***	Python End.
+#***	Python end.
 #***********************************************************************************************
