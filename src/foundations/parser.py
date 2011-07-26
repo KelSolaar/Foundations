@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
-#***********************************************************s************************************
+#***********************************************************************************************
 #
 # The Following Code Is Protected By GNU GPL V3 Licence.
 #
@@ -40,18 +40,18 @@
 """
 
 #***********************************************************************************************
-#***	Python Begin
+#***	Python Begin.
 #***********************************************************************************************
 
 #***********************************************************************************************
-#***	External Imports
+#***	External Imports.
 #***********************************************************************************************
 import logging
 import re
 from collections import OrderedDict
 
 #***********************************************************************************************
-#***	Internal Imports
+#***	Internal Imports.
 #***********************************************************************************************
 import foundations.core as core
 import foundations.exceptions
@@ -60,12 +60,12 @@ import foundations.namespace as namespace
 from foundations.globals.constants import Constants
 
 #***********************************************************************************************
-#***	Overall Variables
+#***	Overall Variables.
 #***********************************************************************************************
 LOGGER = logging.getLogger(Constants.logger)
 
 #***********************************************************************************************
-#***	Module Classes And Definitions
+#***	Module Classes And Definitions.
 #***********************************************************************************************
 class AttributeCompound(core.Structure):
 	"""
@@ -121,9 +121,9 @@ class Parser(io.File):
 		self.__sections = None
 		self.__comments = None
 
-	#***************************************************************************************
-	#***	Attributes Properties
-	#***************************************************************************************
+	#***********************************************************************************************
+	#***	Attributes Properties.
+	#***********************************************************************************************
 	@property
 	def splitter(self):
 		"""
@@ -355,9 +355,9 @@ class Parser(io.File):
 
 		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("comments"))
 
-	#***************************************************************************************
-	#***	Class Methods
-	#***************************************************************************************
+	#***********************************************************************************************
+	#***	Class Methods.
+	#***********************************************************************************************
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.FileStructureError)
 	def parse(self, orderedDictionary=True, rawSections=None, stripComments=True):
@@ -519,5 +519,5 @@ def getAttributeCompound(attribute, value=None, splitter="|", bindingIdentifier=
 	return AttributeCompound(name=attribute, value=value, link=None, type=None, alias=None)
 
 #***********************************************************************************************
-#***	Python End
+#***	Python End.
 #***********************************************************************************************

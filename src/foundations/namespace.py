@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
-#***********************************************************s************************************
+#***********************************************************************************************
 #
 # The Following Code Is Protected By GNU GPL V3 Licence.
 #
@@ -40,28 +40,28 @@
 """
 
 #***********************************************************************************************
-#***	Python Begin
+#***	Python Begin.
 #***********************************************************************************************
 
 #***********************************************************************************************
-#***	External Imports
+#***	External Imports.
 #***********************************************************************************************
 import logging
 
 #***********************************************************************************************
-#***	Internal Imports
+#***	Internal Imports.
 #***********************************************************************************************
 import foundations.core as core
 from foundations.globals.constants import Constants
 
 #***********************************************************************************************
-#***	Overall Variables
+#***	Overall Variables.
 #***********************************************************************************************
 LOGGER = logging.getLogger(Constants.logger)
 NAMESPACE_SPLITTER = "|"
 
 #***********************************************************************************************
-#***	Module Classes And Definitions
+#***	Module Classes And Definitions.
 #***********************************************************************************************
 @core.executionTrace
 def setNamespace(namespace, attribute, namespaceSplitter=NAMESPACE_SPLITTER):
@@ -114,5 +114,5 @@ def removeNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=Fa
 	return strippedAttribute
 
 #***********************************************************************************************
-#***	Python End
+#***	Python End.
 #***********************************************************************************************
