@@ -32,7 +32,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Walker Tests Module.
+	Walker tests Module.
 
 **Others:**
 
@@ -71,12 +71,12 @@ TREE_HIERARCHY = ("loremIpsum.txt", "standard.ibl", "standard.rc", "standard.sIB
 #***********************************************************************************************
 class WalkerTestCase(unittest.TestCase):
 	"""
-	This Class Is The WalkerTestCase Class.
+	This class is the WalkerTestCase class.
 	"""
 
 	def testRequiredAttributes(self):
 		"""
-		This Method Tests Presence Of Required Attributes.
+		This method tests presence of required attributes.
 		"""
 
 		walker = Walker(RESOURCES_DIRECTORY)
@@ -89,7 +89,7 @@ class WalkerTestCase(unittest.TestCase):
 
 	def testRequiredMethods(self):
 		"""
-		This Method Tests Presence Of Required Methods.
+		This method tests presence of required methods.
 		"""
 
 		walker = Walker(RESOURCES_DIRECTORY)
@@ -100,7 +100,7 @@ class WalkerTestCase(unittest.TestCase):
 
 	def testWalk(self):
 		"""
-		This Method Tests The "Walker" Class "walk" Method.
+		This method tests the "Walker" class "walk" method.
 		"""
 
 		walker = Walker()

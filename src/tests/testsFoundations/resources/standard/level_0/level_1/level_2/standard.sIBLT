@@ -1,5 +1,5 @@
 [Template]
-; Template Comment For Tests Purpose.
+; Template comment for tests purpose.
 Name = @Name | Standard | String | Template Name
 Path = @Path | | String | Template Path
 HelpFile = @HelpFile | help/Maya_MR_Standard Template Manual.html | String | Help File
@@ -15,7 +15,7 @@ OutputScript = @OutputScript | sIBL_Maya_Import.mel | String | Output Script
 Comment = @Comment | This is Maya 2008 To 2011 Mental Ray Template. | String | Comment
 
 [sIBL File Attributes]
-; sIBL File Attributes Comment For Tests Purpose.
+; sIBL file attributes comment for tests purpose.
 Background|BGfile = @BGfile
 Background|BGheight = @BGheight
 Enviroment|EVfile = @EVfile
@@ -33,7 +33,7 @@ Header|North = @North
 Lights|DynamicLights = @dynamicLights
 
 [Common Attributes]
-; Common Attributes Comment For Tests Purpose.
+; Common attributes comment for tests purpose.
 createBackground = @createBackground | 1 | Boolean | Create Background
 createLighting = @createLighting | 1 | Boolean | Create Lighting
 createReflection = @createReflection | 1 | Boolean | Create Reflection
@@ -41,7 +41,7 @@ createSun = @createSun | 1 | Boolean | Create Sun
 createLights = @createLights | 1 | Boolean | Create Dynamic Lights
 
 [Additional Attributes]
-; Additional Attributes Comment For Tests Purpose.
+; Additional attributes comment for tests purpose.
 preserveSessionSettings = @preserveSessionSettings | 1 | Boolean | Preserve Session Settings
 createFeedBack = @createFeedBack | 1 | Boolean | Create Feedback
 createGround = @createGround | 1 | Boolean | Create Ground
@@ -55,19 +55,19 @@ photographicTonemapper = @photographicTonemapper | 0 | Boolean | Use Photographi
 showCamerasDialog = @showCamerasDialog | 0 | Boolean | Cameras Selection Dialog
 
 [Remote Connection]
-; Remote Connection Comment For Tests Purpose.
+; Remote connection comment for tests purpose.
 ConnectionType = @ConnectionType | Socket | String | Connection Type
 ExecutionCommand = @ExecutionCommand | source "$loaderScriptPath"; | String | ExecutionCommand
 DefaultAddress = @DefaultAddress | 127.0.0.1 | Integer | Default Address
 DefaultPort = @DefaultPort | 2048 | Integer | Default Port
 
 [Script]
-// @OutputScript - @Release For @Software @Version
+// @OutputScript - @Release for @Software @Version
 // Author: @Author
 // EMail: @Email
 // Homepage: @Url
-// Template Path: @Path
-// Template Last Modified: @Date
+// Template path: @Path
+// Template last modified: @Date
 // sIBL_GUI
 string $backgroundFilePath = "@BGfile";
 int $backgroundWidth = @BGheight*2;

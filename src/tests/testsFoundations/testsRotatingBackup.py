@@ -33,7 +33,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	RotatingBackup Tests Module.
+	RotatingBackup tests Module.
 
 **Others:**
 
@@ -68,12 +68,12 @@ TEST_DIRECTORY = os.path.join(RESOURCES_DIRECTORY, "standard")
 #***********************************************************************************************
 class RotatingBackupTestCase(unittest.TestCase):
 	"""
-	This Class Is The RotatingBackupTestCase Class.
+	This class is the RotatingBackupTestCase class.
 	"""
 
 	def testRequiredAttributes(self):
 		"""
-		This Method Tests Presence Of Required Attributes.
+		This method tests presence of required attributes.
 		"""
 
 		rotatingBackup = RotatingBackup()
@@ -86,7 +86,7 @@ class RotatingBackupTestCase(unittest.TestCase):
 
 	def testRequiredMethods(self):
 		"""
-		This Method Tests Presence Of Required Methods.
+		This method tests presence of required methods.
 		"""
 
 		rotatingBackup = RotatingBackup()
@@ -97,7 +97,7 @@ class RotatingBackupTestCase(unittest.TestCase):
 
 	def testBackup(self):
 		"""
-		This Method Tests The "RotatingBackup" Class "backup" Method.
+		This method tests the "RotatingBackup" class "backup" method.
 		"""
 
 		tempDirectory = tempfile.mkdtemp()
@@ -113,7 +113,7 @@ class RotatingBackupTestCase(unittest.TestCase):
 
 	def testCopy(self):
 		"""
-		This Method Tests The "RotatingBackup" Class "copy" Method.
+		This method tests the "RotatingBackup" class "copy" method.
 		"""
 
 		tempDirectory = tempfile.mkdtemp()
@@ -126,7 +126,7 @@ class RotatingBackupTestCase(unittest.TestCase):
 
 	def testDelete(self):
 		"""
-		This Method Tests The "RotatingBackup" Class "delete" Method.
+		This method tests the "RotatingBackup" class "delete" method.
 		"""
 
 		tempDirectory = tempfile.mkdtemp()

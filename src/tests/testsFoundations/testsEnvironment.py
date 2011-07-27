@@ -33,7 +33,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Environment Tests Module.
+	Environment tests Module.
 
 **Others:**
 
@@ -63,12 +63,12 @@ from foundations.environment import Environment
 #***********************************************************************************************
 class EnvironmentTestCase(unittest.TestCase):
 	"""
-	This Class Is The EnvironmentTestCase Class.
+	This class is the EnvironmentTestCase class.
 	"""
 
 	def testRequiredAttributes(self):
 		"""
-		This Method Tests Presence Of Required Attributes.
+		This method tests presence of required attributes.
 		"""
 
 		environment = Environment()
@@ -79,7 +79,7 @@ class EnvironmentTestCase(unittest.TestCase):
 
 	def testRequiredMethods(self):
 		"""
-		This Method Tests Presence Of Required Methods.
+		This method tests presence of required methods.
 		"""
 
 		environment = Environment()
@@ -90,7 +90,7 @@ class EnvironmentTestCase(unittest.TestCase):
 
 	def testGetPath(self):
 		"""
-		This Method Tests The "Environment" Class "getPath" Method.
+		This method tests the "Environment" class "getPath" method.
 		"""
 
 		if platform.system() == "Windows" or platform.system() == "Microsoft":

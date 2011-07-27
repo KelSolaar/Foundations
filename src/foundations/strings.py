@@ -71,10 +71,10 @@ LOGGER = logging.getLogger(Constants.logger)
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getNiceName(name):
 	"""
-	This Definition Converts A String To Nice String: currentLogText -> Current Log Text.
+	This definition converts a string to nice string: currentLogText -> current log text.
 
-	@param name: Current String To Be Nicified. ( String )
-	@return: Nicified String. ( String )
+	@param name: Current string to be nicified. ( String )
+	@return: Nicified string. ( String )
 	"""
 
 	niceName = ""
@@ -87,22 +87,22 @@ def getNiceName(name):
 					if name[ index + 1 ].upper() != name[ index + 1 ]:
 						niceName += " " + name[ index ]
 					else:
-						LOGGER.debug("> '{0}' To '{1}'.".format(name, name))
+						LOGGER.debug("> '{0}' to '{1}'.".format(name, name))
 						return name
 				else:
 					niceName += name[ index ]
 			else:
 				niceName += name[ index ]
-	LOGGER.debug("> '{0}' To '{1}'.".format(name, niceName))
+	LOGGER.debug("> '{0}' to '{1}'.".format(name, niceName))
 	return niceName
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getVersionRank(version):
 	"""
-	This Definition Converts A Version String To It's Rank.
+	This definition converts a version string to it's rank.
 
-	@param version: Current Version To Calculate Rank. ( String )
+	@param version: Current version to calculate rank. ( String )
 	@return: Rank. ( Integer )
 	"""
 
@@ -115,23 +115,23 @@ def getVersionRank(version):
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getSplitextBasename(path):
 	"""
-	This Definition Get The Basename Of A Path Without Its Extension.
+	This definition get the basename of a path without its extension.
 
-	@param path: Path To Extract The Basename Without Extension. ( String )
-	@return: Splitext Basename. ( String )
+	@param path: Path to extract the basename without extension. ( String )
+	@return: Splitext basename. ( String )
 	"""
 
 	basename = os.path.splitext(os.path.basename(os.path.normpath(path)))[0]
-	LOGGER.debug("> Splitext Basename: '{0}'.".format(basename))
+	LOGGER.debug("> Splitext basename: '{0}'.".format(basename))
 	return basename
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getWords(datas):
 	"""
-	This Method Extracts The Words From Provided String.
+	This method extracts the words from provided string.
 
-	@param datas: Datas To Extract Words From. ( String )
+	@param datas: Datas to extract words from. ( String )
 	@return: Words. ( List )
 	"""
 
@@ -143,12 +143,12 @@ def getWords(datas):
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 	"""
-	This Method Filters The Words Using The Provided Filters.
+	This method filters the words using the provided filters.
 
-	@param filtersIn: Regex filtersIn List. ( List / Tuple )
-	@param filtersIn: Regex filtersOut List. ( List / Tuple )
-	@param flags: Regex Flags. ( Object )
-	@return: Filtered Words. ( List )
+	@param filtersIn: Regex filtersin list. ( List / tuple )
+	@param filtersIn: Regex filtersout list. ( List / tuple )
+	@param flags: Regex flags. ( Object )
+	@return: Filtered words. ( List )
 	"""
 
 	filteredWords = []
@@ -157,7 +157,7 @@ def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 			filterMatched = False
 			for filter in filtersIn:
 				if not re.search(filter, word, flags):
-					LOGGER.debug("> '{0}' Word Skipped, Filter In '{1}' Not Matched!".format(word, filter))
+					LOGGER.debug("> '{0}' word skipped, filter in '{1}' not matched!".format(word, filter))
 				else:
 					filterMatched = True
 					break
@@ -168,23 +168,23 @@ def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 			filterMatched = False
 			for filter in filtersOut:
 				if re.search(filter, word, flags):
-					LOGGER.debug("> '{0}' Word Skipped, Filter Out '{1}' Matched!".format(word, filter))
+					LOGGER.debug("> '{0}' word skipped, filter out '{1}' matched!".format(word, filter))
 					filterMatched = True
 					break
 			if filterMatched:
 				continue
 		filteredWords.append(word)
-	LOGGER.debug("> Filtered Words: '{0}'".format(", ".join(filteredWords)))
+	LOGGER.debug("> Filtered words: '{0}'".format(", ".join(filteredWords)))
 	return filteredWords
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def replace(string, datas):
 	"""
-	This Definition Replaces The Datas Occurences In The String.
-	@param string: String To Manipulate. ( String )
-	@param datas: Replacement Occurences. ( Dictionary )
-	@return: Manipulated String. ( String )
+	This definition replaces the datas occurences in the string.
+	@param string: String to manipulate. ( String )
+	@param datas: Replacement occurences. ( Dictionary )
+	@return: Manipulated string. ( String )
 	"""
 
 	for old, new in datas.items():
@@ -195,94 +195,94 @@ def replace(string, datas):
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def toForwardSlashes(datas):
 	"""
-	This Definition Converts Backward Slashes To Forward Slashes.
+	This definition converts backward slashes to forward slashes.
 
-	@param datas: Datas To Convert. ( String )
-	@return: Converted Path. ( String )
+	@param datas: Datas to convert. ( String )
+	@return: Converted path. ( String )
 	"""
 
 	datas = datas.replace("\\", "/")
-	LOGGER.debug("> Datas: '{0}' To Forward Slashes.".format(datas))
+	LOGGER.debug("> Datas: '{0}' to forward slashes.".format(datas))
 	return datas
 
 @core.executionTrace
 def toBackwardSlashes(datas):
 	"""
-	This Definition Converts Forward Slashes To Backward Slashes.
+	This definition converts forward slashes to backward slashes.
 
-	@param datas: Datas To Convert. ( String )
-	@return: Converted Path. ( String )
+	@param datas: Datas to convert. ( String )
+	@return: Converted path. ( String )
 	"""
 
 	datas = datas.replace("/", "\\")
-	LOGGER.debug("> Datas: '{0}' To Backward Slashes.".format(datas))
+	LOGGER.debug("> Datas: '{0}' to backward slashes.".format(datas))
 	return datas
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def toPosixPath(path):
 	"""
-	This Definition Converts Windows Path To Posix Path While Stripping Drives Letters And Network Server Slashes.
+	This definition converts Windows path to Posix path while stripping drives letters and network server slashes.
 
-	@param path: Windows Path. ( String )
-	@return: Path Converted To Posix Path. ( String )
+	@param path: Windows path. ( String )
+	@return: Path converted to Posix path. ( String )
 	"""
 
 	posixPath = posixpath.normpath(toForwardSlashes(re.sub("[a-zA-Z]:\\\\|\\\\\\\\", "/", os.path.normpath(path))))
-	LOGGER.debug("> Stripped Converted To Posix Path: '{0}'.".format(posixPath))
+	LOGGER.debug("> Stripped converted to Posix path: '{0}'.".format(posixPath))
 	return posixPath
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getNormalizedPath(path):
 	"""
-	This Definition Normalizes A Path, Escaping Slashes If Needed On Windows.
+	This definition normalizes a path, escaping slashes if needed on Windows.
 
-	@param path: Path To Normalize. ( String )
-	@return: Normalized Path. ( String )
+	@param path: Path to normalize. ( String )
+	@return: Normalized path. ( String )
 	"""
 
 	if platform.system() == "Windows" or platform.system() == "Microsoft":
 		path = os.path.normpath(path).replace("\\", "\\\\")
-		LOGGER.debug("> Path: '{0}', Normalized Path.".format(path))
+		LOGGER.debug("> Path: '{0}', normalized path.".format(path))
 		return path
 	else:
 		path = os.path.normpath(path)
-		LOGGER.debug("> Path: '{0}', Normalized Path.".format(path))
+		LOGGER.debug("> Path: '{0}', normalized path.".format(path))
 		return path
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def isEmail(datas):
 	"""
-	This Definition Check If Provided Datas String Is An Email.
+	This definition check if provided datas string is an email.
 
-	@param datas: Datas To Check. ( String )
-	@return: Is Email. ( Boolean )
+	@param datas: Datas to check. ( String )
+	@return: Is email. ( Boolean )
 	"""
 
 	if re.match("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}", datas):
-		LOGGER.debug("> {0}' Is Matched As Email.".format(datas))
+		LOGGER.debug("> {0}' is matched as email.".format(datas))
 		return True
 	else:
-		LOGGER.debug("> {0}' Is Not Matched As Email.".format(datas))
+		LOGGER.debug("> {0}' is not matched as email.".format(datas))
 		return False
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def isWebsite(datas):
 	"""
-	This Definition Check If Provided Datas String Is A Website.
+	This definition check if provided datas string is a website.
 
-	@param datas: Datas To Check. ( String )
-	@return: Is Website. ( Boolean )
+	@param datas: Datas to check. ( String )
+	@return: Is website. ( Boolean )
 	"""
 
 	if re.match("(http|ftp|https)://([a-zA-Z0-9\-\.]+)/?", datas):
-		LOGGER.debug("> {0}' Is Matched As Website.".format(datas))
+		LOGGER.debug("> {0}' is matched as website.".format(datas))
 		return True
 	else:
-		LOGGER.debug("> {0}' Is Not Matched As Website.".format(datas))
+		LOGGER.debug("> {0}' is not matched as website.".format(datas))
 		return False
 
 #***********************************************************************************************

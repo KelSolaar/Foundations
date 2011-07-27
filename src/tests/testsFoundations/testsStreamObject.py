@@ -33,7 +33,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	StreamObject Tests Module.
+	StreamObject tests Module.
 
 **Others:**
 
@@ -62,12 +62,12 @@ from foundations.streamObject import StreamObject
 #***********************************************************************************************
 class StreamObjectTestCase(unittest.TestCase):
 	"""
-	This Class Is The StreamObjectTestCase Class.
+	This class is the StreamObjectTestCase class.
 	"""
 
 	def testRequiredAttributes(self):
 		"""
-		This Method Tests Presence Of Required Attributes.
+		This method tests presence of required attributes.
 		"""
 
 		streamObject = StreamObject()
@@ -78,7 +78,7 @@ class StreamObjectTestCase(unittest.TestCase):
 
 	def testRequiredMethods(self):
 		"""
-		This Method Tests Presence Of Required Methods.
+		This method tests presence of required methods.
 		"""
 
 		streamObject = StreamObject()

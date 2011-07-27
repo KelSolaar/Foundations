@@ -72,10 +72,10 @@ logging.LogRecord.__getattribute__ = _LogRecord_getAttribute
 
 def setVerbosityLevel(verbosityLevel):
 	"""
-	This Definition Provides Overall Verbosity Levels Through An Integer.
+	This definition provides overall verbosity levels through an integer.
 
-	@param verbosityLevel: Verbosity Level. ( Integer )
-	@return: Definition Success. ( Boolean )
+	@param verbosityLevel: Verbosity level. ( Integer )
+	@return: Definition success. ( Boolean )
 	"""
 
 	if verbosityLevel == 0:
@@ -92,12 +92,12 @@ def setVerbosityLevel(verbosityLevel):
 
 class StandardMessageHook(object):
 	"""
-	This Is The StandardMessageHook Class.
+	This is the StandardMessageHook class.
 	"""
 
 	def __init__(self, logger):
 		"""
-		This Method Initializes The Class.
+		This method initializes the class.
 
 		@param logger: LOGGER. ( Object )
 		"""
@@ -110,7 +110,7 @@ class StandardMessageHook(object):
 	@property
 	def logger(self):
 		"""
-		This Method Is The Property For The _logger Attribute.
+		This method is the property for the _logger attribute.
 
 		@return: self.__logger. ( Object )
 		"""
@@ -120,30 +120,30 @@ class StandardMessageHook(object):
 	@logger.setter
 	def logger(self, value):
 		"""
-		This Method Is The Setter Method For The _logger Attribute.
+		This method is the setter method for the _logger attribute.
 
-		@param value: Attribute Value. ( Object )
+		@param value: Attribute value. ( Object )
 		"""
 
-		raise Exception("'{0}' Attribute Is Read Only!".format("logger"))
+		raise Exception("'{0}' attribute is read only!".format("logger"))
 
 	@logger.deleter
 	def logger(self):
 		"""
-		This Method Is The Deleter Method For The _logger Attribute.
+		This method is the deleter method for the _logger attribute.
 		"""
 
-		raise Exception("'{0}' Attribute Is Not Deletable!".format("logger"))
+		raise Exception("'{0}' attribute is not deletable!".format("logger"))
 
 	#***********************************************************************************************
 	#***	Class methods.
 	#***********************************************************************************************
 	def write(self, message):
 		"""
-		This Method Logs The Current StdOut Message.
+		This method logs the current stdout message.
 
 		@param message: Message. ( String )
-		@return: Method Success. ( Boolean )
+		@return: Method success. ( Boolean )
 		"""
 
 		for handler in self.__logger.__dict__["handlers"]:
@@ -175,9 +175,9 @@ UNDEFINED_OBJECT = "UndefinedObject"
 #***********************************************************************************************
 def getFrame(index):
 	"""
-	This Definition Returns The Requested Frame.
+	This definition returns the requested frame.
 
-	@param level: Frame Index. ( Object )
+	@param level: Frame index. ( Object )
 	@return: Frame. ( Frame )
 	"""
 
@@ -185,9 +185,9 @@ def getFrame(index):
 
 def getCodeLayerName():
 	"""
-	This Definition Returns The Frame Code Layer Name.
+	This definition returns the frame code layer name.
 
-	@return: Code Layer Name. ( String )
+	@return: Code layer name. ( String )
 	"""
 
 	for frameIndex in range(len(inspect.stack())):
@@ -198,7 +198,7 @@ def getCodeLayerName():
 
 def getModule(object):
 	"""
-	This Definition Returns The Frame Module Name.
+	This definition returns the frame Module name.
 
 	@param object: Object. ( Object )
 	@return: Frame Module. ( Module )
@@ -208,10 +208,10 @@ def getModule(object):
 
 def getObjectName(object):
 	"""
-	This Definition Returns The Object Name Related To The Provided Frame.
+	This definition returns the object name related to the provided frame.
 
 	@param object: Object. ( Object )
-	@return: Object Name. ( String )
+	@return: Object name. ( String )
 	"""
 
 	moduleName = getModule(inspect.getmodule(object)).__name__
@@ -222,9 +222,9 @@ def getObjectName(object):
 
 def executionTrace(object):
 	"""
-	This Decorator Is Used For Function Tracing.
+	This decorator is used for function tracing.
 
-	@param object: Object To Decorate. ( Object )
+	@param object: Object to decorate. ( Object )
 	@return: Object. ( Object )
 	"""
 
@@ -233,7 +233,7 @@ def executionTrace(object):
 	@functools.wraps(object)
 	def function(*args, **kwargs):
 		"""
-		This Decorator Is Used For Function Tracing.
+		This decorator is used for function tracing.
 
 		@param *args: Arguments. ( * )
 		@param **kwargs: Arguments. ( * )
@@ -252,15 +252,15 @@ def executionTrace(object):
 
 class Structure(object):
 	"""
-	This Is The Structure Class.
+	This is the Structure class.
 	"""
 
 	@executionTrace
 	def __init__(self, **kwargs):
 		"""
-		This Method Initializes The Class.
+		This method initializes the class.
 
-		@param kwargs: Key / Value Pairs. ( Key / Value Pairs )
+		@param kwargs: Key / value pairs. ( Key / value pairs )
 		"""
 
 		self.__dict__.update(kwargs)

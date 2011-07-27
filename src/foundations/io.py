@@ -33,7 +33,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	IO Classes And Definitions Module.
+	IO classes and definitions Module.
 
 **Others:**
 
@@ -66,19 +66,19 @@ LOGGER = logging.getLogger(Constants.logger)
 #***********************************************************************************************
 class File(object):
 	"""
-	This Class Provides Methods To Read / Write Files.
+	This class provides methods to read / write files.
 	"""
 
 	@core.executionTrace
 	def __init__(self, file=None, content=None):
 		"""
-		This Method Initializes The Class.
+		This method initializes the class.
 
-		@param file: File Path. ( String )
+		@param file: File path. ( String )
 		@param content: Content. ( List )
 		"""
 
-		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
+		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
 		# --- Setting class attributes. ---
 		self.__file = None
@@ -92,7 +92,7 @@ class File(object):
 	@property
 	def file(self):
 		"""
-		This Method Is The Property For The _file Attribute.
+		This method is the property for the _file attribute.
 
 		@return: self.__file. ( String )
 		"""
@@ -103,28 +103,28 @@ class File(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def file(self, value):
 		"""
-		This Method Is The Setter Method For The _file Attribute.
+		This method is the setter method for the _file attribute.
 
-		@param value: Attribute Value. ( String )
+		@param value: Attribute value. ( String )
 		"""
 
 		if value:
-			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("file", value)
+			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("file", value)
 		self.__file = value
 
 	@file.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def file(self):
 		"""
-		This Method Is The Deleter Method For The _file Attribute.
+		This method is the deleter method for the _file attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("file"))
+		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("file"))
 
 	@property
 	def content(self):
 		"""
-		This Method Is The Property For The _content Attribute.
+		This method is the property for the _content attribute.
 
 		@return: self.__content. ( List )
 		"""
@@ -135,23 +135,23 @@ class File(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def content(self, value):
 		"""
-		This Method Is The Setter Method For The _content Attribute.
+		This method is the setter method for the _content attribute.
 
-		@param value: Attribute Value. ( List )
+		@param value: Attribute value. ( List )
 		"""
 
 		if value:
-			assert type(value) is list, "'{0}' Attribute: '{1}' Type Is Not 'list'!".format("content", value)
+			assert type(value) is list, "'{0}' attribute: '{1}' type is not 'list'!".format("content", value)
 		self.__content = value
 
 	@content.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def content(self):
 		"""
-		This Method Is The Deleter Method For The _content Attribute.
+		This method is the deleter method for the _content attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("content"))
+		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("content"))
 
 	#***********************************************************************************************
 	#***	Class methods.
@@ -160,14 +160,14 @@ class File(object):
 	@foundations.exceptions.exceptionsHandler(None, False, IOError)
 	def read(self, mode="r"):
 		"""
-		This Method Reads Provided File And Return The Content As A List.
+		This method reads provided file and return the content as a list.
 
-		@param mode: File Read Mode. ( String )
-		@return: Method Success. ( Boolean )
+		@param mode: File read mode. ( String )
+		@return: Method success. ( Boolean )
 		"""
 
-		LOGGER.debug("> Current File Path: '{0}'.".format(self.__file))
-		LOGGER.debug("> Reading Current File Content.")
+		LOGGER.debug("> Current file path: '{0}'.".format(self.__file))
+		LOGGER.debug("> Reading current file content.")
 
 		with open(self.__file, mode) as file:
 			self.__content = file.readlines()
@@ -177,13 +177,13 @@ class File(object):
 	@foundations.exceptions.exceptionsHandler(None, False, OSError)
 	def write(self, mode="w"):
 		"""
-		This Method Writes Content To Provided File.
+		This method writes content to provided file.
 
-		@param mode: File Write Mode. ( String )
-		@return: Method Success. ( Boolean )
+		@param mode: File write mode. ( String )
+		@return: Method success. ( Boolean )
 		"""
 
-		LOGGER.debug("> Current File Path: '{0}'.".format(self.__file))
+		LOGGER.debug("> Current file path: '{0}'.".format(self.__file))
 
 		with open(self.__file, mode) as file:
 			for line in self.__content:
@@ -194,13 +194,13 @@ class File(object):
 	@foundations.exceptions.exceptionsHandler(None, False, OSError)
 	def append(self, mode="a"):
 		"""
-		This Method Append Content To Provided File.
+		This method append content to provided file.
 
-		@param mode: File Write Mode. ( String )
-		@return: Method Success. ( Boolean )
+		@param mode: File write mode. ( String )
+		@return: Method success. ( Boolean )
 		"""
 
-		LOGGER.debug("> Current File Path: '{0}'.".format(self.__file))
+		LOGGER.debug("> Current file path: '{0}'.".format(self.__file))
 
 		with open(self.__file, mode) as file:
 			for line in self.__content:
@@ -211,18 +211,18 @@ class File(object):
 @foundations.exceptions.exceptionsHandler(None, False, OSError)
 def setLocalDirectory(path):
 	"""
-	This Definition Creates A Directory With Provided Path.
+	This definition creates a directory with provided path.
 
-	@param path: Directory Path. ( String )
-	@return: Definition Success. ( Boolean )
+	@param path: Directory path. ( String )
+	@return: Definition success. ( Boolean )
 	"""
 
 	if not os.path.exists(path):
-		LOGGER.debug("> Creating Directory: '{0}'.".format(path))
+		LOGGER.debug("> Creating directory: '{0}'.".format(path))
 		os.makedirs(path)
 		return True
 	else:
-		LOGGER.debug("> '{0}' Directory Already Exist, Skipping Creation!".format(path))
+		LOGGER.debug("> '{0}' directory already exist, skipping creation!".format(path))
 		return True
 
 #***********************************************************************************************

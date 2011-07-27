@@ -70,18 +70,18 @@ LOGGER = logging.getLogger(Constants.logger)
 #***********************************************************************************************
 class Walker(object):
 	"""
-	This Class Provides Methods For Walking In A Directory.
+	This class provides methods for walking in a directory.
 	"""
 
 	@core.executionTrace
 	def __init__(self, root=None, hashSize=8):
 		"""
-		This Method Initializes The Class.
+		This method initializes the class.
 
-		@param root: Root Directory Path To Recurse. ( String )
+		@param root: Root directory path to recurse. ( String )
 		"""
 
-		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
+		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
 		# --- Setting class attributes. ---
 		self.__root = None
@@ -97,7 +97,7 @@ class Walker(object):
 	@property
 	def root(self):
 		"""
-		This Method Is The Property For The _root Attribute.
+		This method is the property for the _root attribute.
 
 		@return: self.__root. ( String )
 		"""
@@ -108,29 +108,29 @@ class Walker(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def root(self, value):
 		"""
-		This Method Is The Setter Method For The _root Attribute.
+		This method is the setter method for the _root attribute.
 
-		@param value: Attribute Value. ( String )
+		@param value: Attribute value. ( String )
 		"""
 
 		if value:
-			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("root", value)
-			assert os.path.exists(value), "'{0}' Attribute: '{1}' Directory Doesn't Exists!".format("root", value)
+			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("root", value)
+			assert os.path.exists(value), "'{0}' attribute: '{1}' directory doesn't exists!".format("root", value)
 		self.__root = value
 
 	@root.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def root(self):
 		"""
-		This Method Is The Deleter Method For The _root Attribute.
+		This method is the deleter method for the _root attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("root"))
+		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("root"))
 
 	@property
 	def hashSize(self):
 		"""
-		This Method Is The Property For The _hashSize Attribute.
+		This method is the property for the _hashSize attribute.
 
 		@return: self.__hashSize. ( String )
 		"""
@@ -141,28 +141,28 @@ class Walker(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def hashSize(self, value):
 		"""
-		This Method Is The Setter Method For The _hashSize Attribute.
+		This method is the setter method for the _hashSize attribute.
 
-		@param value: Attribute Value. ( String )
+		@param value: Attribute value. ( String )
 		"""
 
 		if value:
-			assert type(value) is int, "'{0}' Attribute: '{1}' Type Is Not 'int'!".format("hashSize", value)
+			assert type(value) is int, "'{0}' attribute: '{1}' type is not 'int'!".format("hashSize", value)
 		self.__hashSize = value
 
 	@hashSize.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def hashSize(self):
 		"""
-		This Method Is The Deleter Method For The _hashSize Attribute.
+		This method is the deleter method for the _hashSize attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("hashSize"))
+		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("hashSize"))
 
 	@property
 	def files(self):
 		"""
-		This Method Is The Property For The _files Attribute.
+		This method is the property for the _files attribute.
 
 		@return: self.__files. ( Dictionary )
 		"""
@@ -173,23 +173,23 @@ class Walker(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def files(self, value):
 		"""
-		This Method Is The Setter Method For The _files Attribute.
+		This method is the setter method for the _files attribute.
 
-		@param value: Attribute Value. ( Dictionary )
+		@param value: Attribute value. ( Dictionary )
 		"""
 
 		if value:
-			assert type(value) is dict, "'{0}' Attribute: '{1}' Type Is Not 'dict'!".format("files", value)
+			assert type(value) is dict, "'{0}' attribute: '{1}' type is not 'dict'!".format("files", value)
 		self.__files = value
 
 	@files.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def files(self):
 		"""
-		This Method Is The Deleter Method For The _files Attribute.
+		This method is the deleter method for the _files attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("files"))
+		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("files"))
 
 	#***********************************************************************************************
 	#***	Class methods.
@@ -198,32 +198,32 @@ class Walker(object):
 	@foundations.exceptions.exceptionsHandler()
 	def walk(self, filtersIn=None, filtersOut=None, flags=0, shorterHashKey=True):
 		"""
-		This Method Gets Root Directory Files List As A Dictionary.
+		This method gets root directory files list as a dictionary.
 
-		@param filtersIn: Regex filtersIn List. ( List / Tuple )
-		@param filtersIn: Regex filtersOut List. ( List / Tuple )
-		@param flags: Regex Flags. ( Object )
-		@return: Files List. ( Dictionary Or None )
+		@param filtersIn: Regex filtersin list. ( List / tuple )
+		@param filtersIn: Regex filtersout list. ( List / tuple )
+		@param flags: Regex flags. ( Object )
+		@return: Files list. ( Dictionary or none )
 		"""
 
 		if filtersIn:
-			LOGGER.debug("> Current filtersIn: '{0}'.".format(filtersIn))
+			LOGGER.debug("> Current filtersin: '{0}'.".format(filtersIn))
 
 		if self.__root:
 				self.__files = {}
 				for root, dirs, files in os.walk(self.__root, topdown=False, followlinks=True):
 					for item in files:
-						LOGGER.debug("> Current File: '{0}' In '{1}'.".format(item, self.__root))
+						LOGGER.debug("> Current file: '{0}' in '{1}'.".format(item, self.__root))
 						itemPath = strings.toForwardSlashes(os.path.join(root, item))
 						if os.path.isfile(itemPath):
 							if not strings.filterWords((itemPath,), filtersIn, filtersOut, flags):
 								continue
 
-							LOGGER.debug("> '{0}' File Filtered In!".format(itemPath))
+							LOGGER.debug("> '{0}' file filtered in!".format(itemPath))
 
 							hashKey = hashlib.md5(itemPath).hexdigest()
 							itemName = namespace.setNamespace(os.path.splitext(item)[0], shorterHashKey and hashKey[:self.__hashSize] or hashKey)
-							LOGGER.debug("> Adding '{0}' With Path: '{1}' To Files List.".format(itemName, itemPath))
+							LOGGER.debug("> Adding '{0}' with path: '{1}' to files list.".format(itemName, itemPath))
 							self.__files[itemName] = itemPath
 
 				return self.__files

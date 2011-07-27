@@ -32,7 +32,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Pkzip Tests Module.
+	Pkzip tests Module.
 
 **Others:**
 
@@ -70,12 +70,12 @@ TREE_HIERARCHY = ("level_0", "loremIpsum.txt", "standard.ibl", "standard.rc", "s
 #***********************************************************************************************
 class PkzipTestCase(unittest.TestCase):
 	"""
-	This Class Is The PkzipTestCase Class.
+	This class is the PkzipTestCase class.
 	"""
 
 	def testRequiredAttributes(self):
 		"""
-		This Method Tests Presence Of Required Attributes.
+		This method tests presence of required attributes.
 		"""
 
 		zipFile = Pkzip(TEST_FILE)
@@ -86,7 +86,7 @@ class PkzipTestCase(unittest.TestCase):
 
 	def testRequiredMethods(self):
 		"""
-		This Method Tests Presence Of Required Methods.
+		This method tests presence of required methods.
 		"""
 
 		zipFile = Pkzip(TEST_FILE)
@@ -97,7 +97,7 @@ class PkzipTestCase(unittest.TestCase):
 
 	def testRead(self):
 		"""
-		This Method Tests The "Pkzip" Class "extract" Method.
+		This method tests the "Pkzip" class "extract" method.
 		"""
 
 		zipFile = Pkzip(TEST_FILE)

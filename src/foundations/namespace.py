@@ -66,51 +66,51 @@ NAMESPACE_SPLITTER = "|"
 @core.executionTrace
 def setNamespace(namespace, attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 	"""
-	This Definition Returns The Compounded Attribute And Compounded Namespace.
+	This definition returns the compounded attribute and compounded namespace.
 
 	@param namespace: Namespace. ( String )
 	@param attribute: Attribute. ( String )
-	@param namespaceSplitter: Namespace Splitter Character. ( String )
-	@return: Namespaced Attribute. ( String )
+	@param namespaceSplitter: Namespace splitter character. ( String )
+	@return: Namespaced attribute. ( String )
 	"""
 
 	longName = str(namespace + namespaceSplitter + attribute)
-	LOGGER.debug("> Namespace: '{0}', Attribute: '{1}', Long Name: '{2}'.".format(namespace, attribute, longName))
+	LOGGER.debug("> Namespace: '{0}', attribute: '{1}', long name: '{2}'.".format(namespace, attribute, longName))
 	return longName
 
 @core.executionTrace
 def getNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False):
 	"""
-	This Definition Returns The Attribute Namespace.
+	This definition returns the attribute namespace.
 
 	@param attribute: Attribute. ( String )
-	@param namespaceSplitter: Namespace Splitter Character. ( String )
-	@param rootOnly: Return Only Root Namespace. ( Boolean )
-	@return: Attribute Namespace. ( String )
+	@param namespaceSplitter: Namespace splitter character. ( String )
+	@param rootOnly: Return only root namespace. ( Boolean )
+	@return: Attribute namespace. ( String )
 	"""
 
 	attributeTokens = attribute.split(namespaceSplitter)
 	if len(attributeTokens) == 1:
-		LOGGER.debug("> Attribute: '{0}', Namespace: '{1}'.".format(attribute, Constants.nullObject))
+		LOGGER.debug("> Attribute: '{0}', namespace: '{1}'.".format(attribute, Constants.nullObject))
 	else:
 		namespace = rootOnly and attributeTokens[0] or namespaceSplitter.join(attributeTokens[0:-1])
-		LOGGER.debug("> Attribute: '{0}', Namespace: '{1}'.".format(attribute, namespace))
+		LOGGER.debug("> Attribute: '{0}', namespace: '{1}'.".format(attribute, namespace))
 		return namespace
 
 @core.executionTrace
 def removeNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False):
 	"""
-	This Definition Returns The Attribute Without Namespace.
+	This definition returns the attribute without namespace.
 
 	@param attribute: Attribute. ( String )
-	@param namespaceSplitter: Namespace Splitter Character. ( String )
-	@param rootOnly: Remove Only Root Namespace. ( Boolean )
-	@return: Attribute Without Namespace. ( String )
+	@param namespaceSplitter: Namespace splitter character. ( String )
+	@param rootOnly: Remove only root namespace. ( Boolean )
+	@return: Attribute without namespace. ( String )
 	"""
 
 	attributeTokens = attribute.split(namespaceSplitter)
 	strippedAttribute = rootOnly and namespaceSplitter.join(attributeTokens[1:]) or attributeTokens[len(attributeTokens) - 1]
-	LOGGER.debug("> Attribute: '{0}', Stripped Attribute: '{1}'.".format(attribute, strippedAttribute))
+	LOGGER.debug("> Attribute: '{0}', stripped attribute: '{1}'.".format(attribute, strippedAttribute))
 	return strippedAttribute
 
 #***********************************************************************************************

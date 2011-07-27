@@ -33,7 +33,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Core Tests Module.
+	Core tests Module.
 
 **Others:**
 
@@ -66,12 +66,12 @@ from foundations.globals.constants import Constants
 #***********************************************************************************************
 class StandardMessageHookTestCase(unittest.TestCase):
 	"""
-	This Class Is The StandardMessageHookTestCase Class.
+	This class is the StandardMessageHookTestCase class.
 	"""
 
 	def testRequiredAttributes(self):
 		"""
-		This Method Tests Presence Of Required Attributes.
+		This method tests presence of required attributes.
 		"""
 
 		hook = core.StandardMessageHook(None)
@@ -82,7 +82,7 @@ class StandardMessageHookTestCase(unittest.TestCase):
 
 	def testRequiredMethods(self):
 		"""
-		This Method Tests Presence Of Required Methods.
+		This method tests presence of required methods.
 		"""
 
 		hook = core.StandardMessageHook(None)
@@ -93,12 +93,12 @@ class StandardMessageHookTestCase(unittest.TestCase):
 
 class SetVerbosityLevelTestCase(unittest.TestCase):
 	"""
-	This Class Is The SetVerbosityLevelTestCase Class.
+	This class is the SetVerbosityLevelTestCase class.
 	"""
 
 	def testSetVerbosityLevel(self):
 		"""
-		This Method Tests The "setVerbosityLevel" definition.
+		This method tests the "setVerbosityLevel" definition.
 		"""
 
 		LOGGER = logging.getLogger(Constants.logger)
@@ -109,24 +109,24 @@ class SetVerbosityLevelTestCase(unittest.TestCase):
 
 class GetFrameTestCase(unittest.TestCase):
 	"""
-	This Class Is The GetFrameTestCase Class.
+	This class is the GetFrameTestCase class.
 	"""
 
 	def testGetFrame(self):
 		"""
-		This Method Tests The "getFrame" definition.
+		This method tests the "getFrame" definition.
 		"""
 
 		self.assertIsInstance(core.getFrame(0), inspect.currentframe().__class__)
 
 class GetCodeLayerNameTestCase(unittest.TestCase):
 	"""
-	This Class Is The GetCodeLayerNameTestCase Class.
+	This class is the GetCodeLayerNameTestCase class.
 	"""
 
 	def testGetCodeLayerName(self):
 		"""
-		This Method Tests The "getCodeLayerName" definition.
+		This method tests the "getCodeLayerName" definition.
 		"""
 
 		codeLayerName = core.getCodeLayerName()
@@ -135,12 +135,12 @@ class GetCodeLayerNameTestCase(unittest.TestCase):
 
 class GetModuleTestCase(unittest.TestCase):
 	"""
-	This Class Is The GetCodeLayerNameTestCase Class.
+	This class is the GetCodeLayerNameTestCase class.
 	"""
 
 	def testGetModule(self):
 		"""
-		This Method Tests The "getModule" definition.
+		This method tests the "getModule" definition.
 		"""
 
 		self.assertEqual(type(core.getModule(object)), types.ModuleType)
@@ -148,12 +148,12 @@ class GetModuleTestCase(unittest.TestCase):
 
 class GetObjectNameTestCase(unittest.TestCase):
 	"""
-	This Class Is The GetObjectNameTestCase Class.
+	This class is the GetObjectNameTestCase class.
 	"""
 
 	def testGetObjectName(self):
 		"""
-		This Method Tests The "getObjectName" definition.
+		This method tests the "getObjectName" definition.
 		"""
 
 		objectName = core.getObjectName(object)

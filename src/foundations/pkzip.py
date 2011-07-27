@@ -33,7 +33,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Zip File Manipulation Module.
+	Zip file manipulation Module.
 
 **Others:**
 
@@ -69,18 +69,18 @@ LOGGER = logging.getLogger(Constants.logger)
 #***********************************************************************************************
 class Pkzip(object):
 	"""
-	This Class Provides Methods To Manipulate Zip Files.
+	This class provides methods to manipulate zip files.
 	"""
 
 	@core.executionTrace
 	def __init__(self, archive=None):
 		"""
-		This Method Initializes The Class.
+		This method initializes the class.
 
-		@param archive: Variable To Manipulate. ( String )
+		@param archive: Variable to manipulate. ( String )
 		"""
 
-		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
+		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
 		# --- Setting class attributes. ---
 		self.__archive = None
@@ -92,7 +92,7 @@ class Pkzip(object):
 	@property
 	def archive(self):
 		"""
-		This Method Is The Property For The _archive Attribute.
+		This method is the property for the _archive attribute.
 
 		@return: self.__archive. ( String )
 		"""
@@ -103,24 +103,24 @@ class Pkzip(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def archive(self, value):
 		"""
-		This Method Is The Setter Method For The _archive Attribute.
+		This method is the setter method for the _archive attribute.
 
-		@param value: Attribute Value. ( String )
+		@param value: Attribute value. ( String )
 		"""
 
 		if value:
-			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("archive", value)
-			assert os.path.exists(value), "'{0}' Attribute: '{1}' File Doesn't Exists!".format("archive", value)
+			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("archive", value)
+			assert os.path.exists(value), "'{0}' attribute: '{1}' file doesn't exists!".format("archive", value)
 		self.__archive = value
 
 	@archive.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def archive(self):
 		"""
-		This Method Is The Deleter Method For The _archive Attribute.
+		This method is the deleter method for the _archive attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("archive"))
+		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("archive"))
 
 	#***********************************************************************************************
 	#***	Class methods.
@@ -129,9 +129,9 @@ class Pkzip(object):
 	@foundations.exceptions.exceptionsHandler(None, False, OSError)
 	def extract(self, target):
 		"""
-		This Method Extracts The Archive File To The Provided Directory.
+		This method extracts the archive file to the provided directory.
 
-		@return: Method Success. ( Boolean )
+		@return: Method success. ( Boolean )
 		"""
 
 		archive = zipfile.ZipFile(self.__archive)
@@ -147,7 +147,7 @@ class Pkzip(object):
 			not os.path.isdir(os.path.join(target, directory)) and io.setLocalDirectory(os.path.join(target, directory))
 
 		for file in files:
-			LOGGER.info("{0} | Extracting '{1}' File!".format(self.__class__.__name__, file))
+			LOGGER.info("{0} | Extracting '{1}' file!".format(self.__class__.__name__, file))
 			with open(os.path.join(target, file), "w") as output:
 				buffer = StringIO(archive.read(file))
 				bufferSize = 2 ** 20

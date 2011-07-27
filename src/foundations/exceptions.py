@@ -66,10 +66,10 @@ LOGGER = logging.getLogger(Constants.logger)
 #***********************************************************************************************
 def exceptionsHandler(handler=None, raise_=False, *args):
 	"""
-	This Decorator Is Used For Exceptions Handling.
+	This decorator is used for exceptions handling.
 
-	@param handler: Custom Handler. ( Object )
-	@param raise_: Is Default Exception Handler Catching / Raising The Exception. ( Boolean )
+	@param handler: Custom handler. ( Object )
+	@param raise_: Is default exception handler catching / raising the exception. ( Boolean )
 	@param *args: Exceptions. ( Exceptions )
 	@return: Object. ( Object )
 	"""
@@ -79,9 +79,9 @@ def exceptionsHandler(handler=None, raise_=False, *args):
 
 	def wrapper(object_):
 		"""
-		This Decorator Is Used For Exceptions Handling.
+		This decorator is used for exceptions handling.
 
-		@param object_: Object To Decorate. ( Object )
+		@param object_: Object to decorate. ( Object )
 		@return: Object. ( Object )
 		"""
 
@@ -90,7 +90,7 @@ def exceptionsHandler(handler=None, raise_=False, *args):
 		@functools.wraps(object_)
 		def function(*args, **kwargs):
 			"""
-			This Decorator Is Used For Exceptions Handling.
+			This decorator is used for exceptions handling.
 
 			@param *args: Arguments. ( * )
 			@param **kwargs: Arguments. ( * )
@@ -113,20 +113,20 @@ def exceptionsHandler(handler=None, raise_=False, *args):
 @core.executionTrace
 def defaultExceptionsHandler(exception, origin, *args, **kwargs):
 	"""
-	This Definition Provides An Exception Handler.
+	This definition provides an exception handler.
 
 	@param exception: Exception. ( Exception )
-	@param origin: Function / Method Raising The Exception. ( String )
+	@param origin: Function / method raising the exception. ( String )
 	@param *args: Arguments. ( * )
 	@param **kwargs: Arguments. ( * )
 	"""
 
 	LOGGER.error("!> {0}".format(Constants.loggingSeparators))
 
-	LOGGER.error("!> Exception In '{0}'.".format(origin))
-	LOGGER.error("!> Exception Class: '{0}'.".format(exception.__class__.__name__))
-	LOGGER.error("!> Exception Description: '{0}'.".format(exception.__doc__ and exception.__doc__.strip() or Constants.nullObject))
-	LOGGER.error("!> Error Raised: '{0}'.".format(exception))
+	LOGGER.error("!> Exception in '{0}'.".format(origin))
+	LOGGER.error("!> Exception class: '{0}'.".format(exception.__class__.__name__))
+	LOGGER.error("!> Exception description: '{0}'.".format(exception.__doc__ and exception.__doc__.strip() or Constants.nullObject))
+	LOGGER.error("!> Error raised: '{0}'.".format(exception))
 
 	LOGGER.error("!> {0}".format(Constants.loggingSeparators))
 
@@ -139,18 +139,18 @@ def defaultExceptionsHandler(exception, origin, *args, **kwargs):
 
 class FileStructureError(Exception):
 	"""
-	This Class Is Used For File Content Structure Errors.
+	This class is used for file content structure errors.
 	"""
 
 	@core.executionTrace
 	def __init__(self, value):
 		"""
-		This Method Initializes The Class.
+		This method initializes the class.
 
-		@param value: Error Value Or Message. ( String )
+		@param value: Error value or message. ( String )
 		"""
 
-		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
+		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
 		# --- Setting class attributes. ---
 		self.value = value
@@ -158,27 +158,27 @@ class FileStructureError(Exception):
 	@core.executionTrace
 	def __str__(self):
 		"""
-		This Method Returns The Exception Representation.
+		This method returns the exception representation.
 
-		@return: Exception Representation. ( String )
+		@return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
 
 class AttributeStructureError(Exception):
 	"""
-	This Class Is Used For Errors In Attribute Structure.
+	This class is used for errors in attribute structure.
 	"""
 
 	@core.executionTrace
 	def __init__(self, value):
 		"""
-		This Method Initializes The Class.
+		This method initializes the class.
 
-		@param value: Error Value Or Message. ( String )
+		@param value: Error value or message. ( String )
 		"""
 
-		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
+		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
 		# --- Setting class attributes. ---
 		self.value = value
@@ -186,27 +186,27 @@ class AttributeStructureError(Exception):
 	@core.executionTrace
 	def __str__(self):
 		"""
-		This Method Returns The Exception Representation.
+		This method returns the exception representation.
 
-		@return: Exception Representation. ( String )
+		@return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
 
 class DirectoryExistsError(Exception):
 	"""
-	This Class Is Used For Non Existing Directory.
+	This class is used for non existing directory.
 	"""
 
 	@core.executionTrace
 	def __init__(self, value):
 		"""
-		This Method Initializes The Class.
+		This method initializes the class.
 
-		@param value: Error Value Or Message. ( String )
+		@param value: Error value or message. ( String )
 		"""
 
-		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
+		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
 
 		# --- Setting class attributes. ---
@@ -215,27 +215,27 @@ class DirectoryExistsError(Exception):
 	@core.executionTrace
 	def __str__(self):
 		"""
-		This Method Returns The Exception Representation.
+		This method returns the exception representation.
 
-		@return: Exception Representation. ( String )
+		@return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
 
 class FileExistsError(Exception):
 	"""
-	This Class Is Used For Non Existing File.
+	This class is used for non existing file.
 	"""
 
 	@core.executionTrace
 	def __init__(self, value):
 		"""
-		This Method Initializes The Class.
+		This method initializes the class.
 
-		@param value: Error Value Or Message. ( String )
+		@param value: Error value or message. ( String )
 		"""
 
-		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
+		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
 
 		# --- Setting class attributes. ---
@@ -244,27 +244,27 @@ class FileExistsError(Exception):
 	@core.executionTrace
 	def __str__(self):
 		"""
-		This Method Returns The Exception Representation.
+		This method returns the exception representation.
 
-		@return: Exception Representation. ( String )
+		@return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
 
 class ObjectTypeError(Exception):
 	"""
-	This Class Is Used For Invalid Object Type.
+	This class is used for invalid object type.
 	"""
 
 	@core.executionTrace
 	def __init__(self, value):
 		"""
-		This Method Initializes The Class.
+		This method initializes the class.
 
-		@param value: Error Value Or Message. ( String )
+		@param value: Error value or message. ( String )
 		"""
 
-		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
+		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
 		# --- Setting class attributes. ---
 		self.value = value
@@ -272,27 +272,27 @@ class ObjectTypeError(Exception):
 	@core.executionTrace
 	def __str__(self):
 		"""
-		This Method Returns The Exception Representation.
+		This method returns the exception representation.
 
-		@return: Exception Representation. ( String )
+		@return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
 
 class ObjectExistsError(Exception):
 	"""
-	This Class Is Used For Non Existing Object.
+	This class is used for non existing object.
 	"""
 
 	@core.executionTrace
 	def __init__(self, value):
 		"""
-		This Method Initializes The Class.
+		This method initializes the class.
 
-		@param value: Error Value Or Message. ( String )
+		@param value: Error value or message. ( String )
 		"""
 
-		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
+		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
 		# --- Setting class attributes. ---
 		self.value = value
@@ -300,27 +300,27 @@ class ObjectExistsError(Exception):
 	@core.executionTrace
 	def __str__(self):
 		"""
-		This Method Returns The Exception Representation.
+		This method returns the exception representation.
 
-		@return: Exception Representation. ( String )
+		@return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
 
 class DatabaseOperationError(Exception):
 	"""
-	This Class Is Used For Database Operation Errors.
+	This class is used for Database operation errors.
 	"""
 
 	@core.executionTrace
 	def __init__(self, value):
 		"""
-		This Method Initializes The Class.
+		This method initializes the class.
 
-		@param value: Error Value Or Message. ( String )
+		@param value: Error value or message. ( String )
 		"""
 
-		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
+		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
 		# --- Setting class attributes. ---
 		self.value = value
@@ -328,27 +328,27 @@ class DatabaseOperationError(Exception):
 	@core.executionTrace
 	def __str__(self):
 		"""
-		This Method Returns The Exception Representation.
+		This method returns the exception representation.
 
-		@return: Exception Representation. ( String )
+		@return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
 
 class ProgrammingError(Exception):
 	"""
-	This Class Is Used For Programming Errors.
+	This class is used for programming errors.
 	"""
 
 	@core.executionTrace
 	def __init__(self, value):
 		"""
-		This Method Initializes The Class.
+		This method initializes the class.
 
-		@param value: Error Value Or Message. ( String )
+		@param value: Error value or message. ( String )
 		"""
 
-		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
+		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
 		# --- Setting class attributes. ---
 		self.value = value
@@ -356,27 +356,27 @@ class ProgrammingError(Exception):
 	@core.executionTrace
 	def __str__(self):
 		"""
-		This Method Returns The Exception Representation.
+		This method returns the exception representation.
 
-		@return: Exception Representation. ( String )
+		@return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
 
 class UserError(Exception):
 	"""
-	This Class Is Used For User Errors.
+	This class is used for user errors.
 	"""
 
 	@core.executionTrace
 	def __init__(self, value):
 		"""
-		This Method Initializes The Class.
+		This method initializes the class.
 
-		@param value: Error Value Or Message. ( String )
+		@param value: Error value or message. ( String )
 		"""
 
-		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
+		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
 		# --- Setting class attributes. ---
 		self.value = value
@@ -384,27 +384,27 @@ class UserError(Exception):
 	@core.executionTrace
 	def __str__(self):
 		"""
-		This Method Returns The Exception Representation.
+		This method returns the exception representation.
 
-		@return: Exception Representation. ( String )
+		@return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
 
 class NetworkError(Exception):
 	"""
-	This Class Is Used For NetworkError Errors.
+	This class is used for networkerror errors.
 	"""
 
 	@core.executionTrace
 	def __init__(self, value):
 		"""
-		This Method Initializes The Class.
+		This method initializes the class.
 
-		@param value: Error Value Or Message. ( String )
+		@param value: Error value or message. ( String )
 		"""
 
-		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
+		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
 		# --- Setting class attributes. ---
 		self.value = value
@@ -412,27 +412,27 @@ class NetworkError(Exception):
 	@core.executionTrace
 	def __str__(self):
 		"""
-		This Method Returns The Exception Representation.
+		This method returns the exception representation.
 
-		@return: Exception Representation. ( String )
+		@return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
 
 class SocketConnectionError(Exception):
 	"""
-	This Class Is Used For Socket Connection Errors.
+	This class is used for socket connection errors.
 	"""
 
 	@core.executionTrace
 	def __init__(self, value):
 		"""
-		This Method Initializes The Class.
+		This method initializes the class.
 
-		@param value: Error Value Or Message. ( String )
+		@param value: Error value or message. ( String )
 		"""
 
-		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
+		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
 		# --- Setting class attributes. ---
 		self.value = value
@@ -440,27 +440,27 @@ class SocketConnectionError(Exception):
 	@core.executionTrace
 	def __str__(self):
 		"""
-		This Method Returns The Exception Representation.
+		This method returns the exception representation.
 
-		@return: Exception Representation. ( String )
+		@return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
 
 class ComponentActivationError(Exception):
 	"""
-	This Class Is Used For Component Activation Errors.
+	This class is used for Component activation errors.
 	"""
 
 	@core.executionTrace
 	def __init__(self, value):
 		"""
-		This Method Initializes The Class.
+		This method initializes the class.
 
-		@param value: Error Value Or Message. ( String )
+		@param value: Error value or message. ( String )
 		"""
 
-		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
+		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
 		# --- Setting class attributes. ---
 		self.value = value
@@ -468,27 +468,27 @@ class ComponentActivationError(Exception):
 	@core.executionTrace
 	def __str__(self):
 		"""
-		This Method Returns The Exception Representation.
+		This method returns the exception representation.
 
-		@return: Exception Representation. ( String )
+		@return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
 
 class ComponentDeactivationError(Exception):
 	"""
-	This Class Is Used For Component Deactivation Errors.
+	This class is used for Component deactivation errors.
 	"""
 
 	@core.executionTrace
 	def __init__(self, value):
 		"""
-		This Method Initializes The Class.
+		This method initializes the class.
 
-		@param value: Error Value Or Message. ( String )
+		@param value: Error value or message. ( String )
 		"""
 
-		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
+		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
 		# --- Setting class attributes. ---
 		self.value = value
@@ -496,27 +496,27 @@ class ComponentDeactivationError(Exception):
 	@core.executionTrace
 	def __str__(self):
 		"""
-		This Method Returns The Exception Representation.
+		This method returns the exception representation.
 
-		@return: Exception Representation. ( String )
+		@return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
 
 class ComponentReloadError(Exception):
 	"""
-	This Class Is Used For Component Reload Errors.
+	This class is used for Component reload errors.
 	"""
 
 	@core.executionTrace
 	def __init__(self, value):
 		"""
-		This Method Initializes The Class.
+		This method initializes the class.
 
-		@param value: Error Value Or Message. ( String )
+		@param value: Error value or message. ( String )
 		"""
 
-		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
+		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
 		# --- Setting class attributes. ---
 		self.value = value
@@ -524,27 +524,27 @@ class ComponentReloadError(Exception):
 	@core.executionTrace
 	def __str__(self):
 		"""
-		This Method Returns The Exception Representation.
+		This method returns the exception representation.
 
-		@return: Exception Representation. ( String )
+		@return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
 
 class LibraryInstantiationError(Exception):
 	"""
-	This Class Is Used For Library Instantiation Errors.
+	This class is used for Library instantiation errors.
 	"""
 
 	@core.executionTrace
 	def __init__(self, value):
 		"""
-		This Method Initializes The Class.
+		This method initializes the class.
 
-		@param value: Error Value Or Message. ( String )
+		@param value: Error value or message. ( String )
 		"""
 
-		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
+		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
 		# --- Setting class attributes. ---
 		self.value = value
@@ -552,27 +552,27 @@ class LibraryInstantiationError(Exception):
 	@core.executionTrace
 	def __str__(self):
 		"""
-		This Method Returns The Exception Representation.
+		This method returns the exception representation.
 
-		@return: Exception Representation. ( String )
+		@return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
 
 class LibraryInitializationError(Exception):
 	"""
-	This Class Is Used For Library Initialization Errors.
+	This class is used for Library initialization errors.
 	"""
 
 	@core.executionTrace
 	def __init__(self, value):
 		"""
-		This Method Initializes The Class.
+		This method initializes the class.
 
-		@param value: Error Value Or Message. ( String )
+		@param value: Error value or message. ( String )
 		"""
 
-		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
+		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
 		# --- Setting class attributes. ---
 		self.value = value
@@ -580,27 +580,27 @@ class LibraryInitializationError(Exception):
 	@core.executionTrace
 	def __str__(self):
 		"""
-		This Method Returns The Exception Representation.
+		This method returns the exception representation.
 
-		@return: Exception Representation. ( String )
+		@return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
 
 class LibraryExecutionError(Exception):
 	"""
-	This Class Is Used For Library Execution Errors.
+	This class is used for Library execution errors.
 	"""
 
 	@core.executionTrace
 	def __init__(self, value):
 		"""
-		This Method Initializes The Class.
+		This method initializes the class.
 
-		@param value: Error Value Or Message. ( String )
+		@param value: Error value or message. ( String )
 		"""
 
-		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
+		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
 		# --- Setting class attributes. ---
 		self.value = value
@@ -608,9 +608,9 @@ class LibraryExecutionError(Exception):
 	@core.executionTrace
 	def __str__(self):
 		"""
-		This Method Returns The Exception Representation.
+		This method returns the exception representation.
 
-		@return: Exception Representation. ( String )
+		@return: Exception representation. ( String )
 		"""
 
 		return str(self.value)

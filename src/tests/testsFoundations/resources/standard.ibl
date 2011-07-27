@@ -1,11 +1,11 @@
 [Header]
-; Header Comment For Tests Purpose.
-; Additional Header Comment For Tests Purpose.
+; Header comment for tests Purpose.
+; Additional header comment for tests purpose.
 ICOfile = "Icon.jpg"
 Name = "Standard"
 Author = "Thomas Mansencal"
 Location = "Outerspace"
-Comment = "Testing Foundations With Units Tests = Fun!"
+Comment = "Testing Foundations with units tests = fun!"
 GEOlat = 64.12864321684200
 GEOlong = -96.12864321684200
 Link = "http://www.thomasmansencal.com"
@@ -15,7 +15,7 @@ Height = 0.1
 North = 0.1
 
 [Background]
-; Background Comment For Tests Purpose.
+; Background comment for tests purpose.
 BGfile = "Standard_Background.jpg"
 BGmap = 1
 BGu = 0
@@ -23,7 +23,7 @@ BGv = 0
 BGheight = 1024
 
 [Enviroment]
-; Enviroment Comment For Tests Purpose.
+; Enviroment comment for tests purpose.
 EVfile = "Standard_Lighting.jpg"
 EVmap = 1
 EVu = 0
@@ -33,7 +33,7 @@ EVmulti = 1
 EVgamma = 1
 
 [Reflection]
-; Reflection Comment For Tests Purpose.
+; Reflection comment for tests purpose.
 REFfile = "Standard_Reflection.jpg"
 REFmap = 1
 REFu = 0

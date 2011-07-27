@@ -33,7 +33,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Namespace Tests Module.
+	Namespace tests Module.
 
 **Others:**
 
@@ -62,12 +62,12 @@ import foundations.namespace as namespace
 #***********************************************************************************************
 class SetNamespaceTestCase(unittest.TestCase):
 	"""
-	This Class Is The SetNamespaceTestCase Class.
+	This class is the SetNamespaceTestCase class.
 	"""
 
 	def testSetNamespace(self):
 		"""
-		This Method Tests The "setNamespace" Definition.
+		This method tests the "setNamespace" definition.
 		"""
 
 		self.assertIsInstance(namespace.setNamespace("Namespace", "Attribute"), str)
@@ -76,12 +76,12 @@ class SetNamespaceTestCase(unittest.TestCase):
 
 class GetNamespaceTestCase(unittest.TestCase):
 	"""
-	This Class Is The GetNamespaceTestCase Class.
+	This class is the GetNamespaceTestCase class.
 	"""
 
 	def testGetNamespace(self):
 		"""
-		This Method Tests The "getNamespace" Definition.
+		This method tests the "getNamespace" definition.
 		"""
 
 		self.assertIsInstance(namespace.getNamespace("Namespace:Attribute", ":"), str)
@@ -92,12 +92,12 @@ class GetNamespaceTestCase(unittest.TestCase):
 
 class RemoveNamespaceTestCase(unittest.TestCase):
 	"""
-	This Class Is The RemoveNamespaceTestCase Class.
+	This class is the RemoveNamespaceTestCase class.
 	"""
 
 	def testRemoveNamespace(self):
 		"""
-		This Method Tests The "testRemoveNamespace" Definition.
+		This method tests the "testRemoveNamespace" definition.
 		"""
 
 		self.assertIsInstance(namespace.removeNamespace("Namespace|Attribute"), str)

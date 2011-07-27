@@ -53,7 +53,7 @@ import platform
 #***********************************************************************************************
 class Constants():
 	"""
-	This Class Is The Constants Class.
+	This class is the Constants class.
 	"""
 
 	applicationName = "Foundations"

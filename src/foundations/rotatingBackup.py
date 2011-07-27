@@ -33,10 +33,10 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Rotating Backup Module.
+	Rotating backup Module.
 
 **Others:**
-	Code Extracted From rotatingbackup.py Written By leo.ss.pku@gmail.com
+	Code extracted from rotatingbackup.py written by leo.ss.pku@gmail.com
 """
 
 #***********************************************************************************************
@@ -67,20 +67,20 @@ LOGGER = logging.getLogger(Constants.logger)
 #***********************************************************************************************
 class RotatingBackup(object):
 	"""
-	This Class Is The RotatingBackup Class.
+	This class is the RotatingBackup class.
 	"""
 
 	@core.executionTrace
 	def __init__(self, source=None, destination=None, count=3):
 		"""
-		This Method Initializes The Class.
+		This method initializes the class.
 
-		@param source: Backup Source. ( String )
-		@param destination: Backup Destination. ( String )
-		@param count: Backup Count. ( Integer )
+		@param source: Backup source. ( String )
+		@param destination: Backup destination. ( String )
+		@param count: Backup count. ( Integer )
 		"""
 
-		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
+		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
 		# --- Setting class attributes. ---
 		self.__source = None
@@ -96,7 +96,7 @@ class RotatingBackup(object):
 	@property
 	def source(self):
 		"""
-		This Method Is The Property For The _source Attribute.
+		This method is the property for the _source attribute.
 
 		@return: self.__source. ( String )
 		"""
@@ -107,29 +107,29 @@ class RotatingBackup(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def source(self, value):
 		"""
-		This Method Is The Setter Method For The _source Attribute.
+		This method is the setter method for the _source attribute.
 
-		@param value: Attribute Value. ( String )
+		@param value: Attribute value. ( String )
 		"""
 
 		if value:
-			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("source", value)
-			assert os.path.exists(value), "'{0}' Attribute: '{1}' File Doesn't Exists!".format("source", value)
+			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("source", value)
+			assert os.path.exists(value), "'{0}' attribute: '{1}' file doesn't exists!".format("source", value)
 		self.__source = value
 
 	@source.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def source(self):
 		"""
-		This Method Is The Deleter Method For The _source Attribute.
+		This method is the deleter method for the _source attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("source"))
+		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("source"))
 
 	@property
 	def destination(self):
 		"""
-		This Method Is The Property For The _destination Attribute.
+		This method is the property for the _destination attribute.
 
 		@return: self.__destination. ( String )
 		"""
@@ -140,28 +140,28 @@ class RotatingBackup(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def destination(self, value):
 		"""
-		This Method Is The Setter Method For The _destination Attribute.
+		This method is the setter method for the _destination attribute.
 
-		@param value: Attribute Value. ( String )
+		@param value: Attribute value. ( String )
 		"""
 
 		if value:
-			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("destination", value)
+			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("destination", value)
 		self.__destination = value
 
 	@destination.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def destination(self):
 		"""
-		This Method Is The Deleter Method For The _destination Attribute.
+		This method is the deleter method for the _destination attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("destination"))
+		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("destination"))
 
 	@property
 	def count(self):
 		"""
-		This Method Is The Property For The _count Attribute.
+		This method is the property for the _count attribute.
 
 		@return: self.__count. ( Integer )
 		"""
@@ -172,24 +172,24 @@ class RotatingBackup(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def count(self, value):
 		"""
-		This Method Is The Setter Method For The _count Attribute.
+		This method is the setter method for the _count attribute.
 
-		@param value: Attribute Value. ( Integer )
+		@param value: Attribute value. ( Integer )
 		"""
 
 		if value:
-			assert type(value) in (int, float), "'{0}' Attribute: '{1}' Type Is Not 'int' or 'float'!".format("count", value)
-			assert value > 0, "'{0}' Attribute: '{1}' Need To Be Exactly Positive!".format("count", value)
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Read Only!".format("count"))
+			assert type(value) in (int, float), "'{0}' attribute: '{1}' type is not 'int' or 'float'!".format("count", value)
+			assert value > 0, "'{0}' attribute: '{1}' need to be exactly positive!".format("count", value)
+		raise foundations.exceptions.ProgrammingError("'{0}' attribute is read only!".format("count"))
 
 	@count.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def count(self):
 		"""
-		This Method Is The Deleter Method For The _count Attribute.
+		This method is the deleter method for the _count attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("count"))
+		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("count"))
 
 	#***********************************************************************************************
 	#***	Class methods.
@@ -198,12 +198,12 @@ class RotatingBackup(object):
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def backup(self):
 		"""
-		This Method Does The Rotating Backup.
+		This method does the rotating backup.
 
-		@return: Method Success. ( Boolean )
+		@return: Method success. ( Boolean )
 		"""
 
-		LOGGER.debug("> Storing '{0}' File Backup.".format(self.__source))
+		LOGGER.debug("> Storing '{0}' file backup.".format(self.__source))
 
 		if not self.__source and not self.__destination:
 			return True
@@ -225,14 +225,14 @@ class RotatingBackup(object):
 	@foundations.exceptions.exceptionsHandler(None, False, OSError)
 	def copy(self, source, destination):
 		"""
-		This Method Copies The Provided Path To Destination.
+		This method copies the provided path to destination.
 
-		@param source: Source To Copy From. ( String )
-		@param destination: Destination To Copy To. ( String )
-		@return: Method Success. ( Boolean )
+		@param source: Source to copy from. ( String )
+		@param destination: Destination to copy to. ( String )
+		@return: Method success. ( Boolean )
 		"""
 
-		LOGGER.debug("> Copying '{0}' File To '{1}'.".format(source, destination))
+		LOGGER.debug("> Copying '{0}' file to '{1}'.".format(source, destination))
 
 		if os.path.isfile(source):
 			shutil.copyfile(source, destination)
@@ -244,13 +244,13 @@ class RotatingBackup(object):
 	@foundations.exceptions.exceptionsHandler(None, False, OSError)
 	def delete(self, path):
 		"""
-		This Method Deletes The Provided Resource.
+		This method deletes the provided resource.
 
-		@param path: Resource To Delete. ( String )
-		@return: Method Success. ( Boolean )
+		@param path: Resource to delete. ( String )
+		@return: Method success. ( Boolean )
 		"""
 
-		LOGGER.debug("> Removing '{0}' File.".format(path))
+		LOGGER.debug("> Removing '{0}' file.".format(path))
 
 		if os.path.isfile(path):
 			os.remove(path)

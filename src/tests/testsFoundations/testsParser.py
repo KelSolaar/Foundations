@@ -33,7 +33,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Parser Tests Module.
+	Parser tests Module.
 
 **Others:**
 
@@ -96,19 +96,19 @@ SECTIONS_AND_ATTRIBUTES = {"component":OrderedDict([("Component", {"stripped":["
 													("Script", None)])}
 
 RANDOM_ATTRIBUTES = {"component":{"Component|Name":"core.db", "Component|Module":"db", "Informations|Author":"Thomas Mansencal", "Informations|Email":"thomas.mansencal@gmail.com"},
-					"iblSet":{"Header|ICOfile":"Icon.jpg", "Header|Name":"Standard", "Header|Comment":"Testing Foundations With Units Tests = Fun!", "Background|BGfile":"Standard_Background.jpg", "Background|BGmap":"1", "Enviroment|EVfile":"Standard_Lighting.jpg", "Enviroment|EVmap":"1", "Reflection|REFfile":"Standard_Reflection.jpg", "Reflection|REFmap":"1", "Sun|SUNcolor":"240,250,255", "Sun|SUNmulti":"1.0", "Light1|LIGHTcolor":"250,220,190", "Light1|LIGHTmulti":"0.75"},
+					"iblSet":{"Header|ICOfile":"Icon.jpg", "Header|Name":"Standard", "Header|Comment":"Testing Foundations with units tests = fun!", "Background|BGfile":"Standard_Background.jpg", "Background|BGmap":"1", "Enviroment|EVfile":"Standard_Lighting.jpg", "Enviroment|EVmap":"1", "Reflection|REFfile":"Standard_Reflection.jpg", "Reflection|REFmap":"1", "Sun|SUNcolor":"240,250,255", "Sun|SUNmulti":"1.0", "Light1|LIGHTcolor":"250,220,190", "Light1|LIGHTmulti":"0.75"},
 					"template":{"Template|Name":"@Name | Standard | String | Template Name", "Template|Path":"@Path | | String | Template Path", "sIBL File Attributes|Background|BGfile":"@BGfile", "sIBL File Attributes|Background|BGheight":"@BGheight", "Common Attributes|createBackground":"@createBackground | 1 | Boolean | Create Background", "Common Attributes|createLighting":"@createLighting | 1 | Boolean | Create Lighting", "Additional Attributes|preserveSessionSettings":"@preserveSessionSettings | 1 | Boolean | Preserve Session Settings", "Additional Attributes|createFeedBack":"@createFeedBack | 1 | Boolean | Create Feedback", "Remote Connection|ConnectionType":"@ConnectionType | Socket | String | Connection Type", "Remote Connection|ExecutionCommand":"@ExecutionCommand | source \"$loaderScriptPath\"; | String | ExecutionCommand"}}
 
-RANDOM_COMMENTS = {"component":{"Component|#0":{'content': ' Component Comment For Tests Purpose.', 'id': 0}, "Informations|#1":{'content': ' Informations Comment For Tests Purpose.', 'id': 1}},
-					"iblSet":{"Header|#0":{'content': ' Header Comment For Tests Purpose.', 'id': 0}, "Header|#1":{'content': ' Additional Header Comment For Tests Purpose.', 'id': 1}},
-					"template":{"Template|#0":{'content': ' Template Comment For Tests Purpose.', 'id': 0}, "sIBL File Attributes|#1":{'content': ' sIBL File Attributes Comment For Tests Purpose.', 'id': 1}}}
+RANDOM_COMMENTS = {"component":{"Component|#0":{'content': ' Component comment for tests purpose.', 'id': 0}, "Informations|#1":{'content': ' Informations comment for tests purpose.', 'id': 1}},
+					"iblSet":{"Header|#0":{'content': ' Header comment for tests purpose.', 'id': 0}, "Header|#1":{'content': ' Additional header comment for tests purpose.', 'id': 1}},
+					"template":{"Template|#0":{'content': ' Template comment for tests purpose.', 'id': 0}, "sIBL File Attributes|#1":{'content': ' sIBL File Attributes comment for tests purpose.', 'id': 1}}}
 
-SCRIPT_RAW_SECTION = [ "// @OutputScript - @Release For @Software @Version\n",
+SCRIPT_RAW_SECTION = [ "// @OutputScript - @Release for @Software @Version\n",
 						"// Author: @Author\n",
 						"// EMail: @Email\n",
 						"// Homepage: @Url\n",
-						"// Template Path: @Path\n",
-						"// Template Last Modified: @Date\n",
+						"// Template path: @Path\n",
+						"// Template last modified: @Date\n",
 						"// sIBL_GUI\n",
 						"string $backgroundFilePath = \"@BGfile\";\n",
 						"int $backgroundWidth = @BGheight*2;\n",
@@ -119,12 +119,12 @@ SCRIPT_RAW_SECTION = [ "// @OutputScript - @Release For @Software @Version\n",
 #***********************************************************************************************
 class ParserTestCase(unittest.TestCase):
 	"""
-	This Class Is The ParserTestCase Class.
+	This class is the ParserTestCase class.
 	"""
 
 	def testRequiredAttributes(self):
 		"""
-		This Method Tests Presence Of Required Attributes.
+		This method tests presence of required attributes.
 		"""
 
 		parser = Parser(IBL_SET_FILE)
@@ -143,7 +143,7 @@ class ParserTestCase(unittest.TestCase):
 
 	def testRequiredMethods(self):
 		"""
-		This Method Tests Presence Of Required Methods.
+		This method tests presence of required methods.
 		"""
 
 		parser = Parser(IBL_SET_FILE)
@@ -158,7 +158,7 @@ class ParserTestCase(unittest.TestCase):
 
 	def testParse(self):
 		"""
-		This Method Tests The "Parser" Class "parse" Method.
+		This method tests the "Parser" class "parse" method.
 		"""
 
 		for type, file in FILES.items():
@@ -175,7 +175,7 @@ class ParserTestCase(unittest.TestCase):
 
 	def testSections(self):
 		"""
-		This Method Tests The "Parser" Class Sections.
+		This method tests the "Parser" class sections.
 		"""
 
 		for type, file in FILES.items():
@@ -189,7 +189,7 @@ class ParserTestCase(unittest.TestCase):
 
 	def testRawSections(self):
 		"""
-		This Method Tests The "Parser" Class Raw Sections.
+		This method tests the "Parser" class raw sections.
 		"""
 
 		parser = Parser(TEMPLATE_FILE)
@@ -199,7 +199,7 @@ class ParserTestCase(unittest.TestCase):
 
 	def testComments(self):
 		"""
-		This Method Tests The "Parser" Class Comments.
+		This method tests the "Parser" class comments.
 		"""
 
 		for type, file in FILES.items():
@@ -214,7 +214,7 @@ class ParserTestCase(unittest.TestCase):
 
 	def testSectionExists(self):
 		"""
-		This Method Tests The "Parser" Class "sectionsExists" Method.
+		This method tests the "Parser" class "sectionsExists" method.
 		"""
 
 		for type, file in FILES.items():
@@ -227,7 +227,7 @@ class ParserTestCase(unittest.TestCase):
 
 	def testAttributeExists(self):
 		"""
-		This Method Tests The "Parser" Class "attributeExists" Method.
+		This method tests the "Parser" class "attributeExists" method.
 		"""
 
 		for type, file in FILES.items():
@@ -240,7 +240,7 @@ class ParserTestCase(unittest.TestCase):
 
 	def testGetAttributes(self):
 		"""
-		This Method Tests The "Parser" Class "getAttributes" Method.
+		This method tests the "Parser" class "getAttributes" method.
 		"""
 
 		for type, file in FILES.items():
@@ -254,7 +254,7 @@ class ParserTestCase(unittest.TestCase):
 
 	def testGetValue(self):
 		"""
-		This Method Tests The "Parser" Class "getValue" Method.
+		This method tests the "Parser" class "getValue" method.
 		"""
 
 		for type, file in FILES.items():
@@ -268,12 +268,12 @@ class ParserTestCase(unittest.TestCase):
 
 class GetAttributeCompoundTestCase(unittest.TestCase):
 	"""
-	This Class Is The GetAttributeCompoundTestCase Class.
+	This class is the GetAttributeCompoundTestCase class.
 	"""
 
 	def testGetAttributeCompound(self):
 		"""
-		This Method Tests The "getAttributeCompound" Definition.
+		This method tests the "getAttributeCompound" definition.
 		"""
 
 		self.assertIsInstance(foundations.parser.getAttributeCompound("Attribute", "Value"), foundations.parser.AttributeCompound)

@@ -32,7 +32,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Library Tests Module.
+	Library tests Module.
 
 **Others:**
 
@@ -80,12 +80,12 @@ LIBRARIES_TESTS_CASES = {"freeImage":{"FreeImage_GetVersion":"3.13.1",
 #***********************************************************************************************
 class LibraryTestCase(unittest.TestCase):
 	"""
-	This Class Is The LibraryTestCase Class.
+	This class is the LibraryTestCase class.
 	"""
 
 	def testRequiredAttributes(self):
 		"""
-		This Method Tests Presence Of Required Attributes.
+		This method tests presence of required attributes.
 		"""
 
 		library = Library(LIBRARIES["freeImage"], LIBRARIES_FUNCTIONS["freeImage"])
@@ -103,7 +103,7 @@ class LibraryTestCase(unittest.TestCase):
 
 	def testRequiredMethods(self):
 		"""
-		This Method Tests Presence Of Required Methods.
+		This method tests presence of required methods.
 		"""
 
 		library = Library(LIBRARIES["freeImage"], LIBRARIES_FUNCTIONS["freeImage"])
@@ -115,7 +115,7 @@ class LibraryTestCase(unittest.TestCase):
 
 	def testBindFunction(self):
 		"""
-		This Method Tests The "Library" Class "bindFunction" Method.
+		This method tests the "Library" class "bindFunction" method.
 		"""
 
 		for name, path in LIBRARIES.items():
@@ -128,7 +128,7 @@ class LibraryTestCase(unittest.TestCase):
 
 	def testBindLibrary(self):
 		"""
-		This Method Tests The "Library" Class "bindLibrary" Method.
+		This method tests the "Library" class "bindLibrary" method.
 		"""
 
 		for name, path in LIBRARIES.items():
@@ -142,7 +142,7 @@ class LibraryTestCase(unittest.TestCase):
 
 	def testLibrary(self):
 		"""
-		This Method Tests The "Library" Class Binding.
+		This method tests the "Library" class binding.
 		"""
 
 		for name, path in LIBRARIES.items():

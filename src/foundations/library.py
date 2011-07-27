@@ -33,7 +33,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	C / C++ Binding Library Module.
+	C / c++ binding Library Module.
 
 **Others:**
 
@@ -68,15 +68,15 @@ LOGGER = logging.getLogger(Constants.logger)
 #***********************************************************************************************
 class LibraryHook(core.Structure):
 	"""
-	This Is The LibraryHook Class.
+	This is the LibraryHook class.
 	"""
 
 	@core.executionTrace
 	def __init__(self, **kwargs):
 		"""
-		This Method Initializes The Class.
+		This method initializes the class.
 
-		@param kwargs: name, affixe, argumentsType, returnValue. ( Key / Value Pairs )
+		@param kwargs: name, affixe, argumentstype, returnvalue. ( Key / value pairs )
 		"""
 
 		core.Structure.__init__(self, **kwargs)
@@ -86,7 +86,7 @@ class LibraryHook(core.Structure):
 
 class Library(object):
 	"""
-	This Class Provides Methods To Bind A C / C++ Library.
+	This class provides methods to bind a c / c++ Library.
 	"""
 
 	librariesInstances = {}
@@ -100,7 +100,7 @@ class Library(object):
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.LibraryInstantiationError)
 	def __new__(self, *args, **kwargs):
 		"""
-		This Method Is The Constructor Of The Class.
+		This method is the constructor of the class.
 
 		@param *args: Arguments. ( * )
 		@param **kwargs: Arguments. ( * )
@@ -112,22 +112,22 @@ class Library(object):
 				self.librariesInstances[args[0]] = object.__new__(self)
 			return self.librariesInstances[args[0]]
 		else:
-			raise foundations.exceptions.LibraryInstantiationError("'{0}' Library Path Doesn't Exists!".format(libraryPath))
+			raise foundations.exceptions.LibraryInstantiationError("'{0}' library path doesn't exists!".format(libraryPath))
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.LibraryInitializationError)
 	def __init__(self, libraryPath, functions=None):
 		"""
-		This Method Initializes The Class.
+		This method initializes the class.
 
-		@param libraryPath: Library Path. ( String )
-		@param functions: Binding Functions List. ( Tuple )
+		@param libraryPath: Library path. ( String )
+		@param functions: Binding functions list. ( Tuple )
 		"""
 
 		if hasattr(self.librariesInstances[libraryPath], "_libraryInstantiated"):
 			return
 
-		LOGGER.debug("> Initializing '{0}()' Class.".format(self.__class__.__name__))
+		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
 		# --- Setting class attributes. ---
 		self.__libraryInstantiated = True
@@ -147,7 +147,7 @@ class Library(object):
 		if self.libraryPath:
 			self.__library = loadingFunction.LoadLibrary(libraryPath)
 		else:
-			raise foundations.exceptions.LibraryInitializationError, "'{0}' Library Not Found!".format(self.__class__.__name__)
+			raise foundations.exceptions.LibraryInitializationError, "'{0}' library not found!".format(self.__class__.__name__)
 
 		self.bindLibrary()
 
@@ -157,7 +157,7 @@ class Library(object):
 	@property
 	def libraryInstantiated(self):
 		"""
-		This Method Is The Property For The _libraryInstantiated Attribute.
+		This method is the property for the _libraryInstantiated attribute.
 
 		@return: self.__libraryInstantiated. ( String )
 		"""
@@ -168,26 +168,26 @@ class Library(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def libraryInstantiated(self, value):
 		"""
-		This Method Is The Setter Method For The _libraryInstantiated Attribute.
+		This method is the setter method for the _libraryInstantiated attribute.
 
-		@param value: Attribute Value. ( String )
+		@param value: Attribute value. ( String )
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Settable!".format("libraryInstantiated"))
+		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not settable!".format("libraryInstantiated"))
 
 	@libraryInstantiated.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def libraryInstantiated(self):
 		"""
-		This Method Is The Deleter Method For The _libraryInstantiated Attribute.
+		This method is the deleter method for the _libraryInstantiated attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("libraryInstantiated"))
+		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("libraryInstantiated"))
 
 	@property
 	def libraryPath(self):
 		"""
-		This Method Is The Property For The _libraryPath Attribute.
+		This method is the property for the _libraryPath attribute.
 
 		@return: self.__libraryPath. ( String )
 		"""
@@ -198,29 +198,29 @@ class Library(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def libraryPath(self, value):
 		"""
-		This Method Is The Setter Method For The _libraryPath Attribute.
+		This method is the setter method for the _libraryPath attribute.
 
-		@param value: Attribute Value. ( String )
+		@param value: Attribute value. ( String )
 		"""
 
 		if value:
-			assert type(value) in (str, unicode), "'{0}' Attribute: '{1}' Type Is Not 'str' or 'unicode'!".format("libraryPath", value)
-			assert os.path.exists(value), "'{0}' Attribute: '{1}' File Doesn't Exists!".format("libraryPath", value)
+			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("libraryPath", value)
+			assert os.path.exists(value), "'{0}' attribute: '{1}' file doesn't exists!".format("libraryPath", value)
 		self.__libraryPath = value
 
 	@libraryPath.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def libraryPath(self):
 		"""
-		This Method Is The Deleter Method For The _libraryPath Attribute.
+		This method is the deleter method for the _libraryPath attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("libraryPath"))
+		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("libraryPath"))
 
 	@property
 	def functions(self):
 		"""
-		This Method Is The Property For The _functions Attribute.
+		This method is the property for the _functions attribute.
 
 		@return: self.__functions. ( String )
 		"""
@@ -231,28 +231,28 @@ class Library(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def functions(self, value):
 		"""
-		This Method Is The Setter Method For The _functions Attribute.
+		This method is the setter method for the _functions attribute.
 
-		@param value: Attribute Value. ( String )
+		@param value: Attribute value. ( String )
 		"""
 
 		if value:
-			assert type(value) is tuple, "'{0}' Attribute: '{1}' Type Is Not 'tuple'!".format("functions", value)
+			assert type(value) is tuple, "'{0}' attribute: '{1}' type is not 'tuple'!".format("functions", value)
 		self.__functions = value
 
 	@functions.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def functions(self):
 		"""
-		This Method Is The Deleter Method For The _functions Attribute.
+		This method is the deleter method for the _functions attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("functions"))
+		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("functions"))
 
 	@property
 	def library(self):
 		"""
-		This Method Is The Property For The _library Attribute.
+		This method is the property for the _library attribute.
 
 		@return: self.__library. ( Object )
 		"""
@@ -263,9 +263,9 @@ class Library(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def library(self, value):
 		"""
-		This Method Is The Setter Method For The _library Attribute.
+		This method is the setter method for the _library attribute.
 
-		@param value: Attribute Value. ( Object )
+		@param value: Attribute value. ( Object )
 		"""
 
 		self.__library = value
@@ -274,10 +274,10 @@ class Library(object):
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def library(self):
 		"""
-		This Method Is The Deleter Method For The _library Attribute.
+		This method is the deleter method for the _library attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' Attribute Is Not Deletable!".format("library"))
+		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("library"))
 
 	#***********************************************************************************************
 	#***	Class methods.
@@ -286,13 +286,13 @@ class Library(object):
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def bindFunction(self, function):
 		"""
-		This Method Bind A Function.
+		This method bind a function.
 
-		@param function: Function To Bind. ( Tuple )
-		@return: Method Success. ( Boolean )
+		@param function: Function to bind. ( Tuple )
+		@return: Method success. ( Boolean )
 		"""
 
-		LOGGER.debug("> Binding '{0}' Library '{1}' Function.".format(self.__class__.__name__, function.name))
+		LOGGER.debug("> Binding '{0}' library '{1}' function.".format(self.__class__.__name__, function.name))
 
 		returnType = function.returnValue
 		if platform.system() == "Windows" or platform.system() == "Microsoft":
@@ -309,9 +309,9 @@ class Library(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AttributeError)
 	def bindLibrary(self):
 		"""
-		This Method Bind The Library.
+		This method bind the Library.
 
-		@return: Method Success. ( Boolean )
+		@return: Method success. ( Boolean )
 		"""
 
 		if self.__functions:

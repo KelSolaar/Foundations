@@ -33,7 +33,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Stream Object Module.
+	Stream object Module.
 
 **Others:**
 
@@ -48,14 +48,14 @@
 #***********************************************************************************************
 class StreamObject(object):
 	"""
-	This Class Is The StreamObject Class.
+	This class is the StreamObject class.
 	"""
 
 	def __init__(self, stream=None):
 		"""
-		This Method Initializes The Class.
+		This method initializes the class.
 
-		@param stream: Stream Object. ( Object )
+		@param stream: Stream object. ( Object )
 		"""
 
 		self.__stream = []
@@ -66,7 +66,7 @@ class StreamObject(object):
 	@property
 	def stream(self):
 		"""
-		This Method Is The Property For The _stream Attribute.
+		This method is the property for the _stream attribute.
 
 		@return: self.__stream. ( List )
 		"""
@@ -76,38 +76,38 @@ class StreamObject(object):
 	@stream.setter
 	def stream(self, value):
 		"""
-		This Method Is The Setter Method For The _stream Attribute.
+		This method is the setter method for the _stream attribute.
 
-		@param value: Attribute Value. ( List )
+		@param value: Attribute value. ( List )
 		"""
 
 		if value:
-			assert type(value) is list, "'{0}' Attribute: '{1}' Type Is Not 'list'!".format("stream", value)
+			assert type(value) is list, "'{0}' attribute: '{1}' type is not 'list'!".format("stream", value)
 		self.__stream = value
 
 	@stream.deleter
 	def stream(self):
 		"""
-		This Method Is The Deleter Method For The _stream Attribute.
+		This method is the deleter method for the _stream attribute.
 		"""
 
-		raise Exception("'{0}' Attribute Is Not Deletable!".format("stream"))
+		raise Exception("'{0}' attribute is not deletable!".format("stream"))
 
 	#***********************************************************************************************
 	#***	Class methods.
 	#***********************************************************************************************
 	def write(self, message):
 		"""
-		This Method Provides Write Ability To The Class.
+		This method provides write ability to the class.
 
-		@param message: Current Message. ( String )
+		@param message: Current message. ( String )
 		"""
 
 		self.__stream.append(message)
 
 	def flush(self):
 		"""
-		This Method Flushes The Current Stream.
+		This method flushes the current stream.
 		"""
 
 		pass

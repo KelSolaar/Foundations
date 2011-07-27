@@ -33,7 +33,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Exceptions Tests Module.
+	Exceptions tests Module.
 
 **Others:**
 
@@ -79,12 +79,12 @@ EXCEPTIONS = (foundations.exceptions.AttributeStructureError,
 
 class ExceptionsTestCase(unittest.TestCase):
 	"""
-	This Class Is The ExceptionsTestCase Class.
+	This class is the ExceptionsTestCase class.
 	"""
 
 	def testRequiredAttributes(self):
 		"""
-		This Method Tests Presence Of Required Attributes.
+		This method tests presence of required attributes.
 		"""
 
 		requiredAttributes = ("value",)
@@ -95,13 +95,13 @@ class ExceptionsTestCase(unittest.TestCase):
 
 	def test__str__(self):
 		"""
-		This Method Tests The "Exceptions" Class "__str__" Method.
+		This method tests the "Exceptions" class "__str__" method.
 		"""
 
 		for exception in EXCEPTIONS:
-			exceptionInstance = exception("{0} Exception Raised!".format(exception.__class__))
+			exceptionInstance = exception("{0} Exception raised!".format(exception.__class__))
 			self.assertIsInstance(exceptionInstance.__str__(), str)
-			exceptionInstance = exception([exception.__class__, "Exception Raised!"])
+			exceptionInstance = exception([exception.__class__, "Exception raised!"])
 			self.assertIsInstance(exceptionInstance.__str__(), str)
 			exceptionInstance = exception(0)
 			self.assertIsInstance(exceptionInstance.__str__(), str)

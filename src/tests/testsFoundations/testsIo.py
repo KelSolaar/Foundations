@@ -32,7 +32,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Io Tests Module.
+	Io tests Module.
 
 **Others:**
 
@@ -71,12 +71,12 @@ FILE_CONTENT = ["Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed d
 #***********************************************************************************************
 class FileTestCase(unittest.TestCase):
 	"""
-	This Class Is The FileTestCase Class.
+	This class is the FileTestCase class.
 	"""
 
 	def testRequiredAttributes(self):
 		"""
-		This Method Tests Presence Of Required Attributes.
+		This method tests presence of required attributes.
 		"""
 
 		ioFile = File(TEST_FILE)
@@ -88,7 +88,7 @@ class FileTestCase(unittest.TestCase):
 
 	def testRequiredMethods(self):
 		"""
-		This Method Tests Presence Of Required Methods.
+		This method tests presence of required methods.
 		"""
 
 		ioFile = File(TEST_FILE)
@@ -101,7 +101,7 @@ class FileTestCase(unittest.TestCase):
 
 	def testRead(self):
 		"""
-		This Method Tests The "File" Class "read" Method.
+		This method tests the "File" class "read" method.
 		"""
 
 		ioFile = File(TEST_FILE)
@@ -113,7 +113,7 @@ class FileTestCase(unittest.TestCase):
 
 	def testWrite(self):
 		"""
-		This Method Tests The "File" Class "write" Method.
+		This method tests the "File" class "write" method.
 		"""
 
 		ioFile = File(tempfile.mkstemp()[1])
@@ -127,7 +127,7 @@ class FileTestCase(unittest.TestCase):
 
 	def testAppend(self):
 		"""
-		This Method Tests The "File" Class "append" Method.
+		This method tests the "File" class "append" method.
 		"""
 
 		ioFile = File(tempfile.mkstemp()[1])
@@ -142,12 +142,12 @@ class FileTestCase(unittest.TestCase):
 
 class SetLocalDirectoryTestCase(unittest.TestCase):
 	"""
-	This Class Is The SetLocalDirectoryTestCase Class.
+	This class is the SetLocalDirectoryTestCase class.
 	"""
 
 	def testSetLocalDirectory(self):
 		"""
-		This Method Tests The "setLocalDirectory" Definition.
+		This method tests the "setLocalDirectory" definition.
 		"""
 
 		tempDirectory = tempfile.mkdtemp()

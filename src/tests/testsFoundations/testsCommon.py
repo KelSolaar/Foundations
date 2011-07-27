@@ -33,7 +33,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Common Tests Module.
+	Common tests Module.
 
 **Others:**
 
@@ -63,12 +63,12 @@ import foundations.common
 #***********************************************************************************************
 class GetSystemApplicationDatasDirectoryTestCase(unittest.TestCase):
 	"""
-	This Class Is The GetSystemApplicationDatasDirectoryTestCase Class.
+	This class is the GetSystemApplicationDatasDirectoryTestCase class.
 	"""
 
 	def testGetSystemApplicationDatasDirectory(self):
 		"""
-		This Method Tests The "getSystemApplicationDatasDirectory" definition.
+		This method tests the "getSystemApplicationDatasDirectory" definition.
 		"""
 
 		path = foundations.common.getSystemApplicationDatasDirectory()
@@ -77,12 +77,12 @@ class GetSystemApplicationDatasDirectoryTestCase(unittest.TestCase):
 
 class GetUserApplicationDatasDirectoryTestCase(unittest.TestCase):
 	"""
-	This Class Is The GetUserApplicationDatasDirectory Class.
+	This class is the GetUserApplicationDatasDirectory class.
 	"""
 
 	def testGetUserApplicationDatasDirectory(self):
 		"""
-		This Method Tests The "getUserApplicationDatasDirectory" definition.
+		This method tests the "getUserApplicationDatasDirectory" definition.
 		"""
 
 		path = foundations.common.getUserApplicationDatasDirectory()

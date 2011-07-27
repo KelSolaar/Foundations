@@ -72,9 +72,9 @@ LOGGER = logging.getLogger(Constants.logger)
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getSystemApplicationDatasDirectory():
 	"""
-	This Definition Gets The System Application Datas Directory.
+	This definition gets the system Application datas directory.
 
-	@return: User Application Datas Directory. ( String )
+	@return: User Application datas directory. ( String )
 	"""
 
 	if platform.system() == "Windows" or platform.system() == "Microsoft":
@@ -93,9 +93,9 @@ def getSystemApplicationDatasDirectory():
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getUserApplicationDatasDirectory():
 	"""
-	This Definition Gets The User Application Directory.
+	This definition gets the user Application directory.
 
-	@return: User Application Directory. ( String )
+	@return: User Application directory. ( String )
 	"""
 
 	return os.path.join(getSystemApplicationDatasDirectory(), Constants.providerDirectory, Constants.applicationDirectory)
@@ -104,30 +104,30 @@ def getUserApplicationDatasDirectory():
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def closeHandler(logger, handler):
 	"""
-	This Definition Shuts Down The Provided Handler.
+	This definition shuts down the provided handler.
 
-	@param logger: Current Logger. ( Object )
-	@param handler: Current Handler. ( Object )
-	@return: Definition Success. ( Boolean )
+	@param logger: Current logger. ( Object )
+	@param handler: Current handler. ( Object )
+	@return: Definition success. ( Boolean )
 	"""
 
-	len(logger.__dict__["handlers"]) and LOGGER.debug("> Stopping Handler: '{0}'.".format(handler))
+	len(logger.__dict__["handlers"]) and LOGGER.debug("> Stopping handler: '{0}'.".format(handler))
 	logger.removeHandler(handler)
 	return True
 
 @core.executionTrace
 def exit(exitCode, logger, handlers):
 	"""
-	This Definition Shuts Down The Logging And Exit The Current Process.
+	This definition shuts down the logging and exit the current process.
 
-	@param exitCode: Current Exit Code. ( Integer )
-	@param logger: Current Logger. ( Object )
+	@param exitCode: Current exit code. ( Integer )
+	@param logger: Current logger. ( Object )
 	@param handlers: Handlers. ( Object )
 	"""
 
-	LOGGER.debug("> {0} | Exiting Current Process!".format(core.getModule(exit).__name__))
+	LOGGER.debug("> {0} | Exiting current process!".format(core.getModule(exit).__name__))
 
-	LOGGER.debug("> Stopping Logging Handlers And Logger, Then Exiting.")
+	LOGGER.debug("> Stopping logging handlers and logger, then exiting.")
 
 	for handler in handlers:
 		handler and closeHandler(logger, handler)
@@ -138,13 +138,13 @@ def exit(exitCode, logger, handlers):
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def wait(waitTime):
 	"""
-	This Definition Is A Wait Timer.
+	This definition is a wait timer.
 
-	@param waitTime: Current Sleep Time In Seconds. ( Integer )
-	@return: Definition Success. ( Boolean )
+	@param waitTime: Current sleep time in seconds. ( Integer )
+	@return: Definition success. ( Boolean )
 	"""
 
-	LOGGER.debug("> Waiting '{0}' Seconds!".format(waitTime))
+	LOGGER.debug("> Waiting '{0}' seconds!".format(waitTime))
 
 	time.sleep(waitTime)
 	return True
