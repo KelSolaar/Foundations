@@ -145,8 +145,8 @@ def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 	"""
 	This method filters the words using the provided filters.
 
-	@param filtersIn: Regex filtersin list. ( List / tuple )
-	@param filtersIn: Regex filtersout list. ( List / tuple )
+	@param filtersIn: Regex filtersin list. ( List / Tuple )
+	@param filtersIn: Regex filtersout list. ( List / Tuple )
 	@param flags: Regex flags. ( Object )
 	@return: Filtered words. ( List )
 	"""

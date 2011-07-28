@@ -200,8 +200,8 @@ class Walker(object):
 		"""
 		This method gets root directory files list as a dictionary.
 
-		@param filtersIn: Regex filtersin list. ( List / tuple )
-		@param filtersIn: Regex filtersout list. ( List / tuple )
+		@param filtersIn: Regex filtersin list. ( List / Tuple )
+		@param filtersIn: Regex filtersout list. ( List / Tuple )
 		@param flags: Regex flags. ( Object )
 		@return: Files list. ( Dictionary or none )
 		"""

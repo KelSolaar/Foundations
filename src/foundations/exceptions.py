@@ -116,7 +116,7 @@ def defaultExceptionsHandler(exception, origin, *args, **kwargs):
 	This definition provides an exception handler.
 
 	@param exception: Exception. ( Exception )
-	@param origin: Function / method raising the exception. ( String )
+	@param origin: Function / Method raising the exception. ( String )
 	@param *args: Arguments. ( * )
 	@param **kwargs: Arguments. ( * )
 	"""
