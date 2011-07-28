@@ -76,7 +76,7 @@ class LibraryHook(core.Structure):
 		"""
 		This method initializes the class.
 
-		@param kwargs: name, affixe, argumentsType, returnValue. ( Key / Value pairs )
+		@param kwargs: name, affixe, argumentstype, returnvalue. ( Key / Value pairs )
 		"""
 
 		core.Structure.__init__(self, **kwargs)
