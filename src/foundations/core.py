@@ -190,11 +190,15 @@ def getCodeLayerName():
 	@return: Code layer name. ( String )
 	"""
 
-	for frameIndex in range(len(inspect.stack())):
-		frame = getFrame(frameIndex)
-		if frame.f_code.co_name not in IGNORED_CODE_LAYERS:
-			return frame.f_code.co_name
-	return UNDEFINED_CODE_LAYER
+	try:
+		frameIndex = 0
+		while True:
+			codeLayerName = getFrame(frameIndex).f_code.co_name
+			if codeLayerName not in IGNORED_CODE_LAYERS:
+				return codeLayerName
+			frameIndex += 1
+	except:
+		return UNDEFINED_CODE_LAYER
 
 def getModule(object):
 	"""
