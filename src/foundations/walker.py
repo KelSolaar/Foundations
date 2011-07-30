@@ -203,7 +203,7 @@ class Walker(object):
 		@param filtersIn: Regex filters in list. ( List / Tuple )
 		@param filtersIn: Regex filters out list. ( List / Tuple )
 		@param flags: Regex flags. ( Object )
-		@return: Files list. ( Dictionary or none )
+		@return: Files list. ( Dictionary or None )
 		"""
 
 		if filtersIn:
