@@ -200,14 +200,17 @@ class Walker(object):
 		"""
 		This method gets root directory files list as a dictionary.
 
-		@param filtersIn: Regex filtersin list. ( List / Tuple )
-		@param filtersIn: Regex filtersout list. ( List / Tuple )
+		@param filtersIn: Regex filters in list. ( List / Tuple )
+		@param filtersIn: Regex filters out list. ( List / Tuple )
 		@param flags: Regex flags. ( Object )
 		@return: Files list. ( Dictionary or none )
 		"""
 
 		if filtersIn:
-			LOGGER.debug("> Current filtersin: '{0}'.".format(filtersIn))
+			LOGGER.debug("> Current filters in: '{0}'.".format(filtersIn))
+		
+		if filtersOut:
+			LOGGER.debug("> Current filters out: '{0}'.".format(filtersOut))
 
 		if self.__root:
 				self.__files = {}
