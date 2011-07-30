@@ -208,7 +208,7 @@ class Walker(object):
 
 		if filtersIn:
 			LOGGER.debug("> Current filters in: '{0}'.".format(filtersIn))
-		
+
 		if filtersOut:
 			LOGGER.debug("> Current filters out: '{0}'.".format(filtersOut))
 
