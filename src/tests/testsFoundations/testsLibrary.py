@@ -1,30 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#***********************************************************************************************
-#
-# Copyright (C) 2008 - 2011 - Thomas Mansencal - thomas.mansencal@gmail.com
-#
-#***********************************************************************************************
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program. If not, see <http://www.gnu.org/licenses/>.
-#
-#***********************************************************************************************
-#
-# The following code is protected by GNU GPL V3 Licence.
-#
-#***********************************************************************************************
-
 """
 **testsLibrary.py**
 
@@ -37,10 +12,6 @@
 **Others:**
 
 """
-
-#***********************************************************************************************
-#***	Python begin.
-#***********************************************************************************************
 
 #***********************************************************************************************
 #***	External imports.
@@ -56,8 +27,15 @@ import unittest
 from foundations.library import Library, LibraryHook
 
 #***********************************************************************************************
-#***	Overall variables.
+#***	Module attributes.
 #***********************************************************************************************
+__author__ = "Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2011 - Thomas Mansencal"
+__license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
+__maintainer__ = "Thomas Mansencal"
+__email__ = "thomas.mansencal@gmail.com"
+__status__ = "Production"
+
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
 LIBRARIES_DIRECTORY = os.path.join(RESOURCES_DIRECTORY, "libraries")
 if platform.system() == "Windows" or platform.system() == "Microsoft":
@@ -66,7 +44,6 @@ elif platform.system() == "Darwin":
 	FREEIMAGE_LIBRARY = os.path.join(LIBRARIES_DIRECTORY, "freeImage/libfreeimage.dylib")
 elif platform.system() == "Linux":
 	FREEIMAGE_LIBRARY = os.path.join(LIBRARIES_DIRECTORY, "freeImage/libfreeimage.so")
-
 
 LIBRARIES = {"freeImage":os.path.normpath(os.path.join(os.path.dirname(__file__), FREEIMAGE_LIBRARY))}
 
@@ -154,6 +131,3 @@ if __name__ == "__main__":
 	import tests.utilities
 	unittest.main()
 
-#***********************************************************************************************
-#***	Python end.
-#***********************************************************************************************

@@ -40,10 +40,6 @@
 """
 
 #***********************************************************************************************
-#***	Python begin.
-#***********************************************************************************************
-
-#***********************************************************************************************
 #***	External imports.
 #***********************************************************************************************
 import logging
@@ -60,8 +56,15 @@ import foundations.namespace as namespace
 from foundations.globals.constants import Constants
 
 #***********************************************************************************************
-#***	Overall variables.
+#***	Module attributes.
 #***********************************************************************************************
+__author__ = "Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2011 - Thomas Mansencal"
+__license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
+__maintainer__ = "Thomas Mansencal"
+__email__ = "thomas.mansencal@gmail.com"
+__status__ = "Production"
+
 LOGGER = logging.getLogger(Constants.logger)
 
 #***********************************************************************************************
@@ -332,7 +335,6 @@ class Parser(io.File):
 
 		return self.__comments
 
-
 	@comments.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def comments(self, value):
@@ -518,6 +520,3 @@ def getAttributeCompound(attribute, value=None, splitter="|", bindingIdentifier=
 
 	return AttributeCompound(name=attribute, value=value, link=None, type=None, alias=None)
 
-#***********************************************************************************************
-#***	Python end.
-#***********************************************************************************************
