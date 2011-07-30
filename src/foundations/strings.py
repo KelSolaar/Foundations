@@ -80,19 +80,19 @@ def getNiceName(name):
 	niceName = ""
 	for index in range(len(name)):
 		if index == 0:
-			niceName += name[ index ].upper()
+			niceName += name[index].upper()
 		else:
-			if name[ index ].upper() == name[ index ]:
+			if name[index].upper() == name[index]:
 				if index + 1 < len(name):
-					if name[ index + 1 ].upper() != name[ index + 1 ]:
-						niceName += " " + name[ index ]
+					if name[index + 1].upper() != name[index + 1]:
+						niceName += " " + name[index]
 					else:
 						LOGGER.debug("> '{0}' to '{1}'.".format(name, name))
 						return name
 				else:
-					niceName += name[ index ]
+					niceName += name[index]
 			else:
-				niceName += name[ index ]
+				niceName += name[index]
 	LOGGER.debug("> '{0}' to '{1}'.".format(name, niceName))
 	return niceName
 
