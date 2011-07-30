@@ -61,13 +61,16 @@ from foundations.globals.constants import Constants
 #***********************************************************************************************
 #***	Logging classes and definitions.
 #***********************************************************************************************
+THREADS_IDENTIFIERS = {}
 def _LogRecord_getAttribute(self, name):
 	if name == "__dict__":
-		object.__getattribute__(self, name)["threadName"] = hashlib.md5(threading.currentThread().name).hexdigest()[:8]
+		threadIdent = threading.currentThread().ident
+		if not threadIdent in THREADS_IDENTIFIERS.keys():
+			THREADS_IDENTIFIERS[threadIdent] = (threading.currentThread().name, hashlib.md5(threading.currentThread().name).hexdigest()[:8])
+		object.__getattribute__(self, name)["threadName"] = THREADS_IDENTIFIERS[threadIdent][1]
 		return object.__getattribute__(self, name)
 	else:
 		return object.__getattribute__(self, name)
-
 logging.LogRecord.__getattribute__ = _LogRecord_getAttribute
 
 def setVerbosityLevel(verbosityLevel):
@@ -173,7 +176,7 @@ UNDEFINED_OBJECT = "UndefinedObject"
 #***********************************************************************************************
 #***	Module classes and definitions.
 #***********************************************************************************************
-def getFrame(index):
+def getFrame(index=0):
 	"""
 	This definition returns the requested frame.
 
@@ -190,15 +193,13 @@ def getCodeLayerName():
 	@return: Code layer name. ( String )
 	"""
 
-	try:
-		frameIndex = 0
-		while True:
-			codeLayerName = getFrame(frameIndex).f_code.co_name
-			if codeLayerName not in IGNORED_CODE_LAYERS:
-				return codeLayerName
-			frameIndex += 1
-	except:
-		return UNDEFINED_CODE_LAYER
+	frame = getFrame()
+	while frame:
+		codeLayerName = frame.f_code.co_name
+		if codeLayerName not in IGNORED_CODE_LAYERS:
+			return codeLayerName
+		frame = frame.f_back
+	return UNDEFINED_CODE_LAYER
 
 def getModule(object):
 	"""
