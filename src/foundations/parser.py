@@ -55,7 +55,7 @@ class AttributeCompound(core.Structure):
 		"""
 		This method initializes the class.
 
-		@param kwargs: name, value, link, type, alias. ( Key / Value pairs )
+		:param kwargs: name, value, link, type, alias. ( Key / Value pairs )
 		"""
 
 		core.Structure.__init__(self, **kwargs)
@@ -73,11 +73,11 @@ class Parser(io.File):
 		"""
 		This method initializes the class.
 
-		@param file: Current file path. ( String )
-		@param splitter: Splitter character. ( String )
-		@param namespaceSplitter: Namespace splitter character. ( String )
-		@param commentLimiter: Comment limiter character. ( String )
-		@param rawSectionContentIdentifier: Raw section content identifier. ( String )
+		:param file: Current file path. ( String )
+		:param splitter: Splitter character. ( String )
+		:param namespaceSplitter: Namespace splitter character. ( String )
+		:param commentLimiter: Comment limiter character. ( String )
+		:param rawSectionContentIdentifier: Raw section content identifier. ( String )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -107,7 +107,7 @@ class Parser(io.File):
 		"""
 		This method is the property for the _splitter attribute.
 
-		@return: self.__splitter. ( String )
+		:return: self.__splitter. ( String )
 		"""
 
 		return self.__splitter
@@ -118,7 +118,7 @@ class Parser(io.File):
 		"""
 		This method is the setter method for the _splitter attribute.
 
-		@param value: Attribute value. ( String )
+		:param value: Attribute value. ( String )
 		"""
 
 		if value:
@@ -141,7 +141,7 @@ class Parser(io.File):
 		"""
 		This method is the property for the _namespaceSplitter attribute.
 
-		@return: self.__namespaceSplitter. ( String )
+		:return: self.__namespaceSplitter. ( String )
 		"""
 
 		return self.__namespaceSplitter
@@ -152,7 +152,7 @@ class Parser(io.File):
 		"""
 		This method is the setter method for the _namespaceSplitter attribute.
 
-		@param value: Attribute value. ( String )
+		:param value: Attribute value. ( String )
 		"""
 
 		if value:
@@ -175,7 +175,7 @@ class Parser(io.File):
 		"""
 		This method is the property for the _commentLimiter attribute.
 
-		@return: self.__commentLimiter. ( String )
+		:return: self.__commentLimiter. ( String )
 		"""
 
 		return self.__commentLimiter
@@ -186,7 +186,7 @@ class Parser(io.File):
 		"""
 		This method is the setter method for the _commentLimiter attribute.
 
-		@param value: Attribute value. ( String )
+		:param value: Attribute value. ( String )
 		"""
 
 		if value:
@@ -208,7 +208,7 @@ class Parser(io.File):
 		"""
 		This method is the property for the _commentMarker attribute.
 
-		@return: self.__commentMarker. ( String )
+		:return: self.__commentMarker. ( String )
 		"""
 
 		return self.__commentMarker
@@ -219,7 +219,7 @@ class Parser(io.File):
 		"""
 		This method is the setter method for the _commentMarker attribute.
 
-		@param value: Attribute value. ( String )
+		:param value: Attribute value. ( String )
 		"""
 
 		if value:
@@ -241,7 +241,7 @@ class Parser(io.File):
 		"""
 		This method is the property for the _rawSectionContentIdentifier attribute.
 
-		@return: self.__rawSectionContentIdentifier. ( String )
+		:return: self.__rawSectionContentIdentifier. ( String )
 		"""
 
 		return self.__rawSectionContentIdentifier
@@ -252,7 +252,7 @@ class Parser(io.File):
 		"""
 		This method is the setter method for the _rawSectionContentIdentifier attribute.
 
-		@param value: Attribute value. ( String )
+		:param value: Attribute value. ( String )
 		"""
 
 		if value:
@@ -273,7 +273,7 @@ class Parser(io.File):
 		"""
 		This method is the property for the _sections attribute.
 
-		@return: self.__sections. ( Dictionary )
+		:return: self.__sections. ( Dictionary )
 		"""
 
 		return self.__sections
@@ -284,7 +284,7 @@ class Parser(io.File):
 		"""
 		This method is the setter method for the _sections attribute.
 
-		@param value: Attribute value. ( Dictionary )
+		:param value: Attribute value. ( Dictionary )
 		"""
 
 		if value:
@@ -305,7 +305,7 @@ class Parser(io.File):
 		"""
 		This method is the property for the _comments attribute.
 
-		@return: self.__comments. ( Dictionary )
+		:return: self.__comments. ( Dictionary )
 		"""
 
 		return self.__comments
@@ -316,7 +316,7 @@ class Parser(io.File):
 		"""
 		This method is the setter method for the _comments attribute.
 
-		@param value: Attribute value. ( Dictionary )
+		:param value: Attribute value. ( Dictionary )
 		"""
 
 		if value:
@@ -341,10 +341,10 @@ class Parser(io.File):
 		"""
 		This method process the file content to extract the sections as a dictionary.
 
-		@param orderedDictionary: Parser data is stored in ordered dictionaries. ( Boolean )
-		@param rawSections: Section is not parsed. ( Boolean )
-		@param stripComments: Comments are stripped. ( Boolean )
-		@return: Method success. ( Boolean )
+		:param orderedDictionary: Parser data is stored in ordered dictionaries. ( Boolean )
+		:param rawSections: Section is not parsed. ( Boolean )
+		:param stripComments: Comments are stripped. ( Boolean )
+		:return: Method success. ( Boolean )
 		"""
 
 		LOGGER.debug("> Reading sections from: '{0}'.".format(self.file))
@@ -395,8 +395,8 @@ class Parser(io.File):
 		"""
 		This method checks if a section exists.
 
-		@param section: Section to check existence. ( String )
-		@return: Section existence. ( Boolean )
+		:param section: Section to check existence. ( String )
+		:return: Section existence. ( Boolean )
 		"""
 
 		if section in self.__sections.keys():
@@ -412,9 +412,9 @@ class Parser(io.File):
 		"""
 		This method checks if an attribute exists.
 
-		@param attribute: Attribute to check existence. ( String )
-		@param section: Section to search attribute into. ( String )
-		@return: Attribute existence. ( Boolean )
+		:param attribute: Attribute to check existence. ( String )
+		:param section: Section to search attribute into. ( String )
+		:return: Attribute existence. ( Boolean )
 		"""
 
 		if namespace.removeNamespace(attribute) in self.getAttributes(section, True, False):
@@ -430,10 +430,10 @@ class Parser(io.File):
 		"""
 		This method returns the section / files attributes.
 
-		@param section: Section containing the searched attribute. ( String )
-		@param useNamespace: Use namespace while getting attributes. ( Boolean )
-		@param raise_: Raise if section doesn't exists. ( Boolean )
-		@return: Attributes. ( Dictionary )
+		:param section: Section containing the searched attribute. ( String )
+		:param useNamespace: Use namespace while getting attributes. ( Boolean )
+		:param raise_: Raise if section doesn't exists. ( Boolean )
+		:return: Attributes. ( Dictionary )
 		"""
 
 		LOGGER.debug("> Getting section '{0}' attributes.".format(section))
@@ -455,10 +455,10 @@ class Parser(io.File):
 		"""
 		This method returns the requested attribute value abstracting the namespace.
 
-		@param attribute: Attribute name. ( String )
-		@param section: Section containing the searched attribute. ( String )
-		@param encode: Encode value to unicode. ( Boolean )
-		@return: Attribute value. ( String )
+		:param attribute: Attribute name. ( String )
+		:param section: Section containing the searched attribute. ( String )
+		:param encode: Encode value to unicode. ( Boolean )
+		:return: Attribute value. ( String )
 		"""
 
 		if self.attributeExists(attribute, section):
@@ -475,11 +475,11 @@ def getAttributeCompound(attribute, value=None, splitter="|", bindingIdentifier=
 	"""
 	This definition gets an attribute compound.
 
-	@param attribute: Attribute. ( String )
-	@param value: Attribute value. ( Object )
-	@param splitter: Splitter. ( String )
-	@param bindingIdentifier: Binding identifier. ( String )
-	@return: Attribute compound. ( AttributeObject )
+	:param attribute: Attribute. ( String )
+	:param value: Attribute value. ( Object )
+	:param splitter: Splitter. ( String )
+	:param bindingIdentifier: Binding identifier. ( String )
+	:return: Attribute compound. ( AttributeObject )
 	"""
 
 	LOGGER.debug("> Attribute: '{0}', value: '{1}'.".format(attribute, value))

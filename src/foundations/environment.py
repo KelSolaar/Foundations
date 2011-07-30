@@ -53,7 +53,7 @@ class Environment(object):
 		"""
 		This method initializes the class.
 
-		@param variable: Variable to manipulate. ( String )
+		:param variable: Variable to manipulate. ( String )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -70,7 +70,7 @@ class Environment(object):
 		"""
 		This method is the property for the _variable attribute.
 
-		@return: self.__variable. ( String )
+		:return: self.__variable. ( String )
 		"""
 
 		return self.__variable
@@ -81,7 +81,7 @@ class Environment(object):
 		"""
 		This method is the setter method for the _variable attribute.
 
-		@param value: Attribute value. ( String )
+		:param value: Attribute value. ( String )
 		"""
 
 		if value:
@@ -107,7 +107,7 @@ class Environment(object):
 		"""
 		This method gets the chosen environment variable path as a string.
 
-		@return: Variable path. ( String )
+		:return: Variable path. ( String )
 		"""
 
 		if not self.__variable:

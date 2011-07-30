@@ -51,8 +51,8 @@ def getNiceName(name):
 	"""
 	This definition converts a string to nice string: currentLogText -> current log text.
 
-	@param name: Current string to be nicified. ( String )
-	@return: Nicified string. ( String )
+	:param name: Current string to be nicified. ( String )
+	:return: Nicified string. ( String )
 	"""
 
 	niceName = ""
@@ -80,8 +80,8 @@ def getVersionRank(version):
 	"""
 	This definition converts a version string to it's rank.
 
-	@param version: Current version to calculate rank. ( String )
-	@return: Rank. ( Integer )
+	:param version: Current version to calculate rank. ( String )
+	:return: Rank. ( Integer )
 	"""
 
 	tokens = version.split(".")
@@ -95,8 +95,8 @@ def getSplitextBasename(path):
 	"""
 	This definition get the basename of a path without its extension.
 
-	@param path: Path to extract the basename without extension. ( String )
-	@return: Splitext basename. ( String )
+	:param path: Path to extract the basename without extension. ( String )
+	:return: Splitext basename. ( String )
 	"""
 
 	basename = os.path.splitext(os.path.basename(os.path.normpath(path)))[0]
@@ -109,8 +109,8 @@ def getWords(datas):
 	"""
 	This method extracts the words from provided string.
 
-	@param datas: Datas to extract words from. ( String )
-	@return: Words. ( List )
+	:param datas: Datas to extract words from. ( String )
+	:return: Words. ( List )
 	"""
 
 	words = re.findall("\w+", datas)
@@ -123,10 +123,10 @@ def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 	"""
 	This method filters the words using the provided filters.
 
-	@param filtersIn: Regex filters in list. ( List / Tuple )
-	@param filtersIn: Regex filters out list. ( List / Tuple )
-	@param flags: Regex flags. ( Object )
-	@return: Filtered words. ( List )
+	:param filtersIn: Regex filters in list. ( List / Tuple )
+	:param filtersIn: Regex filters out list. ( List / Tuple )
+	:param flags: Regex flags. ( Object )
+	:return: Filtered words. ( List )
 	"""
 
 	filteredWords = []
@@ -160,9 +160,9 @@ def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 def replace(string, datas):
 	"""
 	This definition replaces the datas occurences in the string.
-	@param string: String to manipulate. ( String )
-	@param datas: Replacement occurences. ( Dictionary )
-	@return: Manipulated string. ( String )
+	:param string: String to manipulate. ( String )
+	:param datas: Replacement occurences. ( Dictionary )
+	:return: Manipulated string. ( String )
 	"""
 
 	for old, new in datas.items():
@@ -175,8 +175,8 @@ def toForwardSlashes(datas):
 	"""
 	This definition converts backward slashes to forward slashes.
 
-	@param datas: Datas to convert. ( String )
-	@return: Converted path. ( String )
+	:param datas: Datas to convert. ( String )
+	:return: Converted path. ( String )
 	"""
 
 	datas = datas.replace("\\", "/")
@@ -188,8 +188,8 @@ def toBackwardSlashes(datas):
 	"""
 	This definition converts forward slashes to backward slashes.
 
-	@param datas: Datas to convert. ( String )
-	@return: Converted path. ( String )
+	:param datas: Datas to convert. ( String )
+	:return: Converted path. ( String )
 	"""
 
 	datas = datas.replace("/", "\\")
@@ -202,8 +202,8 @@ def toPosixPath(path):
 	"""
 	This definition converts Windows path to Posix path while stripping drives letters and network server slashes.
 
-	@param path: Windows path. ( String )
-	@return: Path converted to Posix path. ( String )
+	:param path: Windows path. ( String )
+	:return: Path converted to Posix path. ( String )
 	"""
 
 	posixPath = posixpath.normpath(toForwardSlashes(re.sub("[a-zA-Z]:\\\\|\\\\\\\\", "/", os.path.normpath(path))))
@@ -216,8 +216,8 @@ def getNormalizedPath(path):
 	"""
 	This definition normalizes a path, escaping slashes if needed on Windows.
 
-	@param path: Path to normalize. ( String )
-	@return: Normalized path. ( String )
+	:param path: Path to normalize. ( String )
+	:return: Normalized path. ( String )
 	"""
 
 	if platform.system() == "Windows" or platform.system() == "Microsoft":
@@ -235,8 +235,8 @@ def isEmail(datas):
 	"""
 	This definition check if provided datas string is an email.
 
-	@param datas: Datas to check. ( String )
-	@return: Is email. ( Boolean )
+	:param datas: Datas to check. ( String )
+	:return: Is email. ( Boolean )
 	"""
 
 	if re.match("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}", datas):
@@ -252,8 +252,8 @@ def isWebsite(datas):
 	"""
 	This definition check if provided datas string is a website.
 
-	@param datas: Datas to check. ( String )
-	@return: Is website. ( Boolean )
+	:param datas: Datas to check. ( String )
+	:return: Is website. ( Boolean )
 	"""
 
 	if re.match("(http|ftp|https)://([a-zA-Z0-9\-\.]+)/?", datas):

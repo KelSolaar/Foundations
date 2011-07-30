@@ -58,8 +58,8 @@ def setVerbosityLevel(verbosityLevel):
 	"""
 	This definition provides overall verbosity levels through an integer.
 
-	@param verbosityLevel: Verbosity level. ( Integer )
-	@return: Definition success. ( Boolean )
+	:param verbosityLevel: Verbosity level. ( Integer )
+	:return: Definition success. ( Boolean )
 	"""
 
 	if verbosityLevel == 0:
@@ -83,7 +83,7 @@ class StandardMessageHook(object):
 		"""
 		This method initializes the class.
 
-		@param logger: LOGGER. ( Object )
+		:param logger: LOGGER. ( Object )
 		"""
 
 		self.__logger = logger
@@ -96,7 +96,7 @@ class StandardMessageHook(object):
 		"""
 		This method is the property for the _logger attribute.
 
-		@return: self.__logger. ( Object )
+		:return: self.__logger. ( Object )
 		"""
 
 		return self.__logger
@@ -106,7 +106,7 @@ class StandardMessageHook(object):
 		"""
 		This method is the setter method for the _logger attribute.
 
-		@param value: Attribute value. ( Object )
+		:param value: Attribute value. ( Object )
 		"""
 
 		raise Exception("'{0}' attribute is read only!".format("logger"))
@@ -126,8 +126,8 @@ class StandardMessageHook(object):
 		"""
 		This method logs the current stdout message.
 
-		@param message: Message. ( String )
-		@return: Method success. ( Boolean )
+		:param message: Message. ( String )
+		:return: Method success. ( Boolean )
 		"""
 
 		for handler in self.__logger.__dict__["handlers"]:
@@ -159,8 +159,8 @@ def getFrame(index=0):
 	"""
 	This definition returns the requested frame.
 
-	@param level: Frame index. ( Object )
-	@return: Frame. ( Frame )
+	:param level: Frame index. ( Object )
+	:return: Frame. ( Frame )
 	"""
 
 	return sys._getframe(index)
@@ -169,7 +169,7 @@ def getCodeLayerName():
 	"""
 	This definition returns the frame code layer name.
 
-	@return: Code layer name. ( String )
+	:return: Code layer name. ( String )
 	"""
 
 	frame = getFrame()
@@ -184,8 +184,8 @@ def getModule(object):
 	"""
 	This definition returns the frame Module name.
 
-	@param object: Object. ( Object )
-	@return: Frame Module. ( Module )
+	:param object: Object. ( Object )
+	:return: Frame Module. ( Module )
 	"""
 
 	return inspect.getmodule(object)
@@ -194,8 +194,8 @@ def getObjectName(object):
 	"""
 	This definition returns the object name related to the provided frame.
 
-	@param object: Object. ( Object )
-	@return: Object name. ( String )
+	:param object: Object. ( Object )
+	:return: Object name. ( String )
 	"""
 
 	moduleName = getModule(inspect.getmodule(object)).__name__
@@ -208,8 +208,8 @@ def executionTrace(object):
 	"""
 	This decorator is used for function tracing.
 
-	@param object: Object to decorate. ( Object )
-	@return: Object. ( Object )
+	:param object: Object to decorate. ( Object )
+	:return: Object. ( Object )
 	"""
 
 	origin = getObjectName(object)
@@ -221,7 +221,7 @@ def executionTrace(object):
 
 		@param *args: Arguments. ( * )
 		@param **kwargs: Arguments. ( * )
-		@return: Object. ( Object )
+		:return: Object. ( Object )
 		"""
 
 		LOGGER and LOGGER.__dict__["handlers"] != {} and LOGGER.debug("--->>> '{0}' <<<---".format(origin))
@@ -244,7 +244,7 @@ class Structure(object):
 		"""
 		This method initializes the class.
 
-		@param kwargs: Key / Value pairs. ( Key / Value pairs )
+		:param kwargs: Key / Value pairs. ( Key / Value pairs )
 		"""
 
 		self.__dict__.update(kwargs)

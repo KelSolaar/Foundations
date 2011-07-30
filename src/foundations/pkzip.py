@@ -55,7 +55,7 @@ class Pkzip(object):
 		"""
 		This method initializes the class.
 
-		@param archive: Variable to manipulate. ( String )
+		:param archive: Variable to manipulate. ( String )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -72,7 +72,7 @@ class Pkzip(object):
 		"""
 		This method is the property for the _archive attribute.
 
-		@return: self.__archive. ( String )
+		:return: self.__archive. ( String )
 		"""
 
 		return self.__archive
@@ -83,7 +83,7 @@ class Pkzip(object):
 		"""
 		This method is the setter method for the _archive attribute.
 
-		@param value: Attribute value. ( String )
+		:param value: Attribute value. ( String )
 		"""
 
 		if value:
@@ -109,7 +109,7 @@ class Pkzip(object):
 		"""
 		This method extracts the archive file to the provided directory.
 
-		@return: Method success. ( Boolean )
+		:return: Method success. ( Boolean )
 		"""
 
 		archive = zipfile.ZipFile(self.__archive)

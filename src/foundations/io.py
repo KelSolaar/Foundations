@@ -52,8 +52,8 @@ class File(object):
 		"""
 		This method initializes the class.
 
-		@param file: File path. ( String )
-		@param content: Content. ( List )
+		:param file: File path. ( String )
+		:param content: Content. ( List )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -72,7 +72,7 @@ class File(object):
 		"""
 		This method is the property for the _file attribute.
 
-		@return: self.__file. ( String )
+		:return: self.__file. ( String )
 		"""
 
 		return self.__file
@@ -83,7 +83,7 @@ class File(object):
 		"""
 		This method is the setter method for the _file attribute.
 
-		@param value: Attribute value. ( String )
+		:param value: Attribute value. ( String )
 		"""
 
 		if value:
@@ -104,7 +104,7 @@ class File(object):
 		"""
 		This method is the property for the _content attribute.
 
-		@return: self.__content. ( List )
+		:return: self.__content. ( List )
 		"""
 
 		return self.__content
@@ -115,7 +115,7 @@ class File(object):
 		"""
 		This method is the setter method for the _content attribute.
 
-		@param value: Attribute value. ( List )
+		:param value: Attribute value. ( List )
 		"""
 
 		if value:
@@ -140,8 +140,8 @@ class File(object):
 		"""
 		This method reads provided file and return the content as a list.
 
-		@param mode: File read mode. ( String )
-		@return: Method success. ( Boolean )
+		:param mode: File read mode. ( String )
+		:return: Method success. ( Boolean )
 		"""
 
 		LOGGER.debug("> Current file path: '{0}'.".format(self.__file))
@@ -157,8 +157,8 @@ class File(object):
 		"""
 		This method writes content to provided file.
 
-		@param mode: File write mode. ( String )
-		@return: Method success. ( Boolean )
+		:param mode: File write mode. ( String )
+		:return: Method success. ( Boolean )
 		"""
 
 		LOGGER.debug("> Current file path: '{0}'.".format(self.__file))
@@ -174,8 +174,8 @@ class File(object):
 		"""
 		This method append content to provided file.
 
-		@param mode: File write mode. ( String )
-		@return: Method success. ( Boolean )
+		:param mode: File write mode. ( String )
+		:return: Method success. ( Boolean )
 		"""
 
 		LOGGER.debug("> Current file path: '{0}'.".format(self.__file))
@@ -191,8 +191,8 @@ def setLocalDirectory(path):
 	"""
 	This definition creates a directory with provided path.
 
-	@param path: Directory path. ( String )
-	@return: Definition success. ( Boolean )
+	:param path: Directory path. ( String )
+	:return: Definition success. ( Boolean )
 	"""
 
 	if not os.path.exists(path):

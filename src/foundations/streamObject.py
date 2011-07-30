@@ -36,7 +36,7 @@ class StreamObject(object):
 		"""
 		This method initializes the class.
 
-		@param stream: Stream object. ( Object )
+		:param stream: Stream object. ( Object )
 		"""
 
 		self.__stream = []
@@ -49,7 +49,7 @@ class StreamObject(object):
 		"""
 		This method is the property for the _stream attribute.
 
-		@return: self.__stream. ( List )
+		:return: self.__stream. ( List )
 		"""
 
 		return self.__stream
@@ -59,7 +59,7 @@ class StreamObject(object):
 		"""
 		This method is the setter method for the _stream attribute.
 
-		@param value: Attribute value. ( List )
+		:param value: Attribute value. ( List )
 		"""
 
 		if value:
@@ -81,7 +81,7 @@ class StreamObject(object):
 		"""
 		This method provides write ability to the class.
 
-		@param message: Current message. ( String )
+		:param message: Current message. ( String )
 		"""
 
 		self.__stream.append(message)

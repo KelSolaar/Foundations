@@ -52,7 +52,7 @@ def getSystemApplicationDatasDirectory():
 	"""
 	This definition gets the system Application datas directory.
 
-	@return: User Application datas directory. ( String )
+	:return: User Application datas directory. ( String )
 	"""
 
 	if platform.system() == "Windows" or platform.system() == "Microsoft":
@@ -73,7 +73,7 @@ def getUserApplicationDatasDirectory():
 	"""
 	This definition gets the user Application directory.
 
-	@return: User Application directory. ( String )
+	:return: User Application directory. ( String )
 	"""
 
 	return os.path.join(getSystemApplicationDatasDirectory(), Constants.providerDirectory, Constants.applicationDirectory)
@@ -84,9 +84,9 @@ def closeHandler(logger, handler):
 	"""
 	This definition shuts down the provided handler.
 
-	@param logger: Current logger. ( Object )
-	@param handler: Current handler. ( Object )
-	@return: Definition success. ( Boolean )
+	:param logger: Current logger. ( Object )
+	:param handler: Current handler. ( Object )
+	:return: Definition success. ( Boolean )
 	"""
 
 	len(logger.__dict__["handlers"]) and LOGGER.debug("> Stopping handler: '{0}'.".format(handler))
@@ -98,9 +98,9 @@ def exit(exitCode, logger, handlers):
 	"""
 	This definition shuts down the logging and exit the current process.
 
-	@param exitCode: Current exit code. ( Integer )
-	@param logger: Current logger. ( Object )
-	@param handlers: Handlers. ( Object )
+	:param exitCode: Current exit code. ( Integer )
+	:param logger: Current logger. ( Object )
+	:param handlers: Handlers. ( Object )
 	"""
 
 	LOGGER.debug("> {0} | Exiting current process!".format(core.getModule(exit).__name__))
@@ -118,8 +118,8 @@ def wait(waitTime):
 	"""
 	This definition is a wait timer.
 
-	@param waitTime: Current sleep time in seconds. ( Integer )
-	@return: Definition success. ( Boolean )
+	:param waitTime: Current sleep time in seconds. ( Integer )
+	:return: Definition success. ( Boolean )
 	"""
 
 	LOGGER.debug("> Waiting '{0}' seconds!".format(waitTime))

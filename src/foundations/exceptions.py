@@ -46,10 +46,10 @@ def exceptionsHandler(handler=None, raise_=False, *args):
 	"""
 	This decorator is used for exceptions handling.
 
-	@param handler: Custom handler. ( Object )
-	@param raise_: Is default exception handler catching / raising the exception. ( Boolean )
+	:param handler: Custom handler. ( Object )
+	:param raise_: Is default exception handler catching / raising the exception. ( Boolean )
 	@param *args: Exceptions. ( Exceptions )
-	@return: Object. ( Object )
+	:return: Object. ( Object )
 	"""
 
 	exceptions = tuple((exception for exception in args))
@@ -59,8 +59,8 @@ def exceptionsHandler(handler=None, raise_=False, *args):
 		"""
 		This decorator is used for exceptions handling.
 
-		@param object_: Object to decorate. ( Object )
-		@return: Object. ( Object )
+		:param object_: Object to decorate. ( Object )
+		:return: Object. ( Object )
 		"""
 
 		origin = core.getObjectName(object_)
@@ -93,8 +93,8 @@ def defaultExceptionsHandler(exception, origin, *args, **kwargs):
 	"""
 	This definition provides an exception handler.
 
-	@param exception: Exception. ( Exception )
-	@param origin: Function / Method raising the exception. ( String )
+	:param exception: Exception. ( Exception )
+	:param origin: Function / Method raising the exception. ( String )
 	@param *args: Arguments. ( * )
 	@param **kwargs: Arguments. ( * )
 	"""
@@ -125,7 +125,7 @@ class FileStructureError(Exception):
 		"""
 		This method initializes the class.
 
-		@param value: Error value or message. ( String )
+		:param value: Error value or message. ( String )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -138,7 +138,7 @@ class FileStructureError(Exception):
 		"""
 		This method returns the exception representation.
 
-		@return: Exception representation. ( String )
+		:return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
@@ -153,7 +153,7 @@ class AttributeStructureError(Exception):
 		"""
 		This method initializes the class.
 
-		@param value: Error value or message. ( String )
+		:param value: Error value or message. ( String )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -166,7 +166,7 @@ class AttributeStructureError(Exception):
 		"""
 		This method returns the exception representation.
 
-		@return: Exception representation. ( String )
+		:return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
@@ -181,7 +181,7 @@ class DirectoryExistsError(Exception):
 		"""
 		This method initializes the class.
 
-		@param value: Error value or message. ( String )
+		:param value: Error value or message. ( String )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -194,7 +194,7 @@ class DirectoryExistsError(Exception):
 		"""
 		This method returns the exception representation.
 
-		@return: Exception representation. ( String )
+		:return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
@@ -209,7 +209,7 @@ class FileExistsError(Exception):
 		"""
 		This method initializes the class.
 
-		@param value: Error value or message. ( String )
+		:param value: Error value or message. ( String )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -222,7 +222,7 @@ class FileExistsError(Exception):
 		"""
 		This method returns the exception representation.
 
-		@return: Exception representation. ( String )
+		:return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
@@ -237,7 +237,7 @@ class ObjectTypeError(Exception):
 		"""
 		This method initializes the class.
 
-		@param value: Error value or message. ( String )
+		:param value: Error value or message. ( String )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -250,7 +250,7 @@ class ObjectTypeError(Exception):
 		"""
 		This method returns the exception representation.
 
-		@return: Exception representation. ( String )
+		:return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
@@ -265,7 +265,7 @@ class ObjectExistsError(Exception):
 		"""
 		This method initializes the class.
 
-		@param value: Error value or message. ( String )
+		:param value: Error value or message. ( String )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -278,7 +278,7 @@ class ObjectExistsError(Exception):
 		"""
 		This method returns the exception representation.
 
-		@return: Exception representation. ( String )
+		:return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
@@ -293,7 +293,7 @@ class DatabaseOperationError(Exception):
 		"""
 		This method initializes the class.
 
-		@param value: Error value or message. ( String )
+		:param value: Error value or message. ( String )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -306,7 +306,7 @@ class DatabaseOperationError(Exception):
 		"""
 		This method returns the exception representation.
 
-		@return: Exception representation. ( String )
+		:return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
@@ -321,7 +321,7 @@ class ProgrammingError(Exception):
 		"""
 		This method initializes the class.
 
-		@param value: Error value or message. ( String )
+		:param value: Error value or message. ( String )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -334,7 +334,7 @@ class ProgrammingError(Exception):
 		"""
 		This method returns the exception representation.
 
-		@return: Exception representation. ( String )
+		:return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
@@ -349,7 +349,7 @@ class UserError(Exception):
 		"""
 		This method initializes the class.
 
-		@param value: Error value or message. ( String )
+		:param value: Error value or message. ( String )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -362,7 +362,7 @@ class UserError(Exception):
 		"""
 		This method returns the exception representation.
 
-		@return: Exception representation. ( String )
+		:return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
@@ -377,7 +377,7 @@ class NetworkError(Exception):
 		"""
 		This method initializes the class.
 
-		@param value: Error value or message. ( String )
+		:param value: Error value or message. ( String )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -390,7 +390,7 @@ class NetworkError(Exception):
 		"""
 		This method returns the exception representation.
 
-		@return: Exception representation. ( String )
+		:return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
@@ -405,7 +405,7 @@ class SocketConnectionError(Exception):
 		"""
 		This method initializes the class.
 
-		@param value: Error value or message. ( String )
+		:param value: Error value or message. ( String )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -418,7 +418,7 @@ class SocketConnectionError(Exception):
 		"""
 		This method returns the exception representation.
 
-		@return: Exception representation. ( String )
+		:return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
@@ -433,7 +433,7 @@ class ComponentActivationError(Exception):
 		"""
 		This method initializes the class.
 
-		@param value: Error value or message. ( String )
+		:param value: Error value or message. ( String )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -446,7 +446,7 @@ class ComponentActivationError(Exception):
 		"""
 		This method returns the exception representation.
 
-		@return: Exception representation. ( String )
+		:return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
@@ -461,7 +461,7 @@ class ComponentDeactivationError(Exception):
 		"""
 		This method initializes the class.
 
-		@param value: Error value or message. ( String )
+		:param value: Error value or message. ( String )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -474,7 +474,7 @@ class ComponentDeactivationError(Exception):
 		"""
 		This method returns the exception representation.
 
-		@return: Exception representation. ( String )
+		:return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
@@ -489,7 +489,7 @@ class ComponentReloadError(Exception):
 		"""
 		This method initializes the class.
 
-		@param value: Error value or message. ( String )
+		:param value: Error value or message. ( String )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -502,7 +502,7 @@ class ComponentReloadError(Exception):
 		"""
 		This method returns the exception representation.
 
-		@return: Exception representation. ( String )
+		:return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
@@ -517,7 +517,7 @@ class LibraryInstantiationError(Exception):
 		"""
 		This method initializes the class.
 
-		@param value: Error value or message. ( String )
+		:param value: Error value or message. ( String )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -530,7 +530,7 @@ class LibraryInstantiationError(Exception):
 		"""
 		This method returns the exception representation.
 
-		@return: Exception representation. ( String )
+		:return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
@@ -545,7 +545,7 @@ class LibraryInitializationError(Exception):
 		"""
 		This method initializes the class.
 
-		@param value: Error value or message. ( String )
+		:param value: Error value or message. ( String )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -558,7 +558,7 @@ class LibraryInitializationError(Exception):
 		"""
 		This method returns the exception representation.
 
-		@return: Exception representation. ( String )
+		:return: Exception representation. ( String )
 		"""
 
 		return str(self.value)
@@ -573,7 +573,7 @@ class LibraryExecutionError(Exception):
 		"""
 		This method initializes the class.
 
-		@param value: Error value or message. ( String )
+		:param value: Error value or message. ( String )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -586,7 +586,7 @@ class LibraryExecutionError(Exception):
 		"""
 		This method returns the exception representation.
 
-		@return: Exception representation. ( String )
+		:return: Exception representation. ( String )
 		"""
 
 		return str(self.value)

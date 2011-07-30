@@ -53,9 +53,9 @@ class RotatingBackup(object):
 		"""
 		This method initializes the class.
 
-		@param source: Backup source. ( String )
-		@param destination: Backup destination. ( String )
-		@param count: Backup count. ( Integer )
+		:param source: Backup source. ( String )
+		:param destination: Backup destination. ( String )
+		:param count: Backup count. ( Integer )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -76,7 +76,7 @@ class RotatingBackup(object):
 		"""
 		This method is the property for the _source attribute.
 
-		@return: self.__source. ( String )
+		:return: self.__source. ( String )
 		"""
 
 		return self.__source
@@ -87,7 +87,7 @@ class RotatingBackup(object):
 		"""
 		This method is the setter method for the _source attribute.
 
-		@param value: Attribute value. ( String )
+		:param value: Attribute value. ( String )
 		"""
 
 		if value:
@@ -109,7 +109,7 @@ class RotatingBackup(object):
 		"""
 		This method is the property for the _destination attribute.
 
-		@return: self.__destination. ( String )
+		:return: self.__destination. ( String )
 		"""
 
 		return self.__destination
@@ -120,7 +120,7 @@ class RotatingBackup(object):
 		"""
 		This method is the setter method for the _destination attribute.
 
-		@param value: Attribute value. ( String )
+		:param value: Attribute value. ( String )
 		"""
 
 		if value:
@@ -141,7 +141,7 @@ class RotatingBackup(object):
 		"""
 		This method is the property for the _count attribute.
 
-		@return: self.__count. ( Integer )
+		:return: self.__count. ( Integer )
 		"""
 
 		return self.__count
@@ -152,7 +152,7 @@ class RotatingBackup(object):
 		"""
 		This method is the setter method for the _count attribute.
 
-		@param value: Attribute value. ( Integer )
+		:param value: Attribute value. ( Integer )
 		"""
 
 		if value:
@@ -178,7 +178,7 @@ class RotatingBackup(object):
 		"""
 		This method does the rotating backup.
 
-		@return: Method success. ( Boolean )
+		:return: Method success. ( Boolean )
 		"""
 
 		LOGGER.debug("> Storing '{0}' file backup.".format(self.__source))
@@ -205,9 +205,9 @@ class RotatingBackup(object):
 		"""
 		This method copies the provided path to destination.
 
-		@param source: Source to copy from. ( String )
-		@param destination: Destination to copy to. ( String )
-		@return: Method success. ( Boolean )
+		:param source: Source to copy from. ( String )
+		:param destination: Destination to copy to. ( String )
+		:return: Method success. ( Boolean )
 		"""
 
 		LOGGER.debug("> Copying '{0}' file to '{1}'.".format(source, destination))
@@ -224,8 +224,8 @@ class RotatingBackup(object):
 		"""
 		This method deletes the provided resource.
 
-		@param path: Resource to delete. ( String )
-		@return: Method success. ( Boolean )
+		:param path: Resource to delete. ( String )
+		:return: Method success. ( Boolean )
 		"""
 
 		LOGGER.debug("> Removing '{0}' file.".format(path))

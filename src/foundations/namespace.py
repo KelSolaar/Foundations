@@ -46,10 +46,10 @@ def setNamespace(namespace, attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 	"""
 	This definition returns the compounded attribute and compounded namespace.
 
-	@param namespace: Namespace. ( String )
-	@param attribute: Attribute. ( String )
-	@param namespaceSplitter: Namespace splitter character. ( String )
-	@return: Namespaced attribute. ( String )
+	:param namespace: Namespace. ( String )
+	:param attribute: Attribute. ( String )
+	:param namespaceSplitter: Namespace splitter character. ( String )
+	:return: Namespaced attribute. ( String )
 	"""
 
 	longName = str(namespace + namespaceSplitter + attribute)
@@ -61,10 +61,10 @@ def getNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False
 	"""
 	This definition returns the attribute namespace.
 
-	@param attribute: Attribute. ( String )
-	@param namespaceSplitter: Namespace splitter character. ( String )
-	@param rootOnly: Return only root namespace. ( Boolean )
-	@return: Attribute namespace. ( String )
+	:param attribute: Attribute. ( String )
+	:param namespaceSplitter: Namespace splitter character. ( String )
+	:param rootOnly: Return only root namespace. ( Boolean )
+	:return: Attribute namespace. ( String )
 	"""
 
 	attributeTokens = attribute.split(namespaceSplitter)
@@ -80,10 +80,10 @@ def removeNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=Fa
 	"""
 	This definition returns the attribute without namespace.
 
-	@param attribute: Attribute. ( String )
-	@param namespaceSplitter: Namespace splitter character. ( String )
-	@param rootOnly: Remove only root namespace. ( Boolean )
-	@return: Attribute without namespace. ( String )
+	:param attribute: Attribute. ( String )
+	:param namespaceSplitter: Namespace splitter character. ( String )
+	:param rootOnly: Remove only root namespace. ( Boolean )
+	:return: Attribute without namespace. ( String )
 	"""
 
 	attributeTokens = attribute.split(namespaceSplitter)

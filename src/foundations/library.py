@@ -54,7 +54,7 @@ class LibraryHook(core.Structure):
 		"""
 		This method initializes the class.
 
-		@param kwargs: name, affixe, argumentstype, returnvalue. ( Key / Value pairs )
+		:param kwargs: name, affixe, argumentstype, returnvalue. ( Key / Value pairs )
 		"""
 
 		core.Structure.__init__(self, **kwargs)
@@ -98,8 +98,8 @@ class Library(object):
 		"""
 		This method initializes the class.
 
-		@param libraryPath: Library path. ( String )
-		@param functions: Binding functions list. ( Tuple )
+		:param libraryPath: Library path. ( String )
+		:param functions: Binding functions list. ( Tuple )
 		"""
 
 		if hasattr(self.librariesInstances[libraryPath], "_libraryInstantiated"):
@@ -137,7 +137,7 @@ class Library(object):
 		"""
 		This method is the property for the _libraryInstantiated attribute.
 
-		@return: self.__libraryInstantiated. ( String )
+		:return: self.__libraryInstantiated. ( String )
 		"""
 
 		return self.__libraryInstantiated
@@ -148,7 +148,7 @@ class Library(object):
 		"""
 		This method is the setter method for the _libraryInstantiated attribute.
 
-		@param value: Attribute value. ( String )
+		:param value: Attribute value. ( String )
 		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not settable!".format("libraryInstantiated"))
@@ -167,7 +167,7 @@ class Library(object):
 		"""
 		This method is the property for the _libraryPath attribute.
 
-		@return: self.__libraryPath. ( String )
+		:return: self.__libraryPath. ( String )
 		"""
 
 		return self.__libraryPath
@@ -178,7 +178,7 @@ class Library(object):
 		"""
 		This method is the setter method for the _libraryPath attribute.
 
-		@param value: Attribute value. ( String )
+		:param value: Attribute value. ( String )
 		"""
 
 		if value:
@@ -200,7 +200,7 @@ class Library(object):
 		"""
 		This method is the property for the _functions attribute.
 
-		@return: self.__functions. ( String )
+		:return: self.__functions. ( String )
 		"""
 
 		return self.__functions
@@ -211,7 +211,7 @@ class Library(object):
 		"""
 		This method is the setter method for the _functions attribute.
 
-		@param value: Attribute value. ( String )
+		:param value: Attribute value. ( String )
 		"""
 
 		if value:
@@ -232,7 +232,7 @@ class Library(object):
 		"""
 		This method is the property for the _library attribute.
 
-		@return: self.__library. ( Object )
+		:return: self.__library. ( Object )
 		"""
 
 		return self.__library
@@ -243,7 +243,7 @@ class Library(object):
 		"""
 		This method is the setter method for the _library attribute.
 
-		@param value: Attribute value. ( Object )
+		:param value: Attribute value. ( Object )
 		"""
 
 		self.__library = value
@@ -266,8 +266,8 @@ class Library(object):
 		"""
 		This method bind a function.
 
-		@param function: Function to bind. ( Tuple )
-		@return: Method success. ( Boolean )
+		:param function: Function to bind. ( Tuple )
+		:return: Method success. ( Boolean )
 		"""
 
 		LOGGER.debug("> Binding '{0}' library '{1}' function.".format(self.__class__.__name__, function.name))
@@ -289,7 +289,7 @@ class Library(object):
 		"""
 		This method bind the Library.
 
-		@return: Method success. ( Boolean )
+		:return: Method success. ( Boolean )
 		"""
 
 		if self.__functions:

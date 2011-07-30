@@ -56,7 +56,7 @@ class Walker(object):
 		"""
 		This method initializes the class.
 
-		@param root: Root directory path to recurse. ( String )
+		:param root: Root directory path to recurse. ( String )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -77,7 +77,7 @@ class Walker(object):
 		"""
 		This method is the property for the _root attribute.
 
-		@return: self.__root. ( String )
+		:return: self.__root. ( String )
 		"""
 
 		return self.__root
@@ -88,7 +88,7 @@ class Walker(object):
 		"""
 		This method is the setter method for the _root attribute.
 
-		@param value: Attribute value. ( String )
+		:param value: Attribute value. ( String )
 		"""
 
 		if value:
@@ -110,7 +110,7 @@ class Walker(object):
 		"""
 		This method is the property for the _hashSize attribute.
 
-		@return: self.__hashSize. ( String )
+		:return: self.__hashSize. ( String )
 		"""
 
 		return self.__hashSize
@@ -121,7 +121,7 @@ class Walker(object):
 		"""
 		This method is the setter method for the _hashSize attribute.
 
-		@param value: Attribute value. ( String )
+		:param value: Attribute value. ( String )
 		"""
 
 		if value:
@@ -142,7 +142,7 @@ class Walker(object):
 		"""
 		This method is the property for the _files attribute.
 
-		@return: self.__files. ( Dictionary )
+		:return: self.__files. ( Dictionary )
 		"""
 
 		return self.__files
@@ -153,7 +153,7 @@ class Walker(object):
 		"""
 		This method is the setter method for the _files attribute.
 
-		@param value: Attribute value. ( Dictionary )
+		:param value: Attribute value. ( Dictionary )
 		"""
 
 		if value:
@@ -178,10 +178,10 @@ class Walker(object):
 		"""
 		This method gets root directory files list as a dictionary.
 
-		@param filtersIn: Regex filters in list. ( List / Tuple )
-		@param filtersIn: Regex filters out list. ( List / Tuple )
-		@param flags: Regex flags. ( Object )
-		@return: Files list. ( Dictionary or None )
+		:param filtersIn: Regex filters in list. ( List / Tuple )
+		:param filtersIn: Regex filters out list. ( List / Tuple )
+		:param flags: Regex flags. ( Object )
+		:return: Files list. ( Dictionary or None )
 		"""
 
 		if filtersIn:
