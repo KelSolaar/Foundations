@@ -77,7 +77,7 @@ class AttributeCompound(core.Structure):
 		"""
 		This method initializes the class.
 
-		@param kwargs: name, value, link, type, alias. ( Key / Value pairs )
+		@param kwargs: name, value, link, type, alias. ( Key / Value Pairs )
 		"""
 
 		core.Structure.__init__(self, **kwargs)

@@ -265,7 +265,7 @@ class Structure(object):
 		"""
 		This method initializes the class.
 
-		@param kwargs: Key / Value pairs. ( Key / Value pairs )
+		@param kwargs: Key / Value Pairs. ( Key / Value Pairs )
 		"""
 
 		self.__dict__.update(kwargs)
