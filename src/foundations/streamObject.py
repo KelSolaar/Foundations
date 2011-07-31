@@ -47,7 +47,7 @@ class StreamObject(object):
 	@property
 	def stream(self):
 		"""
-		This method is the property for the _stream attribute.
+		This method is the property for the __stream attribute.
 
 		:return: self.__stream. ( List )
 		"""
@@ -57,7 +57,7 @@ class StreamObject(object):
 	@stream.setter
 	def stream(self, value):
 		"""
-		This method is the setter method for the _stream attribute.
+		This method is the setter method for the __stream attribute.
 
 		:param value: Attribute value. ( List )
 		"""
@@ -69,7 +69,7 @@ class StreamObject(object):
 	@stream.deleter
 	def stream(self):
 		"""
-		This method is the deleter method for the _stream attribute.
+		This method is the deleter method for the __stream attribute.
 		"""
 
 		raise Exception("'{0}' attribute is not deletable!".format("stream"))

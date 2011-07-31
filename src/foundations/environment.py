@@ -68,7 +68,7 @@ class Environment(object):
 	@property
 	def variable(self):
 		"""
-		This method is the property for the _variable attribute.
+		This method is the property for the __variable attribute.
 
 		:return: self.__variable. ( String )
 		"""
@@ -79,7 +79,7 @@ class Environment(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def variable(self, value):
 		"""
-		This method is the setter method for the _variable attribute.
+		This method is the setter method for the __variable attribute.
 
 		:param value: Attribute value. ( String )
 		"""
@@ -93,7 +93,7 @@ class Environment(object):
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def variable(self):
 		"""
-		This method is the deleter method for the _variable attribute.
+		This method is the deleter method for the __variable attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("variable"))
