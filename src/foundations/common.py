@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Common Module.
+	This module defines **Foundations** package common utilities objects that don't fall in any specific categorie.
 
 **Others:**
 
@@ -42,6 +42,7 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 LOGGER = logging.getLogger(Constants.logger)
+"""Module logging logger: ( Logger )"""
 
 #***********************************************************************************************
 #***	Module classes and definitions.
@@ -50,7 +51,14 @@ LOGGER = logging.getLogger(Constants.logger)
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getSystemApplicationDatasDirectory():
 	"""
-	This definition gets the system Application datas directory.
+	This definition gets system Application datas directory.
+	
+	Examples directories::
+
+		- 'C:\Users\$USER\AppData\Roaming' on Windows 7.
+		- 'C:\Documents and Settings\$USER\Application Data' on Windows XP.
+		- '/Users/$USER/Library/Preferences' on Mac Os X.
+		- '/home/$USER' on Linux.
 
 	:return: User Application datas directory. ( String )
 	"""
@@ -71,7 +79,15 @@ def getSystemApplicationDatasDirectory():
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getUserApplicationDatasDirectory():
 	"""
-	This definition gets the user Application directory.
+	| This definition gets user Application directory.
+	| The difference between :func:`getSystemApplicationDatasDirectory` and :func:`getSystemApplicationDatasDirectory` definitions is that :func:`getUserApplicationDatasDirectory` definition will append :attr:`foundations.globals.constants.Constants.providerDirectory` and :attr:`foundations.globals.constants.Constants.applicationDirectory` attributes values to the path returned.
+
+	Examples directories::
+
+		- 'C:\Users\$USER\AppData\Roaming\Provider\Application' on Windows 7.
+		- 'C:\Documents and Settings\$USER\Application Data\Provider\Application' on Windows XP.
+		- '/Users/$USER/Library/Preferences/Provider/Application' on Mac Os X.
+		- '/home/$USER/.Provider/Application' on Linux.
 
 	:return: User Application directory. ( String )
 	"""
@@ -80,12 +96,12 @@ def getUserApplicationDatasDirectory():
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
-def closeHandler(logger, handler):
+def removeLoggingHandler(logger, handler):
 	"""
-	This definition shuts down the provided handler.
+	This definition removes provided logging handler from provided logger.
 
-	:param logger: Current logger. ( Object )
-	:param handler: Current handler. ( Object )
+	:param logger: Handler parent logger. ( Logger )
+	:param handler: Handler. ( Handler )
 	:return: Definition success. ( Boolean )
 	"""
 
@@ -96,11 +112,13 @@ def closeHandler(logger, handler):
 @core.executionTrace
 def exit(exitCode, logger, handlers):
 	"""
-	This definition shuts down the logging and exit the current process.
-
-	:param exitCode: Current exit code. ( Integer )
+	This definition shuts down current process logging, associated handlers and then exits to system.
+	
+	:param exitCode: System exit code. ( Integer / String / Object )
 	:param logger: Current logger. ( Object )
-	:param handlers: Handlers. ( Object )
+	:param handlers: Handlers. ( List )
+
+	:note: **exitCode** argument is passed to Python **sys.exit** definition: http://docs.python.org/library/sys.html#sys.exit
 	"""
 
 	LOGGER.debug("> {0} | Exiting current process!".format(core.getModule(exit).__name__))
@@ -108,7 +126,7 @@ def exit(exitCode, logger, handlers):
 	LOGGER.debug("> Stopping logging handlers and logger, then exiting.")
 
 	for handler in handlers:
-		handler and closeHandler(logger, handler)
+		handler and removeLoggingHandler(logger, handler)
 
 	sys.exit(exitCode)
 
@@ -116,7 +134,7 @@ def exit(exitCode, logger, handlers):
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def wait(waitTime):
 	"""
-	This definition is a wait timer.
+	This definition halts current process exection for an user defined time.
 
 	:param waitTime: Current sleep time in seconds. ( Integer )
 	:return: Definition success. ( Boolean )
@@ -126,4 +144,3 @@ def wait(waitTime):
 
 	time.sleep(waitTime)
 	return True
-

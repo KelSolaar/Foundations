@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Core Module.
+	This module defines **Foundations** package core objects. Those objects are mostly related to logging and execution tracing.
 
 **Others:**
 
@@ -43,7 +43,16 @@ __status__ = "Production"
 #***	Logging classes and definitions.
 #***********************************************************************************************
 THREADS_IDENTIFIERS = {}
+"""Threads identifiers module cache: '{ '**Thread identity**' : ('**Thread name**', '**Thread hash**')}' ( Dictionary )"""
+
 def _LogRecord_getAttribute(self, name):
+	"""
+	This definition overrides logging.LogRecord.__getattribute__ method in order to manipulate requested attributes values.
+
+	:param name: Attribute name. ( String )
+	:return: Modified method. ( Object )
+	"""
+
 	if name == "__dict__":
 		threadIdent = threading.currentThread().ident
 		if not threadIdent in THREADS_IDENTIFIERS.keys():
@@ -56,7 +65,15 @@ logging.LogRecord.__getattribute__ = _LogRecord_getAttribute
 
 def setVerbosityLevel(verbosityLevel):
 	"""
-	This definition provides overall verbosity levels through an integer.
+	This definition defines logging verbosity level.
+
+	Available verbosity levels::
+
+		- 0: Critical.
+		- 1: Error.
+		- 2: Warning.
+		- 3: Info.
+		- 4: Debug.
 
 	:param verbosityLevel: Verbosity level. ( Integer )
 	:return: Definition success. ( Boolean )
@@ -76,14 +93,15 @@ def setVerbosityLevel(verbosityLevel):
 
 class StandardMessageHook(object):
 	"""
-	This is the StandardMessageHook class.
+	| This class is a redirection object intented to be used for **sys.stdout** (http://docs.python.org/library/sys.html#sys.stdout) and **sys.stderr** (http://docs.python.org/library/sys.html#sys.stderr) streams.
+	| Logging messages will be written to provided logger handlers.
 	"""
 
 	def __init__(self, logger):
 		"""
 		This method initializes the class.
 
-		:param logger: LOGGER. ( Object )
+		:param logger: Logger. ( Object )
 		"""
 
 		self.__logger = logger
@@ -96,7 +114,7 @@ class StandardMessageHook(object):
 		"""
 		This method is the property for the _logger attribute.
 
-		:return: self.__logger. ( Object )
+		:return: self.__logger. ( Logger )
 		"""
 
 		return self.__logger
@@ -106,7 +124,7 @@ class StandardMessageHook(object):
 		"""
 		This method is the setter method for the _logger attribute.
 
-		:param value: Attribute value. ( Object )
+		:param value: Attribute value. ( Logger )
 		"""
 
 		raise Exception("'{0}' attribute is read only!".format("logger"))
@@ -124,7 +142,7 @@ class StandardMessageHook(object):
 	#***********************************************************************************************
 	def write(self, message):
 		"""
-		This method logs the current stdout message.
+		This method writes provided message to logger handlers.
 
 		:param message: Message. ( String )
 		:return: Method success. ( Boolean )
@@ -157,9 +175,9 @@ UNDEFINED_OBJECT = "UndefinedObject"
 #***********************************************************************************************
 def getFrame(index=0):
 	"""
-	This definition returns the requested frame.
+	This definition returns requested execution frame.
 
-	:param level: Frame index. ( Object )
+	:param level: Frame index. ( Integer )
 	:return: Frame. ( Frame )
 	"""
 
@@ -167,9 +185,11 @@ def getFrame(index=0):
 
 def getCodeLayerName():
 	"""
-	This definition returns the frame code layer name.
+	This definition returns first candidate frame code layer name. 
 
 	:return: Code layer name. ( String )
+	
+	:note: Candidates names matching any :attr:`foundations.core.IGNORED_CODE_LAYERS` members will be skipped. If no appropriate candidate name is found, then :attr:`foundations.core.UNDEFINED_CODE_LAYER` is returned.
 	"""
 
 	frame = getFrame()
@@ -182,7 +202,7 @@ def getCodeLayerName():
 
 def getModule(object):
 	"""
-	This definition returns the frame Module name.
+	This definition returns provided object Module name.
 
 	:param object: Object. ( Object )
 	:return: Frame Module. ( Module )
@@ -192,13 +212,20 @@ def getModule(object):
 
 def getObjectName(object):
 	"""
-	This definition returns the object name related to the provided frame.
+	This definition returns object name composited with current execution frame.
+	
+	Examples names::
+
+		- 'foundations.common | getUserApplicationDatasDirectory()'.
+		- '__main__ | _setUserApplicationDatasDirectory()'.
+		- '__main__ | Preferences.__init__()'.
+		- 'UndefinedObject'.
 
 	:param object: Object. ( Object )
 	:return: Object name. ( String )
 	"""
 
-	moduleName = getModule(inspect.getmodule(object)).__name__
+	moduleName = getModule(object).__name__
 	codeLayerName = getCodeLayerName()
 	codeLayerName = codeLayerName != UNDEFINED_CODE_LAYER and codeLayerName != "<module>" and "{0}.".format(codeLayerName) or ""
 
@@ -206,8 +233,18 @@ def getObjectName(object):
 
 def executionTrace(object):
 	"""
-	This decorator is used for function tracing.
-
+	| This decorator is used for execution tracing.
+	| Any method / definition decorated will have it's execution traced through debug messages.
+	| Both object entry and exit are logged.
+	
+	Entering in an object::
+		
+		DEBUG   : --->>> 'foundations.common | getUserApplicationDatasDirectory()' <<<---
+		
+	Exiting from an object::
+		
+		DEBUG   : --->>> 'foundations.common | getSystemApplicationDatasDirectory()' <<<---
+	
 	:param object: Object to decorate. ( Object )
 	:return: Object. ( Object )
 	"""
@@ -217,7 +254,7 @@ def executionTrace(object):
 	@functools.wraps(object)
 	def function(*args, **kwargs):
 		"""
-		This decorator is used for function tracing.
+		This decorator is used for execution tracing.
 
 		:param *args: Arguments. ( * )
 		:param **kwargs: Arguments. ( * )
@@ -236,7 +273,14 @@ def executionTrace(object):
 
 class Structure(object):
 	"""
-	This is the Structure class.
+	This class creates an object similar to C/C++ structured type.
+	
+	Usage:
+		
+		>>> person = Structure(firstName="Doe", lastName="John", gender="male")
+		>>> person.firstName
+		'Doe'
+
 	"""
 
 	@executionTrace
