@@ -48,7 +48,7 @@ def exceptionsHandler(handler=None, raise_=False, *args):
 
 	:param handler: Custom handler. ( Object )
 	:param raise_: Is default exception handler catching / raising the exception. ( Boolean )
-	@param *args: Exceptions. ( Exceptions )
+	:param *args: Exceptions. ( Exceptions )
 	:return: Object. ( Object )
 	"""
 
@@ -70,8 +70,8 @@ def exceptionsHandler(handler=None, raise_=False, *args):
 			"""
 			This decorator is used for exceptions handling.
 
-			@param *args: Arguments. ( * )
-			@param **kwargs: Arguments. ( * )
+			:param *args: Arguments. ( * )
+			:param **kwargs: Arguments. ( * )
 			"""
 
 			exception = None
@@ -95,8 +95,8 @@ def defaultExceptionsHandler(exception, origin, *args, **kwargs):
 
 	:param exception: Exception. ( Exception )
 	:param origin: Function / Method raising the exception. ( String )
-	@param *args: Arguments. ( * )
-	@param **kwargs: Arguments. ( * )
+	:param *args: Arguments. ( * )
+	:param **kwargs: Arguments. ( * )
 	"""
 
 	LOGGER.error("!> {0}".format(Constants.loggingSeparators))

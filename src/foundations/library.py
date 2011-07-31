@@ -80,8 +80,8 @@ class Library(object):
 		"""
 		This method is the constructor of the class.
 
-		@param *args: Arguments. ( * )
-		@param **kwargs: Arguments. ( * )
+		:param *args: Arguments. ( * )
+		:param **kwargs: Arguments. ( * )
 		"""
 
 		libraryPath = args[0]
