@@ -168,6 +168,7 @@ IGNORED_CODE_LAYERS = ("getFrame",
 					"wrapper")
 
 UNDEFINED_CODE_LAYER = "UndefinedCodeLayer"
+UNDEFINED_MODULE = "UndefinedModule"
 UNDEFINED_OBJECT = "UndefinedObject"
 
 #***********************************************************************************************
@@ -202,7 +203,7 @@ def getCodeLayerName():
 
 def getModule(object):
 	"""
-	This definition returns provided object Module name.
+	This definition returns provided object module name.
 
 	:param object: Object. ( Object )
 	:return: Frame Module. ( Module )
@@ -224,8 +225,8 @@ def getObjectName(object):
 	:param object: Object. ( Object )
 	:return: Object name. ( String )
 	"""
-
-	moduleName = getModule(object).__name__
+	module = getModule(object)
+	moduleName = module and module.__name__ or UNDEFINED_MODULE
 	codeLayerName = getCodeLayerName()
 	codeLayerName = codeLayerName != UNDEFINED_CODE_LAYER and codeLayerName != "<module>" and "{0}.".format(codeLayerName) or ""
 
