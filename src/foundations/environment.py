@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Environment Module.
+	This module provides environment variables manipulation objects.
 
 **Others:**
 
@@ -19,7 +19,6 @@
 #***********************************************************************************************
 import logging
 import os
-import re
 
 #***********************************************************************************************
 #***	Internal imports.
@@ -49,73 +48,171 @@ class Environment(object):
 	"""
 
 	@core.executionTrace
-	def __init__(self, variable=None):
+	def __init__(self, *args, **kwargs):
 		"""
 		This method initializes the class.
-
-		:param variable: Variable to manipulate. ( String )
+		
+		Usage::
+			
+			>>> environment = Environment(JOHN="DOE", DOE="JOHN")
+			>>> environment.setValues()
+			True
+			>>> import os
+			>>> os.environ["JOHN"]
+			'DOE'
+			>>> os.environ["DOE"]
+			'JOHN'
+		
+		:param *args: Variables. ( * )
+		:param **kwargs: Variables : Values. ( * )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
 		# --- Setting class attributes. ---
-		self.__variable = None
-		self.variable = variable
+		self.__variables = {}
+		self.__addVariables(*args, **kwargs)
 
 	#***********************************************************************************************
 	#***	Attributes properties.
 	#***********************************************************************************************
 	@property
-	def variable(self):
+	def variables(self):
 		"""
-		This method is the property for the __variable attribute.
+		This method is the property for the __variables attribute.
 
-		:return: self.__variable. ( String )
+		:return: self.__variables. ( Dictionary )
 		"""
 
-		return self.__variable
+		return self.__variables
 
-	@variable.setter
+	@variables.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
-	def variable(self, value):
+	def variables(self, value):
 		"""
-		This method is the setter method for the __variable attribute.
+		This method is the setter method for the __variables attribute.
 
-		:param value: Attribute value. ( String )
+		:param value: Attribute value. ( Dictionary )
 		"""
 
 		if value:
-			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("variable", value)
-			assert not re.search("\W", value), "'{0}' attribute: '{1}' contains non alphanumerics characters!".format("variable", value)
-		self.__variable = value
+			assert type(value) is dict, "'{0}' attribute: '{1}' type is not 'dict'!".format("variables", value)
+		self.__variables = value
 
-	@variable.deleter
+	@variables.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
-	def variable(self):
+	def variables(self):
 		"""
-		This method is the deleter method for the __variable attribute.
+		This method is the deleter method for the __variables attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("variable"))
+		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("variables"))
 
 	#***********************************************************************************************
 	#***	Class methods.
 	#***********************************************************************************************
 	@core.executionTrace
+	def __addVariables(self, *args, **kwargs):
+		"""
+		This method adds provided variables to __variables attribute.
+
+		:param *args: Variables. ( * )
+		:param **kwargs: Variables : Values. ( * )
+		:return: Method success. ( Boolean )
+		"""
+
+		for variable in args:
+			self.__variables[variable] = None
+		self.__variables.update(kwargs)
+		return True
+
+	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
-	def getPath(self):
+	def getValues(self, *args):
 		"""
-		This method gets the chosen environment variable path as a string.
+		This method gets environment variables values.
 
-		:return: Variable path. ( String )
+		Usage::
+			
+			>>> environment = Environment("HOME")
+			>>> environment.getValues()
+			{'HOME': '/Users/JohnDoe'}
+			>>> environment.getValues("USER")
+			{'HOME': '/Users/JohnDoe', 'USER': 'JohnDoe'}
+
+		:param *args: Additional variables names to retrieve values from. ( * )
+		:return: Variables : Values. ( Dictionary )
 		"""
 
-		if not self.__variable:
-			return
+		args and self.__addVariables(*args)
 
-		LOGGER.debug("> Current environment variable: '{0}'.".format(self.__variable))
+		LOGGER.debug("> Object environment variables: '{0}'.".format(",".join((key for key in self.__variables.keys() if key))))
 		LOGGER.debug("> Available system environment variables: '{0}'".format(os.environ.keys()))
 
-		if self.__variable in os.environ.keys():
-			return os.environ[self.__variable]
+		for variable in self.__variables.keys():
+			self.__variables[variable] = os.environ.get(variable, None)
+		return self.__variables
 
+	@core.executionTrace
+	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	def setValues(self, **kwargs):
+		"""
+		This method sets environment variables values.
+
+		Usage::
+			
+			>>> environment = Environment()
+			>>> environment.setValues(JOHN="DOE", DOE="JOHN")
+			True
+			>>> import os
+			>>> os.environ["JOHN"]
+			'DOE'
+			>>> os.environ["DOE"]
+			'JOHN'
+
+		:param **kwargs: Variables : Values. ( * )
+		:return: Method success. ( String )
+		
+		:note: Any variable with a **None** value will be skipped.
+		"""
+
+		self.__variables.update(kwargs)
+
+		for key, value in self.__variables.items():
+			if value is None:
+				continue
+			LOGGER.debug("> Setting environment variable '{0}' with value '{1}'.".format(key, value))
+			os.environ[key] = value
+		return True
+
+	@core.executionTrace
+	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	def getValue(self, variable=None):
+		"""
+		This method gets provided environment variable value.
+
+		:param variable: Variable to retrieve value. ( String )
+		:return: Variable value. ( String )
+		
+		:note: If the **variable** argument is not provided the first **self.__variables** attribute value will be returned.
+		"""
+
+		if variable:
+			self.getValues(variable)
+			return self.__variables[variable]
+		else:
+			self.getValues()
+			return self.__variables.values() and self.__variables.values()[0]
+
+	@core.executionTrace
+	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	def setValue(self, variable, value):
+		"""
+		This method sets provided environment variable with provided value.
+
+		:param variable: Variable to set value. ( String )
+		:param value: Variable value. ( String )
+		:return: Method success. ( Boolean )
+		"""
+
+		return self.setValues(**{variable : value})

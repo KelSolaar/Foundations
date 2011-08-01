@@ -17,6 +17,7 @@
 #***********************************************************************************************
 #***	External imports.
 #***********************************************************************************************
+import os
 import platform
 import unittest
 
@@ -49,7 +50,7 @@ class EnvironmentTestCase(unittest.TestCase):
 		"""
 
 		environment = Environment()
-		requiredAttributes = ("variable",)
+		requiredAttributes = ("variables",)
 
 		for attribute in requiredAttributes:
 			self.assertIn(attribute, dir(environment))
@@ -60,14 +61,15 @@ class EnvironmentTestCase(unittest.TestCase):
 		"""
 
 		environment = Environment()
-		requiredMethods = ("getPath",)
+		requiredMethods = ("getValues",
+						"setValues")
 
 		for method in requiredMethods:
 			self.assertIn(method, dir(environment))
 
-	def testGetPath(self):
+	def testGetValues(self):
 		"""
-		This method tests the "Environment" class "getPath" method.
+		This method tests the "Environment" class "getValues" method.
 		"""
 
 		if platform.system() == "Windows" or platform.system() == "Microsoft":
@@ -76,8 +78,51 @@ class EnvironmentTestCase(unittest.TestCase):
 			environment = Environment("HOME")
 		elif platform.system() == "Linux":
 			environment = Environment("HOME")
-		self.assertTrue(environment.getPath())
-		self.assertIsInstance(environment.getPath(), str)
+		self.assertIsInstance(environment.getValues(), dict)
+		self.assertIsInstance(environment.getValues("HOME"), dict)
+		self.assertIsInstance(environment.getValues().get("HOME"), str)
+		self.assertEqual(environment.getValues()["HOME"], os.environ["HOME"])
+		environment.getValues("JOHNDOE_IS_FOR_SURE_A_NON_EXISTING_SYSTEM_ENVIRONMENT_VARIABLE")
+		self.assertFalse(environment.getValues()["JOHNDOE_IS_FOR_SURE_A_NON_EXISTING_SYSTEM_ENVIRONMENT_VARIABLE"])
+
+	def testSetValues(self):
+		"""
+		This method tests the "Environment" class "setValues" method.
+		"""
+
+		environment = Environment()
+		self.assertTrue(environment.setValues(JOHN="DOE"))
+		self.assertIn("JOHN", os.environ)
+		self.assertTrue(environment.setValues(JOHN="EOD", DOE="JOHN"))
+		self.assertIn("DOE", os.environ)
+		self.assertEqual(environment.getValues()["JOHN"], "EOD")
+
+	def testGetValue(self):
+		"""
+		This method tests the "Environment" class "getValue" method.
+		"""
+
+		if platform.system() == "Windows" or platform.system() == "Microsoft":
+			environment = Environment("APPDATA")
+		elif platform.system() == "Darwin":
+			environment = Environment("HOME")
+		elif platform.system() == "Linux":
+			environment = Environment("HOME")
+		self.assertTrue(environment.getValue())
+		self.assertIsInstance(environment.getValue(), str)
+		environment.setValues(JOHN="DOE")
+		self.assertEqual(environment.getValue("JOHN"), "DOE")
+		self.assertFalse(environment.getValue("JOHNDOE_IS_FOR_SURE_A_NON_EXISTING_SYSTEM_ENVIRONMENT_VARIABLE"))
+
+	def testSetValue(self):
+		"""
+		This method tests the "Environment" class "setValue" method.
+		"""
+
+		environment = Environment()
+		self.assertTrue(environment.setValue("JANE", "DOE"))
+		self.assertIn("JANE", os.environ)
+		self.assertEqual(environment.getValue("JANE"), "DOE")
 
 if __name__ == "__main__":
 	import tests.utilities

@@ -65,15 +65,15 @@ def getSystemApplicationDatasDirectory():
 
 	if platform.system() == "Windows" or platform.system() == "Microsoft":
 		environmentVariable = Environment("APPDATA")
-		return environmentVariable.getPath()
+		return environmentVariable.getValue()
 
 	elif platform.system() == "Darwin":
 		environmentVariable = Environment("HOME")
-		return os.path.join(environmentVariable.getPath(), "Library/Preferences")
+		return os.path.join(environmentVariable.getValue(), "Library/Preferences")
 
 	elif platform.system() == "Linux":
 		environmentVariable = Environment("HOME")
-		return environmentVariable.getPath()
+		return environmentVariable.getValue()
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
