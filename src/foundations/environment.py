@@ -63,8 +63,8 @@ class Environment(object):
 			>>> os.environ["DOE"]
 			'JOHN'
 		
-		:param *args: Variables. ( * )
-		:param **kwargs: Variables : Values. ( * )
+		:param \*args: Variables. ( \* )
+		:param \*\*kwargs: Variables : Values. ( \* )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -116,8 +116,8 @@ class Environment(object):
 		"""
 		This method adds provided variables to __variables attribute.
 
-		:param *args: Variables. ( * )
-		:param **kwargs: Variables : Values. ( * )
+		:param \*args: Variables. ( \* )
+		:param \*\*kwargs: Variables : Values. ( \* )
 		:return: Method success. ( Boolean )
 		"""
 
@@ -140,7 +140,7 @@ class Environment(object):
 			>>> environment.getValues("USER")
 			{'HOME': '/Users/JohnDoe', 'USER': 'JohnDoe'}
 
-		:param *args: Additional variables names to retrieve values from. ( * )
+		:param \*args: Additional variables names to retrieve values from. ( \* )
 		:return: Variables : Values. ( Dictionary )
 		"""
 
@@ -170,7 +170,7 @@ class Environment(object):
 			>>> os.environ["DOE"]
 			'JOHN'
 
-		:param **kwargs: Variables : Values. ( * )
+		:param \*\*kwargs: Variables : Values. ( \* )
 		:return: Method success. ( String )
 		
 		:note: Any variable with a **None** value will be skipped.
