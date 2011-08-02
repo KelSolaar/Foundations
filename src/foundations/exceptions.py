@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Exceptions Module.
+	This module defines **Foundations** package exceptions and others exception handling related objects. 
 
 **Others:**
 
@@ -44,11 +44,22 @@ LOGGER = logging.getLogger(Constants.logger)
 #***********************************************************************************************
 def exceptionsHandler(handler=None, raise_=False, *args):
 	"""
-	This decorator is used for exceptions handling.
+	| This decorator is used for exceptions handling.
+	| It's possible to specify an user defined exception handler, if not, :func:`foundations.exceptions.defaultExceptionsHandler` handler will be used.
+	| The decorator uses provided exceptions objects or the default Python `Exception <http://docs.python.org/library/exceptions.html#exceptions.Exception>`_ class.
+	
+	Usage::
+	
+		@exceptionsHandler(None, False, ZeroDivisionError)
+		def raiseAnException(value):
+			'''
+			This definition raises a 'ZeroDivisionError' exception.
+			'''
+			return value / 0;
 
 	:param handler: Custom handler. ( Object )
-	:param raise_: Is default exception handler catching / raising the exception. ( Boolean )
-	:param *args: Exceptions. ( Exceptions )
+	:param raise_: Raise the exception. ( Boolean )
+	:param \*args: Exceptions. ( Exceptions )
 	:return: Object. ( Object )
 	"""
 
@@ -70,8 +81,8 @@ def exceptionsHandler(handler=None, raise_=False, *args):
 			"""
 			This decorator is used for exceptions handling.
 
-			:param *args: Arguments. ( * )
-			:param **kwargs: Arguments. ( * )
+			:param \*args: Arguments. ( \* )
+			:param \*\*kwargs: Arguments. ( \* )
 			"""
 
 			exception = None
@@ -91,12 +102,20 @@ def exceptionsHandler(handler=None, raise_=False, *args):
 @core.executionTrace
 def defaultExceptionsHandler(exception, origin, *args, **kwargs):
 	"""
-	This definition provides an exception handler.
-
+	| This definition provides the default exception handler.
+	
+	This handler will verbose some informations about the handled exception::
+	
+		- Exception origin.
+		- Exception class.
+		- Exception description / documentation.
+		- Error message.
+		- Exception traceback.
+		
 	:param exception: Exception. ( Exception )
 	:param origin: Function / Method raising the exception. ( String )
-	:param *args: Arguments. ( * )
-	:param **kwargs: Arguments. ( * )
+	:param \*args: Arguments. ( \* )
+	:param \*\*kwargs: Arguments. ( \* )
 	"""
 
 	LOGGER.error("!> {0}".format(Constants.loggingSeparators))
@@ -369,7 +388,7 @@ class UserError(Exception):
 
 class NetworkError(Exception):
 	"""
-	This class is used for networkerror errors.
+	This class is used for network errors.
 	"""
 
 	@core.executionTrace
