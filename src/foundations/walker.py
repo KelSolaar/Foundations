@@ -75,7 +75,7 @@ class Walker(object):
 	@property
 	def root(self):
 		"""
-		This method is the property for the __root attribute.
+		This method is the property for **self.__root** attribute.
 
 		:return: self.__root. ( String )
 		"""
@@ -86,7 +86,7 @@ class Walker(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def root(self, value):
 		"""
-		This method is the setter method for the __root attribute.
+		This method is the setter method for **self.__root** attribute.
 
 		:param value: Attribute value. ( String )
 		"""
@@ -100,7 +100,7 @@ class Walker(object):
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def root(self):
 		"""
-		This method is the deleter method for the __root attribute.
+		This method is the deleter method for **self.__root** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("root"))
@@ -108,7 +108,7 @@ class Walker(object):
 	@property
 	def hashSize(self):
 		"""
-		This method is the property for the __hashSize attribute.
+		This method is the property for **self.__hashSize** attribute.
 
 		:return: self.__hashSize. ( String )
 		"""
@@ -119,7 +119,7 @@ class Walker(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def hashSize(self, value):
 		"""
-		This method is the setter method for the __hashSize attribute.
+		This method is the setter method for **self.__hashSize** attribute.
 
 		:param value: Attribute value. ( String )
 		"""
@@ -132,7 +132,7 @@ class Walker(object):
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def hashSize(self):
 		"""
-		This method is the deleter method for the __hashSize attribute.
+		This method is the deleter method for **self.__hashSize** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("hashSize"))
@@ -140,7 +140,7 @@ class Walker(object):
 	@property
 	def files(self):
 		"""
-		This method is the property for the __files attribute.
+		This method is the property for **self.__files** attribute.
 
 		:return: self.__files. ( Dictionary )
 		"""
@@ -151,7 +151,7 @@ class Walker(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def files(self, value):
 		"""
-		This method is the setter method for the __files attribute.
+		This method is the setter method for **self.__files** attribute.
 
 		:param value: Attribute value. ( Dictionary )
 		"""
@@ -164,7 +164,7 @@ class Walker(object):
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def files(self):
 		"""
-		This method is the deleter method for the __files attribute.
+		This method is the deleter method for **self.__files** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("files"))

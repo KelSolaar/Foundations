@@ -105,7 +105,7 @@ class Parser(io.File):
 	@property
 	def splitter(self):
 		"""
-		This method is the property for the __splitter attribute.
+		This method is the property for **self.__splitter** attribute.
 
 		:return: self.__splitter. ( String )
 		"""
@@ -116,7 +116,7 @@ class Parser(io.File):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def splitter(self, value):
 		"""
-		This method is the setter method for the __splitter attribute.
+		This method is the setter method for **self.__splitter** attribute.
 
 		:param value: Attribute value. ( String )
 		"""
@@ -131,7 +131,7 @@ class Parser(io.File):
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def splitter(self):
 		"""
-		This method is the deleter method for the __splitter attribute.
+		This method is the deleter method for **self.__splitter** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("splitter"))
@@ -139,7 +139,7 @@ class Parser(io.File):
 	@property
 	def namespaceSplitter(self):
 		"""
-		This method is the property for the __namespaceSplitter attribute.
+		This method is the property for **self.__namespaceSplitter** attribute.
 
 		:return: self.__namespaceSplitter. ( String )
 		"""
@@ -150,7 +150,7 @@ class Parser(io.File):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def namespaceSplitter(self, value):
 		"""
-		This method is the setter method for the __namespaceSplitter attribute.
+		This method is the setter method for **self.__namespaceSplitter** attribute.
 
 		:param value: Attribute value. ( String )
 		"""
@@ -165,7 +165,7 @@ class Parser(io.File):
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def namespaceSplitter(self):
 		"""
-		This method is the deleter method for the __namespaceSplitter attribute.
+		This method is the deleter method for **self.__namespaceSplitter** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("namespaceSplitter"))
@@ -173,7 +173,7 @@ class Parser(io.File):
 	@property
 	def commentLimiter(self):
 		"""
-		This method is the property for the __commentLimiter attribute.
+		This method is the property for **self.__commentLimiter** attribute.
 
 		:return: self.__commentLimiter. ( String )
 		"""
@@ -184,7 +184,7 @@ class Parser(io.File):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def commentLimiter(self, value):
 		"""
-		This method is the setter method for the __commentLimiter attribute.
+		This method is the setter method for **self.__commentLimiter** attribute.
 
 		:param value: Attribute value. ( String )
 		"""
@@ -198,7 +198,7 @@ class Parser(io.File):
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def commentLimiter(self):
 		"""
-		This method is the deleter method for the __commentLimiter attribute.
+		This method is the deleter method for **self.__commentLimiter** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("commentLimiter"))
@@ -206,7 +206,7 @@ class Parser(io.File):
 	@property
 	def commentMarker(self):
 		"""
-		This method is the property for the __commentMarker attribute.
+		This method is the property for **self.__commentMarker** attribute.
 
 		:return: self.__commentMarker. ( String )
 		"""
@@ -217,7 +217,7 @@ class Parser(io.File):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def commentMarker(self, value):
 		"""
-		This method is the setter method for the __commentMarker attribute.
+		This method is the setter method for **self.__commentMarker** attribute.
 
 		:param value: Attribute value. ( String )
 		"""
@@ -231,7 +231,7 @@ class Parser(io.File):
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def commentMarker(self):
 		"""
-		This method is the deleter method for the __commentMarker attribute.
+		This method is the deleter method for **self.__commentMarker** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("commentMarker"))
@@ -239,7 +239,7 @@ class Parser(io.File):
 	@property
 	def rawSectionContentIdentifier(self):
 		"""
-		This method is the property for the __rawSectionContentIdentifier attribute.
+		This method is the property for **self.__rawSectionContentIdentifier** attribute.
 
 		:return: self.__rawSectionContentIdentifier. ( String )
 		"""
@@ -250,7 +250,7 @@ class Parser(io.File):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def rawSectionContentIdentifier(self, value):
 		"""
-		This method is the setter method for the __rawSectionContentIdentifier attribute.
+		This method is the setter method for **self.__rawSectionContentIdentifier** attribute.
 
 		:param value: Attribute value. ( String )
 		"""
@@ -263,7 +263,7 @@ class Parser(io.File):
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def rawSectionContentIdentifier(self):
 		"""
-		This method is the deleter method for the __rawSectionContentIdentifier attribute.
+		This method is the deleter method for **self.__rawSectionContentIdentifier** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("rawSectionContentIdentifier"))
@@ -271,7 +271,7 @@ class Parser(io.File):
 	@property
 	def sections(self):
 		"""
-		This method is the property for the __sections attribute.
+		This method is the property for **self.__sections** attribute.
 
 		:return: self.__sections. ( Dictionary )
 		"""
@@ -282,7 +282,7 @@ class Parser(io.File):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def sections(self, value):
 		"""
-		This method is the setter method for the __sections attribute.
+		This method is the setter method for **self.__sections** attribute.
 
 		:param value: Attribute value. ( Dictionary )
 		"""
@@ -295,7 +295,7 @@ class Parser(io.File):
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def sections(self):
 		"""
-		This method is the deleter method for the __sections attribute.
+		This method is the deleter method for **self.__sections** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("sections"))
@@ -303,7 +303,7 @@ class Parser(io.File):
 	@property
 	def comments(self):
 		"""
-		This method is the property for the __comments attribute.
+		This method is the property for **self.__comments** attribute.
 
 		:return: self.__comments. ( Dictionary )
 		"""
@@ -314,7 +314,7 @@ class Parser(io.File):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def comments(self, value):
 		"""
-		This method is the setter method for the __comments attribute.
+		This method is the setter method for **self.__comments** attribute.
 
 		:param value: Attribute value. ( Dictionary )
 		"""
@@ -327,7 +327,7 @@ class Parser(io.File):
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def comments(self):
 		"""
-		This method is the deleter method for the __comments attribute.
+		This method is the deleter method for **self.__comments** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("comments"))

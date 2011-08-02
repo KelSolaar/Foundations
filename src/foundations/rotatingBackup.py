@@ -74,7 +74,7 @@ class RotatingBackup(object):
 	@property
 	def source(self):
 		"""
-		This method is the property for the __source attribute.
+		This method is the property for **self.__source** attribute.
 
 		:return: self.__source. ( String )
 		"""
@@ -85,7 +85,7 @@ class RotatingBackup(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def source(self, value):
 		"""
-		This method is the setter method for the __source attribute.
+		This method is the setter method for **self.__source** attribute.
 
 		:param value: Attribute value. ( String )
 		"""
@@ -99,7 +99,7 @@ class RotatingBackup(object):
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def source(self):
 		"""
-		This method is the deleter method for the __source attribute.
+		This method is the deleter method for **self.__source** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("source"))
@@ -107,7 +107,7 @@ class RotatingBackup(object):
 	@property
 	def destination(self):
 		"""
-		This method is the property for the __destination attribute.
+		This method is the property for **self.__destination** attribute.
 
 		:return: self.__destination. ( String )
 		"""
@@ -118,7 +118,7 @@ class RotatingBackup(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def destination(self, value):
 		"""
-		This method is the setter method for the __destination attribute.
+		This method is the setter method for **self.__destination** attribute.
 
 		:param value: Attribute value. ( String )
 		"""
@@ -131,7 +131,7 @@ class RotatingBackup(object):
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def destination(self):
 		"""
-		This method is the deleter method for the __destination attribute.
+		This method is the deleter method for **self.__destination** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("destination"))
@@ -139,7 +139,7 @@ class RotatingBackup(object):
 	@property
 	def count(self):
 		"""
-		This method is the property for the __count attribute.
+		This method is the property for **self.__count** attribute.
 
 		:return: self.__count. ( Integer )
 		"""
@@ -150,7 +150,7 @@ class RotatingBackup(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def count(self, value):
 		"""
-		This method is the setter method for the __count attribute.
+		This method is the setter method for **self.__count** attribute.
 
 		:param value: Attribute value. ( Integer )
 		"""
@@ -164,7 +164,7 @@ class RotatingBackup(object):
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def count(self):
 		"""
-		This method is the deleter method for the __count attribute.
+		This method is the deleter method for **self.__count** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("count"))

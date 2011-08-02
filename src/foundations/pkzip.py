@@ -70,7 +70,7 @@ class Pkzip(object):
 	@property
 	def archive(self):
 		"""
-		This method is the property for the __archive attribute.
+		This method is the property for **self.__archive** attribute.
 
 		:return: self.__archive. ( String )
 		"""
@@ -81,7 +81,7 @@ class Pkzip(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def archive(self, value):
 		"""
-		This method is the setter method for the __archive attribute.
+		This method is the setter method for **self.__archive** attribute.
 
 		:param value: Attribute value. ( String )
 		"""
@@ -95,7 +95,7 @@ class Pkzip(object):
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def archive(self):
 		"""
-		This method is the deleter method for the __archive attribute.
+		This method is the deleter method for **self.__archive** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("archive"))

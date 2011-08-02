@@ -135,7 +135,7 @@ class Library(object):
 	@property
 	def libraryInstantiated(self):
 		"""
-		This method is the property for the __libraryInstantiated attribute.
+		This method is the property for **self.__libraryInstantiated** attribute.
 
 		:return: self.__libraryInstantiated. ( String )
 		"""
@@ -146,7 +146,7 @@ class Library(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def libraryInstantiated(self, value):
 		"""
-		This method is the setter method for the __libraryInstantiated attribute.
+		This method is the setter method for **self.__libraryInstantiated** attribute.
 
 		:param value: Attribute value. ( String )
 		"""
@@ -157,7 +157,7 @@ class Library(object):
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def libraryInstantiated(self):
 		"""
-		This method is the deleter method for the __libraryInstantiated attribute.
+		This method is the deleter method for **self.__libraryInstantiated** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("libraryInstantiated"))
@@ -165,7 +165,7 @@ class Library(object):
 	@property
 	def libraryPath(self):
 		"""
-		This method is the property for the __libraryPath attribute.
+		This method is the property for **self.__libraryPath** attribute.
 
 		:return: self.__libraryPath. ( String )
 		"""
@@ -176,7 +176,7 @@ class Library(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def libraryPath(self, value):
 		"""
-		This method is the setter method for the __libraryPath attribute.
+		This method is the setter method for **self.__libraryPath** attribute.
 
 		:param value: Attribute value. ( String )
 		"""
@@ -190,7 +190,7 @@ class Library(object):
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def libraryPath(self):
 		"""
-		This method is the deleter method for the __libraryPath attribute.
+		This method is the deleter method for **self.__libraryPath** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("libraryPath"))
@@ -198,7 +198,7 @@ class Library(object):
 	@property
 	def functions(self):
 		"""
-		This method is the property for the __functions attribute.
+		This method is the property for **self.__functions** attribute.
 
 		:return: self.__functions. ( String )
 		"""
@@ -209,7 +209,7 @@ class Library(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def functions(self, value):
 		"""
-		This method is the setter method for the __functions attribute.
+		This method is the setter method for **self.__functions** attribute.
 
 		:param value: Attribute value. ( String )
 		"""
@@ -222,7 +222,7 @@ class Library(object):
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def functions(self):
 		"""
-		This method is the deleter method for the __functions attribute.
+		This method is the deleter method for **self.__functions** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("functions"))
@@ -230,7 +230,7 @@ class Library(object):
 	@property
 	def library(self):
 		"""
-		This method is the property for the __library attribute.
+		This method is the property for **self.__library** attribute.
 
 		:return: self.__library. ( Object )
 		"""
@@ -241,7 +241,7 @@ class Library(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def library(self, value):
 		"""
-		This method is the setter method for the __library attribute.
+		This method is the setter method for **self.__library** attribute.
 
 		:param value: Attribute value. ( Object )
 		"""
@@ -252,7 +252,7 @@ class Library(object):
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def library(self):
 		"""
-		This method is the deleter method for the __library attribute.
+		This method is the deleter method for **self.__library** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("library"))

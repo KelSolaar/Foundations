@@ -70,7 +70,7 @@ class File(object):
 	@property
 	def file(self):
 		"""
-		This method is the property for the __file attribute.
+		This method is the property for **self.__file** attribute.
 
 		:return: self.__file. ( String )
 		"""
@@ -81,7 +81,7 @@ class File(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def file(self, value):
 		"""
-		This method is the setter method for the __file attribute.
+		This method is the setter method for **self.__file** attribute.
 
 		:param value: Attribute value. ( String )
 		"""
@@ -94,7 +94,7 @@ class File(object):
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def file(self):
 		"""
-		This method is the deleter method for the __file attribute.
+		This method is the deleter method for **self.__file** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("file"))
@@ -102,7 +102,7 @@ class File(object):
 	@property
 	def content(self):
 		"""
-		This method is the property for the __content attribute.
+		This method is the property for **self.__content** attribute.
 
 		:return: self.__content. ( List )
 		"""
@@ -113,7 +113,7 @@ class File(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def content(self, value):
 		"""
-		This method is the setter method for the __content attribute.
+		This method is the setter method for **self.__content** attribute.
 
 		:param value: Attribute value. ( List )
 		"""
@@ -126,7 +126,7 @@ class File(object):
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def content(self):
 		"""
-		This method is the deleter method for the __content attribute.
+		This method is the deleter method for **self.__content** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("content"))

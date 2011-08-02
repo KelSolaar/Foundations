@@ -112,7 +112,7 @@ class StandardMessageHook(object):
 	@property
 	def logger(self):
 		"""
-		This method is the property for the __logger attribute.
+		This method is the property for **self.__logger** attribute.
 
 		:return: self.__logger. ( Logger )
 		"""
@@ -122,7 +122,7 @@ class StandardMessageHook(object):
 	@logger.setter
 	def logger(self, value):
 		"""
-		This method is the setter method for the __logger attribute.
+		This method is the setter method for **self.__logger** attribute.
 
 		:param value: Attribute value. ( Logger )
 		"""
@@ -132,7 +132,7 @@ class StandardMessageHook(object):
 	@logger.deleter
 	def logger(self):
 		"""
-		This method is the deleter method for the __logger attribute.
+		This method is the deleter method for **self.__logger** attribute.
 		"""
 
 		raise Exception("'{0}' attribute is not deletable!".format("logger"))
