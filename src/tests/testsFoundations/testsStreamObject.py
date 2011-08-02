@@ -39,7 +39,7 @@ __status__ = "Production"
 #***********************************************************************************************
 class StreamObjectTestCase(unittest.TestCase):
 	"""
-	This class is the StreamObjectTestCase class.
+	This class is the **StreamObjectTestCase** class.
 	"""
 
 	def testRequiredAttributes(self):

@@ -47,7 +47,7 @@ LOGGER = logging.getLogger(Constants.logger)
 #***********************************************************************************************
 class AttributeCompound(core.Structure):
 	"""
-	This is the AttributeCompound class.
+	This is the **AttributeCompound** class.
 	"""
 
 	@core.executionTrace

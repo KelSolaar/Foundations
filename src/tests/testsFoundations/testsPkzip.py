@@ -48,7 +48,7 @@ TREE_HIERARCHY = ("level_0", "loremIpsum.txt", "standard.ibl", "standard.rc", "s
 #***********************************************************************************************
 class PkzipTestCase(unittest.TestCase):
 	"""
-	This class is the PkzipTestCase class.
+	This class is the **PkzipTestCase** class.
 	"""
 
 	def testRequiredAttributes(self):
@@ -75,7 +75,7 @@ class PkzipTestCase(unittest.TestCase):
 
 	def testRead(self):
 		"""
-		This method tests the "Pkzip" class "extract" method.
+		This method tests **Pkzip** class **extract** method.
 		"""
 
 		zipFile = Pkzip(TEST_FILE)

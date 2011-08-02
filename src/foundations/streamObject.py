@@ -29,7 +29,7 @@ __status__ = "Production"
 #***********************************************************************************************
 class StreamObject(object):
 	"""
-	This class is the StreamObject class.
+	This class is the **StreamObject** class.
 	"""
 
 	def __init__(self, stream=None):

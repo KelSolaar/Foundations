@@ -46,7 +46,7 @@ TEST_DIRECTORY = os.path.join(RESOURCES_DIRECTORY, "standard")
 #***********************************************************************************************
 class RotatingBackupTestCase(unittest.TestCase):
 	"""
-	This class is the RotatingBackupTestCase class.
+	This class is the **RotatingBackupTestCase** class.
 	"""
 
 	def testRequiredAttributes(self):
@@ -75,7 +75,7 @@ class RotatingBackupTestCase(unittest.TestCase):
 
 	def testBackup(self):
 		"""
-		This method tests the "RotatingBackup" class "backup" method.
+		This method tests **RotatingBackup** class **backup** method.
 		"""
 
 		tempDirectory = tempfile.mkdtemp()
@@ -91,7 +91,7 @@ class RotatingBackupTestCase(unittest.TestCase):
 
 	def testCopy(self):
 		"""
-		This method tests the "RotatingBackup" class "copy" method.
+		This method tests **RotatingBackup** class **copy** method.
 		"""
 
 		tempDirectory = tempfile.mkdtemp()
@@ -104,7 +104,7 @@ class RotatingBackupTestCase(unittest.TestCase):
 
 	def testDelete(self):
 		"""
-		This method tests the "RotatingBackup" class "delete" method.
+		This method tests **RotatingBackup** class **delete** method.
 		"""
 
 		tempDirectory = tempfile.mkdtemp()

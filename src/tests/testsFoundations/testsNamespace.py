@@ -39,12 +39,12 @@ __status__ = "Production"
 #***********************************************************************************************
 class SetNamespaceTestCase(unittest.TestCase):
 	"""
-	This class is the SetNamespaceTestCase class.
+	This class is the **SetNamespaceTestCase** class.
 	"""
 
 	def testSetNamespace(self):
 		"""
-		This method tests the "setNamespace" definition.
+		This method tests **setNamespace** definition.
 		"""
 
 		self.assertIsInstance(namespace.setNamespace("Namespace", "Attribute"), str)
@@ -53,12 +53,12 @@ class SetNamespaceTestCase(unittest.TestCase):
 
 class GetNamespaceTestCase(unittest.TestCase):
 	"""
-	This class is the GetNamespaceTestCase class.
+	This class is the **GetNamespaceTestCase** class.
 	"""
 
 	def testGetNamespace(self):
 		"""
-		This method tests the "getNamespace" definition.
+		This method tests **getNamespace** definition.
 		"""
 
 		self.assertIsInstance(namespace.getNamespace("Namespace:Attribute", ":"), str)
@@ -69,12 +69,12 @@ class GetNamespaceTestCase(unittest.TestCase):
 
 class RemoveNamespaceTestCase(unittest.TestCase):
 	"""
-	This class is the RemoveNamespaceTestCase class.
+	This class is the **RemoveNamespaceTestCase** class.
 	"""
 
 	def testRemoveNamespace(self):
 		"""
-		This method tests the "testRemoveNamespace" definition.
+		This method tests **testRemoveNamespace** definition.
 		"""
 
 		self.assertIsInstance(namespace.removeNamespace("Namespace|Attribute"), str)

@@ -57,7 +57,7 @@ LIBRARIES_TESTS_CASES = {"freeImage":{"FreeImage_GetVersion":"3.13.1",
 #***********************************************************************************************
 class LibraryTestCase(unittest.TestCase):
 	"""
-	This class is the LibraryTestCase class.
+	This class is the **LibraryTestCase** class.
 	"""
 
 	def testRequiredAttributes(self):
@@ -92,7 +92,7 @@ class LibraryTestCase(unittest.TestCase):
 
 	def testBindFunction(self):
 		"""
-		This method tests the "Library" class "bindFunction" method.
+		This method tests **Library** class **bindFunction** method.
 		"""
 
 		for name, path in LIBRARIES.items():
@@ -105,7 +105,7 @@ class LibraryTestCase(unittest.TestCase):
 
 	def testBindLibrary(self):
 		"""
-		This method tests the "Library" class "bindLibrary" method.
+		This method tests **Library** class **bindLibrary** method.
 		"""
 
 		for name, path in LIBRARIES.items():
@@ -119,7 +119,7 @@ class LibraryTestCase(unittest.TestCase):
 
 	def testLibrary(self):
 		"""
-		This method tests the "Library" class binding.
+		This method tests **Library** class binding.
 		"""
 
 		for name, path in LIBRARIES.items():

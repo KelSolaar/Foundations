@@ -41,12 +41,12 @@ __status__ = "Production"
 #***********************************************************************************************
 class GetNiceNameTestCase(unittest.TestCase):
 	"""
-	This class is the GetNiceNameTestCase class.
+	This class is the **GetNiceNameTestCase** class.
 	"""
 
 	def testGetNiceName(self):
 		"""
-		This method tests the "getNiceName" definition.
+		This method tests **getNiceName** definition.
 		"""
 
 		self.assertIsInstance(strings.getNiceName("testGetNiceName"), str)
@@ -57,12 +57,12 @@ class GetNiceNameTestCase(unittest.TestCase):
 
 class GetVersionRankTestCase(unittest.TestCase):
 	"""
-	This class is the GetVersionRankTestCase class.
+	This class is the **GetVersionRankTestCase** class.
 	"""
 
 	def testGetVersionRank(self):
 		"""
-		This method tests the "getVersionRank" definition.
+		This method tests **getVersionRank** definition.
 		"""
 
 		self.assertIsInstance(strings.getVersionRank("0.0.0"), int)
@@ -73,12 +73,12 @@ class GetVersionRankTestCase(unittest.TestCase):
 
 class GetSplitextBasenameTestCase(unittest.TestCase):
 	"""
-	This class is the GetSplitextBasenameTestCase class.
+	This class is the **GetSplitextBasenameTestCase** class.
 	"""
 
 	def testGetSplitextBasename(self):
 		"""
-		This method tests the "getSplitextBasename" definition.
+		This method tests **getSplitextBasename** definition.
 		"""
 
 		self.assertIsInstance(strings.getSplitextBasename("/Users/JohnDoe/Documents"), str)
@@ -88,12 +88,12 @@ class GetSplitextBasenameTestCase(unittest.TestCase):
 
 class GetWordsTestCase(unittest.TestCase):
 	"""
-	This class is the GetWordsTestCase class.
+	This class is the **GetWordsTestCase** class.
 	"""
 
 	def testGetWords(self):
 		"""
-		This method tests the "getWords" definition.
+		This method tests **getWords** definition.
 		"""
 
 		self.assertIsInstance(strings.getWords("Users are John Doe and Jane Doe."), list)
@@ -102,12 +102,12 @@ class GetWordsTestCase(unittest.TestCase):
 
 class FilterWordsTestCase(unittest.TestCase):
 	"""
-	This class is the FilterWordsTestCase class.
+	This class is the **FilterWordsTestCase** class.
 	"""
 
 	def testFilterWords(self):
 		"""
-		This method tests the "filterWords" definition.
+		This method tests **filterWords** definition.
 		"""
 
 		self.assertIsInstance(strings.filterWords("Users are John Doe and Jane Doe".split()), list)
@@ -120,12 +120,12 @@ class FilterWordsTestCase(unittest.TestCase):
 
 class ReplaceTestCase(unittest.TestCase):
 	"""
-	This class is the ReplaceTestCase class.
+	This class is the **ReplaceTestCase** class.
 	"""
 
 	def testReplace(self):
 		"""
-		This method tests the "replace" definition.
+		This method tests **replace** definition.
 		"""
 
 		self.assertIsInstance(strings.replace("To@Forward|Slashes@Test|Case", {}), str)
@@ -134,12 +134,12 @@ class ReplaceTestCase(unittest.TestCase):
 
 class ToForwardSlashesTestCase(unittest.TestCase):
 	"""
-	This class is the ToForwardSlashesTestCase class.
+	This class is the **ToForwardSlashesTestCase** class.
 	"""
 
 	def testToForwardSlashes(self):
 		"""
-		This method tests the "toForwardSlashes" definition.
+		This method tests **toForwardSlashes** definition.
 		"""
 
 		self.assertIsInstance(strings.toForwardSlashes("To\Forward\Slashes\Test\Case"), str)
@@ -148,12 +148,12 @@ class ToForwardSlashesTestCase(unittest.TestCase):
 
 class ToBackwardSlashesTestCase(unittest.TestCase):
 	"""
-	This class is the ToBackwardSlashesTestCase class.
+	This class is the **ToBackwardSlashesTestCase** class.
 	"""
 
 	def testToBackwardSlashes(self):
 		"""
-		This method tests the "toBackwardSlashes" definition.
+		This method tests **toBackwardSlashes** definition.
 		"""
 
 		self.assertIsInstance(strings.toBackwardSlashes("\Users\JohnDoe\Documents"), str)
@@ -162,12 +162,12 @@ class ToBackwardSlashesTestCase(unittest.TestCase):
 
 class ToPosixPathTestCase(unittest.TestCase):
 	"""
-	This class is the ToPosixPathTestCase class.
+	This class is the **ToPosixPathTestCase** class.
 	"""
 
 	def testToPosixPath(self):
 		"""
-		This method tests the "toPosixPath" definition.
+		This method tests **toPosixPath** definition.
 		"""
 
 		self.assertIsInstance(strings.toPosixPath("c:\\Users\\JohnDoe\\Documents"), str)
@@ -176,12 +176,12 @@ class ToPosixPathTestCase(unittest.TestCase):
 
 class GetNormalizedPathTestCase(unittest.TestCase):
 	"""
-	This class is the GetNormalizedPathTestCase class.
+	This class is the **GetNormalizedPathTestCase** class.
 	"""
 
 	def testGetNormalizedPath(self):
 		"""
-		This method tests the "getNormalizedPath" definition.
+		This method tests **getNormalizedPath** definition.
 		"""
 
 		self.assertIsInstance(strings.getNormalizedPath("/Users/JohnDoe/Documents"), str)
@@ -195,12 +195,12 @@ class GetNormalizedPathTestCase(unittest.TestCase):
 
 class IsEmailTestCase(unittest.TestCase):
 	"""
-	This class is the IsEmailTestCase class.
+	This class is the **IsEmailTestCase** class.
 	"""
 
 	def testIsEmail(self):
 		"""
-		This method tests the "isEmail" definition.
+		This method tests **isEmail** definition.
 		"""
 
 		self.assertIsInstance(strings.isEmail("john.doe@domain.com"), bool)
@@ -211,12 +211,12 @@ class IsEmailTestCase(unittest.TestCase):
 
 class IsWebsiteTestCase(unittest.TestCase):
 	"""
-	This class is the IsWebsiteTestCase class.
+	This class is the **IsWebsiteTestCase** class.
 	"""
 
 	def testIsWebsite(self):
 		"""
-		This method tests the "isWebsite" definition.
+		This method tests **isWebsite** definition.
 		"""
 
 		self.assertIsInstance(strings.isWebsite("http://domain.com"), bool)

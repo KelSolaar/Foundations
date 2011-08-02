@@ -45,7 +45,7 @@ LOGGER = logging.getLogger(Constants.logger)
 #***********************************************************************************************
 class RotatingBackup(object):
 	"""
-	This class is the RotatingBackup class.
+	This class is the **RotatingBackup** class.
 	"""
 
 	@core.executionTrace

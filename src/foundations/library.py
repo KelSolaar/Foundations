@@ -46,7 +46,7 @@ LOGGER = logging.getLogger(Constants.logger)
 #***********************************************************************************************
 class LibraryHook(core.Structure):
 	"""
-	This is the LibraryHook class.
+	This is the **LibraryHook** class.
 	"""
 
 	@core.executionTrace

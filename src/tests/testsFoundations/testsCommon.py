@@ -40,12 +40,12 @@ __status__ = "Production"
 #***********************************************************************************************
 class GetSystemApplicationDatasDirectoryTestCase(unittest.TestCase):
 	"""
-	This class is the GetSystemApplicationDatasDirectoryTestCase class.
+	This class is the **GetSystemApplicationDatasDirectoryTestCase** class.
 	"""
 
 	def testGetSystemApplicationDatasDirectory(self):
 		"""
-		This method tests the "getSystemApplicationDatasDirectory" definition.
+		This method tests **getSystemApplicationDatasDirectory** definition.
 		"""
 
 		path = foundations.common.getSystemApplicationDatasDirectory()
@@ -54,12 +54,12 @@ class GetSystemApplicationDatasDirectoryTestCase(unittest.TestCase):
 
 class GetUserApplicationDatasDirectoryTestCase(unittest.TestCase):
 	"""
-	This class is the GetUserApplicationDatasDirectory class.
+	This class is the **GetUserApplicationDatasDirectory** class.
 	"""
 
 	def testGetUserApplicationDatasDirectory(self):
 		"""
-		This method tests the "getUserApplicationDatasDirectory" definition.
+		This method tests **getUserApplicationDatasDirectory** definition.
 		"""
 
 		path = foundations.common.getUserApplicationDatasDirectory()

@@ -49,7 +49,7 @@ TREE_HIERARCHY = ("loremIpsum.txt", "standard.ibl", "standard.rc", "standard.sIB
 #***********************************************************************************************
 class WalkerTestCase(unittest.TestCase):
 	"""
-	This class is the WalkerTestCase class.
+	This class is the **WalkerTestCase** class.
 	"""
 
 	def testRequiredAttributes(self):
@@ -78,7 +78,7 @@ class WalkerTestCase(unittest.TestCase):
 
 	def testWalk(self):
 		"""
-		This method tests the "Walker" class "walk" method.
+		This method tests **Walker** class **walk** method.
 		"""
 
 		walker = Walker()

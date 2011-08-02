@@ -49,7 +49,7 @@ FILE_CONTENT = ["Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed d
 #***********************************************************************************************
 class FileTestCase(unittest.TestCase):
 	"""
-	This class is the FileTestCase class.
+	This class is the **FileTestCase** class.
 	"""
 
 	def testRequiredAttributes(self):
@@ -79,7 +79,7 @@ class FileTestCase(unittest.TestCase):
 
 	def testRead(self):
 		"""
-		This method tests the "File" class "read" method.
+		This method tests **File** class **read** method.
 		"""
 
 		ioFile = File(TEST_FILE)
@@ -91,7 +91,7 @@ class FileTestCase(unittest.TestCase):
 
 	def testWrite(self):
 		"""
-		This method tests the "File" class "write" method.
+		This method tests **File** class **write** method.
 		"""
 
 		ioFile = File(tempfile.mkstemp()[1])
@@ -105,7 +105,7 @@ class FileTestCase(unittest.TestCase):
 
 	def testAppend(self):
 		"""
-		This method tests the "File" class "append" method.
+		This method tests **File** class **append** method.
 		"""
 
 		ioFile = File(tempfile.mkstemp()[1])
@@ -120,12 +120,12 @@ class FileTestCase(unittest.TestCase):
 
 class SetLocalDirectoryTestCase(unittest.TestCase):
 	"""
-	This class is the SetLocalDirectoryTestCase class.
+	This class is the **SetLocalDirectoryTestCase** class.
 	"""
 
 	def testSetLocalDirectory(self):
 		"""
-		This method tests the "setLocalDirectory" definition.
+		This method tests **setLocalDirectory** definition.
 		"""
 
 		tempDirectory = tempfile.mkdtemp()

@@ -57,7 +57,7 @@ EXCEPTIONS = (foundations.exceptions.AttributeStructureError,
 
 class ExceptionsTestCase(unittest.TestCase):
 	"""
-	This class is the ExceptionsTestCase class.
+	This class is the **ExceptionsTestCase** class.
 	"""
 
 	def testRequiredAttributes(self):
@@ -73,7 +73,7 @@ class ExceptionsTestCase(unittest.TestCase):
 
 	def test__str__(self):
 		"""
-		This method tests the "Exceptions" class "__str__" method.
+		This method tests **Exceptions** class **__str__** method.
 		"""
 
 		for exception in EXCEPTIONS:

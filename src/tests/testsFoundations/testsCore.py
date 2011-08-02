@@ -43,7 +43,7 @@ __status__ = "Production"
 #***********************************************************************************************
 class StandardMessageHookTestCase(unittest.TestCase):
 	"""
-	This class is the StandardMessageHookTestCase class.
+	This class is the **StandardMessageHookTestCase** class.
 	"""
 
 	def testRequiredAttributes(self):
@@ -70,12 +70,12 @@ class StandardMessageHookTestCase(unittest.TestCase):
 
 class SetVerbosityLevelTestCase(unittest.TestCase):
 	"""
-	This class is the SetVerbosityLevelTestCase class.
+	This class is the **SetVerbosityLevelTestCase** class.
 	"""
 
 	def testSetVerbosityLevel(self):
 		"""
-		This method tests the "setVerbosityLevel" definition.
+		This method tests **setVerbosityLevel** definition.
 		"""
 
 		LOGGER = logging.getLogger(Constants.logger)
@@ -86,24 +86,24 @@ class SetVerbosityLevelTestCase(unittest.TestCase):
 
 class GetFrameTestCase(unittest.TestCase):
 	"""
-	This class is the GetFrameTestCase class.
+	This class is the **GetFrameTestCase** class.
 	"""
 
 	def testGetFrame(self):
 		"""
-		This method tests the "getFrame" definition.
+		This method tests **getFrame** definition.
 		"""
 
 		self.assertIsInstance(core.getFrame(0), inspect.currentframe().__class__)
 
 class GetCodeLayerNameTestCase(unittest.TestCase):
 	"""
-	This class is the GetCodeLayerNameTestCase class.
+	This class is the **GetCodeLayerNameTestCase** class.
 	"""
 
 	def testGetCodeLayerName(self):
 		"""
-		This method tests the "getCodeLayerName" definition.
+		This method tests **getCodeLayerName** definition.
 		"""
 
 		codeLayerName = core.getCodeLayerName()
@@ -112,12 +112,12 @@ class GetCodeLayerNameTestCase(unittest.TestCase):
 
 class GetModuleTestCase(unittest.TestCase):
 	"""
-	This class is the GetCodeLayerNameTestCase class.
+	This class is the **GetCodeLayerNameTestCase** class.
 	"""
 
 	def testGetModule(self):
 		"""
-		This method tests the "getModule" definition.
+		This method tests **getModule** definition.
 		"""
 
 		self.assertEqual(type(core.getModule(object)), types.ModuleType)
@@ -125,12 +125,12 @@ class GetModuleTestCase(unittest.TestCase):
 
 class GetObjectNameTestCase(unittest.TestCase):
 	"""
-	This class is the GetObjectNameTestCase class.
+	This class is the **GetObjectNameTestCase** class.
 	"""
 
 	def testGetObjectName(self):
 		"""
-		This method tests the "getObjectName" definition.
+		This method tests **getObjectName** definition.
 		"""
 
 		objectName = core.getObjectName(object)

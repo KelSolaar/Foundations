@@ -41,7 +41,7 @@ __status__ = "Production"
 #***********************************************************************************************
 class EnvironmentTestCase(unittest.TestCase):
 	"""
-	This class is the EnvironmentTestCase class.
+	This class is the **EnvironmentTestCase** class.
 	"""
 
 	def testRequiredAttributes(self):
@@ -69,7 +69,7 @@ class EnvironmentTestCase(unittest.TestCase):
 
 	def testGetValues(self):
 		"""
-		This method tests the "Environment" class "getValues" method.
+		This method tests **Environment** class **getValues** method.
 		"""
 
 		if platform.system() == "Windows" or platform.system() == "Microsoft":
@@ -87,7 +87,7 @@ class EnvironmentTestCase(unittest.TestCase):
 
 	def testSetValues(self):
 		"""
-		This method tests the "Environment" class "setValues" method.
+		This method tests **Environment** class **setValues** method.
 		"""
 
 		environment = Environment()
@@ -99,7 +99,7 @@ class EnvironmentTestCase(unittest.TestCase):
 
 	def testGetValue(self):
 		"""
-		This method tests the "Environment" class "getValue" method.
+		This method tests **Environment** class **getValue** method.
 		"""
 
 		if platform.system() == "Windows" or platform.system() == "Microsoft":
@@ -116,7 +116,7 @@ class EnvironmentTestCase(unittest.TestCase):
 
 	def testSetValue(self):
 		"""
-		This method tests the "Environment" class "setValue" method.
+		This method tests **Environment** class **setValue** method.
 		"""
 
 		environment = Environment()

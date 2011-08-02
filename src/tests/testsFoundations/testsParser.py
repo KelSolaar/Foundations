@@ -97,7 +97,7 @@ SCRIPT_RAW_SECTION = [ "// @OutputScript - @Release for @Software @Version\n",
 #***********************************************************************************************
 class ParserTestCase(unittest.TestCase):
 	"""
-	This class is the ParserTestCase class.
+	This class is the **ParserTestCase** class.
 	"""
 
 	def testRequiredAttributes(self):
@@ -136,7 +136,7 @@ class ParserTestCase(unittest.TestCase):
 
 	def testParse(self):
 		"""
-		This method tests the "Parser" class "parse" method.
+		This method tests **Parser** class **parse** method.
 		"""
 
 		for type, file in FILES.items():
@@ -153,7 +153,7 @@ class ParserTestCase(unittest.TestCase):
 
 	def testSections(self):
 		"""
-		This method tests the "Parser" class sections.
+		This method tests **Parser** class sections.
 		"""
 
 		for type, file in FILES.items():
@@ -167,7 +167,7 @@ class ParserTestCase(unittest.TestCase):
 
 	def testRawSections(self):
 		"""
-		This method tests the "Parser" class raw sections.
+		This method tests **Parser** class raw sections.
 		"""
 
 		parser = Parser(TEMPLATE_FILE)
@@ -177,7 +177,7 @@ class ParserTestCase(unittest.TestCase):
 
 	def testComments(self):
 		"""
-		This method tests the "Parser" class comments.
+		This method tests **Parser** class comments.
 		"""
 
 		for type, file in FILES.items():
@@ -192,7 +192,7 @@ class ParserTestCase(unittest.TestCase):
 
 	def testSectionExists(self):
 		"""
-		This method tests the "Parser" class "sectionsExists" method.
+		This method tests **Parser** class **sectionsExists** method.
 		"""
 
 		for type, file in FILES.items():
@@ -205,7 +205,7 @@ class ParserTestCase(unittest.TestCase):
 
 	def testAttributeExists(self):
 		"""
-		This method tests the "Parser" class "attributeExists" method.
+		This method tests **Parser** class **attributeExists** method.
 		"""
 
 		for type, file in FILES.items():
@@ -218,7 +218,7 @@ class ParserTestCase(unittest.TestCase):
 
 	def testGetAttributes(self):
 		"""
-		This method tests the "Parser" class "getAttributes" method.
+		This method tests **Parser** class **getAttributes** method.
 		"""
 
 		for type, file in FILES.items():
@@ -232,7 +232,7 @@ class ParserTestCase(unittest.TestCase):
 
 	def testGetValue(self):
 		"""
-		This method tests the "Parser" class "getValue" method.
+		This method tests **Parser** class **getValue** method.
 		"""
 
 		for type, file in FILES.items():
@@ -246,12 +246,12 @@ class ParserTestCase(unittest.TestCase):
 
 class GetAttributeCompoundTestCase(unittest.TestCase):
 	"""
-	This class is the GetAttributeCompoundTestCase class.
+	This class is the **GetAttributeCompoundTestCase** class.
 	"""
 
 	def testGetAttributeCompound(self):
 		"""
-		This method tests the "getAttributeCompound" definition.
+		This method tests **getAttributeCompound** definition.
 		"""
 
 		self.assertIsInstance(foundations.parser.getAttributeCompound("Attribute", "Value"), foundations.parser.AttributeCompound)

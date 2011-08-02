@@ -39,7 +39,7 @@ __status__ = "Production"
 #***********************************************************************************************
 class ConstantsTestCase(unittest.TestCase):
 	"""
-	This class is the ConstantsTests class.
+	This class is the **ConstantsTests** class.
 	"""
 
 	def testRequiredAttributes(self):
@@ -64,21 +64,21 @@ class ConstantsTestCase(unittest.TestCase):
 
 	def testApplicationNameAttribute(self):
 		"""
-		This method tests the "applicationName" attribute.
+		This method tests **applicationName** attribute.
 		"""
 
 		self.assertRegexpMatches(Constants.applicationName, "\w+")
 
 	def testLoggerAttribute(self):
 		"""
-		This method tests the "logger" attribute.
+		This method tests **logger** attribute.
 		"""
 
 		self.assertRegexpMatches(Constants.logger, "\w+")
 
 	def testVerbosityLevelAttribute(self):
 		"""
-		This method tests the "verbosityLevel" attribute.
+		This method tests **verbosityLevel** attribute.
 		"""
 
 		self.assertIsInstance(Constants.verbosityLevel, int)
@@ -87,7 +87,7 @@ class ConstantsTestCase(unittest.TestCase):
 
 	def testVerbosityLabelsAttribute(self):
 		"""
-		This method tests the "verbosityLabels" attribute.
+		This method tests **verbosityLabels** attribute.
 		"""
 
 		self.assertIsInstance(Constants.verbosityLabels, tuple)
@@ -96,21 +96,21 @@ class ConstantsTestCase(unittest.TestCase):
 
 	def testLoggingDefaultFormaterAttribute(self):
 		"""
-		This method tests the "loggingDefaultFormatter" attribute.
+		This method tests **loggingDefaultFormatter** attribute.
 		"""
 
 		self.assertIsInstance(Constants.loggingDefaultFormatter, str)
 
 	def testLoggingSeparatorsAttribute(self):
 		"""
-		This method tests the "loggingSeparators" attribute.
+		This method tests **loggingSeparators** attribute.
 		"""
 
 		self.assertIsInstance(Constants.loggingSeparators, str)
 
 	def testEncodingFormatAttribute(self):
 		"""
-		This method tests the "encodingFormat" attribute.
+		This method tests **encodingFormat** attribute.
 		"""
 
 		validEncodings = ("ascii",
@@ -121,7 +121,7 @@ class ConstantsTestCase(unittest.TestCase):
 
 	def testEncodingErrorAttribute(self):
 		"""
-		This method tests the "encodingError" attribute.
+		This method tests **encodingError** attribute.
 		"""
 
 		validEncodings = ("strict",
@@ -133,21 +133,21 @@ class ConstantsTestCase(unittest.TestCase):
 
 	def testApplicationDirectoryAttribute(self):
 		"""
-		This method tests the "applicationDirectory" attribute.
+		This method tests **applicationDirectory** attribute.
 		"""
 
 		self.assertRegexpMatches(Constants.applicationDirectory, "\w+")
 
 	def testProviderDirectoryAttribute(self):
 		"""
-		This method tests the "providerDirectory" attribute.
+		This method tests **providerDirectory** attribute.
 		"""
 
 		self.assertRegexpMatches(Constants.providerDirectory, "\.*\w")
 
 	def testNullObjectAttribute(self):
 		"""
-		This method tests the "nullObject" attribute.
+		This method tests **nullObject** attribute.
 		"""
 
 		self.assertRegexpMatches(Constants.nullObject, "\w+")
