@@ -118,7 +118,7 @@ def exit(exitCode, logger, handlers):
 	:param logger: Current logger. ( Object )
 	:param handlers: Handlers. ( List )
 
-	:note: **exitCode** argument is passed to Python **sys.exit** definition: http://docs.python.org/library/sys.html#sys.exit
+	:note: **exitCode** argument is passed to Python `sys.exit <http://docs.python.org/library/sys.html#sys.exit>`_ definition.
 	"""
 
 	LOGGER.debug("> {0} | Exiting current process!".format(core.getModule(exit).__name__))

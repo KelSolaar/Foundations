@@ -93,7 +93,7 @@ def setVerbosityLevel(verbosityLevel):
 
 class StandardMessageHook(object):
 	"""
-	| This class is a redirection object intented to be used for **sys.stdout** (http://docs.python.org/library/sys.html#sys.stdout) and **sys.stderr** (http://docs.python.org/library/sys.html#sys.stderr) streams.
+	| This class is a redirection object intented to be used for `sys.stdout <http://docs.python.org/library/sys.html#sys.stdout>`_ and `sys.stderr <http://docs.python.org/library/sys.html#sys.stderr>`_ streams.
 	| Logging messages will be written to provided logger handlers.
 	"""
 
