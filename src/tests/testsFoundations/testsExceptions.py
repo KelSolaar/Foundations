@@ -17,6 +17,7 @@
 #***********************************************************************************************
 #***	External imports.
 #***********************************************************************************************
+import inspect
 import unittest
 
 #***********************************************************************************************
@@ -34,27 +35,17 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-EXCEPTIONS = (foundations.exceptions.AttributeStructureError,
-				foundations.exceptions.ComponentActivationError,
-				foundations.exceptions.ComponentDeactivationError,
-				foundations.exceptions.DatabaseOperationError,
-				foundations.exceptions.DirectoryExistsError,
-				foundations.exceptions.FileExistsError,
-				foundations.exceptions.FileStructureError,
-				foundations.exceptions.LibraryExecutionError,
-				foundations.exceptions.LibraryInitializationError,
-				foundations.exceptions.LibraryInstantiationError,
-				foundations.exceptions.NetworkError,
-				foundations.exceptions.ObjectExistsError,
-				foundations.exceptions.ObjectTypeError,
-				foundations.exceptions.ProgrammingError,
-				foundations.exceptions.SocketConnectionError,
-				foundations.exceptions.UserError)
+EXCEPTIONS = []
+for attribute in dir(foundations.exceptions):
+	object = getattr(foundations.exceptions, attribute)
+	if not inspect.isclass(object):
+		continue
+	if issubclass(object, Exception):
+			EXCEPTIONS.append(object)
 
 #***********************************************************************************************
 #***	Module classes and definitions.
 #***********************************************************************************************
-
 class ExceptionsTestCase(unittest.TestCase):
 	"""
 	This class is the **ExceptionsTestCase** class.
@@ -69,7 +60,7 @@ class ExceptionsTestCase(unittest.TestCase):
 		for exception in EXCEPTIONS:
 			exceptionInstance = exception(None)
 			for attribute in requiredAttributes:
-				self.assertIn(attribute, exceptionInstance.__dict__)
+				self.assertIn(attribute, dir(exceptionInstance))
 
 	def test__str__(self):
 		"""

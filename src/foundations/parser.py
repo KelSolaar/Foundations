@@ -336,7 +336,7 @@ class Parser(io.File):
 	#***	Class methods.
 	#***********************************************************************************************
 	@core.executionTrace
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.FileStructureError)
+	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.FileStructureParsingError)
 	def parse(self, orderedDictionary=True, rawSections=None, stripComments=True):
 		"""
 		This method process the file content to extract the sections as a dictionary.
@@ -388,7 +388,7 @@ class Parser(io.File):
 				return True
 
 			else:
-				raise foundations.exceptions.FileStructureError("'{0}' structure is invalid: No section found at first line!".format(self.file))
+				raise foundations.exceptions.FileStructureParsingError("'{0}' structure is invalid: No section found at first line!".format(self.file))
 
 	@core.executionTrace
 	def sectionsExists(self, section):

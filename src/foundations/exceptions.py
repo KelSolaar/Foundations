@@ -104,7 +104,7 @@ def defaultExceptionsHandler(exception, origin, *args, **kwargs):
 	"""
 	| This definition provides the default exception handler.
 	
-	This handler will verbose some informations about the handled exception::
+	This handler verboses some informations about the handled exception::
 	
 		- Exception origin.
 		- Exception class.
@@ -134,37 +134,9 @@ def defaultExceptionsHandler(exception, origin, *args, **kwargs):
 
 		LOGGER.error("!> {0}".format(Constants.loggingSeparators))
 
-class FileStructureError(Exception):
+class AbstractError(Exception):
 	"""
-	This class is used for file content structure errors.
-	"""
-
-	@core.executionTrace
-	def __init__(self, value):
-		"""
-		This method initializes the class.
-
-		:param value: Error value or message. ( String )
-		"""
-
-		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
-
-		# --- Setting class attributes. ---
-		self.value = value
-
-	@core.executionTrace
-	def __str__(self):
-		"""
-		This method returns the exception representation.
-
-		:return: Exception representation. ( String )
-		"""
-
-		return str(self.value)
-
-class AttributeStructureError(Exception):
-	"""
-	This class is used for errors in attribute structure.
+	This class is the abstract base class for all **Foundations** package exceptions.
 	"""
 
 	@core.executionTrace
@@ -180,6 +152,40 @@ class AttributeStructureError(Exception):
 		# --- Setting class attributes. ---
 		self.value = value
 
+	#***********************************************************************************************
+	#***	Attributes properties.
+	#***********************************************************************************************
+	@property
+	def value(self):
+		"""
+		This method is the property for **self.__value** attribute.
+
+		:return: self.__value. ( Logger )
+		"""
+
+		return self.__value
+
+	@value.setter
+	def value(self, value):
+		"""
+		This method is the setter method for **self.__value** attribute.
+
+		:param value: Attribute value. ( Logger )
+		"""
+
+		self.__value = value
+
+	@value.deleter
+	def value(self):
+		"""
+		This method is the deleter method for **self.__value** attribute.
+		"""
+
+		raise Exception("'{0}' attribute is not deletable!".format("value"))
+
+	#***********************************************************************************************
+	#***	Class methods.
+	#***********************************************************************************************
 	@core.executionTrace
 	def __str__(self):
 		"""
@@ -190,422 +196,178 @@ class AttributeStructureError(Exception):
 
 		return str(self.value)
 
-class DirectoryExistsError(Exception):
+class AbstractParsingError(AbstractError):
 	"""
-	This class is used for non existing directory.
-	"""
-
-	@core.executionTrace
-	def __init__(self, value):
-		"""
-		This method initializes the class.
-
-		:param value: Error value or message. ( String )
-		"""
-
-		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
-
-		# --- Setting class attributes. ---
-		self.value = value
-
-	@core.executionTrace
-	def __str__(self):
-		"""
-		This method returns the exception representation.
-
-		:return: Exception representation. ( String )
-		"""
-
-		return str(self.value)
-
-class FileExistsError(Exception):
-	"""
-	This class is used for non existing file.
+	This class is the abstract base class for parsing related exceptions.
 	"""
 
-	@core.executionTrace
-	def __init__(self, value):
-		"""
-		This method initializes the class.
+	pass
 
-		:param value: Error value or message. ( String )
-		"""
-
-		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
-
-		# --- Setting class attributes. ---
-		self.value = value
-
-	@core.executionTrace
-	def __str__(self):
-		"""
-		This method returns the exception representation.
-
-		:return: Exception representation. ( String )
-		"""
-
-		return str(self.value)
-
-class ObjectTypeError(Exception):
+class FileStructureParsingError(AbstractParsingError):
 	"""
-	This class is used for invalid object type.
+	This class is used for exceptions raised while parsing file structure.
 	"""
 
-	@core.executionTrace
-	def __init__(self, value):
-		"""
-		This method initializes the class.
+	pass
 
-		:param value: Error value or message. ( String )
-		"""
-
-		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
-
-		# --- Setting class attributes. ---
-		self.value = value
-
-	@core.executionTrace
-	def __str__(self):
-		"""
-		This method returns the exception representation.
-
-		:return: Exception representation. ( String )
-		"""
-
-		return str(self.value)
-
-class ObjectExistsError(Exception):
+class AttributeStructureParsingError(AbstractError):
 	"""
-	This class is used for non existing object.
+	This class is used for exceptions raised while parsing attribute structure.
 	"""
 
-	@core.executionTrace
-	def __init__(self, value):
-		"""
-		This method initializes the class.
+	pass
 
-		:param value: Error value or message. ( String )
-		"""
-
-		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
-
-		# --- Setting class attributes. ---
-		self.value = value
-
-	@core.executionTrace
-	def __str__(self):
-		"""
-		This method returns the exception representation.
-
-		:return: Exception representation. ( String )
-		"""
-
-		return str(self.value)
-
-class DatabaseOperationError(Exception):
+class AbstractOsError(AbstractError):
 	"""
-	This class is used for Database operation errors.
+	This class is the abstract base class for os related exceptions.
 	"""
 
-	@core.executionTrace
-	def __init__(self, value):
-		"""
-		This method initializes the class.
+	pass
 
-		:param value: Error value or message. ( String )
-		"""
-
-		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
-
-		# --- Setting class attributes. ---
-		self.value = value
-
-	@core.executionTrace
-	def __str__(self):
-		"""
-		This method returns the exception representation.
-
-		:return: Exception representation. ( String )
-		"""
-
-		return str(self.value)
-
-class ProgrammingError(Exception):
+class DirectoryExistsError(AbstractOsError):
 	"""
-	This class is used for programming errors.
+	This class is used for non existing directory exceptions.
 	"""
 
-	@core.executionTrace
-	def __init__(self, value):
-		"""
-		This method initializes the class.
+	pass
 
-		:param value: Error value or message. ( String )
-		"""
-
-		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
-
-		# --- Setting class attributes. ---
-		self.value = value
-
-	@core.executionTrace
-	def __str__(self):
-		"""
-		This method returns the exception representation.
-
-		:return: Exception representation. ( String )
-		"""
-
-		return str(self.value)
-
-class UserError(Exception):
+class FileExistsError(AbstractOsError):
 	"""
-	This class is used for user errors.
+	This class is used for non existing file exceptions.
 	"""
 
-	@core.executionTrace
-	def __init__(self, value):
-		"""
-		This method initializes the class.
+	pass
 
-		:param value: Error value or message. ( String )
-		"""
-
-		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
-
-		# --- Setting class attributes. ---
-		self.value = value
-
-	@core.executionTrace
-	def __str__(self):
-		"""
-		This method returns the exception representation.
-
-		:return: Exception representation. ( String )
-		"""
-
-		return str(self.value)
-
-class NetworkError(Exception):
+class AbstractObjectError(AbstractError):
 	"""
-	This class is used for network errors.
+	This class is the abstract base class for object related exceptions.
 	"""
 
-	@core.executionTrace
-	def __init__(self, value):
-		"""
-		This method initializes the class.
+	pass
 
-		:param value: Error value or message. ( String )
-		"""
-
-		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
-
-		# --- Setting class attributes. ---
-		self.value = value
-
-	@core.executionTrace
-	def __str__(self):
-		"""
-		This method returns the exception representation.
-
-		:return: Exception representation. ( String )
-		"""
-
-		return str(self.value)
-
-class SocketConnectionError(Exception):
+class ObjectTypeError(AbstractObjectError):
 	"""
-	This class is used for socket connection errors.
+	This class is used for invalid object type exceptions.
 	"""
 
-	@core.executionTrace
-	def __init__(self, value):
-		"""
-		This method initializes the class.
+	pass
 
-		:param value: Error value or message. ( String )
-		"""
-
-		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
-
-		# --- Setting class attributes. ---
-		self.value = value
-
-	@core.executionTrace
-	def __str__(self):
-		"""
-		This method returns the exception representation.
-
-		:return: Exception representation. ( String )
-		"""
-
-		return str(self.value)
-
-class ComponentActivationError(Exception):
+class ObjectExistsError(AbstractObjectError):
 	"""
-	This class is used for Component activation errors.
+	This class is used for non existing object exceptions.
 	"""
 
-	@core.executionTrace
-	def __init__(self, value):
-		"""
-		This method initializes the class.
+	pass
 
-		:param value: Error value or message. ( String )
-		"""
-
-		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
-
-		# --- Setting class attributes. ---
-		self.value = value
-
-	@core.executionTrace
-	def __str__(self):
-		"""
-		This method returns the exception representation.
-
-		:return: Exception representation. ( String )
-		"""
-
-		return str(self.value)
-
-class ComponentDeactivationError(Exception):
+class AbstractDatabaseError(AbstractError):
 	"""
-	This class is used for Component deactivation errors.
+	This class is the abstract base class for database related exceptions.
 	"""
 
-	@core.executionTrace
-	def __init__(self, value):
-		"""
-		This method initializes the class.
+	pass
 
-		:param value: Error value or message. ( String )
-		"""
-
-		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
-
-		# --- Setting class attributes. ---
-		self.value = value
-
-	@core.executionTrace
-	def __str__(self):
-		"""
-		This method returns the exception representation.
-
-		:return: Exception representation. ( String )
-		"""
-
-		return str(self.value)
-
-class ComponentReloadError(Exception):
+class DatabaseOperationError(AbstractDatabaseError):
 	"""
-	This class is used for Component reload errors.
+	This class is used for Database operation exceptions.
 	"""
 
-	@core.executionTrace
-	def __init__(self, value):
-		"""
-		This method initializes the class.
+	pass
 
-		:param value: Error value or message. ( String )
-		"""
-
-		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
-
-		# --- Setting class attributes. ---
-		self.value = value
-
-	@core.executionTrace
-	def __str__(self):
-		"""
-		This method returns the exception representation.
-
-		:return: Exception representation. ( String )
-		"""
-
-		return str(self.value)
-
-class LibraryInstantiationError(Exception):
+class AbstractUserError(AbstractError):
 	"""
-	This class is used for Library instantiation errors.
+	This class is the abstract base class for user related exceptions.
 	"""
 
-	@core.executionTrace
-	def __init__(self, value):
-		"""
-		This method initializes the class.
+	pass
 
-		:param value: Error value or message. ( String )
-		"""
 
-		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
-
-		# --- Setting class attributes. ---
-		self.value = value
-
-	@core.executionTrace
-	def __str__(self):
-		"""
-		This method returns the exception representation.
-
-		:return: Exception representation. ( String )
-		"""
-
-		return str(self.value)
-
-class LibraryInitializationError(Exception):
+class ProgrammingError(AbstractUserError):
 	"""
-	This class is used for Library initialization errors.
+	This class is used for programming exceptions.
 	"""
 
-	@core.executionTrace
-	def __init__(self, value):
-		"""
-		This method initializes the class.
+	pass
 
-		:param value: Error value or message. ( String )
-		"""
-
-		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
-
-		# --- Setting class attributes. ---
-		self.value = value
-
-	@core.executionTrace
-	def __str__(self):
-		"""
-		This method returns the exception representation.
-
-		:return: Exception representation. ( String )
-		"""
-
-		return str(self.value)
-
-class LibraryExecutionError(Exception):
+class UserError(AbstractUserError):
 	"""
-	This class is used for Library execution errors.
+	This class is used for user exceptions.
 	"""
 
-	@core.executionTrace
-	def __init__(self, value):
-		"""
-		This method initializes the class.
+	pass
 
-		:param value: Error value or message. ( String )
-		"""
+class AbstractNetworkError(AbstractError):
+	"""
+	This class is the abstract base class for network related exceptions.
+	"""
 
-		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
+	pass
 
-		# --- Setting class attributes. ---
-		self.value = value
+class NetworkError(AbstractNetworkError):
+	"""
+	This class is used for network exceptions.
+	"""
 
-	@core.executionTrace
-	def __str__(self):
-		"""
-		This method returns the exception representation.
+	pass
 
-		:return: Exception representation. ( String )
-		"""
+class SocketConnectionError(AbstractNetworkError):
+	"""
+	This class is used for socket connection exceptions.
+	"""
 
-		return str(self.value)
+	pass
+
+class AbstractComponentError(AbstractError):
+	"""
+	This class is the abstract base class for component related exceptions.
+	"""
+
+	pass
+
+class ComponentActivationError(AbstractComponentError):
+	"""
+	This class is used for Component activation exceptions.
+	"""
+
+	pass
+
+class ComponentDeactivationError(AbstractComponentError):
+	"""
+	This class is used for Component deactivation exceptions.
+	"""
+
+	pass
+
+class ComponentReloadError(AbstractComponentError):
+	"""
+	This class is used for Component reload exceptions.
+	"""
+
+	pass
+
+class AbstractLibraryError(AbstractError):
+	"""
+	This class is the abstract base class for **library** module exceptions.
+	"""
+
+	pass
+
+class LibraryInstantiationError(AbstractLibraryError):
+	"""
+	This class is used for **library** module **Library** class instantiation exceptions.
+	"""
+
+	pass
+
+class LibraryInitializationError(AbstractLibraryError):
+	"""
+	This class is used for **library** module **Library** class initialization exceptions.
+	"""
+
+	pass
+
+class LibraryExecutionError(AbstractLibraryError):
+	"""
+	This class is used for **library** module **Library** class execution exceptions.
+	"""
+
+	pass
