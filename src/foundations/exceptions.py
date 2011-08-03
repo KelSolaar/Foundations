@@ -323,27 +323,6 @@ class AbstractComponentError(AbstractError):
 
 	pass
 
-class ComponentActivationError(AbstractComponentError):
-	"""
-	This class is used for Component activation exceptions.
-	"""
-
-	pass
-
-class ComponentDeactivationError(AbstractComponentError):
-	"""
-	This class is used for Component deactivation exceptions.
-	"""
-
-	pass
-
-class ComponentReloadError(AbstractComponentError):
-	"""
-	This class is used for Component reload exceptions.
-	"""
-
-	pass
-
 class AbstractLibraryError(AbstractError):
 	"""
 	This class is the abstract base class for **library** module exceptions.
