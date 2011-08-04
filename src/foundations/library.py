@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	C / c++ binding Library Module.
+	This module provides objects for C / C++ libraries binding.
 
 **Others:**
 
@@ -46,15 +46,21 @@ LOGGER = logging.getLogger(Constants.logger)
 #***********************************************************************************************
 class LibraryHook(core.Structure):
 	"""
-	This is the **LibraryHook** class.
+	This class represents a library hook used by the :class:`foundations.library.Library` class to bind target library functions.
 	"""
 
 	@core.executionTrace
 	def __init__(self, **kwargs):
 		"""
 		This method initializes the class.
+		
+		Example::
+			
+			LibraryHook(name="FreeImage_GetVersion", argumentsTypes=None, returnValue=ctypes.c_char_p),
 
-		:param kwargs: name, affixe, argumentstype, returnvalue. ( Key / Value pairs )
+		:param name: Name of the target library function to bind.. ( String )
+		:param argumentsTypes: Required function arguments type (Refer to Python `ctypes - 15.17.1.7 <http://docs.python.org/library/ctypes.html#specifying-the-required-argument-types-function-prototypes>`_ module for more informations). ( List )
+		:param returnValue: Function return type (Refer to Python `ctypes - 15.17.1.8 <http://docs.python.org/library/ctypes.html#return-types>`_ module for more informations). ( Object )
 		"""
 
 		core.Structure.__init__(self, **kwargs)
@@ -64,7 +70,7 @@ class LibraryHook(core.Structure):
 
 class Library(object):
 	"""
-	This class provides methods to bind a c / c++ Library.
+	This class provides methods to bind a C / C++ Library.
 	"""
 
 	librariesInstances = {}
@@ -80,8 +86,8 @@ class Library(object):
 		"""
 		This method is the constructor of the class.
 
-		:param *args: Arguments. ( * )
-		:param **kwargs: Arguments. ( * )
+		:param \*args: Arguments. ( \* )
+		:param \*\*kwargs: Arguments. ( \* )
 		"""
 
 		libraryPath = args[0]
@@ -102,7 +108,7 @@ class Library(object):
 		:param functions: Binding functions list. ( Tuple )
 		"""
 
-		if hasattr(self.librariesInstances[libraryPath], "_libraryInstantiated"):
+		if hasattr(self.librariesInstances[libraryPath], "_Library__libraryInstantiated"):
 			return
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -264,7 +270,7 @@ class Library(object):
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def bindFunction(self, function):
 		"""
-		This method bind a function.
+		This method binds a function.
 
 		:param function: Function to bind. ( Tuple )
 		:return: Method success. ( Boolean )
@@ -272,22 +278,19 @@ class Library(object):
 
 		LOGGER.debug("> Binding '{0}' library '{1}' function.".format(self.__class__.__name__, function.name))
 
-		returnType = function.returnValue
-		if platform.system() == "Windows" or platform.system() == "Microsoft":
-			functionObject = getattr(self.__library, "{0}".format(function.name, function.affixe))
-		else:
-			functionObject = getattr(self.__library, function.name)
+		functionObject = getattr(self.__library, function.name)
 		setattr(self, function.name, functionObject)
-		if returnType:
-			functionObject.restype = returnType
-
+		if function.argumentsTypes:
+			functionObject.argtypes = function.argumentsTypes
+		if function.returnValue:
+			functionObject.restype = function.returnValue
 		return True
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, AttributeError)
 	def bindLibrary(self):
 		"""
-		This method bind the Library.
+		This method binds the Library.
 
 		:return: Method success. ( Boolean )
 		"""
