@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	IO classes and definitions Module.
+	This module provides file input / output manipulation objects.
 
 **Others:**
 
@@ -44,13 +44,23 @@ LOGGER = logging.getLogger(Constants.logger)
 #***********************************************************************************************
 class File(object):
 	"""
-	This class provides methods to read / write files.
+	This class provides methods to read / write and append to files.
 	"""
 
 	@core.executionTrace
 	def __init__(self, file=None, content=None):
 		"""
 		This method initializes the class.
+		
+		Usage::
+		
+			>>> file = File("file.txt")
+			>>> file.content = ["Some file content ...\\n", "... ready to be saved!\\n"]
+			>>> file.write()
+			True
+			>>> file.read()
+			>>> print file.content
+			['Some file content ...\\n', '... ready to be saved!\\n']
 
 		:param file: File path. ( String )
 		:param content: Content. ( List )
@@ -172,7 +182,7 @@ class File(object):
 	@foundations.exceptions.exceptionsHandler(None, False, OSError)
 	def append(self, mode="a"):
 		"""
-		This method append content to provided file.
+		This method appends content to provided file.
 
 		:param mode: File write mode. ( String )
 		:return: Method success. ( Boolean )
@@ -189,8 +199,10 @@ class File(object):
 @foundations.exceptions.exceptionsHandler(None, False, OSError)
 def setLocalDirectory(path):
 	"""
-	This definition creates a directory with provided path.
-
+	| This definition creates a directory with provided path.
+	| The directory creation is delegated to Python `os.makedirs(path[, mode]) <http://docs.python.org/library/os.html#os.makedirs>`_ definition.
+	| The provided directories hierarchy will be recursively created. 
+	
 	:param path: Directory path. ( String )
 	:return: Definition success. ( Boolean )
 	"""
