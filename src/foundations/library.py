@@ -313,7 +313,7 @@ class Library(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AttributeError)
 	def bindLibrary(self):
 		"""
-		This method binds the Library using the functions registered in the **self.__functions** attribute.
+		This method binds the Library using functions registered in the **self.__functions** attribute.
 
 		Usage::
 			
