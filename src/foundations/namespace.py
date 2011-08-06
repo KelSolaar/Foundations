@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Namespace Module.
+	This module provides simple strings namespace manipulation objects.
 
 **Others:**
 
@@ -36,6 +36,7 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 LOGGER = logging.getLogger(Constants.logger)
+
 NAMESPACE_SPLITTER = "|"
 
 #***********************************************************************************************
@@ -44,8 +45,13 @@ NAMESPACE_SPLITTER = "|"
 @core.executionTrace
 def setNamespace(namespace, attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 	"""
-	This definition returns the compounded attribute and compounded namespace.
+	This definition sets provided namespace to provided attribute.
 
+	Usage::
+		
+		>>> setNamespace("parent", "child")
+		'parent|child'
+		
 	:param namespace: Namespace. ( String )
 	:param attribute: Attribute. ( String )
 	:param namespaceSplitter: Namespace splitter character. ( String )
@@ -59,7 +65,14 @@ def setNamespace(namespace, attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 @core.executionTrace
 def getNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False):
 	"""
-	This definition returns the attribute namespace.
+	This definition returns provided attribute namespace.
+
+	Usage::
+		
+		>>> getNamespace("grandParent|parent|child")
+		'grandParent|parent'
+		>>> getNamespace("grandParent|parent|child", rootOnly=True)
+		'grandParent'
 
 	:param attribute: Attribute. ( String )
 	:param namespaceSplitter: Namespace splitter character. ( String )
@@ -78,7 +91,14 @@ def getNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False
 @core.executionTrace
 def removeNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False):
 	"""
-	This definition returns the attribute without namespace.
+	This definition returns attribute with stripped namespace.
+
+	Usage::
+		
+		>>> removeNamespace("grandParent|parent|child")
+		'child'
+		>>> removeNamespace("grandParent|parent|child", rootOnly=True)
+		'parent|child'
 
 	:param attribute: Attribute. ( String )
 	:param namespaceSplitter: Namespace splitter character. ( String )
@@ -90,4 +110,3 @@ def removeNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=Fa
 	strippedAttribute = rootOnly and namespaceSplitter.join(attributeTokens[1:]) or attributeTokens[len(attributeTokens) - 1]
 	LOGGER.debug("> Attribute: '{0}', stripped attribute: '{1}'.".format(attribute, strippedAttribute))
 	return strippedAttribute
-
