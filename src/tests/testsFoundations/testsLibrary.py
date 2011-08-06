@@ -109,10 +109,8 @@ class LibraryTestCase(unittest.TestCase):
 		"""
 
 		for name, path in LIBRARIES.items():
-			library = Library(path)
+			library = Library(path, bindLibrary=False)
 			library.functions = LIBRARIES_FUNCTIONS[name]
-			for function in LIBRARIES_FUNCTIONS[name]:
-				hasattr(library, function.name) and delattr(library, function.name)
 			library.bindLibrary()
 			for function in LIBRARIES_FUNCTIONS[name]:
 				self.assertTrue(hasattr(library, function.name))

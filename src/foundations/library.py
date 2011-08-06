@@ -70,22 +70,26 @@ class LibraryHook(core.Structure):
 
 class Library(object):
 	"""
-	This class provides methods to bind a C / C++ Library.
+	| This class provides methods to bind a C / C++ Library.
+	| The class is a singleton and will bind only one time a provided library. Each unique library instance is stored in :attr:`foundations.library.Library.librariesInstances` attribute and get returned if the library is requested again through a new instantiation.
 	"""
 
 	librariesInstances = {}
+	"""Libraries instances: Each library is instancied once and stored in this attribute. ( Dictionary )"""
 
 	if platform.system() == "Windows" or platform.system() == "Microsoft":
 		callback = ctypes.WINFUNCTYPE(ctypes.c_void_p, ctypes.c_int, ctypes.c_char_p)
+		"""callback: Defines library callback default function. ( ctypes.WINFUNCTYPE on Windows Os / ctypes.CFUNCTYPE on Linux and Darwin Os )"""
 	else:
 		callback = ctypes.CFUNCTYPE(ctypes.c_void_p, ctypes.c_int, ctypes.c_char_p)
+		"""callback: Defines library callback default function. ( ctypes.WINFUNCTYPE on Windows Os / ctypes.CFUNCTYPE on Linux and Darwin Os )"""
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.LibraryInstantiationError)
 	def __new__(self, *args, **kwargs):
 		"""
 		This method is the constructor of the class.
-
+		
 		:param \*args: Arguments. ( \* )
 		:param \*\*kwargs: Arguments. ( \* )
 		"""
@@ -100,12 +104,21 @@ class Library(object):
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.LibraryInitializationError)
-	def __init__(self, libraryPath, functions=None):
+	def __init__(self, libraryPath, functions=None, bindLibrary=True):
 		"""
 		This method initializes the class.
+		
+		Usage::
+			
+			>>> path = "FreeImage.dll"
+			>>> functions = (LibraryHook(name="FreeImage_GetVersion", argumentsTypes=None, returnValue=ctypes.c_char_p),)
+			>>> library = Library(path, functions)
+			>>> print library.FreeImage_GetVersion()
+			3.13.1
 
 		:param libraryPath: Library path. ( String )
 		:param functions: Binding functions list. ( Tuple )
+		:param bindLibrary: Library will be binded on initialization. ( Boolean )
 		"""
 
 		if hasattr(self.librariesInstances[libraryPath], "_Library__libraryInstantiated"):
@@ -133,7 +146,7 @@ class Library(object):
 		else:
 			raise foundations.exceptions.LibraryInitializationError, "'{0}' library not found!".format(self.__class__.__name__)
 
-		self.bindLibrary()
+		bindLibrary and self.bindLibrary()
 
 	#***********************************************************************************************
 	#***	Attributes properties.
@@ -270,9 +283,19 @@ class Library(object):
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def bindFunction(self, function):
 		"""
-		This method binds a function.
+		This method binds provided function to a class object attribute.
 
-		:param function: Function to bind. ( Tuple )
+		Usage::
+			
+			>>> path = "FreeImage.dll"
+			>>> function = LibraryHook(name="FreeImage_GetVersion", argumentsTypes=None, returnValue=ctypes.c_char_p)
+			>>> library = Library(path, bindLibrary=False)
+			>>> library.bindFunction(function)
+			True
+			>>> print library.FreeImage_GetVersion()
+			3.13.1
+
+		:param function: Function to bind. ( LibraryHook )
 		:return: Method success. ( Boolean )
 		"""
 
@@ -290,7 +313,17 @@ class Library(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AttributeError)
 	def bindLibrary(self):
 		"""
-		This method binds the Library.
+		This method binds the Library using the functions registered in the **self.__functions** attribute.
+
+		Usage::
+			
+			>>> path = "FreeImage.dll"
+			>>> functions = (LibraryHook(name="FreeImage_GetVersion", argumentsTypes=None, returnValue=ctypes.c_char_p),)
+			>>> library = Library(path, functions, bindLibrary=False)
+			>>> library.bindLibrary()
+			True
+			>>> print library.FreeImage_GetVersion()
+			3.13.1
 
 		:return: Method success. ( Boolean )
 		"""
