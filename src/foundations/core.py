@@ -43,7 +43,6 @@ __status__ = "Production"
 #***	Logging classes and definitions.
 #***********************************************************************************************
 THREADS_IDENTIFIERS = {}
-"""Threads identifiers module cache: '{ '**Thread identity**' : ('**Thread name**', '**Thread hash**')}' ( Dictionary )"""
 
 def _LogRecord_getAttribute(self, name):
 	"""

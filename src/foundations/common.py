@@ -42,7 +42,6 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 LOGGER = logging.getLogger(Constants.logger)
-"""Module logging logger: ( Logger )"""
 
 #***********************************************************************************************
 #***	Module classes and definitions.

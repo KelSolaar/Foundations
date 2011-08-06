@@ -54,7 +54,7 @@ class LibraryHook(core.Structure):
 		"""
 		This method initializes the class.
 		
-		Example::
+		Usage::
 			
 			LibraryHook(name="FreeImage_GetVersion", argumentsTypes=None, returnValue=ctypes.c_char_p),
 
@@ -118,7 +118,7 @@ class Library(object):
 
 		:param libraryPath: Library path. ( String )
 		:param functions: Binding functions list. ( Tuple )
-		:param bindLibrary: Library will be binded on initialization. ( Boolean )
+		:param bindLibrary: Library will be binded at initialization. ( Boolean )
 		"""
 
 		if hasattr(self.librariesInstances[libraryPath], "_Library__libraryInstantiated"):
@@ -283,19 +283,9 @@ class Library(object):
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def bindFunction(self, function):
 		"""
-		This method binds provided function to a class object attribute.
+		This method binds a function.
 
-		Usage::
-			
-			>>> path = "FreeImage.dll"
-			>>> function = LibraryHook(name="FreeImage_GetVersion", argumentsTypes=None, returnValue=ctypes.c_char_p)
-			>>> library = Library(path, bindLibrary=False)
-			>>> library.bindFunction(function)
-			True
-			>>> print library.FreeImage_GetVersion()
-			3.13.1
-
-		:param function: Function to bind. ( LibraryHook )
+		:param function: Function to bind. ( Tuple )
 		:return: Method success. ( Boolean )
 		"""
 
@@ -313,17 +303,7 @@ class Library(object):
 	@foundations.exceptions.exceptionsHandler(None, False, AttributeError)
 	def bindLibrary(self):
 		"""
-		This method binds the Library using the functions registered in the **self.__functions** attribute.
-
-		Usage::
-			
-			>>> path = "FreeImage.dll"
-			>>> functions = (LibraryHook(name="FreeImage_GetVersion", argumentsTypes=None, returnValue=ctypes.c_char_p),)
-			>>> library = Library(path, functions, bindLibrary=False)
-			>>> library.bindLibrary()
-			True
-			>>> print library.FreeImage_GetVersion()
-			3.13.1
+		This method binds the Library.
 
 		:return: Method success. ( Boolean )
 		"""
