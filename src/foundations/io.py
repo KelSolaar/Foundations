@@ -214,4 +214,3 @@ def setLocalDirectory(path):
 	else:
 		LOGGER.debug("> '{0}' directory already exist, skipping creation!".format(path))
 		return True
-

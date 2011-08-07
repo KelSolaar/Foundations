@@ -134,4 +134,3 @@ class Pkzip(object):
 					output.write(datas)
 					datas = buffer.read(bufferSize)
 		return True
-

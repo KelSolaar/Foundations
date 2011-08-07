@@ -67,4 +67,3 @@ class Constants():
 
 	nullObject = "None"
 	"""Default null object string: '**None**' ( String )"""
-

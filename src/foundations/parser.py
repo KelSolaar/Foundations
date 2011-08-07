@@ -645,4 +645,3 @@ def getAttributeCompound(attribute, value=None, splitter="|", bindingIdentifier=
 				return AttributeCompound(name=attribute, value=None, link=value, type=None, alias=None)
 
 	return AttributeCompound(name=attribute, value=value, link=None, type=None, alias=None)
-

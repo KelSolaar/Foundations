@@ -208,4 +208,3 @@ class Walker(object):
 							self.__files[itemName] = itemPath
 
 				return self.__files
-

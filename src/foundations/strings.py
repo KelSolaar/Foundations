@@ -262,4 +262,3 @@ def isWebsite(datas):
 	else:
 		LOGGER.debug("> {0}' is not matched as website.".format(datas))
 		return False
-

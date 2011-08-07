@@ -235,4 +235,3 @@ class RotatingBackup(object):
 		elif os.path.isdir(path):
 			shutil.rmtree(path)
 		return True
-

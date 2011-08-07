@@ -292,4 +292,3 @@ class Structure(object):
 		"""
 
 		self.__dict__.update(kwargs)
-
