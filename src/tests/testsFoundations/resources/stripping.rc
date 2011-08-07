@@ -1,0 +1,7 @@
+[	Stripping A	]
+;	Stripping A comment for tests purpose.
+	John Doe	=	"Unknown"	
+
+[ Stripping B ]
+; Stripping B comment for tests purpose.
+ Jane Doe = "Unknown" 

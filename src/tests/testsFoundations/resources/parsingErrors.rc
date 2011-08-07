@@ -1,0 +1,12 @@
+[Section A]
+; Section A comment for tests purpose.
+This statement will produce the line nº '3' parsing error.
+Attribute = "Value"
+
+This statement will produce the line nº '6' parsing error.
+
+[Section B]
+; Section B comment for tests purpose.
+Attribute = "Value"
+
+This statement will produce the line nº '12' parsing error.

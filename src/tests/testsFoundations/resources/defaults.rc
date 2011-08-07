@@ -1,0 +1,10 @@
+; File comment for tests purpose.
+Default A = "Attribute 'Default A' value"
+Default B = "Attribute 'Default B' value"
+[Options A]
+; Options A comment for tests purpose.
+John Doe = "Unknown"
+
+[Options B]
+; Options B comment for tests purpose.
+Jane Doe = "Unknown"

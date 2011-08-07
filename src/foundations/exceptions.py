@@ -160,7 +160,7 @@ class AbstractError(Exception):
 		"""
 		This method is the property for **self.__value** attribute.
 
-		:return: self.__value. ( Logger )
+		:return: self.__value. ( Object )
 		"""
 
 		return self.__value
@@ -170,7 +170,7 @@ class AbstractError(Exception):
 		"""
 		This method is the setter method for **self.__value** attribute.
 
-		:param value: Attribute value. ( Logger )
+		:param value: Attribute value. ( Object )
 		"""
 
 		self.__value = value
@@ -194,7 +194,7 @@ class AbstractError(Exception):
 		:return: Exception representation. ( String )
 		"""
 
-		return str(self.value)
+		return str(self.__value)
 
 class AbstractParsingError(AbstractError):
 	"""
@@ -210,12 +210,77 @@ class FileStructureParsingError(AbstractParsingError):
 
 	pass
 
-class AttributeStructureParsingError(AbstractError):
+class AttributeStructureParsingError(AbstractParsingError):
 	"""
 	This class is used for exceptions raised while parsing attribute structure.
 	"""
 
-	pass
+	@core.executionTrace
+	def __init__(self, value, line=None):
+		"""
+		This method initializes the class.
+
+		:param value: Error value or message. ( String )
+		:param line: Line number where exception occured. ( Integer )
+		"""
+
+		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
+
+		AbstractError.__init__(self, value)
+
+		# --- Setting class attributes. ---
+		self.__line = None
+		self.line = line
+
+	#***********************************************************************************************
+	#***	Attributes properties.
+	#***********************************************************************************************
+	@property
+	def line(self):
+		"""
+		This method is the property for **self.__line** attribute.
+
+		:return: self.__line. ( Integer )
+		"""
+
+		return self.__line
+
+	@line.setter
+	def line(self, value):
+		"""
+		This method is the setter method for **self.__line** attribute.
+
+		:param value: Attribute value. ( Integer )
+		"""
+
+		if value:
+			assert type(value) is int, "'{0}' attribute: '{1}' type is not 'int'!".format("line", value)
+			assert value > 0, "'{0}' attribute: '{1}' need to be exactly positive!".format("line", value)
+		self.__line = value
+
+	@line.deleter
+	def line(self):
+		"""
+		This method is the deleter method for **self.__line** attribute.
+		"""
+
+		raise Exception("'{0}' attribute is not deletable!".format("line"))
+
+	#***********************************************************************************************
+	#***	Class methods.
+	#***********************************************************************************************
+	@core.executionTrace
+	def __str__(self):
+		"""
+		This method returns the exception representation.
+
+		:return: Exception representation. ( String )
+		"""
+
+		if self.__line:
+			return "Line nº '{0}': '{1}'.".format(self.__line, str(self.value))
+		else:
+			return str(self.value)
 
 class AbstractOsError(AbstractError):
 	"""

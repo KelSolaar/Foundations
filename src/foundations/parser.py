@@ -47,13 +47,24 @@ LOGGER = logging.getLogger(Constants.logger)
 #***********************************************************************************************
 class AttributeCompound(core.Structure):
 	"""
-	This is the **AttributeCompound** class.
+	This class represents a storage object for attributes compounds usually encountered in `sIBL_GUI <https://github.com/KelSolaar/sIBL_GUI>`_  Templates files.
+	
+	Some attributes compounds:
+		
+		- Name = @Name | Standard | String | Template Name
+		- Background|BGfile = @BGfile
+		- showCamerasDialog = @showCamerasDialog | 0 | Boolean | Cameras Selection Dialog
+
 	"""
 
 	@core.executionTrace
 	def __init__(self, **kwargs):
 		"""
 		This method initializes the class.
+
+		Usage::
+
+			AttributeCompound(name="showCamerasDialog", value="0", link="@showCamerasDialog", type="Boolean", alias="Cameras Selection Dialog")
 
 		:param kwargs: name, value, link, type, alias. ( Key / Value pairs )
 		"""
@@ -65,19 +76,22 @@ class AttributeCompound(core.Structure):
 
 class Parser(io.File):
 	"""
-	This class provides methods to parse sections file format files.
+	This class provides methods to parse sections file format files and more, an alternative fully compliant basic configuration file parser is available directly with Python: `ConfigParser <http://docs.python.org/library/configparser.html>`_.
 	"""
 
 	@core.executionTrace
-	def __init__(self, file=None, splitter="=", namespaceSplitter="|", commentLimiter=";", commentMarker="#", rawSectionContentIdentifier="_rawSectionContent"):
+	def __init__(self, file=None, splitter="=", namespaceSplitter="|", commentLimiters=(";", "#"), commentMarker="#", stringsMarkers=("\"", "'"), rawSectionContentIdentifier="_rawSectionContent", defaultsSection="_defaults"):
 		"""
 		This method initializes the class.
 
 		:param file: Current file path. ( String )
 		:param splitter: Splitter character. ( String )
 		:param namespaceSplitter: Namespace splitter character. ( String )
-		:param commentLimiter: Comment limiter character. ( String )
+		:param commentLimiters: Comment limiters character. ( List / Tuple )
+		:param commentMarker: Character use to prefix extracted comments idientifiers. ( String )
+		:param stringsMarkers: Strings markers characters. ( List / Tuple )
 		:param rawSectionContentIdentifier: Raw section content identifier. ( String )
+		:param defaultsSection: Default section name. ( String )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -89,15 +103,20 @@ class Parser(io.File):
 		self.splitter = splitter
 		self.__namespaceSplitter = None
 		self.namespaceSplitter = namespaceSplitter
-		self.__commentLimiter = None
-		self.commentLimiter = commentLimiter
+		self.__commentLimiters = None
+		self.commentLimiters = commentLimiters
 		self.__commentMarker = None
 		self.commentMarker = commentMarker
+		self.__stringsMarkers = None
+		self.stringsMarkers = stringsMarkers
 		self.__rawSectionContentIdentifier = None
 		self.rawSectionContentIdentifier = rawSectionContentIdentifier
+		self.__defaultsSection = None
+		self.defaultsSection = defaultsSection
 
 		self.__sections = None
 		self.__comments = None
+		self.__parsingErrors = None
 
 	#***********************************************************************************************
 	#***	Attributes properties.
@@ -171,37 +190,36 @@ class Parser(io.File):
 		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("namespaceSplitter"))
 
 	@property
-	def commentLimiter(self):
+	def commentLimiters(self):
 		"""
-		This method is the property for **self.__commentLimiter** attribute.
+		This method is the property for **self.__commentLimiters** attribute.
 
-		:return: self.__commentLimiter. ( String )
+		:return: self.__commentLimiters. ( List / Tuple )
 		"""
 
-		return self.__commentLimiter
+		return self.__commentLimiters
 
-	@commentLimiter.setter
+	@commentLimiters.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
-	def commentLimiter(self, value):
+	def commentLimiters(self, value):
 		"""
-		This method is the setter method for **self.__commentLimiter** attribute.
+		This method is the setter method for **self.__commentLimiters** attribute.
 
-		:param value: Attribute value. ( String )
+		:param value: Attribute value. ( List / Tuple )
 		"""
 
 		if value:
-			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("commentLimiter", value)
-			assert not re.search("\w", value), "'{0}' attribute: '{1}' is an alphanumeric character!".format("commentLimiter", value)
-		self.__commentLimiter = value
+			assert type(value) in (list, tuple), "'{0}' attribute: '{1}' type is not 'list' or 'tuple'!".format("commentLimiters", value)
+		self.__commentLimiters = value
 
-	@commentLimiter.deleter
+	@commentLimiters.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
-	def commentLimiter(self):
+	def commentLimiters(self):
 		"""
-		This method is the deleter method for **self.__commentLimiter** attribute.
+		This method is the deleter method for **self.__commentLimiters** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("commentLimiter"))
+		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("commentLimiters"))
 
 	@property
 	def commentMarker(self):
@@ -237,6 +255,38 @@ class Parser(io.File):
 		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("commentMarker"))
 
 	@property
+	def stringsMarkers(self):
+		"""
+		This method is the property for **self.__stringsMarkers** attribute.
+
+		:return: self.__stringsMarkers. ( List / Tuple )
+		"""
+
+		return self.__stringsMarkers
+
+	@stringsMarkers.setter
+	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
+	def stringsMarkers(self, value):
+		"""
+		This method is the setter method for **self.__stringsMarkers** attribute.
+
+		:param value: Attribute value. ( List / Tuple )
+		"""
+
+		if value:
+			assert type(value) in (list, tuple), "'{0}' attribute: '{1}' type is not 'list' or 'tuple'!".format("stringsMarkers", value)
+		self.__stringsMarkers = value
+
+	@stringsMarkers.deleter
+	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	def stringsMarkers(self):
+		"""
+		This method is the deleter method for **self.__stringsMarkers** attribute.
+		"""
+
+		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("stringsMarkers"))
+
+	@property
 	def rawSectionContentIdentifier(self):
 		"""
 		This method is the property for **self.__rawSectionContentIdentifier** attribute.
@@ -267,6 +317,37 @@ class Parser(io.File):
 		"""
 
 		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("rawSectionContentIdentifier"))
+	@property
+	def defaultsSection(self):
+		"""
+		This method is the property for **self.__defaultsSection** attribute.
+
+		:return: self.__defaultsSection. ( String )
+		"""
+
+		return self.__defaultsSection
+
+	@defaultsSection.setter
+	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
+	def defaultsSection(self, value):
+		"""
+		This method is the setter method for **self.__defaultsSection** attribute.
+
+		:param value: Attribute value. ( String )
+		"""
+
+		if value:
+			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("defaultsSection", value)
+		self.__defaultsSection = value
+
+	@defaultsSection.deleter
+	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	def defaultsSection(self):
+		"""
+		This method is the deleter method for **self.__defaultsSection** attribute.
+		"""
+
+		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("defaultsSection"))
 
 	@property
 	def sections(self):
@@ -332,63 +413,118 @@ class Parser(io.File):
 
 		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("comments"))
 
+	@property
+	def parsingErrors(self):
+		"""
+		This method is the property for **self.__parsingErrors** attribute.
+
+		:return: self.__parsingErrors. ( List )
+		"""
+
+		return self.__parsingErrors
+
+	@parsingErrors.setter
+	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
+	def parsingErrors(self, value):
+		"""
+		This method is the setter method for **self.__parsingErrors** attribute.
+
+		:param value: Attribute value. ( List )
+		"""
+
+		if value:
+			assert type(value) is list, "'{0}' attribute: '{1}' type is not 'list'!".format("parsingErrors", value)
+		self.__parsingErrors = value
+
+	@parsingErrors.deleter
+	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	def parsingErrors(self):
+		"""
+		This method is the deleter method for **self.__parsingErrors** attribute.
+		"""
+
+		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("parsingErrors"))
+
 	#***********************************************************************************************
 	#***	Class methods.
 	#***********************************************************************************************
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.FileStructureParsingError)
-	def parse(self, orderedDictionary=True, rawSections=None, stripComments=True):
+	def parse(self, orderedDictionary=True, rawSections=None, stripComments=True, stripWhitespaces=True, stripValues=True, raiseParsingErrors=True):
 		"""
 		This method process the file content to extract the sections as a dictionary.
 
 		:param orderedDictionary: Parser data is stored in ordered dictionaries. ( Boolean )
-		:param rawSections: Section is not parsed. ( Boolean )
+		:param rawSections: Ignored raw sections. ( List / Tuple )
 		:param stripComments: Comments are stripped. ( Boolean )
+		:param stripWhitespaces: Whitespaces are stripped. ( Boolean )
+		:param stripValues: Values are stripped using **self.__stringsMarkers** attribute value. ( Boolean )
+		:param raiseParsingErrors: Raise parsing errors. ( Boolean )
 		:return: Method success. ( Boolean )
 		"""
 
 		LOGGER.debug("> Reading sections from: '{0}'.".format(self.file))
 		if self.content:
-			if re.search("^\[.*\]", self.content[0]):
-				if not orderedDictionary:
-					self.__sections = {}
-					self.__comments = {}
-				else:
-					self.__sections = OrderedDict()
-					self.__comments = OrderedDict()
-				rawSections = rawSections or []
-				commentId = 0
-				for line in self.content:
-					if re.search("^\[.*\]", line):
-						section = re.search("(?<=^\[)(.*)(?=\])", line)
-						section = section.group(0)
-						if not orderedDictionary:
-							attributes = {}
-						else:
-							attributes = OrderedDict()
-						rawContent = []
-					else:
-						if section in rawSections:
-							rawContent.append(line)
-							attributes[section + self.__namespaceSplitter + self.__rawSectionContentIdentifier] = rawContent
-						else:
-							if re.search("^ *\n", line) or re.search("^ *\r\n", line):
-								continue
-							else:
-								if line.startswith(self.__commentLimiter) and not stripComments:
-									self.__comments[section + self.__namespaceSplitter + self.__commentMarker + str(commentId)] = {"id" : commentId, "content" : line.strip().strip(self.__commentLimiter)}
-									commentId += 1
-								elif self.__splitter in line:
-									lineTokens = line.split(self.__splitter, 1)
-									attributes[section + self.__namespaceSplitter + lineTokens[0].strip()] = lineTokens[1].strip().strip("\"")
-						self.__sections[section] = attributes
-
-				LOGGER.debug("> Sections: '{0}'.".format(self.__sections))
-				LOGGER.debug("> '{0}' file parsing done!".format(self.file))
-				return True
-
+			if not orderedDictionary:
+				self.__sections = {}
+				self.__comments = {}
+				attributes = {}
 			else:
-				raise foundations.exceptions.FileStructureParsingError("'{0}' structure is invalid: No section found at first line!".format(self.file))
+				self.__sections = OrderedDict()
+				self.__comments = OrderedDict()
+				attributes = OrderedDict()
+			section = self.__defaultsSection
+			rawSections = rawSections or []
+			self.__parsingErrors = []
+
+			commentId = 0
+			for i, line in enumerate(self.content):
+				# Comments matching.
+				search = re.search(r"^\s*[{0}](?P<comment>.+)$".format("".join(self.__commentLimiters)), line)
+				if search:
+					if not stripComments:
+						self.__comments[foundations.namespace.setNamespace(section, "{0}{1}".format(self.__commentMarker, str(commentId)), self.__namespaceSplitter)] = {"id" : commentId, "content" : stripWhitespaces and search.group("comment").strip() or search.group("comment")}
+						commentId += 1
+					continue
+
+				# Sections matching.
+				search = re.search(r"^\s*\[(?P<section>.+)\]\s*$", line)
+				if search:
+					section = stripWhitespaces and search.group("section").strip() or search.group("section")
+					if not orderedDictionary:
+						attributes = {}
+					else:
+						attributes = OrderedDict()
+					rawContent = []
+					continue
+
+				if section in rawSections:
+					rawContent.append(line)
+					attributes[foundations.namespace.setNamespace(section, self.__rawSectionContentIdentifier, self.__namespaceSplitter)] = rawContent
+				else:
+					# Empty line matching.
+					search = re.search(r"^\s*$", line)
+					if search:
+						continue
+
+					# Attributes matching.
+					search = re.search(r"^(?P<attribute>.+?){0}(?P<value>.+)$".format(self.__splitter), line)
+					if search:
+						attribute = stripWhitespaces and search.group("attribute").strip() or search.group("attribute")
+						value = stripWhitespaces and search.group("value").strip() or search.group("value")
+						attributes[foundations.namespace.setNamespace(section, attribute, self.__namespaceSplitter)] = stripValues and value.strip("".join(self.__stringsMarkers)) or value
+					else:
+						self.__parsingErrors.append(foundations.exceptions.AttributeStructureParsingError("Attribute structure is invalid: {0}".format(line), i + 1))
+
+				self.__sections[section] = attributes
+
+			LOGGER.debug("> Sections: '{0}'.".format(self.__sections))
+			LOGGER.debug("> '{0}' file parsing done!".format(self.file))
+
+			if self.__parsingErrors and raiseParsingErrors:
+				raise foundations.exceptions.FileStructureParsingError("'{0}' structure is invalid, parsing exceptions occured!".format(self.file))
+
+			return True
 
 	@core.executionTrace
 	def sectionsExists(self, section):
@@ -473,18 +609,33 @@ class Parser(io.File):
 @core.executionTrace
 def getAttributeCompound(attribute, value=None, splitter="|", bindingIdentifier="@"):
 	"""
-	This definition gets an attribute compound.
-
+	This definition returns an attribute compound.
+	
+	Usage::
+	
+		>>> datas = "@Link | Value | Boolean | Link Parameter"
+		>>> attributeCompound = foundations.parser.getAttributeCompound("Attribute Compound", datas)
+		>>> print attributeCompound.name
+		Attribute Compound
+		>>> print attributeCompound.value
+		Value
+		>>> print attributeCompound.link
+		@Link
+		>>> print attributeCompound.type
+		Boolean
+		>>> print attributeCompound.alias
+		Link Parameter
+		
 	:param attribute: Attribute. ( String )
 	:param value: Attribute value. ( Object )
 	:param splitter: Splitter. ( String )
 	:param bindingIdentifier: Binding identifier. ( String )
-	:return: Attribute compound. ( AttributeObject )
+	:return: Attribute compound. ( AttributeCompound )
 	"""
 
 	LOGGER.debug("> Attribute: '{0}', value: '{1}'.".format(attribute, value))
 
-	if value:
+	if type(value) in (str, unicode):
 		if splitter in value:
 			valueTokens = value.split(splitter)
 			if len(valueTokens) >= 3 and re.search("{0}[a-zA-Z0-9_]*".format(bindingIdentifier), valueTokens[0]):
