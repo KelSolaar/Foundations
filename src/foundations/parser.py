@@ -47,10 +47,10 @@ LOGGER = logging.getLogger(Constants.logger)
 #***********************************************************************************************
 class AttributeCompound(core.Structure):
 	"""
-	This class represents a storage object for attributes compounds usually encountered in `sIBL_GUI <https://github.com/KelSolaar/sIBL_GUI>`_  Templates files.
-	
+	This class represents a storage object for attributes compounds usually encountered in `sIBL_GUI <https://github.com/KelSolaar/sIBL_GUI>`_ Templates files.
+
 	Some attributes compounds:
-		
+
 		- Name = @Name | Standard | String | Template Name
 		- Background|BGfile = @BGfile
 		- showCamerasDialog = @showCamerasDialog | 0 | Boolean | Cameras Selection Dialog
@@ -76,20 +76,42 @@ class AttributeCompound(core.Structure):
 
 class Parser(io.File):
 	"""
-	This class provides methods to parse sections file format files and more, an alternative fully compliant basic configuration file parser is available directly with Python: `ConfigParser <http://docs.python.org/library/configparser.html>`_.
+	This class provides methods to parse sections file format files, an alternative configuration file parser is available directly with Python: :class:`ConfigParser.ConfigParser`.
+
+	The parser provided by this class has some major differences with Python :class:`ConfigParser.ConfigParser`:
+
+		- Sections and attributes are stored in their appearance order by default. ( Using Python :class:`collections.OrderedDict` )
+		- A default section ( **_default** ) will store orphans attributes ( Attributes appearing before any declared section ).
+		- File comments are stored inside the :obj:`foundations.parser.Parser.comments` class property. 
+		- Sections, attributes and values are whitespaces stripped by default but can also be stored with their leading and trailing whitespaces. 
+		- Values are quotations markers stripped by default but can also be stored with their leading and trailing quotations markers. 
+		- Attributes are namespaced by default allowing sections merge without keys collisions. 
+
 	"""
 
 	@core.executionTrace
-	def __init__(self, file=None, splitter="=", namespaceSplitter="|", commentLimiters=(";", "#"), commentMarker="#", stringsMarkers=("\"", "'"), rawSectionContentIdentifier="_rawSectionContent", defaultsSection="_defaults"):
+	def __init__(self, file=None, splitters=("=", ":"), namespaceSplitter="|", commentLimiters=(";", "#"), commentMarker="#", quotationMarkers=("\"", "'", "`"), rawSectionContentIdentifier="_rawSectionContent", defaultsSection="_defaults"):
 		"""
 		This method initializes the class.
+		
+		Usage::
+		
+			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
+			>>> parser = Parser()
+			>>> parser.content = content
+			>>> parser.parse(stripComments=False)
+			True
+			>>> print parser.sections.keys()
+			['Section A', 'Section B']
+			>>> print parser.comments 
+			OrderedDict([('Section A|#0', {'content': 'Comment.', 'id': 0})])
 
 		:param file: Current file path. ( String )
-		:param splitter: Splitter character. ( String )
-		:param namespaceSplitter: Namespace splitter character. ( String )
+		:param splitters: Splitter character. ( String )
+		:param namespaceSplitter: Namespace splitters character. ( String )
 		:param commentLimiters: Comment limiters character. ( List / Tuple )
 		:param commentMarker: Character use to prefix extracted comments idientifiers. ( String )
-		:param stringsMarkers: Strings markers characters. ( List / Tuple )
+		:param quotationMarkers: Quotation markers characters. ( List / Tuple )
 		:param rawSectionContentIdentifier: Raw section content identifier. ( String )
 		:param defaultsSection: Default section name. ( String )
 		"""
@@ -99,16 +121,16 @@ class Parser(io.File):
 		io.File.__init__(self, file)
 
 		# --- Setting class attributes. ---
-		self.__splitter = None
-		self.splitter = splitter
+		self.__splitters = None
+		self.splitters = splitters
 		self.__namespaceSplitter = None
 		self.namespaceSplitter = namespaceSplitter
 		self.__commentLimiters = None
 		self.commentLimiters = commentLimiters
 		self.__commentMarker = None
 		self.commentMarker = commentMarker
-		self.__stringsMarkers = None
-		self.stringsMarkers = stringsMarkers
+		self.__quotationMarkers = None
+		self.quotationMarkers = quotationMarkers
 		self.__rawSectionContentIdentifier = None
 		self.rawSectionContentIdentifier = rawSectionContentIdentifier
 		self.__defaultsSection = None
@@ -122,38 +144,39 @@ class Parser(io.File):
 	#***	Attributes properties.
 	#***********************************************************************************************
 	@property
-	def splitter(self):
+	def splitters(self):
 		"""
-		This method is the property for **self.__splitter** attribute.
+		This method is the property for **self.__splitters** attribute.
 
-		:return: self.__splitter. ( String )
+		:return: self.__splitters. ( List / Tuple )
 		"""
 
-		return self.__splitter
+		return self.__splitters
 
-	@splitter.setter
+	@splitters.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
-	def splitter(self, value):
+	def splitters(self, value):
 		"""
-		This method is the setter method for **self.__splitter** attribute.
+		This method is the setter method for **self.__splitters** attribute.
 
-		:param value: Attribute value. ( String )
+		:param value: Attribute value. ( List / Tuple )
 		"""
 
 		if value:
-			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("splitter", value)
-			assert len(value) == 1, "'{0}' attribute: '{1}' has multiples characters!".format("splitter", value)
-			assert not re.search("\w", value), "'{0}' attribute: '{1}' is an alphanumeric character!".format("splitter", value)
-		self.__splitter = value
+			assert type(value) in (list, tuple), "'{0}' attribute: '{1}' type is not 'list' or 'tuple'!".format("splitters", value)
+			for element in value:
+				assert len(element) == 1, "'{0}' attribute: '{1}' has multiples characters!".format("splitter", element)
+				assert not re.search("\w", element), "'{0}' attribute: '{1}' is an alphanumeric character!".format("splitter", element)
+		self.__splitters = value
 
-	@splitter.deleter
+	@splitters.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
-	def splitter(self):
+	def splitters(self):
 		"""
-		This method is the deleter method for **self.__splitter** attribute.
+		This method is the deleter method for **self.__splitters** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("splitter"))
+		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("splitters"))
 
 	@property
 	def namespaceSplitter(self):
@@ -255,36 +278,39 @@ class Parser(io.File):
 		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("commentMarker"))
 
 	@property
-	def stringsMarkers(self):
+	def quotationMarkers(self):
 		"""
-		This method is the property for **self.__stringsMarkers** attribute.
+		This method is the property for **self.__quotationMarkers** attribute.
 
-		:return: self.__stringsMarkers. ( List / Tuple )
+		:return: self.__quotationMarkers. ( List / Tuple )
 		"""
 
-		return self.__stringsMarkers
+		return self.__quotationMarkers
 
-	@stringsMarkers.setter
+	@quotationMarkers.setter
 	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
-	def stringsMarkers(self, value):
+	def quotationMarkers(self, value):
 		"""
-		This method is the setter method for **self.__stringsMarkers** attribute.
+		This method is the setter method for **self.__quotationMarkers** attribute.
 
 		:param value: Attribute value. ( List / Tuple )
 		"""
 
 		if value:
-			assert type(value) in (list, tuple), "'{0}' attribute: '{1}' type is not 'list' or 'tuple'!".format("stringsMarkers", value)
-		self.__stringsMarkers = value
+			assert type(value) in (list, tuple), "'{0}' attribute: '{1}' type is not 'list' or 'tuple'!".format("quotationMarkers", value)
+			for element in value:
+				assert len(element) == 1, "'{0}' attribute: '{1}' has multiples characters!".format("splitter", element)
+				assert not re.search("\w", element), "'{0}' attribute: '{1}' is an alphanumeric character!".format("splitter", element)
+		self.__quotationMarkers = value
 
-	@stringsMarkers.deleter
+	@quotationMarkers.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
-	def stringsMarkers(self):
+	def quotationMarkers(self):
 		"""
-		This method is the deleter method for **self.__stringsMarkers** attribute.
+		This method is the deleter method for **self.__quotationMarkers** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("stringsMarkers"))
+		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("quotationMarkers"))
 
 	@property
 	def rawSectionContentIdentifier(self):
@@ -450,90 +476,136 @@ class Parser(io.File):
 	#***********************************************************************************************
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.FileStructureParsingError)
-	def parse(self, orderedDictionary=True, rawSections=None, stripComments=True, stripWhitespaces=True, stripValues=True, raiseParsingErrors=True):
+	def parse(self, orderedDictionary=True, rawSections=None, namespaces=True, stripComments=True, stripWhitespaces=True, stripQuotationMarkers=True, raiseParsingErrors=True):
 		"""
-		This method process the file content to extract the sections as a dictionary.
+		This method process the file content and extract the sections / attributes as nested :class:`collections.OrderedDict` dictionaries or dictionaries.
 
-		:param orderedDictionary: Parser data is stored in ordered dictionaries. ( Boolean )
+		Usage::
+
+			>>> content = ["; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "Attribute 2 = \\"Value B\\"\\n"]
+			>>> parser = Parser()
+			>>> parser.content = content
+			>>> parser.parse(stripComments=False)
+			True
+			>>> print parser.sections.keys()
+			['_defaults']
+			>>> print parser.sections["_defaults"].values()
+			['Value A', 'Value B']
+			>>> parser.parse(stripQuotationMarkers=False)
+			True
+			>>> print parser.sections["_defaults"].values()
+			['"Value A"', '"Value B"']
+			>>> print parser.comments 
+			OrderedDict([('_defaults|#0', {'content': 'Comment.', 'id': 0})])
+			>>> parser.parse()
+			True
+			>>> print parser.sections["_defaults"]
+			OrderedDict([('_defaults|Attribute 1', 'Value A'), ('_defaults|Attribute 2', 'Value B')])
+			>>> parser.parse(namespaces=False)
+			OrderedDict([('Attribute 1', 'Value A'), ('Attribute 2', 'Value B')])
+
+		:param orderedDictionary: Parser data is stored in :class:`collections.OrderedDict` dictionaries. ( Boolean )
 		:param rawSections: Ignored raw sections. ( List / Tuple )
+		:param namespaces: Attributes and comments are namespaced. ( Boolean )
 		:param stripComments: Comments are stripped. ( Boolean )
 		:param stripWhitespaces: Whitespaces are stripped. ( Boolean )
-		:param stripValues: Values are stripped using **self.__stringsMarkers** attribute value. ( Boolean )
+		:param stripQuotationMarkers: Attributes values quotation markers are stripped. ( Boolean )
 		:param raiseParsingErrors: Raise parsing errors. ( Boolean )
 		:return: Method success. ( Boolean )
 		"""
 
 		LOGGER.debug("> Reading sections from: '{0}'.".format(self.file))
-		if self.content:
-			if not orderedDictionary:
-				self.__sections = {}
-				self.__comments = {}
-				attributes = {}
-			else:
-				self.__sections = OrderedDict()
-				self.__comments = OrderedDict()
-				attributes = OrderedDict()
-			section = self.__defaultsSection
-			rawSections = rawSections or []
-			self.__parsingErrors = []
 
-			commentId = 0
-			for i, line in enumerate(self.content):
-				# Comments matching.
-				search = re.search(r"^\s*[{0}](?P<comment>.+)$".format("".join(self.__commentLimiters)), line)
-				if search:
-					if not stripComments:
-						self.__comments[foundations.namespace.setNamespace(section, "{0}{1}".format(self.__commentMarker, str(commentId)), self.__namespaceSplitter)] = {"id" : commentId, "content" : stripWhitespaces and search.group("comment").strip() or search.group("comment")}
-						commentId += 1
-					continue
+		if not self.content:
+			return
 
-				# Sections matching.
-				search = re.search(r"^\s*\[(?P<section>.+)\]\s*$", line)
-				if search:
-					section = stripWhitespaces and search.group("section").strip() or search.group("section")
-					if not orderedDictionary:
-						attributes = {}
-					else:
-						attributes = OrderedDict()
-					rawContent = []
-					continue
+		if not orderedDictionary:
+			self.__sections = {}
+			self.__comments = {}
+			attributes = {}
+		else:
+			self.__sections = OrderedDict()
+			self.__comments = OrderedDict()
+			attributes = OrderedDict()
+		section = self.__defaultsSection
+		rawSections = rawSections or []
+		self.__parsingErrors = []
 
-				if section in rawSections:
-					rawContent.append(line)
-					attributes[foundations.namespace.setNamespace(section, self.__rawSectionContentIdentifier, self.__namespaceSplitter)] = rawContent
+		commentId = 0
+		for i, line in enumerate(self.content):
+			# Comments matching.
+			search = re.search(r"^\s*[{0}](?P<comment>.+)$".format("".join(self.__commentLimiters)), line)
+			if search:
+				if not stripComments:
+					comment = namespaces and foundations.namespace.setNamespace(section, "{0}{1}".format(self.__commentMarker, str(commentId)), self.__namespaceSplitter) or "{0}{1}".format(self.__commentMarker, str(commentId))
+					self.__comments[comment] = {"id" : commentId, "content" : stripWhitespaces and search.group("comment").strip() or search.group("comment")}
+					commentId += 1
+				continue
+
+			# Sections matching.
+			search = re.search(r"^\s*\[(?P<section>.+)\]\s*$", line)
+			if search:
+				section = stripWhitespaces and search.group("section").strip() or search.group("section")
+				if not orderedDictionary:
+					attributes = {}
 				else:
-					# Empty line matching.
-					search = re.search(r"^\s*$", line)
-					if search:
-						continue
+					attributes = OrderedDict()
+				rawContent = []
+				continue
 
-					# Attributes matching.
-					search = re.search(r"^(?P<attribute>.+?){0}(?P<value>.+)$".format(self.__splitter), line)
-					if search:
-						attribute = stripWhitespaces and search.group("attribute").strip() or search.group("attribute")
-						value = stripWhitespaces and search.group("value").strip() or search.group("value")
-						attributes[foundations.namespace.setNamespace(section, attribute, self.__namespaceSplitter)] = stripValues and value.strip("".join(self.__stringsMarkers)) or value
-					else:
-						self.__parsingErrors.append(foundations.exceptions.AttributeStructureParsingError("Attribute structure is invalid: {0}".format(line), i + 1))
+			if section in rawSections:
+				rawContent.append(line)
+				attribute = namespaces and foundations.namespace.setNamespace(section, self.__rawSectionContentIdentifier, self.__namespaceSplitter) or self.__rawSectionContentIdentifier
+				attributes[attribute] = rawContent
+			else:
+				# Empty line matching.
+				search = re.search(r"^\s*$", line)
+				if search:
+					continue
 
-				self.__sections[section] = attributes
+				# Attributes matching.
+				search = re.search(r"^(?P<attribute>.+?)[{0}](?P<value>.+)$".format("".join(self.__splitters)), line)
+				if search:
+					attribute = stripWhitespaces and search.group("attribute").strip() or search.group("attribute")
+					attribute = namespaces and foundations.namespace.setNamespace(section, attribute, self.__namespaceSplitter) or attribute
+					value = stripWhitespaces and search.group("value").strip() or search.group("value")
+					attributes[attribute] = stripQuotationMarkers and value.strip("".join(self.__quotationMarkers)) or value
+				else:
+					self.__parsingErrors.append(foundations.exceptions.AttributeStructureParsingError("Attribute structure is invalid: {0}".format(line), i + 1))
 
-			LOGGER.debug("> Sections: '{0}'.".format(self.__sections))
-			LOGGER.debug("> '{0}' file parsing done!".format(self.file))
+			self.__sections[section] = attributes
 
-			if self.__parsingErrors and raiseParsingErrors:
-				raise foundations.exceptions.FileStructureParsingError("'{0}' structure is invalid, parsing exceptions occured!".format(self.file))
+		LOGGER.debug("> Sections: '{0}'.".format(self.__sections))
+		LOGGER.debug("> '{0}' file parsing done!".format(self.file))
 
-			return True
+		if self.__parsingErrors and raiseParsingErrors:
+			raise foundations.exceptions.FileStructureParsingError("'{0}' structure is invalid, parsing exceptions occured!".format(self.file))
+
+		return True
 
 	@core.executionTrace
-	def sectionsExists(self, section):
+	def sectionExists(self, section):
 		"""
-		This method checks if a section exists.
+		This method checks if provided section exists.
+		
+		Usage::
+
+			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
+			>>> parser = Parser()
+			>>> parser.content = content
+			>>> parser.parse()
+			True
+			>>> print parser.sectionExists("Section A")
+			True
+			>>> print parser.sectionExists("Section C")
+			False
 
 		:param section: Section to check existence. ( String )
 		:return: Section existence. ( Boolean )
 		"""
+
+		if not self.__sections:
+			return
 
 		if section in self.__sections.keys():
 			LOGGER.debug("> '{0}' section exists in '{1}'.".format(section, self))
@@ -546,14 +618,29 @@ class Parser(io.File):
 	@foundations.exceptions.exceptionsHandler(None, False, KeyError)
 	def attributeExists(self, attribute, section):
 		"""
-		This method checks if an attribute exists.
+		This method checks if provided attribute exists.
+
+		Usage::
+
+			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
+			>>> parser = Parser()
+			>>> parser.content = content
+			>>> parser.parse()
+			True
+			>>> print parser.attributeExists("Attribute 1", "Section A")
+			True
+			>>> print parser.attributeExists("Attribute 2", "Section A")
+			False
 
 		:param attribute: Attribute to check existence. ( String )
 		:param section: Section to search attribute into. ( String )
 		:return: Attribute existence. ( Boolean )
 		"""
 
-		if namespace.removeNamespace(attribute) in self.getAttributes(section, True, False):
+		if not self.__sections:
+			return
+
+		if namespace.removeNamespace(attribute, rootOnly=True) in self.getAttributes(section, orderedDictionary=True, stripNamespaces=True):
 			LOGGER.debug("> '{0}' attribute exists in '{1}' section.".format(attribute, section))
 			return True
 		else:
@@ -562,21 +649,40 @@ class Parser(io.File):
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, KeyError)
-	def getAttributes(self, section, orderedDictionary=True, useNamespace=True, raise_=True):
+	def getAttributes(self, section, orderedDictionary=True, stripNamespaces=False, raise_=True):
 		"""
-		This method returns the section / files attributes.
+		This method returns provided section attributes.
 
-		:param section: Section containing the searched attribute. ( String )
-		:param useNamespace: Use namespace while getting attributes. ( Boolean )
+		Usage::
+
+			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
+			>>> parser = Parser()
+			>>> parser.content = content
+			>>> parser.parse()
+			True
+			>>> print parser.getAttributes("Section A")
+			OrderedDict([('Section A|Attribute 1', 'Value A')])
+			>>> print parser.getAttributes("Section A", orderedDictionary=False)
+			{'Section A|Attribute 1': 'Value A'}
+			>>> print parser.getAttributes("Section A", stripNamespaces=True)
+			OrderedDict([('Attribute 1', 'Value A')])
+
+		:param section: Section containing the requested attributes. ( String )
+		:param orderedDictionary: Use an :class:`collections.OrderedDict` dictionary to store the attributes. ( String )
+		:param stripNamespaces: Strip namespaces while retrieving attributes. ( Boolean )
 		:param raise_: Raise if section doesn't exists. ( Boolean )
-		:return: Attributes. ( Dictionary )
+		:return: Attributes. ( OrderedDict / Dictionary )
 		"""
 
 		LOGGER.debug("> Getting section '{0}' attributes.".format(section))
-
-		if self.sectionsExists(section):
+		if self.sectionExists(section):
 			dictionary = orderedDictionary and OrderedDict or dict
-			attributes = useNamespace and self.__sections[section] or dictionary(((namespace.removeNamespace(attribute), self.__sections[section][attribute]) for attribute in self.__sections[section].keys()))
+			attributes = dictionary()
+			if stripNamespaces:
+				for attribute, value in self.__sections[section].items():
+					attributes[namespace.removeNamespace(attribute, rootOnly=True)] = value
+			else:
+				attributes.update(self.__sections[section])
 			LOGGER.debug("> Attributes: '{0}'.".format(attributes))
 			return attributes
 		else:
@@ -586,16 +692,61 @@ class Parser(io.File):
 				LOGGER.warning("!> {0} | '{1}' section doesn't exists in '{2}' sections!".format(self.__class__.__name__, section, self.file))
 
 	@core.executionTrace
+	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	def getAllAttributes(self, orderedDictionary=True):
+		"""
+		This method returns all sections attributes.
+
+		Usage::
+
+			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
+			>>> parser = Parser()
+			>>> parser.content = content
+			>>> parser.parse()
+			True
+			>>> print parser.getAllAttributes()
+			OrderedDict([('Section A|Attribute 1', 'Value A'), ('Section B|Attribute 2', 'Value B')])
+			>>> print parser.getAllAttributes(orderedDictionary=False)
+			{'Section B|Attribute 2': 'Value B', 'Section A|Attribute 1': 'Value A'}
+
+		:param orderedDictionary: Use an :class:`collections.OrderedDict` dictionary to store the attributes. ( String )
+		:return: All sections / files attributes. ( OrderedDict / Dictionary )
+		"""
+
+		if not self.__sections:
+			return
+
+		dictionary = orderedDictionary and OrderedDict or dict
+		allAttributes = dictionary()
+		for attributes in self.__sections.values():
+			for attribute, value in attributes.items():
+				allAttributes[attribute] = value
+		return allAttributes
+
+	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, KeyError)
 	def getValue(self, attribute, section, encode=False):
 		"""
-		This method returns the requested attribute value abstracting the namespace.
+		This method returns requested attribute value.
+
+		Usage::
+
+			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
+			>>> parser = Parser()
+			>>> parser.content = content
+			>>> parser.parse()
+			True
+			>>> print parser.getValue("Attribute 1", "Section A")
+			Value A
 
 		:param attribute: Attribute name. ( String )
 		:param section: Section containing the searched attribute. ( String )
 		:param encode: Encode value to unicode. ( Boolean )
 		:return: Attribute value. ( String )
 		"""
+
+		if not self.__sections:
+			return
 
 		if self.attributeExists(attribute, section):
 			if attribute in self.__sections[section].keys():

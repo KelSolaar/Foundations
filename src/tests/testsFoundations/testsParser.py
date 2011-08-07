@@ -69,7 +69,7 @@ STANDARD_FILES_SECTIONS_AND_ATTRIBUTES = {"component" : OrderedDict([("Component
 															"namespaced" : ["Light1|LIGHTname", "Light1|LIGHTcolor", "Light1|LIGHTmulti", "Light1|LIGHTu", "Light1|LIGHTv"]})]),
 							"template" : OrderedDict([("Template", {"stripped" : ["Name", "Path", "HelpFile", "Release", "Date", "Author", "Email", "Url", "Software", "Version", "Renderer", "OutputScript", "Comment"],
 																"namespaced" : ["Template|Name", "Template|Path", "Template|HelpFile", "Template|Release", "Template|Date", "Template|Author", "Template|Email", "Template|Url", "Template|Software", "Template|Version", "Template|Renderer", "Template|OutputScript", "Template|Comment"]}),
-													("sIBL File Attributes", {"stripped" : ["BGfile", "BGheight", "EVfile", "EVmulti", "EVgamma", "REFfile", "REFmulti", "REFgamma", "SUNu", "SUNv", "SUNcolor", "SUNmulti", "Height", "North", "DynamicLights"],
+													("sIBL File Attributes", {"stripped" : ["Background|BGfile", "Background|BGheight", "Enviroment|EVfile", "Enviroment|EVmulti", "Enviroment|EVgamma", "Reflection|REFfile", "Reflection|REFmulti", "Reflection|REFgamma", "Sun|SUNu", "Sun|SUNv", "Sun|SUNcolor", "Sun|SUNmulti", "Header|Height", "Header|North", "Lights|DynamicLights"],
 																"namespaced" : ["sIBL File Attributes|Background|BGfile", "sIBL File Attributes|Background|BGheight", "sIBL File Attributes|Enviroment|EVfile", "sIBL File Attributes|Enviroment|EVmulti", "sIBL File Attributes|Enviroment|EVgamma", "sIBL File Attributes|Reflection|REFfile", "sIBL File Attributes|Reflection|REFmulti", "sIBL File Attributes|Reflection|REFgamma", "sIBL File Attributes|Sun|SUNu", "sIBL File Attributes|Sun|SUNv", "sIBL File Attributes|Sun|SUNcolor", "sIBL File Attributes|Sun|SUNmulti", "sIBL File Attributes|Header|Height", "sIBL File Attributes|Header|North", "sIBL File Attributes|Lights|DynamicLights"]}),
 													("Common Attributes", {"stripped" : ["createBackground", "createLighting", "createReflection", "createSun", "createLights"],
 																"namespaced" : ["Common Attributes|createBackground", "Common Attributes|createLighting", "Common Attributes|createReflection", "Common Attributes|createSun", "Common Attributes|createLights"]}),
@@ -77,7 +77,8 @@ STANDARD_FILES_SECTIONS_AND_ATTRIBUTES = {"component" : OrderedDict([("Component
 																"namespaced" : ["Additional Attributes|preserveSessionSettings", "Additional Attributes|createFeedBack", "Additional Attributes|createGround", "Additional Attributes|shadowCatcher", "Additional Attributes|hideLights", "Additional Attributes|physicalSun", "Additional Attributes|activateFinalGather", "Additional Attributes|activateLinearWorkflow", "Additional Attributes|framebufferGamma", "Additional Attributes|photographicTonemapper", "Additional Attributes|showCamerasDialog"]}),
 													("Remote Connection", {"stripped" : ["ConnectionType", "ExecutionCommand", "DefaultAddress", "DefaultPort"],
 																"namespaced" : ["Remote Connection|ConnectionType", "Remote Connection|ExecutionCommand", "Remote Connection|DefaultAddress", "Remote Connection|DefaultPort"]}),
-													("Script", None)])}
+													("Script", {"stripped" : ["_rawSectionContent"],
+																"namespaced" : ["Script|_rawSectionContent"]})])}
 
 DEFAULTS_FILE_SECTIONS_AND_ATTRIBUTES = {"_defaults" : {"_defaults|Default A" : "Attribute 'Default A' value", "_defaults|Default B" : "Attribute 'Default B' value"},
 									"Options A" : {"Options A|John Doe" : "Unknown"},
@@ -128,11 +129,11 @@ class ParserTestCase(unittest.TestCase):
 		parser = Parser(IBL_SET_FILE)
 		requiredAttributes = ("file",
 								"content",
-								"splitter",
+								"splitters",
 								"namespaceSplitter",
 								"commentLimiters",
 								"commentMarker",
-								"stringsMarkers",
+								"quotationMarkers",
 								"rawSectionContentIdentifier",
 								"defaultsSection",
 								"sections",
@@ -149,7 +150,7 @@ class ParserTestCase(unittest.TestCase):
 
 		parser = Parser(IBL_SET_FILE)
 		requiredMethods = ("parse",
-							"sectionsExists",
+							"sectionExists",
 							"attributeExists",
 							"getAttributes",
 							"getValue")
@@ -223,6 +224,19 @@ class ParserTestCase(unittest.TestCase):
 		for section in DEFAULTS_FILE_SECTIONS_AND_ATTRIBUTES.keys():
 			self.assertIn(section, parser.sections.keys())
 
+	def testNamespaces(self):
+		"""
+		This method tests **Parser** class attributes namespaces capabilities.
+		"""
+
+		for type, file in STANDARD_FILES.items():
+			parser = Parser(file)
+			parser.read()
+			parser.parse(rawSections=STANDARD_FILES_RAW_SECTIONS[type], namespaces=False)
+			for section in STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type]:
+					for attribute in parser.sections[section]:
+						self.assertIn(attribute, STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type][section]["stripped"])
+
 	def testStripWhitespaces(self):
 		"""
 		This method tests **Parser** class whitespaces preservation capabilities.
@@ -236,13 +250,13 @@ class ParserTestCase(unittest.TestCase):
 				self.assertIn(attribute, parser.sections[section].keys())
 				self.assertIn(value, parser.sections[section].values())
 
-	def testStripValues(self):
+	def testStripQuotationMarkers(self):
 		"""
-		This method tests **Parser** class values stripping preservation capabilities.
+		This method tests **Parser** class values quotation markers preservation capabilities.
 		"""
 
 		parser = Parser(STRIPPING_FILE)
-		parser.read() and parser.parse(stripValues=False)
+		parser.read() and parser.parse(stripQuotationMarkers=False)
 		for section in STRIPPING_FILE_SECTIONS_AND_ATTRIBUTES_STRIPPED.keys():
 			self.assertIn(section, parser.sections.keys())
 			for attribute, value in STRIPPING_FILE_SECTIONS_AND_ATTRIBUTES_STRIPPED[section].items():
@@ -262,16 +276,15 @@ class ParserTestCase(unittest.TestCase):
 
 	def testSectionExists(self):
 		"""
-		This method tests **Parser** class **sectionsExists** method.
+		This method tests **Parser** class **sectionExists** method.
 		"""
 
 		for type, file in STANDARD_FILES.items():
 			parser = Parser(file)
 			parser.read()
 			parser.parse(rawSections=STANDARD_FILES_RAW_SECTIONS[type])
-
-			self.assertTrue(parser.sectionsExists(STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type].keys()[0]))
-			self.assertFalse(parser.sectionsExists("Unknown"))
+			self.assertTrue(parser.sectionExists(STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type].keys()[0]))
+			self.assertFalse(parser.sectionExists("Unknown"))
 
 	def testAttributeExists(self):
 		"""
@@ -296,9 +309,23 @@ class ParserTestCase(unittest.TestCase):
 			parser.read()
 			parser.parse(rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			for section in STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type]:
-				if STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type][section]:
-					self.assertListEqual(parser.getAttributes(section, True, False).keys(), STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type][section]["stripped"])
+					self.assertListEqual(parser.getAttributes(section, orderedDictionary=True, stripNamespaces=True).keys(), STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type][section]["stripped"])
 					self.assertListEqual(parser.getAttributes(section).keys(), STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type][section]["namespaced"])
+
+	def testGetAllAttributes(self):
+		"""
+		This method tests **Parser** class **getAllAttributes** method.
+		"""
+
+		for type, file in STANDARD_FILES.items():
+			parser = Parser(file)
+			parser.read()
+			parser.parse(rawSections=STANDARD_FILES_RAW_SECTIONS[type])
+			attributes = parser.getAllAttributes()
+			testsAttributes = []
+			for section in STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type]:
+					testsAttributes.extend(STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type][section]["namespaced"])
+			self.assertListEqual(attributes.keys(), testsAttributes)
 
 	def testGetValue(self):
 		"""
