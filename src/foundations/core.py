@@ -68,11 +68,11 @@ def setVerbosityLevel(verbosityLevel):
 
 	Available verbosity levels::
 
-		- 0: Critical.
-		- 1: Error.
-		- 2: Warning.
-		- 3: Info.
-		- 4: Debug.
+		0: Critical.
+		1: Error.
+		2: Warning.
+		3: Info.
+		4: Debug.
 
 	:param verbosityLevel: Verbosity level. ( Integer )
 	:return: Definition success. ( Boolean )
@@ -216,10 +216,10 @@ def getObjectName(object):
 	
 	Examples names::
 
-		- 'foundations.common | getUserApplicationDatasDirectory()'.
-		- '__main__ | _setUserApplicationDatasDirectory()'.
-		- '__main__ | Preferences.__init__()'.
-		- 'UndefinedObject'.
+		'foundations.common | getUserApplicationDatasDirectory()'.
+		'__main__ | _setUserApplicationDatasDirectory()'.
+		'__main__ | Preferences.__init__()'.
+		'UndefinedObject'.
 
 	:param object: Object. ( Object )
 	:return: Object name. ( String )

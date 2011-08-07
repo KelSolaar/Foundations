@@ -200,7 +200,7 @@ class File(object):
 def setLocalDirectory(path):
 	"""
 	| This definition creates a directory with provided path.
-	| The directory creation is delegated to Python :func: `os.makedirs` definition.
+	| The directory creation is delegated to Python :func:`os.makedirs` definition.
 	| The provided directories hierarchy will be recursively created. 
 	
 	:param path: Directory path. ( String )

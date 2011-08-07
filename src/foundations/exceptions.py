@@ -102,9 +102,9 @@ def exceptionsHandler(handler=None, raise_=False, *args):
 @core.executionTrace
 def defaultExceptionsHandler(exception, origin, *args, **kwargs):
 	"""
-	| This definition provides the default exception handler.
+	This definition provides the default exception handler.
 	
-	This handler verboses some informations about the handled exception::
+	This handler verboses some informations about the handled exception:
 	
 		- Exception origin.
 		- Exception class.
