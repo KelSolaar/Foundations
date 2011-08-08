@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Rotating backup Module.
+	This module defines the :class:`RotatingBackup` class.
 
 **Others:**
 	Code extracted from rotatingbackup.py written by leo.ss.pku@gmail.com
@@ -19,13 +19,13 @@
 #***********************************************************************************************
 import logging
 import os
-import shutil
 
 #***********************************************************************************************
 #***	Internal imports.
 #***********************************************************************************************
 import foundations.core as core
 import foundations.exceptions
+import foundations.io
 from foundations.globals.constants import Constants
 
 #***********************************************************************************************
@@ -45,7 +45,7 @@ LOGGER = logging.getLogger(Constants.logger)
 #***********************************************************************************************
 class RotatingBackup(object):
 	"""
-	This class is the **RotatingBackup** class.
+	This class provides a rotating backup system.
 	"""
 
 	@core.executionTrace
@@ -53,9 +53,30 @@ class RotatingBackup(object):
 		"""
 		This method initializes the class.
 
+		.. warning::
+
+			Backups destination folder should not be the same than the folder containing the source to be backuped!
+
+		Usage::
+		
+			>>> file = "File.txt"
+			>>> destination = "backup"
+			>>> backup = RotatingBackup(file, destination)
+			>>> backup.backup()
+			True
+			>>> for i in range(3):
+			...	backup.backup()
+			...
+			True
+			True
+			True
+			>>> import os
+			>>> print os.listdir(destination)
+			['File.txt', 'File.txt.1', 'File.txt.2', 'File.txt.3']
+
 		:param source: Backup source. ( String )
 		:param destination: Backup destination. ( String )
-		:param count: Backup count. ( Integer )
+		:param count: Backups count. ( Integer )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -186,52 +207,15 @@ class RotatingBackup(object):
 		if not self.__source and not self.__destination:
 			return True
 
-		os.path.exists(self.__destination) or os.mkdir(self.__destination)
+		os.path.exists(self.__destination) or foundations.io.setDirectory(self.__destination)
 		destination = os.path.join(self.__destination, os.path.basename(self.__source))
 		for i in range(self.__count - 1, 0, -1):
 			sfn = "{0}.{1}".format(destination, i)
 			dfn = "{0}.{1}".format(destination, i + 1)
 			if os.path.exists(sfn):
 				if os.path.exists(dfn):
-					self.delete(dfn)
+					foundations.io.remove(dfn)
 				os.renames(sfn, dfn)
 		os.path.exists(destination) and os.rename(destination, destination + ".1")
-		self.copy(self.__source, destination)
-		return True
-
-	@core.executionTrace
-	@foundations.exceptions.exceptionsHandler(None, False, OSError)
-	def copy(self, source, destination):
-		"""
-		This method copies the provided path to destination.
-
-		:param source: Source to copy from. ( String )
-		:param destination: Destination to copy to. ( String )
-		:return: Method success. ( Boolean )
-		"""
-
-		LOGGER.debug("> Copying '{0}' file to '{1}'.".format(source, destination))
-
-		if os.path.isfile(source):
-			shutil.copyfile(source, destination)
-		else:
-			shutil.copytree(source, destination)
-		return True
-
-	@core.executionTrace
-	@foundations.exceptions.exceptionsHandler(None, False, OSError)
-	def delete(self, path):
-		"""
-		This method deletes the provided resource.
-
-		:param path: Resource to delete. ( String )
-		:return: Method success. ( Boolean )
-		"""
-
-		LOGGER.debug("> Removing '{0}' file.".format(path))
-
-		if os.path.isfile(path):
-			os.remove(path)
-		elif os.path.isdir(path):
-			shutil.rmtree(path)
+		foundations.io.copy(self.__source, destination)
 		return True

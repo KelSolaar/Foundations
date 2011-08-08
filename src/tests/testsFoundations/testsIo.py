@@ -118,21 +118,54 @@ class FileTestCase(unittest.TestCase):
 		self.assertListEqual(ioFile.content, FILE_CONTENT + FILE_CONTENT)
 		os.remove(ioFile.file)
 
-class SetLocalDirectoryTestCase(unittest.TestCase):
+class SetDirectoryTestCase(unittest.TestCase):
 	"""
-	This class is the **SetLocalDirectoryTestCase** class.
+	This class is the **SetDirectoryTestCase** class.
 	"""
 
-	def testSetLocalDirectory(self):
+	def testSetDirectory(self):
 		"""
-		This method tests **setLocalDirectory** definition.
+		This method tests **setDirectory** definition.
 		"""
 
 		tempDirectory = tempfile.mkdtemp()
-		directoriesTree = "tests/io/setLocalDirectory"
+		directoriesTree = "tests/io/setDirectory"
 		directory = os.path.join(tempDirectory, directoriesTree)
-		foundations.io.setLocalDirectory(directory)
+		foundations.io.setDirectory(directory)
 		self.assertTrue(os.path.exists(directory))
+		shutil.rmtree(tempDirectory)
+
+class CopyTestCase(unittest.TestCase):
+	"""
+	This class is the **CopyTestCase** class.
+	"""
+
+	def testCopy(self):
+		"""
+		This method tests **copy** definition.
+		"""
+
+		tempDirectory = tempfile.mkdtemp()
+		destination = os.path.join(tempDirectory, os.path.basename(TEST_FILE))
+		foundations.io.copy(TEST_FILE, destination)
+		self.assertTrue(os.path.exists(destination))
+		shutil.rmtree(tempDirectory)
+
+class RemoveTestCase(unittest.TestCase):
+	"""
+	This class is the **RemoveTestCase** class.
+	"""
+
+	def testRemove(self):
+		"""
+		This method tests **remove** definition.
+		"""
+
+		tempDirectory = tempfile.mkdtemp()
+		destination = os.path.join(tempDirectory, os.path.basename(TEST_FILE))
+		foundations.io.copy(TEST_FILE, destination)
+		foundations.io.remove(destination)
+		self.assertTrue(not os.path.exists(destination))
 		shutil.rmtree(tempDirectory)
 
 if __name__ == "__main__":

@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module provides file input / output manipulation objects.
+	This module provides file input / output objects and resources manipulation objects.
 
 **Others:**
 
@@ -19,6 +19,7 @@
 #***********************************************************************************************
 import logging
 import os
+import shutil
 
 #***********************************************************************************************
 #***	Internal imports.
@@ -197,11 +198,10 @@ class File(object):
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, OSError)
-def setLocalDirectory(path):
+def setDirectory(path):
 	"""
 	| This definition creates a directory with provided path.
-	| The directory creation is delegated to Python :func:`os.makedirs` definition.
-	| The provided directories hierarchy will be recursively created. 
+	| The directory creation is delegated to Python :func:`os.makedirs` definition so that directories hierarchy is recursively created. 
 	
 	:param path: Directory path. ( String )
 	:return: Definition success. ( Boolean )
@@ -214,3 +214,40 @@ def setLocalDirectory(path):
 	else:
 		LOGGER.debug("> '{0}' directory already exist, skipping creation!".format(path))
 		return True
+
+@core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, OSError)
+def copy(source, destination):
+	"""
+	This definition copies the provided file or directory to destination.
+
+	:param source: Source to copy from. ( String )
+	:param destination: Destination to copy to. ( String )
+	:return: Method success. ( Boolean )
+	"""
+
+	if os.path.isfile(source):
+		LOGGER.debug("> Copying '{0}' file to '{1}'.".format(source, destination))
+		shutil.copyfile(source, destination)
+	else:
+		LOGGER.debug("> Copying '{0}' directory to '{1}'.".format(source, destination))
+		shutil.copytree(source, destination)
+	return True
+
+@core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, OSError)
+def remove(path):
+	"""
+	This definiton removes the provided file or directory.
+
+	:param path: Resource to remove. ( String )
+	:return: Method success. ( Boolean )
+	"""
+
+	if os.path.isfile(path):
+		LOGGER.debug("> Removing '{0}' file.".format(path))
+		os.remove(path)
+	elif os.path.isdir(path):
+		LOGGER.debug("> Removing '{0}' directory.".format(path))
+		shutil.rmtree(path)
+	return True

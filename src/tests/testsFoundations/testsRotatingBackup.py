@@ -68,7 +68,7 @@ class RotatingBackupTestCase(unittest.TestCase):
 		"""
 
 		rotatingBackup = RotatingBackup()
-		requiredMethods = ("backup", "copy", "delete")
+		requiredMethods = ("backup",)
 
 		for method in requiredMethods:
 			self.assertIn(method, dir(rotatingBackup))
@@ -87,33 +87,6 @@ class RotatingBackupTestCase(unittest.TestCase):
 			self.assertTrue(os.path.exists(os.path.join(tempDirectory, os.path.basename("{0}.{1}".format(TEST_FILE, i)))))
 		rotatingBackup.backup()
 		self.assertFalse(os.path.exists(os.path.join(tempDirectory, os.path.basename("{0}.4".format(TEST_FILE)))))
-		shutil.rmtree(tempDirectory)
-
-	def testCopy(self):
-		"""
-		This method tests **RotatingBackup** class **copy** method.
-		"""
-
-		tempDirectory = tempfile.mkdtemp()
-		rotatingBackup = RotatingBackup(TEST_FILE, tempDirectory, 3)
-		for element in (TEST_FILE, TEST_DIRECTORY):
-			destination = os.path.join(tempDirectory, os.path.basename(element))
-			rotatingBackup.copy(element, destination)
-			self.assertTrue(os.path.exists(destination))
-		shutil.rmtree(tempDirectory)
-
-	def testDelete(self):
-		"""
-		This method tests **RotatingBackup** class **delete** method.
-		"""
-
-		tempDirectory = tempfile.mkdtemp()
-		rotatingBackup = RotatingBackup(TEST_FILE, tempDirectory, 3)
-		for element in (TEST_FILE, TEST_DIRECTORY):
-			destination = os.path.join(tempDirectory, os.path.basename(element))
-			rotatingBackup.copy(element, destination)
-			rotatingBackup.delete(destination)
-			self.assertTrue(not os.path.exists(destination))
 		shutil.rmtree(tempDirectory)
 
 if __name__ == "__main__":
