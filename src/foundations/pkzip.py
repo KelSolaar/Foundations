@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Zip file manipulation Module.
+	This module provides archives files manipulation objects.
 
 **Others:**
 
@@ -55,7 +55,15 @@ class Pkzip(object):
 		"""
 		This method initializes the class.
 
-		:param archive: Variable to manipulate. ( String )
+		Usage::
+
+			>>> import tempfile
+			>>> tempDirectory = tempfile.mkdtemp()
+			>>> zipFile = Pkzip("zipFile.zip")
+			>>> zipFile.extract(tempDirectory)
+			True
+
+		:param archive: Archive to manipulate. ( String )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -107,8 +115,9 @@ class Pkzip(object):
 	@foundations.exceptions.exceptionsHandler(None, False, OSError)
 	def extract(self, target):
 		"""
-		This method extracts the archive file to the provided directory.
+		This method extracts archive file to provided directory.
 
+		:param target: Target extraction directory. ( String )
 		:return: Method success. ( Boolean )
 		"""
 
