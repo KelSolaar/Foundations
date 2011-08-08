@@ -42,7 +42,7 @@ LOGGER = logging.getLogger(Constants.logger)
 #***********************************************************************************************
 #***	Module classes and definitions.
 #***********************************************************************************************
-def exceptionsHandler(handler=None, raise_=False, *args):
+def exceptionsHandler(handler=None, raiseException=False, *args):
 	"""
 	| This decorator is used for exceptions handling.
 	| It's possible to specify an user defined exception handler, if not, :func:`foundations.exceptions.defaultExceptionsHandler` handler will be used.
@@ -58,7 +58,7 @@ def exceptionsHandler(handler=None, raise_=False, *args):
 			return value / 0;
 
 	:param handler: Custom handler. ( Object )
-	:param raise_: Raise the exception. ( Boolean )
+	:param raiseException: Raise the exception. ( Boolean )
 	:param \*args: Exceptions. ( Exceptions )
 	:return: Object. ( Object )
 	"""
@@ -94,7 +94,7 @@ def exceptionsHandler(handler=None, raise_=False, *args):
 			except Exception as exception:
 				handler(exception , origin, *args, **kwargs)
 			finally:
-				if raise_ and exception:
+				if raiseException and exception:
 					raise exception
 		return function
 	return wrapper

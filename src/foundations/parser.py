@@ -649,7 +649,7 @@ class Parser(io.File):
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, KeyError)
-	def getAttributes(self, section, orderedDictionary=True, stripNamespaces=False, raise_=True):
+	def getAttributes(self, section, orderedDictionary=True, stripNamespaces=False, raiseExceptions=True):
 		"""
 		This method returns provided section attributes.
 
@@ -670,7 +670,7 @@ class Parser(io.File):
 		:param section: Section containing the requested attributes. ( String )
 		:param orderedDictionary: Use an :class:`collections.OrderedDict` dictionary to store the attributes. ( String )
 		:param stripNamespaces: Strip namespaces while retrieving attributes. ( Boolean )
-		:param raise_: Raise if section doesn't exists. ( Boolean )
+		:param raiseExceptions: Raise if section doesn't exists. ( Boolean )
 		:return: Attributes. ( OrderedDict / Dictionary )
 		"""
 
@@ -686,7 +686,7 @@ class Parser(io.File):
 			LOGGER.debug("> Attributes: '{0}'.".format(attributes))
 			return attributes
 		else:
-			if raise_:
+			if raiseExceptions:
 				raise KeyError("'{0}' section doesn't exists in '{1}' sections!".format(section, self.file))
 			else:
 				LOGGER.warning("!> {0} | '{1}' section doesn't exists in '{2}' sections!".format(self.__class__.__name__, section, self.file))
