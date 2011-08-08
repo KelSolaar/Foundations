@@ -52,8 +52,9 @@ class GetNiceNameTestCase(unittest.TestCase):
 		self.assertIsInstance(strings.getNiceName("testGetNiceName"), str)
 		self.assertEqual(strings.getNiceName("testGetNiceName"), "Test Get Nice Name")
 		self.assertEqual(strings.getNiceName("TestGetNiceName"), "Test Get Nice Name")
-		self.assertEqual(strings.getNiceName("_testGetNiceName"), "_test Get Nice Name")
-		self.assertEqual(strings.getNiceName("Test Get NiceName"), "Test Get NiceName")
+		self.assertEqual(strings.getNiceName("_testGetNiceName"), "_Test Get Nice Name")
+		self.assertEqual(strings.getNiceName("Test Get NiceName"), "Test Get Nice Name")
+		self.assertEqual(strings.getNiceName("testGetMeANiceName"), "Test Get Me A Nice Name")
 
 class GetVersionRankTestCase(unittest.TestCase):
 	"""

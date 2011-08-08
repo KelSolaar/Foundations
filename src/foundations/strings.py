@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Strings Module.
+	This module defines various strings manipulation objects.
 
 **Others:**
 
@@ -22,6 +22,7 @@ import os
 import platform
 import posixpath
 import re
+import string
 
 #***********************************************************************************************
 #***	Internal imports.
@@ -49,36 +50,34 @@ LOGGER = logging.getLogger(Constants.logger)
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getNiceName(name):
 	"""
-	This definition converts a string to nice string: currentLogText -> current log text.
+	This definition converts a string to nice string: **currentLogText** -> **Current Log Text**.
+
+	Usage::
+
+		>>> getNiceName("getMeANiceName")
+		'Get Me A Nice Name'
+		>>> getNiceName("__getMeANiceName")
+		'__Get Me A Nice Name'
 
 	:param name: Current string to be nicified. ( String )
 	:return: Nicified string. ( String )
 	"""
 
-	niceName = ""
-	for index in range(len(name)):
-		if index == 0:
-			niceName += name[index].upper()
-		else:
-			if name[index].upper() == name[index]:
-				if index + 1 < len(name):
-					if name[index + 1].upper() != name[index + 1]:
-						niceName += " " + name[index]
-					else:
-						LOGGER.debug("> '{0}' to '{1}'.".format(name, name))
-						return name
-				else:
-					niceName += name[index]
-			else:
-				niceName += name[index]
-	LOGGER.debug("> '{0}' to '{1}'.".format(name, niceName))
-	return niceName
+	chunks = re.sub('(.)([A-Z][a-z]+)', r'\1 \2', name)
+	return " ".join(element.title() for element in re.sub('([a-z0-9])([A-Z])', r'\1 \2', chunks).split())
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getVersionRank(version):
 	"""
 	This definition converts a version string to it's rank.
+
+	Usage::
+
+		>>> getVersionRank("4.2.8")
+		428
+		>>> print getVersionRank("4.2.8").__class__
+		<type 'int'>
 
 	:param version: Current version to calculate rank. ( String )
 	:return: Rank. ( Integer )
@@ -95,6 +94,11 @@ def getSplitextBasename(path):
 	"""
 	This definition get the basename of a path without its extension.
 
+	Usage::
+
+		>>> getSplitextBasename("/Users/JohnDoe/Documents/Test.txt")
+		'Test'
+
 	:param path: Path to extract the basename without extension. ( String )
 	:return: Splitext basename. ( String )
 	"""
@@ -109,6 +113,11 @@ def getWords(datas):
 	"""
 	This method extracts the words from provided string.
 
+	Usage::
+
+		>>> getWords("Users are: John Doe, Jane Doe, Z6PO.")
+		['Users', 'are', 'John', 'Doe', 'Jane', 'Doe', 'Z6PO']
+
 	:param datas: Datas to extract words from. ( String )
 	:return: Words. ( List )
 	"""
@@ -122,6 +131,15 @@ def getWords(datas):
 def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 	"""
 	This method filters the words using the provided filters.
+
+	Usage::
+
+		>>> filterWords(["Users", "are", "John", "Doe", "Jane", "Doe", "Z6PO"], filtersIn=("John", "Doe"))
+		['John', 'Doe', 'Doe']
+		>>> filterWords(["Users", "are", "John", "Doe", "Jane", "Doe", "Z6PO"], filtersIn=("[\w]*r",))
+		['Users', 'are']
+		>>> filterWords(["Users", "are", "John", "Doe", "Jane", "Doe", "Z6PO"], filtersOut=("[\w]*o",))
+		['Users', 'are', 'Jane', 'Z6PO']
 
 	:param filtersIn: Regex filters in list. ( List / Tuple )
 	:param filtersIn: Regex filters out list. ( List / Tuple )
@@ -160,6 +178,12 @@ def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 def replace(string, datas):
 	"""
 	This definition replaces the datas occurences in the string.
+
+	Usage::
+
+		>>> replace("Users are: John Doe, Jane Doe, Z6PO.", {"John" : "Luke", "Jane" : "Anakin", "Doe" : "Skywalker", "Z6PO" : "R2D2"})
+		'Users are: Luke Skywalker, Anakin Skywalker, R2D2.'
+
 	:param string: String to manipulate. ( String )
 	:param datas: Replacement occurences. ( Dictionary )
 	:return: Manipulated string. ( String )
@@ -175,6 +199,11 @@ def toForwardSlashes(datas):
 	"""
 	This definition converts backward slashes to forward slashes.
 
+	Usage::
+
+		>>> toForwardSlashes("To\Forward\Slashes")
+		'To/Forward/Slashes'
+
 	:param datas: Datas to convert. ( String )
 	:return: Converted path. ( String )
 	"""
@@ -187,6 +216,11 @@ def toForwardSlashes(datas):
 def toBackwardSlashes(datas):
 	"""
 	This definition converts forward slashes to backward slashes.
+
+	Usage::
+
+		>>> toBackwardSlashes("/Users/JohnDoe/Documents")
+		'\\Users\\JohnDoe\\Documents'
 
 	:param datas: Datas to convert. ( String )
 	:return: Converted path. ( String )
@@ -202,11 +236,16 @@ def toPosixPath(path):
 	"""
 	This definition converts Windows path to Posix path while stripping drives letters and network server slashes.
 
+	Usage::
+
+		>>> toPosixPath("c:\\Users\\JohnDoe\\Documents")
+		'/Users/JohnDoe/Documents'
+
 	:param path: Windows path. ( String )
 	:return: Path converted to Posix path. ( String )
 	"""
 
-	posixPath = posixpath.normpath(toForwardSlashes(re.sub("[a-zA-Z]:\\\\|\\\\\\\\", "/", os.path.normpath(path))))
+	posixPath = posixpath.normpath(toForwardSlashes(re.sub(r"[a-zA-Z]:\\|\\\\", "/", os.path.normpath(path))))
 	LOGGER.debug("> Stripped converted to Posix path: '{0}'.".format(posixPath))
 	return posixPath
 
@@ -215,6 +254,11 @@ def toPosixPath(path):
 def getNormalizedPath(path):
 	"""
 	This definition normalizes a path, escaping slashes if needed on Windows.
+
+	Usage::
+
+		>>> getNormalizedPath("C:\Users\JohnDoe\Documents")
+		'C:\\Users\\JohnDoe\\Documents'
 
 	:param path: Path to normalize. ( String )
 	:return: Normalized path. ( String )
@@ -235,6 +279,13 @@ def isEmail(datas):
 	"""
 	This definition check if provided datas string is an email.
 
+	Usage::
+
+		>>> isEmail("john.doe@domain.com")
+		True
+		>>> isEmail("john.doe:domain.com")
+		False
+
 	:param datas: Datas to check. ( String )
 	:return: Is email. ( Boolean )
 	"""
@@ -251,6 +302,13 @@ def isEmail(datas):
 def isWebsite(datas):
 	"""
 	This definition check if provided datas string is a website.
+	
+	Usage::
+
+		>>> isWebsite("http://www.domain.com")
+		True
+		>>> isWebsite("domain.com")
+		False
 
 	:param datas: Datas to check. ( String )
 	:return: Is website. ( Boolean )
