@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Stream object Module.
+	This module defines the :class:`foundations.streamObject.StreamObject` class.
 
 **Others:**
 
@@ -29,7 +29,7 @@ __status__ = "Production"
 #***********************************************************************************************
 class StreamObject(object):
 	"""
-	This class is the **StreamObject** class.
+	This class is intented to be used as a stream object for :class:`logging.StreamHandler` logging handler. 
 	"""
 
 	def __init__(self, stream=None):
