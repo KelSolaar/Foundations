@@ -7,7 +7,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Pkzip tests Module.
+	This module defines units tests for :mod:`foundations.pkzip` module.
 
 **Others:**
 
@@ -48,7 +48,7 @@ TREE_HIERARCHY = ("level_0", "loremIpsum.txt", "standard.ibl", "standard.rc", "s
 #***********************************************************************************************
 class PkzipTestCase(unittest.TestCase):
 	"""
-	This class is the **PkzipTestCase** class.
+	This class defines :class:`foundations.pkzip.Pkzip` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
@@ -73,9 +73,9 @@ class PkzipTestCase(unittest.TestCase):
 		for method in requiredMethods:
 			self.assertIn(method, dir(zipFile))
 
-	def testRead(self):
+	def testExtract(self):
 		"""
-		This method tests **Pkzip** class **extract** method.
+		This method tests :meth:`foundations.pkzip.Pkzip.extract` method.
 		"""
 
 		zipFile = Pkzip(TEST_FILE)
