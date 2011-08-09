@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Tests Suite Module.
+	This module runs the tests suite.
 
 **Others:**
 
@@ -38,6 +38,12 @@ __status__ = "Production"
 #***	Module classes and definitions.
 #***********************************************************************************************
 def testsSuite():
+	"""
+	This definitions runs the tests suite.
+	
+	:return: Tests suite. ( TestSuite )
+	"""
+
 	testsLoader = unittest.TestLoader()
 	return testsLoader.discover(os.path.dirname(__file__))
 
