@@ -57,7 +57,7 @@ LIBRARIES_TESTS_CASES = {"freeImage":{"FreeImage_GetVersion":"3.13.1",
 #***********************************************************************************************
 class LibraryTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.library.Library` units tests methods.
+	This class defines :class:`foundations.library.Library` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):

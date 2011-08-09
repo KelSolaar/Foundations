@@ -49,7 +49,7 @@ FILE_CONTENT = ["Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed d
 #***********************************************************************************************
 class FileTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.io.File` units tests methods.
+	This class defines :class:`foundations.io.File` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
@@ -120,7 +120,7 @@ class FileTestCase(unittest.TestCase):
 
 class SetDirectoryTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.io.setDirectory` units tests methods.
+	This class defines :func:`foundations.io.setDirectory` definition units tests methods.
 	"""
 
 	def testSetDirectory(self):
@@ -137,7 +137,7 @@ class SetDirectoryTestCase(unittest.TestCase):
 
 class CopyTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.io.copy` units tests methods.
+	This class defines :func:`foundations.io.copy` definition units tests methods.
 	"""
 
 	def testCopy(self):
@@ -153,7 +153,7 @@ class CopyTestCase(unittest.TestCase):
 
 class RemoveTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.io.remove` units tests methods.
+	This class defines :func:`foundations.io.remove` definition units tests methods.
 	"""
 
 	def testRemove(self):

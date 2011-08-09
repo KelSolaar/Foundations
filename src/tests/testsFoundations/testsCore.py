@@ -43,7 +43,7 @@ __status__ = "Production"
 #***********************************************************************************************
 class StandardMessageHookTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.core.StandardMessageHook` units tests methods.
+	This class defines :class:`foundations.core.StandardMessageHook` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
@@ -70,7 +70,7 @@ class StandardMessageHookTestCase(unittest.TestCase):
 
 class SetVerbosityLevelTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.core.setVerbosityLevel` units tests methods.
+	This class defines :func:`foundations.core.setVerbosityLevel` definition units tests methods.
 	"""
 
 	def testSetVerbosityLevel(self):
@@ -86,7 +86,7 @@ class SetVerbosityLevelTestCase(unittest.TestCase):
 
 class GetFrameTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.core.getFrame` units tests methods.
+	This class defines :func:`foundations.core.getFrame` definition units tests methods.
 	"""
 
 	def testGetFrame(self):
@@ -98,7 +98,7 @@ class GetFrameTestCase(unittest.TestCase):
 
 class GetCodeLayerNameTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.core.getCodeLayerName` units tests methods.
+	This class defines :func:`foundations.core.getCodeLayerName` definition units tests methods.
 	"""
 
 	def testGetCodeLayerName(self):
@@ -112,7 +112,7 @@ class GetCodeLayerNameTestCase(unittest.TestCase):
 
 class GetModuleTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.core.getModule` units tests methods.
+	This class defines :func:`foundations.core.getModule` definition units tests methods.
 	"""
 
 	def testGetModule(self):
@@ -125,7 +125,7 @@ class GetModuleTestCase(unittest.TestCase):
 
 class GetObjectNameTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.core.getObjectName` units tests methods.
+	This class defines :func:`foundations.core.getObjectName` definition units tests methods.
 	"""
 
 	def testGetObjectName(self):

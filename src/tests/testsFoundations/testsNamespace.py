@@ -39,7 +39,7 @@ __status__ = "Production"
 #***********************************************************************************************
 class SetNamespaceTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.namespace.setNamespace` units tests methods.
+	This class defines :func:`foundations.namespace.setNamespace` definition units tests methods.
 	"""
 
 	def testSetNamespace(self):
@@ -53,7 +53,7 @@ class SetNamespaceTestCase(unittest.TestCase):
 
 class GetNamespaceTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.namespace.getNamespace` units tests methods.
+	This class defines :func:`foundations.namespace.getNamespace` definition units tests methods.
 	"""
 
 	def testGetNamespace(self):
@@ -69,7 +69,7 @@ class GetNamespaceTestCase(unittest.TestCase):
 
 class RemoveNamespaceTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.namespace.removeNamespace` units tests methods.
+	This class defines :func:`foundations.namespace.removeNamespace` definition units tests methods.
 	"""
 
 	def testRemoveNamespace(self):

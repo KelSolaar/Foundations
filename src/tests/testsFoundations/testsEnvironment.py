@@ -41,7 +41,7 @@ __status__ = "Production"
 #***********************************************************************************************
 class EnvironmentTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.environment.Environment` units tests methods.
+	This class defines :class:`foundations.environment.Environment` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):

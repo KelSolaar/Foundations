@@ -77,7 +77,7 @@ class ExceptionsTestCase(unittest.TestCase):
 
 class AttributeStructureParsingErrorTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.exceptions.AttributeStructureParsingError` units tests methods.
+	This class defines :class:`foundations.exceptions.AttributeStructureParsingError` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):

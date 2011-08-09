@@ -40,7 +40,7 @@ __status__ = "Production"
 #***********************************************************************************************
 class GetSystemApplicationDatasDirectoryTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.getSystemApplicationDatasDirectory` units tests methods.
+	This class defines :func:`foundations.common.getSystemApplicationDatasDirectory` definition units tests methods.
 	"""
 
 	def testGetSystemApplicationDatasDirectory(self):
@@ -54,7 +54,7 @@ class GetSystemApplicationDatasDirectoryTestCase(unittest.TestCase):
 
 class GetUserApplicationDatasDirectoryTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.getUserApplicationDatasDirectory` units tests methods.
+	This class defines :func:`foundations.common.getUserApplicationDatasDirectory` definition units tests methods.
 	"""
 
 	def testGetUserApplicationDatasDirectory(self):
