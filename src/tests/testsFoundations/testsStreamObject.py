@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	StreamObject tests Module.
+	This module defines units tests for :mod:`foundations.streamObject` module.
 
 **Others:**
 
@@ -39,7 +39,7 @@ __status__ = "Production"
 #***********************************************************************************************
 class StreamObjectTestCase(unittest.TestCase):
 	"""
-	This class is the **StreamObjectTestCase** class.
+	This class defines :class:`foundations.streamObject.StreamObject` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
