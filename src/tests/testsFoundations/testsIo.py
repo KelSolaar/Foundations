@@ -57,25 +57,23 @@ class FileTestCase(unittest.TestCase):
 		This method tests presence of required attributes.
 		"""
 
-		ioFile = File(TEST_FILE)
 		requiredAttributes = ("file",
 								"content")
 
 		for attribute in requiredAttributes:
-			self.assertIn(attribute, dir(ioFile))
+			self.assertIn(attribute, dir(File))
 
 	def testRequiredMethods(self):
 		"""
 		This method tests presence of required methods.
 		"""
 
-		ioFile = File(TEST_FILE)
 		requiredMethods = ("read",
 							"write",
 							"append")
 
 		for method in requiredMethods:
-			self.assertIn(method, dir(ioFile))
+			self.assertIn(method, dir(File))
 
 	def testRead(self):
 		"""

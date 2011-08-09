@@ -65,30 +65,28 @@ class LibraryTestCase(unittest.TestCase):
 		This method tests presence of required attributes.
 		"""
 
-		library = Library(LIBRARIES["freeImage"], LIBRARIES_FUNCTIONS["freeImage"])
 		requiredAttributes = ("libraryInstantiated",
 								"libraryPath",
 								"functions",
 								"library")
 		for attribute in requiredAttributes:
-			self.assertIn(attribute, dir(library))
+			self.assertIn(attribute, dir(Library))
 
 		requiredClassAttributes = ("librariesInstances",
 								"callback",)
 		for classAttribute in requiredClassAttributes:
-			self.assertIn(classAttribute, dir(library))
+			self.assertIn(classAttribute, dir(Library))
 
 	def testRequiredMethods(self):
 		"""
 		This method tests presence of required methods.
 		"""
 
-		library = Library(LIBRARIES["freeImage"], LIBRARIES_FUNCTIONS["freeImage"])
 		requiredMethods = ("bindLibrary",
 							"bindFunction")
 
 		for method in requiredMethods:
-			self.assertIn(method, dir(library))
+			self.assertIn(method, dir(Library))
 
 	def testBindFunction(self):
 		"""

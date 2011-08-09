@@ -57,24 +57,22 @@ class WalkerTestCase(unittest.TestCase):
 		This method tests presence of required attributes.
 		"""
 
-		walker = Walker(RESOURCES_DIRECTORY)
 		requiredAttributes = ("root",
 								"hashSize",
 								"files")
 
 		for attribute in requiredAttributes:
-			self.assertIn(attribute, dir(walker))
+			self.assertIn(attribute, dir(Walker))
 
 	def testRequiredMethods(self):
 		"""
 		This method tests presence of required methods.
 		"""
 
-		walker = Walker(RESOURCES_DIRECTORY)
 		requiredMethods = ("walk",)
 
 		for method in requiredMethods:
-			self.assertIn(method, dir(walker))
+			self.assertIn(method, dir(Walker))
 
 	def testWalk(self):
 		"""

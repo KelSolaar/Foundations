@@ -49,23 +49,21 @@ class EnvironmentTestCase(unittest.TestCase):
 		This method tests presence of required attributes.
 		"""
 
-		environment = Environment()
 		requiredAttributes = ("variables",)
 
 		for attribute in requiredAttributes:
-			self.assertIn(attribute, dir(environment))
+			self.assertIn(attribute, dir(Environment))
 
 	def testRequiredMethods(self):
 		"""
 		This method tests presence of required methods.
 		"""
 
-		environment = Environment()
 		requiredMethods = ("getValues",
 						"setValues")
 
 		for method in requiredMethods:
-			self.assertIn(method, dir(environment))
+			self.assertIn(method, dir(Environment))
 
 	def testGetValues(self):
 		"""

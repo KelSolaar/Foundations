@@ -54,24 +54,22 @@ class RotatingBackupTestCase(unittest.TestCase):
 		This method tests presence of required attributes.
 		"""
 
-		rotatingBackup = RotatingBackup()
 		requiredAttributes = ("source",
 							"destination",
 							"count")
 
 		for attribute in requiredAttributes:
-			self.assertIn(attribute, dir(rotatingBackup))
+			self.assertIn(attribute, dir(RotatingBackup))
 
 	def testRequiredMethods(self):
 		"""
 		This method tests presence of required methods.
 		"""
 
-		rotatingBackup = RotatingBackup()
 		requiredMethods = ("backup",)
 
 		for method in requiredMethods:
-			self.assertIn(method, dir(rotatingBackup))
+			self.assertIn(method, dir(RotatingBackup))
 
 	def testBackup(self):
 		"""

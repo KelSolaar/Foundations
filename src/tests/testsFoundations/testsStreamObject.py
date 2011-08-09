@@ -47,23 +47,21 @@ class StreamObjectTestCase(unittest.TestCase):
 		This method tests presence of required attributes.
 		"""
 
-		streamObject = StreamObject()
 		requiredAttributes = ("stream",)
 
 		for attribute in requiredAttributes:
-			self.assertIn(attribute, dir(streamObject))
+			self.assertIn(attribute, dir(StreamObject))
 
 	def testRequiredMethods(self):
 		"""
 		This method tests presence of required methods.
 		"""
 
-		streamObject = StreamObject()
 		requiredMethods = ("write",
 							"flush")
 
 		for method in requiredMethods:
-			self.assertIn(method, dir(streamObject))
+			self.assertIn(method, dir(StreamObject))
 
 if __name__ == "__main__":
 	import tests.utilities

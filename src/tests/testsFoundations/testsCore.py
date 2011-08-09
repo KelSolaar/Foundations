@@ -51,22 +51,20 @@ class StandardMessageHookTestCase(unittest.TestCase):
 		This method tests presence of required attributes.
 		"""
 
-		hook = core.StandardMessageHook(None)
 		requiredAttributes = ("logger",)
 
 		for attribute in requiredAttributes:
-			self.assertIn(attribute, dir(hook))
+			self.assertIn(attribute, dir(core.StandardMessageHook))
 
 	def testRequiredMethods(self):
 		"""
 		This method tests presence of required methods.
 		"""
 
-		hook = core.StandardMessageHook(None)
 		requiredMethods = ("write",)
 
 		for method in requiredMethods:
-			self.assertIn(method, dir(hook))
+			self.assertIn(method, dir(core.StandardMessageHook))
 
 class SetVerbosityLevelTestCase(unittest.TestCase):
 	"""

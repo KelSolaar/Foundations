@@ -85,11 +85,10 @@ class AttributeStructureParsingErrorTestCase(unittest.TestCase):
 		This method tests presence of required attributes.
 		"""
 
-		exception = foundations.exceptions.AttributeStructureParsingError
 		requiredAttributes = ("value", "line")
 
 		for attribute in requiredAttributes:
-			self.assertIn(attribute, dir(exception))
+			self.assertIn(attribute, dir(foundations.exceptions.AttributeStructureParsingError))
 
 if __name__ == "__main__":
 	unittest.main()

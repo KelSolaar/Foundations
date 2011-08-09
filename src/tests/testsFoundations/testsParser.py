@@ -126,7 +126,6 @@ class ParserTestCase(unittest.TestCase):
 		This method tests presence of required attributes.
 		"""
 
-		parser = Parser(IBL_SET_FILE)
 		requiredAttributes = ("file",
 								"content",
 								"splitters",
@@ -141,14 +140,13 @@ class ParserTestCase(unittest.TestCase):
 								"parsingErrors")
 
 		for attribute in requiredAttributes:
-			self.assertIn(attribute, dir(parser))
+			self.assertIn(attribute, dir(Parser))
 
 	def testRequiredMethods(self):
 		"""
 		This method tests presence of required methods.
 		"""
 
-		parser = Parser(IBL_SET_FILE)
 		requiredMethods = ("parse",
 							"sectionExists",
 							"attributeExists",
@@ -156,7 +154,7 @@ class ParserTestCase(unittest.TestCase):
 							"getValue")
 
 		for method in requiredMethods:
-			self.assertIn(method, dir(parser))
+			self.assertIn(method, dir(Parser))
 
 	def testParse(self):
 		"""

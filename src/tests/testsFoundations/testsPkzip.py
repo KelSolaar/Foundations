@@ -56,22 +56,20 @@ class PkzipTestCase(unittest.TestCase):
 		This method tests presence of required attributes.
 		"""
 
-		zipFile = Pkzip(TEST_FILE)
 		requiredAttributes = ("archive",)
 
 		for attribute in requiredAttributes:
-			self.assertIn(attribute, dir(zipFile))
+			self.assertIn(attribute, dir(Pkzip))
 
 	def testRequiredMethods(self):
 		"""
 		This method tests presence of required methods.
 		"""
 
-		zipFile = Pkzip(TEST_FILE)
 		requiredMethods = ("extract",)
 
 		for method in requiredMethods:
-			self.assertIn(method, dir(zipFile))
+			self.assertIn(method, dir(Pkzip))
 
 	def testExtract(self):
 		"""
