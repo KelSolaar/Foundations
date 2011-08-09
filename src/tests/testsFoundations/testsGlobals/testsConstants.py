@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Constants tests Module.
+	This module defines units tests for :mod:`foundations.globals.constants` module.
 
 **Others:**
 
@@ -39,7 +39,7 @@ __status__ = "Production"
 #***********************************************************************************************
 class ConstantsTestCase(unittest.TestCase):
 	"""
-	This class is the **ConstantsTests** class.
+	This class defines :class:`foundations.globals.constants.Constants` units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
@@ -64,21 +64,21 @@ class ConstantsTestCase(unittest.TestCase):
 
 	def testApplicationNameAttribute(self):
 		"""
-		This method tests **applicationName** attribute.
+		This method tests :attr:`foundations.globals.constants.Constants.applicationName` attribute.
 		"""
 
 		self.assertRegexpMatches(Constants.applicationName, "\w+")
 
 	def testLoggerAttribute(self):
 		"""
-		This method tests **logger** attribute.
+		This method tests :attr:`foundations.globals.constants.Constants.logger` attribute.
 		"""
 
 		self.assertRegexpMatches(Constants.logger, "\w+")
 
 	def testVerbosityLevelAttribute(self):
 		"""
-		This method tests **verbosityLevel** attribute.
+		This method tests :attr:`foundations.globals.constants.Constants.verbosityLevel` attribute.
 		"""
 
 		self.assertIsInstance(Constants.verbosityLevel, int)
@@ -87,7 +87,7 @@ class ConstantsTestCase(unittest.TestCase):
 
 	def testVerbosityLabelsAttribute(self):
 		"""
-		This method tests **verbosityLabels** attribute.
+		This method tests :attr:`foundations.globals.constants.Constants.verbosityLabels` attribute.
 		"""
 
 		self.assertIsInstance(Constants.verbosityLabels, tuple)
@@ -96,21 +96,21 @@ class ConstantsTestCase(unittest.TestCase):
 
 	def testLoggingDefaultFormaterAttribute(self):
 		"""
-		This method tests **loggingDefaultFormatter** attribute.
+		This method tests :attr:`foundations.globals.constants.Constants.loggingDefaultFormatter` attribute.
 		"""
 
 		self.assertIsInstance(Constants.loggingDefaultFormatter, str)
 
 	def testLoggingSeparatorsAttribute(self):
 		"""
-		This method tests **loggingSeparators** attribute.
+		This method tests :attr:`foundations.globals.constants.Constants.loggingSeparators` attribute.
 		"""
 
 		self.assertIsInstance(Constants.loggingSeparators, str)
 
 	def testEncodingFormatAttribute(self):
 		"""
-		This method tests **encodingFormat** attribute.
+		This method tests :attr:`foundations.globals.constants.Constants.encodingFormat` attribute.
 		"""
 
 		validEncodings = ("ascii",
@@ -121,7 +121,7 @@ class ConstantsTestCase(unittest.TestCase):
 
 	def testEncodingErrorAttribute(self):
 		"""
-		This method tests **encodingError** attribute.
+		This method tests :attr:`foundations.globals.constants.Constants.encodingError` attribute.
 		"""
 
 		validEncodings = ("strict",
@@ -133,21 +133,21 @@ class ConstantsTestCase(unittest.TestCase):
 
 	def testApplicationDirectoryAttribute(self):
 		"""
-		This method tests **applicationDirectory** attribute.
+		This method tests :attr:`foundations.globals.constants.Constants.applicationDirectory` attribute.
 		"""
 
 		self.assertRegexpMatches(Constants.applicationDirectory, "\w+")
 
 	def testProviderDirectoryAttribute(self):
 		"""
-		This method tests **providerDirectory** attribute.
+		This method tests :attr:`foundations.globals.constants.Constants.providerDirectory` attribute.
 		"""
 
 		self.assertRegexpMatches(Constants.providerDirectory, "\.*\w")
 
 	def testNullObjectAttribute(self):
 		"""
-		This method tests **nullObject** attribute.
+		This method tests :attr:`foundations.globals.constants.Constants.nullObject` attribute.
 		"""
 
 		self.assertRegexpMatches(Constants.nullObject, "\w+")
