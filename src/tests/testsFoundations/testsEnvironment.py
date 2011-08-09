@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Environment tests Module.
+	This module defines units tests for :mod:`foundations.environment` module.
 
 **Others:**
 
@@ -41,7 +41,7 @@ __status__ = "Production"
 #***********************************************************************************************
 class EnvironmentTestCase(unittest.TestCase):
 	"""
-	This class is the **EnvironmentTestCase** class.
+	This class defines :class:`foundations.environment.Environment` units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
@@ -69,7 +69,7 @@ class EnvironmentTestCase(unittest.TestCase):
 
 	def testGetValues(self):
 		"""
-		This method tests **Environment** class **getValues** method.
+		This method tests :meth:`foundations.environment.Environment.getValues` method.
 		"""
 
 		if platform.system() == "Windows" or platform.system() == "Microsoft":
@@ -87,7 +87,7 @@ class EnvironmentTestCase(unittest.TestCase):
 
 	def testSetValues(self):
 		"""
-		This method tests **Environment** class **setValues** method.
+		This method tests :meth:`foundations.environment.Environment.setValues` method.
 		"""
 
 		environment = Environment()
@@ -99,7 +99,7 @@ class EnvironmentTestCase(unittest.TestCase):
 
 	def testGetValue(self):
 		"""
-		This method tests **Environment** class **getValue** method.
+		This method tests :meth:`foundations.environment.Environment.getValue` method.
 		"""
 
 		if platform.system() == "Windows" or platform.system() == "Microsoft":
@@ -116,7 +116,7 @@ class EnvironmentTestCase(unittest.TestCase):
 
 	def testSetValue(self):
 		"""
-		This method tests **Environment** class **setValue** method.
+		This method tests :meth:`foundations.environment.Environment.setValue` method.
 		"""
 
 		environment = Environment()
