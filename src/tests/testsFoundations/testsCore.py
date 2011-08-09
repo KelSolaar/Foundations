@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Core tests Module.
+	This module defines units tests for :mod:`foundations.core` module.
 
 **Others:**
 
@@ -43,7 +43,7 @@ __status__ = "Production"
 #***********************************************************************************************
 class StandardMessageHookTestCase(unittest.TestCase):
 	"""
-	This class is the **StandardMessageHookTestCase** class.
+	This class defines :class:`foundations.core.StandardMessageHook` units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
@@ -70,12 +70,12 @@ class StandardMessageHookTestCase(unittest.TestCase):
 
 class SetVerbosityLevelTestCase(unittest.TestCase):
 	"""
-	This class is the **SetVerbosityLevelTestCase** class.
+	This class defines :func:`foundations.core.setVerbosityLevel` units tests methods.
 	"""
 
 	def testSetVerbosityLevel(self):
 		"""
-		This method tests **setVerbosityLevel** definition.
+		This method tests :func:`foundations.core.setVerbosityLevel` definition.
 		"""
 
 		LOGGER = logging.getLogger(Constants.logger)
@@ -86,24 +86,24 @@ class SetVerbosityLevelTestCase(unittest.TestCase):
 
 class GetFrameTestCase(unittest.TestCase):
 	"""
-	This class is the **GetFrameTestCase** class.
+	This class defines :func:`foundations.core.getFrame` units tests methods.
 	"""
 
 	def testGetFrame(self):
 		"""
-		This method tests **getFrame** definition.
+		This method tests :func:`foundations.core.getFrame` definition.
 		"""
 
 		self.assertIsInstance(core.getFrame(0), inspect.currentframe().__class__)
 
 class GetCodeLayerNameTestCase(unittest.TestCase):
 	"""
-	This class is the **GetCodeLayerNameTestCase** class.
+	This class defines :func:`foundations.core.getCodeLayerName` units tests methods.
 	"""
 
 	def testGetCodeLayerName(self):
 		"""
-		This method tests **getCodeLayerName** definition.
+		This method tests :func:`foundations.core.getCodeLayerName` definition.
 		"""
 
 		codeLayerName = core.getCodeLayerName()
@@ -112,12 +112,12 @@ class GetCodeLayerNameTestCase(unittest.TestCase):
 
 class GetModuleTestCase(unittest.TestCase):
 	"""
-	This class is the **GetCodeLayerNameTestCase** class.
+	This class defines :func:`foundations.core.getModule` units tests methods.
 	"""
 
 	def testGetModule(self):
 		"""
-		This method tests **getModule** definition.
+		This method tests :func:`foundations.core.getModule` definition.
 		"""
 
 		self.assertEqual(type(core.getModule(object)), types.ModuleType)
@@ -125,12 +125,12 @@ class GetModuleTestCase(unittest.TestCase):
 
 class GetObjectNameTestCase(unittest.TestCase):
 	"""
-	This class is the **GetObjectNameTestCase** class.
+	This class defines :func:`foundations.core.getObjectName` units tests methods.
 	"""
 
 	def testGetObjectName(self):
 		"""
-		This method tests **getObjectName** definition.
+		This method tests :func:`foundations.core.getObjectName` definition.
 		"""
 
 		objectName = core.getObjectName(object)
