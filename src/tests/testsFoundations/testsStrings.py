@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Strings tests Module.
+	This module defines units tests for :mod:`foundations.strings` module.
 
 **Others:**
 
@@ -41,12 +41,12 @@ __status__ = "Production"
 #***********************************************************************************************
 class GetNiceNameTestCase(unittest.TestCase):
 	"""
-	This class is the **GetNiceNameTestCase** class.
+	This class defines :func:`foundations.strings.getNiceName` definition units tests methods.
 	"""
 
 	def testGetNiceName(self):
 		"""
-		This method tests **getNiceName** definition.
+		This method tests :func:`foundations.strings.getNiceName` definition.
 		"""
 
 		self.assertIsInstance(strings.getNiceName("testGetNiceName"), str)
@@ -58,12 +58,12 @@ class GetNiceNameTestCase(unittest.TestCase):
 
 class GetVersionRankTestCase(unittest.TestCase):
 	"""
-	This class is the **GetVersionRankTestCase** class.
+	This class defines :func:`foundations.strings.getVersionRank` definition units tests methods.
 	"""
 
 	def testGetVersionRank(self):
 		"""
-		This method tests **getVersionRank** definition.
+		This method tests :func:`foundations.strings.getVersionRank` definition.
 		"""
 
 		self.assertIsInstance(strings.getVersionRank("0.0.0"), int)
@@ -74,12 +74,12 @@ class GetVersionRankTestCase(unittest.TestCase):
 
 class GetSplitextBasenameTestCase(unittest.TestCase):
 	"""
-	This class is the **GetSplitextBasenameTestCase** class.
+	This class defines :func:`foundations.strings.getSplitextBasename` definition units tests methods.
 	"""
 
 	def testGetSplitextBasename(self):
 		"""
-		This method tests **getSplitextBasename** definition.
+		This method tests :func:`foundations.strings.getSplitextBasename` definition.
 		"""
 
 		self.assertIsInstance(strings.getSplitextBasename("/Users/JohnDoe/Documents"), str)
@@ -89,12 +89,12 @@ class GetSplitextBasenameTestCase(unittest.TestCase):
 
 class GetWordsTestCase(unittest.TestCase):
 	"""
-	This class is the **GetWordsTestCase** class.
+	This class defines :func:`foundations.strings.getWords` definition units tests methods.
 	"""
 
 	def testGetWords(self):
 		"""
-		This method tests **getWords** definition.
+		This method tests :func:`foundations.strings.getWords` definition.
 		"""
 
 		self.assertIsInstance(strings.getWords("Users are John Doe and Jane Doe."), list)
@@ -103,12 +103,12 @@ class GetWordsTestCase(unittest.TestCase):
 
 class FilterWordsTestCase(unittest.TestCase):
 	"""
-	This class is the **FilterWordsTestCase** class.
+	This class defines :func:`foundations.strings.filterWords` definition units tests methods.
 	"""
 
 	def testFilterWords(self):
 		"""
-		This method tests **filterWords** definition.
+		This method tests :func:`foundations.strings.filterWords` definition.
 		"""
 
 		self.assertIsInstance(strings.filterWords("Users are John Doe and Jane Doe".split()), list)
@@ -121,12 +121,12 @@ class FilterWordsTestCase(unittest.TestCase):
 
 class ReplaceTestCase(unittest.TestCase):
 	"""
-	This class is the **ReplaceTestCase** class.
+	This class defines :func:`foundations.strings.replace` definition units tests methods.
 	"""
 
 	def testReplace(self):
 		"""
-		This method tests **replace** definition.
+		This method tests :func:`foundations.strings.replace` definition.
 		"""
 
 		self.assertIsInstance(strings.replace("To@Forward|Slashes@Test|Case", {}), str)
@@ -135,12 +135,12 @@ class ReplaceTestCase(unittest.TestCase):
 
 class ToForwardSlashesTestCase(unittest.TestCase):
 	"""
-	This class is the **ToForwardSlashesTestCase** class.
+	This class defines :func:`foundations.strings.toForwardSlashes` definition units tests methods.
 	"""
 
 	def testToForwardSlashes(self):
 		"""
-		This method tests **toForwardSlashes** definition.
+		This method tests :func:`foundations.strings.toForwardSlashes` definition.
 		"""
 
 		self.assertIsInstance(strings.toForwardSlashes("To\Forward\Slashes\Test\Case"), str)
@@ -149,12 +149,12 @@ class ToForwardSlashesTestCase(unittest.TestCase):
 
 class ToBackwardSlashesTestCase(unittest.TestCase):
 	"""
-	This class is the **ToBackwardSlashesTestCase** class.
+	This class defines :func:`foundations.strings.toBackwardSlashes` definition units tests methods.
 	"""
 
 	def testToBackwardSlashes(self):
 		"""
-		This method tests **toBackwardSlashes** definition.
+		This method tests :func:`foundations.strings.toBackwardSlashes` definition.
 		"""
 
 		self.assertIsInstance(strings.toBackwardSlashes("\Users\JohnDoe\Documents"), str)
@@ -163,12 +163,12 @@ class ToBackwardSlashesTestCase(unittest.TestCase):
 
 class ToPosixPathTestCase(unittest.TestCase):
 	"""
-	This class is the **ToPosixPathTestCase** class.
+	This class defines :func:`foundations.strings.toPosixPath` definition units tests methods.
 	"""
 
 	def testToPosixPath(self):
 		"""
-		This method tests **toPosixPath** definition.
+		This method tests :func:`foundations.strings.toPosixPath` definition.
 		"""
 
 		self.assertIsInstance(strings.toPosixPath("c:\\Users\\JohnDoe\\Documents"), str)
@@ -177,12 +177,12 @@ class ToPosixPathTestCase(unittest.TestCase):
 
 class GetNormalizedPathTestCase(unittest.TestCase):
 	"""
-	This class is the **GetNormalizedPathTestCase** class.
+	This class defines :func:`foundations.strings.getNormalizedPath` definition units tests methods.
 	"""
 
 	def testGetNormalizedPath(self):
 		"""
-		This method tests **getNormalizedPath** definition.
+		This method tests :func:`foundations.strings.getNormalizedPath` definition.
 		"""
 
 		self.assertIsInstance(strings.getNormalizedPath("/Users/JohnDoe/Documents"), str)
@@ -196,12 +196,12 @@ class GetNormalizedPathTestCase(unittest.TestCase):
 
 class IsEmailTestCase(unittest.TestCase):
 	"""
-	This class is the **IsEmailTestCase** class.
+	This class defines :func:`foundations.strings.isEmail` definition units tests methods.
 	"""
 
 	def testIsEmail(self):
 		"""
-		This method tests **isEmail** definition.
+		This method tests :func:`foundations.strings.isEmail` definition.
 		"""
 
 		self.assertIsInstance(strings.isEmail("john.doe@domain.com"), bool)
@@ -212,12 +212,12 @@ class IsEmailTestCase(unittest.TestCase):
 
 class IsWebsiteTestCase(unittest.TestCase):
 	"""
-	This class is the **IsWebsiteTestCase** class.
+	This class defines :func:`foundations.strings.isWebsite` definition units tests methods.
 	"""
 
 	def testIsWebsite(self):
 		"""
-		This method tests **isWebsite** definition.
+		This method tests :func:`foundations.strings.isWebsite` definition.
 		"""
 
 		self.assertIsInstance(strings.isWebsite("http://domain.com"), bool)
