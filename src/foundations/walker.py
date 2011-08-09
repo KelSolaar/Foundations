@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Walker Module.
+	This module defines the :class:`foundations.walker.Walker` class.
 
 **Others:**
 
@@ -48,15 +48,26 @@ LOGGER = logging.getLogger(Constants.logger)
 #***********************************************************************************************
 class Walker(object):
 	"""
-	This class provides methods for walking in a directory.
+	This class provides methods for walking in a directory and retrieving filters matched files.
 	"""
 
 	@core.executionTrace
 	def __init__(self, root=None, hashSize=8):
 		"""
 		This method initializes the class.
-
-		:param root: Root directory path to recurse. ( String )
+	
+		Usage::
+		
+			>>> walker = Walker("./Foundations/src/tests/testsFoundations/resources/standard/level_0")
+			>>> walker.walk().keys()
+			['standard|0d24f027', 'standard|407ed3b2', 'standard|20efaeaf', 'loremIpsum|ddf30259']
+			>>> walker.walk(filtersIn=("\.sIBLT$",))
+			{'standard|20efaeaf': './Foundations/src/tests/testsFoundations/resources/standard/level_0/level_1/level_2/standard.sIBLT'}
+			>>> walker.walk(filtersOut=("\.sIBLT$", "\.rc$", "\.ibl$")).values()
+			['./Foundations/src/tests/testsFoundations/resources/standard/level_0/level_1/loremIpsum.txt']
+			
+		:param root: Root directory to recursively walk. ( String )
+		:param hashSize: Hash affixe length. ( Integer )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -176,7 +187,7 @@ class Walker(object):
 	@foundations.exceptions.exceptionsHandler()
 	def walk(self, filtersIn=None, filtersOut=None, flags=0, shorterHashKey=True):
 		"""
-		This method gets root directory files list as a dictionary.
+		This method gets root directory files list as a dictionary using provided filters.
 
 		:param filtersIn: Regex filters in list. ( List / Tuple )
 		:param filtersIn: Regex filters out list. ( List / Tuple )
@@ -190,21 +201,23 @@ class Walker(object):
 		if filtersOut:
 			LOGGER.debug("> Current filters out: '{0}'.".format(filtersOut))
 
-		if self.__root:
-				self.__files = {}
-				for root, dirs, files in os.walk(self.__root, topdown=False, followlinks=True):
-					for item in files:
-						LOGGER.debug("> Current file: '{0}' in '{1}'.".format(item, self.__root))
-						itemPath = strings.toForwardSlashes(os.path.join(root, item))
-						if os.path.isfile(itemPath):
-							if not strings.filterWords((itemPath,), filtersIn, filtersOut, flags):
-								continue
+		if not self.__root:
+			return
 
-							LOGGER.debug("> '{0}' file filtered in!".format(itemPath))
+		self.__files = {}
+		for root, dirs, files in os.walk(self.__root, topdown=False, followlinks=True):
+			for item in files:
+				LOGGER.debug("> Current file: '{0}' in '{1}'.".format(item, self.__root))
+				itemPath = strings.toForwardSlashes(os.path.join(root, item))
+				if os.path.isfile(itemPath):
+					if not strings.filterWords((itemPath,), filtersIn, filtersOut, flags):
+						continue
 
-							hashKey = hashlib.md5(itemPath).hexdigest()
-							itemName = namespace.setNamespace(os.path.splitext(item)[0], shorterHashKey and hashKey[:self.__hashSize] or hashKey)
-							LOGGER.debug("> Adding '{0}' with path: '{1}' to files list.".format(itemName, itemPath))
-							self.__files[itemName] = itemPath
+					LOGGER.debug("> '{0}' file filtered in!".format(itemPath))
 
-				return self.__files
+					hashKey = hashlib.md5(itemPath).hexdigest()
+					itemName = namespace.setNamespace(os.path.splitext(item)[0], shorterHashKey and hashKey[:self.__hashSize] or hashKey)
+					LOGGER.debug("> Adding '{0}' with path: '{1}' to files list.".format(itemName, itemPath))
+					self.__files[itemName] = itemPath
+
+		return self.__files
