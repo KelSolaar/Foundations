@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	RotatingBackup tests Module.
+	This module defines units tests for :mod:`foundations.rotatingBackup` module.
 
 **Others:**
 
@@ -46,7 +46,7 @@ TEST_DIRECTORY = os.path.join(RESOURCES_DIRECTORY, "standard")
 #***********************************************************************************************
 class RotatingBackupTestCase(unittest.TestCase):
 	"""
-	This class is the **RotatingBackupTestCase** class.
+	This class defines :class:`foundations.rotatingBackup.RotatingBackup` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
@@ -75,7 +75,7 @@ class RotatingBackupTestCase(unittest.TestCase):
 
 	def testBackup(self):
 		"""
-		This method tests **RotatingBackup** class **backup** method.
+		This method tests :meth:`foundations.rotatingBackup.RotatingBackup.backup` method.
 		"""
 
 		tempDirectory = tempfile.mkdtemp()
