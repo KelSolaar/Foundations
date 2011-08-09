@@ -7,7 +7,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Library tests Module.
+	This module defines units tests for :mod:`foundations.library` module.
 
 **Others:**
 
@@ -57,7 +57,7 @@ LIBRARIES_TESTS_CASES = {"freeImage":{"FreeImage_GetVersion":"3.13.1",
 #***********************************************************************************************
 class LibraryTestCase(unittest.TestCase):
 	"""
-	This class is the **LibraryTestCase** class.
+	This class defines :class:`foundations.library.Library` units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
@@ -92,7 +92,7 @@ class LibraryTestCase(unittest.TestCase):
 
 	def testBindFunction(self):
 		"""
-		This method tests **Library** class **bindFunction** method.
+		This method tests :meth:`foundations.library.Library.bindFunction` method.
 		"""
 
 		for name, path in LIBRARIES.items():
@@ -105,7 +105,7 @@ class LibraryTestCase(unittest.TestCase):
 
 	def testBindLibrary(self):
 		"""
-		This method tests **Library** class **bindLibrary** method.
+		This method tests :meth:`foundations.library.Library.bindLibrary` method.
 		"""
 
 		for name, path in LIBRARIES.items():
@@ -117,7 +117,7 @@ class LibraryTestCase(unittest.TestCase):
 
 	def testLibrary(self):
 		"""
-		This method tests **Library** class binding.
+		This method tests :class:`foundations.library.Library` class binding.
 		"""
 
 		for name, path in LIBRARIES.items():
