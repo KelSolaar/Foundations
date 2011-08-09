@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Namespace tests Module.
+	This module defines units tests for :mod:`foundations.namespace` module.
 
 **Others:**
 
@@ -39,12 +39,12 @@ __status__ = "Production"
 #***********************************************************************************************
 class SetNamespaceTestCase(unittest.TestCase):
 	"""
-	This class is the **SetNamespaceTestCase** class.
+	This class defines :func:`foundations.namespace.setNamespace` units tests methods.
 	"""
 
 	def testSetNamespace(self):
 		"""
-		This method tests **setNamespace** definition.
+		This method tests :func:`foundations.namespace.setNamespace` definition.
 		"""
 
 		self.assertIsInstance(namespace.setNamespace("Namespace", "Attribute"), str)
@@ -53,12 +53,12 @@ class SetNamespaceTestCase(unittest.TestCase):
 
 class GetNamespaceTestCase(unittest.TestCase):
 	"""
-	This class is the **GetNamespaceTestCase** class.
+	This class defines :func:`foundations.namespace.getNamespace` units tests methods.
 	"""
 
 	def testGetNamespace(self):
 		"""
-		This method tests **getNamespace** definition.
+		This method tests :func:`foundations.namespace.getNamespace` definition.
 		"""
 
 		self.assertIsInstance(namespace.getNamespace("Namespace:Attribute", ":"), str)
@@ -69,12 +69,12 @@ class GetNamespaceTestCase(unittest.TestCase):
 
 class RemoveNamespaceTestCase(unittest.TestCase):
 	"""
-	This class is the **RemoveNamespaceTestCase** class.
+	This class defines :func:`foundations.namespace.removeNamespace` units tests methods.
 	"""
 
 	def testRemoveNamespace(self):
 		"""
-		This method tests **testRemoveNamespace** definition.
+		This method tests :func:`foundations.namespace.removeNamespace` definition.
 		"""
 
 		self.assertIsInstance(namespace.removeNamespace("Namespace|Attribute"), str)
