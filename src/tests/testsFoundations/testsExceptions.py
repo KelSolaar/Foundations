@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Exceptions tests Module.
+	This module defines units tests for :mod:`foundations.exceptions` module.
 
 **Others:**
 
@@ -48,7 +48,7 @@ for attribute in dir(foundations.exceptions):
 #***********************************************************************************************
 class ExceptionsTestCase(unittest.TestCase):
 	"""
-	This class is the **ExceptionsTestCase** class.
+	This class defines :mod:`foundations.exceptions` module exceptions classes units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
@@ -64,7 +64,7 @@ class ExceptionsTestCase(unittest.TestCase):
 
 	def test__str__(self):
 		"""
-		This method tests **Exceptions** class **__str__** method.
+		This method tests exceptions classes **__str__** method.
 		"""
 
 		for exception in EXCEPTIONS:
@@ -74,6 +74,22 @@ class ExceptionsTestCase(unittest.TestCase):
 			self.assertIsInstance(exceptionInstance.__str__(), str)
 			exceptionInstance = exception(0)
 			self.assertIsInstance(exceptionInstance.__str__(), str)
+
+class AttributeStructureParsingErrorTestCase(unittest.TestCase):
+	"""
+	This class defines :class:`foundations.exceptions.AttributeStructureParsingError` units tests methods.
+	"""
+
+	def testRequiredAttributes(self):
+		"""
+		This method tests presence of required attributes.
+		"""
+
+		exception = foundations.exceptions.AttributeStructureParsingError
+		requiredAttributes = ("value", "line")
+
+		for attribute in requiredAttributes:
+			self.assertIn(attribute, dir(exception))
 
 if __name__ == "__main__":
 	unittest.main()
