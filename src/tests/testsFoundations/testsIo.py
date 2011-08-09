@@ -7,7 +7,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Io tests Module.
+	This module defines units tests for :mod:`foundations.io` module.
 
 **Others:**
 
@@ -49,7 +49,7 @@ FILE_CONTENT = ["Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed d
 #***********************************************************************************************
 class FileTestCase(unittest.TestCase):
 	"""
-	This class is the **FileTestCase** class.
+	This class defines :class:`foundations.io.File` units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
@@ -79,7 +79,7 @@ class FileTestCase(unittest.TestCase):
 
 	def testRead(self):
 		"""
-		This method tests **File** class **read** method.
+		This method tests :meth:`foundations.io.File.read` method.
 		"""
 
 		ioFile = File(TEST_FILE)
@@ -91,7 +91,7 @@ class FileTestCase(unittest.TestCase):
 
 	def testWrite(self):
 		"""
-		This method tests **File** class **write** method.
+		This method tests :meth:`foundations.io.File.write` method.
 		"""
 
 		ioFile = File(tempfile.mkstemp()[1])
@@ -105,7 +105,7 @@ class FileTestCase(unittest.TestCase):
 
 	def testAppend(self):
 		"""
-		This method tests **File** class **append** method.
+		This method tests :meth:`foundations.io.File.append` method.
 		"""
 
 		ioFile = File(tempfile.mkstemp()[1])
@@ -120,12 +120,12 @@ class FileTestCase(unittest.TestCase):
 
 class SetDirectoryTestCase(unittest.TestCase):
 	"""
-	This class is the **SetDirectoryTestCase** class.
+	This class defines :func:`foundations.io.setDirectory` units tests methods.
 	"""
 
 	def testSetDirectory(self):
 		"""
-		This method tests **setDirectory** definition.
+		This method tests :func:`foundations.io.setDirectory` definition.
 		"""
 
 		tempDirectory = tempfile.mkdtemp()
@@ -137,12 +137,12 @@ class SetDirectoryTestCase(unittest.TestCase):
 
 class CopyTestCase(unittest.TestCase):
 	"""
-	This class is the **CopyTestCase** class.
+	This class defines :func:`foundations.io.copy` units tests methods.
 	"""
 
 	def testCopy(self):
 		"""
-		This method tests **copy** definition.
+		This method tests :func:`foundations.io.copy` definition.
 		"""
 
 		tempDirectory = tempfile.mkdtemp()
@@ -153,12 +153,12 @@ class CopyTestCase(unittest.TestCase):
 
 class RemoveTestCase(unittest.TestCase):
 	"""
-	This class is the **RemoveTestCase** class.
+	This class defines :func:`foundations.io.remove` units tests methods.
 	"""
 
 	def testRemove(self):
 		"""
-		This method tests **remove** definition.
+		This method tests :func:`foundations.io.remove` definition.
 		"""
 
 		tempDirectory = tempfile.mkdtemp()
