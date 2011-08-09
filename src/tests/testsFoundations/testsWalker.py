@@ -7,7 +7,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Walker tests Module.
+	This module defines units tests for :mod:`foundations.walker` module.
 
 **Others:**
 
@@ -49,7 +49,7 @@ TREE_HIERARCHY = ("loremIpsum.txt", "standard.ibl", "standard.rc", "standard.sIB
 #***********************************************************************************************
 class WalkerTestCase(unittest.TestCase):
 	"""
-	This class is the **WalkerTestCase** class.
+	This class defines :class:`foundations.walker.Walker` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
@@ -78,7 +78,7 @@ class WalkerTestCase(unittest.TestCase):
 
 	def testWalk(self):
 		"""
-		This method tests **Walker** class **walk** method.
+		This method tests :meth:`foundations.walker.Walker.walk` method.
 		"""
 
 		walker = Walker()
