@@ -39,7 +39,7 @@ __status__ = "Production"
 #***********************************************************************************************
 class ConstantsTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.globals.constants.Constants` units tests methods.
+	This class defines :class:`foundations.globals.constants.Constants` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
