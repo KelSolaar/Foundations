@@ -65,9 +65,6 @@ class LibraryHook(core.Structure):
 
 		core.Structure.__init__(self, **kwargs)
 
-		# --- Setting class attributes. ---
-		self.__dict__.update(kwargs)
-
 class Library(object):
 	"""
 	| This class provides methods to bind a C / C++ Library.

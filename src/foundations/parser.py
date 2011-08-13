@@ -71,9 +71,6 @@ class AttributeCompound(core.Structure):
 
 		core.Structure.__init__(self, **kwargs)
 
-		# --- Setting class attributes. ---
-		self.__dict__.update(kwargs)
-
 class Parser(io.File):
 	"""
 	This class provides methods to parse sections file format files, an alternative configuration file parser is available directly with Python: :class:`ConfigParser.ConfigParser`.
