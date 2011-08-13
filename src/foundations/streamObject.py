@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines the :class:`foundations.streamObject.StreamObject` class.
+	This module defines the :class:`StreamObject` class.
 
 **Others:**
 

@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines the :class:`foundations.walker.Walker` class.
+	This module defines the :class:`Walker` class.
 
 **Others:**
 

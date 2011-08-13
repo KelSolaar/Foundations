@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines the :class:`foundations.parser.Parser` class and others parsing related objects.
+	This module defines the :class:`Parser` class and others parsing related objects.
 
 **Others:**
 
@@ -82,7 +82,7 @@ class Parser(io.File):
 
 		- Sections and attributes are stored in their appearance order by default. ( Using Python :class:`collections.OrderedDict` )
 		- A default section ( **_default** ) will store orphans attributes ( Attributes appearing before any declared section ).
-		- File comments are stored inside the :obj:`foundations.parser.Parser.comments` class property. 
+		- File comments are stored inside the :obj:`Parser.comments` class property. 
 		- Sections, attributes and values are whitespaces stripped by default but can also be stored with their leading and trailing whitespaces. 
 		- Values are quotations markers stripped by default but can also be stored with their leading and trailing quotations markers. 
 		- Attributes are namespaced by default allowing sections merge without keys collisions. 

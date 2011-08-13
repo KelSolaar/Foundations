@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines the :class:`foundations.rotatingBackup.RotatingBackup` class.
+	This module defines the :class:`RotatingBackup` class.
 
 **Others:**
 	Code extracted from rotatingbackup.py written by leo.ss.pku@gmail.com
