@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Parser Module.
+	This module defines the :class:`foundations.parser.Parser` class and others parsing related objects.
 
 **Others:**
 
