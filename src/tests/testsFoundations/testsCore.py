@@ -135,5 +135,38 @@ class GetObjectNameTestCase(unittest.TestCase):
 		self.assertIsInstance(objectName, str)
 		self.assertEqual(objectName, "__builtin__ | testGetObjectName.object()")
 
+class NestedAttributeTestCase(unittest.TestCase):
+	"""
+	This class defines :class:`foundations.core.NestedAttribute` class units tests methods.
+	"""
+
+	def testNestedAttribute(self):
+		"""
+		This method tests :class:`foundations.core.NestedAttribute` class.
+		"""
+
+		nest = core.NestedAttribute()
+		nest.my.deeply.nested.attribute = 64
+		self.assertTrue(hasattr(nest, "nest.my.deeply.nested.attribute"))
+		self.assertEqual(nest.my.deeply.nested.attribute, 64)
+
+class StructureTestCase(unittest.TestCase):
+	"""
+	This class defines :class:`foundations.core.Structure` class units tests methods.
+	"""
+
+	def testStructure(self):
+		"""
+		This method tests :class:`foundations.core.Structure` class.
+		"""
+
+		structure = core.Structure(John="Doe", Jane="Doe")
+		self.assertIn("John", structure.keys())
+		self.assertTrue(hasattr(structure, "John"))
+		structure.nested.attribute = 64
+		self.assertIn("nested", structure.keys())
+		self.assertIsInstance(structure["nested"], core.NestedAttribute)
+		self.assertEqual(structure.nested.attribute, 64)
+
 if __name__ == "__main__":
 	unittest.main()

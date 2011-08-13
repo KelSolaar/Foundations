@@ -271,7 +271,47 @@ def executionTrace(object):
 
 	return function
 
-class Structure(object):
+class NestedAttribute(object):
+	"""
+	This class is an helper object providing methods to manipulate nested attributes.
+	
+	Usage:
+		
+		>>> nest = NestedAttribute()
+		>>> nest.my.nested.attribute = "Value"
+		>>> print nest.my.nested.attribute
+		Value
+		>>> nest.another.very.deeply.nested.attribute = 64
+		>>> print nest.another.very.deeply.nested.attribute
+		64
+
+	"""
+
+	@executionTrace
+	def __getattr__(self, name):
+		"""
+		This method returns requested attribute.
+	
+		:param name: Attribute name. ( String )
+		:return: Attribute. ( Object )
+		"""
+
+		self.__dict__[name] = NestedAttribute()
+		return self.__dict__[name]
+
+	@executionTrace
+	def __setattr__(self, name, value):
+		"""
+		This method sets provided attribute with provided value.
+	
+		:param name: Attribute name. ( String )
+		:param name: Attribute value. ( Object )
+		"""
+
+		attributes = name.split(".")
+		object.__setattr__(reduce(getattr, attributes[:-1], self), attributes[-1], value)
+
+class Structure(NestedAttribute, dict):
 	"""
 	This class creates an object similar to C/C++ structured type.
 	
@@ -280,6 +320,19 @@ class Structure(object):
 		>>> person = Structure(firstName="Doe", lastName="John", gender="male")
 		>>> person.firstName
 		'Doe'
+		>>> person.keys()
+		['gender', 'firstName', 'lastName']
+		>>> person["gender"]
+		'male'
+		>>> del(person["gender"])
+		>>> person["gender"]
+		Traceback (most recent call last):
+		  File "<console>", line 1, in <module>
+		KeyError: 'gender'
+		>>> person.gender
+		Traceback (most recent call last):
+		  File "<console>", line 1, in <module>
+		AttributeError: 'Structure' object has no attribute 'gender'
 
 	"""
 
@@ -288,7 +341,8 @@ class Structure(object):
 		"""
 		This method initializes the class.
 
-		:param kwargs: Key / Value pairs. ( Key / Value pairs )
+		:param \*\*kwargs: Key / Value pairs. ( Key / Value pairs )
 		"""
 
-		self.__dict__.update(kwargs)
+		dict.__init__(self, **kwargs)
+		self.__dict__ = self
