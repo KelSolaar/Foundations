@@ -66,7 +66,7 @@ class AttributeCompound(core.Structure):
 
 			AttributeCompound(name="showCamerasDialog", value="0", link="@showCamerasDialog", type="Boolean", alias="Cameras Selection Dialog")
 
-		:param kwargs: name, value, link, type, alias. ( Key / Value pairs )
+		:param \*\*kwargs: name, value, link, type, alias. ( Key / Value pairs )
 		"""
 
 		core.Structure.__init__(self, **kwargs)

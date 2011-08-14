@@ -58,7 +58,7 @@ class LibraryHook(core.Structure):
 			
 			LibraryHook(name="FreeImage_GetVersion", argumentsTypes=None, returnValue=ctypes.c_char_p)
 
-		:param name: Name of the target library function to bind.. ( String )
+		:param name: Name of the target library function to bind. ( String )
 		:param argumentsTypes: Required function arguments type (Refer to Python `ctypes - 15.17.1.7 <http://docs.python.org/library/ctypes.html#specifying-the-required-argument-types-function-prototypes>`_ module for more informations). ( List )
 		:param returnValue: Function return type (Refer to Python `ctypes - 15.17.1.8 <http://docs.python.org/library/ctypes.html#return-types>`_ module for more informations). ( Object )
 		"""
