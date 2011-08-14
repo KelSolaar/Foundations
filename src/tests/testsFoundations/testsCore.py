@@ -163,10 +163,6 @@ class StructureTestCase(unittest.TestCase):
 		structure = core.Structure(John="Doe", Jane="Doe")
 		self.assertIn("John", structure.keys())
 		self.assertTrue(hasattr(structure, "John"))
-		structure.nested.attribute = 64
-		self.assertIn("nested", structure.keys())
-		self.assertIsInstance(structure["nested"], core.NestedAttribute)
-		self.assertEqual(structure.nested.attribute, 64)
 
 if __name__ == "__main__":
 	unittest.main()

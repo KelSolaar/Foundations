@@ -44,22 +44,22 @@ __status__ = "Production"
 #***********************************************************************************************
 THREADS_IDENTIFIERS = {}
 
-def _LogRecord_getAttribute(self, name):
+def _LogRecord_getAttribute(self, attribute):
 	"""
 	This definition overrides logging.LogRecord.__getattribute__ method in order to manipulate requested attributes values.
 
-	:param name: Attribute name. ( String )
+	:param attribute: Attribute name. ( String )
 	:return: Modified method. ( Object )
 	"""
 
-	if name == "__dict__":
+	if attribute == "__dict__":
 		threadIdent = threading.currentThread().ident
 		if not threadIdent in THREADS_IDENTIFIERS.keys():
 			THREADS_IDENTIFIERS[threadIdent] = (threading.currentThread().name, hashlib.md5(threading.currentThread().name).hexdigest()[:8])
-		object.__getattribute__(self, name)["threadName"] = THREADS_IDENTIFIERS[threadIdent][1]
-		return object.__getattribute__(self, name)
+		object.__getattribute__(self, attribute)["threadName"] = THREADS_IDENTIFIERS[threadIdent][1]
+		return object.__getattribute__(self, attribute)
 	else:
-		return object.__getattribute__(self, name)
+		return object.__getattribute__(self, attribute)
 logging.LogRecord.__getattribute__ = _LogRecord_getAttribute
 
 def setVerbosityLevel(verbosityLevel):
@@ -288,30 +288,41 @@ class NestedAttribute(object):
 	"""
 
 	@executionTrace
-	def __getattr__(self, name):
+	def __getattr__(self, attribute):
 		"""
 		This method returns requested attribute.
 	
-		:param name: Attribute name. ( String )
+		:param attribute: Attribute name. ( String )
 		:return: Attribute. ( Object )
 		"""
 
-		self.__dict__[name] = NestedAttribute()
-		return self.__dict__[name]
+		self.__dict__[attribute] = NestedAttribute()
+		return self.__dict__[attribute]
 
 	@executionTrace
-	def __setattr__(self, name, value):
+	def __setattr__(self, attribute, value):
 		"""
 		This method sets provided attribute with provided value.
 	
-		:param name: Attribute name. ( String )
+		:param attribute: Attribute name. ( String )
 		:param name: Attribute value. ( Object )
 		"""
 
-		attributes = name.split(".")
-		object.__setattr__(reduce(getattr, attributes[:-1], self), attributes[-1], value)
+		namespaces = attribute.split(".")
+		object.__setattr__(reduce(object.__getattribute__, namespaces[:-1], self), namespaces[-1], value)
 
-class Structure(NestedAttribute, dict):
+	@executionTrace
+	def __delattr__(self, attribute):
+		"""
+		This method deletes provided attribute with.
+	
+		:param attribute: Attribute name. ( String )
+		"""
+
+		namespaces = attribute.split(".")
+		object.__delattr__(reduce(object.__getattribute__, namespaces[:-1], self), namespaces[-1])
+
+class Structure(dict):
 	"""
 	This class creates an object similar to C/C++ structured type.
 	
