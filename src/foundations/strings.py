@@ -22,7 +22,6 @@ import os
 import platform
 import posixpath
 import re
-import string
 
 #***********************************************************************************************
 #***	Internal imports.
@@ -92,7 +91,7 @@ def getVersionRank(version):
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getSplitextBasename(path):
 	"""
-	This definition get the basename of a path without its extension.
+	This definition gets the basename of a path without its extension.
 
 	Usage::
 
@@ -106,6 +105,51 @@ def getSplitextBasename(path):
 	basename = os.path.splitext(os.path.basename(os.path.normpath(path)))[0]
 	LOGGER.debug("> Splitext basename: '{0}'.".format(basename))
 	return basename
+
+@core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
+def getCommonAncestor(*args):
+	"""
+	This definition gets the common ancestor of provided iterables.
+
+	Usage::
+
+		>>> getCommonAncestor(("1", "2", "3"), ("1", "2", "0"), ("1", "2", "3", "4"))
+		('1', '2')
+		>>> getCommonAncestor("azerty", "azetty", "azello")
+		'aze'
+
+	:param \*args: Iterables to retrieve common ancestor from. ( Iterables )
+	:return: Common ancestor. ( Iterable )
+	"""
+
+	array = map(set, zip(*args))
+	divergence = filter(lambda i: len(i) > 1, array)
+	if divergence:
+		ancestor = args[0][:array.index(divergence[0])]
+	else:
+		ancestor = min(args)
+	LOGGER.debug("> Common Ancestor: '{0}'".format(ancestor))
+	return ancestor
+
+@core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
+def getCommonPathsAncestor(*args):
+	"""
+	This definition gets common paths ancestor from provided paths.
+
+	Usage::
+
+		>>> getCommonPathsAncestor("/Users/JohnDoe/Documents", "/Users/JohnDoe/Documents/Test.txt")
+		'/Users/JohnDoe/Documents'
+
+	:param \*args: Paths to retrieve common ancestor from. ( Strings )
+	:return: Common path ancestor. ( String )
+	"""
+
+	pathAncestor = os.sep.join(getCommonAncestor(*[path.split(os.sep) for path in args]))
+	LOGGER.debug("> Common Paths Ancestor: '{0}'".format(pathAncestor))
+	return pathAncestor
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)

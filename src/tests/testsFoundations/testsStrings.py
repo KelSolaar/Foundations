@@ -87,6 +87,34 @@ class GetSplitextBasenameTestCase(unittest.TestCase):
 		self.assertEqual(strings.getSplitextBasename("/Users/JohnDoe/Documents/Test"), "Test")
 		self.assertEqual(strings.getSplitextBasename("/Users/JohnDoe/Documents/Test/"), "Test")
 
+class GetCommonAncestorTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.strings.getCommonAncestor` definition units tests methods.
+	"""
+
+	def testGetCommonAncestor(self):
+		"""
+		This method tests :func:`foundations.strings.getCommonAncestor` definition.
+		"""
+
+		self.assertTupleEqual(strings.getCommonAncestor(("1", "2", "3"), ("1", "2", "0"), ("1", "2", "3", "4")), ("1", "2"))
+		self.assertEqual(strings.getCommonAncestor("azerty", "azetty", "azello"), "aze")
+		self.assertEqual(strings.getCommonAncestor("/Users/JohnDoe/Documents", "/Users/JohnDoe/Documents/Test.txt"), "/Users/JohnDoe/Documents")
+		self.assertFalse(strings.getCommonAncestor("azerty", "qwerty"))
+
+class GetCommonPathsAncestorTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.strings.getCommonPathsAncestor` definition units tests methods.
+	"""
+
+	def testGetCommonPathsAncestor(self):
+		"""
+		This method tests :func:`foundations.strings.getCommonPathsAncestor` definition.
+		"""
+
+		self.assertEqual(strings.getCommonPathsAncestor("/Users/JohnDoe/Documents", "/Users/JohnDoe/Documents/Test.txt"), "/Users/JohnDoe/Documents")
+		self.assertFalse(strings.getCommonPathsAncestor("/JohnDoe/Documents", "/Users/JohnDoe/Documents/Test.txt"))
+
 class GetWordsTestCase(unittest.TestCase):
 	"""
 	This class defines :func:`foundations.strings.getWords` definition units tests methods.
