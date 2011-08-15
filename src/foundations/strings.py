@@ -110,7 +110,7 @@ def getSplitextBasename(path):
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getCommonAncestor(*args):
 	"""
-	This definition gets the common ancestor of provided iterables.
+	This definition gets common ancestor of provided iterables.
 
 	Usage::
 
@@ -136,7 +136,7 @@ def getCommonAncestor(*args):
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getCommonPathsAncestor(*args):
 	"""
-	This definition gets common paths ancestor from provided paths.
+	This definition gets common paths ancestor of provided paths.
 
 	Usage::
 
