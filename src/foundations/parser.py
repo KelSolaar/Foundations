@@ -98,9 +98,9 @@ class Parser(io.File):
 			>>> parser.content = content
 			>>> parser.parse(stripComments=False)
 			True
-			>>> print parser.sections.keys()
+			>>> parser.sections.keys()
 			['Section A', 'Section B']
-			>>> print parser.comments 
+			>>> parser.comments 
 			OrderedDict([('Section A|#0', {'content': 'Comment.', 'id': 0})])
 
 		:param file: Current file path. ( String )
@@ -484,19 +484,19 @@ class Parser(io.File):
 			>>> parser.content = content
 			>>> parser.parse(stripComments=False)
 			True
-			>>> print parser.sections.keys()
+			>>> parser.sections.keys()
 			['_defaults']
-			>>> print parser.sections["_defaults"].values()
+			>>> parser.sections["_defaults"].values()
 			['Value A', 'Value B']
 			>>> parser.parse(stripQuotationMarkers=False)
 			True
-			>>> print parser.sections["_defaults"].values()
+			>>> parser.sections["_defaults"].values()
 			['"Value A"', '"Value B"']
-			>>> print parser.comments 
+			>>> parser.comments 
 			OrderedDict([('_defaults|#0', {'content': 'Comment.', 'id': 0})])
 			>>> parser.parse()
 			True
-			>>> print parser.sections["_defaults"]
+			>>> parser.sections["_defaults"]
 			OrderedDict([('_defaults|Attribute 1', 'Value A'), ('_defaults|Attribute 2', 'Value B')])
 			>>> parser.parse(namespaces=False)
 			OrderedDict([('Attribute 1', 'Value A'), ('Attribute 2', 'Value B')])
@@ -592,9 +592,9 @@ class Parser(io.File):
 			>>> parser.content = content
 			>>> parser.parse()
 			True
-			>>> print parser.sectionExists("Section A")
+			>>> parser.sectionExists("Section A")
 			True
-			>>> print parser.sectionExists("Section C")
+			>>> parser.sectionExists("Section C")
 			False
 
 		:param section: Section to check existence. ( String )
@@ -624,9 +624,9 @@ class Parser(io.File):
 			>>> parser.content = content
 			>>> parser.parse()
 			True
-			>>> print parser.attributeExists("Attribute 1", "Section A")
+			>>> parser.attributeExists("Attribute 1", "Section A")
 			True
-			>>> print parser.attributeExists("Attribute 2", "Section A")
+			>>> parser.attributeExists("Attribute 2", "Section A")
 			False
 
 		:param attribute: Attribute to check existence. ( String )
@@ -657,11 +657,11 @@ class Parser(io.File):
 			>>> parser.content = content
 			>>> parser.parse()
 			True
-			>>> print parser.getAttributes("Section A")
+			>>> parser.getAttributes("Section A")
 			OrderedDict([('Section A|Attribute 1', 'Value A')])
-			>>> print parser.getAttributes("Section A", orderedDictionary=False)
+			>>> parser.getAttributes("Section A", orderedDictionary=False)
 			{'Section A|Attribute 1': 'Value A'}
-			>>> print parser.getAttributes("Section A", stripNamespaces=True)
+			>>> parser.getAttributes("Section A", stripNamespaces=True)
 			OrderedDict([('Attribute 1', 'Value A')])
 
 		:param section: Section containing the requested attributes. ( String )
@@ -701,9 +701,9 @@ class Parser(io.File):
 			>>> parser.content = content
 			>>> parser.parse()
 			True
-			>>> print parser.getAllAttributes()
+			>>> parser.getAllAttributes()
 			OrderedDict([('Section A|Attribute 1', 'Value A'), ('Section B|Attribute 2', 'Value B')])
-			>>> print parser.getAllAttributes(orderedDictionary=False)
+			>>> parser.getAllAttributes(orderedDictionary=False)
 			{'Section B|Attribute 2': 'Value B', 'Section A|Attribute 1': 'Value A'}
 
 		:param orderedDictionary: Use an :class:`collections.OrderedDict` dictionary to store the attributes. ( String )
@@ -733,7 +733,7 @@ class Parser(io.File):
 			>>> parser.content = content
 			>>> parser.parse()
 			True
-			>>> print parser.getValue("Attribute 1", "Section A")
+			>>> parser.getValue("Attribute 1", "Section A")
 			Value A
 
 		:param attribute: Attribute name. ( String )
@@ -763,15 +763,15 @@ def getAttributeCompound(attribute, value=None, splitter="|", bindingIdentifier=
 	
 		>>> datas = "@Link | Value | Boolean | Link Parameter"
 		>>> attributeCompound = foundations.parser.getAttributeCompound("Attribute Compound", datas)
-		>>> print attributeCompound.name
+		>>> attributeCompound.name
 		Attribute Compound
-		>>> print attributeCompound.value
+		>>> attributeCompound.value
 		Value
-		>>> print attributeCompound.link
+		>>> attributeCompound.link
 		@Link
-		>>> print attributeCompound.type
+		>>> attributeCompound.type
 		Boolean
-		>>> print attributeCompound.alias
+		>>> attributeCompound.alias
 		Link Parameter
 		
 	:param attribute: Attribute. ( String )

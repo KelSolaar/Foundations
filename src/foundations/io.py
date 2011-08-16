@@ -60,7 +60,7 @@ class File(object):
 			>>> file.write()
 			True
 			>>> file.read()
-			>>> print file.content
+			>>> file.content
 			['Some file content ...\\n', '... ready to be saved!\\n']
 
 		:param file: File path. ( String )

@@ -71,7 +71,7 @@ class RotatingBackup(object):
 			True
 			True
 			>>> import os
-			>>> print os.listdir(destination)
+			>>> os.listdir(destination)
 			['File.txt', 'File.txt.1', 'File.txt.2', 'File.txt.3']
 
 		:param source: Backup source. ( String )

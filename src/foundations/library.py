@@ -110,7 +110,7 @@ class Library(object):
 			>>> path = "FreeImage.dll"
 			>>> functions = (LibraryHook(name="FreeImage_GetVersion", argumentsTypes=None, returnValue=ctypes.c_char_p),)
 			>>> library = Library(path, functions)
-			>>> print library.FreeImage_GetVersion()
+			>>> library.FreeImage_GetVersion()
 			3.13.1
 
 		:param libraryPath: Library path. ( String )
@@ -289,7 +289,7 @@ class Library(object):
 			>>> library = Library(path, bindLibrary=False)
 			>>> library.bindFunction(function)
 			True
-			>>> print library.FreeImage_GetVersion()
+			>>> library.FreeImage_GetVersion()
 			3.13.1
 
 		:param function: Function to bind. ( LibraryHook )
@@ -319,7 +319,7 @@ class Library(object):
 			>>> library = Library(path, functions, bindLibrary=False)
 			>>> library.bindLibrary()
 			True
-			>>> print library.FreeImage_GetVersion()
+			>>> library.FreeImage_GetVersion()
 			3.13.1
 
 		:return: Method success. ( Boolean )

@@ -75,7 +75,7 @@ def getVersionRank(version):
 
 		>>> getVersionRank("4.2.8")
 		428
-		>>> print getVersionRank("4.2.8").__class__
+		>>> getVersionRank("4.2.8").__class__
 		<type 'int'>
 
 	:param version: Current version to calculate rank. ( String )

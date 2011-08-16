@@ -279,10 +279,10 @@ class NestedAttribute(object):
 		
 		>>> nest = NestedAttribute()
 		>>> nest.my.nested.attribute = "Value"
-		>>> print nest.my.nested.attribute
+		>>> nest.my.nested.attribute
 		Value
 		>>> nest.another.very.deeply.nested.attribute = 64
-		>>> print nest.another.very.deeply.nested.attribute
+		>>> nest.another.very.deeply.nested.attribute
 		64
 
 	"""
