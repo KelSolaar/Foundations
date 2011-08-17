@@ -151,6 +151,7 @@ class ParserTestCase(unittest.TestCase):
 							"sectionExists",
 							"attributeExists",
 							"getAttributes",
+							"getAllAttributes",
 							"getValue")
 
 		for method in requiredMethods:

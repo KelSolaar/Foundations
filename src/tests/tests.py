@@ -19,6 +19,7 @@
 #***********************************************************************************************
 import os
 import unittest
+import sys
 
 #***********************************************************************************************
 #***	Internal imports.
@@ -37,6 +38,19 @@ __status__ = "Production"
 #***********************************************************************************************
 #***	Module classes and definitions.
 #***********************************************************************************************
+def _setApplicationPackageDirectory():
+	"""
+	This definition sets the package directory in the path.
+
+	:return: Definition success. ( Boolean )
+	"""
+
+	applicationPackageDirectory = os.path.normpath(os.path.join(sys.path[0], "../"))
+	applicationPackageDirectory not in sys.path and sys.path.append(applicationPackageDirectory)
+	return True
+
+_setApplicationPackageDirectory()
+
 def testsSuite():
 	"""
 	This definitions runs the tests suite.

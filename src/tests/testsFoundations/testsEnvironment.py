@@ -60,7 +60,9 @@ class EnvironmentTestCase(unittest.TestCase):
 		"""
 
 		requiredMethods = ("getValues",
-						"setValues")
+						"setValues",
+						"getValue",
+						"setValue")
 
 		for method in requiredMethods:
 			self.assertIn(method, dir(Environment))
