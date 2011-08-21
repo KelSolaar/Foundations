@@ -256,8 +256,8 @@ def executionTrace(object):
 		"""
 		This decorator is used for execution tracing.
 
-		:param *args: Arguments. ( * )
-		:param **kwargs: Arguments. ( * )
+		:param \*args: Arguments. ( \* )
+		:param \*\*kwargs: Arguments. ( \* )
 		:return: Object. ( Object )
 		"""
 
