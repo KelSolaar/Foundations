@@ -164,5 +164,26 @@ class StructureTestCase(unittest.TestCase):
 		self.assertIn("John", structure.keys())
 		self.assertTrue(hasattr(structure, "John"))
 
+class LookupTestCase(unittest.TestCase):
+	"""
+	This class defines :class:`foundations.core.Lookup` class units tests methods.
+	"""
+
+	def testGetFirstKeyFromValue(self):
+		"""
+		This method tests :meth:`foundations.core.Lookup.getFirstKeyFromValue` method.
+		"""
+
+		lookup = core.Lookup(firstName="Doe", lastName="John", gender="male")
+		self.assertEqual("firstName", lookup.getFirstKeyFromValue("Doe"))
+
+	def testGetKeysFromValue(self):
+		"""
+		This method tests :meth:`foundations.core.Lookup.getKeysFromValue` method.
+		"""
+
+		lookup = core.Lookup(John="Doe", Jane="Doe", Luke="Skywalker")
+		self.assertListEqual(["Jane", "John"], lookup.getKeysFromValue("Doe"))
+
 if __name__ == "__main__":
 	unittest.main()

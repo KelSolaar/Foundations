@@ -357,3 +357,41 @@ class Structure(dict):
 
 		dict.__init__(self, **kwargs)
 		self.__dict__ = self
+
+class Lookup(dict):
+	"""
+	This class extend dict type to provide a lookup by value(s).
+	
+	Usage:
+		
+		>>> person = Lookup(firstName="Doe", lastName="John", gender="male")
+		>>> person.getFirstKeyFromValue("Doe")
+		'firstName'
+		>>> persons = foundations.core.Lookup(John="Doe", Jane="Doe", Luke="Skywalker")
+		>>> persons.getKeysFromValue("Doe")
+		['Jane', 'John']
+	"""
+
+	@executionTrace
+	def getFirstKeyFromValue(self, value):
+		"""
+		This method gets the first key from provided value.
+
+		:param value.: Value. ( Object )
+		:return: Key. ( Object )
+		"""
+
+		for item in self.items():
+			if item[1] == value:
+				return item[0]
+
+	@executionTrace
+	def getKeysFromValue(self, value):
+		"""
+		This method gets the keys from provided value.
+
+		:param value.: Value. ( Object )
+		:return: Keys. ( Object )
+		"""
+
+		return [item[0] for item in self.items() if item[1] == value]
