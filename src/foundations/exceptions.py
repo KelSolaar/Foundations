@@ -390,28 +390,28 @@ class AbstractComponentError(AbstractError):
 
 class AbstractLibraryError(AbstractError):
 	"""
-	This class is the abstract base class for **library** module exceptions.
+	This class is the abstract base class for :mod:`library` module exceptions.
 	"""
 
 	pass
 
 class LibraryInstantiationError(AbstractLibraryError):
 	"""
-	This class is used for **library** module **Library** class instantiation exceptions.
+	This class is used for :mod:`library` module :class:`library.Library` class instantiation exceptions.
 	"""
 
 	pass
 
 class LibraryInitializationError(AbstractLibraryError):
 	"""
-	This class is used for **library** module **Library** class initialization exceptions.
+	This class is used for :mod:`library` module :class:`library.Library` class initialization exceptions.
 	"""
 
 	pass
 
 class LibraryExecutionError(AbstractLibraryError):
 	"""
-	This class is used for **library** module **Library** class execution exceptions.
+	This class is used for :mod:`library` module :class:`library.Library` class execution exceptions.
 	"""
 
 	pass
