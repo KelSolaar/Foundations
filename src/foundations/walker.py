@@ -189,8 +189,8 @@ class Walker(object):
 		"""
 		This method gets root directory files list as a dictionary using provided filters.
 
-		:param filtersIn: Regex filters in list. ( List / Tuple )
-		:param filtersIn: Regex filters out list. ( List / Tuple )
+		:param filtersIn: Regex filters in list. ( Tuple / List )
+		:param filtersIn: Regex filters out list. ( Tuple / List )
 		:param flags: Regex flags. ( Object )
 		:return: Files list. ( Dictionary or None )
 		"""

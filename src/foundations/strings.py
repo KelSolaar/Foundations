@@ -185,8 +185,8 @@ def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 		>>> filterWords(["Users", "are", "John", "Doe", "Jane", "Doe", "Z6PO"], filtersOut=("[\w]*o",))
 		['Users', 'are', 'Jane', 'Z6PO']
 
-	:param filtersIn: Regex filters in list. ( List / Tuple )
-	:param filtersIn: Regex filters out list. ( List / Tuple )
+	:param filtersIn: Regex filters in list. ( Tuple / List )
+	:param filtersIn: Regex filters out list. ( Tuple / List )
 	:param flags: Regex flags. ( Object )
 	:return: Filtered words. ( List )
 	"""

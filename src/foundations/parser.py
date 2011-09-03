@@ -106,9 +106,9 @@ class Parser(io.File):
 		:param file: Current file path. ( String )
 		:param splitters: Splitter character. ( String )
 		:param namespaceSplitter: Namespace splitters character. ( String )
-		:param commentLimiters: Comment limiters character. ( List / Tuple )
+		:param commentLimiters: Comment limiters character. ( Tuple / List )
 		:param commentMarker: Character use to prefix extracted comments idientifiers. ( String )
-		:param quotationMarkers: Quotation markers characters. ( List / Tuple )
+		:param quotationMarkers: Quotation markers characters. ( Tuple / List )
 		:param rawSectionContentIdentifier: Raw section content identifier. ( String )
 		:param defaultsSection: Default section name. ( String )
 		"""
@@ -145,7 +145,7 @@ class Parser(io.File):
 		"""
 		This method is the property for **self.__splitters** attribute.
 
-		:return: self.__splitters. ( List / Tuple )
+		:return: self.__splitters. ( Tuple / List )
 		"""
 
 		return self.__splitters
@@ -156,11 +156,11 @@ class Parser(io.File):
 		"""
 		This method is the setter method for **self.__splitters** attribute.
 
-		:param value: Attribute value. ( List / Tuple )
+		:param value: Attribute value. ( Tuple / List )
 		"""
 
 		if value:
-			assert type(value) in (list, tuple), "'{0}' attribute: '{1}' type is not 'list' or 'tuple'!".format("splitters", value)
+			assert type(value) in (tuple, list), "'{0}' attribute: '{1}' type is not 'tuple' or 'list'!".format("splitters", value)
 			for element in value:
 				assert len(element) == 1, "'{0}' attribute: '{1}' has multiples characters!".format("splitter", element)
 				assert not re.search("\w", element), "'{0}' attribute: '{1}' is an alphanumeric character!".format("splitter", element)
@@ -214,7 +214,7 @@ class Parser(io.File):
 		"""
 		This method is the property for **self.__commentLimiters** attribute.
 
-		:return: self.__commentLimiters. ( List / Tuple )
+		:return: self.__commentLimiters. ( Tuple / List )
 		"""
 
 		return self.__commentLimiters
@@ -225,11 +225,11 @@ class Parser(io.File):
 		"""
 		This method is the setter method for **self.__commentLimiters** attribute.
 
-		:param value: Attribute value. ( List / Tuple )
+		:param value: Attribute value. ( Tuple / List )
 		"""
 
 		if value:
-			assert type(value) in (list, tuple), "'{0}' attribute: '{1}' type is not 'list' or 'tuple'!".format("commentLimiters", value)
+			assert type(value) in (tuple, list), "'{0}' attribute: '{1}' type is not 'tuple' or 'list'!".format("commentLimiters", value)
 		self.__commentLimiters = value
 
 	@commentLimiters.deleter
@@ -279,7 +279,7 @@ class Parser(io.File):
 		"""
 		This method is the property for **self.__quotationMarkers** attribute.
 
-		:return: self.__quotationMarkers. ( List / Tuple )
+		:return: self.__quotationMarkers. ( Tuple / List )
 		"""
 
 		return self.__quotationMarkers
@@ -290,11 +290,11 @@ class Parser(io.File):
 		"""
 		This method is the setter method for **self.__quotationMarkers** attribute.
 
-		:param value: Attribute value. ( List / Tuple )
+		:param value: Attribute value. ( Tuple / List )
 		"""
 
 		if value:
-			assert type(value) in (list, tuple), "'{0}' attribute: '{1}' type is not 'list' or 'tuple'!".format("quotationMarkers", value)
+			assert type(value) in (tuple, list), "'{0}' attribute: '{1}' type is not 'tuple' or 'list'!".format("quotationMarkers", value)
 			for element in value:
 				assert len(element) == 1, "'{0}' attribute: '{1}' has multiples characters!".format("splitter", element)
 				assert not re.search("\w", element), "'{0}' attribute: '{1}' is an alphanumeric character!".format("splitter", element)
@@ -502,7 +502,7 @@ class Parser(io.File):
 			OrderedDict([('Attribute 1', 'Value A'), ('Attribute 2', 'Value B')])
 
 		:param orderedDictionary: Parser data is stored in :class:`collections.OrderedDict` dictionaries. ( Boolean )
-		:param rawSections: Ignored raw sections. ( List / Tuple )
+		:param rawSections: Ignored raw sections. ( Tuple / List )
 		:param namespaces: Attributes and comments are namespaced. ( Boolean )
 		:param stripComments: Comments are stripped. ( Boolean )
 		:param stripWhitespaces: Whitespaces are stripped. ( Boolean )
