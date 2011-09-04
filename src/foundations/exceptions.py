@@ -37,6 +37,30 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
+__all__ = ["LOGGER",
+			"exceptionsHandler",
+			"defaultExceptionsHandler",
+			"AbstractError",
+			"AbstractParsingError",
+			"FileStructureParsingError",
+			"AttributeStructureParsingError",
+			"AbstractOsError",
+			"DirectoryExistsError",
+			"FileExistsError",
+			"AbstractObjectError",
+			"ObjectTypeError",
+			"ObjectExistsError",
+			"AbstractUserError",
+			"ProgrammingError",
+			"UserError",
+			"AbstractNetworkError",
+			"NetworkError",
+			"SocketConnectionError",
+			"AbstractLibraryError",
+			"LibraryInstantiationError",
+			"LibraryInitializationError",
+			"LibraryExecutionError"]
+
 LOGGER = logging.getLogger(Constants.logger)
 
 #***********************************************************************************************
@@ -324,20 +348,6 @@ class ObjectExistsError(AbstractObjectError):
 
 	pass
 
-class AbstractDatabaseError(AbstractError):
-	"""
-	This class is the abstract base class for database related exceptions.
-	"""
-
-	pass
-
-class DatabaseOperationError(AbstractDatabaseError):
-	"""
-	This class is used for Database operation exceptions.
-	"""
-
-	pass
-
 class AbstractUserError(AbstractError):
 	"""
 	This class is the abstract base class for user related exceptions.
@@ -377,13 +387,6 @@ class NetworkError(AbstractNetworkError):
 class SocketConnectionError(AbstractNetworkError):
 	"""
 	This class is used for socket connection exceptions.
-	"""
-
-	pass
-
-class AbstractComponentError(AbstractError):
-	"""
-	This class is the abstract base class for component related exceptions.
 	"""
 
 	pass

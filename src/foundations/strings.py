@@ -40,6 +40,22 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
+__all__ = ["LOGGER",
+			"getNiceName",
+			"getVersionRank",
+			"getSplitextBasename",
+			"getCommonAncestor",
+			"getCommonPathsAncestor",
+			"getWords",
+			"filterWords",
+			"replace",
+			"toForwardSlashes",
+			"toBackwardSlashes",
+			"toPosixPath",
+			"getNormalizedPath",
+			"isEmail",
+			"isWebsite"]
+
 LOGGER = logging.getLogger(Constants.logger)
 
 #***********************************************************************************************
