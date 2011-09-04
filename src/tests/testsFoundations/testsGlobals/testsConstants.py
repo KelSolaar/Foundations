@@ -48,6 +48,7 @@ class ConstantsTestCase(unittest.TestCase):
 		"""
 
 		requiredAttributes = ("applicationName",
+								"releaseVersion",
 								"logger",
 								"verbosityLevel",
 								"verbosityLabels",
@@ -68,6 +69,13 @@ class ConstantsTestCase(unittest.TestCase):
 		"""
 
 		self.assertRegexpMatches(Constants.applicationName, "\w+")
+
+	def testReleaseVersionAttribute(self):
+		"""
+		This method tests :attr:`foundations.globals.constants.Constants.releaseVersion` attribute.
+		"""
+
+		self.assertRegexpMatches(Constants.releaseVersion, "\w+")
 
 	def testLoggerAttribute(self):
 		"""
