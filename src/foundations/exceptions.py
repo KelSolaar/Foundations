@@ -140,6 +140,7 @@ def defaultExceptionsHandler(exception, origin, *args, **kwargs):
 	:param origin: Function / Method raising the exception. ( String )
 	:param \*args: Arguments. ( \* )
 	:param \*\*kwargs: Arguments. ( \* )
+	:return: Definition success. ( Boolean )
 	"""
 
 	LOGGER.error("!> {0}".format(Constants.loggingSeparators))
@@ -157,6 +158,8 @@ def defaultExceptionsHandler(exception, origin, *args, **kwargs):
 			LOGGER.error("!> {0}".format(line))
 
 		LOGGER.error("!> {0}".format(Constants.loggingSeparators))
+
+	return True
 
 class AbstractError(Exception):
 	"""
