@@ -143,7 +143,7 @@ class Library(object):
 		if self.libraryPath:
 			self.__library = loadingFunction.LoadLibrary(libraryPath)
 		else:
-			raise foundations.exceptions.LibraryInitializationError, "'{0}' library not found!".format(self.__class__.__name__)
+			raise foundations.exceptions.LibraryInitializationError("'{0}' library not found!".format(self.__class__.__name__))
 
 		bindLibrary and self.bindLibrary()
 
