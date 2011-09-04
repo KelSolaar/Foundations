@@ -1,6 +1,7 @@
 [Component]
 ; Component comment for tests purpose.
 Name = core.db
+Title = Db
 Module = db
 Object = Db
 Rank = 5
