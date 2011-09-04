@@ -37,6 +37,8 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
+__all__ = ["RESOURCES_DIRECTORY", "TEST_FILE", "FILE_CONTENT", "FileTestCase", "SetDirectoryTestCase", "CopyTestCase", "RemoveTestCase"]
+
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
 TEST_FILE = os.path.join(RESOURCES_DIRECTORY, "loremIpsum.txt")
 FILE_CONTENT = ["Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n",

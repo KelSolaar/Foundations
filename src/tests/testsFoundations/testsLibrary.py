@@ -36,6 +36,8 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
+__all__ = ["RESOURCES_DIRECTORY", "LIBRARIES_DIRECTORY", "FREEIMAGE_LIBRARY", "LIBRARIES", "LIBRARIES_FUNCTIONS", "LIBRARIES_TESTS_CASES", "LibraryTestCase"]
+
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
 LIBRARIES_DIRECTORY = os.path.join(RESOURCES_DIRECTORY, "libraries")
 if platform.system() == "Windows" or platform.system() == "Microsoft":

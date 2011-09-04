@@ -37,6 +37,8 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
+__all__ = ["RESOURCES_DIRECTORY", "ROOT_DIRECTORY", "TREE_HIERARCHY", "WalkerTestCase"]
+
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
 ROOT_DIRECTORY = "standard"
 TREE_HIERARCHY = ("loremIpsum.txt", "standard.ibl", "standard.rc", "standard.sIBLT",

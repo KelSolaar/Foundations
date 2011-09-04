@@ -38,6 +38,16 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
+__all__ = ["StandardMessageHookTestCase",
+		"SetVerbosityLevelTestCase",
+		"GetFrameTestCase",
+		"GetCodeLayerNameTestCase",
+		"GetModuleTestCase",
+		"GetObjectNameTestCase",
+		"NestedAttributeTestCase",
+		"StructureTestCase",
+		"LookupTestCase"]
+
 #***********************************************************************************************
 #***	Module classes and definitions.
 #***********************************************************************************************

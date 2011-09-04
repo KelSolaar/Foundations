@@ -36,6 +36,21 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
+__all__ = ["GetNiceNameTestCase",
+		"GetVersionRankTestCase",
+		"GetSplitextBasenameTestCase",
+		"GetCommonAncestorTestCase",
+		"GetCommonPathsAncestorTestCase",
+		"GetWordsTestCase",
+		"FilterWordsTestCase",
+		"ReplaceTestCase",
+		"ToForwardSlashesTestCase",
+		"ToBackwardSlashesTestCase",
+		"ToPosixPathTestCase",
+		"GetNormalizedPathTestCase",
+		"IsEmailTestCase",
+		"IsWebsiteTestCase"]
+
 #***********************************************************************************************
 #***	Module classes and definitions.
 #***********************************************************************************************

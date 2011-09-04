@@ -38,6 +38,26 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
+__all__ = ["RESOURCES_DIRECTORY",
+			"COMPONENT_FILE",
+			"IBL_SET_FILE",
+			"TEMPLATE_FILE",
+			"DEFAULTS_FILE",
+			"STRIPPING_FILE",
+			"PARSING_ERRORS_FILE",
+			"STANDARD_FILES",
+			"STANDARD_FILES_RAW_SECTIONS",
+			"STANDARD_FILES_SECTIONS_AND_ATTRIBUTES",
+			"DEFAULTS_FILE_SECTIONS_AND_ATTRIBUTES",
+			"STRIPPING_FILE_SECTIONS_AND_ATTRIBUTES_STRIPPED",
+			"STRIPPING_FILE_SECTIONS_AND_ATTRIBUTES_NON_STRIPPED",
+			"PARSING_ERRORS_LINES_AND_VALUES",
+			"RANDOM_ATTRIBUTES",
+			"RANDOM_COMMENTS",
+			"SCRIPT_RAW_SECTION",
+			"ParserTestCase",
+			"GetAttributeCompoundTestCase"]
+
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
 COMPONENT_FILE = os.path.join(RESOURCES_DIRECTORY, "standard.rc")
 IBL_SET_FILE = os.path.join(RESOURCES_DIRECTORY, "standard.ibl")
