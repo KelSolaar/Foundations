@@ -60,7 +60,7 @@ def setNamespace(namespace, attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 	:return: Namespaced attribute. ( String )
 	"""
 
-	longName = str(namespace + namespaceSplitter + attribute)
+	longName = "{0}{1}{2}".format(namespace, namespaceSplitter, attribute)
 	LOGGER.debug("> Namespace: '{0}', attribute: '{1}', long name: '{2}'.".format(namespace, attribute, longName))
 	return longName
 
