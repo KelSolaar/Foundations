@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 
 """
-**walker.py**
+**walkers.py**
 
 **Platform:**
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines the :class:`Walker` class.
+	This module defines the :class:`OsWalker` class and others walking related objects.
 
 **Others:**
 
@@ -40,14 +40,14 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["LOGGER", "Walker"]
+__all__ = ["LOGGER", "OsWalker", "dictionariesWalker"]
 
 LOGGER = logging.getLogger(Constants.logger)
 
 #***********************************************************************************************
 #***	Module classes and definitions.
 #***********************************************************************************************
-class Walker(object):
+class OsWalker(object):
 	"""
 	This class provides methods for walking in a directory and retrieving filters matched files.
 	"""
@@ -59,12 +59,12 @@ class Walker(object):
 	
 		Usage::
 		
-			>>> walker = Walker("./Foundations/src/tests/testsFoundations/resources/standard/level_0")
-			>>> walker.walk().keys()
+			>>> osWalker = OsWalker("./Foundations/src/tests/testsFoundations/resources/standard/level_0")
+			>>> osWalker.walk().keys()
 			['standard|0d24f027', 'standard|407ed3b2', 'standard|20efaeaf', 'loremIpsum|ddf30259']
-			>>> walker.walk(filtersIn=("\.sIBLT$",))
+			>>> osWalker.walk(filtersIn=("\.sIBLT$",))
 			{'standard|20efaeaf': './Foundations/src/tests/testsFoundations/resources/standard/level_0/level_1/level_2/standard.sIBLT'}
-			>>> walker.walk(filtersOut=("\.sIBLT$", "\.rc$", "\.ibl$")).values()
+			>>> osWalker.walk(filtersOut=("\.sIBLT$", "\.rc$", "\.ibl$")).values()
 			['./Foundations/src/tests/testsFoundations/resources/standard/level_0/level_1/loremIpsum.txt']
 			
 		:param root: Root directory to recursively walk. ( String )
@@ -222,3 +222,36 @@ class Walker(object):
 					self.__files[itemName] = itemPath
 
 		return self.__files
+
+@core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
+def dictionariesWalker(dictionary, path=()):
+	"""
+	This definition is a generator used to walk into nested dictionaries.
+	
+	:param dictionary: Dictionary to walk. ( Dictionary )
+	:param path: Walked paths. ( Tuple )
+	:return: Path, key, value. ( Tuple )
+	
+	Usage::
+		
+			>>> nestedDictionary = {"Level 1A":{"Level 2A": { "Level 3A" : "Higher Level"}}, "Level 1B" : "Lower level"}
+			>>> dictionariesWalker(nestedDictionary)
+			<generator object dictionariesWalker at 0x10131a320>
+			>>> for value in dictionariesWalker(nestedDictionary):
+			...	print value
+			(('Level 1A', 'Level 2A'), 'Level 3A', 'Higher Level')
+			((), 'Level 1B', 'Lower level')
+
+	:param dictionary: Root dictionary. ( Dictionary )
+	:yield: path, key, value. ( Tuple )
+	
+	:note: This generator won't / can't yield any dictionaries, if you want to be able to retrieve dictionaries anyway, you will have to either encapsulate them in another object, or mutate their base class.
+	"""
+
+	for key in dictionary.keys():
+		if not isinstance(dictionary[key], dict):
+			yield path, key, dictionary[key]
+		else:
+			for value in dictionariesWalker(dictionary[key], path + (key,)):
+				yield value

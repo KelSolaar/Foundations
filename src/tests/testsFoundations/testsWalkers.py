@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-**testsWalker.py**
+**testsWalkers.py**
 
 **Platform:**
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines units tests for :mod:`foundations.walker` module.
+	This module defines units tests for :mod:`foundations.walkers` module.
 
 **Others:**
 
@@ -25,7 +25,8 @@ import unittest
 #***********************************************************************************************
 import foundations.namespace as namespace
 import foundations.strings as strings
-from foundations.walker import Walker
+import foundations.walkers
+from foundations.walkers import OsWalker
 
 #***********************************************************************************************
 #***	Module attributes.
@@ -37,7 +38,7 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["RESOURCES_DIRECTORY", "ROOT_DIRECTORY", "TREE_HIERARCHY", "WalkerTestCase"]
+__all__ = ["RESOURCES_DIRECTORY", "ROOT_DIRECTORY", "TREE_HIERARCHY", "OsWalkerTestCase"]
 
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
 ROOT_DIRECTORY = "standard"
@@ -49,9 +50,9 @@ TREE_HIERARCHY = ("loremIpsum.txt", "standard.ibl", "standard.rc", "standard.sIB
 #***********************************************************************************************
 #***	Module classes and definitions.
 #***********************************************************************************************
-class WalkerTestCase(unittest.TestCase):
+class OsWalkerTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.walker.Walker` class units tests methods.
+	This class defines :class:`foundations.walkers.OsWalker` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
@@ -64,7 +65,7 @@ class WalkerTestCase(unittest.TestCase):
 								"files")
 
 		for attribute in requiredAttributes:
-			self.assertIn(attribute, dir(Walker))
+			self.assertIn(attribute, dir(OsWalker))
 
 	def testRequiredMethods(self):
 		"""
@@ -74,45 +75,65 @@ class WalkerTestCase(unittest.TestCase):
 		requiredMethods = ("walk",)
 
 		for method in requiredMethods:
-			self.assertIn(method, dir(Walker))
+			self.assertIn(method, dir(OsWalker))
 
 	def testWalk(self):
 		"""
-		This method tests :meth:`foundations.walker.Walker.walk` method.
+		This method tests :meth:`foundations.walkers.OsWalker.walk` method.
 		"""
 
-		walker = Walker()
-		walker.root = os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY)
-		walker.walk()
-		for path in walker.files.values():
+		osWalker = OsWalker()
+		osWalker.root = os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY)
+		osWalker.walk()
+		for path in osWalker.files.values():
 			self.assertTrue(os.path.exists(path))
 
 		referencePaths = [strings.replace(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY, path), {"/":"|", "\\":"|"}) for path in TREE_HIERARCHY]
-		walkerFiles = [strings.replace(path, {"/":"|", "\\":"|"}) for path in walker.files.values()]
+		walkerFiles = [strings.replace(path, {"/":"|", "\\":"|"}) for path in osWalker.files.values()]
 		for item in referencePaths:
 			self.assertIn(item, walkerFiles)
 
-		walker.walk(filtersOut=("\.rc$",))
-		walkerFiles = [strings.replace(path, {"/":"|", "\\":"|"}) for path in walker.files.values()]
+		osWalker.walk(filtersOut=("\.rc$",))
+		walkerFiles = [strings.replace(path, {"/":"|", "\\":"|"}) for path in osWalker.files.values()]
 		for item in walkerFiles:
 			self.assertTrue(not re.search("\.rc$", item))
 
-		walker.walk(filtersOut=("\.ibl", "\.rc$", "\.sIBLT$", "\.txt$"))
-		self.assertTrue(not walker.files)
+		osWalker.walk(filtersOut=("\.ibl", "\.rc$", "\.sIBLT$", "\.txt$"))
+		self.assertTrue(not osWalker.files)
 
 		referencePaths = [strings.replace(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY, path), {"/":"|", "\\":"|"}) for path in TREE_HIERARCHY if re.search("\.rc$", path)]
 		filter = "\.rc$"
-		walker.walk(filtersIn=(filter,))
-		walkerFiles = [strings.replace(path, {"/":"|", "\\":"|"}) for path in walker.files.values()]
+		osWalker.walk(filtersIn=(filter,))
+		walkerFiles = [strings.replace(path, {"/":"|", "\\":"|"}) for path in osWalker.files.values()]
 		for item in referencePaths:
 			self.assertIn(item, walkerFiles)
 		for item in walkerFiles:
 			self.assertTrue(re.search(filter, item))
 
-		walker.hashSize = 24
-		walker.walk()
-		for item in walker.files.keys():
-			self.assertEqual(len(namespace.removeNamespace(item)), walker.hashSize)
+		osWalker.hashSize = 24
+		osWalker.walk()
+		for item in osWalker.files.keys():
+			self.assertEqual(len(namespace.removeNamespace(item)), osWalker.hashSize)
+
+class DictionariesWalkerTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.walkers.dictionariesWalker` definition units tests methods.
+	"""
+
+	def testGetUserApplicationDatasDirectory(self):
+		"""
+		This method tests :func:`foundations.walkers.dictionariesWalker` definition.
+		"""
+
+		nestedDictionary = {"Level 1A":{"Level 2A": { "Level 3A" : "Higher Level"}}, "Level 1B" : "Lower level", "Level 1C" : {}}
+		yieldValues = ((("Level 1A", "Level 2A"), "Level 3A", "Higher Level"), ((), "Level 1B", "Lower level"))
+		for value in foundations.walkers.dictionariesWalker(nestedDictionary):
+			self.assertIsInstance(value, tuple)
+			self.assertIn(value, yieldValues)
+		for path, key, value in foundations.walkers.dictionariesWalker(nestedDictionary):
+			self.assertIsInstance(path, tuple)
+			self.assertIsInstance(key, str)
+			self.assertIsInstance(value, str)
 
 if __name__ == "__main__":
 	import tests.utilities

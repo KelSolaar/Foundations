@@ -15,7 +15,7 @@ h3. 1.0.3 - Stable
 h3. 1.0.2 - Stable
 
 * Added "getWords" and "filterWords" methods to "strings" module and associated units tests.
-* Implemented "filterWords" in "walker" module.
+* Implemented "filterWords" in "walkers" module.
 * Added "getSplitextBasename" definition to "strings" module and associated units tests to "testsStrings" module.
 * Replaced list comprehension expressions by generators.
 
