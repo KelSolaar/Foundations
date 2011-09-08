@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines the :class:`Parser` class and others parsing related objects.
+	This module defines the :class:`SectionsFileParser` class and others parsing related objects.
 
 **Others:**
 
@@ -40,7 +40,7 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["LOGGER", "AttributeCompound", "Parser", "getAttributeCompound"]
+__all__ = ["LOGGER", "AttributeCompound", "SectionsFileParser", "getAttributeCompound"]
 
 LOGGER = logging.getLogger(Constants.logger)
 
@@ -73,7 +73,7 @@ class AttributeCompound(core.Structure):
 
 		core.Structure.__init__(self, **kwargs)
 
-class Parser(io.File):
+class SectionsFileParser(io.File):
 	"""
 	This class provides methods to parse sections file format files, an alternative configuration file parser is available directly with Python: :class:`ConfigParser.ConfigParser`.
 
@@ -81,7 +81,7 @@ class Parser(io.File):
 
 		- Sections and attributes are stored in their appearance order by default. ( Using Python :class:`collections.OrderedDict` )
 		- A default section ( **_default** ) will store orphans attributes ( Attributes appearing before any declared section ).
-		- File comments are stored inside the :obj:`Parser.comments` class property. 
+		- File comments are stored inside the :obj:`SectionsFileParser.comments` class property. 
 		- Sections, attributes and values are whitespaces stripped by default but can also be stored with their leading and trailing whitespaces. 
 		- Values are quotations markers stripped by default but can also be stored with their leading and trailing quotations markers. 
 		- Attributes are namespaced by default allowing sections merge without keys collisions. 
@@ -96,7 +96,7 @@ class Parser(io.File):
 		Usage::
 		
 			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
-			>>> parser = Parser()
+			>>> parser = SectionsFileParser()
 			>>> parser.content = content
 			>>> parser.parse(stripComments=False)
 			True
@@ -482,7 +482,7 @@ class Parser(io.File):
 		Usage::
 
 			>>> content = ["; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "Attribute 2 = \\"Value B\\"\\n"]
-			>>> parser = Parser()
+			>>> parser = SectionsFileParser()
 			>>> parser.content = content
 			>>> parser.parse(stripComments=False)
 			True
@@ -503,7 +503,7 @@ class Parser(io.File):
 			>>> parser.parse(namespaces=False)
 			OrderedDict([('Attribute 1', 'Value A'), ('Attribute 2', 'Value B')])
 
-		:param orderedDictionary: Parser data is stored in :class:`collections.OrderedDict` dictionaries. ( Boolean )
+		:param orderedDictionary: SectionsFileParser data is stored in :class:`collections.OrderedDict` dictionaries. ( Boolean )
 		:param rawSections: Ignored raw sections. ( Tuple / List )
 		:param namespaces: Attributes and comments are namespaced. ( Boolean )
 		:param stripComments: Comments are stripped. ( Boolean )
@@ -590,7 +590,7 @@ class Parser(io.File):
 		Usage::
 
 			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
-			>>> parser = Parser()
+			>>> parser = SectionsFileParser()
 			>>> parser.content = content
 			>>> parser.parse()
 			True
@@ -622,7 +622,7 @@ class Parser(io.File):
 		Usage::
 
 			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
-			>>> parser = Parser()
+			>>> parser = SectionsFileParser()
 			>>> parser.content = content
 			>>> parser.parse()
 			True
@@ -655,7 +655,7 @@ class Parser(io.File):
 		Usage::
 
 			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
-			>>> parser = Parser()
+			>>> parser = SectionsFileParser()
 			>>> parser.content = content
 			>>> parser.parse()
 			True
@@ -699,7 +699,7 @@ class Parser(io.File):
 		Usage::
 
 			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
-			>>> parser = Parser()
+			>>> parser = SectionsFileParser()
 			>>> parser.content = content
 			>>> parser.parse()
 			True
@@ -731,7 +731,7 @@ class Parser(io.File):
 		Usage::
 
 			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
-			>>> parser = Parser()
+			>>> parser = SectionsFileParser()
 			>>> parser.content = content
 			>>> parser.parse()
 			True
@@ -764,7 +764,7 @@ def getAttributeCompound(attribute, value=None, splitter="|", bindingIdentifier=
 	Usage::
 	
 		>>> datas = "@Link | Value | Boolean | Link Parameter"
-		>>> attributeCompound = foundations.parser.getAttributeCompound("Attribute Compound", datas)
+		>>> attributeCompound = foundations.parsers.getAttributeCompound("Attribute Compound", datas)
 		>>> attributeCompound.name
 		Attribute Compound
 		>>> attributeCompound.value

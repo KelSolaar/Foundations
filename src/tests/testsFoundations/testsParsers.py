@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines units tests for :mod:`foundations.parser` module.
+	This module defines units tests for :mod:`foundations.parsers` module.
 
 **Others:**
 
@@ -25,8 +25,8 @@ from collections import OrderedDict
 #***	Internal imports.
 #***********************************************************************************************
 import foundations.namespace as namespace
-import foundations.parser
-from foundations.parser import Parser
+import foundations.parsers
+from foundations.parsers import SectionsFileParser
 
 #***********************************************************************************************
 #***	Module attributes.
@@ -55,7 +55,7 @@ __all__ = ["RESOURCES_DIRECTORY",
 			"RANDOM_ATTRIBUTES",
 			"RANDOM_COMMENTS",
 			"SCRIPT_RAW_SECTION",
-			"ParserTestCase",
+			"SectionsFileParserTestCase",
 			"GetAttributeCompoundTestCase"]
 
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
@@ -71,8 +71,8 @@ STANDARD_FILES = {"component" : COMPONENT_FILE,
 STANDARD_FILES_RAW_SECTIONS = {"component" : None,
 					"iblSet" : None,
 					"template" : ("Script",)}
-STANDARD_FILES_SECTIONS_AND_ATTRIBUTES = {"component" : OrderedDict([("Component", {"stripped" : ["Name", "Module", "Object", "Rank", "Version"],
-																"namespaced" : ["Component|Name", "Component|Module", "Component|Object", "Component|Rank", "Component|Version"]}),
+STANDARD_FILES_SECTIONS_AND_ATTRIBUTES = {"component" : OrderedDict([("Component", {"stripped" : ["Name", "Title", "Module", "Object", "Rank", "Version"],
+																"namespaced" : ["Component|Name", "Component|Title", "Component|Module", "Component|Object", "Component|Rank", "Component|Version"]}),
 													("Informations", {"stripped" : ["Author", "Email", "Url", "Description"],
 																"namespaced" : ["Informations|Author", "Informations|Email", "Informations|Url", "Informations|Description"]})]),
 							"iblSet" : OrderedDict([("Header", {"stripped" : ["ICOfile", "Name", "Author", "Location", "Comment", "GEOlat", "GEOlong", "Link", "Date", "Time", "Height", "North"],
@@ -136,9 +136,9 @@ SCRIPT_RAW_SECTION = [ "// @OutputScript - @Release for @Software @Version\n",
 #***********************************************************************************************
 #***	Module classes and definitions.
 #***********************************************************************************************
-class ParserTestCase(unittest.TestCase):
+class SectionsFileParserTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.parser.Parser` class units tests methods.
+	This class defines :class:`foundations.parsers.SectionsFileParser` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
@@ -160,7 +160,7 @@ class ParserTestCase(unittest.TestCase):
 								"parsingErrors")
 
 		for attribute in requiredAttributes:
-			self.assertIn(attribute, dir(Parser))
+			self.assertIn(attribute, dir(SectionsFileParser))
 
 	def testRequiredMethods(self):
 		"""
@@ -175,15 +175,15 @@ class ParserTestCase(unittest.TestCase):
 							"getValue")
 
 		for method in requiredMethods:
-			self.assertIn(method, dir(Parser))
+			self.assertIn(method, dir(SectionsFileParser))
 
 	def testParse(self):
 		"""
-		This method tests :meth:`foundations.parser.Parser.parse` method.
+		This method tests :meth:`foundations.parsers.SectionsFileParser.parse` method.
 		"""
 
 		for type, file in STANDARD_FILES.items():
-			parser = Parser(file)
+			parser = SectionsFileParser(file)
 			parser.read()
 			parseSuccess = parser.parse(rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			self.assertTrue(parseSuccess)
@@ -196,11 +196,11 @@ class ParserTestCase(unittest.TestCase):
 
 	def testSections(self):
 		"""
-		This method tests :class:`foundations.parser.Parser` class sections consistencies.
+		This method tests :class:`foundations.parsers.SectionsFileParser` class sections consistencies.
 		"""
 
 		for type, file in STANDARD_FILES.items():
-			parser = Parser(file)
+			parser = SectionsFileParser(file)
 			parser.read()
 			parser.parse(rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			self.assertListEqual(parser.sections.keys(), STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type].keys())
@@ -210,21 +210,21 @@ class ParserTestCase(unittest.TestCase):
 
 	def testRawSections(self):
 		"""
-		This method tests :class:`foundations.parser.Parser` class raw sections consistencies.
+		This method tests :class:`foundations.parsers.SectionsFileParser` class raw sections consistencies.
 		"""
 
-		parser = Parser(TEMPLATE_FILE)
+		parser = SectionsFileParser(TEMPLATE_FILE)
 		parser.read()
 		parser.parse(rawSections=("Script",))
 		self.assertListEqual(parser.sections["Script"]["Script|_rawSectionContent"][0:10], SCRIPT_RAW_SECTION)
 
 	def testComments(self):
 		"""
-		This method tests :class:`foundations.parser.Parser` class comments consistencies.
+		This method tests :class:`foundations.parsers.SectionsFileParser` class comments consistencies.
 		"""
 
 		for type, file in STANDARD_FILES.items():
-			parser = Parser(file)
+			parser = SectionsFileParser(file)
 			parser.read()
 			parser.parse(rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			self.assertEqual(parser.comments, OrderedDict())
@@ -235,21 +235,21 @@ class ParserTestCase(unittest.TestCase):
 
 	def testDefaultsSection(self):
 		"""
-		This method tests :class:`foundations.parser.Parser` class default section consistency.
+		This method tests :class:`foundations.parsers.SectionsFileParser` class default section consistency.
 		"""
 
-		parser = Parser(DEFAULTS_FILE)
+		parser = SectionsFileParser(DEFAULTS_FILE)
 		parser.read() and parser.parse()
 		for section in DEFAULTS_FILE_SECTIONS_AND_ATTRIBUTES.keys():
 			self.assertIn(section, parser.sections.keys())
 
 	def testNamespaces(self):
 		"""
-		This method tests :class:`foundations.parser.Parser` class namespaces consistencies.
+		This method tests :class:`foundations.parsers.SectionsFileParser` class namespaces consistencies.
 		"""
 
 		for type, file in STANDARD_FILES.items():
-			parser = Parser(file)
+			parser = SectionsFileParser(file)
 			parser.read()
 			parser.parse(rawSections=STANDARD_FILES_RAW_SECTIONS[type], namespaces=False)
 			for section in STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type]:
@@ -258,10 +258,10 @@ class ParserTestCase(unittest.TestCase):
 
 	def testStripWhitespaces(self):
 		"""
-		This method tests :class:`foundations.parser.Parser` class whitespaces consistencies.
+		This method tests :class:`foundations.parsers.SectionsFileParser` class whitespaces consistencies.
 		"""
 
-		parser = Parser(STRIPPING_FILE)
+		parser = SectionsFileParser(STRIPPING_FILE)
 		parser.read() and parser.parse(stripWhitespaces=False)
 		for section in STRIPPING_FILE_SECTIONS_AND_ATTRIBUTES_NON_STRIPPED.keys():
 			self.assertIn(section, parser.sections.keys())
@@ -271,10 +271,10 @@ class ParserTestCase(unittest.TestCase):
 
 	def testStripQuotationMarkers(self):
 		"""
-		This method tests :class:`foundations.parser.Parser` class quotation markers consistencies.
+		This method tests :class:`foundations.parsers.SectionsFileParser` class quotation markers consistencies.
 		"""
 
-		parser = Parser(STRIPPING_FILE)
+		parser = SectionsFileParser(STRIPPING_FILE)
 		parser.read() and parser.parse(stripQuotationMarkers=False)
 		for section in STRIPPING_FILE_SECTIONS_AND_ATTRIBUTES_STRIPPED.keys():
 			self.assertIn(section, parser.sections.keys())
@@ -284,10 +284,10 @@ class ParserTestCase(unittest.TestCase):
 
 	def testParsingErrors(self):
 		"""
-		This method tests :class:`foundations.parser.Parser` class parsing errors consistencies.
+		This method tests :class:`foundations.parsers.SectionsFileParser` class parsing errors consistencies.
 		"""
 
-		parser = Parser(PARSING_ERRORS_FILE)
+		parser = SectionsFileParser(PARSING_ERRORS_FILE)
 		parser.read() and parser.parse(raiseParsingErrors=False)
 		for exception in parser.parsingErrors:
 			self.assertIn(exception.line, PARSING_ERRORS_LINES_AND_VALUES.keys())
@@ -295,11 +295,11 @@ class ParserTestCase(unittest.TestCase):
 
 	def testSectionExists(self):
 		"""
-		This method tests :meth:`foundations.parser.Parser.sectionExists` method.
+		This method tests :meth:`foundations.parsers.SectionsFileParser.sectionExists` method.
 		"""
 
 		for type, file in STANDARD_FILES.items():
-			parser = Parser(file)
+			parser = SectionsFileParser(file)
 			parser.read()
 			parser.parse(rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			self.assertTrue(parser.sectionExists(STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type].keys()[0]))
@@ -307,11 +307,11 @@ class ParserTestCase(unittest.TestCase):
 
 	def testAttributeExists(self):
 		"""
-		This method tests :meth:`foundations.parser.Parser.attributeExists` method.
+		This method tests :meth:`foundations.parsers.SectionsFileParser.attributeExists` method.
 		"""
 
 		for type, file in STANDARD_FILES.items():
-			parser = Parser(file)
+			parser = SectionsFileParser(file)
 			parser.read()
 			parser.parse(False, rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			for attribute in RANDOM_ATTRIBUTES[type].keys():
@@ -320,11 +320,11 @@ class ParserTestCase(unittest.TestCase):
 
 	def testGetAttributes(self):
 		"""
-		This method tests :meth:`foundations.parser.Parser.getAttributes` method.
+		This method tests :meth:`foundations.parsers.SectionsFileParser.getAttributes` method.
 		"""
 
 		for type, file in STANDARD_FILES.items():
-			parser = Parser(file)
+			parser = SectionsFileParser(file)
 			parser.read()
 			parser.parse(rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			for section in STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type]:
@@ -333,11 +333,11 @@ class ParserTestCase(unittest.TestCase):
 
 	def testGetAllAttributes(self):
 		"""
-		This method tests :meth:`foundations.parser.Parser.getAllAttributes` method.
+		This method tests :meth:`foundations.parsers.SectionsFileParser.getAllAttributes` method.
 		"""
 
 		for type, file in STANDARD_FILES.items():
-			parser = Parser(file)
+			parser = SectionsFileParser(file)
 			parser.read()
 			parser.parse(rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			attributes = parser.getAllAttributes()
@@ -348,11 +348,11 @@ class ParserTestCase(unittest.TestCase):
 
 	def testGetValue(self):
 		"""
-		This method tests :meth:`foundations.parser.Parser.getValue` method.
+		This method tests :meth:`foundations.parsers.SectionsFileParser.getValue` method.
 		"""
 
 		for type, file in STANDARD_FILES.items():
-			parser = Parser(file)
+			parser = SectionsFileParser(file)
 			parser.read()
 			parser.parse(False, rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			for attribute, value in RANDOM_ATTRIBUTES[type].items():
@@ -362,28 +362,28 @@ class ParserTestCase(unittest.TestCase):
 
 class GetAttributeCompoundTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.parser.getAttributeCompound` definition units tests methods.
+	This class defines :func:`foundations.parsers.getAttributeCompound` definition units tests methods.
 	"""
 
 	def testGetAttributeCompound(self):
 		"""
-		This method tests :func:`foundations.parser.getAttributeCompound` definition.
+		This method tests :func:`foundations.parsers.getAttributeCompound` definition.
 		"""
 
-		self.assertIsInstance(foundations.parser.getAttributeCompound("Attribute", "Value"), foundations.parser.AttributeCompound)
+		self.assertIsInstance(foundations.parsers.getAttributeCompound("Attribute", "Value"), foundations.parsers.AttributeCompound)
 
-		self.assertEqual(None, foundations.parser.getAttributeCompound("Attribute").value)
+		self.assertEqual(None, foundations.parsers.getAttributeCompound("Attribute").value)
 
-		compound = foundations.parser.AttributeCompound(name="Attribute", value="Value", link="@Link", type="Boolean", alias="Link Parameter")
+		compound = foundations.parsers.AttributeCompound(name="Attribute", value="Value", link="@Link", type="Boolean", alias="Link Parameter")
 		datas = "@Link | Value | Boolean | Link Parameter"
-		self.assertEqual(compound.name, foundations.parser.getAttributeCompound("Attribute", datas).name)
-		self.assertEqual(compound.value, foundations.parser.getAttributeCompound("Attribute", datas).value)
-		self.assertEqual(compound.link, foundations.parser.getAttributeCompound("Attribute", datas).link)
-		self.assertEqual(compound.type, foundations.parser.getAttributeCompound("Attribute", datas).type)
-		self.assertEqual(compound.alias, foundations.parser.getAttributeCompound("Attribute", datas).alias)
+		self.assertEqual(compound.name, foundations.parsers.getAttributeCompound("Attribute", datas).name)
+		self.assertEqual(compound.value, foundations.parsers.getAttributeCompound("Attribute", datas).value)
+		self.assertEqual(compound.link, foundations.parsers.getAttributeCompound("Attribute", datas).link)
+		self.assertEqual(compound.type, foundations.parsers.getAttributeCompound("Attribute", datas).type)
+		self.assertEqual(compound.alias, foundations.parsers.getAttributeCompound("Attribute", datas).alias)
 
 		datas = "@Link"
-		self.assertEqual(compound.link, foundations.parser.getAttributeCompound("Attribute", datas).link)
+		self.assertEqual(compound.link, foundations.parsers.getAttributeCompound("Attribute", datas).link)
 
 if __name__ == "__main__":
 	import tests.utilities
