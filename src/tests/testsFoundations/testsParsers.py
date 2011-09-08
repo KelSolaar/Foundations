@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-**testsParser.py**
+**testsParsers.py**
 
 **Platform:**
 	Windows, Linux, Mac Os X.

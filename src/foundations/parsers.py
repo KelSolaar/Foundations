@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-**parser.py**
+**parsers.py**
 
 **Platform:**
 	Windows, Linux, Mac Os X.
@@ -96,13 +96,13 @@ class SectionsFileParser(io.File):
 		Usage::
 		
 			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
-			>>> parser = SectionsFileParser()
-			>>> parser.content = content
-			>>> parser.parse(stripComments=False)
+			>>> sectionsFileParser = SectionsFileParser()
+			>>> sectionsFileParser.content = content
+			>>> sectionsFileParser.parse(stripComments=False)
 			True
-			>>> parser.sections.keys()
+			>>> sectionsFileParser.sections.keys()
 			['Section A', 'Section B']
-			>>> parser.comments 
+			>>> sectionsFileParser.comments 
 			OrderedDict([('Section A|#0', {'content': 'Comment.', 'id': 0})])
 
 		:param file: Current file path. ( String )
@@ -482,25 +482,25 @@ class SectionsFileParser(io.File):
 		Usage::
 
 			>>> content = ["; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "Attribute 2 = \\"Value B\\"\\n"]
-			>>> parser = SectionsFileParser()
-			>>> parser.content = content
-			>>> parser.parse(stripComments=False)
+			>>> sectionsFileParser = SectionsFileParser()
+			>>> sectionsFileParser.content = content
+			>>> sectionsFileParser.parse(stripComments=False)
 			True
-			>>> parser.sections.keys()
+			>>> sectionsFileParser.sections.keys()
 			['_defaults']
-			>>> parser.sections["_defaults"].values()
+			>>> sectionsFileParser.sections["_defaults"].values()
 			['Value A', 'Value B']
-			>>> parser.parse(stripQuotationMarkers=False)
+			>>> sectionsFileParser.parse(stripQuotationMarkers=False)
 			True
-			>>> parser.sections["_defaults"].values()
+			>>> sectionsFileParser.sections["_defaults"].values()
 			['"Value A"', '"Value B"']
-			>>> parser.comments 
+			>>> sectionsFileParser.comments 
 			OrderedDict([('_defaults|#0', {'content': 'Comment.', 'id': 0})])
-			>>> parser.parse()
+			>>> sectionsFileParser.parse()
 			True
-			>>> parser.sections["_defaults"]
+			>>> sectionsFileParser.sections["_defaults"]
 			OrderedDict([('_defaults|Attribute 1', 'Value A'), ('_defaults|Attribute 2', 'Value B')])
-			>>> parser.parse(namespaces=False)
+			>>> sectionsFileParser.parse(namespaces=False)
 			OrderedDict([('Attribute 1', 'Value A'), ('Attribute 2', 'Value B')])
 
 		:param orderedDictionary: SectionsFileParser data is stored in :class:`collections.OrderedDict` dictionaries. ( Boolean )
@@ -590,13 +590,13 @@ class SectionsFileParser(io.File):
 		Usage::
 
 			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
-			>>> parser = SectionsFileParser()
-			>>> parser.content = content
-			>>> parser.parse()
+			>>> sectionsFileParser = SectionsFileParser()
+			>>> sectionsFileParser.content = content
+			>>> sectionsFileParser.parse()
 			True
-			>>> parser.sectionExists("Section A")
+			>>> sectionsFileParser.sectionExists("Section A")
 			True
-			>>> parser.sectionExists("Section C")
+			>>> sectionsFileParser.sectionExists("Section C")
 			False
 
 		:param section: Section to check existence. ( String )
@@ -622,13 +622,13 @@ class SectionsFileParser(io.File):
 		Usage::
 
 			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
-			>>> parser = SectionsFileParser()
-			>>> parser.content = content
-			>>> parser.parse()
+			>>> sectionsFileParser = SectionsFileParser()
+			>>> sectionsFileParser.content = content
+			>>> sectionsFileParser.parse()
 			True
-			>>> parser.attributeExists("Attribute 1", "Section A")
+			>>> sectionsFileParser.attributeExists("Attribute 1", "Section A")
 			True
-			>>> parser.attributeExists("Attribute 2", "Section A")
+			>>> sectionsFileParser.attributeExists("Attribute 2", "Section A")
 			False
 
 		:param attribute: Attribute to check existence. ( String )
@@ -655,15 +655,15 @@ class SectionsFileParser(io.File):
 		Usage::
 
 			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
-			>>> parser = SectionsFileParser()
-			>>> parser.content = content
-			>>> parser.parse()
+			>>> sectionsFileParser = SectionsFileParser()
+			>>> sectionsFileParser.content = content
+			>>> sectionsFileParser.parse()
 			True
-			>>> parser.getAttributes("Section A")
+			>>> sectionsFileParser.getAttributes("Section A")
 			OrderedDict([('Section A|Attribute 1', 'Value A')])
-			>>> parser.getAttributes("Section A", orderedDictionary=False)
+			>>> sectionsFileParser.getAttributes("Section A", orderedDictionary=False)
 			{'Section A|Attribute 1': 'Value A'}
-			>>> parser.getAttributes("Section A", stripNamespaces=True)
+			>>> sectionsFileParser.getAttributes("Section A", stripNamespaces=True)
 			OrderedDict([('Attribute 1', 'Value A')])
 
 		:param section: Section containing the requested attributes. ( String )
@@ -699,13 +699,13 @@ class SectionsFileParser(io.File):
 		Usage::
 
 			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
-			>>> parser = SectionsFileParser()
-			>>> parser.content = content
-			>>> parser.parse()
+			>>> sectionsFileParser = SectionsFileParser()
+			>>> sectionsFileParser.content = content
+			>>> sectionsFileParser.parse()
 			True
-			>>> parser.getAllAttributes()
+			>>> sectionsFileParser.getAllAttributes()
 			OrderedDict([('Section A|Attribute 1', 'Value A'), ('Section B|Attribute 2', 'Value B')])
-			>>> parser.getAllAttributes(orderedDictionary=False)
+			>>> sectionsFileParser.getAllAttributes(orderedDictionary=False)
 			{'Section B|Attribute 2': 'Value B', 'Section A|Attribute 1': 'Value A'}
 
 		:param orderedDictionary: Use an :class:`collections.OrderedDict` dictionary to store the attributes. ( String )
@@ -731,11 +731,11 @@ class SectionsFileParser(io.File):
 		Usage::
 
 			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
-			>>> parser = SectionsFileParser()
-			>>> parser.content = content
-			>>> parser.parse()
+			>>> sectionsFileParser = SectionsFileParser()
+			>>> sectionsFileParser.content = content
+			>>> sectionsFileParser.parse()
 			True
-			>>> parser.getValue("Attribute 1", "Section A")
+			>>> sectionsFileParser.getValue("Attribute 1", "Section A")
 			Value A
 
 		:param attribute: Attribute name. ( String )
