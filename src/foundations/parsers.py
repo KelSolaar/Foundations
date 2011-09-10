@@ -28,6 +28,7 @@ import foundations.core as core
 import foundations.exceptions
 import foundations.io as io
 import foundations.namespace as namespace
+import foundations.strings
 from foundations.globals.constants import Constants
 
 #***********************************************************************************************
@@ -106,9 +107,9 @@ class SectionsFileParser(io.File):
 			OrderedDict([('Section A|#0', {'content': 'Comment.', 'id': 0})])
 
 		:param file: Current file path. ( String )
-		:param splitters: Splitter character. ( String )
+		:param splitters: Splitter characters.  ( Tuple / List )
 		:param namespaceSplitter: Namespace splitters character. ( String )
-		:param commentLimiters: Comment limiters character. ( Tuple / List )
+		:param commentLimiters: Comment limiters characters. ( Tuple / List )
 		:param commentMarker: Character use to prefix extracted comments idientifiers. ( String )
 		:param quotationMarkers: Quotation markers characters. ( Tuple / List )
 		:param rawSectionContentIdentifier: Raw section content identifier. ( String )
@@ -379,7 +380,7 @@ class SectionsFileParser(io.File):
 		"""
 		This method is the property for **self.__sections** attribute.
 
-		:return: self.__sections. ( Dictionary )
+		:return: self.__sections. ( OrderedDict / Dictionary )
 		"""
 
 		return self.__sections
@@ -390,11 +391,11 @@ class SectionsFileParser(io.File):
 		"""
 		This method is the setter method for **self.__sections** attribute.
 
-		:param value: Attribute value. ( Dictionary )
+		:param value: Attribute value. ( OrderedDict / Dictionary )
 		"""
 
 		if value:
-			assert type(value) is dict, "'{0}' attribute: '{1}' type is not 'dict'!".format("sections", value)
+			assert type(value) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not 'OrderedDict' or 'dict'!".format("sections", value)
 		self.__sections = value
 
 	@sections.deleter
@@ -411,7 +412,7 @@ class SectionsFileParser(io.File):
 		"""
 		This method is the property for **self.__comments** attribute.
 
-		:return: self.__comments. ( Dictionary )
+		:return: self.__comments. ( OrderedDict / Dictionary )
 		"""
 
 		return self.__comments
@@ -422,11 +423,11 @@ class SectionsFileParser(io.File):
 		"""
 		This method is the setter method for **self.__comments** attribute.
 
-		:param value: Attribute value. ( Dictionary )
+		:param value: Attribute value. ( OrderedDict / Dictionary )
 		"""
 
 		if value:
-			assert type(value) is dict, "'{0}' attribute: '{1}' type is not 'dict'!".format("comments", value)
+			assert type(value) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not 'OrderedDict' or 'dict'!".format("comments", value)
 		self.__comments = value
 
 	@comments.deleter
@@ -554,8 +555,7 @@ class SectionsFileParser(io.File):
 
 			if section in rawSections:
 				rawContent.append(line)
-				attribute = namespaces and foundations.namespace.setNamespace(section, self.__rawSectionContentIdentifier, self.__namespaceSplitter) or self.__rawSectionContentIdentifier
-				attributes[attribute] = rawContent
+				attributes[self.__rawSectionContentIdentifier] = rawContent
 			else:
 				# Empty line matching.
 				search = re.search(r"^\s*$", line)
@@ -755,6 +755,79 @@ class SectionsFileParser(io.File):
 			LOGGER.debug("> Attribute: '{0}', value: '{1}'.".format(attribute, value))
 			value = encode and unicode(value, Constants.encodingFormat, Constants.encodingError) or value
 			return value
+
+	@core.executionTrace
+	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	def write(self, namespaces=False, splitter="=", commentLimiter=(";"), spacesAroundSplitter=True, spaceAfterCommentLimiter=True):
+		"""
+		This method writes defined file using :obj:`SectionsFileParser.sections and :obj:`SectionsFileParser.comments class properties content.
+
+		Usage::
+			>>> sections = {"Section A": {"Section A|Attribute 1": "Value A"}, "Section B": {"Section B|Attribute 2": "Value B"}}
+			>>> sectionsFileParser = SectionsFileParser("SectionsFile.rc")
+			>>> sectionsFileParser.sections = sections
+			>>> sectionsFileParser.write()
+			True
+			>>> sectionsFileParser.read()
+			True
+			>>> print sectionsFileParser.content[0:5]
+			['[Section A]\n', 'Attribute 1 = Value A\n', '\n', '[Section B]\n', 'Attribute 2 = Value B\n', '\n']
+
+		:param namespaces: Attributes are namespaced. ( Boolean )
+		:param splitter: Splitter character. ( String )
+		:param commentLimiter: Comment limiter character. ( String )
+		:param spacesAroundSplitter: Spaces around attributes and value splitters. ( Boolean )
+		:param spaceAfterCommentLimiter: Space after comments limiter. ( Boolean )
+		:return: Method success. ( Boolean )
+		"""
+
+		if not self.__sections:
+			return
+
+		LOGGER.debug("> Setting '{0}' file content.".format(self.file))
+		attributeTemplate = spacesAroundSplitter and "{{0}} {0} {{1}}\n".format(splitter) or "{{0}} {0} {{1}}\n".format(splitter)
+		attributeTemplate = foundations.strings.replace(attributeTemplate, {"{{" : "{", "}}" : "}"})
+		commentTemplate = spaceAfterCommentLimiter and "{0} {{0}}\n".format(commentLimiter) or "{0}{{0}}\n".format(commentLimiter)
+		if self.__defaultsSection in self.__sections.keys():
+			LOGGER.debug("> Appending '{0}' default section.".format(self.__defaultsSection))
+			if self.__comments:
+				for comment, value in self.__comments.items():
+					if self.__defaultsSection in comment:
+						value = value["content"] or ""
+						LOGGER.debug("> Appending '{0}' comment with '{1}' value.".format(comment, value))
+						self.content.append(commentTemplate.format(value))
+			for attribute, value in self.__sections[self.__defaultsSection].items():
+				attribute = namespaces and attribute or foundations.namespace.removeNamespace(attribute, self.__namespaceSplitter, rootOnly=True)
+				value = value or ""
+				LOGGER.debug("> Appending '{0}' attribute with '{1}' value.".format(attribute, value))
+				self.content.append(attributeTemplate.format(attribute, value))
+			self.content.append("\n")
+
+		for i, section in enumerate(self.__sections.keys()):
+			LOGGER.debug("> Appending '{0}' section.".format(section))
+			self.content.append("[{0}]\n".format(section))
+			if self.__comments:
+				for comment, value in self.__comments.items():
+					if section in comment:
+						value = value["content"] or ""
+						LOGGER.debug("> Appending '{0}' comment with '{1}' value.".format(comment, value))
+						self.content.append(commentTemplate.format(value))
+			for attribute, value in self.__sections[section].items():
+				if foundations.namespace.removeNamespace(attribute) == self.__rawSectionContentIdentifier:
+					LOGGER.debug("> Appending '{0}' raw section content.".format(section))
+					for line in value:
+						self.content.append(line)
+						appendNewLine = False
+				else:
+					LOGGER.debug("> Appending '{0}' section.".format(section))
+					attribute = namespaces and attribute or foundations.namespace.removeNamespace(attribute, self.__namespaceSplitter, rootOnly=True)
+					value = value or ""
+					LOGGER.debug("> Appending '{0}' attribute with '{1}' value.".format(attribute, value))
+					self.content.append(attributeTemplate.format(attribute, value))
+				if i != len(self.__sections.keys()) - 1:
+					self.content.append("\n")
+		io.File.write(self)
+		return True
 
 @core.executionTrace
 def getAttributeCompound(attribute, value=None, splitter="|", bindingIdentifier="@"):

@@ -18,6 +18,7 @@
 #***	External imports.
 #***********************************************************************************************
 import os
+import tempfile
 import unittest
 from collections import OrderedDict
 
@@ -98,7 +99,7 @@ STANDARD_FILES_SECTIONS_AND_ATTRIBUTES = {"component" : OrderedDict([("Component
 													("Remote Connection", {"stripped" : ["ConnectionType", "ExecutionCommand", "DefaultAddress", "DefaultPort"],
 																"namespaced" : ["Remote Connection|ConnectionType", "Remote Connection|ExecutionCommand", "Remote Connection|DefaultAddress", "Remote Connection|DefaultPort"]}),
 													("Script", {"stripped" : ["_rawSectionContent"],
-																"namespaced" : ["Script|_rawSectionContent"]})])}
+																"namespaced" : ["_rawSectionContent"]})])}
 
 DEFAULTS_FILE_SECTIONS_AND_ATTRIBUTES = {"_defaults" : {"_defaults|Default A" : "Attribute 'Default A' value", "_defaults|Default B" : "Attribute 'Default B' value"},
 									"Options A" : {"Options A|John Doe" : "Unknown"},
@@ -172,7 +173,8 @@ class SectionsFileParserTestCase(unittest.TestCase):
 							"attributeExists",
 							"getAttributes",
 							"getAllAttributes",
-							"getValue")
+							"getValue",
+							"write")
 
 		for method in requiredMethods:
 			self.assertIn(method, dir(SectionsFileParser))
@@ -201,8 +203,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 		for type, file in STANDARD_FILES.items():
 			sectionsFileParser = SectionsFileParser(file)
-			sectionsFileParser.read()
-			sectionsFileParser.parse(rawSections=STANDARD_FILES_RAW_SECTIONS[type])
+			sectionsFileParser.read() and sectionsFileParser.parse(rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			self.assertListEqual(sectionsFileParser.sections.keys(), STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type].keys())
 			sectionsFileParser.parse(orderedDictionary=False, rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			for section in STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type]:
@@ -214,9 +215,8 @@ class SectionsFileParserTestCase(unittest.TestCase):
 		"""
 
 		sectionsFileParser = SectionsFileParser(TEMPLATE_FILE)
-		sectionsFileParser.read()
-		sectionsFileParser.parse(rawSections=("Script",))
-		self.assertListEqual(sectionsFileParser.sections["Script"]["Script|_rawSectionContent"][0:10], SCRIPT_RAW_SECTION)
+		sectionsFileParser.read() and sectionsFileParser.parse(rawSections=("Script",))
+		self.assertListEqual(sectionsFileParser.sections["Script"]["_rawSectionContent"][0:10], SCRIPT_RAW_SECTION)
 
 	def testComments(self):
 		"""
@@ -225,8 +225,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 		for type, file in STANDARD_FILES.items():
 			sectionsFileParser = SectionsFileParser(file)
-			sectionsFileParser.read()
-			sectionsFileParser.parse(rawSections=STANDARD_FILES_RAW_SECTIONS[type])
+			sectionsFileParser.read() and sectionsFileParser.parse(rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			self.assertEqual(sectionsFileParser.comments, OrderedDict())
 			sectionsFileParser.parse(rawSections=STANDARD_FILES_RAW_SECTIONS[type], stripComments=False)
 			for comment, value in RANDOM_COMMENTS[type].items():
@@ -250,8 +249,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 		for type, file in STANDARD_FILES.items():
 			sectionsFileParser = SectionsFileParser(file)
-			sectionsFileParser.read()
-			sectionsFileParser.parse(rawSections=STANDARD_FILES_RAW_SECTIONS[type], namespaces=False)
+			sectionsFileParser.read() and sectionsFileParser.parse(rawSections=STANDARD_FILES_RAW_SECTIONS[type], namespaces=False)
 			for section in STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type]:
 					for attribute in sectionsFileParser.sections[section]:
 						self.assertIn(attribute, STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type][section]["stripped"])
@@ -300,8 +298,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 		for type, file in STANDARD_FILES.items():
 			sectionsFileParser = SectionsFileParser(file)
-			sectionsFileParser.read()
-			sectionsFileParser.parse(rawSections=STANDARD_FILES_RAW_SECTIONS[type])
+			sectionsFileParser.read() and sectionsFileParser.parse(rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			self.assertTrue(sectionsFileParser.sectionExists(STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type].keys()[0]))
 			self.assertFalse(sectionsFileParser.sectionExists("Unknown"))
 
@@ -312,8 +309,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 		for type, file in STANDARD_FILES.items():
 			sectionsFileParser = SectionsFileParser(file)
-			sectionsFileParser.read()
-			sectionsFileParser.parse(False, rawSections=STANDARD_FILES_RAW_SECTIONS[type])
+			sectionsFileParser.read() and sectionsFileParser.parse(False, rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			for attribute in RANDOM_ATTRIBUTES[type].keys():
 				self.assertTrue(sectionsFileParser.attributeExists(attribute, namespace.getNamespace(attribute, rootOnly=True)))
 				self.assertFalse(sectionsFileParser.attributeExists("Unknown", namespace.getNamespace(attribute, rootOnly=True)))
@@ -325,8 +321,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 		for type, file in STANDARD_FILES.items():
 			sectionsFileParser = SectionsFileParser(file)
-			sectionsFileParser.read()
-			sectionsFileParser.parse(rawSections=STANDARD_FILES_RAW_SECTIONS[type])
+			sectionsFileParser.read() and sectionsFileParser.parse(rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			for section in STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type]:
 					self.assertListEqual(sectionsFileParser.getAttributes(section, orderedDictionary=True, stripNamespaces=True).keys(), STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type][section]["stripped"])
 					self.assertListEqual(sectionsFileParser.getAttributes(section).keys(), STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type][section]["namespaced"])
@@ -338,8 +333,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 		for type, file in STANDARD_FILES.items():
 			sectionsFileParser = SectionsFileParser(file)
-			sectionsFileParser.read()
-			sectionsFileParser.parse(rawSections=STANDARD_FILES_RAW_SECTIONS[type])
+			sectionsFileParser.read() and sectionsFileParser.parse(rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			attributes = sectionsFileParser.getAllAttributes()
 			testsAttributes = []
 			for section in STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type]:
@@ -353,12 +347,59 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 		for type, file in STANDARD_FILES.items():
 			sectionsFileParser = SectionsFileParser(file)
-			sectionsFileParser.read()
-			sectionsFileParser.parse(False, rawSections=STANDARD_FILES_RAW_SECTIONS[type])
+			sectionsFileParser.read() and sectionsFileParser.parse(False, rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			for attribute, value in RANDOM_ATTRIBUTES[type].items():
 				self.assertIsInstance(sectionsFileParser.getValue(attribute, namespace.getNamespace(attribute, rootOnly=True)), str)
 				self.assertIsInstance(sectionsFileParser.getValue(attribute, namespace.getNamespace(attribute, rootOnly=True), encode=True), unicode)
 				self.assertEqual(sectionsFileParser.getValue(attribute, namespace.getNamespace(attribute, rootOnly=True)), value)
+
+	def testWrite(self):
+		"""
+		This method tests :meth:`foundations.parsers.SectionsFileParser.write` method.
+		"""
+
+		# Standard sections files.
+		for type, file in STANDARD_FILES.items():
+			readSectionsFileParser = SectionsFileParser(file)
+			readSectionsFileParser.read() and readSectionsFileParser.parse(stripComments=False, rawSections=STANDARD_FILES_RAW_SECTIONS[type])
+
+			writeSectionsFileParser = SectionsFileParser(tempfile.mkstemp()[1])
+			writeSectionsFileParser.sections = readSectionsFileParser.sections
+			writeSectionsFileParser.comments = readSectionsFileParser.comments
+			writeSectionsFileParser.write()
+
+			checkingSectionsFileParser = SectionsFileParser(writeSectionsFileParser.file)
+			checkingSectionsFileParser.read() and checkingSectionsFileParser.parse(stripComments=False, rawSections=STANDARD_FILES_RAW_SECTIONS[type])
+			self.assertDictEqual(readSectionsFileParser.sections, checkingSectionsFileParser.sections)
+			os.remove(writeSectionsFileParser.file)
+
+		# Standard sections files with namespaces.
+		for type, file in STANDARD_FILES.items():
+			readSectionsFileParser = SectionsFileParser(file)
+			readSectionsFileParser.read() and readSectionsFileParser.parse(namespaces=True, stripComments=False, rawSections=STANDARD_FILES_RAW_SECTIONS[type])
+
+			writeSectionsFileParser = SectionsFileParser(tempfile.mkstemp()[1])
+			writeSectionsFileParser.sections = readSectionsFileParser.sections
+			writeSectionsFileParser.comments = readSectionsFileParser.comments
+			writeSectionsFileParser.write(namespaces=True)
+
+			checkingSectionsFileParser = SectionsFileParser(writeSectionsFileParser.file)
+			checkingSectionsFileParser.read() and checkingSectionsFileParser.parse(namespaces=False, stripComments=False, rawSections=STANDARD_FILES_RAW_SECTIONS[type])
+			self.assertDictEqual(readSectionsFileParser.sections, checkingSectionsFileParser.sections)
+			os.remove(writeSectionsFileParser.file)
+
+		# Default section file.
+		readSectionsFileParser = SectionsFileParser(DEFAULTS_FILE)
+		readSectionsFileParser.read() and readSectionsFileParser.parse()
+
+		writeSectionsFileParser = SectionsFileParser(tempfile.mkstemp()[1])
+		writeSectionsFileParser.sections = readSectionsFileParser.sections
+		writeSectionsFileParser.comments = readSectionsFileParser.comments
+		writeSectionsFileParser.write()
+
+		checkingSectionsFileParser = SectionsFileParser(writeSectionsFileParser.file)
+		checkingSectionsFileParser.read() and checkingSectionsFileParser.parse()
+		os.remove(writeSectionsFileParser.file)
 
 class GetAttributeCompoundTestCase(unittest.TestCase):
 	"""
