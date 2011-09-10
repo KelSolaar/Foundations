@@ -145,7 +145,8 @@ def defaultExceptionsHandler(exception, origin, *args, **kwargs):
 	LOGGER.error("!> Exception in '{0}'.".format(origin))
 	LOGGER.error("!> Exception class: '{0}'.".format(exception.__class__.__name__))
 	LOGGER.error("!> Exception description: '{0}'.".format(exception.__doc__ and exception.__doc__.strip() or Constants.nullObject))
-	LOGGER.error("!> Error raised: '{0}'.".format(exception))
+	for i, line in enumerate(str(exception).split("\n")):
+		LOGGER.error("!> Exception message line nº '{0}' : '{1}'.".format(i + 1, line))
 
 	LOGGER.error("!> {0}".format(Constants.loggingSeparators))
 
