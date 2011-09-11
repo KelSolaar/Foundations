@@ -824,8 +824,8 @@ class SectionsFileParser(io.File):
 					value = value or ""
 					LOGGER.debug("> Appending '{0}' attribute with '{1}' value.".format(attribute, value))
 					self.content.append(attributeTemplate.format(attribute, value))
-				if i != len(self.__sections.keys()) - 1:
-					self.content.append("\n")
+			if i != len(self.__sections.keys()) - 1:
+				self.content.append("\n")
 		io.File.write(self)
 		return True
 
