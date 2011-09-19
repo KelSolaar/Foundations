@@ -456,7 +456,7 @@ class OrderedStructure(OrderedDict):
 		"""
 
 		if hasattr(self, "_OrderedDict__root") and hasattr(self, "_OrderedDict__map"):
-			if self._OrderedDict__root and self._OrderedDict__map:
+			if self._OrderedDict__root:
 				OrderedDict.__setitem__(self, attribute, value)
 		OrderedDict.__setattr__(self, attribute, value)
 
@@ -469,7 +469,7 @@ class OrderedStructure(OrderedDict):
 		"""
 
 		if hasattr(self, "_OrderedDict__root") and hasattr(self, "_OrderedDict__map"):
-			if self._OrderedDict__root and self._OrderedDict__map:
+			if self._OrderedDict__root:
 				OrderedDict.__delitem__(self, attribute)
 		OrderedDict.__delattr__(self, attribute)
 
