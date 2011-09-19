@@ -46,6 +46,7 @@ __all__ = ["StandardMessageHookTestCase",
 		"GetObjectNameTestCase",
 		"NestedAttributeTestCase",
 		"StructureTestCase",
+		"OrderedStructureTestCase",
 		"LookupTestCase"]
 
 #***********************************************************************************************
@@ -173,6 +174,29 @@ class StructureTestCase(unittest.TestCase):
 		structure = core.Structure(John="Doe", Jane="Doe")
 		self.assertIn("John", structure.keys())
 		self.assertTrue(hasattr(structure, "John"))
+
+class OrderedStructureTestCase(unittest.TestCase):
+	"""
+	This class defines :class:`foundations.core.OrderedStructure` class units tests methods.
+	"""
+
+	def testOrderedStructure(self):
+		"""
+		This method tests :class:`foundations.core.OrderedStructure` class.
+		"""
+
+		structure = core.OrderedStructure([("personA", "John"), ("personB", "Jane"), ("personC", "Luke")])
+		self.assertIn("personA", structure.keys())
+		self.assertTrue(hasattr(structure, "personA"))
+		self.assertListEqual(["personA", "personB", "personC"], structure.keys())
+		structure["personA"] = "Anakin"
+		self.assertEquals("Anakin", structure.personA)
+		structure.personA = "John"
+		self.assertEquals("John", structure["personA"])
+		del(structure.personA)
+		self.assertTrue("personA" not in structure.keys())
+		del(structure["personB"])
+		self.assertTrue(not hasattr(structure, "personB"))
 
 class LookupTestCase(unittest.TestCase):
 	"""

@@ -23,6 +23,7 @@ import inspect
 import logging
 import sys
 import threading
+from collections import OrderedDict
 
 #***********************************************************************************************
 #***	Internal imports.
@@ -57,6 +58,7 @@ __all__ = ["THREADS_IDENTIFIERS",
 			"executionTrace",
 			"NestedAttribute",
 			"Structure",
+			"OrderedStructure",
 			"Lookup"]
 
 #***********************************************************************************************
@@ -304,7 +306,6 @@ class NestedAttribute(object):
 		>>> nest.another.very.deeply.nested.attribute = 64
 		>>> nest.another.very.deeply.nested.attribute
 		64
-
 	"""
 
 	@executionTrace
@@ -364,7 +365,6 @@ class Structure(dict):
 		Traceback (most recent call last):
 		  File "<console>", line 1, in <module>
 		AttributeError: 'Structure' object has no attribute 'gender'
-
 	"""
 
 	@executionTrace
@@ -378,12 +378,107 @@ class Structure(dict):
 		dict.__init__(self, **kwargs)
 		self.__dict__ = self
 
+class OrderedStructure(OrderedDict):
+	"""
+	| This class creates an object similar to C/C++ structured type.
+	| Contrary to the :class:`Structure` since this class inherits from :class:`collections.OrderedDict`, it's content is ordered.
+
+	Usage:
+
+		>>> people = OrderedStructure([("personA", "John"), ("personB", "Jane"), ("personC", "Luke")])
+		>>> people
+		OrderedStructure([('personA', 'John'), ('personB', 'Jane'), ('personC', 'Luke')])
+		>>> people.keys()
+		['personA', 'personB', 'personC']
+		>>> people.personA
+		'John'
+		>>> del(people["personA"])
+		>>> people["personA"]
+		Traceback (most recent call last):
+		  File "<console>", line 1, in <module>
+		KeyError: 'personA'
+		>>> people.personA
+		Traceback (most recent call last):
+		  File "<console>", line 1, in <module>
+		AttributeError: 'OrderedStructure' object has no attribute 'personA'
+		>>> people.personB = "Kate"
+		>>> people["personB"]
+		'Kate'
+		>>> people.personB
+		'Kate'
+	"""
+
+	@executionTrace
+	def __init__(self, *args, **kwargs):
+		"""
+		This method initializes the class.
+
+		:param \*args: Arguments. ( \* )
+		:param \*\*kwargs: Key / Value pairs. ( Key / Value pairs )
+		"""
+
+		OrderedDict.__init__(self, *args, **kwargs)
+
+	@executionTrace
+	def __setitem__(self, key, value, *args, **kwargs):
+		"""
+		This method sets a key and sibling attribute with provided value.
+
+		:param key.: Key. ( Object )
+		:param value.: Value. ( Object )
+		:param \*args: Arguments. ( \* )
+		:param \*\*kwargs: Key / Value pairs. ( Key / Value pairs )
+		"""
+
+		OrderedDict.__setitem__(self, key, value, *args, **kwargs)
+		OrderedDict.__setattr__(self, key, value)
+
+	@executionTrace
+	def __delitem__(self, key, *args, **kwargs):
+		"""
+		This method deletes both key and sibling attribute.
+
+		:param key.: Key. ( Object )
+		:param \*args: Arguments. ( \* )
+		:param \*\*kwargs: Key / Value pairs. ( Key / Value pairs )
+		"""
+
+		OrderedDict.__delitem__(self, key, *args, **kwargs)
+		OrderedDict.__delattr__(self, key)
+
+	@executionTrace
+	def __setattr__(self, attribute, value):
+		"""
+		This method sets both key and sibling attribute with provided value.
+
+		:param attribute.: Attribute. ( Object )
+		:param value.: Value. ( Object )
+		"""
+
+		if hasattr(self, "_OrderedDict__root") and hasattr(self, "_OrderedDict__map"):
+			if self._OrderedDict__root and self._OrderedDict__map:
+				OrderedDict.__setitem__(self, attribute, value)
+		OrderedDict.__setattr__(self, attribute, value)
+
+	@executionTrace
+	def __delattr__(self, attribute):
+		"""
+		This method deletes both key and sibling attribute.
+
+		:param attribute.: Attribute. ( Object )
+		"""
+
+		if hasattr(self, "_OrderedDict__root") and hasattr(self, "_OrderedDict__map"):
+			if self._OrderedDict__root and self._OrderedDict__map:
+				OrderedDict.__delitem__(self, attribute)
+		OrderedDict.__delattr__(self, attribute)
+
 class Lookup(dict):
 	"""
 	This class extend dict type to provide a lookup by value(s).
-	
+
 	Usage:
-		
+
 		>>> person = Lookup(firstName="Doe", lastName="John", gender="male")
 		>>> person.getFirstKeyFromValue("Doe")
 		'firstName'
