@@ -246,6 +246,7 @@ def getObjectName(object):
 	:param object: Object. ( Object )
 	:return: Object name. ( String )
 	"""
+
 	module = getModule(object)
 	moduleName = module and module.__name__ or UNDEFINED_MODULE
 	codeLayerName = getCodeLayerName()
