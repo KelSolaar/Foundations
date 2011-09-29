@@ -137,7 +137,7 @@ def wait(waitTime):
 	"""
 	This definition halts current process exection for an user defined time.
 
-	:param waitTime: Current sleep time in seconds. ( Integer )
+	:param waitTime: Current sleep time in seconds. ( Float )
 	:return: Definition success. ( Boolean )
 	"""
 
