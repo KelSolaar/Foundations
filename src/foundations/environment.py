@@ -120,13 +120,11 @@ class Environment(object):
 
 		:param \*args: Variables. ( \* )
 		:param \*\*kwargs: Variables : Values. ( \* )
-		:return: Method success. ( Boolean )
 		"""
 
 		for variable in args:
 			self.__variables[variable] = None
 		self.__variables.update(kwargs)
-		return True
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
