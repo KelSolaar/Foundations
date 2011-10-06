@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines **Foundations** package common utilities objects that don't fall in any specific categorie.
+	This module defines **Foundations** package common utilities objects that don't fall in any specific category.
 
 **Others:**
 
