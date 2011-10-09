@@ -1,0 +1,65 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""
+**testsCommon.py**
+
+**Platform:**
+	Windows, Linux, Mac Os X.
+
+**Description:**
+	This module defines units tests for :mod:`foundations.ui.common` module.
+
+**Others:**
+
+"""
+
+#***********************************************************************************************
+#***	External imports.
+#***********************************************************************************************
+import os
+import sys
+import unittest
+from PyQt4.QtCore import *
+
+#***********************************************************************************************
+#***	Internal imports.
+#***********************************************************************************************
+import foundations.ui.common
+
+#***********************************************************************************************
+#***	Module attributes.
+#***********************************************************************************************
+__author__ = "Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2011 - Thomas Mansencal"
+__license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
+__maintainer__ = "Thomas Mansencal"
+__email__ = "thomas.mansencal@gmail.com"
+__status__ = "Production"
+
+__all__ = ["RESOURCES_DIRECTORY", "UI_TESTS_FILE", "APPLICATION", "QWidgetFactoryTestCase"]
+
+RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "../resources/ui")
+UI_TESTS_FILE = os.path.join(RESOURCES_DIRECTORY, "Tests_Widget.ui")
+
+#***********************************************************************************************
+#***	Module classes and definitions.
+#***********************************************************************************************
+class QWidgetFactoryTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.ui.common.QWidgetFactory` definition units tests methods.
+	"""
+
+	def testQWidgetFactory(self):
+		"""
+		This method tests :func:`foundations.ui.common.QWidgetFactory` definition.
+		"""
+
+		widget = foundations.ui.common.QWidgetFactory(UI_TESTS_FILE)
+		self.assertTrue(hasattr(widget, "uiFile"))
+		widget = foundations.ui.common.QWidgetFactory()
+		self.assertTrue(issubclass(widget, pyqtWrapperType))
+
+if __name__ == "__main__":
+	import tests.utilities
+	unittest.main()

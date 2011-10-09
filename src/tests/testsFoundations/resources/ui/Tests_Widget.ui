@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Tests_Form</class>
+ <widget class="QWidget" name="Tests_Form">
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="Tests_Form_gridLayout">
+   <item row="0" column="0">
+    <widget class="QGroupBox" name="Tests_groupBox">
+     <property name="title">
+      <string>GroupBox</string>
+     </property>
+     <layout class="QGridLayout" name="Tests_groupBox_gridLayout">
+      <item row="0" column="0">
+       <widget class="QPushButton" name="Tests_pushButton">
+        <property name="text">
+         <string>PushButton</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
