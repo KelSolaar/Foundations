@@ -18,9 +18,9 @@
 #***	External imports.
 #***********************************************************************************************
 import os
-import sys
 import unittest
 from PyQt4.QtCore import *
+from PyQt4.QtGui import *
 
 #***********************************************************************************************
 #***	Internal imports.
@@ -57,8 +57,9 @@ class QWidgetFactoryTestCase(unittest.TestCase):
 
 		widget = foundations.ui.common.QWidgetFactory(UI_TESTS_FILE)
 		self.assertTrue(hasattr(widget, "uiFile"))
+		self.assertEqual(widget.__class__, QWidget.__class__)
 		widget = foundations.ui.common.QWidgetFactory()
-		self.assertTrue(issubclass(widget, pyqtWrapperType))
+		self.assertEqual(widget.__class__, QWidget.__class__)
 
 if __name__ == "__main__":
 	import tests.utilities
