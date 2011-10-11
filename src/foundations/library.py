@@ -90,7 +90,7 @@ class Library(object):
 		This method is the constructor of the class.
 		
 		:param \*args: Arguments. ( \* )
-		:param \*\*kwargs: Arguments. ( \* )
+		:param \*\*kwargs: Keywords arguments. ( \* )
 		"""
 
 		libraryPath = args[0]
