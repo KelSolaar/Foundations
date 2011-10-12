@@ -87,17 +87,17 @@ def exceptionsHandler(handler=None, raiseException=False, *args):
 	exceptions = tuple((exception for exception in args))
 	handler = handler or defaultExceptionsHandler
 
-	def wrapper(object_):
+	def wrapper(object):
 		"""
 		This decorator is used for exceptions handling.
 
-		:param object_: Object to decorate. ( Object )
+		:param object: Object to decorate. ( Object )
 		:return: Object. ( Object )
 		"""
 
-		origin = core.getObjectName(object_)
+		origin = core.getObjectName(object)
 
-		@functools.wraps(object_)
+		@functools.wraps(object)
 		def function(*args, **kwargs):
 			"""
 			This decorator is used for exceptions handling.
@@ -109,7 +109,7 @@ def exceptionsHandler(handler=None, raiseException=False, *args):
 			exception = None
 
 			try:
-				return object_(*args, **kwargs)
+				return object(*args, **kwargs)
 			except exceptions as exception:
 				handler(exception , origin, *args, **kwargs)
 			except Exception as exception:
