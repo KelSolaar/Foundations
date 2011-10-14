@@ -125,7 +125,7 @@ class RotatingBackup(object):
 		This method is the deleter method for **self.__source** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("source"))
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "source"))
 
 	@property
 	def destination(self):
@@ -157,7 +157,7 @@ class RotatingBackup(object):
 		This method is the deleter method for **self.__destination** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("destination"))
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "destination"))
 
 	@property
 	def count(self):
@@ -181,7 +181,7 @@ class RotatingBackup(object):
 		if value:
 			assert type(value) in (int, float), "'{0}' attribute: '{1}' type is not 'int' or 'float'!".format("count", value)
 			assert value > 0, "'{0}' attribute: '{1}' need to be exactly positive!".format("count", value)
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is read only!".format("count"))
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "count"))
 
 	@count.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -190,7 +190,7 @@ class RotatingBackup(object):
 		This method is the deleter method for **self.__count** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("count"))
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "count"))
 
 	#***********************************************************************************************
 	#***	Class methods.

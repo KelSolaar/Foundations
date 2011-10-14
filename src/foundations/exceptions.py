@@ -70,12 +70,13 @@ def exceptionsHandler(handler=None, raiseException=False, *args):
 	| The decorator uses provided exceptions objects or the default Python `Exception <http://docs.python.org/library/exceptions.html#exceptions.Exception>`_ class.
 	
 	Usage::
-	
+
 		@exceptionsHandler(None, False, ZeroDivisionError)
 		def raiseAnException(value):
 			'''
 			This definition raises a 'ZeroDivisionError' exception.
 			'''
+
 			return value / 0;
 
 	:param handler: Custom handler. ( Object )
@@ -206,7 +207,7 @@ class AbstractError(Exception):
 		This method is the deleter method for **self.__value** attribute.
 		"""
 
-		raise Exception("'{0}' attribute is not deletable!".format("value"))
+		raise Exception("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "logger"))
 
 	#***********************************************************************************************
 	#***	Class methods.
@@ -289,7 +290,7 @@ class AttributeStructureParsingError(AbstractParsingError):
 		This method is the deleter method for **self.__line** attribute.
 		"""
 
-		raise Exception("'{0}' attribute is not deletable!".format("line"))
+		raise Exception("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "logger"))
 
 	#***********************************************************************************************
 	#***	Class methods.

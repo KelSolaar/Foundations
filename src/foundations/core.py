@@ -148,7 +148,7 @@ class StandardMessageHook(object):
 		:param value: Attribute value. ( Logger )
 		"""
 
-		raise Exception("'{0}' attribute is read only!".format("logger"))
+		raise Exception("{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "logger"))
 
 	@logger.deleter
 	def logger(self):
@@ -156,7 +156,7 @@ class StandardMessageHook(object):
 		This method is the deleter method for **self.__logger** attribute.
 		"""
 
-		raise Exception("'{0}' attribute is not deletable!".format("logger"))
+		raise Exception("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "logger"))
 
 	#***********************************************************************************************
 	#***	Class methods.

@@ -115,7 +115,7 @@ class OsWalker(object):
 		This method is the deleter method for **self.__root** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("root"))
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "root"))
 
 	@property
 	def hashSize(self):
@@ -147,7 +147,7 @@ class OsWalker(object):
 		This method is the deleter method for **self.__hashSize** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("hashSize"))
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "hashSize"))
 
 	@property
 	def files(self):
@@ -179,7 +179,7 @@ class OsWalker(object):
 		This method is the deleter method for **self.__files** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("files"))
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "files"))
 
 	#***********************************************************************************************
 	#***	Class methods.

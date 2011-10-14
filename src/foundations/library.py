@@ -169,7 +169,7 @@ class Library(object):
 		:param value: Attribute value. ( String )
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not settable!".format("libraryInstantiated"))
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "libraryInstantiated"))
 
 	@libraryInstantiated.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -178,7 +178,7 @@ class Library(object):
 		This method is the deleter method for **self.__libraryInstantiated** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("libraryInstantiated"))
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "libraryInstantiated"))
 
 	@property
 	def libraryPath(self):
@@ -211,7 +211,7 @@ class Library(object):
 		This method is the deleter method for **self.__libraryPath** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("libraryPath"))
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "libraryPath"))
 
 	@property
 	def functions(self):
@@ -243,7 +243,7 @@ class Library(object):
 		This method is the deleter method for **self.__functions** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("functions"))
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "functions"))
 
 	@property
 	def library(self):
@@ -273,7 +273,7 @@ class Library(object):
 		This method is the deleter method for **self.__library** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("library"))
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "library"))
 
 	#***********************************************************************************************
 	#***	Class methods.

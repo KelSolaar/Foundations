@@ -104,7 +104,7 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 			:param value: Attribute value. ( String )
 			"""
 
-			raise foundations.exceptions.ProgrammingError("'{0}' attribute is read only!".format("uiFile"))
+			raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "uiFile"))
 
 		@uiFile.deleter
 		@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -113,6 +113,6 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 			This method is the deleter method for **self.__uiFile** attribute.
 			"""
 
-			raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("uiFile"))
+			raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "uiFile"))
 
 	return QWidget

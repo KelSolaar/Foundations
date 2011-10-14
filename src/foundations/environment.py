@@ -108,7 +108,7 @@ class Environment(object):
 		This method is the deleter method for **self.__variables** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("variables"))
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "variables"))
 
 	#***********************************************************************************************
 	#***	Class methods.

@@ -176,7 +176,7 @@ class SectionsFileParser(io.File):
 		This method is the deleter method for **self.__splitters** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("splitters"))
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "splitters"))
 
 	@property
 	def namespaceSplitter(self):
@@ -210,7 +210,7 @@ class SectionsFileParser(io.File):
 		This method is the deleter method for **self.__namespaceSplitter** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("namespaceSplitter"))
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "namespaceSplitter"))
 
 	@property
 	def commentLimiters(self):
@@ -242,7 +242,7 @@ class SectionsFileParser(io.File):
 		This method is the deleter method for **self.__commentLimiters** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("commentLimiters"))
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "commentLimiters"))
 
 	@property
 	def commentMarker(self):
@@ -275,7 +275,7 @@ class SectionsFileParser(io.File):
 		This method is the deleter method for **self.__commentMarker** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("commentMarker"))
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "commentMarker"))
 
 	@property
 	def quotationMarkers(self):
@@ -310,7 +310,7 @@ class SectionsFileParser(io.File):
 		This method is the deleter method for **self.__quotationMarkers** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("quotationMarkers"))
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "quotationMarkers"))
 
 	@property
 	def rawSectionContentIdentifier(self):
@@ -342,7 +342,7 @@ class SectionsFileParser(io.File):
 		This method is the deleter method for **self.__rawSectionContentIdentifier** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("rawSectionContentIdentifier"))
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "rawSectionContentIdentifier"))
 	@property
 	def defaultsSection(self):
 		"""
@@ -373,7 +373,7 @@ class SectionsFileParser(io.File):
 		This method is the deleter method for **self.__defaultsSection** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("defaultsSection"))
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "defaultsSection"))
 
 	@property
 	def sections(self):
@@ -405,7 +405,7 @@ class SectionsFileParser(io.File):
 		This method is the deleter method for **self.__sections** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("sections"))
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "sections"))
 
 	@property
 	def comments(self):
@@ -437,7 +437,7 @@ class SectionsFileParser(io.File):
 		This method is the deleter method for **self.__comments** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("comments"))
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "comments"))
 
 	@property
 	def parsingErrors(self):
@@ -469,7 +469,7 @@ class SectionsFileParser(io.File):
 		This method is the deleter method for **self.__parsingErrors** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("parsingErrors"))
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "parsingErrors"))
 
 	#***********************************************************************************************
 	#***	Class methods.

@@ -108,7 +108,7 @@ class Pkzip(object):
 		This method is the deleter method for **self.__archive** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("archive"))
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "archive"))
 
 	#***********************************************************************************************
 	#***	Class methods.

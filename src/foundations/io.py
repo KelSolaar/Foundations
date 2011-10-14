@@ -110,7 +110,7 @@ class File(object):
 		This method is the deleter method for **self.__file** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("file"))
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "file"))
 
 	@property
 	def content(self):
@@ -142,7 +142,7 @@ class File(object):
 		This method is the deleter method for **self.__content** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("'{0}' attribute is not deletable!".format("content"))
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "content"))
 
 	#***********************************************************************************************
 	#***	Class methods.
