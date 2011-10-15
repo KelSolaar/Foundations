@@ -99,7 +99,7 @@ class Library(object):
 				self.librariesInstances[args[0]] = object.__new__(self)
 			return self.librariesInstances[args[0]]
 		else:
-			raise foundations.exceptions.LibraryInstantiationError("'{0}' library path doesn't exists!".format(libraryPath))
+			raise foundations.exceptions.LibraryInstantiationError("{0} | '{1}' library path doesn't exists!".format(self.__class__.__name__, libraryPath))
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.LibraryInitializationError)
@@ -143,7 +143,7 @@ class Library(object):
 		if self.libraryPath:
 			self.__library = loadingFunction.LoadLibrary(libraryPath)
 		else:
-			raise foundations.exceptions.LibraryInitializationError("'{0}' library not found!".format(self.__class__.__name__))
+			raise foundations.exceptions.LibraryInitializationError("{0} | '{1}' library not found!".format(self.__class__.__name__, libraryPath))
 
 		bindLibrary and self.bindLibrary()
 

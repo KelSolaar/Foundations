@@ -74,7 +74,7 @@ class StreamObject(object):
 		This method is the deleter method for **self.__stream** attribute.
 		"""
 
-		raise Exception("'{0}' attribute is not deletable!".format("stream"))
+		raise Exception("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "logger"))
 
 	#***********************************************************************************************
 	#***	Class methods.

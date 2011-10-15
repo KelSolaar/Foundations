@@ -17,6 +17,7 @@
 #***********************************************************************************************
 #***	External imports.
 #***********************************************************************************************
+import inspect
 import logging
 import os
 from PyQt4 import uic
@@ -59,7 +60,7 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 
 	file = uiFile or DEFAULT_UI_FILE
 	if not os.path.exists(file):
-		raise foundations.exceptions.FileExistsError("'{0}' ui file doesn't exists!".format(file))
+		raise foundations.exceptions.FileExistsError("{0} | '{1}' ui file doesn't exists!".format(inspect.getmodulename(__file__), file))
 
 	Form, Base = uic.loadUiType(file)
 

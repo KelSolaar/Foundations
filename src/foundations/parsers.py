@@ -578,7 +578,7 @@ class SectionsFileParser(io.File):
 		LOGGER.debug("> '{0}' file parsing done!".format(self.file))
 
 		if self.__parsingErrors and raiseParsingErrors:
-			raise foundations.exceptions.FileStructureParsingError("'{0}' structure is invalid, parsing exceptions occured!".format(self.file))
+			raise foundations.exceptions.FileStructureParsingError("{0} | '{1}' structure is invalid, parsing exceptions occured!".format(self.__class__.__name__, self.file))
 
 		return True
 
@@ -686,7 +686,7 @@ class SectionsFileParser(io.File):
 			return attributes
 		else:
 			if raiseExceptions:
-				raise KeyError("'{0}' section doesn't exists in '{1}' sections!".format(section, self.file))
+				raise KeyError("{0} | '{1}' section doesn't exists in '{2}' sections!".format(self.__class__.__name__, section, self.file))
 			else:
 				LOGGER.warning("!> {0} | '{1}' section doesn't exists in '{2}' sections!".format(self.__class__.__name__, section, self.file))
 
