@@ -166,7 +166,7 @@ class SectionsFileParser(io.File):
 			assert type(value) in (tuple, list), "'{0}' attribute: '{1}' type is not 'tuple' or 'list'!".format("splitters", value)
 			for element in value:
 				assert len(element) == 1, "'{0}' attribute: '{1}' has multiples characters!".format("splitter", element)
-				assert not re.search("\w", element), "'{0}' attribute: '{1}' is an alphanumeric character!".format("splitter", element)
+				assert not re.search(r"\w", element), "'{0}' attribute: '{1}' is an alphanumeric character!".format("splitter", element)
 		self.__splitters = value
 
 	@splitters.deleter
@@ -200,7 +200,7 @@ class SectionsFileParser(io.File):
 		if value:
 			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("namespaceSplitter", value)
 			assert len(value) == 1, "'{0}' attribute: '{1}' has multiples characters!".format("namespaceSplitter", value)
-			assert not re.search("\w", value), "'{0}' attribute: '{1}' is an alphanumeric character!".format("namespaceSplitter", value)
+			assert not re.search(r"\w", value), "'{0}' attribute: '{1}' is an alphanumeric character!".format("namespaceSplitter", value)
 		self.__namespaceSplitter = value
 
 	@namespaceSplitter.deleter
@@ -265,7 +265,7 @@ class SectionsFileParser(io.File):
 
 		if value:
 			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("commentMarker", value)
-			assert not re.search("\w", value), "'{0}' attribute: '{1}' is an alphanumeric character!".format("commentMarker", value)
+			assert not re.search(r"\w", value), "'{0}' attribute: '{1}' is an alphanumeric character!".format("commentMarker", value)
 		self.__commentMarker = value
 
 	@commentMarker.deleter
@@ -300,7 +300,7 @@ class SectionsFileParser(io.File):
 			assert type(value) in (tuple, list), "'{0}' attribute: '{1}' type is not 'tuple' or 'list'!".format("quotationMarkers", value)
 			for element in value:
 				assert len(element) == 1, "'{0}' attribute: '{1}' has multiples characters!".format("splitter", element)
-				assert not re.search("\w", element), "'{0}' attribute: '{1}' is an alphanumeric character!".format("splitter", element)
+				assert not re.search(r"\w", element), "'{0}' attribute: '{1}' is an alphanumeric character!".format("splitter", element)
 		self.__quotationMarkers = value
 
 	@quotationMarkers.deleter
@@ -861,10 +861,10 @@ def getAttributeCompound(attribute, value=None, splitter="|", bindingIdentifier=
 	if type(value) in (str, unicode):
 		if splitter in value:
 			valueTokens = value.split(splitter)
-			if len(valueTokens) >= 3 and re.search("{0}[a-zA-Z0-9_]*".format(bindingIdentifier), valueTokens[0]):
+			if len(valueTokens) >= 3 and re.search(r"{0}\w*".format(bindingIdentifier), valueTokens[0]):
 				return AttributeCompound(name=attribute, value=valueTokens[1].strip(), link=valueTokens[0].strip(), type=valueTokens[2].strip(), alias=len(valueTokens) == 4 and valueTokens[3].strip() or None)
 		else:
-			if re.search("{0}[a-zA-Z0-9_]*".format(bindingIdentifier), value):
+			if re.search(r"{0}\w*".format(bindingIdentifier), value):
 				return AttributeCompound(name=attribute, value=None, link=value, type=None, alias=None)
 
 	return AttributeCompound(name=attribute, value=value, link=None, type=None, alias=None)

@@ -96,12 +96,12 @@ class OsWalkerTestCase(unittest.TestCase):
 		osWalker.walk(filtersOut=("\.rc$",))
 		walkerFiles = [strings.replace(path, {"/":"|", "\\":"|"}) for path in osWalker.files.values()]
 		for item in walkerFiles:
-			self.assertTrue(not re.search("\.rc$", item))
+			self.assertTrue(not re.search(r"\.rc$", item))
 
 		osWalker.walk(filtersOut=("\.ibl", "\.rc$", "\.sIBLT$", "\.txt$"))
 		self.assertTrue(not osWalker.files)
 
-		referencePaths = [strings.replace(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY, path), {"/":"|", "\\":"|"}) for path in TREE_HIERARCHY if re.search("\.rc$", path)]
+		referencePaths = [strings.replace(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY, path), {"/":"|", "\\":"|"}) for path in TREE_HIERARCHY if re.search(r"\.rc$", path)]
 		filter = "\.rc$"
 		osWalker.walk(filtersIn=(filter,))
 		walkerFiles = [strings.replace(path, {"/":"|", "\\":"|"}) for path in osWalker.files.values()]

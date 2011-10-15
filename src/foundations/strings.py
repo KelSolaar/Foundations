@@ -78,8 +78,8 @@ def getNiceName(name):
 	:return: Nicified string. ( String )
 	"""
 
-	chunks = re.sub('(.)([A-Z][a-z]+)', r'\1 \2', name)
-	return " ".join(element.title() for element in re.sub('([a-z0-9])([A-Z])', r'\1 \2', chunks).split())
+	chunks = re.sub(r"(.)([A-Z][a-z]+)", r"\1 \2", name)
+	return " ".join(element.title() for element in re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", chunks).split())
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
@@ -182,7 +182,7 @@ def getWords(datas):
 	:return: Words. ( List )
 	"""
 
-	words = re.findall("\w+", datas)
+	words = re.findall(r"\w+", datas)
 	LOGGER.debug("> Words: '{0}'".format(", ".join(words)))
 	return words
 
@@ -196,9 +196,9 @@ def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 
 		>>> filterWords(["Users", "are", "John", "Doe", "Jane", "Doe", "Z6PO"], filtersIn=("John", "Doe"))
 		['John', 'Doe', 'Doe']
-		>>> filterWords(["Users", "are", "John", "Doe", "Jane", "Doe", "Z6PO"], filtersIn=("[\w]*r",))
+		>>> filterWords(["Users", "are", "John", "Doe", "Jane", "Doe", "Z6PO"], filtersIn=("\w*r",))
 		['Users', 'are']
-		>>> filterWords(["Users", "are", "John", "Doe", "Jane", "Doe", "Z6PO"], filtersOut=("[\w]*o",))
+		>>> filterWords(["Users", "are", "John", "Doe", "Jane", "Doe", "Z6PO"], filtersOut=("\w*o",))
 		['Users', 'are', 'Jane', 'Z6PO']
 
 	:param filtersIn: Regex filters in list. ( Tuple / List )
@@ -350,7 +350,7 @@ def isEmail(datas):
 	:return: Is email. ( Boolean )
 	"""
 
-	if re.match("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}", datas):
+	if re.match(r"[\w.%+-]+@[\w.]+\.[a-zA-Z]{2,4}", datas):
 		LOGGER.debug("> {0}' is matched as email.".format(datas))
 		return True
 	else:
@@ -374,7 +374,7 @@ def isWebsite(datas):
 	:return: Is website. ( Boolean )
 	"""
 
-	if re.match("(http|ftp|https)://([a-zA-Z0-9\-\.]+)/?", datas):
+	if re.match(r"(http|ftp|https)://([\w\-\.]+)/?", datas):
 		LOGGER.debug("> {0}' is matched as website.".format(datas))
 		return True
 	else:
