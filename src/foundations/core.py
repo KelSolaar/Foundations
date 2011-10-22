@@ -376,6 +376,9 @@ class Structure(dict):
 		:param \*\*kwargs: Key / Value pairs. ( Key / Value pairs )
 		"""
 
+		# :note: The following statement ensures that attributes defined in parent classes are propagated.
+		kwargs.update(self.__dict__)
+
 		dict.__init__(self, **kwargs)
 		self.__dict__ = self
 
