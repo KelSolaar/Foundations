@@ -583,6 +583,7 @@ class SectionsFileParser(io.File):
 		return True
 
 	@core.executionTrace
+	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def sectionExists(self, section):
 		"""
 		This method checks if provided section exists.
