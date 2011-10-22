@@ -73,7 +73,7 @@ class Library(object):
 	| The class is a singleton and will bind only one time a provided library. Each unique library instance is stored in :attr:`Library.librariesInstances` attribute and get returned if the library is requested again through a new instantiation.
 	"""
 
-	librariesInstances = {}
+	__librariesInstances = {}
 	"""Libraries instances: Each library is instanced once and stored in this attribute. ( Dictionary )"""
 
 	if platform.system() == "Windows" or platform.system() == "Microsoft":
@@ -96,9 +96,9 @@ class Library(object):
 
 		libraryPath = args[0]
 		if os.path.exists(libraryPath):
-			if not args[0] in self.librariesInstances.keys():
-				self.librariesInstances[args[0]] = object.__new__(self)
-			return self.librariesInstances[args[0]]
+			if not args[0] in self._Library__librariesInstances.keys():
+				self._Library__librariesInstances[args[0]] = object.__new__(self)
+			return self._Library__librariesInstances[args[0]]
 		else:
 			raise foundations.exceptions.LibraryInstantiationError("{0} | '{1}' library path doesn't exists!".format(self.__class__.__name__, libraryPath))
 
@@ -151,6 +151,36 @@ class Library(object):
 	#***********************************************************************************************
 	#***	Attributes properties.
 	#***********************************************************************************************
+	@property
+	def librariesInstances(self):
+		"""
+		This method is the property for **self.__librariesInstances** attribute.
+
+		:return: self.__librariesInstances. ( WeakValueDictionary )
+		"""
+
+		return self.__librariesInstances
+
+	@librariesInstances.setter
+	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	def librariesInstances(self, value):
+		"""
+		This method is the setter method for **self.__librariesInstances** attribute.
+
+		:param value: Attribute value. ( WeakValueDictionary )
+		"""
+
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "librariesInstances"))
+
+	@librariesInstances.deleter
+	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	def librariesInstances(self):
+		"""
+		This method is the deleter method for **self.__librariesInstances** attribute.
+		"""
+
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "librariesInstances"))
+
 	@property
 	def libraryInstantiated(self):
 		"""

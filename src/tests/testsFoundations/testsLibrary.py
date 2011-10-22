@@ -67,17 +67,14 @@ class LibraryTestCase(unittest.TestCase):
 		This method tests presence of required attributes.
 		"""
 
-		requiredAttributes = ("libraryInstantiated",
+		requiredAttributes = ("callback",
+								"librariesInstances",
+								"libraryInstantiated",
 								"libraryPath",
 								"functions",
 								"library")
 		for attribute in requiredAttributes:
 			self.assertIn(attribute, dir(Library))
-
-		requiredClassAttributes = ("librariesInstances",
-								"callback",)
-		for classAttribute in requiredClassAttributes:
-			self.assertIn(classAttribute, dir(Library))
 
 	def testRequiredMethods(self):
 		"""
