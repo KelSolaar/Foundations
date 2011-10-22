@@ -91,6 +91,7 @@ class Library(object):
 		
 		:param \*args: Arguments. ( \* )
 		:param \*\*kwargs: Keywords arguments. ( \* )
+		:return: Class instance. ( Library )
 		"""
 
 		libraryPath = args[0]
