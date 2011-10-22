@@ -51,6 +51,9 @@ __all__ = ["LOGGER",
 			"ObjectTypeError",
 			"ObjectExistsError",
 			"AbstractUserError",
+			"AbstractNodeError",
+			"NodeAttributeTypeError",
+			"NodeAttributeExistsError",
 			"ProgrammingError",
 			"UserError",
 			"AbstractLibraryError",
@@ -357,6 +360,26 @@ class AbstractUserError(AbstractError):
 
 	pass
 
+class AbstractNodeError(AbstractError):
+	"""
+	This class is the abstract base class for node related exceptions.
+	"""
+
+	pass
+
+class NodeAttributeTypeError(AbstractNodeError, ObjectTypeError):
+	"""
+	This class is the abstract base class for node attributes type related exceptions.
+	"""
+
+	pass
+
+class NodeAttributeExistsError(AbstractNodeError, ObjectExistsError):
+	"""
+	This class is used for non existing node attribute exceptions.
+	"""
+
+	pass
 
 class ProgrammingError(AbstractUserError):
 	"""
