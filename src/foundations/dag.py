@@ -18,7 +18,7 @@
 #***	External imports.
 #***********************************************************************************************
 import logging
-from collections import OrderedDict
+import weakref
 
 #***********************************************************************************************
 #***	Internal imports.
@@ -64,7 +64,7 @@ class AbstractNode(core.Structure):
 	| This class defines the base node class.
 	| Although it can be instancied directly that class is meant to be subclassed.
 	
-	:note: This class doesn't provide compositing capabilities,class:`AbstractCompositeNode` class must be used for that purpose.
+	:note: This class doesn't provide compositing capabilities, class:`AbstractCompositeNode` class must be used for that purpose.
 	"""
 
 	__family = "Abstract"
@@ -73,7 +73,7 @@ class AbstractNode(core.Structure):
 	__instanceId = 1
 	"""Node id: Defines the next node instance identity number. ( Integer )"""
 
-	__nodesInstances = {}
+	__nodesInstances = weakref.WeakValueDictionary()
 	"""Node instances: Each node, once instanced is stored in this attribute. ( Dictionary )"""
 
 	@core.executionTrace
@@ -97,11 +97,23 @@ class AbstractNode(core.Structure):
 		"""
 		This method initializes the class.
 
+		Usage::
+
+			>>> nodeA = AbstractNode("MyNodeA")
+			>>> nodeA.identity
+			1
+			>>> nodeB = AbstractNode()
+			>>> nodeB.name
+			'Abstract2'
+			>>> nodeB.identity
+			2
+
 		:param name: Node name.  ( String )
 		:param \*\*kwargs: Keywords arguments. ( \* )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
+
 		core.Structure.__init__(self, **kwargs)
 
 		# --- Setting class attributes. ---
@@ -142,36 +154,6 @@ class AbstractNode(core.Structure):
 		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "family"))
 
 	@property
-	def identity(self):
-		"""
-		This method is the property for **self.__identity** attribute.
-
-		:return: self.__identity. ( String )
-		"""
-
-		return self.__identity
-
-	@identity.setter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
-	def identity(self, value):
-		"""
-		This method is the setter method for **self.__identity** attribute.
-
-		:param value: Attribute value. ( String )
-		"""
-
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "identity"))
-
-	@identity.deleter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
-	def identity(self):
-		"""
-		This method is the deleter method for **self.__identity** attribute.
-		"""
-
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "identity"))
-
-	@property
 	def nodesInstances(self):
 		"""
 		This method is the property for **self.__nodesInstances** attribute.
@@ -202,6 +184,36 @@ class AbstractNode(core.Structure):
 		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "nodesInstances"))
 
 	@property
+	def identity(self):
+		"""
+		This method is the property for **self.__identity** attribute.
+
+		:return: self.__identity. ( String )
+		"""
+
+		return self.__identity
+
+	@identity.setter
+	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	def identity(self, value):
+		"""
+		This method is the setter method for **self.__identity** attribute.
+
+		:param value: Attribute value. ( String )
+		"""
+
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "identity"))
+
+	@identity.deleter
+	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	def identity(self):
+		"""
+		This method is the deleter method for **self.__identity** attribute.
+		"""
+
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "identity"))
+
+	@property
 	def name(self):
 		"""
 		This method is the property for **self.__name** attribute.
@@ -221,7 +233,7 @@ class AbstractNode(core.Structure):
 		"""
 
 		if value:
-			assert type(value) in (str, unicode, QVariant), "'{0}' attribute: '{1}' type is not 'str' or 'unicode' or 'QVariant'!".format("name", value)
+			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("name", value)
 		self.__name = value
 
 	@name.deleter
@@ -258,43 +270,75 @@ class AbstractNode(core.Structure):
 
 	@classmethod
 	@core.executionTrace
+	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def getNodeByIdentity(self, identity):
 		"""
 		This method returns the node with provided identity.
 	
+		Usage::
+
+			>>> nodeA = AbstractNode("MyNodeA")
+			>>> AbstractNode.getNodeByIdentity(1)
+			<AbstractNode object at 0x101043a80>
+
 		:param identity: Node identity. ( Integer )
 		:return: Node. ( AbstractNode )
+
+		:note: Nodes identities are starting from '1' to nodes instances count.
 		"""
 
-		if identity > len(self.__nodesInstances):
+		if identity < 1 or identity > len(self.__nodesInstances):
 			return
 		return self.__nodesInstances[identity]
 
 	@core.executionTrace
+	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def listAttributes(self):
 		"""
 		This method returns the node attributes names.
-	
+
+		Usage::
+
+			>>>	nodeA = AbstractNode("MyNodeA", attributeA=Attribute(value="A"), attributeB=Attribute(value="B"))
+			>>> nodeA.listAttributes()
+			['attributeB', 'attributeA']
+			
 		:return: Attributes names. ( List )
 		"""
 
 		return [attribute for attribute, value in self.items() if isinstance(value, Attribute)]
 
 	@core.executionTrace
+	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def getAttributes(self):
 		"""
 		This method returns the node attributes.
-	
+
+		Usage::
+
+			>>>	nodeA = AbstractNode("MyNodeA", attributeA=Attribute(), attributeB=Attribute())
+			>>> nodeA.getAttributes()
+			[{'value': 'B'}, {'value': 'A'}]
+
 		:return: Attributes. ( List )
 		"""
 
 		return [attribute for attribute in self.values() if isinstance(attribute, Attribute)]
 
 	@core.executionTrace
+	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def attributeExists(self, name):
 		"""
 		This method returns if provided attribute exists in the node.
-	
+
+		Usage::
+
+			>>>	nodeA = AbstractNode("MyNodeA", attributeA=Attribute(), attributeB=Attribute())
+			>>> nodeA.attributeExists("attributeA")
+			True
+			>>> nodeA.attributeExists("attributeC")
+			False
+
 		:param name: Attribute name. ( String )
 		:return: Attribute exists. ( Boolean )
 		"""
@@ -309,6 +353,14 @@ class AbstractNode(core.Structure):
 	def addAttribute(self, name, value):
 		"""
 		This method adds provided attribute to the node.
+
+		Usage::
+
+			>>>	nodeA = AbstractNode()
+			>>> nodeA.addAttribute("attributeA", Attribute(value="A"))
+			True
+			>>> nodeA.listAttributes()
+			['attributeA']
 	
 		:param name: Attribute name. ( String )
 		:param value: Attribute value. ( Attribute )
@@ -329,7 +381,15 @@ class AbstractNode(core.Structure):
 	def removeAttribute(self, name):
 		"""
 		This method removes provided attribute from the node.
-	
+
+		Usage::
+
+			>>>	nodeA = AbstractNode("MyNodeA", attributeA=Attribute(), attributeB=Attribute())
+			>>> nodeA.removeAttribute("attributeA")
+			True
+			>>> nodeA.listAttributes()
+			['attributeB']
+
 		:param name: Attribute name. ( String )
 		:return: Method success. ( Boolean )
 		"""
@@ -342,7 +402,8 @@ class AbstractNode(core.Structure):
 
 class AbstractCompositeNode(AbstractNode):
 	"""
-	This class provides the base class object used by other nodes.
+	| This class defines the base composite node class.
+	| It provides compositing capabilities allowing the assembly of graphs and various trees structures.
 	"""
 
 	__family = "AbstractComposite"
@@ -352,11 +413,13 @@ class AbstractCompositeNode(AbstractNode):
 		"""
 		This method initializes the class.
 
-		:param parent: Node parent. ( AbstractCompositeNode / AbstractNode )
 		:param name: Node name.  ( String )
+		:param parent: Node parent. ( AbstractNode / AbstractCompositeNode )
+		:param children: Children. ( List )
+		:param \*\*kwargs: Keywords arguments. ( \* )
 		"""
 
-#		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
+		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
 		AbstractNode.__init__(self, name, **kwargs)
 
@@ -436,20 +499,67 @@ class AbstractCompositeNode(AbstractNode):
 	#***	Class methods.
 	#***********************************************************************************************
 	@core.executionTrace
-	def addChild(self, child):
-		self.__children.append(child)
+	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	def child(self, index):
+		"""
+		This method returns the child associated with given index.
+	
+		:param index: Child index. ( Integer )
+		:return: Child node. ( AbstractNode / AbstractCompositeNode / Object )
+		"""
+
+		if index >= 0 or index <= len(self.__children):
+			return self.__children[index]
 
 	@core.executionTrace
-	def insertChild(self, index, child):
-		if index < 0 or index > len(self.__children):
-			return
+	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	def indexOf(self, child):
+		"""
+		This method returns the given child index.
+	
+		:param child: Child node. ( AbstractNode / AbstractCompositeNode / Object )
+		:return: Child index. ( Integer )
+		"""
 
-		self.__children.insert(index, child)
-		child.__parent = self
+		for i, item in enumerate(self.__children):
+			if child is item:
+				return i
+
+	@core.executionTrace
+	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	def row(self):
+		"""
+		This method returns the node row.
+	
+		:return: Node row. ( Integer )
+		"""
+
+		if self.__parent:
+			return self.__parent.indexOf(self)
+
+	@core.executionTrace
+	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	def addChild(self, child):
+		"""
+		This method adds provided child to the node.
+	
+		:param child: Child node. ( AbstractNode / AbstractCompositeNode / Object )
+		:return: Method success. ( Boolean )
+		"""
+
+		self.__children.append(child)
 		return True
 
 	@core.executionTrace
+	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def removeChild(self, index):
+		"""
+		This method removes provided index from the node children.
+	
+		:param index: Node index. ( Integer )
+		:return: Method success. ( Boolean )
+		"""
+
 		if index < 0 or index > len(self.__children):
 			return
 
@@ -458,247 +568,49 @@ class AbstractCompositeNode(AbstractNode):
 		return True
 
 	@core.executionTrace
-	def child(self, index):
-		return self.__children[index]
+	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	def insertChild(self, child, index):
+		"""
+		This method inserts provided child at given index.
+	
+		:param child: Child node. ( AbstractNode / AbstractCompositeNode / Object )
+		:param index: Insertion index. ( Integer )
+		:return: Method success. ( Boolean )
+		"""
+
+		if index < 0 or index > len(self.__children):
+			return
+
+		self.__children.insert(index, child)
+		child.__parent = self
+		return True
 
 	@core.executionTrace
+	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def childrenCount(self):
+		"""
+		This method returns the children count.
+	
+		:return: Children count. ( Integer )
+		"""
+
 		return len(self.__children)
 
 	@core.executionTrace
-	def row(self):
-		if self.__parent is not None:
-			return self.__parent.children.index(self)
-
-	@core.executionTrace
+	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def listNode(self, tabLevel= -1):
+		"""
+		This method lists the current node and its children.
+	
+		:return: Node listing. ( String )
+		"""
+
 		output = ""
 		tabLevel += 1
 		for i in range(tabLevel):
 			output += "\t"
-		output += "|----'{}'\n".format(self.name)
+		output += "|----'{0}'\n".format(self.name)
 		for child in self.__children:
 			output += child.listNode(tabLevel)
 		tabLevel -= 1
 		return output
-
-if __name__ == "__main__":
-	class DefaultNode(AbstractCompositeNode):
-		__family = "Default"
-
-		@core.executionTrace
-		def __init__(self, name=None, parent=None, **kwargs):
-			AbstractCompositeNode.__init__(self, name, parent, **kwargs)
-
-	class TemplateNode(AbstractCompositeNode):
-		__family = "Template"
-
-		@core.executionTrace
-		def __init__(self, name=None, parent=None, **kwargs):
-			AbstractCompositeNode.__init__(self, name, parent, **kwargs)
-
-	class SoftwareNode(AbstractCompositeNode):
-		__family = "Software"
-
-		@core.executionTrace
-		def __init__(self, name=None, parent=None, **kwargs):
-			AbstractCompositeNode.__init__(self, name, parent, **kwargs)
-
-	class CollectionNode(AbstractCompositeNode):
-		__family = "Collection"
-
-		@core.executionTrace
-		def __init__(self, name=None, parent=None, **kwargs):
-			AbstractCompositeNode.__init__(self, name, parent, **kwargs)
-
-	rootNode = AbstractCompositeNode(name="InvisibleRootNode", toto=Attribute())
-	factoryCollection = CollectionNode(name="Factory", parent=rootNode)
-	mayaSoftware = SoftwareNode(name="Maya", parent=factoryCollection)
-	mayaMRStandard = TemplateNode(parent=mayaSoftware, release="1.0.1", software="Maya")
-	mayaVRayStandard = TemplateNode(name="Maya VRay Standard", parent=mayaSoftware, release="1.8.1", software="Maya")
-	softimageSoftware = SoftwareNode(name="Softimage", parent=factoryCollection)
-	softimageMRStandard = TemplateNode(name="Softimage MR Standard", parent=softimageSoftware, release="1.2.0", software="Softimage")
-	softimageVRayStandard = TemplateNode(name="Softimage VRay Standard", parent=softimageSoftware, release="1.5.0")
-
-	print rootNode.listAttributes()
-#	print rootNode.identity
-#	print softimageVRayStandard.identity
-#	print AbstractNode.getNodeByIdentity(1)
-#	print softimageVRayStandard.keys()
-
-	userCollection = CollectionNode(name="User", parent=rootNode)
-	maxSoftware = TemplateNode(name="3dsMax", parent=userCollection)
-	maxMRStandard = TemplateNode(name="3dsMax MR Standard", parent=maxSoftware)
-
-	from PyQt4.QtGui import *
-	from PyQt4.QtCore import *
-	import sys
-
-	application = QApplication(sys.argv)
-	class GraphModel(QAbstractItemModel):
-
-		@core.executionTrace
-		def __init__(self, parent=None, root=None, headers=None):
-			QAbstractItemModel.__init__(self)
-			self.__rootNode = root
-			self.__headers = headers
-
-		#***********************************************************************************************
-		#***	Attributes properties.
-		#***********************************************************************************************
-		@property
-		def headers(self):
-			"""
-			This method is the property for **self.__headers** attribute.
-	
-			:return: self.__headers. ( QObject )
-			"""
-
-			return self.__headers
-
-		@headers.setter
-		@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
-		def headers(self, value):
-			"""
-			This method is the setter method for **self.__headers** attribute.
-	
-			:param value: Attribute value. ( QObject )
-			"""
-
-			if value:
-				assert type(value) is OrderedDict, "'{0}' attribute: '{1}' type is not 'OrderedDict'!".format("headers", value)
-			self.__headers = value
-
-		@headers.deleter
-		@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
-		def headers(self):
-			"""
-			This method is the deleter method for **self.__headers** attribute.
-			"""
-
-		#***********************************************************************************************
-		#***	Class methods.
-		#***********************************************************************************************
-		@core.executionTrace
-		def rowCount(self, parent):
-			if not parent.isValid():
-				parentNode = self.__rootNode
-			else:
-				parentNode = parent.internalPointer()
-			return parentNode.childrenCount()
-
-		@core.executionTrace
-		def columnCount(self, parent):
-			return len(self.__headers)
-
-		@core.executionTrace
-		def data(self, index, role):
-			if not index.isValid():
-				return
-
-			node = index.internalPointer()
-			if role == Qt.DisplayRole or role == Qt.EditRole:
-				if index.column() == 0:
-					return node.name
-				else:
-					if index.column() < len(self.__headers):
-						return node.get(self.__headers[self.__headers.keys()[index.column()]], None)
-
-			if role == Qt.DecorationRole:
-				if index.column() == 0:
-					family = node.family
-
-					if family == "":
-						return QIcon(QPixmap(""))
-
-		@core.executionTrace
-		def setData(self, index, value, role=Qt.EditRole):
-			if index.isValid():
-				if role == Qt.EditRole:
-					node = index.internalPointer()
-					node.name = value
-					self.dataChanged.emit(index, index)
-					return True
-
-		@core.executionTrace
-		def headerData(self, section, orientation, role):
-			if role == Qt.DisplayRole:
-				if orientation == Qt.Horizontal:
-					if section < len(self.__headers):
-						return self.__headers.keys()[section]
-
-		@core.executionTrace
-		def flags(self, index):
-			return Qt.ItemIsEnabled | Qt.ItemIsSelectable | Qt.ItemIsEditable
-
-		@core.executionTrace
-		def parent(self, index):
-			node = self.getNode(index)
-			parentNode = node.parent
-			if parentNode == self.__rootNode:
-				return QModelIndex()
-			return self.createIndex(parentNode.row(), 0, parentNode)
-
-		@core.executionTrace
-		def index(self, row, column, parent):
-			parentNode = self.getNode(parent)
-			childItem = parentNode.child(row)
-			if childItem:
-				return self.createIndex(row, column, childItem)
-			else:
-				return QModelIndex()
-
-		@core.executionTrace
-		def getNode(self, index):
-			if index.isValid():
-				node = index.internalPointer()
-				if node:
-					return node
-			return self.__rootNode
-
-		@core.executionTrace
-		def insertRows(self, position, rows, parent=QModelIndex()):
-			parentNode = self.getNode(parent)
-			self.beginInsertRows(parent, position, position + rows - 1)
-			for row in range(rows):
-				childNode = DefaultNode()
-				success = parentNode.insertChild(position, childNode)
-			self.endInsertRows()
-			return success
-
-		@core.executionTrace
-		def removeRows(self, position, rows, parent=QModelIndex()):
-			parentNode = self.getNode(parent)
-			self.beginRemoveRows(parent, position, position + rows - 1)
-			success = True
-			for row in range(rows):
-				success *= parentNode.removeChild(position)
-			self.endRemoveRows()
-			return success
-	model = GraphModel(root=rootNode, headers=OrderedDict([("Templates", "templates"), ("Version", "release"), ("Package", "software")]))
-
-#	print rootNode.listNode()
-
-	listView = QListView()
-	listView.setModel(model)
-
-	comboBox = QComboBox()
-	comboBox.setModel(model)
-
-	tableView = QTableView()
-	tableView.setModel(model)
-
-	treeView = QTreeView()
-	treeView.setModel(model)
-	treeView.expandAll()
-	for column in range(len(treeView.model().headers)):
-		treeView.resizeColumnToContents(column)
-	treeView.resize(640, 480)
-
-	listView.show()
-	comboBox.show()
-	tableView.show()
-	treeView.show()
-
-	sys.exit(application.exec_())
-

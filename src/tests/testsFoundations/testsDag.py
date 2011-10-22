@@ -85,8 +85,8 @@ class AbstractNodeTestCase(unittest.TestCase):
 		This method tests :class:`foundations.dag.AbstractNode` class name resolving consistency.
 		"""
 
-		nodeA = AbstractNode("MyNode")
-		self.assertEqual(nodeA.name, "MyNode")
+		nodeA = AbstractNode("MyNodeA")
+		self.assertEqual(nodeA.name, "MyNodeA")
 		nodeB = AbstractNode()
 		self.assertEqual(nodeB.name, "Abstract{0}".format(nodeB.identity))
 
@@ -106,9 +106,9 @@ class AbstractNodeTestCase(unittest.TestCase):
 		This method tests :meth:`foundations.dag.AbstractNode.listAttributes` method.
 		"""
 
-		nodeA = AbstractNode("MyNode")
+		nodeA = AbstractNode("MyNodeA")
 		self.assertListEqual(nodeA.listAttributes(), [])
-		nodeB = AbstractNode("MyNode", attributeA=Attribute(), attributeB=Attribute())
+		nodeB = AbstractNode("MyNodeB", attributeA=Attribute(), attributeB=Attribute())
 		self.assertListEqual(sorted(nodeB.listAttributes()), ["attributeA", "attributeB"])
 
 	def testGetAttributes(self):
@@ -118,7 +118,7 @@ class AbstractNodeTestCase(unittest.TestCase):
 
 		attributes = {"attributeA" : Attribute(), "attributeB" : Attribute()}
 
-		nodeA = AbstractNode("MyNode", **attributes)
+		nodeA = AbstractNode("MyNodeA", **attributes)
 		for attribute in attributes.values():
 			self.assertIn(attribute, nodeA.getAttributes())
 
@@ -129,10 +129,10 @@ class AbstractNodeTestCase(unittest.TestCase):
 
 		attributes = {"attributeA" : Attribute(), "attributeB" : Attribute()}
 
-		nodeA = AbstractNode("MyNode", **attributes)
+		nodeA = AbstractNode("MyNodeA", **attributes)
 		for attribute in attributes.keys():
 			self.assertTrue(nodeA.attributeExists(attribute))
-		nodeB = AbstractNode("MyNode", nonAttribute="Non Attribute")
+		nodeB = AbstractNode("MyNodeB", nonAttribute="Non Attribute")
 		self.assertFalse(nodeA.attributeExists("nonAttribute"))
 
 	def testAddAttribute(self):
@@ -142,7 +142,7 @@ class AbstractNodeTestCase(unittest.TestCase):
 
 		attributes = {"attributeA" : Attribute(), "attributeB" : Attribute()}
 
-		nodeA = AbstractNode("MyNode")
+		nodeA = AbstractNode("MyNodeA")
 		for attribute, value in attributes.items():
 			self.assertTrue(nodeA.addAttribute(attribute, value))
 			self.assertTrue(nodeA.attributeExists(attribute))
@@ -154,7 +154,7 @@ class AbstractNodeTestCase(unittest.TestCase):
 
 		attributes = {"attributeA" : Attribute(), "attributeB" : Attribute()}
 
-		nodeA = AbstractNode("MyNode")
+		nodeA = AbstractNode("MyNodeA")
 		for attribute, value in attributes.items():
 			self.assertTrue(nodeA.addAttribute(attribute, value))
 			self.assertTrue(nodeA.removeAttribute(attribute))
@@ -173,7 +173,9 @@ class AbstractCompositeNodeTestCase(unittest.TestCase):
 		requiredAttributes = ("family",
 							"identity",
 							"nodesInstances",
-							"name")
+							"name",
+							"parent",
+							"children")
 
 		for attribute in requiredAttributes:
 			self.assertIn(attribute, dir(AbstractCompositeNode))
@@ -188,10 +190,103 @@ class AbstractCompositeNodeTestCase(unittest.TestCase):
 							"getAttributes",
 							"attributeExists",
 							"addAttribute",
-							"removeAttribute")
+							"removeAttribute",
+							"child",
+							"indexOf",
+							"row",
+							"addChild",
+							"removeChild",
+							"insertChild",
+							"childrenCount",
+							"listNode")
 
 		for method in requiredMethods:
 			self.assertIn(method, dir(AbstractCompositeNode))
+
+	def testChild(self):
+		"""
+		This method tests :meth:`foundations.dag.AbstractCompositeNode.child` method.
+		"""
+
+		nodeA = AbstractCompositeNode("MyNodeA")
+		nodeB = AbstractCompositeNode("MyNodeB", nodeA)
+		self.assertEqual(nodeA.child(0), nodeB)
+
+	def testIndexOf(self):
+		"""
+		This method tests :meth:`foundations.dag.AbstractCompositeNode.indexOf` method.
+		"""
+
+		nodeA = AbstractCompositeNode("MyNodeA")
+		nodeB = AbstractCompositeNode("MyNodeB", nodeA)
+		self.assertEqual(nodeA.indexOf(nodeB), 0)
+
+	def testRow(self):
+		"""
+		This method tests :meth:`foundations.dag.AbstractCompositeNode.row` method.
+		"""
+
+		nodeA = AbstractCompositeNode("MyNodeA")
+		nodeB = AbstractCompositeNode("MyNodeB", nodeA)
+		nodeC = AbstractCompositeNode("MyNodeC", nodeA)
+		nodeD = AbstractCompositeNode("MyNodeD", nodeA)
+		for i, node in enumerate((nodeB, nodeC, nodeD)):
+			self.assertEqual(node.row(), i)
+
+	def testAddChild(self):
+		"""
+		This method tests :meth:`foundations.dag.AbstractCompositeNode.addChild` method.
+		"""
+
+		nodeA = AbstractCompositeNode("MyNodeA")
+		nodeB = AbstractCompositeNode("MyNodeB")
+		self.assertListEqual(nodeA.children, [])
+		self.assertTrue(nodeA.addChild(nodeB))
+		self.assertIn(nodeB, nodeA.children)
+
+	def testRemoveChild(self):
+		"""
+		This method tests :meth:`foundations.dag.AbstractCompositeNode.removeChild` method.
+		"""
+
+		nodeA = AbstractCompositeNode("MyNodeA")
+		nodeB = AbstractCompositeNode("MyNodeB", nodeA)
+		self.assertTrue(nodeA.removeChild(0))
+		self.assertListEqual(nodeA.children, [])
+
+	def testInsertChild(self):
+		"""
+		This method tests :meth:`foundations.dag.AbstractCompositeNode.insertChild` method.
+		"""
+
+		nodeA = AbstractCompositeNode("MyNodeA")
+		nodeB = AbstractCompositeNode("MyNodeB", nodeA)
+		nodeC = AbstractCompositeNode("MyNodeC", nodeA)
+		nodeD = AbstractCompositeNode("MyNodeD")
+		self.assertTrue(nodeA.insertChild(nodeD, 1))
+		for i, node in enumerate((nodeB, nodeD, nodeC)):
+			self.assertEqual(nodeA.indexOf(node), i)
+
+	def testChildrenCount(self):
+		"""
+		This method tests :meth:`foundations.dag.AbstractCompositeNode.childrenCount` method.
+		"""
+
+		nodeA = AbstractCompositeNode("MyNodeA")
+		self.assertEqual(nodeA.childrenCount(), 0)
+		nodeB = AbstractCompositeNode("MyNodeB", nodeA)
+		nodeC = AbstractCompositeNode("MyNodeC", nodeA)
+		self.assertEqual(nodeA.childrenCount(), 2)
+
+	def testListNode(self):
+		"""
+		This method tests :meth:`foundations.dag.AbstractCompositeNode.listNode` method.
+		"""
+
+		nodeA = AbstractCompositeNode("MyNodeA")
+		nodeB = AbstractCompositeNode("MyNodeB", nodeA)
+		nodeC = AbstractCompositeNode("MyNodeC", nodeA)
+		self.assertIsInstance(nodeA.listNode(), str)
 
 if __name__ == "__main__":
 	import tests.utilities
