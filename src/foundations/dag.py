@@ -426,7 +426,8 @@ class AbstractCompositeNode(AbstractNode):
 		# --- Setting class attributes. ---
 		self.__parent = None
 		self.parent = parent
-		self.__children = children or []
+		self.__children = None
+		self.children = children or []
 
 		parent and parent.addChild(self)
 
@@ -484,7 +485,9 @@ class AbstractCompositeNode(AbstractNode):
 		:param value: Attribute value. ( QObject )
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "children"))
+		if value:
+			assert type(value) is list, "'{0}' attribute: '{1}' type is not 'list'!".format("children", value)
+		self.__children = value
 
 	@children.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -517,6 +520,9 @@ class AbstractCompositeNode(AbstractNode):
 		:param index: Child index. ( Integer )
 		:return: Child node. ( AbstractNode / AbstractCompositeNode / Object )
 		"""
+
+		if not self.__children:
+			return
 
 		if index >= 0 or index <= len(self.__children):
 			return self.__children[index]
