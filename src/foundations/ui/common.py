@@ -26,6 +26,7 @@ from PyQt4.QtCore import *
 #***********************************************************************************************
 #***	Internal imports.
 #***********************************************************************************************
+import foundations.core as core
 import foundations.exceptions
 from foundations.globals.constants import Constants
 
@@ -49,6 +50,7 @@ DEFAULT_UI_FILE = os.path.join(RESOURCES_DIRECTORY, "QWidget.ui")
 #***********************************************************************************************
 #***	Module classes and definitions.
 #***********************************************************************************************
+@core.executionTrace
 def QWidgetFactory(uiFile=None, *args, **kwargs):
 	"""
 	This definition is a class factory creating `QWidget <http://doc.qt.nokia.com/4.7/qwidget.html>`_ classes using provided ui file.
@@ -66,9 +68,10 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 
 	class QWidget(Form, Base):
 		"""
-		This class is the class built by the :def:`QWidgetFactory` definition.
+		This class is built by the :def:`QWidgetFactory` definition.
 		"""
 
+		@core.executionTrace
 		def __init__(self, *args, **kwargs):
 			"""
 			This method initializes the class.
