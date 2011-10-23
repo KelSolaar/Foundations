@@ -58,6 +58,7 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 	:param uiFile: Ui file. ( String )
 	:param \*args: Arguments. ( \* )
 	:param \*\*kwargs: Keywords arguments. ( \* )
+	:return: QWidget class. ( QWidget )
 	"""
 
 	file = uiFile or DEFAULT_UI_FILE
