@@ -503,7 +503,17 @@ class AbstractCompositeNode(AbstractNode):
 	def child(self, index):
 		"""
 		This method returns the child associated with given index.
-	
+
+		Usage::
+
+			>>> nodeB = AbstractCompositeNode("MyNodeB")
+			>>> nodeC = AbstractCompositeNode("MyNodeC")
+			>>> nodeA = AbstractCompositeNode("MyNodeA", children=[nodeB, nodeC])
+			>>> nodeA.child(0)
+			<AbstractCompositeNode object at 0x10107b6f0>
+			>>> nodeA.child(0).name
+			'MyNodeB'
+
 		:param index: Child index. ( Integer )
 		:return: Child node. ( AbstractNode / AbstractCompositeNode / Object )
 		"""
@@ -516,6 +526,16 @@ class AbstractCompositeNode(AbstractNode):
 	def indexOf(self, child):
 		"""
 		This method returns the given child index.
+
+		Usage::
+
+			>>> nodeA = AbstractCompositeNode("MyNodeA")
+			>>> nodeB = AbstractCompositeNode("MyNodeB", nodeA)
+			>>> nodeC = AbstractCompositeNode("MyNodeC", nodeA)
+			>>> nodeA.indexOf(nodeB)
+			0
+			>>> nodeA.indexOf(nodeC)
+			1
 	
 		:param child: Child node. ( AbstractNode / AbstractCompositeNode / Object )
 		:return: Child index. ( Integer )
@@ -530,7 +550,17 @@ class AbstractCompositeNode(AbstractNode):
 	def row(self):
 		"""
 		This method returns the node row.
-	
+
+		Usage::
+
+			>>> nodeA = AbstractCompositeNode("MyNodeA")
+			>>> nodeB = AbstractCompositeNode("MyNodeB", nodeA)
+			>>> nodeC = AbstractCompositeNode("MyNodeC", nodeA)
+			>>> nodeB.row()
+			0
+			>>> nodeC.row()
+			1	
+
 		:return: Node row. ( Integer )
 		"""
 
@@ -542,7 +572,16 @@ class AbstractCompositeNode(AbstractNode):
 	def addChild(self, child):
 		"""
 		This method adds provided child to the node.
-	
+
+		Usage::
+
+			>>> nodeA = AbstractCompositeNode("MyNodeA")
+			>>> nodeB = AbstractCompositeNode("MyNodeB")
+			>>> nodeA.addChild(nodeB)
+			True
+			>>> nodeA.children
+			[<AbstractCompositeNode object at 0x10107afe0>]
+
 		:param child: Child node. ( AbstractNode / AbstractCompositeNode / Object )
 		:return: Method success. ( Boolean )
 		"""
@@ -554,8 +593,18 @@ class AbstractCompositeNode(AbstractNode):
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def removeChild(self, index):
 		"""
-		This method removes provided index from the node children.
-	
+		This method removes child at given index from the node children.
+
+		Usage::
+
+			>>> nodeA = AbstractCompositeNode("MyNodeA")
+			>>> nodeB = AbstractCompositeNode("MyNodeB", nodeA)
+			>>> nodeC = AbstractCompositeNode("MyNodeC", nodeA)
+			>>> nodeA.removeChild(1)
+			True
+			>>> [child.name for child in nodeA.children]
+			['MyNodeB']
+
 		:param index: Node index. ( Integer )
 		:return: Method success. ( Boolean )
 		"""
@@ -572,7 +621,18 @@ class AbstractCompositeNode(AbstractNode):
 	def insertChild(self, child, index):
 		"""
 		This method inserts provided child at given index.
-	
+
+		Usage::
+
+			>>> nodeA = AbstractCompositeNode("MyNodeA")
+			>>> nodeB = AbstractCompositeNode("MyNodeB", nodeA)
+			>>> nodeC = AbstractCompositeNode("MyNodeC", nodeA)
+			>>> nodeD = AbstractCompositeNode("MyNodeD")
+			>>> nodeA.insertChild(nodeD, 1)
+			True
+			>>> [child.name for child in nodeA.children]
+			['MyNodeB', 'MyNodeD', 'MyNodeC']
+
 		:param child: Child node. ( AbstractNode / AbstractCompositeNode / Object )
 		:param index: Insertion index. ( Integer )
 		:return: Method success. ( Boolean )
@@ -590,7 +650,15 @@ class AbstractCompositeNode(AbstractNode):
 	def childrenCount(self):
 		"""
 		This method returns the children count.
-	
+
+		Usage::
+
+			>>> nodeA = AbstractCompositeNode("MyNodeA")
+			>>> nodeB = AbstractCompositeNode("MyNodeB", nodeA)
+			>>> nodeC = AbstractCompositeNode("MyNodeC", nodeA)
+			>>> nodeA.childrenCount()
+			2
+
 		:return: Children count. ( Integer )
 		"""
 
@@ -601,7 +669,17 @@ class AbstractCompositeNode(AbstractNode):
 	def listNode(self, tabLevel= -1):
 		"""
 		This method lists the current node and its children.
-	
+
+		Usage::
+
+			>>> nodeA = AbstractCompositeNode("MyNodeA")
+			>>> nodeB = AbstractCompositeNode("MyNodeB", nodeA)
+			>>> nodeC = AbstractCompositeNode("MyNodeC", nodeA)
+			>>> print nodeA.listNode()
+			|----'MyNodeA'
+					|----'MyNodeB'
+					|----'MyNodeC'
+
 		:return: Node listing. ( String )
 		"""
 
