@@ -50,14 +50,61 @@ class Attribute(core.Structure):
 	"""
 
 	@core.executionTrace
-	def __init__(self, **kwargs):
+	def __init__(self, value=None, **kwargs):
 		"""
 		This method initializes the class.
 
-		:param \*\*kwargs: value, image. ( Key / Value pairs )
+		Usage::
+
+			>>> attribute = Attribute(value="My Value")
+			>>> attribute.value
+			'My Value'
+			>>> attribute["value"]
+			'My Value'
+
+		:param value: Attribute value. ( Object )
+		:param \*\*kwargs: Keywords arguments. ( \* )
 		"""
 
+		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
+
 		core.Structure.__init__(self, **kwargs)
+
+		# --- Setting class attributes. ---
+		self["value"] = value
+
+	#***********************************************************************************************
+	#***	Attributes properties.
+	#***********************************************************************************************
+	@property
+	def value(self):
+		"""
+		This method is the property for **self.__value** attribute.
+
+		:return: Value. ( Object )
+		"""
+
+		return self["value"]
+
+	@value.setter
+	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	def value(self, value):
+		"""
+		This method is the setter method for **self.__value** attribute.
+
+		:param value: Attribute value. ( Object )
+		"""
+
+		self["value"] = value
+
+	@value.deleter
+	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	def value(self):
+		"""
+		This method is the deleter method for **self.__value** attribute.
+		"""
+
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "value"))
 
 class AbstractNode(core.Structure):
 	"""
@@ -118,7 +165,7 @@ class AbstractNode(core.Structure):
 
 		# --- Setting class attributes. ---
 		self.__name = None
-		self.__name = name or self.__getDefaultNodeName()
+		self.name = name or self.__getDefaultNodeName()
 
 	#***********************************************************************************************
 	#***	Attributes properties.
@@ -306,7 +353,7 @@ class AbstractNode(core.Structure):
 		:return: Attributes names. ( List )
 		"""
 
-		return [attribute for attribute, value in self.items() if isinstance(value, Attribute)]
+		return [attribute for attribute, value in self.items() if issubclass(value.__class__, Attribute)]
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
@@ -323,7 +370,7 @@ class AbstractNode(core.Structure):
 		:return: Attributes. ( List )
 		"""
 
-		return [attribute for attribute in self.values() if isinstance(attribute, Attribute)]
+		return [attribute for attribute in self.values() if issubclass(attribute.__class__, Attribute)]
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
@@ -344,7 +391,7 @@ class AbstractNode(core.Structure):
 		"""
 
 		if name in self.keys():
-			if isinstance(self[name], Attribute):
+			if issubclass(self[name].__class__, Attribute):
 				return True
 		return False
 
@@ -367,7 +414,7 @@ class AbstractNode(core.Structure):
 		:return: Method success. ( Boolean )
 		"""
 
-		if not isinstance(value, Attribute):
+		if not issubclass(value.__class__, Attribute):
 			raise foundations.exceptions.NodeAttributeTypeError("Node attribute value must be a '{0}' class instance!".format(Attribute.__class__.__name__))
 
 		if self.attributeExists(name):
