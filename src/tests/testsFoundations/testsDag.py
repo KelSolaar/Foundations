@@ -34,11 +34,27 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["AbstractNodeTestCase", "AbstractCompositeNode"]
+__all__ = ["AttributeTestCase", "AbstractNodeTestCase", "AbstractCompositeNode"]
 
 #***********************************************************************************************
 #***	Module classes and definitions.
 #***********************************************************************************************
+class AttributeTestCase(unittest.TestCase):
+	"""
+	This class defines :class:`foundations.dag.Attribute` class units tests methods.
+	"""
+
+	def testRequiredAttributes(self):
+		"""
+		This method tests presence of required attributes.
+		"""
+
+		requiredAttributes = ("name",
+							"value")
+
+		for attribute in requiredAttributes:
+			self.assertIn(attribute, dir(Attribute))
+
 class AbstractNodeTestCase(unittest.TestCase):
 	"""
 	This class defines :class:`foundations.dag.AbstractNode` class units tests methods.

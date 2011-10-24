@@ -50,18 +50,23 @@ class Attribute(core.Structure):
 	"""
 
 	@core.executionTrace
-	def __init__(self, value=None, **kwargs):
+	def __init__(self, name=None, value=None, **kwargs):
 		"""
 		This method initializes the class.
 
 		Usage::
 
-			>>> attribute = Attribute(value="My Value")
+			>>> attribute = Attribute(name="My Attribute", value="My Value")
+			>>> attribute.name
+			'My Attribute'
+			>>> attribute["name"]
+			'My Attribute'
 			>>> attribute.value
 			'My Value'
 			>>> attribute["value"]
 			'My Value'
 
+		:param name: Attribute name. ( String )
 		:param value: Attribute value. ( Object )
 		:param \*\*kwargs: Keywords arguments. ( \* )
 		"""
@@ -71,15 +76,46 @@ class Attribute(core.Structure):
 		core.Structure.__init__(self, **kwargs)
 
 		# --- Setting class attributes. ---
+		self["name"] = name
 		self["value"] = value
 
 	#***********************************************************************************************
 	#***	Attributes properties.
 	#***********************************************************************************************
 	@property
+	def name(self):
+		"""
+		This method is the property for **name** attribute.
+
+		:return: Value. ( String )
+		"""
+
+		return self["name"]
+
+	@name.setter
+	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	def name(self, name):
+		"""
+		This method is the setter method for **name** attribute.
+
+		:param name: Attribute name. ( String )
+		"""
+
+		self["name"] = name
+
+	@name.deleter
+	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	def name(self):
+		"""
+		This method is the deleter method for **name** attribute.
+		"""
+
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "name"))
+
+	@property
 	def value(self):
 		"""
-		This method is the property for **self.__value** attribute.
+		This method is the property for **value** attribute.
 
 		:return: Value. ( Object )
 		"""
@@ -90,7 +126,7 @@ class Attribute(core.Structure):
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def value(self, value):
 		"""
-		This method is the setter method for **self.__value** attribute.
+		This method is the setter method for **value** attribute.
 
 		:param value: Attribute value. ( Object )
 		"""
@@ -101,7 +137,7 @@ class Attribute(core.Structure):
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def value(self):
 		"""
-		This method is the deleter method for **self.__value** attribute.
+		This method is the deleter method for **value** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "value"))
@@ -346,7 +382,7 @@ class AbstractNode(core.Structure):
 
 		Usage::
 
-			>>>	nodeA = AbstractNode("MyNodeA", attributeA=Attribute(value="A"), attributeB=Attribute(value="B"))
+			>>>	nodeA = AbstractNode("MyNodeA", attributeA=Attribute(), attributeB=Attribute())
 			>>> nodeA.listAttributes()
 			['attributeB', 'attributeA']
 			
@@ -363,7 +399,7 @@ class AbstractNode(core.Structure):
 
 		Usage::
 
-			>>>	nodeA = AbstractNode("MyNodeA", attributeA=Attribute(), attributeB=Attribute())
+			>>>	nodeA = AbstractNode("MyNodeA", attributeA=Attribute(value="A"), attributeB=Attribute(value="B"))
 			>>> nodeA.getAttributes()
 			[{'value': 'B'}, {'value': 'A'}]
 
@@ -404,7 +440,7 @@ class AbstractNode(core.Structure):
 		Usage::
 
 			>>>	nodeA = AbstractNode()
-			>>> nodeA.addAttribute("attributeA", Attribute(value="A"))
+			>>> nodeA.addAttribute("attributeA", Attribute())
 			True
 			>>> nodeA.listAttributes()
 			['attributeA']
