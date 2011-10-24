@@ -51,6 +51,7 @@ DEFAULT_UI_FILE = os.path.join(RESOURCES_DIRECTORY, "QWidget.ui")
 #***	Module classes and definitions.
 #***********************************************************************************************
 @core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
 def QWidgetFactory(uiFile=None, *args, **kwargs):
 	"""
 	This definition is a class factory creating `QWidget <http://doc.qt.nokia.com/4.7/qwidget.html>`_ classes using provided ui file.
