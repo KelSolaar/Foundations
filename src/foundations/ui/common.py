@@ -86,6 +86,8 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 
 			super(QWidget, self).__init__(*args, **kwargs)
 
+			self.__uiFile = file
+
 			self.setupUi(self)
 
 		#***********************************************************************************************
