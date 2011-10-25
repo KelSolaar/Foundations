@@ -141,6 +141,18 @@ class Attribute(core.Structure):
 		"""
 
 		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "value"))
+	#***********************************************************************************************
+	#***	Class methods.
+	#***********************************************************************************************
+	@core.executionTrace
+	def __repr__(self):
+		"""
+		This method reimplements the :meth:`core.Structure.__repr__` method.
+		
+		:return: Object representation. ( String )
+		"""
+
+		return "<{0} object at {1}>".format(self.__class__.__name__, hex(id(self)))
 
 class AbstractNode(core.Structure):
 	"""
@@ -340,6 +352,18 @@ class AbstractNode(core.Structure):
 		"""
 
 		return "<{0} object at {1}>".format(self.__class__.__name__, hex(id(self)))
+
+	@core.executionTrace
+	def __hash__(self):
+		"""
+		This method reimplements the :meth:`core.Structure.__hash__` method.
+		
+		:return: Object hash. ( Integer )
+		
+		:note: :class:`core.Structure` inherits from **dict** and should not be made hashable because of its mutability, however considering the fact the unique node identity is used as the hash value, making the object hashable should be safe. 
+		"""
+
+		return self.__identity
 
 	@core.executionTrace
 	def __getDefaultNodeName(self):
