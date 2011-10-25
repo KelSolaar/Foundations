@@ -67,6 +67,23 @@ class GetUserApplicationDatasDirectoryTestCase(unittest.TestCase):
 		path = foundations.common.getUserApplicationDatasDirectory()
 		self.assertIsInstance(path, str)
 
+class UniqifyTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.common.uniqify` definition units tests methods.
+	"""
+
+	def testUniqify(self):
+		"""
+		This method tests :func:`foundations.common.uniqify` definition.
+		"""
+
+		sequence = ("A", "B", "B", "C")
+		self.assertListEqual(sorted(foundations.common.uniqify(sequence)), ["A", "B", "C"])
+		sequence = ((1, "A"), (2, "B"), (2, "B"), (3, "C"))
+		self.assertListEqual(sorted(foundations.common.uniqify(sequence)), [(1, "A"), (2, "B"), (3, "C")])
+		sequence = ({1 : "A"}, {1 : "A"}, {2 : "B"}, {3 : "C"})
+		self.assertListEqual(sorted(foundations.common.uniqify(sequence)), [{1 : "A"}, {2 : "B"}, {3 : "C"}])
+
 if __name__ == "__main__":
 	import tests.utilities
 	unittest.main()

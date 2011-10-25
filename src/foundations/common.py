@@ -17,6 +17,7 @@
 #***********************************************************************************************
 #***	External imports.
 #***********************************************************************************************
+import itertools
 import logging
 import os
 import platform
@@ -41,7 +42,7 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["LOGGER", "getSystemApplicationDatasDirectory", "getUserApplicationDatasDirectory", "removeLoggingHandler", "exit", "wait"]
+__all__ = ["LOGGER", "getSystemApplicationDatasDirectory", "getUserApplicationDatasDirectory", "removeLoggingHandler", "exit", "wait", "uniqify"]
 
 LOGGER = logging.getLogger(Constants.logger)
 
@@ -145,3 +146,17 @@ def wait(waitTime):
 
 	time.sleep(waitTime)
 	return True
+
+@core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
+def uniqify(sequence):
+	"""
+	This definition uniqifies the given sequence.
+
+	:param sequence: Sequence. ( Object )
+	:return: Uniqified sequence. ( List )
+	
+	:note: The sequence order is not maintained by this definition.
+	"""
+
+	return [key for key, group in itertools.groupby(sorted(sequence))]
