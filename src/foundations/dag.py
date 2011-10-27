@@ -608,8 +608,8 @@ class AbstractCompositeNode(AbstractNode):
 	#***********************************************************************************************
 	#***	Class methods.
 	#***********************************************************************************************
-	@core.executionTrace
-	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	# @core.executionTrace
+	# @foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def child(self, index):
 		"""
 		This method returns the child associated with given index.
@@ -758,8 +758,8 @@ class AbstractCompositeNode(AbstractNode):
 		child.__parent = self
 		return True
 
-	@core.executionTrace
-	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	# @core.executionTrace
+	# @foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def childrenCount(self):
 		"""
 		This method returns the children count.
