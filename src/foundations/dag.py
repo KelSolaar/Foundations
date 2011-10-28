@@ -394,9 +394,7 @@ class AbstractNode(core.Structure):
 		:note: Nodes identities are starting from '1' to nodes instances count.
 		"""
 
-		if identity < 1 or identity > len(self.__nodesInstances):
-			return
-		return self.__nodesInstances[identity]
+		return self.__nodesInstances.get(identity, None)
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
@@ -776,6 +774,41 @@ class AbstractCompositeNode(AbstractNode):
 		"""
 
 		return len(self.__children)
+
+	@core.executionTrace
+	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	def sortChildren(self, attribute=None, reverseOrder=False):
+		"""
+		This method sorts the children using either the given attribute or the node name.
+
+		Usage::
+
+
+		:param attribute: Attribute name used for sorting. ( String )
+		:param reverseOrder: Sort in reverse order. ( Boolean )
+		:return: Method success. ( Boolean )
+		"""
+
+		sortedChildren = []
+		if attribute:
+			sortableChildren = []
+			unsortableChildren = []
+			for child in self.__children:
+				if child.attributeExists(attribute):
+					sortableChildren.append(child)
+				else:
+					unsortableChildren.append(child)
+			sortedChildren = sorted(sortableChildren, key=lambda x: getattr(x, attribute).value, reverse=reverseOrder or False)
+			sortedChildren.extend(unsortableChildren)
+		else:
+			sortedChildren = sorted(self.children, key=lambda x: (x.name), reverse=reverseOrder or False)
+
+		self.__children = sortedChildren
+
+		for child in self.__children:
+			child.sortChildren(attribute, reverseOrder)
+
+		return True
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)

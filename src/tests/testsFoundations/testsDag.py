@@ -224,6 +224,7 @@ class AbstractCompositeNodeTestCase(unittest.TestCase):
 							"removeChild",
 							"insertChild",
 							"childrenCount",
+							"sortChildren",
 							"listNode")
 
 		for method in requiredMethods:
@@ -303,6 +304,65 @@ class AbstractCompositeNodeTestCase(unittest.TestCase):
 		nodeB = AbstractCompositeNode("MyNodeB", nodeA)
 		nodeC = AbstractCompositeNode("MyNodeC", nodeA)
 		self.assertEqual(nodeA.childrenCount(), 2)
+
+	def testSortChildrenNode(self):
+		"""
+		This method tests :meth:`foundations.dag.AbstractCompositeNode.sortChildren` method.
+		"""
+
+		nodeA = AbstractCompositeNode("MyNodeA", attributeA=Attribute(value="A"), attributeB=Attribute(value="1"))
+		nodeC = AbstractCompositeNode("MyNodeC", nodeA, attributeA=Attribute(value="C"), attributeB=Attribute(value="3"))
+		nodeB = AbstractCompositeNode("MyNodeB", nodeA, attributeA=Attribute(value="B"), attributeB=Attribute(value="2"))
+		nodeG = AbstractCompositeNode("MyNodeG", nodeB, attributeA=Attribute(value="G"))
+		nodeE = AbstractCompositeNode("MyNodeE", nodeB, attributeA=Attribute(value="E"), attributeB=Attribute(value="5"))
+		nodeF = AbstractCompositeNode("MyNodeF", nodeB, attributeA=Attribute(value="F"), attributeB=Attribute(value="6"))
+		nodeD = AbstractCompositeNode("MyNodeD", nodeB, attributeA=Attribute(value="D"), attributeB=Attribute(value="4"))
+
+		self.assertTrue(nodeA.sortChildren())
+		self.assertEqual(nodeA.children[0], nodeB)
+		self.assertEqual(nodeA.children[1], nodeC)
+		self.assertEqual(nodeA.children[0].children[0], nodeD)
+		self.assertEqual(nodeA.children[0].children[1], nodeE)
+		self.assertEqual(nodeA.children[0].children[2], nodeF)
+
+		self.assertTrue(nodeA.sortChildren(reverseOrder=True))
+		self.assertEqual(nodeA.children[0], nodeC)
+		self.assertEqual(nodeA.children[1], nodeB)
+		self.assertEqual(nodeA.children[1].children[0], nodeG)
+		self.assertEqual(nodeA.children[1].children[1], nodeF)
+		self.assertEqual(nodeA.children[1].children[2], nodeE)
+		self.assertEqual(nodeA.children[1].children[3], nodeD)
+
+		self.assertTrue(nodeA.sortChildren(attribute="attributeA"))
+		self.assertEqual(nodeA.children[0], nodeB)
+		self.assertEqual(nodeA.children[1], nodeC)
+		self.assertEqual(nodeA.children[0].children[0], nodeD)
+		self.assertEqual(nodeA.children[0].children[1], nodeE)
+		self.assertEqual(nodeA.children[0].children[2], nodeF)
+
+		self.assertTrue(nodeA.sortChildren(attribute="attributeA", reverseOrder=True))
+		self.assertEqual(nodeA.children[0], nodeC)
+		self.assertEqual(nodeA.children[1], nodeB)
+		self.assertEqual(nodeA.children[1].children[0], nodeG)
+		self.assertEqual(nodeA.children[1].children[1], nodeF)
+		self.assertEqual(nodeA.children[1].children[2], nodeE)
+		self.assertEqual(nodeA.children[1].children[3], nodeD)
+
+		self.assertTrue(nodeA.sortChildren(attribute="attributeB"))
+		self.assertEqual(nodeA.children[0], nodeB)
+		self.assertEqual(nodeA.children[1], nodeC)
+		self.assertEqual(nodeA.children[0].children[0], nodeD)
+		self.assertEqual(nodeA.children[0].children[1], nodeE)
+		self.assertEqual(nodeA.children[0].children[2], nodeF)
+		self.assertEqual(nodeA.children[0].children[3], nodeG)
+
+		self.assertTrue(nodeA.sortChildren(attribute="attributeB", reverseOrder=True))
+		self.assertEqual(nodeA.children[0], nodeC)
+		self.assertEqual(nodeA.children[1], nodeB)
+		self.assertEqual(nodeA.children[1].children[0], nodeF)
+		self.assertEqual(nodeA.children[1].children[1], nodeE)
+		self.assertEqual(nodeA.children[1].children[2], nodeD)
+		self.assertEqual(nodeA.children[1].children[3], nodeG)
 
 	def testListNode(self):
 		"""
