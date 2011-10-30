@@ -827,21 +827,21 @@ class AbstractCompositeNode(AbstractNode):
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
-	def findChildren(self, pattern, flags=0, candidates=[]):
+	def findChildren(self, pattern=r".*", flags=0, candidates=[]):
 		"""
-#		This method lists the current node and its children.
-#
-#		Usage::
-#
-#			>>> nodeA = AbstractCompositeNode("MyNodeA")
-#			>>> nodeB = AbstractCompositeNode("MyNodeB", nodeA)
-#			>>> nodeC = AbstractCompositeNode("MyNodeC", nodeA)
-#			>>> print nodeA.listNode()
-#			|----'MyNodeA'
-#					|----'MyNodeB'
-#					|----'MyNodeC'
-#
-#		:return: Node listing. ( String )
+		This method finds the children matching the given patten.
+
+		Usage::
+
+			>>> nodeA = AbstractCompositeNode("MyNodeA")
+			>>> nodeB = AbstractCompositeNode("MyNodeB", nodeA)
+			>>> nodeC = AbstractCompositeNode("MyNodeC", nodeA)
+			>>> nodeA.findChildren("c", re.IGNORECASE)
+			[<AbstractCompositeNode object at 0x101078040>]
+
+		:param pattern: Matching pattern. ( String )
+		:param flags: Matching regex flags. ( Integer )
+		:return: Matching children. ( List )
 		"""
 
 		for child in self.__children:
