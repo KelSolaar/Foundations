@@ -17,6 +17,7 @@
 #***********************************************************************************************
 #***	External imports.
 #***********************************************************************************************
+import re
 import unittest
 
 #***********************************************************************************************
@@ -224,6 +225,7 @@ class AbstractCompositeNodeTestCase(unittest.TestCase):
 							"removeChild",
 							"insertChild",
 							"childrenCount",
+							"findChildren",
 							"sortChildren",
 							"listNode")
 
@@ -304,6 +306,20 @@ class AbstractCompositeNodeTestCase(unittest.TestCase):
 		nodeB = AbstractCompositeNode("MyNodeB", nodeA)
 		nodeC = AbstractCompositeNode("MyNodeC", nodeA)
 		self.assertEqual(nodeA.childrenCount(), 2)
+
+	def testFindChildren(self):
+		"""
+		This method tests :meth:`foundations.dag.AbstractCompositeNode.findChildren` method.
+		"""
+
+		nodeA = AbstractCompositeNode("MyNodeA")
+		nodeB = AbstractCompositeNode("MyNodeB", nodeA)
+		nodeC = AbstractCompositeNode("MyNodeC", nodeA)
+		nodeD = AbstractCompositeNode("MyNodeD", nodeC)
+
+		self.assertListEqual(nodeA.findChildren("MyNodeD"), [nodeD])
+		for node in nodeA.findChildren("mynode.*", re.IGNORECASE):
+			self.assertIn(node, (nodeB, nodeC, nodeD))
 
 	def testSortChildrenNode(self):
 		"""

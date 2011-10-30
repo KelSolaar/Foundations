@@ -18,6 +18,7 @@
 #***	External imports.
 #***********************************************************************************************
 import logging
+import re
 import weakref
 
 #***********************************************************************************************
@@ -363,7 +364,21 @@ class AbstractNode(core.Structure):
 		:note: :class:`core.Structure` inherits from **dict** and should not be made hashable because of its mutability, however considering the fact the unique node identity is used as the hash value, making the object hashable should be safe. 
 		"""
 
-		return self.__identity
+		return hash(self.__identity)
+
+	@core.executionTrace
+	def __cmp__(self, other):
+		"""
+		This method reimplements the :meth:`core.Structure.__cmp__` method.
+		
+		:param other: Comparison node. ( AbstractNode )
+		:return: Comparison value. ( Integer )
+		"""
+
+		if type(other) == type(self):
+			return cmp(self.__identity, other.identity)
+		else:
+			raise TypeError("Unable to compare '{0}' and '{1}' objects.".format(self, other))
 
 	@core.executionTrace
 	def __getDefaultNodeName(self):
@@ -809,6 +824,31 @@ class AbstractCompositeNode(AbstractNode):
 			child.sortChildren(attribute, reverseOrder)
 
 		return True
+
+	@core.executionTrace
+	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	def findChildren(self, pattern, flags=0, candidates=[]):
+		"""
+#		This method lists the current node and its children.
+#
+#		Usage::
+#
+#			>>> nodeA = AbstractCompositeNode("MyNodeA")
+#			>>> nodeB = AbstractCompositeNode("MyNodeB", nodeA)
+#			>>> nodeC = AbstractCompositeNode("MyNodeC", nodeA)
+#			>>> print nodeA.listNode()
+#			|----'MyNodeA'
+#					|----'MyNodeB'
+#					|----'MyNodeC'
+#
+#		:return: Node listing. ( String )
+		"""
+
+		for child in self.__children:
+			if re.search(pattern, child.name, flags):
+				child not in candidates and candidates.append(child)
+			child.findChildren(pattern, flags, candidates)
+		return candidates
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
