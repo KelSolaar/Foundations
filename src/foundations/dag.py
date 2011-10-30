@@ -827,7 +827,7 @@ class AbstractCompositeNode(AbstractNode):
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
-	def findChildren(self, pattern=r".*", flags=0, candidates=[]):
+	def findChildren(self, pattern=r".*", flags=0, candidates=None):
 		"""
 		This method finds the children matching the given patten.
 
@@ -841,8 +841,12 @@ class AbstractCompositeNode(AbstractNode):
 
 		:param pattern: Matching pattern. ( String )
 		:param flags: Matching regex flags. ( Integer )
+		:param candidates: Matching candidates. ( List )
 		:return: Matching children. ( List )
 		"""
+
+		if candidates is None:
+			candidates = []
 
 		for child in self.__children:
 			if re.search(pattern, child.name, flags):
