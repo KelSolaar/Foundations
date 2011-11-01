@@ -559,7 +559,7 @@ class AbstractCompositeNode(AbstractNode):
 		"""
 		This method is the property for **self.__parent** attribute.
 
-		:return: self.__parent. ( QObject )
+		:return: self.__parent. ( AbstractNode / AbstractCompositeNode )
 		"""
 
 		return self.__parent
@@ -570,7 +570,7 @@ class AbstractCompositeNode(AbstractNode):
 		"""
 		This method is the setter method for **self.__parent** attribute.
 
-		:param value: Attribute value. ( QObject )
+		:param value: Attribute value. ( AbstractNode / AbstractCompositeNode )
 		"""
 
 		if value:
@@ -591,7 +591,7 @@ class AbstractCompositeNode(AbstractNode):
 		"""
 		This method is the property for **self.__children** attribute.
 
-		:return: self.__children. ( QObject )
+		:return: self.__children. ( List )
 		"""
 
 		return self.__children
@@ -602,7 +602,7 @@ class AbstractCompositeNode(AbstractNode):
 		"""
 		This method is the setter method for **self.__children** attribute.
 
-		:param value: Attribute value. ( QObject )
+		:param value: Attribute value. ( List )
 		"""
 
 		if value:
