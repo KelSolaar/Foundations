@@ -40,7 +40,7 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["LOGGER", "OsWalker", "dictionariesWalker"]
+__all__ = ["LOGGER", "OsWalker", "dictionariesWalker", "nodesWalker"]
 
 LOGGER = logging.getLogger(Constants.logger)
 
@@ -229,22 +229,19 @@ def dictionariesWalker(dictionary, path=()):
 	"""
 	This definition is a generator used to walk into nested dictionaries.
 	
+	Usage::
+		
+		>>> nestedDictionary = {"Level 1A":{"Level 2A": { "Level 3A" : "Higher Level"}}, "Level 1B" : "Lower level"}
+		>>> dictionariesWalker(nestedDictionary)
+		<generator object dictionariesWalker at 0x10131a320>
+		>>> for value in dictionariesWalker(nestedDictionary):
+		...	print value
+		(('Level 1A', 'Level 2A'), 'Level 3A', 'Higher Level')
+		((), 'Level 1B', 'Lower level')
+
 	:param dictionary: Dictionary to walk. ( Dictionary )
 	:param path: Walked paths. ( Tuple )
 	:return: Path, key, value. ( Tuple )
-	
-	Usage::
-		
-			>>> nestedDictionary = {"Level 1A":{"Level 2A": { "Level 3A" : "Higher Level"}}, "Level 1B" : "Lower level"}
-			>>> dictionariesWalker(nestedDictionary)
-			<generator object dictionariesWalker at 0x10131a320>
-			>>> for value in dictionariesWalker(nestedDictionary):
-			...	print value
-			(('Level 1A', 'Level 2A'), 'Level 3A', 'Higher Level')
-			((), 'Level 1B', 'Lower level')
-
-	:param dictionary: Root dictionary. ( Dictionary )
-	:yield: path, key, value. ( Tuple )
 	
 	:note: This generator won't / can't yield any dictionaries, if you want to be able to retrieve dictionaries anyway, you will have to either encapsulate them in another object, or mutate their base class.
 	"""
@@ -254,4 +251,43 @@ def dictionariesWalker(dictionary, path=()):
 			yield path, key, dictionary[key]
 		else:
 			for value in dictionariesWalker(dictionary[key], path + (key,)):
+				yield value
+
+@core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
+def nodesWalker(node):
+	"""
+	This definition is a generator used to walk into nodes hierarchy.
+	
+	Usage::
+		
+		>>> nodeA = AbstractCompositeNode("MyNodeA")
+		>>> nodeB = AbstractCompositeNode("MyNodeB", nodeA)
+		>>> nodeC = AbstractCompositeNode("MyNodeC", nodeA)
+		>>> nodeD = AbstractCompositeNode("MyNodeD", nodeB)
+		>>> nodeE = AbstractCompositeNode("MyNodeE", nodeB)
+		>>> nodeF = AbstractCompositeNode("MyNodeF", nodeD)
+		>>> nodeG = AbstractCompositeNode("MyNodeG", nodeF)
+		>>> nodeH = AbstractCompositeNode("MyNodeH", nodeG)
+		>>> for node in nodesWalker(nodeA):
+		...	print node.name
+		MyNodeB
+		MyNodeD
+		MyNodeF
+		MyNodeG
+		MyNodeH
+		MyNodeE
+		MyNodeC
+
+	:param node: Node to walk. ( AbstractCompositeNode )
+	:return: Node. ( AbstractNode / AbstractCompositeNode )
+	"""
+
+	if not hasattr(node, "children"):
+		return
+	
+	for child in node.children:
+		yield child
+		if  child.children:
+			for value in nodesWalker(child):
 				yield value
