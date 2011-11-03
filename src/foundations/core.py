@@ -238,8 +238,8 @@ def getObjectName(object):
 	
 	Examples names::
 
-		'foundations.common | getUserApplicationDatasDirectory()'.
-		'__main__ | _setUserApplicationDatasDirectory()'.
+		'foundations.common | getUserApplicationDataDirectory()'.
+		'__main__ | _setUserApplicationDataDirectory()'.
 		'__main__ | Preferences.__init__()'.
 		'UndefinedObject'.
 
@@ -262,11 +262,11 @@ def executionTrace(object):
 	
 	Entering in an object::
 		
-		DEBUG   : --->>> 'foundations.common | getUserApplicationDatasDirectory()' <<<---
+		DEBUG   : --->>> 'foundations.common | getUserApplicationDataDirectory()' <<<---
 		
 	Exiting from an object::
 		
-		DEBUG   : --->>> 'foundations.common | getSystemApplicationDatasDirectory()' <<<---
+		DEBUG   : --->>> 'foundations.common | getSystemApplicationDataDirectory()' <<<---
 	
 	:param object: Object to decorate. ( Object )
 	:return: Object. ( Object )

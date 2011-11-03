@@ -416,15 +416,15 @@ class GetAttributeCompoundTestCase(unittest.TestCase):
 		self.assertEqual(None, foundations.parsers.getAttributeCompound("Attribute").value)
 
 		compound = foundations.parsers.AttributeCompound(name="Attribute", value="Value", link="@Link", type="Boolean", alias="Link Parameter")
-		datas = "@Link | Value | Boolean | Link Parameter"
-		self.assertEqual(compound.name, foundations.parsers.getAttributeCompound("Attribute", datas).name)
-		self.assertEqual(compound.value, foundations.parsers.getAttributeCompound("Attribute", datas).value)
-		self.assertEqual(compound.link, foundations.parsers.getAttributeCompound("Attribute", datas).link)
-		self.assertEqual(compound.type, foundations.parsers.getAttributeCompound("Attribute", datas).type)
-		self.assertEqual(compound.alias, foundations.parsers.getAttributeCompound("Attribute", datas).alias)
+		data = "@Link | Value | Boolean | Link Parameter"
+		self.assertEqual(compound.name, foundations.parsers.getAttributeCompound("Attribute", data).name)
+		self.assertEqual(compound.value, foundations.parsers.getAttributeCompound("Attribute", data).value)
+		self.assertEqual(compound.link, foundations.parsers.getAttributeCompound("Attribute", data).link)
+		self.assertEqual(compound.type, foundations.parsers.getAttributeCompound("Attribute", data).type)
+		self.assertEqual(compound.alias, foundations.parsers.getAttributeCompound("Attribute", data).alias)
 
-		datas = "@Link"
-		self.assertEqual(compound.link, foundations.parsers.getAttributeCompound("Attribute", datas).link)
+		data = "@Link"
+		self.assertEqual(compound.link, foundations.parsers.getAttributeCompound("Attribute", data).link)
 
 if __name__ == "__main__":
 	import tests.utilities

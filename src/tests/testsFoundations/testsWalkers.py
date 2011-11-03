@@ -120,7 +120,7 @@ class DictionariesWalkerTestCase(unittest.TestCase):
 	This class defines :func:`foundations.walkers.dictionariesWalker` definition units tests methods.
 	"""
 
-	def testGetUserApplicationDatasDirectory(self):
+	def testGetUserApplicationDataDirectory(self):
 		"""
 		This method tests :func:`foundations.walkers.dictionariesWalker` definition.
 		"""

@@ -35,36 +35,36 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["GetSystemApplicationDatasDirectoryTestCase", "GetUserApplicationDatasDirectoryTestCase"]
+__all__ = ["GetSystemApplicationDataDirectoryTestCase", "GetUserApplicationDataDirectoryTestCase"]
 
 #***********************************************************************************************
 #***	Module classes and definitions.
 #***********************************************************************************************
-class GetSystemApplicationDatasDirectoryTestCase(unittest.TestCase):
+class GetSystemApplicationDataDirectoryTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.getSystemApplicationDatasDirectory` definition units tests methods.
+	This class defines :func:`foundations.common.getSystemApplicationDataDirectory` definition units tests methods.
 	"""
 
-	def testGetSystemApplicationDatasDirectory(self):
+	def testGetSystemApplicationDataDirectory(self):
 		"""
-		This method tests :func:`foundations.common.getSystemApplicationDatasDirectory` definition.
+		This method tests :func:`foundations.common.getSystemApplicationDataDirectory` definition.
 		"""
 
-		path = foundations.common.getSystemApplicationDatasDirectory()
+		path = foundations.common.getSystemApplicationDataDirectory()
 		self.assertIsInstance(path, str)
 		self.assertTrue(os.path.exists(path))
 
-class GetUserApplicationDatasDirectoryTestCase(unittest.TestCase):
+class GetUserApplicationDataDirectoryTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.getUserApplicationDatasDirectory` definition units tests methods.
+	This class defines :func:`foundations.common.getUserApplicationDataDirectory` definition units tests methods.
 	"""
 
-	def testGetUserApplicationDatasDirectory(self):
+	def testGetUserApplicationDataDirectory(self):
 		"""
-		This method tests :func:`foundations.common.getUserApplicationDatasDirectory` definition.
+		This method tests :func:`foundations.common.getUserApplicationDataDirectory` definition.
 		"""
 
-		path = foundations.common.getUserApplicationDatasDirectory()
+		path = foundations.common.getUserApplicationDataDirectory()
 		self.assertIsInstance(path, str)
 
 class UniqifyTestCase(unittest.TestCase):

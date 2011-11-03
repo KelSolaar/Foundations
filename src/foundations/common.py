@@ -42,7 +42,7 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["LOGGER", "getSystemApplicationDatasDirectory", "getUserApplicationDatasDirectory", "removeLoggingHandler", "exit", "wait", "uniqify"]
+__all__ = ["LOGGER", "getSystemApplicationDataDirectory", "getUserApplicationDataDirectory", "removeLoggingHandler", "exit", "wait", "uniqify"]
 
 LOGGER = logging.getLogger(Constants.logger)
 
@@ -51,9 +51,9 @@ LOGGER = logging.getLogger(Constants.logger)
 #***********************************************************************************************
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
-def getSystemApplicationDatasDirectory():
+def getSystemApplicationDataDirectory():
 	"""
-	This definition gets system Application datas directory.
+	This definition gets system Application data directory.
 	
 	Examples directories::
 
@@ -62,7 +62,7 @@ def getSystemApplicationDatasDirectory():
 		- '/Users/$USER/Library/Preferences' on Mac Os X.
 		- '/home/$USER' on Linux.
 
-	:return: User Application datas directory. ( String )
+	:return: User Application data directory. ( String )
 	"""
 
 	if platform.system() == "Windows" or platform.system() == "Microsoft":
@@ -79,10 +79,10 @@ def getSystemApplicationDatasDirectory():
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
-def getUserApplicationDatasDirectory():
+def getUserApplicationDataDirectory():
 	"""
 	| This definition gets user Application directory.
-	| The difference between :func:`getSystemApplicationDatasDirectory` and :func:`getSystemApplicationDatasDirectory` definitions is that :func:`getUserApplicationDatasDirectory` definition will append :attr:`foundations.globals.constants.Constants.providerDirectory` and :attr:`foundations.globals.constants.Constants.applicationDirectory` attributes values to the path returned.
+	| The difference between :func:`getSystemApplicationDataDirectory` and :func:`getSystemApplicationDataDirectory` definitions is that :func:`getUserApplicationDataDirectory` definition will append :attr:`foundations.globals.constants.Constants.providerDirectory` and :attr:`foundations.globals.constants.Constants.applicationDirectory` attributes values to the path returned.
 
 	Examples directories::
 
@@ -94,7 +94,7 @@ def getUserApplicationDatasDirectory():
 	:return: User Application directory. ( String )
 	"""
 
-	return os.path.join(getSystemApplicationDatasDirectory(), Constants.providerDirectory, Constants.applicationDirectory)
+	return os.path.join(getSystemApplicationDataDirectory(), Constants.providerDirectory, Constants.applicationDirectory)
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)

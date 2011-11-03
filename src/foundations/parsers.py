@@ -837,8 +837,8 @@ def getAttributeCompound(attribute, value=None, splitter="|", bindingIdentifier=
 	
 	Usage::
 	
-		>>> datas = "@Link | Value | Boolean | Link Parameter"
-		>>> attributeCompound = foundations.parsers.getAttributeCompound("Attribute Compound", datas)
+		>>> data = "@Link | Value | Boolean | Link Parameter"
+		>>> attributeCompound = foundations.parsers.getAttributeCompound("Attribute Compound", data)
 		>>> attributeCompound.name
 		Attribute Compound
 		>>> attributeCompound.value

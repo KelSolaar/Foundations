@@ -140,8 +140,8 @@ class Pkzip(object):
 			with open(os.path.join(target, file), "w") as output:
 				buffer = StringIO(archive.read(file))
 				bufferSize = 2 ** 20
-				datas = buffer.read(bufferSize)
-				while datas:
-					output.write(datas)
-					datas = buffer.read(bufferSize)
+				data = buffer.read(bufferSize)
+				while data:
+					output.write(data)
+					data = buffer.read(bufferSize)
 		return True

@@ -169,7 +169,7 @@ def getCommonPathsAncestor(*args):
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
-def getWords(datas):
+def getWords(data):
 	"""
 	This method extracts the words from provided string.
 
@@ -178,11 +178,11 @@ def getWords(datas):
 		>>> getWords("Users are: John Doe, Jane Doe, Z6PO.")
 		['Users', 'are', 'John', 'Doe', 'Jane', 'Doe', 'Z6PO']
 
-	:param datas: Datas to extract words from. ( String )
+	:param data: Data to extract words from. ( String )
 	:return: Words. ( List )
 	"""
 
-	words = re.findall(r"\w+", datas)
+	words = re.findall(r"\w+", data)
 	LOGGER.debug("> Words: '{0}'".format(", ".join(words)))
 	return words
 
@@ -235,9 +235,9 @@ def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
-def replace(string, datas):
+def replace(string, data):
 	"""
-	This definition replaces the datas occurences in the string.
+	This definition replaces the data occurences in the string.
 
 	Usage::
 
@@ -245,17 +245,17 @@ def replace(string, datas):
 		'Users are: Luke Skywalker, Anakin Skywalker, R2D2.'
 
 	:param string: String to manipulate. ( String )
-	:param datas: Replacement occurences. ( Dictionary )
+	:param data: Replacement occurences. ( Dictionary )
 	:return: Manipulated string. ( String )
 	"""
 
-	for old, new in datas.items():
+	for old, new in data.items():
 		string = string.replace(old, new)
 	return string
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
-def toForwardSlashes(datas):
+def toForwardSlashes(data):
 	"""
 	This definition converts backward slashes to forward slashes.
 
@@ -264,16 +264,16 @@ def toForwardSlashes(datas):
 		>>> toForwardSlashes("To\Forward\Slashes")
 		'To/Forward/Slashes'
 
-	:param datas: Datas to convert. ( String )
+	:param data: Data to convert. ( String )
 	:return: Converted path. ( String )
 	"""
 
-	datas = datas.replace("\\", "/")
-	LOGGER.debug("> Datas: '{0}' to forward slashes.".format(datas))
-	return datas
+	data = data.replace("\\", "/")
+	LOGGER.debug("> Data: '{0}' to forward slashes.".format(data))
+	return data
 
 @core.executionTrace
-def toBackwardSlashes(datas):
+def toBackwardSlashes(data):
 	"""
 	This definition converts forward slashes to backward slashes.
 
@@ -282,13 +282,13 @@ def toBackwardSlashes(datas):
 		>>> toBackwardSlashes("/Users/JohnDoe/Documents")
 		'\\Users\\JohnDoe\\Documents'
 
-	:param datas: Datas to convert. ( String )
+	:param data: Data to convert. ( String )
 	:return: Converted path. ( String )
 	"""
 
-	datas = datas.replace("/", "\\")
-	LOGGER.debug("> Datas: '{0}' to backward slashes.".format(datas))
-	return datas
+	data = data.replace("/", "\\")
+	LOGGER.debug("> Data: '{0}' to backward slashes.".format(data))
+	return data
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
@@ -335,9 +335,9 @@ def getNormalizedPath(path):
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
-def isEmail(datas):
+def isEmail(data):
 	"""
-	This definition check if provided datas string is an email.
+	This definition check if provided data string is an email.
 
 	Usage::
 
@@ -346,22 +346,22 @@ def isEmail(datas):
 		>>> isEmail("john.doe:domain.com")
 		False
 
-	:param datas: Datas to check. ( String )
+	:param data: Data to check. ( String )
 	:return: Is email. ( Boolean )
 	"""
 
-	if re.match(r"[\w.%+-]+@[\w.]+\.[a-zA-Z]{2,4}", datas):
-		LOGGER.debug("> {0}' is matched as email.".format(datas))
+	if re.match(r"[\w.%+-]+@[\w.]+\.[a-zA-Z]{2,4}", data):
+		LOGGER.debug("> {0}' is matched as email.".format(data))
 		return True
 	else:
-		LOGGER.debug("> {0}' is not matched as email.".format(datas))
+		LOGGER.debug("> {0}' is not matched as email.".format(data))
 		return False
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
-def isWebsite(datas):
+def isWebsite(data):
 	"""
-	This definition check if provided datas string is a website.
+	This definition check if provided data string is a website.
 	
 	Usage::
 
@@ -370,13 +370,13 @@ def isWebsite(datas):
 		>>> isWebsite("domain.com")
 		False
 
-	:param datas: Datas to check. ( String )
+	:param data: Data to check. ( String )
 	:return: Is website. ( Boolean )
 	"""
 
-	if re.match(r"(http|ftp|https)://([\w\-\.]+)/?", datas):
-		LOGGER.debug("> {0}' is matched as website.".format(datas))
+	if re.match(r"(http|ftp|https)://([\w\-\.]+)/?", data):
+		LOGGER.debug("> {0}' is matched as website.".format(data))
 		return True
 	else:
-		LOGGER.debug("> {0}' is not matched as website.".format(datas))
+		LOGGER.debug("> {0}' is not matched as website.".format(data))
 		return False
