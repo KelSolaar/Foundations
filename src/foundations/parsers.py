@@ -831,6 +831,7 @@ class SectionsFileParser(io.File):
 		return True
 
 @core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getAttributeCompound(attribute, value=None, splitter="|", bindingIdentifier="@"):
 	"""
 	This definition returns an attribute compound.

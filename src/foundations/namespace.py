@@ -23,6 +23,7 @@ import logging
 #***	Internal imports.
 #***********************************************************************************************
 import foundations.core as core
+import foundations.exceptions
 from foundations.globals.constants import Constants
 
 #***********************************************************************************************
@@ -45,6 +46,7 @@ NAMESPACE_SPLITTER = "|"
 #***	Module classes and definitions.
 #***********************************************************************************************
 @core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
 def setNamespace(namespace, attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 	"""
 	This definition sets given namespace to given attribute.
@@ -65,6 +67,7 @@ def setNamespace(namespace, attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 	return longName
 
 @core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False):
 	"""
 	This definition returns given attribute namespace.
@@ -91,6 +94,7 @@ def getNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False
 		return namespace
 
 @core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
 def removeNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False):
 	"""
 	This definition returns attribute with stripped namespace.

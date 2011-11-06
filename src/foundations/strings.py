@@ -273,6 +273,7 @@ def toForwardSlashes(data):
 	return data
 
 @core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
 def toBackwardSlashes(data):
 	"""
 	This definition converts forward slashes to backward slashes.
