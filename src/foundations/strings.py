@@ -126,7 +126,7 @@ def getSplitextBasename(path):
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getCommonAncestor(*args):
 	"""
-	This definition gets common ancestor of provided iterables.
+	This definition gets common ancestor of given iterables.
 
 	Usage::
 
@@ -152,7 +152,7 @@ def getCommonAncestor(*args):
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getCommonPathsAncestor(*args):
 	"""
-	This definition gets common paths ancestor of provided paths.
+	This definition gets common paths ancestor of given paths.
 
 	Usage::
 
@@ -171,7 +171,7 @@ def getCommonPathsAncestor(*args):
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getWords(data):
 	"""
-	This method extracts the words from provided string.
+	This method extracts the words from given string.
 
 	Usage::
 
@@ -190,7 +190,7 @@ def getWords(data):
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 	"""
-	This method filters the words using the provided filters.
+	This method filters the words using the given filters.
 
 	Usage::
 
@@ -337,7 +337,7 @@ def getNormalizedPath(path):
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def isEmail(data):
 	"""
-	This definition check if provided data string is an email.
+	This definition check if given data string is an email.
 
 	Usage::
 
@@ -361,7 +361,7 @@ def isEmail(data):
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def isWebsite(data):
 	"""
-	This definition check if provided data string is a website.
+	This definition check if given data string is a website.
 	
 	Usage::
 

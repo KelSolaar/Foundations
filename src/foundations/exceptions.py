@@ -70,7 +70,7 @@ def exceptionsHandler(handler=None, raiseException=False, *args):
 	"""
 	| This decorator is used for exceptions handling.
 	| It's possible to specify an user defined exception handler, if not, :func:`defaultExceptionsHandler` handler will be used.
-	| The decorator uses provided exceptions objects or the default Python `Exception <http://docs.python.org/library/exceptions.html#exceptions.Exception>`_ class.
+	| The decorator uses given exceptions objects or the default Python `Exception <http://docs.python.org/library/exceptions.html#exceptions.Exception>`_ class.
 	
 	Usage::
 

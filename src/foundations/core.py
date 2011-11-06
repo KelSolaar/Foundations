@@ -115,7 +115,7 @@ def setVerbosityLevel(verbosityLevel):
 class StandardMessageHook(object):
 	"""
 	| This class is a redirection object intented to be used for :data:`sys.stdout` and :data:`sys.stderr` streams.
-	| Logging messages will be written to provided logger handlers.
+	| Logging messages will be written to given logger handlers.
 	"""
 
 	def __init__(self, logger):
@@ -163,7 +163,7 @@ class StandardMessageHook(object):
 	#***********************************************************************************************
 	def write(self, message):
 		"""
-		This method writes provided message to logger handlers.
+		This method writes given message to logger handlers.
 
 		:param message: Message. ( String )
 		:return: Method success. ( Boolean )
@@ -224,7 +224,7 @@ def getCodeLayerName():
 
 def getModule(object):
 	"""
-	This definition returns provided object module name.
+	This definition returns given object module name.
 
 	:param object: Object. ( Object )
 	:return: Frame Module. ( Module )
@@ -324,7 +324,7 @@ class NestedAttribute(object):
 	@executionTrace
 	def __setattr__(self, attribute, value):
 		"""
-		This method sets provided attribute with provided value.
+		This method sets given attribute with given value.
 	
 		:param attribute: Attribute name. ( String )
 		:param name: Attribute value. ( Object )
@@ -336,7 +336,7 @@ class NestedAttribute(object):
 	@executionTrace
 	def __delattr__(self, attribute):
 		"""
-		This method deletes provided attribute with.
+		This method deletes given attribute with.
 	
 		:param attribute: Attribute name. ( String )
 		"""
@@ -426,7 +426,7 @@ class OrderedStructure(OrderedDict):
 	@executionTrace
 	def __setitem__(self, key, value, *args, **kwargs):
 		"""
-		This method sets a key and sibling attribute with provided value.
+		This method sets a key and sibling attribute with given value.
 
 		:param key.: Key. ( Object )
 		:param value.: Value. ( Object )
@@ -453,7 +453,7 @@ class OrderedStructure(OrderedDict):
 	@executionTrace
 	def __setattr__(self, attribute, value):
 		"""
-		This method sets both key and sibling attribute with provided value.
+		This method sets both key and sibling attribute with given value.
 
 		:param attribute.: Attribute. ( Object )
 		:param value.: Value. ( Object )
@@ -494,7 +494,7 @@ class Lookup(dict):
 	@executionTrace
 	def getFirstKeyFromValue(self, value):
 		"""
-		This method gets the first key from provided value.
+		This method gets the first key from given value.
 
 		:param value.: Value. ( Object )
 		:return: Key. ( Object )
@@ -507,7 +507,7 @@ class Lookup(dict):
 	@executionTrace
 	def getKeysFromValue(self, value):
 		"""
-		This method gets the keys from provided value.
+		This method gets the keys from given value.
 
 		:param value.: Value. ( Object )
 		:return: Keys. ( Object )

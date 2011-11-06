@@ -47,7 +47,7 @@ NAMESPACE_SPLITTER = "|"
 @core.executionTrace
 def setNamespace(namespace, attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 	"""
-	This definition sets provided namespace to provided attribute.
+	This definition sets given namespace to given attribute.
 
 	Usage::
 		
@@ -67,7 +67,7 @@ def setNamespace(namespace, attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 @core.executionTrace
 def getNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False):
 	"""
-	This definition returns provided attribute namespace.
+	This definition returns given attribute namespace.
 
 	Usage::
 		

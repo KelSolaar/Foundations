@@ -100,7 +100,7 @@ def getUserApplicationDataDirectory():
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def removeLoggingHandler(logger, handler):
 	"""
-	This definition removes provided logging handler from provided logger.
+	This definition removes given logging handler from given logger.
 
 	:param logger: Handler parent logger. ( Logger )
 	:param handler: Handler. ( Handler )

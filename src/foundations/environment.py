@@ -116,7 +116,7 @@ class Environment(object):
 	@core.executionTrace
 	def __addVariables(self, *args, **kwargs):
 		"""
-		This method adds provided variables to __variables attribute.
+		This method adds given variables to __variables attribute.
 
 		:param \*args: Variables. ( \* )
 		:param \*\*kwargs: Variables : Values. ( \* )
@@ -189,12 +189,12 @@ class Environment(object):
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def getValue(self, variable=None):
 		"""
-		This method gets provided environment variable value.
+		This method gets given environment variable value.
 
 		:param variable: Variable to retrieve value. ( String )
 		:return: Variable value. ( String )
 		
-		:note: If the **variable** argument is not provided the first **self.__variables** attribute value will be returned.
+		:note: If the **variable** argument is not given the first **self.__variables** attribute value will be returned.
 		"""
 
 		if variable:
@@ -208,7 +208,7 @@ class Environment(object):
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def setValue(self, variable, value):
 		"""
-		This method sets provided environment variable with provided value.
+		This method sets given environment variable with given value.
 
 		:param variable: Variable to set value. ( String )
 		:param value: Variable value. ( String )

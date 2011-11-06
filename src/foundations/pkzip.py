@@ -117,7 +117,7 @@ class Pkzip(object):
 	@foundations.exceptions.exceptionsHandler(None, False, OSError, Exception)
 	def extract(self, target):
 		"""
-		This method extracts archive file to provided directory.
+		This method extracts archive file to given directory.
 
 		:param target: Target extraction directory. ( String )
 		:return: Method success. ( Boolean )

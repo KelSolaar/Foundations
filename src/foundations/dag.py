@@ -395,7 +395,7 @@ class AbstractNode(core.Structure):
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def getNodeByIdentity(self, identity):
 		"""
-		This method returns the node with provided identity.
+		This method returns the node with given identity.
 	
 		Usage::
 
@@ -449,7 +449,7 @@ class AbstractNode(core.Structure):
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def attributeExists(self, name):
 		"""
-		This method returns if provided attribute exists in the node.
+		This method returns if given attribute exists in the node.
 
 		Usage::
 
@@ -472,7 +472,7 @@ class AbstractNode(core.Structure):
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.NodeAttributeTypeError)
 	def addAttribute(self, name, value):
 		"""
-		This method adds provided attribute to the node.
+		This method adds given attribute to the node.
 
 		Usage::
 
@@ -500,7 +500,7 @@ class AbstractNode(core.Structure):
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.NodeAttributeExistsError)
 	def removeAttribute(self, name):
 		"""
-		This method removes provided attribute from the node.
+		This method removes given attribute from the node.
 
 		Usage::
 
@@ -697,7 +697,7 @@ class AbstractCompositeNode(AbstractNode):
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def addChild(self, child):
 		"""
-		This method adds provided child to the node.
+		This method adds given child to the node.
 
 		Usage::
 
@@ -746,7 +746,7 @@ class AbstractCompositeNode(AbstractNode):
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def insertChild(self, child, index):
 		"""
-		This method inserts provided child at given index.
+		This method inserts given child at given index.
 
 		Usage::
 

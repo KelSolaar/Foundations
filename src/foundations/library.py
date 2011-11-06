@@ -70,7 +70,7 @@ class LibraryHook(core.Structure):
 class Library(object):
 	"""
 	| This class provides methods to bind a C / C++ Library.
-	| The class is a singleton and will bind only one time a provided library. Each unique library instance is stored in :attr:`Library.librariesInstances` attribute and get returned if the library is requested again through a new instantiation.
+	| The class is a singleton and will bind only one time a given library. Each unique library instance is stored in :attr:`Library.librariesInstances` attribute and get returned if the library is requested again through a new instantiation.
 	"""
 
 	__librariesInstances = {}
@@ -313,7 +313,7 @@ class Library(object):
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def bindFunction(self, function):
 		"""
-		This method binds provided function to a class object attribute.
+		This method binds given function to a class object attribute.
 
 		Usage::
 			

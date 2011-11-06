@@ -151,7 +151,7 @@ class File(object):
 	@foundations.exceptions.exceptionsHandler(None, False, IOError)
 	def read(self, mode="r"):
 		"""
-		This method reads provided file and return the content as a list.
+		This method reads given file and return the content as a list.
 
 		:param mode: File read mode. ( String )
 		:return: Method success. ( Boolean )
@@ -168,7 +168,7 @@ class File(object):
 	@foundations.exceptions.exceptionsHandler(None, False, OSError)
 	def write(self, mode="w"):
 		"""
-		This method writes content to provided file.
+		This method writes content to given file.
 
 		:param mode: File write mode. ( String )
 		:return: Method success. ( Boolean )
@@ -185,7 +185,7 @@ class File(object):
 	@foundations.exceptions.exceptionsHandler(None, False, OSError)
 	def append(self, mode="a"):
 		"""
-		This method appends content to provided file.
+		This method appends content to given file.
 
 		:param mode: File write mode. ( String )
 		:return: Method success. ( Boolean )
@@ -202,7 +202,7 @@ class File(object):
 @foundations.exceptions.exceptionsHandler(None, False, OSError)
 def setDirectory(path):
 	"""
-	| This definition creates a directory with provided path.
+	| This definition creates a directory with given path.
 	| The directory creation is delegated to Python :func:`os.makedirs` definition so that directories hierarchy is recursively created. 
 	
 	:param path: Directory path. ( String )
@@ -221,7 +221,7 @@ def setDirectory(path):
 @foundations.exceptions.exceptionsHandler(None, False, OSError)
 def copy(source, destination):
 	"""
-	This definition copies the provided file or directory to destination.
+	This definition copies the given file or directory to destination.
 
 	:param source: Source to copy from. ( String )
 	:param destination: Destination to copy to. ( String )
@@ -240,7 +240,7 @@ def copy(source, destination):
 @foundations.exceptions.exceptionsHandler(None, False, OSError)
 def remove(path):
 	"""
-	This definiton removes the provided file or directory.
+	This definiton removes the given file or directory.
 
 	:param path: Resource to remove. ( String )
 	:return: Method success. ( Boolean )

@@ -188,7 +188,7 @@ class OsWalker(object):
 	@foundations.exceptions.exceptionsHandler()
 	def walk(self, filtersIn=None, filtersOut=None, flags=0, shorterHashKey=True):
 		"""
-		This method gets root directory files list as a dictionary using provided filters.
+		This method gets root directory files list as a dictionary using given filters.
 
 		:param filtersIn: Regex filters in list. ( Tuple / List )
 		:param filtersIn: Regex filters out list. ( Tuple / List )

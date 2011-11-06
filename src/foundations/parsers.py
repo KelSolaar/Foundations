@@ -78,7 +78,7 @@ class SectionsFileParser(io.File):
 	"""
 	This class provides methods to parse sections file format files, an alternative configuration file parser is available directly with Python: :class:`ConfigParser.ConfigParser`.
 
-	The parser provided by this class has some major differences with Python :class:`ConfigParser.ConfigParser`:
+	The parser given by this class has some major differences with Python :class:`ConfigParser.ConfigParser`:
 
 		- Sections and attributes are stored in their appearance order by default. ( Using Python :class:`collections.OrderedDict` )
 		- A default section ( **_default** ) will store orphans attributes ( Attributes appearing before any declared section ).
@@ -586,7 +586,7 @@ class SectionsFileParser(io.File):
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def sectionExists(self, section):
 		"""
-		This method checks if provided section exists.
+		This method checks if given section exists.
 		
 		Usage::
 
@@ -618,7 +618,7 @@ class SectionsFileParser(io.File):
 	@foundations.exceptions.exceptionsHandler(None, False, KeyError)
 	def attributeExists(self, attribute, section):
 		"""
-		This method checks if provided attribute exists.
+		This method checks if given attribute exists.
 
 		Usage::
 
@@ -651,7 +651,7 @@ class SectionsFileParser(io.File):
 	@foundations.exceptions.exceptionsHandler(None, False, KeyError)
 	def getAttributes(self, section, orderedDictionary=True, stripNamespaces=False, raiseExceptions=True):
 		"""
-		This method returns provided section attributes.
+		This method returns given section attributes.
 
 		Usage::
 
