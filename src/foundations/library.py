@@ -65,6 +65,8 @@ class LibraryHook(core.Structure):
 		:param returnValue: Function return type (Refer to Python `ctypes - 15.17.1.8 <http://docs.python.org/library/ctypes.html#return-types>`_ module for more informations). ( Object )
 		"""
 
+		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
+
 		core.Structure.__init__(self, **kwargs)
 
 class Library(object):

@@ -72,6 +72,8 @@ class AttributeCompound(core.Structure):
 		:param \*\*kwargs: name, value, link, type, alias. ( Key / Value pairs )
 		"""
 
+		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
+
 		core.Structure.__init__(self, **kwargs)
 
 class SectionsFileParser(io.File):
