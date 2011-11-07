@@ -24,7 +24,8 @@ import unittest
 #***********************************************************************************************
 #***	Internal imports.
 #***********************************************************************************************
-from foundations.library import Library, LibraryHook
+from foundations.library import Library
+from foundations.library import LibraryHook
 
 #***********************************************************************************************
 #***	Module attributes.

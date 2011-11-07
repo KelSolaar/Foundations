@@ -23,7 +23,9 @@ import unittest
 #***********************************************************************************************
 #***	Internal imports.
 #***********************************************************************************************
-from foundations.dag import Attribute, AbstractNode, AbstractCompositeNode
+from foundations.dag import AbstractCompositeNode
+from foundations.dag import AbstractNode
+from foundations.dag import Attribute
 
 #***********************************************************************************************
 #***	Module attributes.
