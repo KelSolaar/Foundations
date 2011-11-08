@@ -181,7 +181,7 @@ class RotatingBackup(object):
 		if value:
 			assert type(value) in (int, float), "'{0}' attribute: '{1}' type is not 'int' or 'float'!".format("count", value)
 			assert value > 0, "'{0}' attribute: '{1}' need to be exactly positive!".format("count", value)
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "count"))
+		self.__count = value
 
 	@count.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
