@@ -251,7 +251,7 @@ class Library(object):
 		"""
 		This method is the property for **self.__functions** attribute.
 
-		:return: self.__functions. ( String )
+		:return: self.__functions. ( Tuple )
 		"""
 
 		return self.__functions
@@ -262,7 +262,7 @@ class Library(object):
 		"""
 		This method is the setter method for **self.__functions** attribute.
 
-		:param value: Attribute value. ( String )
+		:param value: Attribute value. ( Tuple )
 		"""
 
 		if value:

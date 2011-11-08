@@ -301,8 +301,8 @@ class SectionsFileParser(io.File):
 		if value:
 			assert type(value) in (tuple, list), "'{0}' attribute: '{1}' type is not 'tuple' or 'list'!".format("quotationMarkers", value)
 			for element in value:
-				assert len(element) == 1, "'{0}' attribute: '{1}' has multiples characters!".format("splitter", element)
-				assert not re.search(r"\w", element), "'{0}' attribute: '{1}' is an alphanumeric character!".format("splitter", element)
+				assert len(element) == 1, "'{0}' attribute: '{1}' has multiples characters!".format("quotationMarkers", element)
+				assert not re.search(r"\w", element), "'{0}' attribute: '{1}' is an alphanumeric character!".format("quotationMarkers", element)
 		self.__quotationMarkers = value
 
 	@quotationMarkers.deleter

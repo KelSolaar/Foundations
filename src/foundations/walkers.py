@@ -122,7 +122,7 @@ class OsWalker(object):
 		"""
 		This method is the property for **self.__hashSize** attribute.
 
-		:return: self.__hashSize. ( String )
+		:return: self.__hashSize. ( Integer )
 		"""
 
 		return self.__hashSize
@@ -133,7 +133,7 @@ class OsWalker(object):
 		"""
 		This method is the setter method for **self.__hashSize** attribute.
 
-		:param value: Attribute value. ( String )
+		:param value: Attribute value. ( Integer )
 		"""
 
 		if value:
