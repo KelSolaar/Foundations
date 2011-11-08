@@ -607,6 +607,8 @@ class AbstractCompositeNode(AbstractNode):
 
 		if value:
 			assert type(value) is list, "'{0}' attribute: '{1}' type is not 'list'!".format("children", value)
+			for element in value:
+				assert issubclass(element.__class__, AbstractNode), "'{0}' attribute: '{1}' is not a '{2}' subclass!".format("children", element, AbstractNode.__class__.__name__)
 		self.__children = value
 
 	@children.deleter

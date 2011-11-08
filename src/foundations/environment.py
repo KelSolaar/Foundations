@@ -99,6 +99,9 @@ class Environment(object):
 
 		if value:
 			assert type(value) is dict, "'{0}' attribute: '{1}' type is not 'dict'!".format("variables", value)
+			for key, element in value.items():
+				assert type(key) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("variables", key)
+				assert type(element) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("variables", element)
 		self.__variables = value
 
 	@variables.deleter

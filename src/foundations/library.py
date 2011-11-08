@@ -267,6 +267,8 @@ class Library(object):
 
 		if value:
 			assert type(value) is tuple, "'{0}' attribute: '{1}' type is not 'tuple'!".format("functions", value)
+			for element in value:
+				assert type(element) is LibraryHook, "'{0}' attribute: '{1}' type is not 'LibraryHook'!".format("functions", element)
 		self.__functions = value
 
 	@functions.deleter

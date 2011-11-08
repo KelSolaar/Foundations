@@ -167,6 +167,7 @@ class SectionsFileParser(io.File):
 		if value:
 			assert type(value) in (tuple, list), "'{0}' attribute: '{1}' type is not 'tuple' or 'list'!".format("splitters", value)
 			for element in value:
+				assert type(element) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("splitters", element)
 				assert len(element) == 1, "'{0}' attribute: '{1}' has multiples characters!".format("splitter", element)
 				assert not re.search(r"\w", element), "'{0}' attribute: '{1}' is an alphanumeric character!".format("splitter", element)
 		self.__splitters = value
@@ -235,6 +236,8 @@ class SectionsFileParser(io.File):
 
 		if value:
 			assert type(value) in (tuple, list), "'{0}' attribute: '{1}' type is not 'tuple' or 'list'!".format("commentLimiters", value)
+			for element in value:
+				assert type(element) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("commentLimiters", element)
 		self.__commentLimiters = value
 
 	@commentLimiters.deleter
@@ -301,6 +304,7 @@ class SectionsFileParser(io.File):
 		if value:
 			assert type(value) in (tuple, list), "'{0}' attribute: '{1}' type is not 'tuple' or 'list'!".format("quotationMarkers", value)
 			for element in value:
+				assert type(element) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("quotationMarkers", element)
 				assert len(element) == 1, "'{0}' attribute: '{1}' has multiples characters!".format("quotationMarkers", element)
 				assert not re.search(r"\w", element), "'{0}' attribute: '{1}' is an alphanumeric character!".format("quotationMarkers", element)
 		self.__quotationMarkers = value
@@ -398,6 +402,9 @@ class SectionsFileParser(io.File):
 
 		if value:
 			assert type(value) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not 'OrderedDict' or 'dict'!".format("sections", value)
+			for key, element in value.items():
+				assert type(key) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("sections", key)
+				assert type(value) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not 'OrderedDict' or 'dict'!".format("sections", key)
 		self.__sections = value
 
 	@sections.deleter
@@ -430,6 +437,9 @@ class SectionsFileParser(io.File):
 
 		if value:
 			assert type(value) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not 'OrderedDict' or 'dict'!".format("comments", value)
+			for key, element in value.items():
+				assert type(key) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("comments", key)
+				assert type(value) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not 'OrderedDict' or 'dict'!".format("comments", key)
 		self.__comments = value
 
 	@comments.deleter
@@ -462,6 +472,8 @@ class SectionsFileParser(io.File):
 
 		if value:
 			assert type(value) is list, "'{0}' attribute: '{1}' type is not 'list'!".format("parsingErrors", value)
+			for element in value:
+				assert issubclass(element.__class__, foundations.exceptions.AbstractParsingError), "'{0}' attribute: '{1}' is not a '{2}' subclass!".format("parsingErrors", element, foundations.exceptions.AbstractParsingError.__class__.__name__)
 		self.__parsingErrors = value
 
 	@parsingErrors.deleter

@@ -168,9 +168,7 @@ class OsWalker(object):
 		:param value: Attribute value. ( Dictionary )
 		"""
 
-		if value:
-			assert type(value) is dict, "'{0}' attribute: '{1}' type is not 'dict'!".format("files", value)
-		self.__files = value
+		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "files"))
 
 	@files.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
