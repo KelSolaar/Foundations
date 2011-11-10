@@ -50,7 +50,8 @@ LOGGER = logging.getLogger(Constants.logger)
 #**********************************************************************************************************************
 class AttributeCompound(core.Structure):
 	"""
-	This class represents a storage object for attributes compounds usually encountered in `sIBL_GUI <https://github.com/KelSolaar/sIBL_GUI>`_ Templates files.
+	This class represents a storage object for attributes compounds usually encountered in
+	`sIBL_GUI <https://github.com/KelSolaar/sIBL_GUI>`_ Templates files.
 
 	Some attributes compounds:
 
@@ -67,7 +68,11 @@ class AttributeCompound(core.Structure):
 
 		Usage::
 
-			AttributeCompound(name="showCamerasDialog", value="0", link="@showCamerasDialog", type="Boolean", alias="Cameras Selection Dialog")
+			AttributeCompound(name="showCamerasDialog", 
+							value="0", 
+							link="@showCamerasDialog", 
+							type="Boolean", 
+							alias="Cameras Selection Dialog")
 
 		:param \*\*kwargs: name, value, link, type, alias. ( Key / Value pairs )
 		"""
@@ -78,27 +83,41 @@ class AttributeCompound(core.Structure):
 
 class SectionsFileParser(io.File):
 	"""
-	This class provides methods to parse sections file format files, an alternative configuration file parser is available directly with Python: :class:`ConfigParser.ConfigParser`.
+	This class provides methods to parse sections file format files,
+	an alternative configuration file parser is available directly with Python: :class:`ConfigParser.ConfigParser`.
 
 	The parser given by this class has some major differences with Python :class:`ConfigParser.ConfigParser`:
 
-		- Sections and attributes are stored in their appearance order by default. ( Using Python :class:`collections.OrderedDict` )
-		- A default section ( **_default** ) will store orphans attributes ( Attributes appearing before any declared section ).
+		- Sections and attributes are stored in their appearance order by default.
+		( Using Python :class:`collections.OrderedDict` )
+		- A default section ( **_default** ) will store orphans attributes
+		( Attributes appearing before any declared section ).
 		- File comments are stored inside the :obj:`SectionsFileParser.comments` class property. 
-		- Sections, attributes and values are whitespaces stripped by default but can also be stored with their leading and trailing whitespaces. 
-		- Values are quotations markers stripped by default but can also be stored with their leading and trailing quotations markers. 
+		- Sections, attributes and values are whitespaces stripped by default
+		but can also be stored with their leading and trailing whitespaces. 
+		- Values are quotations markers stripped by default
+		but can also be stored with their leading and trailing quotations markers. 
 		- Attributes are namespaced by default allowing sections merge without keys collisions. 
 
 	"""
 
 	@core.executionTrace
-	def __init__(self, file=None, splitters=("=", ":"), namespaceSplitter="|", commentLimiters=(";", "#"), commentMarker="#", quotationMarkers=("\"", "'", "`"), rawSectionContentIdentifier="_rawSectionContent", defaultsSection="_defaults"):
+	def __init__(self,
+				file=None,
+				splitters=("=", ":"),
+				namespaceSplitter="|",
+				commentLimiters=(";", "#"),
+				commentMarker="#",
+				quotationMarkers=("\"", "'", "`"),
+				rawSectionContentIdentifier="_rawSectionContent",
+				defaultsSection="_defaults"):
 		"""
 		This method initializes the class.
 		
 		Usage::
 		
-			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
+			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n", 
+			"Attribute 2 = \\"Value B\\"\\n"]
 			>>> sectionsFileParser = SectionsFileParser()
 			>>> sectionsFileParser.content = content
 			>>> sectionsFileParser.parse(stripComments=False)
@@ -165,11 +184,14 @@ class SectionsFileParser(io.File):
 		"""
 
 		if value:
-			assert type(value) in (tuple, list), "'{0}' attribute: '{1}' type is not 'tuple' or 'list'!".format("splitters", value)
+			assert type(value) in (tuple, list), "'{0}' attribute: '{1}' type is not 'tuple' or 'list'!".format(
+			"splitters", value)
 			for element in value:
-				assert type(element) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("splitters", element)
+				assert type(element) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
+				"splitters", element)
 				assert len(element) == 1, "'{0}' attribute: '{1}' has multiples characters!".format("splitter", element)
-				assert not re.search(r"\w", element), "'{0}' attribute: '{1}' is an alphanumeric character!".format("splitter", element)
+				assert not re.search(r"\w", element), "'{0}' attribute: '{1}' is an alphanumeric character!".format(
+				"splitter", element)
 		self.__splitters = value
 
 	@splitters.deleter
@@ -179,7 +201,8 @@ class SectionsFileParser(io.File):
 		This method is the deleter method for **self.__splitters** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "splitters"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "splitters"))
 
 	@property
 	def namespaceSplitter(self):
@@ -201,9 +224,11 @@ class SectionsFileParser(io.File):
 		"""
 
 		if value:
-			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("namespaceSplitter", value)
+			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
+			"namespaceSplitter", value)
 			assert len(value) == 1, "'{0}' attribute: '{1}' has multiples characters!".format("namespaceSplitter", value)
-			assert not re.search(r"\w", value), "'{0}' attribute: '{1}' is an alphanumeric character!".format("namespaceSplitter", value)
+			assert not re.search(r"\w", value), "'{0}' attribute: '{1}' is an alphanumeric character!".format(
+			"namespaceSplitter", value)
 		self.__namespaceSplitter = value
 
 	@namespaceSplitter.deleter
@@ -213,7 +238,8 @@ class SectionsFileParser(io.File):
 		This method is the deleter method for **self.__namespaceSplitter** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "namespaceSplitter"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "namespaceSplitter"))
 
 	@property
 	def commentLimiters(self):
@@ -235,9 +261,11 @@ class SectionsFileParser(io.File):
 		"""
 
 		if value:
-			assert type(value) in (tuple, list), "'{0}' attribute: '{1}' type is not 'tuple' or 'list'!".format("commentLimiters", value)
+			assert type(value) in (tuple, list), "'{0}' attribute: '{1}' type is not 'tuple' or 'list'!".format(
+			"commentLimiters", value)
 			for element in value:
-				assert type(element) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("commentLimiters", element)
+				assert type(element) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
+				"commentLimiters", element)
 		self.__commentLimiters = value
 
 	@commentLimiters.deleter
@@ -247,7 +275,8 @@ class SectionsFileParser(io.File):
 		This method is the deleter method for **self.__commentLimiters** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "commentLimiters"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "commentLimiters"))
 
 	@property
 	def commentMarker(self):
@@ -269,8 +298,10 @@ class SectionsFileParser(io.File):
 		"""
 
 		if value:
-			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("commentMarker", value)
-			assert not re.search(r"\w", value), "'{0}' attribute: '{1}' is an alphanumeric character!".format("commentMarker", value)
+			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
+			"commentMarker", value)
+			assert not re.search(r"\w", value), "'{0}' attribute: '{1}' is an alphanumeric character!".format(
+			"commentMarker", value)
 		self.__commentMarker = value
 
 	@commentMarker.deleter
@@ -280,7 +311,8 @@ class SectionsFileParser(io.File):
 		This method is the deleter method for **self.__commentMarker** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "commentMarker"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "commentMarker"))
 
 	@property
 	def quotationMarkers(self):
@@ -302,11 +334,15 @@ class SectionsFileParser(io.File):
 		"""
 
 		if value:
-			assert type(value) in (tuple, list), "'{0}' attribute: '{1}' type is not 'tuple' or 'list'!".format("quotationMarkers", value)
+			assert type(value) in (tuple, list), "'{0}' attribute: '{1}' type is not 'tuple' or 'list'!".format(
+			"quotationMarkers", value)
 			for element in value:
-				assert type(element) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("quotationMarkers", element)
-				assert len(element) == 1, "'{0}' attribute: '{1}' has multiples characters!".format("quotationMarkers", element)
-				assert not re.search(r"\w", element), "'{0}' attribute: '{1}' is an alphanumeric character!".format("quotationMarkers", element)
+				assert type(element) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
+				"quotationMarkers", element)
+				assert len(element) == 1, "'{0}' attribute: '{1}' has multiples characters!".format("quotationMarkers",
+				 																					element)
+				assert not re.search(r"\w", element), "'{0}' attribute: '{1}' is an alphanumeric character!".format(
+				"quotationMarkers", element)
 		self.__quotationMarkers = value
 
 	@quotationMarkers.deleter
@@ -316,7 +352,8 @@ class SectionsFileParser(io.File):
 		This method is the deleter method for **self.__quotationMarkers** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "quotationMarkers"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "quotationMarkers"))
 
 	@property
 	def rawSectionContentIdentifier(self):
@@ -338,7 +375,8 @@ class SectionsFileParser(io.File):
 		"""
 
 		if value:
-			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("rawSectionContentIdentifier", value)
+			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
+			"rawSectionContentIdentifier", value)
 		self.__rawSectionContentIdentifier = value
 
 	@rawSectionContentIdentifier.deleter
@@ -348,7 +386,8 @@ class SectionsFileParser(io.File):
 		This method is the deleter method for **self.__rawSectionContentIdentifier** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "rawSectionContentIdentifier"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "rawSectionContentIdentifier"))
 	@property
 	def defaultsSection(self):
 		"""
@@ -369,7 +408,8 @@ class SectionsFileParser(io.File):
 		"""
 
 		if value:
-			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("defaultsSection", value)
+			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
+			"defaultsSection", value)
 		self.__defaultsSection = value
 
 	@defaultsSection.deleter
@@ -379,7 +419,8 @@ class SectionsFileParser(io.File):
 		This method is the deleter method for **self.__defaultsSection** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "defaultsSection"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "defaultsSection"))
 
 	@property
 	def sections(self):
@@ -401,10 +442,13 @@ class SectionsFileParser(io.File):
 		"""
 
 		if value:
-			assert type(value) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not 'OrderedDict' or 'dict'!".format("sections", value)
+			assert type(value) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not \
+			'OrderedDict' or 'dict'!".format("sections", value)
 			for key, element in value.items():
-				assert type(key) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("sections", key)
-				assert type(value) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not 'OrderedDict' or 'dict'!".format("sections", key)
+				assert type(key) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
+				"sections", key)
+				assert type(value) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not \
+				'OrderedDict' or 'dict'!".format("sections", key)
 		self.__sections = value
 
 	@sections.deleter
@@ -414,7 +458,8 @@ class SectionsFileParser(io.File):
 		This method is the deleter method for **self.__sections** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "sections"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "sections"))
 
 	@property
 	def comments(self):
@@ -436,10 +481,13 @@ class SectionsFileParser(io.File):
 		"""
 
 		if value:
-			assert type(value) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not 'OrderedDict' or 'dict'!".format("comments", value)
+			assert type(value) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not \
+			'OrderedDict' or 'dict'!".format("comments", value)
 			for key, element in value.items():
-				assert type(key) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("comments", key)
-				assert type(value) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not 'OrderedDict' or 'dict'!".format("comments", key)
+				assert type(key) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
+				"comments", key)
+				assert type(value) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not \
+				'OrderedDict' or 'dict'!".format("comments", key)
 		self.__comments = value
 
 	@comments.deleter
@@ -449,7 +497,8 @@ class SectionsFileParser(io.File):
 		This method is the deleter method for **self.__comments** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "comments"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "comments"))
 
 	@property
 	def parsingErrors(self):
@@ -473,7 +522,10 @@ class SectionsFileParser(io.File):
 		if value:
 			assert type(value) is list, "'{0}' attribute: '{1}' type is not 'list'!".format("parsingErrors", value)
 			for element in value:
-				assert issubclass(element.__class__, foundations.exceptions.AbstractParsingError), "'{0}' attribute: '{1}' is not a '{2}' subclass!".format("parsingErrors", element, foundations.exceptions.AbstractParsingError.__class__.__name__)
+				assert issubclass(element.__class__, foundations.exceptions.AbstractParsingError), \
+				"'{0}' attribute: '{1}' is not a '{2}' subclass!".format("parsingErrors",
+																		element,
+																		foundations.exceptions.AbstractParsingError.__class__.__name__)
 		self.__parsingErrors = value
 
 	@parsingErrors.deleter
@@ -483,16 +535,25 @@ class SectionsFileParser(io.File):
 		This method is the deleter method for **self.__parsingErrors** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "parsingErrors"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "parsingErrors"))
 
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.FileStructureParsingError)
-	def parse(self, orderedDictionary=True, rawSections=None, namespaces=True, stripComments=True, stripWhitespaces=True, stripQuotationMarkers=True, raiseParsingErrors=True):
+	def parse(self,
+			orderedDictionary=True,
+			rawSections=None,
+			namespaces=True,
+			stripComments=True,
+			stripWhitespaces=True,
+			stripQuotationMarkers=True,
+			raiseParsingErrors=True):
 		"""
-		This method process the file content and extract the sections / attributes as nested :class:`collections.OrderedDict` dictionaries or dictionaries.
+		This method process the file content and extract the sections / attributes
+		as nested :class:`collections.OrderedDict` dictionaries or dictionaries.
 
 		Usage::
 
@@ -518,7 +579,8 @@ class SectionsFileParser(io.File):
 			>>> sectionsFileParser.parse(namespaces=False)
 			OrderedDict([('Attribute 1', 'Value A'), ('Attribute 2', 'Value B')])
 
-		:param orderedDictionary: SectionsFileParser data is stored in :class:`collections.OrderedDict` dictionaries. ( Boolean )
+		:param orderedDictionary: SectionsFileParser data is stored
+		in :class:`collections.OrderedDict` dictionaries. ( Boolean )
 		:param rawSections: Ignored raw sections. ( Tuple / List )
 		:param namespaces: Attributes and comments are namespaced. ( Boolean )
 		:param stripComments: Comments are stripped. ( Boolean )
@@ -551,8 +613,11 @@ class SectionsFileParser(io.File):
 			search = re.search(r"^\s*[{0}](?P<comment>.+)$".format("".join(self.__commentLimiters)), line)
 			if search:
 				if not stripComments:
-					comment = namespaces and foundations.namespace.setNamespace(section, "{0}{1}".format(self.__commentMarker, str(commentId)), self.__namespaceSplitter) or "{0}{1}".format(self.__commentMarker, str(commentId))
-					self.__comments[comment] = {"id" : commentId, "content" : stripWhitespaces and search.group("comment").strip() or search.group("comment")}
+					comment = namespaces and foundations.namespace.setNamespace(section, "{0}{1}".format(
+							self.__commentMarker, str(commentId)), self.__namespaceSplitter) or \
+							"{0}{1}".format(self.__commentMarker, str(commentId))
+					self.__comments[comment] = {"id" : commentId, "content" : stripWhitespaces and \
+												search.group("comment").strip() or search.group("comment")}
 					commentId += 1
 				continue
 
@@ -580,11 +645,14 @@ class SectionsFileParser(io.File):
 				search = re.search(r"^(?P<attribute>.+?)[{0}](?P<value>.+)$".format("".join(self.__splitters)), line)
 				if search:
 					attribute = stripWhitespaces and search.group("attribute").strip() or search.group("attribute")
-					attribute = namespaces and foundations.namespace.setNamespace(section, attribute, self.__namespaceSplitter) or attribute
+					attribute = namespaces and foundations.namespace.setNamespace(section,
+																				attribute,
+																				self.__namespaceSplitter) or attribute
 					value = stripWhitespaces and search.group("value").strip() or search.group("value")
 					attributes[attribute] = stripQuotationMarkers and value.strip("".join(self.__quotationMarkers)) or value
 				else:
-					self.__parsingErrors.append(foundations.exceptions.AttributeStructureParsingError("Attribute structure is invalid: {0}".format(line), i + 1))
+					self.__parsingErrors.append(foundations.exceptions.AttributeStructureParsingError(
+					"Attribute structure is invalid: {0}".format(line), i + 1))
 
 			self.__sections[section] = attributes
 
@@ -592,7 +660,8 @@ class SectionsFileParser(io.File):
 		LOGGER.debug("> '{0}' file parsing done!".format(self.file))
 
 		if self.__parsingErrors and raiseParsingErrors:
-			raise foundations.exceptions.FileStructureParsingError("{0} | '{1}' structure is invalid, parsing exceptions occured!".format(self.__class__.__name__, self.file))
+			raise foundations.exceptions.FileStructureParsingError(
+			"{0} | '{1}' structure is invalid, parsing exceptions occured!".format(self.__class__.__name__, self.file))
 
 		return True
 
@@ -604,7 +673,8 @@ class SectionsFileParser(io.File):
 		
 		Usage::
 
-			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
+			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n",
+			"[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
 			>>> sectionsFileParser = SectionsFileParser()
 			>>> sectionsFileParser.content = content
 			>>> sectionsFileParser.parse()
@@ -636,7 +706,8 @@ class SectionsFileParser(io.File):
 
 		Usage::
 
-			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
+			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n",
+			"Attribute 2 = \\"Value B\\"\\n"]
 			>>> sectionsFileParser = SectionsFileParser()
 			>>> sectionsFileParser.content = content
 			>>> sectionsFileParser.parse()
@@ -654,7 +725,9 @@ class SectionsFileParser(io.File):
 		if not self.__sections:
 			return
 
-		if namespace.removeNamespace(attribute, rootOnly=True) in self.getAttributes(section, orderedDictionary=True, stripNamespaces=True):
+		if namespace.removeNamespace(attribute, rootOnly=True) in self.getAttributes(section,
+																					orderedDictionary=True,
+																					stripNamespaces=True):
 			LOGGER.debug("> '{0}' attribute exists in '{1}' section.".format(attribute, section))
 			return True
 		else:
@@ -669,7 +742,8 @@ class SectionsFileParser(io.File):
 
 		Usage::
 
-			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
+			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n",
+			"Attribute 2 = \\"Value B\\"\\n"]
 			>>> sectionsFileParser = SectionsFileParser()
 			>>> sectionsFileParser.content = content
 			>>> sectionsFileParser.parse()
@@ -701,9 +775,13 @@ class SectionsFileParser(io.File):
 			return attributes
 		else:
 			if raiseExceptions:
-				raise KeyError("{0} | '{1}' section doesn't exists in '{2}' sections!".format(self.__class__.__name__, section, self.file))
+				raise KeyError("{0} | '{1}' section doesn't exists in '{2}' sections!".format(self.__class__.__name__,
+																							section,
+																							self.file))
 			else:
-				LOGGER.warning("!> {0} | '{1}' section doesn't exists in '{2}' sections!".format(self.__class__.__name__, section, self.file))
+				LOGGER.warning("!> {0} | '{1}' section doesn't exists in '{2}' sections!".format(self.__class__.__name__,
+																								section,
+																								self.file))
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
@@ -713,7 +791,8 @@ class SectionsFileParser(io.File):
 
 		Usage::
 
-			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
+			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n",
+			"Attribute 2 = \\"Value B\\"\\n"]
 			>>> sectionsFileParser = SectionsFileParser()
 			>>> sectionsFileParser.content = content
 			>>> sectionsFileParser.parse()
@@ -745,7 +824,8 @@ class SectionsFileParser(io.File):
 
 		Usage::
 
-			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
+			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n",
+			"Attribute 2 = \\"Value B\\"\\n"]
 			>>> sectionsFileParser = SectionsFileParser()
 			>>> sectionsFileParser.content = content
 			>>> sectionsFileParser.parse()
@@ -773,12 +853,19 @@ class SectionsFileParser(io.File):
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
-	def write(self, namespaces=False, splitter="=", commentLimiter=(";"), spacesAroundSplitter=True, spaceAfterCommentLimiter=True):
+	def write(self,
+			namespaces=False,
+			splitter="=",
+			commentLimiter=(";"),
+			spacesAroundSplitter=True,
+			spaceAfterCommentLimiter=True):
 		"""
-		This method writes defined file using :obj:`SectionsFileParser.sections and :obj:`SectionsFileParser.comments class properties content.
+		This method writes defined file using :obj:`SectionsFileParser.sections and
+		:obj:`SectionsFileParser.comments class properties content.
 
 		Usage::
-			>>> sections = {"Section A": {"Section A|Attribute 1": "Value A"}, "Section B": {"Section B|Attribute 2": "Value B"}}
+			>>> sections = {"Section A": {"Section A|Attribute 1": "Value A"},
+			"Section B": {"Section B|Attribute 2": "Value B"}}
 			>>> sectionsFileParser = SectionsFileParser("SectionsFile.rc")
 			>>> sectionsFileParser.sections = sections
 			>>> sectionsFileParser.write()
@@ -800,9 +887,11 @@ class SectionsFileParser(io.File):
 			return
 
 		LOGGER.debug("> Setting '{0}' file content.".format(self.file))
-		attributeTemplate = spacesAroundSplitter and "{{0}} {0} {{1}}\n".format(splitter) or "{{0}} {0} {{1}}\n".format(splitter)
+		attributeTemplate = spacesAroundSplitter and "{{0}} {0} {{1}}\n".format(splitter) or \
+							"{{0}} {0} {{1}}\n".format(splitter)
 		attributeTemplate = foundations.strings.replace(attributeTemplate, {"{{" : "{", "}}" : "}"})
-		commentTemplate = spaceAfterCommentLimiter and "{0} {{0}}\n".format(commentLimiter) or "{0}{{0}}\n".format(commentLimiter)
+		commentTemplate = spaceAfterCommentLimiter and "{0} {{0}}\n".format(commentLimiter) or \
+							"{0}{{0}}\n".format(commentLimiter)
 		if self.__defaultsSection in self.__sections.keys():
 			LOGGER.debug("> Appending '{0}' default section.".format(self.__defaultsSection))
 			if self.__comments:
@@ -812,7 +901,9 @@ class SectionsFileParser(io.File):
 						LOGGER.debug("> Appending '{0}' comment with '{1}' value.".format(comment, value))
 						self.content.append(commentTemplate.format(value))
 			for attribute, value in self.__sections[self.__defaultsSection].items():
-				attribute = namespaces and attribute or foundations.namespace.removeNamespace(attribute, self.__namespaceSplitter, rootOnly=True)
+				attribute = namespaces and attribute or foundations.namespace.removeNamespace(attribute,
+																							self.__namespaceSplitter,
+																							rootOnly=True)
 				value = value or ""
 				LOGGER.debug("> Appending '{0}' attribute with '{1}' value.".format(attribute, value))
 				self.content.append(attributeTemplate.format(attribute, value))
@@ -835,7 +926,9 @@ class SectionsFileParser(io.File):
 						appendNewLine = False
 				else:
 					LOGGER.debug("> Appending '{0}' section.".format(section))
-					attribute = namespaces and attribute or foundations.namespace.removeNamespace(attribute, self.__namespaceSplitter, rootOnly=True)
+					attribute = namespaces and attribute or foundations.namespace.removeNamespace(attribute,
+																								self.__namespaceSplitter,
+																								rootOnly=True)
 					value = value or ""
 					LOGGER.debug("> Appending '{0}' attribute with '{1}' value.".format(attribute, value))
 					self.content.append(attributeTemplate.format(attribute, value))
@@ -878,7 +971,11 @@ def getAttributeCompound(attribute, value=None, splitter="|", bindingIdentifier=
 		if splitter in value:
 			valueTokens = value.split(splitter)
 			if len(valueTokens) >= 3 and re.search(r"{0}\w*".format(bindingIdentifier), valueTokens[0]):
-				return AttributeCompound(name=attribute, value=valueTokens[1].strip(), link=valueTokens[0].strip(), type=valueTokens[2].strip(), alias=len(valueTokens) == 4 and valueTokens[3].strip() or None)
+				return AttributeCompound(name=attribute,
+										value=valueTokens[1].strip(),
+										link=valueTokens[0].strip(),
+										type=valueTokens[2].strip(),
+										alias=len(valueTokens) == 4 and valueTokens[3].strip() or None)
 		else:
 			if re.search(r"{0}\w*".format(bindingIdentifier), value):
 				return AttributeCompound(name=attribute, value=None, link=value, type=None, alias=None)

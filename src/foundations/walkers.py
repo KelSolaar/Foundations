@@ -63,7 +63,8 @@ class OsWalker(object):
 			>>> osWalker.walk().keys()
 			['standard|0d24f027', 'standard|407ed3b2', 'standard|20efaeaf', 'loremIpsum|ddf30259']
 			>>> osWalker.walk(filtersIn=("\.sIBLT$",))
-			{'standard|20efaeaf': './Foundations/src/tests/testsFoundations/resources/standard/level_0/level_1/level_2/standard.sIBLT'}
+			{'standard|20efaeaf': 
+			'./Foundations/src/tests/testsFoundations/resources/standard/level_0/level_1/level_2/standard.sIBLT'}
 			>>> osWalker.walk(filtersOut=("\.sIBLT$", "\.rc$", "\.ibl$")).values()
 			['./Foundations/src/tests/testsFoundations/resources/standard/level_0/level_1/loremIpsum.txt']
 			
@@ -115,7 +116,8 @@ class OsWalker(object):
 		This method is the deleter method for **self.__root** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "root"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "root"))
 
 	@property
 	def hashSize(self):
@@ -147,7 +149,8 @@ class OsWalker(object):
 		This method is the deleter method for **self.__hashSize** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "hashSize"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "hashSize"))
 
 	@property
 	def files(self):
@@ -168,7 +171,8 @@ class OsWalker(object):
 		:param value: Attribute value. ( Dictionary )
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "files"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "files"))
 
 	@files.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -177,7 +181,8 @@ class OsWalker(object):
 		This method is the deleter method for **self.__files** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "files"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "files"))
 
 	#******************************************************************************************************************
 	#***	Class methods.
@@ -215,7 +220,8 @@ class OsWalker(object):
 					LOGGER.debug("> '{0}' file filtered in!".format(itemPath))
 
 					hashKey = hashlib.md5(itemPath).hexdigest()
-					itemName = namespace.setNamespace(os.path.splitext(item)[0], shorterHashKey and hashKey[:self.__hashSize] or hashKey)
+					itemName = namespace.setNamespace(os.path.splitext(item)[0],
+													shorterHashKey and hashKey[:self.__hashSize] or hashKey)
 					LOGGER.debug("> Adding '{0}' with path: '{1}' to files list.".format(itemName, itemPath))
 					self.__files[itemName] = itemPath
 
@@ -241,7 +247,8 @@ def dictionariesWalker(dictionary, path=()):
 	:param path: Walked paths. ( Tuple )
 	:return: Path, key, value. ( Tuple )
 	
-	:note: This generator won't / can't yield any dictionaries, if you want to be able to retrieve dictionaries anyway, you will have to either encapsulate them in another object, or mutate their base class.
+	:note: This generator won't / can't yield any dictionaries, if you want to be able to retrieve dictionaries anyway,
+	you will have to either encapsulate them in another object, or mutate their base class.
 	"""
 
 	for key in dictionary.keys():

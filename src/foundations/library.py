@@ -61,8 +61,11 @@ class LibraryHook(core.Structure):
 			LibraryHook(name="FreeImage_GetVersion", argumentsTypes=None, returnValue=ctypes.c_char_p)
 
 		:param name: Name of the target library function to bind. ( String )
-		:param argumentsTypes: Required function arguments type (Refer to Python `ctypes - 15.17.1.7 <http://docs.python.org/library/ctypes.html#specifying-the-required-argument-types-function-prototypes>`_ module for more informations). ( List )
-		:param returnValue: Function return type (Refer to Python `ctypes - 15.17.1.8 <http://docs.python.org/library/ctypes.html#return-types>`_ module for more informations). ( Object )
+		:param argumentsTypes: Required function arguments type (Refer to Python `ctypes - 15.17.1.7
+		<http://docs.python.org/library/ctypes.html#specifying-the-required-argument-types-function-prototypes>`_ module
+		for more informations). ( List )
+		:param returnValue: Function return type (Refer to Python `ctypes - 15.17.1.8
+		<http://docs.python.org/library/ctypes.html#return-types>`_ module for more informations). ( Object )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -72,7 +75,9 @@ class LibraryHook(core.Structure):
 class Library(object):
 	"""
 	| This class provides methods to bind a C / C++ Library.
-	| The class is a singleton and will bind only one time a given library. Each unique library instance is stored in :attr:`Library.librariesInstances` attribute and get returned if the library is requested again through a new instantiation.
+	| The class is a singleton and will bind only one time a given library.
+	Each unique library instance is stored in :attr:`Library.librariesInstances` attribute
+	and get returned if the library is requested again through a new instantiation.
 	"""
 
 	__librariesInstances = {}
@@ -80,10 +85,12 @@ class Library(object):
 
 	if platform.system() == "Windows" or platform.system() == "Microsoft":
 		callback = ctypes.WINFUNCTYPE(ctypes.c_void_p, ctypes.c_int, ctypes.c_char_p)
-		"""callback: Defines library callback default function. ( ctypes.WINFUNCTYPE on Windows Os / ctypes.CFUNCTYPE on Linux and Darwin Os )"""
+		"""callback: Defines library callback default function.
+		( ctypes.WINFUNCTYPE on Windows Os / ctypes.CFUNCTYPE on Linux and Darwin Os )"""
 	else:
 		callback = ctypes.CFUNCTYPE(ctypes.c_void_p, ctypes.c_int, ctypes.c_char_p)
-		"""callback: Defines library callback default function. ( ctypes.WINFUNCTYPE on Windows Os / ctypes.CFUNCTYPE on Linux and Darwin Os )"""
+		"""callback: Defines library callback default function.
+		( ctypes.WINFUNCTYPE on Windows Os / ctypes.CFUNCTYPE on Linux and Darwin Os )"""
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.LibraryInstantiationError)
@@ -102,7 +109,8 @@ class Library(object):
 				self._Library__librariesInstances[args[0]] = object.__new__(self)
 			return self._Library__librariesInstances[args[0]]
 		else:
-			raise foundations.exceptions.LibraryInstantiationError("{0} | '{1}' library path doesn't exists!".format(self.__class__.__name__, libraryPath))
+			raise foundations.exceptions.LibraryInstantiationError(
+			"{0} | '{1}' library path doesn't exists!".format(self.__class__.__name__, libraryPath))
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.LibraryInitializationError)
@@ -146,7 +154,8 @@ class Library(object):
 		if self.libraryPath:
 			self.__library = loadingFunction.LoadLibrary(libraryPath)
 		else:
-			raise foundations.exceptions.LibraryInitializationError("{0} | '{1}' library not found!".format(self.__class__.__name__, libraryPath))
+			raise foundations.exceptions.LibraryInitializationError("{0} | '{1}' library not found!".format(
+			self.__class__.__name__, libraryPath))
 
 		bindLibrary and self.bindLibrary()
 
@@ -172,7 +181,8 @@ class Library(object):
 		:param value: Attribute value. ( WeakValueDictionary )
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "librariesInstances"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "librariesInstances"))
 
 	@librariesInstances.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -181,7 +191,8 @@ class Library(object):
 		This method is the deleter method for **self.__librariesInstances** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "librariesInstances"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "librariesInstances"))
 
 	@property
 	def libraryInstantiated(self):
@@ -202,7 +213,8 @@ class Library(object):
 		:param value: Attribute value. ( String )
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "libraryInstantiated"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "libraryInstantiated"))
 
 	@libraryInstantiated.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -211,7 +223,8 @@ class Library(object):
 		This method is the deleter method for **self.__libraryInstantiated** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "libraryInstantiated"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "libraryInstantiated"))
 
 	@property
 	def libraryPath(self):
@@ -233,7 +246,8 @@ class Library(object):
 		"""
 
 		if value:
-			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("libraryPath", value)
+			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
+			"libraryPath", value)
 			assert os.path.exists(value), "'{0}' attribute: '{1}' file doesn't exists!".format("libraryPath", value)
 		self.__libraryPath = value
 
@@ -244,7 +258,8 @@ class Library(object):
 		This method is the deleter method for **self.__libraryPath** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "libraryPath"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "libraryPath"))
 
 	@property
 	def functions(self):
@@ -268,7 +283,8 @@ class Library(object):
 		if value:
 			assert type(value) is tuple, "'{0}' attribute: '{1}' type is not 'tuple'!".format("functions", value)
 			for element in value:
-				assert type(element) is LibraryHook, "'{0}' attribute: '{1}' type is not 'LibraryHook'!".format("functions", element)
+				assert type(element) is LibraryHook, "'{0}' attribute: '{1}' type is not 'LibraryHook'!".format(
+				"functions", element)
 		self.__functions = value
 
 	@functions.deleter
@@ -278,7 +294,8 @@ class Library(object):
 		This method is the deleter method for **self.__functions** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "functions"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "functions"))
 
 	@property
 	def library(self):
@@ -308,7 +325,8 @@ class Library(object):
 		This method is the deleter method for **self.__library** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "library"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "library"))
 
 	#******************************************************************************************************************
 	#***	Class methods.

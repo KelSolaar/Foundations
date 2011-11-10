@@ -37,7 +37,13 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["RESOURCES_DIRECTORY", "LIBRARIES_DIRECTORY", "FREEIMAGE_LIBRARY", "LIBRARIES", "LIBRARIES_FUNCTIONS", "LIBRARIES_TESTS_CASES", "LibraryTestCase"]
+__all__ = ["RESOURCES_DIRECTORY",
+			"LIBRARIES_DIRECTORY",
+			"FREEIMAGE_LIBRARY",
+			"LIBRARIES",
+			"LIBRARIES_FUNCTIONS",
+			"LIBRARIES_TESTS_CASES",
+			"LibraryTestCase"]
 
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
 LIBRARIES_DIRECTORY = os.path.join(RESOURCES_DIRECTORY, "libraries")
@@ -50,11 +56,15 @@ elif platform.system() == "Linux":
 
 LIBRARIES = {"freeImage":os.path.normpath(os.path.join(os.path.dirname(__file__), FREEIMAGE_LIBRARY))}
 
-LIBRARIES_FUNCTIONS = {"freeImage":(LibraryHook(name="FreeImage_GetVersion" , affixe="@0", argumentsTypes=None, returnValue=ctypes.c_char_p),
-								LibraryHook(name="FreeImage_GetCopyrightMessage" , affixe="@0", argumentsTypes=None, returnValue=ctypes.c_char_p))}
+LIBRARIES_FUNCTIONS = {"freeImage":(LibraryHook(name="FreeImage_GetVersion",
+												argumentsTypes=None,
+												returnValue=ctypes.c_char_p),
+								LibraryHook(name="FreeImage_GetCopyrightMessage",
+											argumentsTypes=None,
+											returnValue=ctypes.c_char_p))}
 
 LIBRARIES_TESTS_CASES = {"freeImage":{"FreeImage_GetVersion":"3.15.1",
-							"FreeImage_GetCopyrightMessage":"This program uses FreeImage, a free, open source image library supporting all common bitmap formats. See http://freeimage.sourceforge.net for details"}}
+						"FreeImage_GetCopyrightMessage":"This program uses FreeImage, a free, open source image library supporting all common bitmap formats. See http://freeimage.sourceforge.net for details"}}
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************

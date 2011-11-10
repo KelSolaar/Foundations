@@ -54,7 +54,8 @@ DEFAULT_UI_FILE = os.path.join(RESOURCES_DIRECTORY, "QWidget.ui")
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def QWidgetFactory(uiFile=None, *args, **kwargs):
 	"""
-	This definition is a class factory creating `QWidget <http://doc.qt.nokia.com/4.7/qwidget.html>`_ classes using given ui file.
+	This definition is a class factory creating `QWidget <http://doc.qt.nokia.com/4.7/qwidget.html>`_ classes
+	using given ui file.
 
 	:param uiFile: Ui file. ( String )
 	:param \*args: Arguments. ( \* )
@@ -64,7 +65,8 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 
 	file = uiFile or DEFAULT_UI_FILE
 	if not os.path.exists(file):
-		raise foundations.exceptions.FileExistsError("{0} | '{1}' ui file doesn't exists!".format(inspect.getmodulename(__file__), file))
+		raise foundations.exceptions.FileExistsError("{0} | '{1}' ui file doesn't exists!".format(
+		inspect.getmodulename(__file__), file))
 
 	Form, Base = uic.loadUiType(file)
 
@@ -112,7 +114,8 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 			:param value: Attribute value. ( String )
 			"""
 
-			raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "uiFile"))
+			raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is read only!".format(
+			self.__class__.__name__, "uiFile"))
 
 		@uiFile.deleter
 		@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -121,6 +124,7 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 			This method is the deleter method for **self.__uiFile** attribute.
 			"""
 
-			raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "uiFile"))
+			raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(
+			self.__class__.__name__, "uiFile"))
 
 	return QWidget

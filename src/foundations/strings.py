@@ -241,7 +241,8 @@ def replace(string, data):
 
 	Usage::
 
-		>>> replace("Users are: John Doe, Jane Doe, Z6PO.", {"John" : "Luke", "Jane" : "Anakin", "Doe" : "Skywalker", "Z6PO" : "R2D2"})
+		>>> replace("Users are: John Doe, Jane Doe, Z6PO.", {"John" : "Luke", "Jane" : "Anakin", "Doe" : "Skywalker",
+		 "Z6PO" : "R2D2"})
 		'Users are: Luke Skywalker, Anakin Skywalker, R2D2.'
 
 	:param string: String to manipulate. ( String )

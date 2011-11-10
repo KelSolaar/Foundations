@@ -39,7 +39,12 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["RESOURCES_DIRECTORY", "ROOT_DIRECTORY", "TREE_HIERARCHY", "OsWalkerTestCase", "DictionariesWalkerTestCase", "NodesWalkerTestCase"]
+__all__ = ["RESOURCES_DIRECTORY",
+			"ROOT_DIRECTORY",
+			"TREE_HIERARCHY",
+			"OsWalkerTestCase",
+			"DictionariesWalkerTestCase",
+			"NodesWalkerTestCase"]
 
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
 ROOT_DIRECTORY = "standard"
@@ -89,7 +94,8 @@ class OsWalkerTestCase(unittest.TestCase):
 		for path in osWalker.files.values():
 			self.assertTrue(os.path.exists(path))
 
-		referencePaths = [strings.replace(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY, path), {"/":"|", "\\":"|"}) for path in TREE_HIERARCHY]
+		referencePaths = [strings.replace(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY, path),
+											{"/":"|", "\\":"|"}) for path in TREE_HIERARCHY]
 		walkerFiles = [strings.replace(path, {"/":"|", "\\":"|"}) for path in osWalker.files.values()]
 		for item in referencePaths:
 			self.assertIn(item, walkerFiles)
@@ -102,7 +108,8 @@ class OsWalkerTestCase(unittest.TestCase):
 		osWalker.walk(filtersOut=("\.ibl", "\.rc$", "\.sIBLT$", "\.txt$"))
 		self.assertTrue(not osWalker.files)
 
-		referencePaths = [strings.replace(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY, path), {"/":"|", "\\":"|"}) for path in TREE_HIERARCHY if re.search(r"\.rc$", path)]
+		referencePaths = [strings.replace(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY, path),
+										{"/":"|", "\\":"|"}) for path in TREE_HIERARCHY if re.search(r"\.rc$", path)]
 		filter = "\.rc$"
 		osWalker.walk(filtersIn=(filter,))
 		walkerFiles = [strings.replace(path, {"/":"|", "\\":"|"}) for path in osWalker.files.values()]
@@ -126,7 +133,8 @@ class DictionariesWalkerTestCase(unittest.TestCase):
 		This method tests :func:`foundations.walkers.dictionariesWalker` definition.
 		"""
 
-		nestedDictionary = {"Level 1A":{"Level 2A": { "Level 3A" : "Higher Level"}}, "Level 1B" : "Lower level", "Level 1C" : {}}
+		nestedDictionary = {"Level 1A":{"Level 2A": { "Level 3A" : "Higher Level"}},
+							"Level 1B" : "Lower level", "Level 1C" : {}}
 		yieldedValues = ((("Level 1A", "Level 2A"), "Level 3A", "Higher Level"), ((), "Level 1B", "Lower level"))
 		for value in foundations.walkers.dictionariesWalker(nestedDictionary):
 			self.assertIsInstance(value, tuple)

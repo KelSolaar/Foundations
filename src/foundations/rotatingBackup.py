@@ -114,7 +114,8 @@ class RotatingBackup(object):
 		"""
 
 		if value:
-			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("source", value)
+			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
+			"source", value)
 			assert os.path.exists(value), "'{0}' attribute: '{1}' file doesn't exists!".format("source", value)
 		self.__source = value
 
@@ -125,7 +126,8 @@ class RotatingBackup(object):
 		This method is the deleter method for **self.__source** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "source"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "source"))
 
 	@property
 	def destination(self):
@@ -147,7 +149,8 @@ class RotatingBackup(object):
 		"""
 
 		if value:
-			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("destination", value)
+			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
+			"destination", value)
 		self.__destination = value
 
 	@destination.deleter
@@ -157,7 +160,8 @@ class RotatingBackup(object):
 		This method is the deleter method for **self.__destination** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "destination"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "destination"))
 
 	@property
 	def count(self):
@@ -179,7 +183,8 @@ class RotatingBackup(object):
 		"""
 
 		if value:
-			assert type(value) in (int, float), "'{0}' attribute: '{1}' type is not 'int' or 'float'!".format("count", value)
+			assert type(value) in (int, float), "'{0}' attribute: '{1}' type is not 'int' or 'float'!".format(
+			"count", value)
 			assert value > 0, "'{0}' attribute: '{1}' need to be exactly positive!".format("count", value)
 		self.__count = value
 
@@ -190,7 +195,8 @@ class RotatingBackup(object):
 		This method is the deleter method for **self.__count** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "count"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "count"))
 
 	#******************************************************************************************************************
 	#***	Class methods.

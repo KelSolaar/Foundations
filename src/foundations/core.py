@@ -8,7 +8,8 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines **Foundations** package core objects. Those objects are mostly related to logging and execution tracing.
+	This module defines **Foundations** package core objects.
+	Those objects are mostly related to logging and execution tracing.
 
 **Others:**
 
@@ -68,7 +69,8 @@ THREADS_IDENTIFIERS = {}
 
 def _LogRecord_getAttribute(self, attribute):
 	"""
-	This definition overrides logging.LogRecord.__getattribute__ method in order to manipulate requested attributes values.
+	This definition overrides logging.LogRecord.__getattribute__ method
+	in order to manipulate requested attributes values.
 
 	:param attribute: Attribute name. ( String )
 	:return: Modified method. ( Object )
@@ -77,7 +79,8 @@ def _LogRecord_getAttribute(self, attribute):
 	if attribute == "__dict__":
 		threadIdent = threading.currentThread().ident
 		if not threadIdent in THREADS_IDENTIFIERS.keys():
-			THREADS_IDENTIFIERS[threadIdent] = (threading.currentThread().name, hashlib.md5(threading.currentThread().name).hexdigest()[:8])
+			THREADS_IDENTIFIERS[threadIdent] = (threading.currentThread().name,
+												hashlib.md5(threading.currentThread().name).hexdigest()[:8])
 		object.__getattribute__(self, attribute)["threadName"] = THREADS_IDENTIFIERS[threadIdent][1]
 		return object.__getattribute__(self, attribute)
 	else:
@@ -211,7 +214,8 @@ def getCodeLayerName():
 
 	:return: Code layer name. ( String )
 	
-	:note: Candidates names matching any :attr:`foundations.core.IGNORED_CODE_LAYERS` members will be skipped. If no appropriate candidate name is found, then :attr:`foundations.core.UNDEFINED_CODE_LAYER` is returned.
+	:note: Candidates names matching any :attr:`foundations.core.IGNORED_CODE_LAYERS` members will be skipped.
+	If no appropriate candidate name is found, then :attr:`foundations.core.UNDEFINED_CODE_LAYER` is returned.
 	"""
 
 	frame = getFrame()
@@ -250,9 +254,11 @@ def getObjectName(object):
 	module = getModule(object)
 	moduleName = module and module.__name__ or UNDEFINED_MODULE
 	codeLayerName = getCodeLayerName()
-	codeLayerName = codeLayerName != UNDEFINED_CODE_LAYER and codeLayerName != "<module>" and "{0}.".format(codeLayerName) or ""
+	codeLayerName = codeLayerName != UNDEFINED_CODE_LAYER and codeLayerName != "<module>" and \
+					"{0}.".format(codeLayerName) or ""
 
-	return hasattr(object, "__name__") and "{0} | {1}{2}()".format(moduleName, codeLayerName, object.__name__) or UNDEFINED_OBJECT
+	return hasattr(object, "__name__") and "{0} | {1}{2}()".format(moduleName, codeLayerName, object.__name__) or \
+	UNDEFINED_OBJECT
 
 def executionTrace(object):
 	"""
@@ -385,7 +391,8 @@ class Structure(dict):
 class OrderedStructure(OrderedDict):
 	"""
 	| This class creates an object similar to C/C++ structured type.
-	| Contrary to the :class:`Structure` since this class inherits from :class:`collections.OrderedDict`, it's content is ordered.
+	| Contrary to the :class:`Structure` since this class inherits from :class:`collections.OrderedDict`,
+	its content is ordered.
 
 	Usage:
 

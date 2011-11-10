@@ -113,6 +113,7 @@ def removeNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=Fa
 	"""
 
 	attributeTokens = attribute.split(namespaceSplitter)
-	strippedAttribute = rootOnly and namespaceSplitter.join(attributeTokens[1:]) or attributeTokens[len(attributeTokens) - 1]
+	strippedAttribute = rootOnly and namespaceSplitter.join(attributeTokens[1:]) or \
+						attributeTokens[len(attributeTokens) - 1]
 	LOGGER.debug("> Attribute: '{0}', stripped attribute: '{1}'.".format(attribute, strippedAttribute))
 	return strippedAttribute

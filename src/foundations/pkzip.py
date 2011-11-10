@@ -97,7 +97,8 @@ class Pkzip(object):
 		"""
 
 		if value:
-			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("archive", value)
+			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
+			"archive", value)
 			assert os.path.exists(value), "'{0}' attribute: '{1}' file doesn't exists!".format("archive", value)
 		self.__archive = value
 
@@ -108,7 +109,8 @@ class Pkzip(object):
 		This method is the deleter method for **self.__archive** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "archive"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "archive"))
 
 	#******************************************************************************************************************
 	#***	Class methods.

@@ -110,7 +110,8 @@ class File(object):
 		This method is the deleter method for **self.__file** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "file"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "file"))
 
 	@property
 	def content(self):
@@ -142,7 +143,8 @@ class File(object):
 		This method is the deleter method for **self.__content** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "content"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "content"))
 
 	#******************************************************************************************************************
 	#***	Class methods.
@@ -203,7 +205,8 @@ class File(object):
 def setDirectory(path):
 	"""
 	| This definition creates a directory with given path.
-	| The directory creation is delegated to Python :func:`os.makedirs` definition so that directories hierarchy is recursively created. 
+	| The directory creation is delegated to
+	Python :func:`os.makedirs` definition so that directories hierarchy is recursively created. 
 	
 	:param path: Directory path. ( String )
 	:return: Definition success. ( Boolean )

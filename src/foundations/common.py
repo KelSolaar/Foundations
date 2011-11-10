@@ -42,7 +42,13 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["LOGGER", "getSystemApplicationDataDirectory", "getUserApplicationDataDirectory", "removeLoggingHandler", "exit", "wait", "uniqify"]
+__all__ = ["LOGGER",
+			"getSystemApplicationDataDirectory",
+			"getUserApplicationDataDirectory",
+			"removeLoggingHandler",
+			"exit",
+			"wait",
+			"uniqify"]
 
 LOGGER = logging.getLogger(Constants.logger)
 
@@ -82,7 +88,10 @@ def getSystemApplicationDataDirectory():
 def getUserApplicationDataDirectory():
 	"""
 	| This definition gets user Application directory.
-	| The difference between :func:`getSystemApplicationDataDirectory` and :func:`getSystemApplicationDataDirectory` definitions is that :func:`getUserApplicationDataDirectory` definition will append :attr:`foundations.globals.constants.Constants.providerDirectory` and :attr:`foundations.globals.constants.Constants.applicationDirectory` attributes values to the path returned.
+	| The difference between :func:`getSystemApplicationDataDirectory` 
+	and :func:`getSystemApplicationDataDirectory` definitions is that :func:`getUserApplicationDataDirectory` definition
+	will append :attr:`foundations.globals.constants.Constants.providerDirectory`
+	and :attr:`foundations.globals.constants.Constants.applicationDirectory` attributes values to the path returned.
 
 	Examples directories::
 

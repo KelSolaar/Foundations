@@ -112,9 +112,11 @@ class GetCommonAncestorTestCase(unittest.TestCase):
 		This method tests :func:`foundations.strings.getCommonAncestor` definition.
 		"""
 
-		self.assertTupleEqual(strings.getCommonAncestor(("1", "2", "3"), ("1", "2", "0"), ("1", "2", "3", "4")), ("1", "2"))
+		self.assertTupleEqual(strings.getCommonAncestor(("1", "2", "3"), ("1", "2", "0"), ("1", "2", "3", "4")),
+														("1", "2"))
 		self.assertEqual(strings.getCommonAncestor("azerty", "azetty", "azello"), "aze")
-		self.assertEqual(strings.getCommonAncestor("/Users/JohnDoe/Documents", "/Users/JohnDoe/Documents/Test.txt"), "/Users/JohnDoe/Documents")
+		self.assertEqual(strings.getCommonAncestor("/Users/JohnDoe/Documents","/Users/JohnDoe/Documents/Test.txt"),
+						"/Users/JohnDoe/Documents")
 		self.assertFalse(strings.getCommonAncestor("azerty", "qwerty"))
 
 class GetCommonPathsAncestorTestCase(unittest.TestCase):
@@ -127,7 +129,9 @@ class GetCommonPathsAncestorTestCase(unittest.TestCase):
 		This method tests :func:`foundations.strings.getCommonPathsAncestor` definition.
 		"""
 
-		self.assertEqual(strings.getCommonPathsAncestor("/Users/JohnDoe/Documents", "/Users/JohnDoe/Documents/Test.txt"), "/Users/JohnDoe/Documents")
+		self.assertEqual(strings.getCommonPathsAncestor("/Users/JohnDoe/Documents", 
+														"/Users/JohnDoe/Documents/Test.txt"),
+						"/Users/JohnDoe/Documents")
 		self.assertFalse(strings.getCommonPathsAncestor("/JohnDoe/Documents", "/Users/JohnDoe/Documents/Test.txt"))
 
 class GetWordsTestCase(unittest.TestCase):
@@ -141,8 +145,10 @@ class GetWordsTestCase(unittest.TestCase):
 		"""
 
 		self.assertIsInstance(strings.getWords("Users are John Doe and Jane Doe."), list)
-		self.assertListEqual(strings.getWords("Users are John Doe and Jane Doe."), "Users are John Doe and Jane Doe".split())
-		self.assertListEqual(strings.getWords("Users are: John Doe, Jane Doe, Z6PO."), "Users are John Doe Jane Doe Z6PO".split())
+		self.assertListEqual(strings.getWords("Users are John Doe and Jane Doe."),
+							"Users are John Doe and Jane Doe".split())
+		self.assertListEqual(strings.getWords("Users are: John Doe, Jane Doe, Z6PO."),
+							"Users are John Doe Jane Doe Z6PO".split())
 
 class FilterWordsTestCase(unittest.TestCase):
 	"""
@@ -155,12 +161,26 @@ class FilterWordsTestCase(unittest.TestCase):
 		"""
 
 		self.assertIsInstance(strings.filterWords("Users are John Doe and Jane Doe".split()), list)
-		self.assertListEqual(strings.filterWords("Users are John Doe and Jane Doe".split(), filtersIn=("Users", "John")), "Users John".split())
-		self.assertListEqual(strings.filterWords("Users are John Doe and Jane Doe".split(), filtersIn=("users", "john"), flags=re.IGNORECASE), "Users John".split())
-		self.assertListEqual(strings.filterWords("Users are John Doe and Jane Doe".split(), filtersIn=("Nemo",)), [])
-		self.assertListEqual(strings.filterWords("Users are John Doe and Jane Doe".split(), filtersOut=("Users", "John")), "are Doe and Jane Doe".split())
-		self.assertListEqual(strings.filterWords("Users are John Doe and Jane Doe".split(), filtersOut=("Users are John Doe and Jane Doe".split())), [])
-		self.assertListEqual(strings.filterWords("Users are John Doe and Jane Doe".split(), filtersIn=("Users",), filtersOut=("Users",)), [])
+		self.assertListEqual(strings.filterWords("Users are John Doe and Jane Doe".split(),
+												filtersIn=("Users", "John")),
+												"Users John".split())
+		self.assertListEqual(strings.filterWords("Users are John Doe and Jane Doe".split(),
+												filtersIn=("users", "john"),
+												flags=re.IGNORECASE),
+												"Users John".split())
+		self.assertListEqual(strings.filterWords("Users are John Doe and Jane Doe".split(),
+												filtersIn=("Nemo",)),
+												[])
+		self.assertListEqual(strings.filterWords("Users are John Doe and Jane Doe".split(),
+												filtersOut=("Users", "John")),
+												"are Doe and Jane Doe".split())
+		self.assertListEqual(strings.filterWords("Users are John Doe and Jane Doe".split(),
+												filtersOut=("Users are John Doe and Jane Doe".split())),
+												[])
+		self.assertListEqual(strings.filterWords("Users are John Doe and Jane Doe".split(),
+												filtersIn=("Users",),
+												filtersOut=("Users",)),
+												[])
 
 class ReplaceTestCase(unittest.TestCase):
 	"""
@@ -173,8 +193,10 @@ class ReplaceTestCase(unittest.TestCase):
 		"""
 
 		self.assertIsInstance(strings.replace("To@Forward|Slashes@Test|Case", {}), str)
-		self.assertEqual(strings.replace("To@Forward|Slashes@Test|Case", {"@":"|", "|":":"}), "To:Forward:Slashes:Test:Case")
-		self.assertEqual(strings.replace("To@Forward@Slashes@Test@Case", {"@":"|", "|":"@", "@":"|" }), "To@Forward@Slashes@Test@Case")
+		self.assertEqual(strings.replace("To@Forward|Slashes@Test|Case", {"@":"|", "|":":"}),
+						"To:Forward:Slashes:Test:Case")
+		self.assertEqual(strings.replace("To@Forward@Slashes@Test@Case", {"@":"|", "|":"@", "@":"|" }),
+						"To@Forward@Slashes@Test@Case")
 
 class ToForwardSlashesTestCase(unittest.TestCase):
 	"""

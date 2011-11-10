@@ -69,8 +69,10 @@ LOGGER = logging.getLogger(Constants.logger)
 def exceptionsHandler(handler=None, raiseException=False, *args):
 	"""
 	| This decorator is used for exceptions handling.
-	| It's possible to specify an user defined exception handler, if not, :func:`defaultExceptionsHandler` handler will be used.
-	| The decorator uses given exceptions objects or the default Python `Exception <http://docs.python.org/library/exceptions.html#exceptions.Exception>`_ class.
+	| It's possible to specify an user defined exception handler,
+	if not, :func:`defaultExceptionsHandler` handler will be used.
+	| The decorator uses given exceptions objects
+	or the default Python `Exception <http://docs.python.org/library/exceptions.html#exceptions.Exception>`_ class.
 	
 	Usage::
 
@@ -148,7 +150,8 @@ def defaultExceptionsHandler(exception, origin, *args, **kwargs):
 
 	LOGGER.error("!> Exception in '{0}'.".format(origin))
 	LOGGER.error("!> Exception class: '{0}'.".format(exception.__class__.__name__))
-	LOGGER.error("!> Exception description: '{0}'.".format(exception.__doc__ and exception.__doc__.strip() or Constants.nullObject))
+	LOGGER.error("!> Exception description: '{0}'.".format(exception.__doc__ and exception.__doc__.strip() or \
+															Constants.nullObject))
 	for i, line in enumerate(str(exception).split("\n")):
 		LOGGER.error("!> Exception message line nº '{0}' : '{1}'.".format(i + 1, line))
 

@@ -100,8 +100,10 @@ class Environment(object):
 		if value:
 			assert type(value) is dict, "'{0}' attribute: '{1}' type is not 'dict'!".format("variables", value)
 			for key, element in value.items():
-				assert type(key) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("variables", key)
-				assert type(element) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("variables", element)
+				assert type(key) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
+				"variables", key)
+				assert type(element) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
+				"variables", element)
 		self.__variables = value
 
 	@variables.deleter
@@ -111,7 +113,8 @@ class Environment(object):
 		This method is the deleter method for **self.__variables** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "variables"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "variables"))
 
 	#******************************************************************************************************************
 	#***	Class methods.
@@ -149,7 +152,8 @@ class Environment(object):
 
 		args and self.__addVariables(*args)
 
-		LOGGER.debug("> Object environment variables: '{0}'.".format(",".join((key for key in self.__variables.keys() if key))))
+		LOGGER.debug("> Object environment variables: '{0}'.".format(
+		",".join((key for key in self.__variables.keys() if key))))
 		LOGGER.debug("> Available system environment variables: '{0}'".format(os.environ.keys()))
 
 		for variable in self.__variables.keys():

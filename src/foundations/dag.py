@@ -11,7 +11,8 @@
 	This module defines various dag related class.
 
 **Others:**
-	Portions of the code from DAG by Simon Wittber: http://pypi.python.org/pypi/DAG/ and PyQt4 Model View Programming Tutorials by Yasin Uludag: http://www.yasinuludag.com/blog/?p=98
+	Portions of the code from DAG by Simon Wittber: http://pypi.python.org/pypi/DAG/ and
+	PyQt4 Model View Programming Tutorials by Yasin Uludag: http://www.yasinuludag.com/blog/?p=98
 """
 
 #**********************************************************************************************************************
@@ -111,7 +112,8 @@ class Attribute(core.Structure):
 		This method is the deleter method for **name** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "name"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "name"))
 
 	@property
 	def value(self):
@@ -141,7 +143,8 @@ class Attribute(core.Structure):
 		This method is the deleter method for **value** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "value"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "value"))
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
@@ -160,7 +163,8 @@ class AbstractNode(core.Structure):
 	| This class defines the base node class.
 	| Although it can be instancied directly that class is meant to be subclassed.
 	
-	:note: This class doesn't provide compositing capabilities, class:`AbstractCompositeNode` class must be used for that purpose.
+	:note: This class doesn't provide compositing capabilities,
+	class:`AbstractCompositeNode` class must be used for that purpose.
 	"""
 
 	__family = "Abstract"
@@ -238,7 +242,8 @@ class AbstractNode(core.Structure):
 		:param value: Attribute value. ( String )
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "family"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "family"))
 
 	@family.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -247,7 +252,8 @@ class AbstractNode(core.Structure):
 		This method is the deleter method for **self.__family** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "family"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "family"))
 
 	@property
 	def nodesInstances(self):
@@ -268,7 +274,8 @@ class AbstractNode(core.Structure):
 		:param value: Attribute value. ( WeakValueDictionary )
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "nodesInstances"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "nodesInstances"))
 
 	@nodesInstances.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -277,7 +284,8 @@ class AbstractNode(core.Structure):
 		This method is the deleter method for **self.__nodesInstances** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "nodesInstances"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "nodesInstances"))
 
 	@property
 	def identity(self):
@@ -298,7 +306,8 @@ class AbstractNode(core.Structure):
 		:param value: Attribute value. ( String )
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "identity"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "identity"))
 
 	@identity.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -307,7 +316,8 @@ class AbstractNode(core.Structure):
 		This method is the deleter method for **self.__identity** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "identity"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "identity"))
 
 	@property
 	def name(self):
@@ -339,7 +349,8 @@ class AbstractNode(core.Structure):
 		This method is the deleter method for **self.__name** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "name"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "name"))
 
 	#******************************************************************************************************************
 	#***	Class methods.
@@ -361,7 +372,9 @@ class AbstractNode(core.Structure):
 		
 		:return: Object hash. ( Integer )
 		
-		:note: :class:`core.Structure` inherits from **dict** and should not be made hashable because of its mutability, however considering the fact the unique node identity is used as the hash value, making the object hashable should be safe. 
+		:note: :class:`core.Structure` inherits from **dict** and should not be made hashable because of its mutability,
+		however considering the fact the unique node identity is used as the hash value,
+		making the object hashable should be safe. 
 		"""
 
 		return hash(self.__identity)
@@ -488,7 +501,8 @@ class AbstractNode(core.Structure):
 		"""
 
 		if not issubclass(value.__class__, Attribute):
-			raise foundations.exceptions.NodeAttributeTypeError("Node attribute value must be a '{0}' class instance!".format(Attribute.__class__.__name__))
+			raise foundations.exceptions.NodeAttributeTypeError(
+			"Node attribute value must be a '{0}' class instance!".format(Attribute.__class__.__name__))
 
 		if self.attributeExists(name):
 			raise foundations.exceptions.NodeAttributeExistsError("Node attribute '{0}' already exists!".format(name))
@@ -574,7 +588,8 @@ class AbstractCompositeNode(AbstractNode):
 		"""
 
 		if value:
-			assert issubclass(value.__class__, AbstractNode), "'{0}' attribute: '{1}' is not a '{2}' subclass!".format("parent", value, AbstractNode.__class__.__name__)
+			assert issubclass(value.__class__, AbstractNode), "'{0}' attribute: '{1}' is not a '{2}' subclass!".format(
+			"parent", value, AbstractNode.__class__.__name__)
 		self.__parent = value
 
 	@parent.deleter
@@ -584,7 +599,8 @@ class AbstractCompositeNode(AbstractNode):
 		This method is the deleter method for **self.__parent** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "name"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "name"))
 
 	@property
 	def children(self):
@@ -608,7 +624,8 @@ class AbstractCompositeNode(AbstractNode):
 		if value:
 			assert type(value) is list, "'{0}' attribute: '{1}' type is not 'list'!".format("children", value)
 			for element in value:
-				assert issubclass(element.__class__, AbstractNode), "'{0}' attribute: '{1}' is not a '{2}' subclass!".format("children", element, AbstractNode.__class__.__name__)
+				assert issubclass(element.__class__, AbstractNode), "'{0}' attribute: '{1}' is not a \
+				'{2}' subclass!".format("children", element, AbstractNode.__class__.__name__)
 		self.__children = value
 
 	@children.deleter
@@ -618,7 +635,8 @@ class AbstractCompositeNode(AbstractNode):
 		This method is the deleter method for **self.__children** attribute.
 		"""
 
-		raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "children"))
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "children"))
 
 	#******************************************************************************************************************
 	#***	Class methods.

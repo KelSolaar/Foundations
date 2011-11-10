@@ -72,56 +72,275 @@ STANDARD_FILES = {"component" : COMPONENT_FILE,
 STANDARD_FILES_RAW_SECTIONS = {"component" : None,
 					"iblSet" : None,
 					"template" : ("Script",)}
-STANDARD_FILES_SECTIONS_AND_ATTRIBUTES = {"component" : OrderedDict([("Component", {"stripped" : ["Name", "Title", "Module", "Object", "Rank", "Version"],
-																"namespaced" : ["Component|Name", "Component|Title", "Component|Module", "Component|Object", "Component|Rank", "Component|Version"]}),
-													("Informations", {"stripped" : ["Author", "Email", "Url", "Description"],
-																"namespaced" : ["Informations|Author", "Informations|Email", "Informations|Url", "Informations|Description"]})]),
-							"iblSet" : OrderedDict([("Header", {"stripped" : ["ICOfile", "Name", "Author", "Location", "Comment", "GEOlat", "GEOlong", "Link", "Date", "Time", "Height", "North"],
-															"namespaced" : ["Header|ICOfile", "Header|Name", "Header|Author", "Header|Location", "Header|Comment", "Header|GEOlat", "Header|GEOlong", "Header|Link", "Header|Date", "Header|Time", "Header|Height", "Header|North"]}),
-												("Background", {"stripped" : ["BGfile", "BGmap", "BGu", "BGv", "BGheight"],
-															"namespaced" : ["Background|BGfile", "Background|BGmap", "Background|BGu", "Background|BGv", "Background|BGheight"]}),
-												("Enviroment", {"stripped" : ["EVfile", "EVmap", "EVu", "EVv", "EVheight", "EVmulti", "EVgamma"],
-															"namespaced" : ["Enviroment|EVfile", "Enviroment|EVmap", "Enviroment|EVu", "Enviroment|EVv", "Enviroment|EVheight", "Enviroment|EVmulti", "Enviroment|EVgamma"]}),
-												("Reflection", {"stripped" : ["REFfile", "REFmap", "REFu", "REFv", "REFheight", "REFmulti", "REFgamma"],
-															"namespaced" : ["Reflection|REFfile", "Reflection|REFmap", "Reflection|REFu", "Reflection|REFv", "Reflection|REFheight", "Reflection|REFmulti", "Reflection|REFgamma"]}),
-												("Sun", {"stripped" : ["SUNcolor", "SUNmulti", "SUNu", "SUNv"],
-															"namespaced" : ["Sun|SUNcolor", "Sun|SUNmulti", "Sun|SUNu", "Sun|SUNv"]}),
-												("Light1", {"stripped" : ["LIGHTname", "LIGHTcolor", "LIGHTmulti", "LIGHTu", "LIGHTv"],
-															"namespaced" : ["Light1|LIGHTname", "Light1|LIGHTcolor", "Light1|LIGHTmulti", "Light1|LIGHTu", "Light1|LIGHTv"]})]),
-							"template" : OrderedDict([("Template", {"stripped" : ["Name", "Path", "HelpFile", "Release", "Date", "Author", "Email", "Url", "Software", "Version", "Renderer", "OutputScript", "Comment"],
-																"namespaced" : ["Template|Name", "Template|Path", "Template|HelpFile", "Template|Release", "Template|Date", "Template|Author", "Template|Email", "Template|Url", "Template|Software", "Template|Version", "Template|Renderer", "Template|OutputScript", "Template|Comment"]}),
-													("sIBL File Attributes", {"stripped" : ["Background|BGfile", "Background|BGheight", "Enviroment|EVfile", "Enviroment|EVmulti", "Enviroment|EVgamma", "Reflection|REFfile", "Reflection|REFmulti", "Reflection|REFgamma", "Sun|SUNu", "Sun|SUNv", "Sun|SUNcolor", "Sun|SUNmulti", "Header|Height", "Header|North", "Lights|DynamicLights"],
-																"namespaced" : ["sIBL File Attributes|Background|BGfile", "sIBL File Attributes|Background|BGheight", "sIBL File Attributes|Enviroment|EVfile", "sIBL File Attributes|Enviroment|EVmulti", "sIBL File Attributes|Enviroment|EVgamma", "sIBL File Attributes|Reflection|REFfile", "sIBL File Attributes|Reflection|REFmulti", "sIBL File Attributes|Reflection|REFgamma", "sIBL File Attributes|Sun|SUNu", "sIBL File Attributes|Sun|SUNv", "sIBL File Attributes|Sun|SUNcolor", "sIBL File Attributes|Sun|SUNmulti", "sIBL File Attributes|Header|Height", "sIBL File Attributes|Header|North", "sIBL File Attributes|Lights|DynamicLights"]}),
-													("Common Attributes", {"stripped" : ["createBackground", "createLighting", "createReflection", "createSun", "createLights"],
-																"namespaced" : ["Common Attributes|createBackground", "Common Attributes|createLighting", "Common Attributes|createReflection", "Common Attributes|createSun", "Common Attributes|createLights"]}),
-													("Additional Attributes", {"stripped" : ["preserveSessionSettings", "createFeedBack", "createGround", "shadowCatcher", "hideLights", "physicalSun", "activateFinalGather", "activateLinearWorkflow", "framebufferGamma", "photographicTonemapper", "showCamerasDialog"],
-																"namespaced" : ["Additional Attributes|preserveSessionSettings", "Additional Attributes|createFeedBack", "Additional Attributes|createGround", "Additional Attributes|shadowCatcher", "Additional Attributes|hideLights", "Additional Attributes|physicalSun", "Additional Attributes|activateFinalGather", "Additional Attributes|activateLinearWorkflow", "Additional Attributes|framebufferGamma", "Additional Attributes|photographicTonemapper", "Additional Attributes|showCamerasDialog"]}),
-													("Remote Connection", {"stripped" : ["ConnectionType", "ExecutionCommand", "DefaultAddress", "DefaultPort"],
-																"namespaced" : ["Remote Connection|ConnectionType", "Remote Connection|ExecutionCommand", "Remote Connection|DefaultAddress", "Remote Connection|DefaultPort"]}),
-													("Script", {"stripped" : ["_rawSectionContent"],
-																"namespaced" : ["_rawSectionContent"]})])}
+STANDARD_FILES_SECTIONS_AND_ATTRIBUTES = {"component" : OrderedDict([("Component", 
+																{"stripped" : ["Name",
+																				"Title",
+																				"Module",
+																				"Object",
+																				"Rank",
+																				"Version"],
+																"namespaced" : ["Component|Name", 
+																				"Component|Title", 
+																				"Component|Module", 
+																				"Component|Object", 
+																				"Component|Rank", 
+																				"Component|Version"]}),
+																("Informations", 
+																{"stripped" : ["Author",
+																				"Email",
+																				"Url",
+																				"Description"],
+																"namespaced" : ["Informations|Author",
+																				"Informations|Email",
+																				"Informations|Url",
+																				"Informations|Description"]})]),
+											"iblSet" : OrderedDict([("Header",
+																	{"stripped" : ["ICOfile",
+																					"Name",
+																					"Author",
+																					"Location",
+																					"Comment",
+																					"GEOlat",
+																					"GEOlong",
+																					"Link",
+																					"Date",
+																					"Time",
+																					"Height",
+																					"North"],
+																	"namespaced" : ["Header|ICOfile",
+																					"Header|Name",
+																					"Header|Author",
+																					"Header|Location",
+																					"Header|Comment",
+																					"Header|GEOlat",
+																					"Header|GEOlong",
+																					"Header|Link",
+																					"Header|Date",
+																					"Header|Time",
+																					"Header|Height",
+																					"Header|North"]}),
+																	("Background",
+																	{"stripped" : ["BGfile",
+																					"BGmap",
+																					"BGu",
+																					"BGv",
+																					"BGheight"],
+																	"namespaced" : ["Background|BGfile",
+																					"Background|BGmap",
+																					"Background|BGu",
+																					"Background|BGv",
+																					"Background|BGheight"]}),
+																	("Enviroment",
+																	{"stripped" : ["EVfile",
+																					"EVmap",
+																					"EVu",
+																					"EVv",
+																					"EVheight",
+																					"EVmulti",
+																					"EVgamma"],
+																	"namespaced" : ["Enviroment|EVfile",
+																					"Enviroment|EVmap",
+																					"Enviroment|EVu",
+																					"Enviroment|EVv",
+																					"Enviroment|EVheight",
+																					"Enviroment|EVmulti",
+																					"Enviroment|EVgamma"]}),
+																	("Reflection",
+																	{"stripped" : ["REFfile",
+																					"REFmap",
+																					"REFu",
+																					"REFv",
+																					"REFheight",
+																					"REFmulti",
+																					"REFgamma"],
+																	"namespaced" : ["Reflection|REFfile",
+																					"Reflection|REFmap",
+																					"Reflection|REFu",
+																					"Reflection|REFv",
+																					"Reflection|REFheight",
+																					"Reflection|REFmulti",
+																					"Reflection|REFgamma"]}),
+																	("Sun",
+																	{"stripped" : ["SUNcolor",
+																					"SUNmulti",
+																					"SUNu",
+																					"SUNv"],
+																	"namespaced" : ["Sun|SUNcolor",
+																					"Sun|SUNmulti",
+																					"Sun|SUNu",
+																					"Sun|SUNv"]}),
+																	("Light1",
+																	{"stripped" : ["LIGHTname",
+																					"LIGHTcolor",
+																					"LIGHTmulti",
+																					"LIGHTu",
+																					"LIGHTv"],
+																	"namespaced" : ["Light1|LIGHTname",
+																					"Light1|LIGHTcolor",
+																					"Light1|LIGHTmulti",
+																					"Light1|LIGHTu",
+																					"Light1|LIGHTv"]})]),
+								"template" : OrderedDict([("Template",
+														{"stripped" : ["Name",
+																		"Path",
+																		"HelpFile",
+																		"Release",
+																		"Date",
+																		"Author",
+																		"Email",
+																		"Url",
+																		"Software",
+																		"Version",
+																		"Renderer",
+																		"OutputScript",
+																		"Comment"],
+														"namespaced" : ["Template|Name",
+																		"Template|Path",
+																		"Template|HelpFile",
+																		"Template|Release",
+																		"Template|Date",
+																		"Template|Author",
+																		"Template|Email",
+																		"Template|Url",
+																		"Template|Software",
+																		"Template|Version",
+																		"Template|Renderer",
+																		"Template|OutputScript",
+																		"Template|Comment"]}),
+														("sIBL File Attributes",
+														{"stripped" : ["Background|BGfile",
+																		"Background|BGheight",
+																		"Enviroment|EVfile",
+																		"Enviroment|EVmulti",
+																		"Enviroment|EVgamma",
+																		"Reflection|REFfile",
+																		"Reflection|REFmulti",
+																		"Reflection|REFgamma",
+																		"Sun|SUNu", "Sun|SUNv",
+																		"Sun|SUNcolor",
+																		"Sun|SUNmulti",
+																		"Header|Height",
+																		"Header|North",
+																		"Lights|DynamicLights"],
+														"namespaced" : ["sIBL File Attributes|Background|BGfile",
+																		"sIBL File Attributes|Background|BGheight",
+																		"sIBL File Attributes|Enviroment|EVfile",
+																		"sIBL File Attributes|Enviroment|EVmulti",
+																		"sIBL File Attributes|Enviroment|EVgamma",
+																		"sIBL File Attributes|Reflection|REFfile",
+																		"sIBL File Attributes|Reflection|REFmulti",
+																		"sIBL File Attributes|Reflection|REFgamma",
+																		"sIBL File Attributes|Sun|SUNu",
+																		"sIBL File Attributes|Sun|SUNv",
+																		"sIBL File Attributes|Sun|SUNcolor",
+																		"sIBL File Attributes|Sun|SUNmulti",
+																		"sIBL File Attributes|Header|Height",
+																		"sIBL File Attributes|Header|North",
+																		"sIBL File Attributes|Lights|DynamicLights"]}),
+														("Common Attributes",
+														{"stripped" : ["createBackground",
+																		"createLighting",
+																		"createReflection",
+																		"createSun",
+																		"createLights"],
+														"namespaced" : ["Common Attributes|createBackground",
+																		"Common Attributes|createLighting",
+																		"Common Attributes|createReflection",
+																		"Common Attributes|createSun",
+																		"Common Attributes|createLights"]}),
+														("Additional Attributes",
+														{"stripped" : ["preserveSessionSettings",
+																		"createFeedBack",
+																		"createGround",
+																		"shadowCatcher",
+																		"hideLights",
+																		"physicalSun",
+																		"activateFinalGather",
+																		"activateLinearWorkflow",
+																		"framebufferGamma",
+																		"photographicTonemapper",
+																		"showCamerasDialog"],
+														"namespaced" : ["Additional Attributes|preserveSessionSettings",
+																		"Additional Attributes|createFeedBack",
+																		"Additional Attributes|createGround",
+																		"Additional Attributes|shadowCatcher",
+																		"Additional Attributes|hideLights",
+																		"Additional Attributes|physicalSun", 
+																		"Additional Attributes|activateFinalGather",
+																		"Additional Attributes|activateLinearWorkflow",
+																		"Additional Attributes|framebufferGamma",
+																		"Additional Attributes|photographicTonemapper",
+																		"Additional Attributes|showCamerasDialog"]}),
+														("Remote Connection",
+														{"stripped" : ["ConnectionType",
+																		"ExecutionCommand",
+																		"DefaultAddress",
+																		"DefaultPort"],
+														"namespaced" : ["Remote Connection|ConnectionType",
+																		"Remote Connection|ExecutionCommand",
+																		"Remote Connection|DefaultAddress",
+																		"Remote Connection|DefaultPort"]}),
+														("Script",
+														{"stripped" : ["_rawSectionContent"],
+														"namespaced" : ["_rawSectionContent"]})])}
 
-DEFAULTS_FILE_SECTIONS_AND_ATTRIBUTES = {"_defaults" : {"_defaults|Default A" : "Attribute 'Default A' value", "_defaults|Default B" : "Attribute 'Default B' value"},
+DEFAULTS_FILE_SECTIONS_AND_ATTRIBUTES = {"_defaults" : {"_defaults|Default A" : "Attribute 'Default A' value",
+														"_defaults|Default B" : "Attribute 'Default B' value"},
 									"Options A" : {"Options A|John Doe" : "Unknown"},
 									"Options B" : {"Options B|Jane Doe" : "Unknown"}}
 
 STRIPPING_FILE_SECTIONS_AND_ATTRIBUTES_STRIPPED = {"Stripping A" : {"Stripping A|John Doe" : "\"Unknown\""},
 													"Stripping B" : {"Stripping B|Jane Doe" : "\"Unknown\""}}
 
-STRIPPING_FILE_SECTIONS_AND_ATTRIBUTES_NON_STRIPPED = {"	Stripping A	" : {"	Stripping A	|	John Doe	" : "	\"Unknown\"	"},
+STRIPPING_FILE_SECTIONS_AND_ATTRIBUTES_NON_STRIPPED = {"	Stripping A	" : {"	Stripping A	|	John Doe	" :
+																			"	\"Unknown\"	"},
 													" Stripping B " : {" Stripping B | Jane Doe " : " \"Unknown\" "}}
 
-PARSING_ERRORS_LINES_AND_VALUES = {3 : "Attribute structure is invalid: {}".format("This statement will produce the line nº '3' parsing error.\n"),
-									6 : "Attribute structure is invalid: {}".format("This statement will produce the line nº '6' parsing error.\n"),
-									12 : "Attribute structure is invalid: {}".format("This statement will produce the line nº '12' parsing error.\n")}
+PARSING_ERRORS_LINES_AND_VALUES = {3 : "Attribute structure is invalid: {}".format(
+										"This statement will produce the line nº '3' parsing error.\n"),
+									6 : "Attribute structure is invalid: {}".format(
+										"This statement will produce the line nº '6' parsing error.\n"),
+									12 : "Attribute structure is invalid: {}".format(
+										"This statement will produce the line nº '12' parsing error.\n")}
 
-RANDOM_ATTRIBUTES = {"component" : {"Component|Name" : "core.db", "Component|Module" : "db", "Informations|Author" : "Thomas Mansencal", "Informations|Email" : "thomas.mansencal@gmail.com"},
-					"iblSet" : {"Header|ICOfile" : "Icon.jpg", "Header|Name" : "Standard", "Header|Comment" : "Testing Foundations with units tests = fun!", "Background|BGfile" : "Standard_Background.jpg", "Background|BGmap" : "1", "Enviroment|EVfile" : "Standard_Lighting.jpg", "Enviroment|EVmap" : "1", "Reflection|REFfile" : "Standard_Reflection.jpg", "Reflection|REFmap" : "1", "Sun|SUNcolor" : "240,250,255", "Sun|SUNmulti" : "1.0", "Light1|LIGHTcolor" : "250,220,190", "Light1|LIGHTmulti" : "0.75"},
-					"template" : {"Template|Name" : "@Name | Standard | String | Template Name", "Template|Path" : "@Path | | String | Template Path", "sIBL File Attributes|Background|BGfile" : "@BGfile", "sIBL File Attributes|Background|BGheight" : "@BGheight", "Common Attributes|createBackground" : "@createBackground | 1 | Boolean | Create Background", "Common Attributes|createLighting" : "@createLighting | 1 | Boolean | Create Lighting", "Additional Attributes|preserveSessionSettings" : "@preserveSessionSettings | 1 | Boolean | Preserve Session Settings", "Additional Attributes|createFeedBack" : "@createFeedBack | 1 | Boolean | Create Feedback", "Remote Connection|ConnectionType" : "@ConnectionType | Socket | String | Connection Type", "Remote Connection|ExecutionCommand" : "@ExecutionCommand | source \"$loaderScriptPath\"; | String | ExecutionCommand"}}
+RANDOM_ATTRIBUTES = {"component" : {"Component|Name" : "core.db",
+									"Component|Module" : "db",
+									"Informations|Author" : "Thomas Mansencal",
+									"Informations|Email" : "thomas.mansencal@gmail.com"},
+					"iblSet" : {"Header|ICOfile" : "Icon.jpg",
+								"Header|Name" : "Standard",
+								"Header|Comment" : "Testing Foundations with units tests = fun!",
+								"Background|BGfile" : "Standard_Background.jpg", 
+								"Background|BGmap" : "1",
+								"Enviroment|EVfile" : "Standard_Lighting.jpg",
+								"Enviroment|EVmap" : "1",
+								"Reflection|REFfile" : "Standard_Reflection.jpg",
+								"Reflection|REFmap" : "1",
+								"Sun|SUNcolor" : "240,250,255",
+								"Sun|SUNmulti" : "1.0",
+								"Light1|LIGHTcolor" : "250,220,190",
+								"Light1|LIGHTmulti" : "0.75"},
+					"template" : {"Template|Name" : "@Name | Standard | String | Template Name",
+								"Template|Path" : "@Path | | String | Template Path",
+								"sIBL File Attributes|Background|BGfile" : "@BGfile",
+								"sIBL File Attributes|Background|BGheight" : "@BGheight",
+								"Common Attributes|createBackground" : "@createBackground | 1 | Boolean | Create Background",
+								"Common Attributes|createLighting" : "@createLighting | 1 | Boolean | Create Lighting",
+								"Additional Attributes|preserveSessionSettings" :
+								"@preserveSessionSettings | 1 | Boolean | Preserve Session Settings",
+								"Additional Attributes|createFeedBack" :
+								"@createFeedBack | 1 | Boolean | Create Feedback",
+								"Remote Connection|ConnectionType" : "@ConnectionType | Socket | String | Connection Type",
+								"Remote Connection|ExecutionCommand" :
+								"@ExecutionCommand | source \"$loaderScriptPath\"; | String | ExecutionCommand"}}
 
-RANDOM_COMMENTS = {"component" : {"Component|#0" : {"content" : "Component comment for tests purpose.", "id" : 0}, "Informations|#1" : {"content" : "Informations comment for tests purpose.", "id" : 1}},
-					"iblSet" : {"Header|#0" : {"content" : "Header comment for tests purpose.", "id" : 0}, "Header|#1" : {"content" : "Additional header comment for tests purpose.", "id" : 1}},
-					"template" : {"Template|#0" : {"content" : "Template comment for tests purpose.", "id" : 0}, "sIBL File Attributes|#1" : {"content" : "sIBL File Attributes comment for tests purpose.", "id" : 1}}}
+RANDOM_COMMENTS = {"component" : {"Component|#0" : {"content" : "Component comment for tests purpose.", "id" : 0},
+								"Informations|#1" : {"content" : "Informations comment for tests purpose.", "id" : 1}},
+					"iblSet" : {"Header|#0" : {"content" : "Header comment for tests purpose.", "id" : 0},
+								"Header|#1" : {"content" : "Additional header comment for tests purpose.", "id" : 1}},
+					"template" : {"Template|#0" : {"content" : "Template comment for tests purpose.", "id" : 0},
+								"sIBL File Attributes|#1" : {"content" :
+														"sIBL File Attributes comment for tests purpose.", "id" : 1}}}
 
 SCRIPT_RAW_SECTION = [ "// @OutputScript - @Release for @Software @Version\n",
 						"// Author: @Author\n",
@@ -249,7 +468,8 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 		for type, file in STANDARD_FILES.items():
 			sectionsFileParser = SectionsFileParser(file)
-			sectionsFileParser.read() and sectionsFileParser.parse(rawSections=STANDARD_FILES_RAW_SECTIONS[type], namespaces=False)
+			sectionsFileParser.read() and sectionsFileParser.parse(rawSections=STANDARD_FILES_RAW_SECTIONS[type],
+																	namespaces=False)
 			for section in STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type]:
 					for attribute in sectionsFileParser.sections[section]:
 						self.assertIn(attribute, STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type][section]["stripped"])
@@ -311,8 +531,10 @@ class SectionsFileParserTestCase(unittest.TestCase):
 			sectionsFileParser = SectionsFileParser(file)
 			sectionsFileParser.read() and sectionsFileParser.parse(False, rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			for attribute in RANDOM_ATTRIBUTES[type].keys():
-				self.assertTrue(sectionsFileParser.attributeExists(attribute, namespace.getNamespace(attribute, rootOnly=True)))
-				self.assertFalse(sectionsFileParser.attributeExists("Unknown", namespace.getNamespace(attribute, rootOnly=True)))
+				self.assertTrue(sectionsFileParser.attributeExists(attribute, namespace.getNamespace(attribute,
+																									rootOnly=True)))
+				self.assertFalse(sectionsFileParser.attributeExists("Unknown", namespace.getNamespace(attribute,
+																									rootOnly=True)))
 
 	def testGetAttributes(self):
 		"""
@@ -323,8 +545,11 @@ class SectionsFileParserTestCase(unittest.TestCase):
 			sectionsFileParser = SectionsFileParser(file)
 			sectionsFileParser.read() and sectionsFileParser.parse(rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			for section in STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type]:
-					self.assertListEqual(sectionsFileParser.getAttributes(section, orderedDictionary=True, stripNamespaces=True).keys(), STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type][section]["stripped"])
-					self.assertListEqual(sectionsFileParser.getAttributes(section).keys(), STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type][section]["namespaced"])
+					self.assertListEqual(sectionsFileParser.getAttributes(
+					section, orderedDictionary=True, stripNamespaces=True).keys(),
+					STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type][section]["stripped"])
+					self.assertListEqual(sectionsFileParser.getAttributes(section).keys(),
+					STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type][section]["namespaced"])
 
 	def testGetAllAttributes(self):
 		"""
@@ -349,9 +574,13 @@ class SectionsFileParserTestCase(unittest.TestCase):
 			sectionsFileParser = SectionsFileParser(file)
 			sectionsFileParser.read() and sectionsFileParser.parse(False, rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			for attribute, value in RANDOM_ATTRIBUTES[type].items():
-				self.assertIsInstance(sectionsFileParser.getValue(attribute, namespace.getNamespace(attribute, rootOnly=True)), str)
-				self.assertIsInstance(sectionsFileParser.getValue(attribute, namespace.getNamespace(attribute, rootOnly=True), encode=True), unicode)
-				self.assertEqual(sectionsFileParser.getValue(attribute, namespace.getNamespace(attribute, rootOnly=True)), value)
+				self.assertIsInstance(sectionsFileParser.getValue(attribute, namespace.getNamespace(attribute,
+																									rootOnly=True)), str)
+				self.assertIsInstance(sectionsFileParser.getValue(attribute, namespace.getNamespace(attribute,
+																									rootOnly=True),
+																									encode=True), unicode)
+				self.assertEqual(sectionsFileParser.getValue(attribute, namespace.getNamespace(attribute,
+																								rootOnly=True)), value)
 
 	def testWrite(self):
 		"""
@@ -361,7 +590,8 @@ class SectionsFileParserTestCase(unittest.TestCase):
 		# Standard sections files.
 		for type, file in STANDARD_FILES.items():
 			readSectionsFileParser = SectionsFileParser(file)
-			readSectionsFileParser.read() and readSectionsFileParser.parse(stripComments=False, rawSections=STANDARD_FILES_RAW_SECTIONS[type])
+			readSectionsFileParser.read() and \
+			readSectionsFileParser.parse(stripComments=False, rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 
 			writeSectionsFileParser = SectionsFileParser(tempfile.mkstemp()[1])
 			writeSectionsFileParser.sections = readSectionsFileParser.sections
@@ -369,14 +599,17 @@ class SectionsFileParserTestCase(unittest.TestCase):
 			writeSectionsFileParser.write()
 
 			checkingSectionsFileParser = SectionsFileParser(writeSectionsFileParser.file)
-			checkingSectionsFileParser.read() and checkingSectionsFileParser.parse(stripComments=False, rawSections=STANDARD_FILES_RAW_SECTIONS[type])
+			checkingSectionsFileParser.read() and checkingSectionsFileParser.parse(stripComments=False,
+																			rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			self.assertDictEqual(readSectionsFileParser.sections, checkingSectionsFileParser.sections)
 			os.remove(writeSectionsFileParser.file)
 
 		# Standard sections files with namespaces.
 		for type, file in STANDARD_FILES.items():
 			readSectionsFileParser = SectionsFileParser(file)
-			readSectionsFileParser.read() and readSectionsFileParser.parse(namespaces=True, stripComments=False, rawSections=STANDARD_FILES_RAW_SECTIONS[type])
+			readSectionsFileParser.read() and readSectionsFileParser.parse(namespaces=True,
+																			stripComments=False,
+																			rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 
 			writeSectionsFileParser = SectionsFileParser(tempfile.mkstemp()[1])
 			writeSectionsFileParser.sections = readSectionsFileParser.sections
@@ -384,7 +617,9 @@ class SectionsFileParserTestCase(unittest.TestCase):
 			writeSectionsFileParser.write(namespaces=True)
 
 			checkingSectionsFileParser = SectionsFileParser(writeSectionsFileParser.file)
-			checkingSectionsFileParser.read() and checkingSectionsFileParser.parse(namespaces=False, stripComments=False, rawSections=STANDARD_FILES_RAW_SECTIONS[type])
+			checkingSectionsFileParser.read() and checkingSectionsFileParser.parse(namespaces=False,
+																			stripComments=False,
+																			rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			self.assertDictEqual(readSectionsFileParser.sections, checkingSectionsFileParser.sections)
 			os.remove(writeSectionsFileParser.file)
 
@@ -411,11 +646,16 @@ class GetAttributeCompoundTestCase(unittest.TestCase):
 		This method tests :func:`foundations.parsers.getAttributeCompound` definition.
 		"""
 
-		self.assertIsInstance(foundations.parsers.getAttributeCompound("Attribute", "Value"), foundations.parsers.AttributeCompound)
+		self.assertIsInstance(foundations.parsers.getAttributeCompound("Attribute", "Value"),
+							foundations.parsers.AttributeCompound)
 
 		self.assertEqual(None, foundations.parsers.getAttributeCompound("Attribute").value)
 
-		compound = foundations.parsers.AttributeCompound(name="Attribute", value="Value", link="@Link", type="Boolean", alias="Link Parameter")
+		compound = foundations.parsers.AttributeCompound(name="Attribute",
+														value="Value",
+														link="@Link",
+														type="Boolean",
+														alias="Link Parameter")
 		data = "@Link | Value | Boolean | Link Parameter"
 		self.assertEqual(compound.name, foundations.parsers.getAttributeCompound("Attribute", data).name)
 		self.assertEqual(compound.value, foundations.parsers.getAttributeCompound("Attribute", data).value)
