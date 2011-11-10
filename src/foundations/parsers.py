@@ -523,9 +523,8 @@ class SectionsFileParser(io.File):
 			assert type(value) is list, "'{0}' attribute: '{1}' type is not 'list'!".format("parsingErrors", value)
 			for element in value:
 				assert issubclass(element.__class__, foundations.exceptions.AbstractParsingError), \
-				"'{0}' attribute: '{1}' is not a '{2}' subclass!".format("parsingErrors",
-																		element,
-																		foundations.exceptions.AbstractParsingError.__class__.__name__)
+				"'{0}' attribute: '{1}' is not a '{2}' subclass!".format(
+				"parsingErrors", element, foundations.exceptions.AbstractParsingError.__class__.__name__)
 		self.__parsingErrors = value
 
 	@parsingErrors.deleter
