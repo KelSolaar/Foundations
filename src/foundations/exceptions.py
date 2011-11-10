@@ -213,7 +213,7 @@ class AbstractError(Exception):
 		This method is the deleter method for **self.__value** attribute.
 		"""
 
-		raise Exception("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "logger"))
+		raise Exception("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "value"))
 
 	#******************************************************************************************************************
 	#***	Class methods.
@@ -296,7 +296,7 @@ class AttributeStructureParsingError(AbstractParsingError):
 		This method is the deleter method for **self.__line** attribute.
 		"""
 
-		raise Exception("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "logger"))
+		raise Exception("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "line"))
 
 	#******************************************************************************************************************
 	#***	Class methods.
