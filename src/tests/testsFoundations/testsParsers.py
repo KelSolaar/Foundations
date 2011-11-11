@@ -17,6 +17,7 @@
 #**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
+import datetime
 import os
 import tempfile
 import unittest
@@ -27,6 +28,8 @@ from collections import OrderedDict
 #**********************************************************************************************************************
 import foundations.namespace as namespace
 import foundations.parsers
+import foundations.walkers
+from foundations.parsers import PlistFileParser
 from foundations.parsers import SectionsFileParser
 
 #**********************************************************************************************************************
@@ -66,26 +69,27 @@ TEMPLATE_FILE = os.path.join(RESOURCES_DIRECTORY, "standard.sIBLT")
 DEFAULTS_FILE = os.path.join(RESOURCES_DIRECTORY, "defaults.rc")
 STRIPPING_FILE = os.path.join(RESOURCES_DIRECTORY, "stripping.rc")
 PARSING_ERRORS_FILE = os.path.join(RESOURCES_DIRECTORY, "parsingErrors.rc")
+PLIST_FILE = os.path.join(RESOURCES_DIRECTORY, "standard.plist")
 STANDARD_FILES = {"component" : COMPONENT_FILE,
 		"iblSet" : IBL_SET_FILE,
 		"template" : TEMPLATE_FILE}
 STANDARD_FILES_RAW_SECTIONS = {"component" : None,
 					"iblSet" : None,
 					"template" : ("Script",)}
-STANDARD_FILES_SECTIONS_AND_ATTRIBUTES = {"component" : OrderedDict([("Component", 
+STANDARD_FILES_SECTIONS_AND_ATTRIBUTES = {"component" : OrderedDict([("Component",
 																{"stripped" : ["Name",
 																				"Title",
 																				"Module",
 																				"Object",
 																				"Rank",
 																				"Version"],
-																"namespaced" : ["Component|Name", 
-																				"Component|Title", 
-																				"Component|Module", 
-																				"Component|Object", 
-																				"Component|Rank", 
+																"namespaced" : ["Component|Name",
+																				"Component|Title",
+																				"Component|Module",
+																				"Component|Object",
+																				"Component|Rank",
 																				"Component|Version"]}),
-																("Informations", 
+																("Informations",
 																{"stripped" : ["Author",
 																				"Email",
 																				"Url",
@@ -265,7 +269,7 @@ STANDARD_FILES_SECTIONS_AND_ATTRIBUTES = {"component" : OrderedDict([("Component
 																		"Additional Attributes|createGround",
 																		"Additional Attributes|shadowCatcher",
 																		"Additional Attributes|hideLights",
-																		"Additional Attributes|physicalSun", 
+																		"Additional Attributes|physicalSun",
 																		"Additional Attributes|activateFinalGather",
 																		"Additional Attributes|activateLinearWorkflow",
 																		"Additional Attributes|framebufferGamma",
@@ -310,7 +314,7 @@ RANDOM_ATTRIBUTES = {"component" : {"Component|Name" : "core.db",
 					"iblSet" : {"Header|ICOfile" : "Icon.jpg",
 								"Header|Name" : "Standard",
 								"Header|Comment" : "Testing Foundations with units tests = fun!",
-								"Background|BGfile" : "Standard_Background.jpg", 
+								"Background|BGfile" : "Standard_Background.jpg",
 								"Background|BGmap" : "1",
 								"Enviroment|EVfile" : "Standard_Lighting.jpg",
 								"Enviroment|EVmap" : "1",
@@ -352,6 +356,14 @@ SCRIPT_RAW_SECTION = [ "// @OutputScript - @Release for @Software @Version\n",
 						"string $backgroundFilePath = \"@BGfile\";\n",
 						"int $backgroundWidth = @BGheight*2;\n",
 						"string $lightingFilePath = \"@EVfile\";\n" ]
+
+PLIST_FILE_CONTENT = {"Dictionary A": {"String C" : "My Value C", "String B" : "My Value B"},
+					"Number A" : 123456789,
+					"Array A" : ["My Value A", "My Value B", "My Value C"],
+					"String A" : "My Value A",
+					"Date A" : datetime.datetime(2000, 1, 1, 0, 0),
+					"Boolean A" : True,
+					"Data A" : "My Value B"}
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
@@ -635,6 +647,81 @@ class SectionsFileParserTestCase(unittest.TestCase):
 		checkingSectionsFileParser = SectionsFileParser(writeSectionsFileParser.file)
 		checkingSectionsFileParser.read() and checkingSectionsFileParser.parse()
 		os.remove(writeSectionsFileParser.file)
+
+class PlistFileParserTestCase(unittest.TestCase):
+	"""
+	This class defines :class:`foundations.parsers.PlistFileParser` class units tests methods.
+	"""
+
+	def testRequiredAttributes(self):
+		"""
+		This method tests presence of required attributes.
+		"""
+
+		requiredAttributes = ("file",
+								"content",
+								"elements",
+								"parsingErrors",
+								"unserializers")
+
+		for attribute in requiredAttributes:
+			self.assertIn(attribute, dir(PlistFileParser))
+
+	def testRequiredMethods(self):
+		"""
+		This method tests presence of required methods.
+		"""
+
+		requiredMethods = ("parse",
+							"elementExists",
+							"filterValues",
+							"getValue")
+
+		for method in requiredMethods:
+			self.assertIn(method, dir(PlistFileParser))
+
+	def testParse(self):
+		"""
+		This method tests :meth:`foundations.parsers.PlistFileParser.parse` method.
+		"""
+
+		plistFileParser = PlistFileParser(PLIST_FILE)
+		self.assertTrue(plistFileParser.parse())
+		self.assertDictEqual(plistFileParser.elements, PLIST_FILE_CONTENT)
+
+	def testElementExists(self):
+		"""
+		This method tests :meth:`foundations.parsers.PlistFileParser.elementExists` method.
+		"""
+
+		plistFileParser = PlistFileParser(PLIST_FILE)
+		plistFileParser.parse()
+		self.assertTrue(plistFileParser.elementExists("String A"))
+		self.assertFalse(plistFileParser.elementExists("String Nemo"))
+
+	def testFilterValues(self):
+		"""
+		This method tests :meth:`foundations.parsers.PlistFileParser.filterValues` method.
+		"""
+
+		plistFileParser = PlistFileParser(PLIST_FILE)
+		plistFileParser.parse()
+		self.assertEqual(plistFileParser.filterValues(r"String A"), [PLIST_FILE_CONTENT["String A"]])
+		self.assertEqual(sorted(plistFileParser.filterValues(r"String.*")), sorted([PLIST_FILE_CONTENT["String A"],
+																	PLIST_FILE_CONTENT["Dictionary A"]["String B"],
+																	PLIST_FILE_CONTENT["Dictionary A"]["String C"]]))
+		self.assertEqual(plistFileParser.filterValues(r"Date A"), [PLIST_FILE_CONTENT["Date A"]])
+
+	def testGetValue(self):
+		"""
+		This method tests :meth:`foundations.parsers.PlistFileParser.getValue` method.
+		"""
+
+		plistFileParser = PlistFileParser(PLIST_FILE)
+		plistFileParser.parse()
+		for item in foundations.walkers.dictionariesWalker(PLIST_FILE_CONTENT):
+			path, element, value = item
+			self.assertEqual(value, plistFileParser.getValue(element))
 
 class GetAttributeCompoundTestCase(unittest.TestCase):
 	"""

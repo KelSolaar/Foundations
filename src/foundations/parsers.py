@@ -8,18 +8,22 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines the :class:`SectionsFileParser` class and others parsing related objects.
+	This module defines the :class:`SectionsFileParser` class, :class:`PlistFileParser` class
+	and others parsing related objects.
 
 **Others:**
-
+	Portions of the code from Fredrik Lundh: http://effbot.org/zone/element-iterparse.htm
 """
 
 #**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
+import base64
+import datetime
 import logging
 import re
 from collections import OrderedDict
+from xml.etree import ElementTree
 
 #**********************************************************************************************************************
 #***	Internal imports.
@@ -29,6 +33,7 @@ import foundations.exceptions
 import foundations.io as io
 import foundations.namespace as namespace
 import foundations.strings
+import foundations.walkers
 from foundations.globals.constants import Constants
 
 #**********************************************************************************************************************
@@ -41,7 +46,7 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["LOGGER", "AttributeCompound", "SectionsFileParser", "getAttributeCompound"]
+__all__ = ["LOGGER", "AttributeCompound", "SectionsFileParser", "PlistFileParser", "getAttributeCompound"]
 
 LOGGER = logging.getLogger(Constants.logger)
 
@@ -863,6 +868,7 @@ class SectionsFileParser(io.File):
 		:obj:`SectionsFileParser.comments class properties content.
 
 		Usage::
+
 			>>> sections = {"Section A": {"Section A|Attribute 1": "Value A"},
 			"Section B": {"Section B|Attribute 2": "Value B"}}
 			>>> sectionsFileParser = SectionsFileParser("SectionsFile.rc")
@@ -935,6 +941,287 @@ class SectionsFileParser(io.File):
 				self.content.append("\n")
 		io.File.write(self)
 		return True
+
+class PlistFileParser(io.File):
+	"""
+	This class provides methods to parse plist files.
+	"""
+
+	@core.executionTrace
+	def __init__(self, file=None):
+		"""
+		This method initializes the class.
+		
+		Usage::
+
+			>>> plistFileParser = PlistFileParser("standard.plist")
+			>>> plistFileParser.parse()
+			True
+			>>> plistFileParser.elements.keys()
+			['Dictionary A', 'Number A', 'Array A', 'String A', 'Date A', 'Boolean A', 'Data A']
+			>>> plistFileParser.elements["Dictionary A"]
+			{'String C': 'My Value C', 'String B': 'My Value B'}
+
+		:param file: Current file path. ( String )
+		"""
+
+		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
+
+		io.File.__init__(self, file)
+
+		# --- Setting class attributes. ---
+		self.__elements = None
+		self.__parsingErrors = None
+
+		self.__unserializers = {"array": lambda x: [value.text for value in x],
+								"dict": lambda x: dict((x[i].text, x[i + 1].text) for i in range(0, len(x), 2)),
+								"key": lambda x: x.text or str(),
+								"string": lambda x: x.text or str(),
+								"data": lambda x: base64.decodestring(x.text or str()),
+								"date": lambda x: datetime.datetime(*map(int, re.findall("\d+", x.text))),
+								"true": lambda x: True,
+								"false": lambda x: False,
+								"real": lambda x: float(x.text),
+								"integer": lambda x: int(x.text)}
+
+	#******************************************************************************************************************
+	#***	Attributes properties.
+	#******************************************************************************************************************
+	@property
+	def elements(self):
+		"""
+		This method is the property for **self.__elements** attribute.
+
+		:return: self.__elements. ( OrderedDict / Dictionary )
+		"""
+
+		return self.__elements
+
+	@elements.setter
+	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
+	def elements(self, value):
+		"""
+		This method is the setter method for **self.__elements** attribute.
+
+		:param value: Attribute value. ( OrderedDict / Dictionary )
+		"""
+
+		if value:
+			assert type(value) is dict, "'{0}' attribute: '{1}' type is not  dict'!".format("elements", value)
+		self.__elements = value
+
+	@elements.deleter
+	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	def elements(self):
+		"""
+		This method is the deleter method for **self.__elements** attribute.
+		"""
+
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "elements"))
+
+	@property
+	def parsingErrors(self):
+		"""
+		This method is the property for **self.__parsingErrors** attribute.
+
+		:return: self.__parsingErrors. ( List )
+		"""
+
+		return self.__parsingErrors
+
+	@parsingErrors.setter
+	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
+	def parsingErrors(self, value):
+		"""
+		This method is the setter method for **self.__parsingErrors** attribute.
+
+		:param value: Attribute value. ( List )
+		"""
+
+		if value:
+			assert type(value) is list, "'{0}' attribute: '{1}' type is not 'list'!".format("parsingErrors", value)
+			for element in value:
+				assert issubclass(element.__class__, foundations.exceptions.AbstractParsingError), \
+				"'{0}' attribute: '{1}' is not a '{2}' subclass!".format(
+				"parsingErrors", element, foundations.exceptions.AbstractParsingError.__class__.__name__)
+		self.__parsingErrors = value
+
+	@parsingErrors.deleter
+	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	def parsingErrors(self):
+		"""
+		This method is the deleter method for **self.__parsingErrors** attribute.
+		"""
+
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "parsingErrors"))
+
+	@property
+	def unserializers(self):
+		"""
+		This method is the property for **self.__unserializers** attribute.
+
+		:return: self.__unserializers. ( Dictionary )
+		"""
+
+		return self.__unserializers
+
+	@unserializers.setter
+	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	def unserializers(self, value):
+		"""
+		This method is the setter method for **self.__unserializers** attribute.
+
+		:param value: Attribute value. ( Dictionary )
+		"""
+
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "unserializers"))
+
+	@unserializers.deleter
+	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	def unserializers(self):
+		"""
+		This method is the deleter method for **self.__unserializers** attribute.
+		"""
+
+		raise foundations.exceptions.ProgrammingError(
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "unserializers"))
+
+	#******************************************************************************************************************
+	#***	Class methods.
+	#******************************************************************************************************************
+	@core.executionTrace
+	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.FileStructureParsingError)
+	def parse(self, raiseParsingErrors=True):
+		"""
+		This method process the file content.
+
+		Usage::
+
+			>>> plistFileParser = PlistFileParser("standard.plist")
+			>>> plistFileParser.parse()
+			True
+			>>> plistFileParser.elements.keys()
+			['Dictionary A', 'Number A', 'Array A', 'String A', 'Date A', 'Boolean A', 'Data A']
+
+		:param raiseParsingErrors: Raise parsing errors. ( Boolean )
+		:return: Method success. ( Boolean )
+		"""
+
+		LOGGER.debug("> Reading elements from: '{0}'.".format(self.file))
+
+		elementTreeParser = ElementTree.iterparse(self.file)
+
+		self.__parsingErrors = []
+		for action, element in elementTreeParser:
+			unmarshal = self.__unserializers.get(element.tag)
+			if unmarshal:
+				data = unmarshal(element)
+				element.clear()
+				element.text = data
+			elif element.tag != "plist":
+				self.__parsingErrors.append(foundations.exceptions.FileStructureParsingError(
+				"Unknown element: {0}".format(element.tag)))
+
+		if self.__parsingErrors:
+			if raiseParsingErrors:
+				raise foundations.exceptions.FileStructureParsingError("{0} | '{1}' structure is invalid, \
+				parsing exceptions occured!".format(self.__class__.__name__, self.file))
+		else:
+			self.__elements = elementTreeParser.root[0].text
+			return True
+
+	@core.executionTrace
+	@foundations.exceptions.exceptionsHandler(None, False, KeyError)
+	def elementExists(self, element):
+		"""
+		This method checks if given element exists.
+
+		Usage::
+			
+			>>> plistFileParser = PlistFileParser("standard.plist")
+			>>> plistFileParser.parse()
+			True
+			>>> plistFileParser.elementExists("String A")
+			True
+			>>> plistFileParser.elementExists("String Nemo")
+			False
+
+		:param element: Element to check existence. ( String )
+		:return: Element existence. ( Boolean )
+		"""
+
+		if not self.__elements:
+			return
+
+		for item in foundations.walkers.dictionariesWalker(self.__elements):
+			path, key, value = item
+			if key == element:
+				LOGGER.debug("> '{0}' attribute exists.".format(element))
+				return True
+
+		LOGGER.debug("> '{0}' element doesn't exists.".format(element))
+		return False
+
+	@core.executionTrace
+	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	def filterValues(self, pattern, flags=0):
+		"""
+		| This method filters the :meth:`PlistFileParser.elements` class property elements using given pattern.
+		| This method will return a list of matching elements values, if you want to get only one element value, use
+		the :meth:`PlistFileParser.getValue` method instead.
+
+		Usage::
+
+			>>> plistFileParser = PlistFileParser("standard.plist")
+			>>> plistFileParser.parse()
+			True
+			>>> plistFileParser.filterValues(r"String A")
+			['My Value A']
+			>>> plistFileParser.filterValues(r"String.*")
+			['My Value C', 'My Value B', 'My Value A']
+
+		:param pattern: Regex filtering pattern. ( String )
+		:param flags: Regex flags. ( Integer )
+		:return: Values. ( List )
+		"""
+
+		if not self.__elements:
+			return
+
+		values = []
+		for item in foundations.walkers.dictionariesWalker(self.__elements):
+			path, element, value = item
+			if re.search(pattern, element, flags):
+				values.append(value)
+		return values
+
+	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	def getValue(self, element):
+		"""
+		| This method returns the given element value.
+		| If multiple elements with the same name exists, only the first encountered will be returned.
+
+		Usage::
+
+			>>> plistFileParser = PlistFileParser("standard.plist")
+			>>> plistFileParser.parse()
+			True
+			>>> plistFileParser.getValue("String A")
+			'My Value A'
+
+		:param element: Element to get the value. ( String )
+		:param flags: Regex flags. ( Integer )
+		:return: Method success. ( Boolean )
+		"""
+
+		if not self.__elements:
+			return
+
+		values = self.filterValues(r"^{0}$".format(element))
+		return values and values[0] or None
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
