@@ -203,7 +203,7 @@ def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 
 	:param filtersIn: Regex filters in list. ( Tuple / List )
 	:param filtersIn: Regex filters out list. ( Tuple / List )
-	:param flags: Regex flags. ( Object )
+	:param flags: Regex flags. ( Integer )
 	:return: Filtered words. ( List )
 	"""
 

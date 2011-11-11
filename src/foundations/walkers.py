@@ -195,7 +195,7 @@ class OsWalker(object):
 
 		:param filtersIn: Regex filters in list. ( Tuple / List )
 		:param filtersIn: Regex filters out list. ( Tuple / List )
-		:param flags: Regex flags. ( Object )
+		:param flags: Regex flags. ( Integer )
 		:return: Files list. ( Dictionary or None )
 		"""
 
