@@ -57,6 +57,7 @@ __all__ = ["THREADS_IDENTIFIERS",
 			"getModule",
 			"getObjectName",
 			"executionTrace",
+			"memoize",
 			"NestedAttribute",
 			"Structure",
 			"OrderedStructure",
@@ -299,6 +300,42 @@ def executionTrace(object):
 		return value
 
 	return function
+
+def memoize(cache=None):
+	"""
+	| This decorator is used for method / definition memoization.
+	| Any method / definition decorated will get its return value cached and restored whenever called
+	with the same arguments.
+	
+	:param cache: Alternate cache. ( Dictionary )
+	:return: Object. ( Object )
+	"""
+
+	if cache is None:
+		cache = {}
+
+	def wrapper(object):
+		"""
+		This decorator is used for object memoization.
+
+		:param object: Object to decorate. ( Object )
+		:return: Object. ( Object )
+		"""
+
+		@functools.wraps(object)
+		def function(*args):
+			"""
+			This decorator is used for object memoization.
+	
+			:param \*args: Arguments. ( \* )
+			:return: Object. ( Object )
+			"""
+
+			if args not in cache:
+				cache[args] = object(*args)
+			return cache[args]
+		return function
+	return wrapper
 
 class NestedAttribute(object):
 	"""
