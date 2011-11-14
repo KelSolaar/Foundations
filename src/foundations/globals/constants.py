@@ -55,6 +55,9 @@ class Constants():
 	loggingSeparators = "*" * 96
 	"""Logging separators: '*' * 96 ( String )"""
 
+	excludeTaggedFramesFromStackTrace = True
+	"""Exclude tagged frames from stack trace: '**True**' ( Boolean )"""
+
 	encodingFormat = "utf-8"
 	"""Default encoding format: '**utf-8**' ( String )"""
 	encodingError = "ignore"

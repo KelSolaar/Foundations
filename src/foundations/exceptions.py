@@ -18,7 +18,9 @@
 #***	External imports.
 #**********************************************************************************************************************
 import functools
+import inspect
 import logging
+import sys
 import traceback
 
 #**********************************************************************************************************************
@@ -112,6 +114,8 @@ def exceptionsHandler(handler=None, raiseException=False, *args):
 			:param \*\*kwargs: Keywords arguments. ( \* )
 			"""
 
+			__stackTraceFrameTag__ = Constants.excludeTaggedFramesFromStackTrace
+
 			exception = None
 
 			try:
@@ -147,22 +151,29 @@ def defaultExceptionsHandler(exception, origin, *args, **kwargs):
 	"""
 
 	LOGGER.error("!> {0}".format(Constants.loggingSeparators))
-
 	LOGGER.error("!> Exception in '{0}'.".format(origin))
 	LOGGER.error("!> Exception class: '{0}'.".format(exception.__class__.__name__))
 	LOGGER.error("!> Exception description: '{0}'.".format(exception.__doc__ and exception.__doc__.strip() or \
 															Constants.nullObject))
+
 	for i, line in enumerate(str(exception).split("\n")):
 		LOGGER.error("!> Exception message line nº '{0}' : '{1}'.".format(i + 1, line))
 
 	LOGGER.error("!> {0}".format(Constants.loggingSeparators))
 
-	traceback_ = traceback.format_exc().splitlines()
-	if len(traceback_) > 1:
-		for line in traceback_:
-			LOGGER.error("!> {0}".format(line))
+	exceptionType, exceptionValue, trcback = sys.exc_info()
+	stack = core.extractStack(trcback.tb_frame.f_back)
+	frames = inspect.getinnerframes(trcback)
+	for frame , filename, lineNumber, name, line, value in frames:
+		skipFrame = frame.f_locals.get("__stackTraceFrameTag__")
+		skipFrame or stack.append((filename, lineNumber, name, str().join(line)))
 
-		LOGGER.error("!> {0}".format(Constants.loggingSeparators))
+	sys.stderr.write("Traceback (most recent call last):\n")
+	for filename, lineNumber, name, line in stack:
+		sys.stderr.write("  File \"{0}\", line {1}, in {2}\n".format(filename, lineNumber, name))
+		line and sys.stderr.write("   {0}\n".format(line.strip()))
+	for line in traceback.format_exception_only(exceptionType, exceptionValue):
+		sys.stderr.write("{0}".format(line))
 
 	return True
 

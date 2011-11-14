@@ -21,6 +21,7 @@
 import functools
 import hashlib
 import inspect
+import linecache
 import logging
 import sys
 import threading
@@ -56,6 +57,7 @@ __all__ = ["THREADS_IDENTIFIERS",
 			"getCodeLayerName",
 			"getModule",
 			"getObjectName",
+			"extractStack",
 			"executionTrace",
 			"memoize",
 			"NestedAttribute",
@@ -261,6 +263,35 @@ def getObjectName(object):
 	return hasattr(object, "__name__") and "{0} | {1}{2}()".format(moduleName, codeLayerName, object.__name__) or \
 	UNDEFINED_OBJECT
 
+def extractStack(frame, stackTraceFrameTag="__stackTraceFrameTag__"):
+	"""
+	| This definition extracts the stack from provided frame.
+	|The code is similar to :def:`traceback.extract_stack` except that it allows frames to be excluded
+	from the stack if the given stack trace frame tag is found in the frame locals and set **True**.
+	
+	:param frame: Frame. ( Frame )
+	:param stackTraceFrameTag: Stack trace frame tag. ( String )
+	:return: Stack. ( List )
+	"""
+
+	stack = []
+	while frame is not None:
+		skipFrame = frame.f_locals.get(stackTraceFrameTag)
+		if not skipFrame:
+			lineNumber = frame.f_lineno
+			code = frame.f_code
+			codeName = code.co_name
+			filename = code.co_filename
+			linecache.checkcache(filename)
+			line = linecache.getline(filename, lineNumber, frame.f_globals)
+			line = line and line.strip() or None
+			stack.append((filename, lineNumber, codeName, line))
+		frame = frame.f_back
+
+	stack.reverse()
+
+	return stack
+
 def executionTrace(object):
 	"""
 	| This decorator is used for execution tracing.
@@ -290,6 +321,8 @@ def executionTrace(object):
 		:param \*\*kwargs: Keywords arguments. ( \* )
 		:return: Object. ( Object )
 		"""
+
+		__stackTraceFrameTag__ = Constants.excludeTaggedFramesFromStackTrace
 
 		LOGGER and LOGGER.__dict__["handlers"] != {} and LOGGER.debug("--->>> '{0}' <<<---".format(origin))
 
