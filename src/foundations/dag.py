@@ -365,7 +365,7 @@ class AbstractNode(core.Structure):
 
 		return "<{0} object at {1}>".format(self.__class__.__name__, hex(id(self)))
 
-	@core.executionTrace
+	# @core.executionTrace
 	def __hash__(self):
 		"""
 		This method reimplements the :meth:`core.Structure.__hash__` method.
@@ -667,8 +667,8 @@ class AbstractCompositeNode(AbstractNode):
 		if index >= 0 or index <= len(self.__children):
 			return self.__children[index]
 
-	@core.executionTrace
-	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	# @core.executionTrace
+	# @foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def indexOf(self, child):
 		"""
 		This method returns the given child index.
@@ -691,8 +691,8 @@ class AbstractCompositeNode(AbstractNode):
 			if child is item:
 				return i
 
-	@core.executionTrace
-	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	# @core.executionTrace
+	# @foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def row(self):
 		"""
 		This method returns the node row.
