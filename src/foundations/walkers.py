@@ -104,7 +104,7 @@ class OsWalker(object):
 		:param value: Attribute value. ( String )
 		"""
 
-		if value:
+		if value is not None:
 			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("root", value)
 			assert os.path.exists(value), "'{0}' attribute: '{1}' directory doesn't exists!".format("root", value)
 		self.__root = value
@@ -138,7 +138,7 @@ class OsWalker(object):
 		:param value: Attribute value. ( Integer )
 		"""
 
-		if value:
+		if value is not None:
 			assert type(value) is int, "'{0}' attribute: '{1}' type is not 'int'!".format("hashSize", value)
 		self.__hashSize = value
 

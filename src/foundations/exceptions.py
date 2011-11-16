@@ -296,7 +296,7 @@ class AttributeStructureParsingError(AbstractParsingError):
 		:param value: Attribute value. ( Integer )
 		"""
 
-		if value:
+		if value is not None:
 			assert type(value) is int, "'{0}' attribute: '{1}' type is not 'int'!".format("line", value)
 			assert value > 0, "'{0}' attribute: '{1}' need to be exactly positive!".format("line", value)
 		self.__line = value

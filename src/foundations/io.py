@@ -99,7 +99,7 @@ class File(object):
 		:param value: Attribute value. ( String )
 		"""
 
-		if value:
+		if value is not None:
 			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("file", value)
 		self.__file = value
 
@@ -132,7 +132,7 @@ class File(object):
 		:param value: Attribute value. ( List )
 		"""
 
-		if value:
+		if value is not None:
 			assert type(value) is list, "'{0}' attribute: '{1}' type is not 'list'!".format("content", value)
 		self.__content = value
 

@@ -188,7 +188,7 @@ class SectionsFileParser(io.File):
 		:param value: Attribute value. ( Tuple / List )
 		"""
 
-		if value:
+		if value is not None:
 			assert type(value) in (tuple, list), "'{0}' attribute: '{1}' type is not 'tuple' or 'list'!".format(
 			"splitters", value)
 			for element in value:
@@ -228,7 +228,7 @@ class SectionsFileParser(io.File):
 		:param value: Attribute value. ( String )
 		"""
 
-		if value:
+		if value is not None:
 			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
 			"namespaceSplitter", value)
 			assert len(value) == 1, "'{0}' attribute: '{1}' has multiples characters!".format("namespaceSplitter", value)
@@ -265,7 +265,7 @@ class SectionsFileParser(io.File):
 		:param value: Attribute value. ( Tuple / List )
 		"""
 
-		if value:
+		if value is not None:
 			assert type(value) in (tuple, list), "'{0}' attribute: '{1}' type is not 'tuple' or 'list'!".format(
 			"commentLimiters", value)
 			for element in value:
@@ -302,7 +302,7 @@ class SectionsFileParser(io.File):
 		:param value: Attribute value. ( String )
 		"""
 
-		if value:
+		if value is not None:
 			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
 			"commentMarker", value)
 			assert not re.search(r"\w", value), "'{0}' attribute: '{1}' is an alphanumeric character!".format(
@@ -338,7 +338,7 @@ class SectionsFileParser(io.File):
 		:param value: Attribute value. ( Tuple / List )
 		"""
 
-		if value:
+		if value is not None:
 			assert type(value) in (tuple, list), "'{0}' attribute: '{1}' type is not 'tuple' or 'list'!".format(
 			"quotationMarkers", value)
 			for element in value:
@@ -379,7 +379,7 @@ class SectionsFileParser(io.File):
 		:param value: Attribute value. ( String )
 		"""
 
-		if value:
+		if value is not None:
 			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
 			"rawSectionContentIdentifier", value)
 		self.__rawSectionContentIdentifier = value
@@ -412,7 +412,7 @@ class SectionsFileParser(io.File):
 		:param value: Attribute value. ( String )
 		"""
 
-		if value:
+		if value is not None:
 			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
 			"defaultsSection", value)
 		self.__defaultsSection = value
@@ -446,7 +446,7 @@ class SectionsFileParser(io.File):
 		:param value: Attribute value. ( OrderedDict / Dictionary )
 		"""
 
-		if value:
+		if value is not None:
 			assert type(value) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not \
 			'OrderedDict' or 'dict'!".format("sections", value)
 			for key, element in value.items():
@@ -485,7 +485,7 @@ class SectionsFileParser(io.File):
 		:param value: Attribute value. ( OrderedDict / Dictionary )
 		"""
 
-		if value:
+		if value is not None:
 			assert type(value) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not \
 			'OrderedDict' or 'dict'!".format("comments", value)
 			for key, element in value.items():
@@ -524,7 +524,7 @@ class SectionsFileParser(io.File):
 		:param value: Attribute value. ( List )
 		"""
 
-		if value:
+		if value is not None:
 			assert type(value) is list, "'{0}' attribute: '{1}' type is not 'list'!".format("parsingErrors", value)
 			for element in value:
 				assert issubclass(element.__class__, foundations.exceptions.AbstractParsingError), \
@@ -1006,7 +1006,7 @@ class PlistFileParser(io.File):
 		:param value: Attribute value. ( OrderedDict / Dictionary )
 		"""
 
-		if value:
+		if value is not None:
 			assert type(value) is dict, "'{0}' attribute: '{1}' type is not  dict'!".format("elements", value)
 		self.__elements = value
 
@@ -1039,7 +1039,7 @@ class PlistFileParser(io.File):
 		:param value: Attribute value. ( List )
 		"""
 
-		if value:
+		if value is not None:
 			assert type(value) is list, "'{0}' attribute: '{1}' type is not 'list'!".format("parsingErrors", value)
 			for element in value:
 				assert issubclass(element.__class__, foundations.exceptions.AbstractParsingError), \

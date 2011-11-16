@@ -96,7 +96,7 @@ class Pkzip(object):
 		:param value: Attribute value. ( String )
 		"""
 
-		if value:
+		if value is not None:
 			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
 			"archive", value)
 			assert os.path.exists(value), "'{0}' attribute: '{1}' file doesn't exists!".format("archive", value)

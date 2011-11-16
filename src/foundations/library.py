@@ -245,7 +245,7 @@ class Library(object):
 		:param value: Attribute value. ( String )
 		"""
 
-		if value:
+		if value is not None:
 			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
 			"libraryPath", value)
 			assert os.path.exists(value), "'{0}' attribute: '{1}' file doesn't exists!".format("libraryPath", value)
@@ -280,7 +280,7 @@ class Library(object):
 		:param value: Attribute value. ( Tuple )
 		"""
 
-		if value:
+		if value is not None:
 			assert type(value) is tuple, "'{0}' attribute: '{1}' type is not 'tuple'!".format("functions", value)
 			for element in value:
 				assert type(element) is LibraryHook, "'{0}' attribute: '{1}' type is not 'LibraryHook'!".format(

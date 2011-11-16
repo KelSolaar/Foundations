@@ -64,7 +64,7 @@ class StreamObject(object):
 		:param value: Attribute value. ( List )
 		"""
 
-		if value:
+		if value is not None:
 			assert type(value) is list, "'{0}' attribute: '{1}' type is not 'list'!".format("stream", value)
 		self.__stream = value
 

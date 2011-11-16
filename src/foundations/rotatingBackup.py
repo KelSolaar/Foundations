@@ -113,7 +113,7 @@ class RotatingBackup(object):
 		:param value: Attribute value. ( String )
 		"""
 
-		if value:
+		if value is not None:
 			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
 			"source", value)
 			assert os.path.exists(value), "'{0}' attribute: '{1}' file doesn't exists!".format("source", value)
@@ -148,7 +148,7 @@ class RotatingBackup(object):
 		:param value: Attribute value. ( String )
 		"""
 
-		if value:
+		if value is not None:
 			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
 			"destination", value)
 		self.__destination = value
@@ -182,7 +182,7 @@ class RotatingBackup(object):
 		:param value: Attribute value. ( Integer )
 		"""
 
-		if value:
+		if value is not None:
 			assert type(value) in (int, float), "'{0}' attribute: '{1}' type is not 'int' or 'float'!".format(
 			"count", value)
 			assert value > 0, "'{0}' attribute: '{1}' need to be exactly positive!".format("count", value)

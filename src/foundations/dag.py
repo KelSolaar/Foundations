@@ -338,7 +338,7 @@ class AbstractNode(core.Structure):
 		:param value: Attribute value. ( String )
 		"""
 
-		if value:
+		if value is not None:
 			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("name", value)
 		self.__name = value
 
@@ -587,7 +587,7 @@ class AbstractCompositeNode(AbstractNode):
 		:param value: Attribute value. ( AbstractNode / AbstractCompositeNode )
 		"""
 
-		if value:
+		if value is not None:
 			assert issubclass(value.__class__, AbstractNode), "'{0}' attribute: '{1}' is not a '{2}' subclass!".format(
 			"parent", value, AbstractNode.__class__.__name__)
 		self.__parent = value
@@ -621,7 +621,7 @@ class AbstractCompositeNode(AbstractNode):
 		:param value: Attribute value. ( List )
 		"""
 
-		if value:
+		if value is not None:
 			assert type(value) is list, "'{0}' attribute: '{1}' type is not 'list'!".format("children", value)
 			for element in value:
 				assert issubclass(element.__class__, AbstractNode), "'{0}' attribute: '{1}' is not a \
