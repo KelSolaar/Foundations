@@ -24,6 +24,7 @@ import inspect
 import linecache
 import logging
 import sys
+import time
 import threading
 from collections import OrderedDict
 
@@ -59,6 +60,7 @@ __all__ = ["THREADS_IDENTIFIERS",
 			"getObjectName",
 			"extractStack",
 			"executionTrace",
+			"executionTime",
 			"memoize",
 			"NestedAttribute",
 			"Structure",
@@ -329,6 +331,37 @@ def executionTrace(object):
 		value = object(*args, **kwargs)
 
 		LOGGER and LOGGER.__dict__["handlers"] != {} and LOGGER.debug("---<<< '{0}' >>>---".format(origin))
+
+		return value
+
+	return function
+
+def executionTime(object):
+	"""
+	| This decorator is used for execution timing.
+	| Any method / definition decorated will have it's execution timed through information messages.
+	
+	:param object: Object to decorate. ( Object )
+	:return: Object. ( Object )
+	"""
+
+	@functools.wraps(object)
+	def function(*args, **kwargs):
+		"""
+		This decorator is used for execution timing.
+
+		:param \*args: Arguments. ( \* )
+		:param \*\*kwargs: Keywords arguments. ( \* )
+		:return: Object. ( Object )
+		"""
+
+		startTime = time.time()
+
+		value = object(*args, **kwargs)
+
+		endTime = time.time()
+
+		LOGGER.info("{0} | '{1}' object processed during '{2:f}' ms!".format(inspect.getmodulename(__file__), object.__name__, (endTime - startTime) * 1000.0))
 
 		return value
 
