@@ -220,7 +220,7 @@ def getCodeLayerName():
 	:return: Code layer name. ( String )
 	
 	:note: Candidates names matching any :attr:`foundations.core.IGNORED_CODE_LAYERS` members will be skipped.
-	If no appropriate candidate name is found, then :attr:`foundations.core.UNDEFINED_CODE_LAYER` is returned.
+		If no appropriate candidate name is found, then :attr:`foundations.core.UNDEFINED_CODE_LAYER` is returned.
 	"""
 
 	frame = getFrame()
@@ -268,8 +268,8 @@ def getObjectName(object):
 def extractStack(frame, stackTraceFrameTag="__stackTraceFrameTag__"):
 	"""
 	| This definition extracts the stack from provided frame.
-	|The code is similar to :def:`traceback.extract_stack` except that it allows frames to be excluded
-	from the stack if the given stack trace frame tag is found in the frame locals and set **True**.
+	| The code is similar to :func:`traceback.extract_stack` except that it allows frames to be excluded
+		from the stack if the given stack trace frame tag is found in the frame locals and set **True**.
 	
 	:param frame: Frame. ( Frame )
 	:param stackTraceFrameTag: Stack trace frame tag. ( String )
@@ -371,7 +371,7 @@ def memoize(cache=None):
 	"""
 	| This decorator is used for method / definition memoization.
 	| Any method / definition decorated will get its return value cached and restored whenever called
-	with the same arguments.
+		with the same arguments.
 	
 	:param cache: Alternate cache. ( Dictionary )
 	:return: Object. ( Object )
@@ -495,7 +495,7 @@ class OrderedStructure(OrderedDict):
 	"""
 	| This class creates an object similar to C/C++ structured type.
 	| Contrary to the :class:`Structure` since this class inherits from :class:`collections.OrderedDict`,
-	its content is ordered.
+		its content is ordered.
 
 	Usage:
 

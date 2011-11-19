@@ -93,15 +93,15 @@ class SectionsFileParser(io.File):
 
 	The parser given by this class has some major differences with Python :class:`ConfigParser.ConfigParser`:
 
-		- Sections and attributes are stored in their appearance order by default.
-		( Using Python :class:`collections.OrderedDict` )
-		- A default section ( **_default** ) will store orphans attributes
-		( Attributes appearing before any declared section ).
+		- | Sections and attributes are stored in their appearance order by default.
+			( Using Python :class:`collections.OrderedDict` )
+		- | A default section ( **_default** ) will store orphans attributes 
+			( Attributes appearing before any declared section ).
 		- File comments are stored inside the :obj:`SectionsFileParser.comments` class property. 
-		- Sections, attributes and values are whitespaces stripped by default
-		but can also be stored with their leading and trailing whitespaces. 
-		- Values are quotations markers stripped by default
-		but can also be stored with their leading and trailing quotations markers. 
+		- | Sections, attributes and values are whitespaces stripped by default
+			but can also be stored with their leading and trailing whitespaces. 
+		- | Values are quotations markers stripped by default
+			but can also be stored with their leading and trailing quotations markers. 
 		- Attributes are namespaced by default allowing sections merge without keys collisions. 
 
 	"""
@@ -121,8 +121,8 @@ class SectionsFileParser(io.File):
 		
 		Usage::
 		
-			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n", 
-			"Attribute 2 = \\"Value B\\"\\n"]
+			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", \
+"[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
 			>>> sectionsFileParser = SectionsFileParser()
 			>>> sectionsFileParser.content = content
 			>>> sectionsFileParser.parse(stripComments=False)
@@ -557,7 +557,7 @@ class SectionsFileParser(io.File):
 			raiseParsingErrors=True):
 		"""
 		This method process the file content and extract the sections / attributes
-		as nested :class:`collections.OrderedDict` dictionaries or dictionaries.
+			as nested :class:`collections.OrderedDict` dictionaries or dictionaries.
 
 		Usage::
 
@@ -584,7 +584,7 @@ class SectionsFileParser(io.File):
 			OrderedDict([('Attribute 1', 'Value A'), ('Attribute 2', 'Value B')])
 
 		:param orderedDictionary: SectionsFileParser data is stored
-		in :class:`collections.OrderedDict` dictionaries. ( Boolean )
+			in :class:`collections.OrderedDict` dictionaries. ( Boolean )
 		:param rawSections: Ignored raw sections. ( Tuple / List )
 		:param namespaces: Attributes and comments are namespaced. ( Boolean )
 		:param stripComments: Comments are stripped. ( Boolean )
@@ -677,8 +677,8 @@ class SectionsFileParser(io.File):
 		
 		Usage::
 
-			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n",
-			"[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
+			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", \
+"[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
 			>>> sectionsFileParser = SectionsFileParser()
 			>>> sectionsFileParser.content = content
 			>>> sectionsFileParser.parse()
@@ -710,8 +710,8 @@ class SectionsFileParser(io.File):
 
 		Usage::
 
-			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n",
-			"Attribute 2 = \\"Value B\\"\\n"]
+			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", \
+"[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
 			>>> sectionsFileParser = SectionsFileParser()
 			>>> sectionsFileParser.content = content
 			>>> sectionsFileParser.parse()
@@ -746,8 +746,8 @@ class SectionsFileParser(io.File):
 
 		Usage::
 
-			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n",
-			"Attribute 2 = \\"Value B\\"\\n"]
+			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", \
+"[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
 			>>> sectionsFileParser = SectionsFileParser()
 			>>> sectionsFileParser.content = content
 			>>> sectionsFileParser.parse()
@@ -795,8 +795,8 @@ class SectionsFileParser(io.File):
 
 		Usage::
 
-			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n",
-			"Attribute 2 = \\"Value B\\"\\n"]
+			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", \
+"[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
 			>>> sectionsFileParser = SectionsFileParser()
 			>>> sectionsFileParser.content = content
 			>>> sectionsFileParser.parse()
@@ -828,8 +828,8 @@ class SectionsFileParser(io.File):
 
 		Usage::
 
-			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", "[Section B]\\n",
-			"Attribute 2 = \\"Value B\\"\\n"]
+			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", \
+"[Section B]\\n", "Attribute 2 = \\"Value B\\"\\n"]
 			>>> sectionsFileParser = SectionsFileParser()
 			>>> sectionsFileParser.content = content
 			>>> sectionsFileParser.parse()
@@ -864,13 +864,13 @@ class SectionsFileParser(io.File):
 			spacesAroundSplitter=True,
 			spaceAfterCommentLimiter=True):
 		"""
-		This method writes defined file using :obj:`SectionsFileParser.sections and
-		:obj:`SectionsFileParser.comments class properties content.
+		This method writes defined file using :obj:`SectionsFileParser.sections` and
+			:obj:`SectionsFileParser.comments` class properties content.
 
 		Usage::
 
-			>>> sections = {"Section A": {"Section A|Attribute 1": "Value A"},
-			"Section B": {"Section B|Attribute 2": "Value B"}}
+			>>> sections = {"Section A": {"Section A|Attribute 1": "Value A"}, \
+"Section B": {"Section B|Attribute 2": "Value B"}}
 			>>> sectionsFileParser = SectionsFileParser("SectionsFile.rc")
 			>>> sectionsFileParser.sections = sections
 			>>> sectionsFileParser.write()
@@ -878,7 +878,7 @@ class SectionsFileParser(io.File):
 			>>> sectionsFileParser.read()
 			True
 			>>> print sectionsFileParser.content[0:5]
-			['[Section A]\n', 'Attribute 1 = Value A\n', '\n', '[Section B]\n', 'Attribute 2 = Value B\n', '\n']
+			['[Section A]\\n', 'Attribute 1 = Value A\\n', '\\n', '[Section B]\\n', 'Attribute 2 = Value B\\n', '\\n']
 
 		:param namespaces: Attributes are namespaced. ( Boolean )
 		:param splitter: Splitter character. ( String )
@@ -1171,7 +1171,7 @@ class PlistFileParser(io.File):
 		"""
 		| This method filters the :meth:`PlistFileParser.elements` class property elements using given pattern.
 		| This method will return a list of matching elements values, if you want to get only one element value, use
-		the :meth:`PlistFileParser.getValue` method instead.
+			the :meth:`PlistFileParser.getValue` method instead.
 
 		Usage::
 

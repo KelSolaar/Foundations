@@ -248,7 +248,7 @@ def dictionariesWalker(dictionary, path=()):
 	:return: Path, key, value. ( Tuple )
 	
 	:note: This generator won't / can't yield any dictionaries, if you want to be able to retrieve dictionaries anyway,
-	you will have to either encapsulate them in another object, or mutate their base class.
+		you will have to either encapsulate them in another object, or mutate their base class.
 	"""
 
 	for key in dictionary.keys():
@@ -290,7 +290,7 @@ def nodesWalker(node):
 
 	if not hasattr(node, "children"):
 		return
-	
+
 	for child in node.children:
 		yield child
 		if  child.children:

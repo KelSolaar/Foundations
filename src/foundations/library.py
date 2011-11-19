@@ -62,10 +62,10 @@ class LibraryHook(core.Structure):
 
 		:param name: Name of the target library function to bind. ( String )
 		:param argumentsTypes: Required function arguments type (Refer to Python `ctypes - 15.17.1.7
-		<http://docs.python.org/library/ctypes.html#specifying-the-required-argument-types-function-prototypes>`_ module
-		for more informations). ( List )
+			<http://docs.python.org/library/ctypes.html#specifying-the-required-argument-types-function-prototypes>`_
+			module for more informations). ( List )
 		:param returnValue: Function return type (Refer to Python `ctypes - 15.17.1.8
-		<http://docs.python.org/library/ctypes.html#return-types>`_ module for more informations). ( Object )
+			<http://docs.python.org/library/ctypes.html#return-types>`_ module for more informations). ( Object )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -76,8 +76,8 @@ class Library(object):
 	"""
 	| This class provides methods to bind a C / C++ Library.
 	| The class is a singleton and will bind only one time a given library.
-	Each unique library instance is stored in :attr:`Library.librariesInstances` attribute
-	and get returned if the library is requested again through a new instantiation.
+		Each unique library instance is stored in :attr:`Library.librariesInstances` attribute
+		and get returned if the library is requested again through a new instantiation.
 	"""
 
 	__librariesInstances = {}

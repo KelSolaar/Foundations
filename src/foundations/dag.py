@@ -164,7 +164,7 @@ class AbstractNode(core.Structure):
 	| Although it can be instancied directly that class is meant to be subclassed.
 	
 	:note: This class doesn't provide compositing capabilities,
-	class:`AbstractCompositeNode` class must be used for that purpose.
+		class:`AbstractCompositeNode` class must be used for that purpose.
 	"""
 
 	__family = "Abstract"

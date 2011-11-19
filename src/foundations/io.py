@@ -206,7 +206,7 @@ def setDirectory(path):
 	"""
 	| This definition creates a directory with given path.
 	| The directory creation is delegated to
-	Python :func:`os.makedirs` definition so that directories hierarchy is recursively created. 
+		Python :func:`os.makedirs` definition so that directories hierarchy is recursively created. 
 	
 	:param path: Directory path. ( String )
 	:return: Definition success. ( Boolean )

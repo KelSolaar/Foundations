@@ -59,7 +59,7 @@ LOGGER = logging.getLogger(Constants.logger)
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getSystemApplicationDataDirectory():
 	"""
-	This definition gets system Application data directory.
+	This definition returns the system Application data directory.
 	
 	Examples directories::
 
@@ -87,11 +87,11 @@ def getSystemApplicationDataDirectory():
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getUserApplicationDataDirectory():
 	"""
-	| This definition gets user Application directory.
-	| The difference between :func:`getSystemApplicationDataDirectory` 
-	and :func:`getSystemApplicationDataDirectory` definitions is that :func:`getUserApplicationDataDirectory` definition
-	will append :attr:`foundations.globals.constants.Constants.providerDirectory`
-	and :attr:`foundations.globals.constants.Constants.applicationDirectory` attributes values to the path returned.
+	| This definition returns the user Application directory.
+	| The difference between :func:`getSystemApplicationDataDirectory`
+		and :func:`getSystemApplicationDataDirectory` definitions is that :func:`getUserApplicationDataDirectory` definition
+		will append :attr:`foundations.globals.constants.Constants.providerDirectory`
+		and :attr:`foundations.globals.constants.Constants.applicationDirectory` attributes values to the path returned.
 
 	Examples directories::
 
