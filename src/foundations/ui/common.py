@@ -59,7 +59,7 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 
 	:param uiFile: Ui file. ( String )
 	:param \*args: Arguments. ( \* )
-	:param \*\*kwargs: Keywords arguments. ( \* )
+	:param \*\*kwargs: Keywords arguments. ( \*\* )
 	:return: QWidget class. ( QWidget )
 	"""
 
@@ -81,7 +81,7 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 			This method initializes the class.
 	
 			:param \*args: Arguments. ( \* )
-			:param \*\*kwargs: Keywords arguments. ( \* )
+			:param \*\*kwargs: Keywords arguments. ( \*\* )
 			"""
 
 			LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))

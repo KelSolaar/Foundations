@@ -99,7 +99,7 @@ class Library(object):
 		This method is the constructor of the class.
 		
 		:param \*args: Arguments. ( \* )
-		:param \*\*kwargs: Keywords arguments. ( \* )
+		:param \*\*kwargs: Keywords arguments. ( \*\* )
 		:return: Class instance. ( Library )
 		"""
 

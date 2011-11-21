@@ -111,7 +111,7 @@ def exceptionsHandler(handler=None, raiseException=False, *args):
 			This decorator is used for exceptions handling.
 
 			:param \*args: Arguments. ( \* )
-			:param \*\*kwargs: Keywords arguments. ( \* )
+			:param \*\*kwargs: Keywords arguments. ( \*\* )
 			"""
 
 			__stackTraceFrameTag__ = Constants.excludeTaggedFramesFromStackTrace
@@ -146,7 +146,7 @@ def defaultExceptionsHandler(exception, origin, *args, **kwargs):
 	:param exception: Exception. ( Exception )
 	:param origin: Function / Method raising the exception. ( String )
 	:param \*args: Arguments. ( \* )
-	:param \*\*kwargs: Keywords arguments. ( \* )
+	:param \*\*kwargs: Keywords arguments. ( \*\* )
 	:return: Definition success. ( Boolean )
 	"""
 

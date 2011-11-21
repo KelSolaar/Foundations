@@ -320,7 +320,7 @@ def executionTrace(object):
 		This decorator is used for execution tracing.
 
 		:param \*args: Arguments. ( \* )
-		:param \*\*kwargs: Keywords arguments. ( \* )
+		:param \*\*kwargs: Keywords arguments. ( \*\* )
 		:return: Object. ( Object )
 		"""
 
@@ -351,7 +351,7 @@ def executionTime(object):
 		This decorator is used for execution timing.
 
 		:param \*args: Arguments. ( \* )
-		:param \*\*kwargs: Keywords arguments. ( \* )
+		:param \*\*kwargs: Keywords arguments. ( \*\* )
 		:return: Object. ( Object )
 		"""
 

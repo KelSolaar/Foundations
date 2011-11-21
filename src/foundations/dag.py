@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines various dag related class.
+	This module defines various dag related classes.
 
 **Others:**
 	Portions of the code from DAG by Simon Wittber: http://pypi.python.org/pypi/DAG/ and
@@ -70,7 +70,7 @@ class Attribute(core.Structure):
 
 		:param name: Attribute name. ( String )
 		:param value: Attribute value. ( Object )
-		:param \*\*kwargs: Keywords arguments. ( \* )
+		:param \*\*kwargs: Keywords arguments. ( \*\* )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -182,7 +182,7 @@ class AbstractNode(core.Structure):
 		This method is the constructor of the class.
 		
 		:param \*args: Arguments. ( \* )
-		:param \*\*kwargs: Keywords arguments. ( \* )
+		:param \*\*kwargs: Keywords arguments. ( \*\* )
 		:return: Class instance. ( AbstractNode )
 		"""
 
@@ -209,7 +209,7 @@ class AbstractNode(core.Structure):
 			2
 
 		:param name: Node name.  ( String )
-		:param \*\*kwargs: Keywords arguments. ( \* )
+		:param \*\*kwargs: Keywords arguments. ( \*\* )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -550,7 +550,7 @@ class AbstractCompositeNode(AbstractNode):
 		:param name: Node name.  ( String )
 		:param parent: Node parent. ( AbstractNode / AbstractCompositeNode )
 		:param children: Children. ( List )
-		:param \*\*kwargs: Keywords arguments. ( \* )
+		:param \*\*kwargs: Keywords arguments. ( \*\* )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
