@@ -26,6 +26,7 @@ import weakref
 #***	Internal imports.
 #**********************************************************************************************************************
 import foundations.core as core
+import foundations.dataStructures
 import foundations.exceptions
 from foundations.globals.constants import Constants
 
@@ -46,7 +47,7 @@ LOGGER = logging.getLogger(Constants.logger)
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class Attribute(core.Structure):
+class Attribute(foundations.dataStructures.Structure):
 	"""
 	This class represents a storage object for the :class:`AbstractNode` class attributes.
 	"""
@@ -75,7 +76,7 @@ class Attribute(core.Structure):
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
-		core.Structure.__init__(self, **kwargs)
+		foundations.dataStructures.Structure.__init__(self, **kwargs)
 
 		# --- Setting class attributes. ---
 		self["name"] = name
@@ -151,14 +152,14 @@ class Attribute(core.Structure):
 	@core.executionTrace
 	def __repr__(self):
 		"""
-		This method reimplements the :meth:`core.Structure.__repr__` method.
+		This method reimplements the :meth:`foundations.dataStructures.Structure.__repr__` method.
 		
 		:return: Object representation. ( String )
 		"""
 
 		return "<{0} object at {1}>".format(self.__class__.__name__, hex(id(self)))
 
-class AbstractNode(core.Structure):
+class AbstractNode(foundations.dataStructures.Structure):
 	"""
 	| This class defines the base node class.
 	| Although it can be instancied directly that class is meant to be subclassed.
@@ -214,7 +215,7 @@ class AbstractNode(core.Structure):
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
-		core.Structure.__init__(self, **kwargs)
+		foundations.dataStructures.Structure.__init__(self, **kwargs)
 
 		# --- Setting class attributes. ---
 		self.__name = None
@@ -358,7 +359,7 @@ class AbstractNode(core.Structure):
 	@core.executionTrace
 	def __repr__(self):
 		"""
-		This method reimplements the :meth:`core.Structure.__repr__` method.
+		This method reimplements the :meth:`foundations.dataStructures.Structure.__repr__` method.
 		
 		:return: Object representation. ( String )
 		"""
@@ -368,11 +369,11 @@ class AbstractNode(core.Structure):
 	# @core.executionTrace
 	def __hash__(self):
 		"""
-		This method reimplements the :meth:`core.Structure.__hash__` method.
+		This method reimplements the :meth:`foundations.dataStructures.Structure.__hash__` method.
 		
 		:return: Object hash. ( Integer )
 		
-		:note: :class:`core.Structure` inherits from **dict** and should not be made hashable because of its mutability,
+		:note: :class:`foundations.dataStructures.Structure` inherits from **dict** and should not be made hashable because of its mutability,
 		however considering the fact the unique node identity is used as the hash value,
 		making the object hashable should be safe. 
 		"""
@@ -382,7 +383,7 @@ class AbstractNode(core.Structure):
 	@core.executionTrace
 	def __cmp__(self, other):
 		"""
-		This method reimplements the :meth:`core.Structure.__cmp__` method.
+		This method reimplements the :meth:`foundations.dataStructures.Structure.__cmp__` method.
 		
 		:param other: Comparison node. ( AbstractNode )
 		:return: Comparison value. ( Integer )

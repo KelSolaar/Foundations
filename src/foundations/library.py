@@ -26,6 +26,7 @@ import platform
 #***	Internal imports.
 #**********************************************************************************************************************
 import foundations.core as core
+import foundations.dataStructures
 import foundations.exceptions
 from foundations.globals.constants import Constants
 
@@ -46,7 +47,7 @@ LOGGER = logging.getLogger(Constants.logger)
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class LibraryHook(core.Structure):
+class LibraryHook(foundations.dataStructures.Structure):
 	"""
 	This class represents a library hook used by the :class:`Library` class to bind target library functions.
 	"""
@@ -70,7 +71,7 @@ class LibraryHook(core.Structure):
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
-		core.Structure.__init__(self, **kwargs)
+		foundations.dataStructures.Structure.__init__(self, **kwargs)
 
 class Library(object):
 	"""

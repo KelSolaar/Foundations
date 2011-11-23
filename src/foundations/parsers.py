@@ -29,6 +29,7 @@ from xml.etree import ElementTree
 #***	Internal imports.
 #**********************************************************************************************************************
 import foundations.core as core
+import foundations.dataStructures
 import foundations.exceptions
 import foundations.io as io
 import foundations.namespace as namespace
@@ -53,7 +54,7 @@ LOGGER = logging.getLogger(Constants.logger)
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class AttributeCompound(core.Structure):
+class AttributeCompound(foundations.dataStructures.Structure):
 	"""
 	This class represents a storage object for attributes compounds usually encountered in
 	`sIBL_GUI <https://github.com/KelSolaar/sIBL_GUI>`_ Templates files.
@@ -84,7 +85,7 @@ class AttributeCompound(core.Structure):
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
-		core.Structure.__init__(self, **kwargs)
+		foundations.dataStructures.Structure.__init__(self, **kwargs)
 
 class SectionsFileParser(io.File):
 	"""
