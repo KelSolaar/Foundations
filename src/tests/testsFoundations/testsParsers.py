@@ -300,11 +300,11 @@ STRIPPING_FILE_SECTIONS_AND_ATTRIBUTES_NON_STRIPPED = {"	Stripping A	" : {"	Stri
 																			"	\"Unknown\"	"},
 													" Stripping B " : {" Stripping B | Jane Doe " : " \"Unknown\" "}}
 
-PARSING_ERRORS_LINES_AND_VALUES = {3 : "Attribute structure is invalid: {}".format(
+PARSING_ERRORS_LINES_AND_VALUES = {3 : "Attribute structure is invalid: {0}".format(
 										"This statement will produce the line nº '3' parsing error.\n"),
-									6 : "Attribute structure is invalid: {}".format(
+									6 : "Attribute structure is invalid: {0}".format(
 										"This statement will produce the line nº '6' parsing error.\n"),
-									12 : "Attribute structure is invalid: {}".format(
+									12 : "Attribute structure is invalid: {0}".format(
 										"This statement will produce the line nº '12' parsing error.\n")}
 
 RANDOM_ATTRIBUTES = {"component" : {"Component|Name" : "core.db",
