@@ -43,7 +43,7 @@ __all__ = ["StandardMessageHookTestCase",
 		"GetFrameTestCase",
 		"GetCodeLayerNameTestCase",
 		"GetModuleTestCase",
-		"GetObjectNameTestCase"]
+		"GetTraceNameTestCase"]
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
@@ -128,17 +128,17 @@ class GetModuleTestCase(unittest.TestCase):
 		self.assertEqual(type(core.getModule(object)), types.ModuleType)
 		self.assertEqual(core.getModule(object), inspect.getmodule(object))
 
-class GetObjectNameTestCase(unittest.TestCase):
+class GetTraceNameTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.core.getObjectName` definition units tests methods.
+	This class defines :func:`foundations.core.getTraceName` definition units tests methods.
 	"""
 
 	def testGetObjectName(self):
 		"""
-		This method tests :func:`foundations.core.getObjectName` definition.
+		This method tests :func:`foundations.core.getTraceName` definition.
 		"""
 
-		objectName = core.getObjectName(object)
+		objectName = core.getTraceName(object)
 		self.assertIsInstance(objectName, str)
 		self.assertEqual(objectName, "__builtin__ | testGetObjectName.object()")
 

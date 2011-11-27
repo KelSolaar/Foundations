@@ -56,17 +56,17 @@ __all__ = ["THREADS_IDENTIFIERS",
 			"getFrame",
 			"getCodeLayerName",
 			"getModule",
-			"getObjectName",
+			"getTraceName",
 			"extractStack",
 			"executionTrace",
 			"executionTime",
 			"memoize"]
 
+THREADS_IDENTIFIERS = {}
+
 #**********************************************************************************************************************
 #***	Logging classes and definitions.
 #**********************************************************************************************************************
-THREADS_IDENTIFIERS = {}
-
 def _LogRecord_getAttribute(self, attribute):
 	"""
 	This definition overrides logging.LogRecord.__getattribute__ method
@@ -105,14 +105,19 @@ def setVerbosityLevel(verbosityLevel):
 
 	if verbosityLevel == 0:
 		LOGGER.setLevel(logging.CRITICAL)
+		logging.disable(logging.ERROR)
 	elif verbosityLevel == 1:
 		LOGGER.setLevel(logging.ERROR)
+		logging.disable(logging.WARNING)
 	elif verbosityLevel == 2:
 		LOGGER.setLevel(logging.WARNING)
+		logging.disable(logging.INFO)
 	elif verbosityLevel == 3:
 		LOGGER.setLevel(logging.INFO)
+		logging.disable(logging.DEBUG)
 	elif verbosityLevel == 4:
 		LOGGER.setLevel(logging.DEBUG)
+		logging.disable(logging.NOTSET)
 	return True
 
 class StandardMessageHook(object):
@@ -187,7 +192,7 @@ LOGGING_STANDARD_FORMATTER = logging.Formatter()
 
 IGNORED_CODE_LAYERS = ("getFrame",
 					"getCodeLayerName",
-					"getObjectName",
+					"getTraceName",
 					"executionTrace",
 					"wrapper")
 
@@ -198,6 +203,20 @@ UNDEFINED_OBJECT = "UndefinedObject"
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
+def _truncateString(string, length=Constants.executionTraceArgumentMaximumLength):
+	"""
+	This definition truncates the given string to given length.
+	
+	:param string: String to truncate. ( String )
+	:param length: String maximum length. ( Integer )
+	:return: Truncated string. ( String )
+	"""
+
+	if len(string) > length:
+		return "{0} ...".format(string[:length])
+	else:
+		return string
+
 def getFrame(index=0):
 	"""
 	This definition returns requested execution frame.
@@ -236,7 +255,7 @@ def getModule(object):
 
 	return inspect.getmodule(object)
 
-def getObjectName(object):
+def getTraceName(object):
 	"""
 	This definition returns object name composited with current execution frame.
 	
@@ -307,7 +326,12 @@ def executionTrace(object):
 	:return: Object. ( Object )
 	"""
 
-	origin = getObjectName(object)
+	traceExecution = False
+	if LOGGER:
+		if LOGGER.__dict__["handlers"]:
+			traceExecution = True
+
+	traceName = traceExecution and getTraceName(object) or str()
 
 	@functools.wraps(object)
 	def function(*args, **kwargs):
@@ -321,11 +345,22 @@ def executionTrace(object):
 
 		__stackTraceFrameTag__ = Constants.excludeTaggedFramesFromStackTrace
 
-		LOGGER and LOGGER.__dict__["handlers"] != {} and LOGGER.debug("--->>> '{0}' <<<---".format(origin))
+		if traceExecution:
+			LOGGER.debug("--->>> '{0}' <<<---".format(traceName))
+			signature = inspect.getargspec(object)
+			code = object.func_code
+			for name, value in zip(signature.args, args[:code.co_argcount]):
+				LOGGER.debug("   >>> Argument: '{0}' = '{1}' <<<".format(name, _truncateString(str(value))))
+			for value in args[code.co_argcount:]:
+				LOGGER.debug("   >>> Argument: '{0}' <<<".format(_truncateString(str(value))))
+			for key, value in kwargs.items():
+				LOGGER.debug("   >>> Argument: '{0}' = '{1}'<<<".format(key, _truncateString(str(value))))
 
 		value = object(*args, **kwargs)
 
-		LOGGER and LOGGER.__dict__["handlers"] != {} and LOGGER.debug("---<<< '{0}' >>>---".format(origin))
+		if traceExecution:
+			LOGGER.debug("   <<< Return: '{0}' >>>".format(repr(value)))
+			LOGGER.debug("---<<< '{0}' >>>---".format(traceName))
 
 		return value
 
@@ -356,7 +391,8 @@ def executionTime(object):
 
 		endTime = time.time()
 
-		LOGGER.info("{0} | '{1}' object processed during '{2:f}' ms!".format(inspect.getmodulename(__file__), object.__name__, (endTime - startTime) * 1000.0))
+		LOGGER.info("{0} | '{1}' object processed during '{2:f}' ms!".format(
+		inspect.getmodulename(__file__), object.__name__, (endTime - startTime) * 1000.0))
 
 		return value
 
@@ -384,16 +420,25 @@ def memoize(cache=None):
 		"""
 
 		@functools.wraps(object)
-		def function(*args):
+		def function(*args, **kwargs):
 			"""
 			This decorator is used for object memoization.
 	
 			:param \*args: Arguments. ( \* )
+			:param \*\*kwargs: Keywords arguments. ( \*\* )
 			:return: Object. ( Object )
 			"""
 
-			if args not in cache:
-				cache[args] = object(*args)
-			return cache[args]
+			if kwargs:
+				key = args, frozenset(kwargs.iteritems())
+			else:
+				key = args
+
+			if key not in cache:
+				cache[key] = object(*args, **kwargs)
+
+			return cache[key]
+
 		return function
+
 	return wrapper

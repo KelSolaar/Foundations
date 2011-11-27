@@ -103,7 +103,7 @@ def exceptionsHandler(handler=None, raiseException=False, *args):
 		:return: Object. ( Object )
 		"""
 
-		origin = core.getObjectName(object)
+		traceName = core.getTraceName(object)
 
 		@functools.wraps(object)
 		def function(*args, **kwargs):
@@ -121,9 +121,9 @@ def exceptionsHandler(handler=None, raiseException=False, *args):
 			try:
 				return object(*args, **kwargs)
 			except exceptions as exception:
-				handler(exception , origin, *args, **kwargs)
+				handler(exception , traceName, *args, **kwargs)
 			except Exception as exception:
-				handler(exception , origin, *args, **kwargs)
+				handler(exception , traceName, *args, **kwargs)
 			finally:
 				if raiseException and exception:
 					raise exception
@@ -131,27 +131,27 @@ def exceptionsHandler(handler=None, raiseException=False, *args):
 	return wrapper
 
 @core.executionTrace
-def defaultExceptionsHandler(exception, origin, *args, **kwargs):
+def defaultExceptionsHandler(exception, traceName, *args, **kwargs):
 	"""
 	This definition provides the default exception handler.
 	
 	This handler verboses some informations about the handled exception:
 	
-		- Exception origin.
+		- Exception traceName.
 		- Exception class.
 		- Exception description / documentation.
 		- Error message.
 		- Exception traceback.
 		
 	:param exception: Exception. ( Exception )
-	:param origin: Function / Method raising the exception. ( String )
+	:param traceName: Function / Method raising the exception. ( String )
 	:param \*args: Arguments. ( \* )
 	:param \*\*kwargs: Keywords arguments. ( \*\* )
 	:return: Definition success. ( Boolean )
 	"""
 
 	LOGGER.error("!> {0}".format(Constants.loggingSeparators))
-	LOGGER.error("!> Exception in '{0}'.".format(origin))
+	LOGGER.error("!> Exception in '{0}'.".format(traceName))
 	LOGGER.error("!> Exception class: '{0}'.".format(exception.__class__.__name__))
 	LOGGER.error("!> Exception description: '{0}'.".format(exception.__doc__ and exception.__doc__.strip() or \
 															Constants.nullObject))

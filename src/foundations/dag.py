@@ -149,7 +149,7 @@ class Attribute(foundations.dataStructures.Structure):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	@core.executionTrace
+	# @core.executionTrace
 	def __repr__(self):
 		"""
 		This method reimplements the :meth:`foundations.dataStructures.Structure.__repr__` method.
@@ -356,7 +356,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	@core.executionTrace
+	# @core.executionTrace
 	def __repr__(self):
 		"""
 		This method reimplements the :meth:`foundations.dataStructures.Structure.__repr__` method.

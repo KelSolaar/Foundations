@@ -55,6 +55,9 @@ class Constants():
 	loggingSeparators = "*" * 96
 	"""Logging separators: '*' * 96 ( String )"""
 
+	executionTraceArgumentMaximumLength = 255
+	"""Execution trace argument maximum length: '**255**' ( Integer )"""
+
 	excludeTaggedFramesFromStackTrace = True
 	"""Exclude tagged frames from stack trace: '**True**' ( Boolean )"""
 
