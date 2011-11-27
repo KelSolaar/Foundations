@@ -165,7 +165,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 	| Although it can be instancied directly that class is meant to be subclassed.
 	
 	:note: This class doesn't provide compositing capabilities,
-		class:`AbstractCompositeNode` class must be used for that purpose.
+		:class:`AbstractCompositeNode` class must be used for that purpose.
 	"""
 
 	__family = "Abstract"
@@ -542,6 +542,7 @@ class AbstractCompositeNode(AbstractNode):
 	"""
 
 	__family = "AbstractComposite"
+	"""Node family. ( String )"""
 
 	@core.executionTrace
 	def __init__(self, name=None, parent=None, children=None, **kwargs):

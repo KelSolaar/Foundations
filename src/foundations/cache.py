@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines caching related class.
+	This module defines caching related classes.
 
 **Others:**
 
