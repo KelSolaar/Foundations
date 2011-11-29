@@ -115,7 +115,7 @@ class GetCommonAncestorTestCase(unittest.TestCase):
 		self.assertTupleEqual(strings.getCommonAncestor(("1", "2", "3"), ("1", "2", "0"), ("1", "2", "3", "4")),
 														("1", "2"))
 		self.assertEqual(strings.getCommonAncestor("azerty", "azetty", "azello"), "aze")
-		self.assertEqual(strings.getCommonAncestor("/Users/JohnDoe/Documents","/Users/JohnDoe/Documents/Test.txt"),
+		self.assertEqual(strings.getCommonAncestor("/Users/JohnDoe/Documents", "/Users/JohnDoe/Documents/Test.txt"),
 						"/Users/JohnDoe/Documents")
 		self.assertFalse(strings.getCommonAncestor("azerty", "qwerty"))
 
@@ -129,7 +129,7 @@ class GetCommonPathsAncestorTestCase(unittest.TestCase):
 		This method tests :func:`foundations.strings.getCommonPathsAncestor` definition.
 		"""
 
-		self.assertEqual(strings.getCommonPathsAncestor("/Users/JohnDoe/Documents", 
+		self.assertEqual(strings.getCommonPathsAncestor("/Users/JohnDoe/Documents",
 														"/Users/JohnDoe/Documents/Test.txt"),
 						"/Users/JohnDoe/Documents")
 		self.assertFalse(strings.getCommonPathsAncestor("/JohnDoe/Documents", "/Users/JohnDoe/Documents/Test.txt"))
@@ -197,6 +197,20 @@ class ReplaceTestCase(unittest.TestCase):
 						"To:Forward:Slashes:Test:Case")
 		self.assertEqual(strings.replace("To@Forward@Slashes@Test@Case", {"@":"|", "|":"@", "@":"|" }),
 						"To@Forward@Slashes@Test@Case")
+
+class RemoveStripTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.strings.removeStrip` definition units tests methods.
+	"""
+
+	def testRemoveStrip(self):
+		"""
+		This method tests :func:`foundations.strings.removeStrip` definition.
+		"""
+
+		self.assertIsInstance(strings.removeStrip("John Doe", "John"), str)
+		self.assertEqual(strings.removeStrip("John Doe", "John"), "Doe")
+		self.assertEqual(strings.removeStrip("John Doe", "Doe"), "John")
 
 class ToForwardSlashesTestCase(unittest.TestCase):
 	"""

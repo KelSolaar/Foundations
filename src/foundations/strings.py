@@ -256,6 +256,24 @@ def replace(string, data):
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
+def removeStrip(string, pattern):
+	"""
+	This definition removes the pattern occurences in the string and strip the result.
+
+	Usage::
+
+		>>> replaceStrip("John Doe", "John")
+		'Doe'
+
+	:param string: String to manipulate. ( String )
+	:param pattern: Replacement regex pattern. ( String )
+	:return: Manipulated string. ( String )
+	"""
+
+	return string.replace(pattern, "").strip()
+
+@core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
 def toForwardSlashes(data):
 	"""
 	This definition converts backward slashes to forward slashes.
