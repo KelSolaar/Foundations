@@ -106,7 +106,7 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 			return self.__uiFile
 
 		@uiFile.setter
-		@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
+		@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 		def uiFile(self, value):
 			"""
 			This method is the setter method for **self.__uiFile** attribute.

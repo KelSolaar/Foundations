@@ -289,6 +289,7 @@ class AttributeStructureParsingError(AbstractParsingError):
 		return self.__line
 
 	@line.setter
+	@exceptionsHandler(None, False, AssertionError)
 	def line(self, value):
 		"""
 		This method is the setter method for **self.__line** attribute.
@@ -302,6 +303,7 @@ class AttributeStructureParsingError(AbstractParsingError):
 		self.__line = value
 
 	@line.deleter
+	@exceptionsHandler(None, False, Exception)
 	def line(self):
 		"""
 		This method is the deleter method for **self.__line** attribute.

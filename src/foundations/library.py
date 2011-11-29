@@ -206,7 +206,7 @@ class Library(object):
 		return self.__libraryInstantiated
 
 	@libraryInstantiated.setter
-	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
+	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
 	def libraryInstantiated(self, value):
 		"""
 		This method is the setter method for **self.__libraryInstantiated** attribute.

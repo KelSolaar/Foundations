@@ -127,7 +127,7 @@ class Attribute(foundations.dataStructures.Structure):
 		return self["value"]
 
 	@value.setter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def value(self, value):
 		"""
 		This method is the setter method for **value** attribute.
@@ -146,6 +146,7 @@ class Attribute(foundations.dataStructures.Structure):
 
 		raise foundations.exceptions.ProgrammingError(
 		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "value"))
+
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
@@ -331,7 +332,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 		return self.__name
 
 	@name.setter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def name(self, value):
 		"""
 		This method is the setter method for **self.__name** attribute.
@@ -581,7 +582,7 @@ class AbstractCompositeNode(AbstractNode):
 		return self.__parent
 
 	@parent.setter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def parent(self, value):
 		"""
 		This method is the setter method for **self.__parent** attribute.
@@ -615,7 +616,7 @@ class AbstractCompositeNode(AbstractNode):
 		return self.__children
 
 	@children.setter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
 	def children(self, value):
 		"""
 		This method is the setter method for **self.__children** attribute.
