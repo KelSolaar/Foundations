@@ -166,7 +166,7 @@ def defaultExceptionsHandler(exception, traceName, *args, **kwargs):
 	frames = inspect.getinnerframes(trcback)
 	for frame , filename, lineNumber, name, line, value in frames:
 		skipFrame = frame.f_locals.get("__stackTraceFrameTag__")
-		skipFrame or stack.append((filename, lineNumber, name, str().join(line)))
+		skipFrame or stack.append((filename, lineNumber, name, line and str().join(line) or str()))
 
 	sys.stderr.write("Traceback (most recent call last):\n")
 	for filename, lineNumber, name, line in stack:
