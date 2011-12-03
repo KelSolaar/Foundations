@@ -25,6 +25,7 @@ import zipfile
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
+import foundations.common
 import foundations.core as core
 import foundations.io as io
 import foundations.exceptions

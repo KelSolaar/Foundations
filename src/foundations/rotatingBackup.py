@@ -23,6 +23,7 @@ import os
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
+import foundations.common
 import foundations.core as core
 import foundations.exceptions
 import foundations.io
@@ -212,18 +213,15 @@ class RotatingBackup(object):
 
 		LOGGER.debug("> Storing '{0}' file backup.".format(self.__source))
 
-		if not self.__source and not self.__destination:
-			return True
-
-		os.path.exists(self.__destination) or foundations.io.setDirectory(self.__destination)
+		foundations.common.pathExists(self.__destination) or foundations.io.setDirectory(self.__destination)
 		destination = os.path.join(self.__destination, os.path.basename(self.__source))
 		for i in range(self.__count - 1, 0, -1):
 			sfn = "{0}.{1}".format(destination, i)
 			dfn = "{0}.{1}".format(destination, i + 1)
-			if os.path.exists(sfn):
-				if os.path.exists(dfn):
+			if foundations.common.pathExists(sfn):
+				if foundations.common.pathExists(dfn):
 					foundations.io.remove(dfn)
 				os.renames(sfn, dfn)
-		os.path.exists(destination) and os.rename(destination, destination + ".1")
+		foundations.common.pathExists(destination) and os.rename(destination, destination + ".1")
 		foundations.io.copy(self.__source, destination)
 		return True

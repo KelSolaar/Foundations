@@ -26,6 +26,7 @@ from PyQt4.QtGui import QWidget
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
+import foundations.common
 import foundations.core as core
 import foundations.exceptions
 from foundations.globals.constants import Constants
@@ -64,7 +65,7 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 	"""
 
 	file = uiFile or DEFAULT_UI_FILE
-	if not os.path.exists(file):
+	if not foundations.common.pathExists(file):
 		raise foundations.exceptions.FileExistsError("{0} | '{1}' ui file doesn't exists!".format(
 		inspect.getmodulename(__file__), file))
 

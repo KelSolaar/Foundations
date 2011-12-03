@@ -25,6 +25,7 @@ import platform
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
+import foundations.common
 import foundations.core as core
 import foundations.dataStructures
 import foundations.exceptions
@@ -105,7 +106,7 @@ class Library(object):
 		"""
 
 		libraryPath = args[0]
-		if os.path.exists(libraryPath):
+		if foundations.common.pathExists(libraryPath):
 			if not args[0] in self._Library__librariesInstances.keys():
 				self._Library__librariesInstances[args[0]] = object.__new__(self)
 			return self._Library__librariesInstances[args[0]]

@@ -84,6 +84,20 @@ class UniqifyTestCase(unittest.TestCase):
 		sequence = ({1 : "A"}, {1 : "A"}, {2 : "B"}, {3 : "C"})
 		self.assertListEqual(sorted(foundations.common.uniqify(sequence)), [{1 : "A"}, {2 : "B"}, {3 : "C"}])
 
+class PathExistsTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.common.pathExists` definition units tests methods.
+	"""
+
+	def testPathExists(self):
+		"""
+		This method tests :func:`foundations.common.pathExists` definition.
+		"""
+
+		self.assertEqual(foundations.common.pathExists(None), None)
+		self.assertTrue(foundations.common.pathExists(__file__))
+		self.assertFalse(foundations.common.pathExists(str()))
+
 if __name__ == "__main__":
 	import tests.utilities
 	unittest.main()

@@ -24,6 +24,7 @@ import shutil
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
+import foundations.common
 import foundations.core as core
 import foundations.exceptions
 from foundations.globals.constants import Constants
@@ -212,7 +213,7 @@ def setDirectory(path):
 	:return: Definition success. ( Boolean )
 	"""
 
-	if not os.path.exists(path):
+	if not foundations.common.pathExists(path):
 		LOGGER.debug("> Creating directory: '{0}'.".format(path))
 		os.makedirs(path)
 		return True

@@ -48,7 +48,8 @@ __all__ = ["LOGGER",
 			"removeLoggingHandler",
 			"exit",
 			"wait",
-			"uniqify"]
+			"uniqify",
+			"pathExists"]
 
 LOGGER = logging.getLogger(Constants.logger)
 
@@ -169,3 +170,18 @@ def uniqify(sequence):
 	"""
 
 	return [key for key, group in itertools.groupby(sorted(sequence))]
+
+@core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
+def pathExists(path):
+	"""
+	This definition returns if given path exists.
+
+	:param path: Path. ( String )
+	:return: Path existence. ( Boolean )
+	"""
+
+	if not path:
+		return
+	else:
+		return os.path.exists(path)
