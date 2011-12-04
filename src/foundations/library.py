@@ -85,14 +85,8 @@ class Library(object):
 	__librariesInstances = {}
 	"""Libraries instances: Each library is instanced once and stored in this attribute. ( Dictionary )"""
 
-	if platform.system() == "Windows" or platform.system() == "Microsoft":
-		callback = ctypes.WINFUNCTYPE(ctypes.c_void_p, ctypes.c_int, ctypes.c_char_p)
-		"""callback: Defines library callback default function.
-		( ctypes.WINFUNCTYPE on Windows Os / ctypes.CFUNCTYPE on Linux and Darwin Os )"""
-	else:
-		callback = ctypes.CFUNCTYPE(ctypes.c_void_p, ctypes.c_int, ctypes.c_char_p)
-		"""callback: Defines library callback default function.
-		( ctypes.WINFUNCTYPE on Windows Os / ctypes.CFUNCTYPE on Linux and Darwin Os )"""
+	callback = ctypes.CFUNCTYPE(ctypes.c_void_p, ctypes.c_int, ctypes.c_char_p)
+	"""callback: Defines library callback default function.	( ctypes.CFUNCTYPE )"""
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.LibraryInstantiationError)
