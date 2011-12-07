@@ -103,7 +103,7 @@ class LibraryTestCase(unittest.TestCase):
 		This method tests :meth:`foundations.library.Library.bindFunction` method.
 		"""
 
-		for name, path in LIBRARIES.items():
+		for name, path in LIBRARIES.iteritems():
 			library = Library(path)
 			library.functions = LIBRARIES_FUNCTIONS[name]
 			for function in LIBRARIES_FUNCTIONS[name]:
@@ -116,7 +116,7 @@ class LibraryTestCase(unittest.TestCase):
 		This method tests :meth:`foundations.library.Library.bindLibrary` method.
 		"""
 
-		for name, path in LIBRARIES.items():
+		for name, path in LIBRARIES.iteritems():
 			library = Library(path, bindLibrary=False)
 			library.functions = LIBRARIES_FUNCTIONS[name]
 			library.bindLibrary()
@@ -128,9 +128,9 @@ class LibraryTestCase(unittest.TestCase):
 		This method tests :class:`foundations.library.Library` class binding.
 		"""
 
-		for name, path in LIBRARIES.items():
+		for name, path in LIBRARIES.iteritems():
 			library = Library(path, LIBRARIES_FUNCTIONS[name])
-			for function, value in LIBRARIES_TESTS_CASES[name].items():
+			for function, value in LIBRARIES_TESTS_CASES[name].iteritems():
 				self.assertEqual(getattr(library, function)(), value)
 
 if __name__ == "__main__":

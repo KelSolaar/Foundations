@@ -84,7 +84,7 @@ class CacheTestCase(unittest.TestCase):
 		cache = Cache()
 		content = {"John" : "Doe", "Luke" : "Skywalker"}
 		cache.addContent(**content)
-		for key, value in content.items():
+		for key, value in content.iteritems():
 			self.assertEqual(cache.getContent(key), value)
 
 	def testFlushContent(self):

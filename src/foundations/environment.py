@@ -99,7 +99,7 @@ class Environment(object):
 
 		if value is not None:
 			assert type(value) is dict, "'{0}' attribute: '{1}' type is not 'dict'!".format("variables", value)
-			for key, element in value.items():
+			for key, element in value.iteritems():
 				assert type(key) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
 				"variables", key)
 				assert type(element) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
@@ -185,7 +185,7 @@ class Environment(object):
 
 		self.__variables.update(kwargs)
 
-		for key, value in self.__variables.items():
+		for key, value in self.__variables.iteritems():
 			if value is None:
 				continue
 			LOGGER.debug("> Setting environment variable '{0}' with value '{1}'.".format(key, value))

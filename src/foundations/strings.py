@@ -250,7 +250,7 @@ def replace(string, data):
 	:return: Manipulated string. ( String )
 	"""
 
-	for old, new in data.items():
+	for old, new in data.iteritems():
 		string = string.replace(old, new)
 	return string
 

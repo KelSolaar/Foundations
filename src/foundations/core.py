@@ -359,7 +359,7 @@ def executionTrace(object):
 				LOGGER.debug("   >>> Argument: '{0}' = '{1}' <<<".format(name, _castStr(value)))
 			for value in args[code.co_argcount:]:
 				LOGGER.debug("   >>> Argument: '{0}' <<<".format(_castStr(value)))
-			for key, value in kwargs.items():
+			for key, value in kwargs.iteritems():
 				LOGGER.debug("   >>> Argument: '{0}' = '{1}'<<<".format(key, _castStr(value)))
 
 		value = object(*args, **kwargs)

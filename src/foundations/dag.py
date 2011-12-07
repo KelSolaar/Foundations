@@ -441,7 +441,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 		:return: Attributes names. ( List )
 		"""
 
-		return [attribute for attribute, value in self.items() if issubclass(value.__class__, Attribute)]
+		return [attribute for attribute, value in self.iteritems() if issubclass(value.__class__, Attribute)]
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
@@ -458,7 +458,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 		:return: Attributes. ( List )
 		"""
 
-		return [attribute for attribute in self.values() if issubclass(attribute.__class__, Attribute)]
+		return [attribute for attribute in self.itervalues() if issubclass(attribute.__class__, Attribute)]
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)

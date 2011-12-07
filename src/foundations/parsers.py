@@ -450,7 +450,7 @@ class SectionsFileParser(io.File):
 		if value is not None:
 			assert type(value) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not \
 			'OrderedDict' or 'dict'!".format("sections", value)
-			for key, element in value.items():
+			for key, element in value.iteritems():
 				assert type(key) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
 				"sections", key)
 				assert type(value) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not \
@@ -489,7 +489,7 @@ class SectionsFileParser(io.File):
 		if value is not None:
 			assert type(value) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not \
 			'OrderedDict' or 'dict'!".format("comments", value)
-			for key, element in value.items():
+			for key, element in value.iteritems():
 				assert type(key) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
 				"comments", key)
 				assert type(value) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not \
@@ -772,7 +772,7 @@ class SectionsFileParser(io.File):
 			dictionary = orderedDictionary and OrderedDict or dict
 			attributes = dictionary()
 			if stripNamespaces:
-				for attribute, value in self.__sections[section].items():
+				for attribute, value in self.__sections[section].iteritems():
 					attributes[namespace.removeNamespace(attribute, rootOnly=True)] = value
 			else:
 				attributes.update(self.__sections[section])
@@ -816,8 +816,8 @@ class SectionsFileParser(io.File):
 
 		dictionary = orderedDictionary and OrderedDict or dict
 		allAttributes = dictionary()
-		for attributes in self.__sections.values():
-			for attribute, value in attributes.items():
+		for attributes in self.__sections.itervalues():
+			for attribute, value in attributes.iteritems():
 				allAttributes[attribute] = value
 		return allAttributes
 
@@ -901,12 +901,12 @@ class SectionsFileParser(io.File):
 		if self.__defaultsSection in self.__sections.keys():
 			LOGGER.debug("> Appending '{0}' default section.".format(self.__defaultsSection))
 			if self.__comments:
-				for comment, value in self.__comments.items():
+				for comment, value in self.__comments.iteritems():
 					if self.__defaultsSection in comment:
 						value = value["content"] or ""
 						LOGGER.debug("> Appending '{0}' comment with '{1}' value.".format(comment, value))
 						self.content.append(commentTemplate.format(value))
-			for attribute, value in self.__sections[self.__defaultsSection].items():
+			for attribute, value in self.__sections[self.__defaultsSection].iteritems():
 				attribute = namespaces and attribute or foundations.namespace.removeNamespace(attribute,
 																							self.__namespaceSplitter,
 																							rootOnly=True)
@@ -919,12 +919,12 @@ class SectionsFileParser(io.File):
 			LOGGER.debug("> Appending '{0}' section.".format(section))
 			self.content.append("[{0}]\n".format(section))
 			if self.__comments:
-				for comment, value in self.__comments.items():
+				for comment, value in self.__comments.iteritems():
 					if section in comment:
 						value = value["content"] or ""
 						LOGGER.debug("> Appending '{0}' comment with '{1}' value.".format(comment, value))
 						self.content.append(commentTemplate.format(value))
-			for attribute, value in self.__sections[section].items():
+			for attribute, value in self.__sections[section].iteritems():
 				if foundations.namespace.removeNamespace(attribute) == self.__rawSectionContentIdentifier:
 					LOGGER.debug("> Appending '{0}' raw section content.".format(section))
 					for line in value:

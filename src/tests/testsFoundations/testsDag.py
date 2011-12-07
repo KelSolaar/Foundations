@@ -148,7 +148,7 @@ class AbstractNodeTestCase(unittest.TestCase):
 		attributes = {"attributeA" : Attribute(), "attributeB" : Attribute()}
 
 		nodeA = AbstractNode("MyNodeA", **attributes)
-		for attribute in attributes.values():
+		for attribute in attributes.itervalues():
 			self.assertIn(attribute, nodeA.getAttributes())
 
 	def testHasAttribute(self):
@@ -172,7 +172,7 @@ class AbstractNodeTestCase(unittest.TestCase):
 		attributes = {"attributeA" : Attribute(), "attributeB" : Attribute()}
 
 		nodeA = AbstractNode("MyNodeA")
-		for attribute, value in attributes.items():
+		for attribute, value in attributes.iteritems():
 			self.assertTrue(nodeA.addAttribute(attribute, value))
 			self.assertTrue(nodeA.attributeExists(attribute))
 
@@ -184,7 +184,7 @@ class AbstractNodeTestCase(unittest.TestCase):
 		attributes = {"attributeA" : Attribute(), "attributeB" : Attribute()}
 
 		nodeA = AbstractNode("MyNodeA")
-		for attribute, value in attributes.items():
+		for attribute, value in attributes.iteritems():
 			self.assertTrue(nodeA.addAttribute(attribute, value))
 			self.assertTrue(nodeA.removeAttribute(attribute))
 			self.assertFalse(nodeA.attributeExists(attribute))

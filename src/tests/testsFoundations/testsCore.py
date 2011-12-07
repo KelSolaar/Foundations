@@ -85,7 +85,7 @@ class SetVerbosityLevelTestCase(unittest.TestCase):
 
 		LOGGER = logging.getLogger(Constants.logger)
 		levels = {logging.CRITICAL:0, logging.ERROR:1, logging.WARNING:2, logging.INFO:3, logging.DEBUG:4  }
-		for level, value in levels.items():
+		for level, value in levels.iteritems():
 			core.setVerbosityLevel(value)
 			self.assertEqual(level, LOGGER.level)
 

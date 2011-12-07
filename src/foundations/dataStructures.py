@@ -254,9 +254,9 @@ class Lookup(dict):
 		:return: Key. ( Object )
 		"""
 
-		for item in self.items():
-			if item[1] == value:
-				return item[0]
+		for key, data in self.iteritems():
+			if data == value:
+				return key
 
 	@core.executionTrace
 	def getKeysFromValue(self, value):
@@ -267,4 +267,4 @@ class Lookup(dict):
 		:return: Keys. ( Object )
 		"""
 
-		return [item[0] for item in self.items() if item[1] == value]
+		return [key for key, data in self.iteritems() if data == value]
