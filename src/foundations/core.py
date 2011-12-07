@@ -203,14 +203,21 @@ UNDEFINED_OBJECT = "UndefinedObject"
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-def _truncateString(string, length=Constants.executionTraceArgumentMaximumLength):
+def _castStr(object, length=Constants.executionTraceArgumentMaximumLength):
 	"""
-	This definition truncates the given string to given length.
+	This definition casts given object to string with a length limit.
 	
-	:param string: String to truncate. ( String )
+	:param object: Object. ( Object )
 	:param length: String maximum length. ( Integer )
 	:return: Truncated string. ( String )
 	"""
+
+	try:
+		string = str(object)
+	except:
+		# LOGGER.error("!> {0} | Exception raised while casting '{1}' object to 'str'!".format(
+		# inspect.getmodule(_castStr).__name__, id(object)))
+		string = str(None)
 
 	if len(string) > length:
 		return "{0} ...".format(string[:length])
@@ -303,7 +310,6 @@ def extractStack(frame, stackTraceFrameTag="__stackTraceFrameTag__"):
 			line = line and line.strip() or None
 			stack.append((filename, lineNumber, codeName, line))
 		frame = frame.f_back
-
 	stack.reverse()
 
 	return stack
@@ -350,11 +356,11 @@ def executionTrace(object):
 			signature = inspect.getargspec(object)
 			code = object.func_code
 			for name, value in zip(signature.args, args[:code.co_argcount]):
-				LOGGER.debug("   >>> Argument: '{0}' = '{1}' <<<".format(name, _truncateString(str(value))))
+				LOGGER.debug("   >>> Argument: '{0}' = '{1}' <<<".format(name, _castStr(value)))
 			for value in args[code.co_argcount:]:
-				LOGGER.debug("   >>> Argument: '{0}' <<<".format(_truncateString(str(value))))
+				LOGGER.debug("   >>> Argument: '{0}' <<<".format(_castStr(value)))
 			for key, value in kwargs.items():
-				LOGGER.debug("   >>> Argument: '{0}' = '{1}'<<<".format(key, _truncateString(str(value))))
+				LOGGER.debug("   >>> Argument: '{0}' = '{1}'<<<".format(key, _castStr(value)))
 
 		value = object(*args, **kwargs)
 
