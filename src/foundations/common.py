@@ -122,23 +122,20 @@ def removeLoggingHandler(logger, handler):
 	return True
 
 @core.executionTrace
-def exit(exitCode, logger, handlers):
+def exit(exitCode=1):
 	"""
 	This definition shuts down current process logging, associated handlers and then exits to system.
 	
 	:param exitCode: System exit code. ( Integer / String / Object )
-	:param logger: Current logger. ( Object )
-	:param handlers: Handlers. ( List )
 
 	:note: **exitCode** argument is passed to Python :func:`sys.exit` definition.
 	"""
 
 	LOGGER.debug("> {0} | Exiting current process!".format(core.getModule(exit).__name__))
 
-	LOGGER.debug("> Stopping logging handlers and logger, then exiting.")
-
-	for handler in handlers:
-		handler and removeLoggingHandler(logger, handler)
+	LOGGER.debug("> Stopping logging handlers and logger!")
+	for handler in LOGGER.__dict__["handlers"]:
+		removeLoggingHandler(LOGGER, handler)
 
 	sys.exit(exitCode)
 
