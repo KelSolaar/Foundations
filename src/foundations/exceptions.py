@@ -229,7 +229,7 @@ class AbstractError(Exception):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	@core.executionTrace
+	# @core.executionTrace
 	def __str__(self):
 		"""
 		This method returns the exception representation.
@@ -269,7 +269,7 @@ class AttributeStructureParsingError(AbstractParsingError):
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
-		AbstractError.__init__(self, value)
+		AbstractParsingError.__init__(self, value)
 
 		# --- Setting class attributes. ---
 		self.__line = None
@@ -314,7 +314,7 @@ class AttributeStructureParsingError(AbstractParsingError):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	@core.executionTrace
+	# @core.executionTrace
 	def __str__(self):
 		"""
 		This method returns the exception representation.
