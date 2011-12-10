@@ -478,7 +478,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 		:return: Attribute exists. ( Boolean )
 		"""
 
-		if name in self.keys():
+		if name in self:
 			if issubclass(self[name].__class__, Attribute):
 				return True
 		return False

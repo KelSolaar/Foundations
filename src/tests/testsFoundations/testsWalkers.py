@@ -120,7 +120,7 @@ class OsWalkerTestCase(unittest.TestCase):
 
 		osWalker.hashSize = 24
 		osWalker.walk()
-		for item in osWalker.files.keys():
+		for item in osWalker.files:
 			self.assertEqual(len(namespace.removeNamespace(item)), osWalker.hashSize)
 
 class DictionariesWalkerTestCase(unittest.TestCase):

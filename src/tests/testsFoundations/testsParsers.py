@@ -438,7 +438,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 			self.assertListEqual(sectionsFileParser.sections.keys(), STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type].keys())
 			sectionsFileParser.parse(orderedDictionary=False, rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			for section in STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type]:
-				self.assertIn(section, sectionsFileParser.sections.keys())
+				self.assertIn(section, sectionsFileParser.sections)
 
 	def testRawSections(self):
 		"""
@@ -470,8 +470,8 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 		sectionsFileParser = SectionsFileParser(DEFAULTS_FILE)
 		sectionsFileParser.read() and sectionsFileParser.parse()
-		for section in DEFAULTS_FILE_SECTIONS_AND_ATTRIBUTES.keys():
-			self.assertIn(section, sectionsFileParser.sections.keys())
+		for section in DEFAULTS_FILE_SECTIONS_AND_ATTRIBUTES:
+			self.assertIn(section, sectionsFileParser.sections)
 
 	def testNamespaces(self):
 		"""
@@ -493,10 +493,10 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 		sectionsFileParser = SectionsFileParser(STRIPPING_FILE)
 		sectionsFileParser.read() and sectionsFileParser.parse(stripWhitespaces=False)
-		for section in STRIPPING_FILE_SECTIONS_AND_ATTRIBUTES_NON_STRIPPED.keys():
-			self.assertIn(section, sectionsFileParser.sections.keys())
+		for section in STRIPPING_FILE_SECTIONS_AND_ATTRIBUTES_NON_STRIPPED:
+			self.assertIn(section, sectionsFileParser.sections)
 			for attribute, value in STRIPPING_FILE_SECTIONS_AND_ATTRIBUTES_NON_STRIPPED[section].iteritems():
-				self.assertIn(attribute, sectionsFileParser.sections[section].keys())
+				self.assertIn(attribute, sectionsFileParser.sections[section])
 				self.assertIn(value, sectionsFileParser.sections[section].itervalues())
 
 	def testStripQuotationMarkers(self):
@@ -506,10 +506,10 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 		sectionsFileParser = SectionsFileParser(STRIPPING_FILE)
 		sectionsFileParser.read() and sectionsFileParser.parse(stripQuotationMarkers=False)
-		for section in STRIPPING_FILE_SECTIONS_AND_ATTRIBUTES_STRIPPED.keys():
-			self.assertIn(section, sectionsFileParser.sections.keys())
+		for section in STRIPPING_FILE_SECTIONS_AND_ATTRIBUTES_STRIPPED:
+			self.assertIn(section, sectionsFileParser.sections)
 			for attribute, value in STRIPPING_FILE_SECTIONS_AND_ATTRIBUTES_STRIPPED[section].iteritems():
-				self.assertIn(attribute, sectionsFileParser.sections[section].keys())
+				self.assertIn(attribute, sectionsFileParser.sections[section])
 				self.assertIn(value, sectionsFileParser.sections[section].itervalues())
 
 	def testParsingErrors(self):
@@ -520,7 +520,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 		sectionsFileParser = SectionsFileParser(PARSING_ERRORS_FILE)
 		sectionsFileParser.read() and sectionsFileParser.parse(raiseParsingErrors=False)
 		for exception in sectionsFileParser.parsingErrors:
-			self.assertIn(exception.line, PARSING_ERRORS_LINES_AND_VALUES.keys())
+			self.assertIn(exception.line, PARSING_ERRORS_LINES_AND_VALUES)
 			self.assertEqual(exception.value, PARSING_ERRORS_LINES_AND_VALUES[exception.line])
 
 	def testSectionExists(self):
@@ -542,7 +542,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 		for type, file in STANDARD_FILES.iteritems():
 			sectionsFileParser = SectionsFileParser(file)
 			sectionsFileParser.read() and sectionsFileParser.parse(False, rawSections=STANDARD_FILES_RAW_SECTIONS[type])
-			for attribute in RANDOM_ATTRIBUTES[type].keys():
+			for attribute in RANDOM_ATTRIBUTES[type]:
 				self.assertTrue(sectionsFileParser.attributeExists(attribute, namespace.getNamespace(attribute,
 																									rootOnly=True)))
 				self.assertFalse(sectionsFileParser.attributeExists("Unknown", namespace.getNamespace(attribute,

@@ -78,7 +78,7 @@ def _LogRecord_getAttribute(self, attribute):
 
 	if attribute == "__dict__":
 		threadIdent = threading.currentThread().ident
-		if not threadIdent in THREADS_IDENTIFIERS.keys():
+		if not threadIdent in THREADS_IDENTIFIERS:
 			THREADS_IDENTIFIERS[threadIdent] = (threading.currentThread().name,
 												hashlib.md5(threading.currentThread().name).hexdigest()[:8])
 		object.__getattribute__(self, attribute)["threadName"] = THREADS_IDENTIFIERS[threadIdent][1]

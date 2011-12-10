@@ -696,7 +696,7 @@ class SectionsFileParser(io.File):
 		if not self.__sections:
 			return
 
-		if section in self.__sections.keys():
+		if section in self.__sections:
 			LOGGER.debug("> '{0}' section exists in '{1}'.".format(section, self))
 			return True
 		else:
@@ -848,9 +848,9 @@ class SectionsFileParser(io.File):
 			return
 
 		if self.attributeExists(attribute, section):
-			if attribute in self.__sections[section].keys():
+			if attribute in self.__sections[section]:
 				value = self.__sections[section][attribute]
-			elif namespace.setNamespace(section, attribute) in self.__sections[section].keys():
+			elif namespace.setNamespace(section, attribute) in self.__sections[section]:
 				value = self.__sections[section][namespace.setNamespace(section, attribute)]
 			LOGGER.debug("> Attribute: '{0}', value: '{1}'.".format(attribute, value))
 			value = encode and unicode(value, Constants.encodingFormat, Constants.encodingError) or value
@@ -898,7 +898,7 @@ class SectionsFileParser(io.File):
 		attributeTemplate = foundations.strings.replace(attributeTemplate, {"{{" : "{", "}}" : "}"})
 		commentTemplate = spaceAfterCommentLimiter and "{0} {{0}}\n".format(commentLimiter) or \
 							"{0}{{0}}\n".format(commentLimiter)
-		if self.__defaultsSection in self.__sections.keys():
+		if self.__defaultsSection in self.__sections:
 			LOGGER.debug("> Appending '{0}' default section.".format(self.__defaultsSection))
 			if self.__comments:
 				for comment, value in self.__comments.iteritems():
@@ -915,7 +915,7 @@ class SectionsFileParser(io.File):
 				self.content.append(attributeTemplate.format(attribute, value))
 			self.content.append("\n")
 
-		for i, section in enumerate(self.__sections.keys()):
+		for i, section in enumerate(self.__sections):
 			LOGGER.debug("> Appending '{0}' section.".format(section))
 			self.content.append("[{0}]\n".format(section))
 			if self.__comments:
@@ -938,7 +938,7 @@ class SectionsFileParser(io.File):
 					value = value or ""
 					LOGGER.debug("> Appending '{0}' attribute with '{1}' value.".format(attribute, value))
 					self.content.append(attributeTemplate.format(attribute, value))
-			if i != len(self.__sections.keys()) - 1:
+			if i != len(self.__sections) - 1:
 				self.content.append("\n")
 		io.File.write(self)
 		return True

@@ -110,7 +110,7 @@ class Cache(dict):
 		LOGGER.debug("> Removing '{0}' content from the cache.".format(self.__class__.__name__, keys))
 
 		for key in keys:
-			if not key in self.keys():
+			if not key in self:
 				raise KeyError("{0} | '{1}' key doesn't exists in cache content!".format(self.__class__.__name__, key))
 
 			del self[key]

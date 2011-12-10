@@ -153,10 +153,10 @@ class Environment(object):
 		args and self.__addVariables(*args)
 
 		LOGGER.debug("> Object environment variables: '{0}'.".format(
-		",".join((key for key in self.__variables.keys() if key))))
+		",".join((key for key in self.__variables if key))))
 		LOGGER.debug("> Available system environment variables: '{0}'".format(os.environ.keys()))
 
-		for variable in self.__variables.keys():
+		for variable in self.__variables:
 			self.__variables[variable] = os.environ.get(variable, None)
 		return self.__variables
 

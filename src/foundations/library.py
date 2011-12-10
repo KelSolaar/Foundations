@@ -101,7 +101,7 @@ class Library(object):
 
 		libraryPath = args[0]
 		if foundations.common.pathExists(libraryPath):
-			if not args[0] in self._Library__librariesInstances.keys():
+			if not args[0] in self._Library__librariesInstances:
 				self._Library__librariesInstances[args[0]] = object.__new__(self)
 			return self._Library__librariesInstances[args[0]]
 		else:

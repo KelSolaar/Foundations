@@ -68,7 +68,7 @@ class StructureTestCase(unittest.TestCase):
 		"""
 
 		structure = foundations.dataStructures.Structure(John="Doe", Jane="Doe")
-		self.assertIn("John", structure.keys())
+		self.assertIn("John", structure)
 		self.assertTrue(hasattr(structure, "John"))
 
 class OrderedStructureTestCase(unittest.TestCase):
@@ -82,7 +82,7 @@ class OrderedStructureTestCase(unittest.TestCase):
 		"""
 
 		structure = foundations.dataStructures.OrderedStructure([("personA", "John"), ("personB", "Jane"), ("personC", "Luke")])
-		self.assertIn("personA", structure.keys())
+		self.assertIn("personA", structure)
 		self.assertTrue(hasattr(structure, "personA"))
 		self.assertListEqual(["personA", "personB", "personC"], structure.keys())
 		structure["personA"] = "Anakin"
@@ -90,7 +90,7 @@ class OrderedStructureTestCase(unittest.TestCase):
 		structure.personA = "John"
 		self.assertEquals("John", structure["personA"])
 		del(structure.personA)
-		self.assertTrue("personA" not in structure.keys())
+		self.assertTrue("personA" not in structure)
 		del(structure["personB"])
 		self.assertTrue(not hasattr(structure, "personB"))
 

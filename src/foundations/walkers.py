@@ -252,7 +252,7 @@ def dictionariesWalker(dictionary, path=()):
 		you will have to either encapsulate them in another object, or mutate their base class.
 	"""
 
-	for key in dictionary.keys():
+	for key in dictionary:
 		if not isinstance(dictionary[key], dict):
 			yield path, key, dictionary[key]
 		else:

@@ -159,7 +159,7 @@ class AbstractNodeTestCase(unittest.TestCase):
 		attributes = {"attributeA" : Attribute(), "attributeB" : Attribute()}
 
 		nodeA = AbstractNode("MyNodeA", **attributes)
-		for attribute in attributes.keys():
+		for attribute in attributes:
 			self.assertTrue(nodeA.attributeExists(attribute))
 		nodeB = AbstractNode("MyNodeB", nonAttribute="Non Attribute")
 		self.assertFalse(nodeA.attributeExists("nonAttribute"))
