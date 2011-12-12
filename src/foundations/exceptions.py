@@ -323,7 +323,7 @@ class AttributeStructureParsingError(AbstractParsingError):
 		"""
 
 		if self.__line:
-			return "Line nº '{0}': '{1}'.".format(self.__line, str(self.value))
+			return "Line '{0}': '{1}'.".format(self.__line, str(self.value))
 		else:
 			return str(self.value)
 
