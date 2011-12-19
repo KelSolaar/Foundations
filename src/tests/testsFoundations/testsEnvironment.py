@@ -75,15 +75,18 @@ class EnvironmentTestCase(unittest.TestCase):
 		"""
 
 		if platform.system() == "Windows" or platform.system() == "Microsoft":
-			environment = Environment("APPDATA")
+			variable = "APPDATA"
 		elif platform.system() == "Darwin":
-			environment = Environment("HOME")
+			variable = "HOME"
 		elif platform.system() == "Linux":
-			environment = Environment("HOME")
+			variable = "HOME"		
+		
+		environment = Environment(variable)
 		self.assertIsInstance(environment.getValues(), dict)
-		self.assertIsInstance(environment.getValues("HOME"), dict)
-		self.assertIsInstance(environment.getValues().get("HOME"), str)
-		self.assertEqual(environment.getValues()["HOME"], os.environ["HOME"])
+		self.assertIsInstance(environment.getValues(variable), dict)
+		
+		self.assertIsInstance(environment.getValues().get(variable), str)
+		self.assertEqual(environment.getValues()[variable], os.environ[variable])
 		environment.getValues("JOHNDOE_IS_FOR_SURE_A_NON_EXISTING_SYSTEM_ENVIRONMENT_VARIABLE")
 		self.assertFalse(environment.getValues()["JOHNDOE_IS_FOR_SURE_A_NON_EXISTING_SYSTEM_ENVIRONMENT_VARIABLE"])
 
