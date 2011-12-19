@@ -1128,8 +1128,8 @@ class PlistFileParser(io.File):
 
 		if self.__parsingErrors:
 			if raiseParsingErrors:
-				raise foundations.exceptions.FileStructureParsingError("{0} | '{1}' structure is invalid, \
-				parsing exceptions occured!".format(self.__class__.__name__, self.file))
+				raise foundations.exceptions.FileStructureParsingError(
+				"{0} | '{1}' structure is invalid, parsing exceptions occured!".format(self.__class__.__name__, self.file))
 		else:
 			self.__elements = elementTreeParser.root[0].text
 			return True
