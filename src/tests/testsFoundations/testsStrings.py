@@ -17,6 +17,7 @@
 #**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
+import os
 import platform
 import re
 import unittest
@@ -129,10 +130,16 @@ class GetCommonPathsAncestorTestCase(unittest.TestCase):
 		This method tests :func:`foundations.strings.getCommonPathsAncestor` definition.
 		"""
 
-		self.assertEqual(strings.getCommonPathsAncestor("/Users/JohnDoe/Documents",
-														"/Users/JohnDoe/Documents/Test.txt"),
-						"/Users/JohnDoe/Documents")
-		self.assertFalse(strings.getCommonPathsAncestor("/JohnDoe/Documents", "/Users/JohnDoe/Documents/Test.txt"))
+		self.assertEqual(strings.getCommonPathsAncestor("{0}{1}".format(os.sep,
+														os.sep.join(("Users", "JohnDoe", "Documents"))),
+														"{0}{1}".format(os.sep,
+														os.sep.join(("Users", "JohnDoe", "Documents", "Test.txt")))),
+														"{0}{1}".format(os.sep,
+														os.sep.join(("Users", "JohnDoe", "Documents"))))
+
+		self.assertFalse(strings.getCommonPathsAncestor("{0}{1}".format(os.sep, os.sep.join(("JohnDoe", "Documents"))),
+														"{0}{1}".format(os.sep,
+														os.sep.join(("Users", "JohnDoe", "Documents", "Test.txt")))))
 
 class GetWordsTestCase(unittest.TestCase):
 	"""
