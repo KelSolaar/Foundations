@@ -1,35 +1,49 @@
-h1=. Foundations - 1.0.4 - Stable
+Foundations - 2.0.0 - Stable
+============================
 
-h2=. Change Log
+Change Log
+==========
 
-h3. 1.0.4 - Stable
+2.0.0 - Stable
+--------------
 
-* Reorganize package directories structure.
-* Add "rotatingBackup" module and associated "testsRotatingBackup" units tests module.
+-  Major package refactor.
+-  Add "cache", "dag", "dataStructures" modules and associated units tests module.
 
-h3. 1.0.3 - Stable
+1.0.4 - Stable
+--------------
 
-* Ensured that the parser will split attributes only one time.
-* Added "toPosixPath" method to "strings" module and associated units tests.
+-  Reorganize package directories structure.
+-  Add "rotatingBackup" module and associated "testsRotatingBackup" units tests module.
 
-h3. 1.0.2 - Stable
+1.0.3 - Stable
+--------------
 
-* Added "getWords" and "filterWords" methods to "strings" module and associated units tests.
-* Implemented "filterWords" in "walkers" module.
-* Added "getSplitextBasename" definition to "strings" module and associated units tests to "testsStrings" module.
-* Replaced list comprehension expressions by generators.
+-  Ensured that the parser will split attributes only one time.
+-  Added "toPosixPath" method to "strings" module and associated units tests.
 
-h3. 1.0.1 - Stable
+1.0.2 - Stable
+--------------
 
-* Added "namespace" module and associated "testsGlobals" units tests module.
+-  Added "getWords" and "filterWords" methods to "strings" module and associated units tests.
+-  Implemented "filterWords" in "walkers" module.
+-  Added "getSplitextBasename" definition to "strings" module and associated units tests to "testsStrings" module.
+-  Replaced list comprehension expressions by generators.
 
-h3. 1.0.0 - Stable
+1.0.1 - Stable
+--------------
 
-* Initial Release of Foundations.
+-  Added "namespace" module and associated "testsGlobals" units tests module.
 
-h2=. About
+1.0.0 - Stable
+--------------
 
-Foundations by Thomas Mansencal - 2008 - 2011
-Copyright (C) 2008 - 2011 - Thomas Mansencal - "thomas.mansencal@gmail.com":mailto:thomas.mansencal@gmail.com
-This Software Is Released Under Terms Of GNU GPL V3 License: "http://www.gnu.org/licenses/":http://www.gnu.org/licenses/
-"http://www.thomasmansencal.com/":http://www.thomasmansencal.com/
+-  Initial Release of Foundations.
+
+About
+-----
+
+| sIBL_GUI by Thomas Mansencal – 2008 – 2011
+| Copyright© 2008 – 2011 – Thomas Mansencal – `thomas.mansencal@gmail.com <mailto:thomas.mansencal@gmail.com>`_
+| This software is released under terms of GNU GPL V3 license: http://www.gnu.org/licenses/
+| `http://www.thomasmansencal.com/ <http://www.thomasmansencal.com/>`_
