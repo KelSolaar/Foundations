@@ -394,6 +394,7 @@ class SectionsFileParser(io.File):
 
 		raise foundations.exceptions.ProgrammingError(
 		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "rawSectionContentIdentifier"))
+
 	@property
 	def defaultsSection(self):
 		"""
