@@ -79,8 +79,10 @@ class Attribute(foundations.dataStructures.Structure):
 		foundations.dataStructures.Structure.__init__(self, **kwargs)
 
 		# --- Setting class attributes. ---
-		self["name"] = name
-		self["value"] = value
+		self.__name = None
+		self.name = name
+		self.__value = None
+		self.value = value
 
 	#******************************************************************************************************************
 	#***	Attributes properties.
@@ -88,23 +90,23 @@ class Attribute(foundations.dataStructures.Structure):
 	@property
 	def name(self):
 		"""
-		This method is the property for **name** attribute.
+		This method is the property for **self.__name** attribute.
 
 		:return: Value. ( String )
 		"""
 
-		return self["name"]
+		return self.__name
 
 	@name.setter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
-	def name(self, name):
+	def name(self, value):
 		"""
-		This method is the setter method for **name** attribute.
+		This method is the setter method for **self.__name** attribute.
 
 		:param name: Attribute name. ( String )
 		"""
 
-		self["name"] = name
+		self.__name = value
 
 	@name.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -119,23 +121,23 @@ class Attribute(foundations.dataStructures.Structure):
 	@property
 	def value(self):
 		"""
-		This method is the property for **value** attribute.
+		This method is the property for **self.__value** attribute.
 
 		:return: Value. ( Object )
 		"""
 
-		return self["value"]
+		return self.__value
 
 	@value.setter
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def value(self, value):
 		"""
-		This method is the setter method for **value** attribute.
+		This method is the setter method for **self.__value** attribute.
 
 		:param value: Attribute value. ( Object )
 		"""
 
-		self["value"] = value
+		self.__value = value
 
 	@value.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -189,7 +191,9 @@ class AbstractNode(foundations.dataStructures.Structure):
 		"""
 
 		instance = super(AbstractNode, self).__new__(self)
-		instance.__identity = AbstractNode._AbstractNode__instanceId
+
+		instance._AbstractNode__identity = AbstractNode._AbstractNode__instanceId
+
 		AbstractNode._AbstractNode__nodesInstances[instance.__identity] = instance
 		AbstractNode._AbstractNode__instanceId += 1
 		return instance

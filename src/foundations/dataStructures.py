@@ -62,7 +62,7 @@ class NestedAttribute(object):
 		64
 	"""
 
-	@core.executionTrace
+	# @core.executionTrace
 	def __getattr__(self, attribute):
 		"""
 		This method returns requested attribute.
@@ -74,7 +74,7 @@ class NestedAttribute(object):
 		self.__dict__[attribute] = NestedAttribute()
 		return self.__dict__[attribute]
 
-	@core.executionTrace
+	# @core.executionTrace
 	def __setattr__(self, attribute, value):
 		"""
 		This method sets given attribute with given value.
@@ -86,7 +86,7 @@ class NestedAttribute(object):
 		namespaces = attribute.split(".")
 		object.__setattr__(reduce(object.__getattribute__, namespaces[:-1], self), namespaces[-1], value)
 
-	@core.executionTrace
+	# @core.executionTrace
 	def __delattr__(self, attribute):
 		"""
 		This method deletes given attribute with.
@@ -122,18 +122,65 @@ class Structure(dict):
 	"""
 
 	@core.executionTrace
-	def __init__(self, **kwargs):
+	def __init__(self, *args, **kwargs):
 		"""
 		This method initializes the class.
 
+		:param \*args: Arguments. ( \* )
 		:param \*\*kwargs: Key / Value pairs. ( Key / Value pairs )
 		"""
 
-		# :note: The following statement ensures that attributes defined in parent classes are propagated.
-		kwargs.update(self.__dict__)
-
 		dict.__init__(self, **kwargs)
-		self.__dict__ = self
+		self.__dict__.update(**kwargs)
+
+	# @core.executionTrace
+	def __getattr__(self, attribute):
+		"""
+		This method returns given attribute value.
+
+		:return: Attribute value. ( Object )
+		"""
+
+		return self[attribute]
+
+	# @core.executionTrace
+	def __setattr__(self, attribute, value):
+		"""
+		This method sets both key and sibling attribute with given value.
+
+		:param attribute.: Attribute. ( Object )
+		:param value.: Value. ( Object )
+		"""
+
+		dict.__setitem__(self, attribute, value)
+		object.__setattr__(self, attribute, value)
+
+	__setitem__ = __setattr__
+
+	# @core.executionTrace
+	def __delattr__(self, attribute):
+		"""
+		This method deletes both key and sibling attribute.
+
+		:param attribute.: Attribute. ( Object )
+		"""
+
+		dict.__delitem__(self, attribute)
+		object.__delattr__(self, attribute)
+
+	__delitem__ = __delattr__
+
+	# @core.executionTrace
+	def update(self, *args, **kwargs):
+		"""
+		This method reimplements the :meth:`Dict.update` method.
+		
+		:param \*args: Arguments. ( \* )
+		:param \*\*kwargs: Keywords arguments. ( \*\* )
+		"""
+
+		dict.update(self, *args, **kwargs)
+		self.__dict__.update(*args, **kwargs)
 
 class OrderedStructure(OrderedDict):
 	"""
@@ -177,7 +224,7 @@ class OrderedStructure(OrderedDict):
 
 		OrderedDict.__init__(self, *args, **kwargs)
 
-	@core.executionTrace
+	# @core.executionTrace
 	def __setitem__(self, key, value, *args, **kwargs):
 		"""
 		This method sets a key and sibling attribute with given value.
@@ -191,7 +238,7 @@ class OrderedStructure(OrderedDict):
 		OrderedDict.__setitem__(self, key, value, *args, **kwargs)
 		OrderedDict.__setattr__(self, key, value)
 
-	@core.executionTrace
+	# @core.executionTrace
 	def __delitem__(self, key, *args, **kwargs):
 		"""
 		This method deletes both key and sibling attribute.
@@ -204,7 +251,7 @@ class OrderedStructure(OrderedDict):
 		OrderedDict.__delitem__(self, key, *args, **kwargs)
 		OrderedDict.__delattr__(self, key)
 
-	@core.executionTrace
+	# @core.executionTrace
 	def __setattr__(self, attribute, value):
 		"""
 		This method sets both key and sibling attribute with given value.
@@ -218,7 +265,7 @@ class OrderedStructure(OrderedDict):
 				OrderedDict.__setitem__(self, attribute, value)
 		OrderedDict.__setattr__(self, attribute, value)
 
-	@core.executionTrace
+	# @core.executionTrace
 	def __delattr__(self, attribute):
 		"""
 		This method deletes both key and sibling attribute.
@@ -245,7 +292,7 @@ class Lookup(dict):
 		['Jane', 'John']
 	"""
 
-	@core.executionTrace
+	# @core.executionTrace
 	def getFirstKeyFromValue(self, value):
 		"""
 		This method gets the first key from given value.
@@ -258,7 +305,7 @@ class Lookup(dict):
 			if data == value:
 				return key
 
-	@core.executionTrace
+	# @core.executionTrace
 	def getKeysFromValue(self, value):
 		"""
 		This method gets the keys from given value.
