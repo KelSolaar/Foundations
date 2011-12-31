@@ -1,20 +1,25 @@
-Foundations - 2.0.0 - Stable
+Foundations - 2.0.1 - Stable
 ============================
 
 Change Log
 ==========
 
+2.0.1 - Stable
+--------------
+
+-  Prevented memory leak in "foundations.dataStuctures.Structure" class.
+
 2.0.0 - Stable
 --------------
 
 -  Major package refactor.
--  Add "cache", "dag", "dataStructures" modules and associated units tests module.
+-  Adde "cache", "dag", "dataStructures" modules and associated units tests module.
 
 1.0.4 - Stable
 --------------
 
 -  Reorganize package directories structure.
--  Add "rotatingBackup" module and associated "testsRotatingBackup" units tests module.
+-  Adde "rotatingBackup" module and associated "testsRotatingBackup" units tests module.
 
 1.0.3 - Stable
 --------------
