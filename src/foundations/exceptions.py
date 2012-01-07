@@ -157,7 +157,7 @@ def defaultExceptionsHandler(exception, traceName, *args, **kwargs):
 															Constants.nullObject))
 
 	for i, line in enumerate(str(exception).split("\n")):
-		LOGGER.error("!> Exception message line nº '{0}' : '{1}'.".format(i + 1, line))
+		LOGGER.error("!> Exception message line no. '{0}' : '{1}'.".format(i + 1, line))
 
 	LOGGER.error("!> {0}".format(Constants.loggingSeparators))
 
