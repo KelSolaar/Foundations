@@ -35,7 +35,11 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["GetSystemApplicationDataDirectoryTestCase", "GetUserApplicationDataDirectoryTestCase"]
+__all__ = ["GetSystemApplicationDataDirectoryTestCase",
+		"GetUserApplicationDataDirectoryTestCase",
+		"UniqifyTestCase",
+		"OrderedUniqifyTestCase",
+		"PathExistsTestCase"]
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
@@ -83,6 +87,22 @@ class UniqifyTestCase(unittest.TestCase):
 		self.assertListEqual(sorted(foundations.common.uniqify(sequence)), [(1, "A"), (2, "B"), (3, "C")])
 		sequence = ({1 : "A"}, {1 : "A"}, {2 : "B"}, {3 : "C"})
 		self.assertListEqual(sorted(foundations.common.uniqify(sequence)), [{1 : "A"}, {2 : "B"}, {3 : "C"}])
+
+
+class OrderedUniqifyTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.common.orderedUniqify` definition units tests methods.
+	"""
+
+	def testOrderedUniqify(self):
+		"""
+		This method tests :func:`foundations.common.orderedUniqify` definition.
+		"""
+
+		sequence = ("A", "B", "B", "C")
+		self.assertListEqual(foundations.common.orderedUniqify(sequence), ["A", "B", "C"])
+		sequence = ((1, "A"), (2, "B"), (2, "B"), (3, "C"))
+		self.assertListEqual(foundations.common.orderedUniqify(sequence), [(1, "A"), (2, "B"), (3, "C")])
 
 class PathExistsTestCase(unittest.TestCase):
 	"""

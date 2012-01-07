@@ -49,6 +49,7 @@ __all__ = ["LOGGER",
 			"exit",
 			"wait",
 			"uniqify",
+			"orderedUniqify",
 			"pathExists"]
 
 LOGGER = logging.getLogger(Constants.logger)
@@ -158,7 +159,7 @@ def wait(waitTime):
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def uniqify(sequence):
 	"""
-	This definition uniqifies the given sequence.
+	This definition uniqifies the given sequence even if unhashable.
 
 	:param sequence: Sequence. ( Object )
 	:return: Uniqified sequence. ( List )
@@ -167,6 +168,19 @@ def uniqify(sequence):
 	"""
 
 	return [key for key, group in itertools.groupby(sorted(sequence))]
+
+@core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
+def orderedUniqify(sequence):
+	"""
+	This definition uniqifies the given hashable sequence while preserving its order.
+
+	:param sequence: Sequence. ( Object )
+	:return: Uniqified sequence. ( List )
+	"""
+
+	items = set()
+	return [key for key in sequence if key not in items and not items.add(key)]
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
