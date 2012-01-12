@@ -558,6 +558,8 @@ class AbstractCompositeNode(AbstractNode):
 		:param parent: Node parent. ( AbstractNode / AbstractCompositeNode )
 		:param children: Children. ( List )
 		:param \*\*kwargs: Keywords arguments. ( \*\* )
+		
+		:note: :data:`pickle.HIGHEST_PROTOCOL` must be used to pickle :class:`foundations.dag.AbstractCompositeNode` class.
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -648,6 +650,23 @@ class AbstractCompositeNode(AbstractNode):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
+	# @core.executionTrace
+	def __eq__(self, object):
+		"""
+		This method reimplements the :meth:`AbstractNode.__repr__` method.
+		
+		:param object: Comparing object. ( Object )
+		:return: Equality. ( Boolean )
+		"""
+
+		if self is object:
+			return True
+		elif isinstance(object, AbstractCompositeNode):
+			for childA, childB in zip(self.__children, object.children):
+				return childA.identity == childB.identity
+		else:
+			return False
+
 	# @core.executionTrace
 	# @foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def child(self, index):

@@ -17,6 +17,7 @@
 #**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
+import pickle
 import re
 import unittest
 
@@ -188,6 +189,21 @@ class AbstractNodeTestCase(unittest.TestCase):
 			self.assertTrue(nodeA.addAttribute(attribute, value))
 			self.assertTrue(nodeA.removeAttribute(attribute))
 			self.assertFalse(nodeA.attributeExists(attribute))
+
+	def testAbstractNodePickle(self):
+		"""
+		This method tests :class:`foundations.dag.AbstractNode` class pickling.
+		"""
+
+		nodeA = AbstractNode("MyNodeA", attributeA=Attribute(), attributeB=Attribute())
+
+		data = pickle.dumps(nodeA)
+		data = pickle.loads(data)
+		self.assertEqual(nodeA, data)
+
+		data = pickle.dumps(nodeA, pickle.HIGHEST_PROTOCOL)
+		data = pickle.loads(data)
+		self.assertEqual(nodeA, data)
 
 class AbstractCompositeNodeTestCase(unittest.TestCase):
 	"""
@@ -391,6 +407,22 @@ class AbstractCompositeNodeTestCase(unittest.TestCase):
 		nodeB = AbstractCompositeNode("MyNodeB", nodeA)
 		nodeC = AbstractCompositeNode("MyNodeC", nodeA)
 		self.assertIsInstance(nodeA.listNode(), str)
+
+	def testAbstractCompositeNodePickle(self):
+		"""
+		This method tests :class:`foundations.dag.AbstractCompositeNode` class pickling.
+		
+		:note: :data:`pickle.HIGHEST_PROTOCOL` must be used to pickle :class:`foundations.dag.AbstractCompositeNode` class.
+		"""
+
+		nodeA = AbstractCompositeNode("MyNodeA", attributeA=Attribute(value="A"), attributeB=Attribute(value="1"))
+		nodeB = AbstractCompositeNode("MyNodeB", nodeA, attributeA=Attribute(value="B"), attributeB=Attribute(value="2"))
+		nodeC = AbstractCompositeNode("MyNodeC", nodeA, attributeA=Attribute(value="C"), attributeB=Attribute(value="3"))
+		nodeD = AbstractCompositeNode("MyNodeD", nodeB, attributeA=Attribute(value="D"), attributeB=Attribute(value="4"))
+
+		data = pickle.dumps(nodeA, pickle.HIGHEST_PROTOCOL)
+		data = pickle.loads(data)
+		self.assertEqual(nodeA, data)
 
 if __name__ == "__main__":
 	import tests.utilities

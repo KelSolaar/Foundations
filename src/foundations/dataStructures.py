@@ -141,7 +141,10 @@ class Structure(dict):
 		:return: Attribute value. ( Object )
 		"""
 
-		return self[attribute]
+		try:
+			return dict.__getitem__(self, attribute)
+		except KeyError:
+			raise AttributeError
 
 	# @core.executionTrace
 	def __setattr__(self, attribute, value):

@@ -17,6 +17,7 @@
 #**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
+import pickle
 import unittest
 
 #**********************************************************************************************************************
@@ -89,6 +90,21 @@ class StructureTestCase(unittest.TestCase):
 		structure.update(**{"John" : "Doe", "Jane" : "Doe"})
 		self.assertEqual(structure.John, "Doe")
 		self.assertEqual(structure["John"], "Doe")
+
+	def testStructurePickle(self):
+		"""
+		This method tests :class:`foundations.dataStructures.Structure` class pickling.
+		"""
+
+		structure = foundations.dataStructures.Structure(John="Doe", Jane="Doe")
+
+		data = pickle.dumps(structure)
+		data = pickle.loads(data)
+		self.assertEqual(structure, data)
+
+		data = pickle.dumps(structure, pickle.HIGHEST_PROTOCOL)
+		data = pickle.loads(data)
+		self.assertEqual(structure, data)
 
 class OrderedStructureTestCase(unittest.TestCase):
 	"""
