@@ -483,8 +483,8 @@ class SectionsFileParserTestCase(unittest.TestCase):
 			sectionsFileParser.read() and sectionsFileParser.parse(rawSections=STANDARD_FILES_RAW_SECTIONS[type],
 																	namespaces=False)
 			for section in STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type]:
-					for attribute in sectionsFileParser.sections[section]:
-						self.assertIn(attribute, STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type][section]["stripped"])
+				for attribute in sectionsFileParser.sections[section]:
+					self.assertIn(attribute, STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type][section]["stripped"])
 
 	def testStripWhitespaces(self):
 		"""
@@ -557,11 +557,11 @@ class SectionsFileParserTestCase(unittest.TestCase):
 			sectionsFileParser = SectionsFileParser(file)
 			sectionsFileParser.read() and sectionsFileParser.parse(rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			for section in STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type]:
-					self.assertListEqual(sectionsFileParser.getAttributes(
-					section, orderedDictionary=True, stripNamespaces=True).keys(),
-					STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type][section]["stripped"])
-					self.assertListEqual(sectionsFileParser.getAttributes(section).keys(),
-					STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type][section]["namespaced"])
+				self.assertListEqual(sectionsFileParser.getAttributes(
+				section, orderedDictionary=True, stripNamespaces=True).keys(),
+				STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type][section]["stripped"])
+				self.assertListEqual(sectionsFileParser.getAttributes(section).keys(),
+				STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type][section]["namespaced"])
 
 	def testGetAllAttributes(self):
 		"""
@@ -574,7 +574,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 			attributes = sectionsFileParser.getAllAttributes()
 			testsAttributes = []
 			for section in STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type]:
-					testsAttributes.extend(STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type][section]["namespaced"])
+				testsAttributes.extend(STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type][section]["namespaced"])
 			self.assertListEqual(attributes.keys(), testsAttributes)
 
 	def testGetValue(self):

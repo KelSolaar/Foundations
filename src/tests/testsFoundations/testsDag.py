@@ -117,7 +117,7 @@ class AbstractNodeTestCase(unittest.TestCase):
 		nodeA = AbstractNode("MyNodeA")
 		self.assertEqual(nodeA.identity, nodeA.__hash__())
 		nodeB = AbstractNode("MyNodeB")
-		dictionary = {nodeA : "MyNodeA", nodeB : "MyNodeB"}
+		self.assertEqual(nodeB.identity, nodeB.__hash__())
 
 	def testGetNodeByIdentity(self):
 		"""
@@ -162,7 +162,7 @@ class AbstractNodeTestCase(unittest.TestCase):
 		for attribute in attributes:
 			self.assertTrue(nodeA.attributeExists(attribute))
 		nodeB = AbstractNode("MyNodeB", nonAttribute="Non Attribute")
-		self.assertFalse(nodeA.attributeExists("nonAttribute"))
+		self.assertFalse(nodeB.attributeExists("nonAttribute"))
 
 	def testAddAttribute(self):
 		"""

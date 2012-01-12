@@ -90,7 +90,7 @@ class Library(object):
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.LibraryInstantiationError)
-	def __new__(self, *args, **kwargs):
+	def __new__(cls, *args, **kwargs):
 		"""
 		This method is the constructor of the class.
 		
@@ -101,12 +101,12 @@ class Library(object):
 
 		libraryPath = args[0]
 		if foundations.common.pathExists(libraryPath):
-			if not args[0] in self._Library__librariesInstances:
-				self._Library__librariesInstances[args[0]] = object.__new__(self)
-			return self._Library__librariesInstances[args[0]]
+			if not args[0] in cls._Library__librariesInstances:
+				cls._Library__librariesInstances[args[0]] = object.__new__(cls)
+			return cls._Library__librariesInstances[args[0]]
 		else:
 			raise foundations.exceptions.LibraryInstantiationError(
-			"{0} | '{1}' library path doesn't exists!".format(self.__class__.__name__, libraryPath))
+			"{0} | '{1}' library path doesn't exists!".format(cls.__class__.__name__, libraryPath))
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.LibraryInitializationError)

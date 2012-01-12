@@ -181,7 +181,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 	"""Node instances: Each node, once instanced is stored in this attribute. ( Dictionary )"""
 
 	@core.executionTrace
-	def __new__(self, *args, **kwargs):
+	def __new__(cls, *args, **kwargs):
 		"""
 		This method is the constructor of the class.
 		
@@ -190,7 +190,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 		:return: Class instance. ( AbstractNode )
 		"""
 
-		instance = super(AbstractNode, self).__new__(self)
+		instance = super(AbstractNode, cls).__new__(cls)
 
 		instance._AbstractNode__identity = AbstractNode._AbstractNode__instanceId
 
@@ -412,7 +412,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 	@classmethod
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
-	def getNodeByIdentity(self, identity):
+	def getNodeByIdentity(cls, identity):
 		"""
 		This method returns the node with given identity.
 	
@@ -428,7 +428,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 		:note: Nodes identities are starting from '1' to nodes instances count.
 		"""
 
-		return self.__nodesInstances.get(identity, None)
+		return cls.__nodesInstances.get(identity, None)
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)

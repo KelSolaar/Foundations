@@ -214,7 +214,7 @@ def _castStr(object, length=Constants.executionTraceArgumentMaximumLength):
 
 	try:
 		string = str(object)
-	except:
+	except AttributeError:
 		# LOGGER.error("!> {0} | Exception raised while casting '{1}' object to 'str'!".format(
 		# inspect.getmodule(_castStr).__name__, id(object)))
 		string = str(None)

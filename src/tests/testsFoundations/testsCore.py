@@ -83,11 +83,11 @@ class SetVerbosityLevelTestCase(unittest.TestCase):
 		This method tests :func:`foundations.core.setVerbosityLevel` definition.
 		"""
 
-		LOGGER = logging.getLogger(Constants.logger)
+		logger = logging.getLogger(Constants.logger)
 		levels = {logging.CRITICAL:0, logging.ERROR:1, logging.WARNING:2, logging.INFO:3, logging.DEBUG:4  }
 		for level, value in levels.iteritems():
 			core.setVerbosityLevel(value)
-			self.assertEqual(level, LOGGER.level)
+			self.assertEqual(level, logger.level)
 
 class GetFrameTestCase(unittest.TestCase):
 	"""

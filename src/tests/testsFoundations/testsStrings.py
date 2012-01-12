@@ -202,7 +202,7 @@ class ReplaceTestCase(unittest.TestCase):
 		self.assertIsInstance(strings.replace("To@Forward|Slashes@Test|Case", {}), str)
 		self.assertEqual(strings.replace("To@Forward|Slashes@Test|Case", {"@":"|", "|":":"}),
 						"To:Forward:Slashes:Test:Case")
-		self.assertEqual(strings.replace("To@Forward@Slashes@Test@Case", {"@":"|", "|":"@", "@":"|" }),
+		self.assertEqual(strings.replace("To@Forward@Slashes@Test@Case", {"@":"|", "|":"@"}),
 						"To@Forward@Slashes@Test@Case")
 
 class RemoveStripTestCase(unittest.TestCase):

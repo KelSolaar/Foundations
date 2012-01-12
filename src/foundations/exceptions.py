@@ -193,7 +193,7 @@ class AbstractError(Exception):
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
 		# --- Setting class attributes. ---
-		self.value = value
+		self.__value = value
 
 	#******************************************************************************************************************
 	#***	Attributes properties.

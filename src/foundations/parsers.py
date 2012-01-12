@@ -454,7 +454,7 @@ class SectionsFileParser(io.File):
 			for key, element in value.iteritems():
 				assert type(key) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
 				"sections", key)
-				assert type(value) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not \
+				assert type(element) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not \
 				'OrderedDict' or 'dict'!".format("sections", key)
 		self.__sections = value
 
@@ -493,7 +493,7 @@ class SectionsFileParser(io.File):
 			for key, element in value.iteritems():
 				assert type(key) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
 				"comments", key)
-				assert type(value) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not \
+				assert type(element) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not \
 				'OrderedDict' or 'dict'!".format("comments", key)
 		self.__comments = value
 
@@ -930,7 +930,6 @@ class SectionsFileParser(io.File):
 					LOGGER.debug("> Appending '{0}' raw section content.".format(section))
 					for line in value:
 						self.content.append(line)
-						appendNewLine = False
 				else:
 					LOGGER.debug("> Appending '{0}' section.".format(section))
 					attribute = namespaces and attribute or foundations.namespace.removeNamespace(attribute,
