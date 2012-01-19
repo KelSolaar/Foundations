@@ -24,7 +24,6 @@ import hashlib
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
-import foundations.common
 import foundations.core as core
 import foundations.exceptions
 import foundations.namespace as namespace
