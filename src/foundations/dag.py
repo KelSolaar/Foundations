@@ -759,6 +759,7 @@ class AbstractCompositeNode(AbstractNode):
 		"""
 
 		self.__children.append(child)
+		child.parent = self
 		return True
 
 	@core.executionTrace
