@@ -53,11 +53,11 @@ __all__ = ["LOGGER",
 			"ObjectTypeError",
 			"ObjectExistsError",
 			"AbstractUserError",
+			"ProgrammingError",
+			"UserError",
 			"AbstractNodeError",
 			"NodeAttributeTypeError",
 			"NodeAttributeExistsError",
-			"ProgrammingError",
-			"UserError",
 			"AbstractLibraryError",
 			"LibraryInstantiationError",
 			"LibraryInitializationError",
@@ -376,6 +376,20 @@ class AbstractUserError(AbstractError):
 
 	pass
 
+class ProgrammingError(AbstractUserError):
+	"""
+	This class is used for programming exceptions.
+	"""
+
+	pass
+
+class UserError(AbstractUserError):
+	"""
+	This class is used for user exceptions.
+	"""
+
+	pass
+
 class AbstractNodeError(AbstractError):
 	"""
 	This class is the abstract base class for node related exceptions.
@@ -393,41 +407,6 @@ class NodeAttributeTypeError(AbstractNodeError, ObjectTypeError):
 class NodeAttributeExistsError(AbstractNodeError, ObjectExistsError):
 	"""
 	This class is used for non existing node attribute exceptions.
-	"""
-
-	pass
-
-class ProgrammingError(AbstractUserError):
-	"""
-	This class is used for programming exceptions.
-	"""
-
-	pass
-
-class UserError(AbstractUserError):
-	"""
-	This class is used for user exceptions.
-	"""
-
-	pass
-
-class AbstractNetworkError(AbstractError):
-	"""
-	This class is the abstract base class for network related exceptions.
-	"""
-
-	pass
-
-class NetworkError(AbstractNetworkError):
-	"""
-	This class is used for network exceptions.
-	"""
-
-	pass
-
-class SocketConnectionError(AbstractNetworkError):
-	"""
-	This class is used for socket connection exceptions.
 	"""
 
 	pass
