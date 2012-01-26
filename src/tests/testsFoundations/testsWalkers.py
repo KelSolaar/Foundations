@@ -123,6 +123,9 @@ class OsWalkerTestCase(unittest.TestCase):
 		for item in osWalker.files:
 			self.assertEqual(len(namespace.removeNamespace(item)), osWalker.hashSize)
 
+		osWalker.walk(visitor=lambda x, y: x.pop(y))
+		self.assertDictEqual(osWalker.files, {})
+
 class DictionariesWalkerTestCase(unittest.TestCase):
 	"""
 	This class defines :func:`foundations.walkers.dictionariesWalker` definition units tests methods.
@@ -165,7 +168,7 @@ class NodesWalkerTestCase(unittest.TestCase):
 		yieldedValues = (nodeB, nodeC, nodeD, nodeE, nodeF, nodeG, nodeH)
 		for node in foundations.walkers.nodesWalker(nodeA):
 			self.assertIn(node, yieldedValues)
-		
+
 if __name__ == "__main__":
 	import tests.utilities
 	unittest.main()

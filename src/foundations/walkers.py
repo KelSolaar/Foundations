@@ -189,13 +189,14 @@ class OsWalker(object):
 	#******************************************************************************************************************
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler()
-	def walk(self, filtersIn=None, filtersOut=None, flags=0, shorterHashKey=True):
+	def walk(self, filtersIn=None, filtersOut=None, flags=0, shorterHashKey=True, visitor=None):
 		"""
 		This method gets root directory files list as a dictionary using given filters.
 
 		:param filtersIn: Regex filters in list. ( Tuple / List )
 		:param filtersIn: Regex filters out list. ( Tuple / List )
 		:param flags: Regex flags. ( Integer )
+		:param visitor: Visitor object. ( Object )
 		:return: Files list. ( Dictionary or None )
 		"""
 
@@ -212,18 +213,20 @@ class OsWalker(object):
 		for root, dirs, files in os.walk(self.__root, topdown=False, followlinks=True):
 			for item in files:
 				LOGGER.debug("> Current file: '{0}' in '{1}'.".format(item, self.__root))
-				itemPath = strings.toForwardSlashes(os.path.join(root, item))
-				if os.path.isfile(itemPath):
-					if not strings.filterWords((itemPath,), filtersIn, filtersOut, flags):
+				path = strings.toForwardSlashes(os.path.join(root, item))
+				if os.path.isfile(path):
+					if not strings.filterWords((path,), filtersIn, filtersOut, flags):
 						continue
 
-					LOGGER.debug("> '{0}' file filtered in!".format(itemPath))
+					LOGGER.debug("> '{0}' file filtered in!".format(path))
 
-					hashKey = hashlib.md5(itemPath).hexdigest()
-					itemName = namespace.setNamespace(os.path.splitext(item)[0],
+					hashKey = hashlib.md5(path).hexdigest()
+					name = namespace.setNamespace(os.path.splitext(item)[0],
 													shorterHashKey and hashKey[:self.__hashSize] or hashKey)
-					LOGGER.debug("> Adding '{0}' with path: '{1}' to files list.".format(itemName, itemPath))
-					self.__files[itemName] = itemPath
+					LOGGER.debug("> Adding '{0}' with path: '{1}' to files list.".format(name, path))
+					self.__files[name] = path
+
+					visitor and visitor(self.__files, name)
 
 		return self.__files
 
