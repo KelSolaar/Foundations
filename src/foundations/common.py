@@ -11,7 +11,8 @@
 	This module defines **Foundations** package common utilities objects that don't fall in any specific category.
 
 **Others:**
-
+	:def:`isBinaryFile` from Jorge Orpinel:
+	http://stackoverflow.com/questions/898669/how-can-i-detect-if-a-file-is-binary-non-text-in-python
 """
 
 #**********************************************************************************************************************
@@ -50,7 +51,8 @@ __all__ = ["LOGGER",
 			"wait",
 			"uniqify",
 			"orderedUniqify",
-			"pathExists"]
+			"pathExists",
+			"isBinaryFile"]
 
 LOGGER = logging.getLogger(Constants.logger)
 
@@ -196,3 +198,26 @@ def pathExists(path):
 		return
 	else:
 		return os.path.exists(path)
+
+@core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
+def isBinaryFile(file):
+	"""
+	This definition returns if given file is a binary file.
+
+	:param file: File path. ( String )
+	:return: Is file binary. ( Boolean )
+	"""
+
+	fileHandler = open(file, "rb")
+	try:
+		chunkSize = 1024
+		while True:
+			chunk = fileHandler.read(chunkSize)
+			if "\0" in chunk:
+				return True
+			if len(chunk) < chunkSize:
+				break
+	finally:
+		fileHandler.close()
+	return False

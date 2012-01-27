@@ -18,6 +18,7 @@
 #***	External imports.
 #**********************************************************************************************************************
 import os
+import platform
 import unittest
 
 #**********************************************************************************************************************
@@ -35,11 +36,23 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["GetSystemApplicationDataDirectoryTestCase",
+__all__ = ["RESOURCES_DIRECTORY",
+		"LIBRARY",
+		"GetSystemApplicationDataDirectoryTestCase",
 		"GetUserApplicationDataDirectoryTestCase",
 		"UniqifyTestCase",
 		"OrderedUniqifyTestCase",
-		"PathExistsTestCase"]
+		"PathExistsTestCase",
+		"IsBinaryFileTestCase"]
+
+RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
+LIBRARIES_DIRECTORY = os.path.join(RESOURCES_DIRECTORY, "libraries")
+if platform.system() == "Windows" or platform.system() == "Microsoft":
+	LIBRARY = os.path.join(LIBRARIES_DIRECTORY, "freeImage/FreeImage.dll")
+elif platform.system() == "Darwin":
+	LIBRARY = os.path.join(LIBRARIES_DIRECTORY, "freeImage/libfreeimage.dylib")
+elif platform.system() == "Linux":
+	LIBRARY = os.path.join(LIBRARIES_DIRECTORY, "freeImage/libfreeimage.so")
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
@@ -117,6 +130,19 @@ class PathExistsTestCase(unittest.TestCase):
 		self.assertEqual(foundations.common.pathExists(None), None)
 		self.assertTrue(foundations.common.pathExists(__file__))
 		self.assertFalse(foundations.common.pathExists(str()))
+
+class IsBinaryFileTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.common.isBinaryFile` definition units tests methods.
+	"""
+
+	def testPathExists(self):
+		"""
+		This method tests :func:`foundations.common.isBinaryFile` definition.
+		"""
+
+		self.assertTrue(foundations.common.isBinaryFile(LIBRARY))
+		self.assertFalse(foundations.common.isBinaryFile(__file__))
 
 if __name__ == "__main__":
 	import tests.utilities
