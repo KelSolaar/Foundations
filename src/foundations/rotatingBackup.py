@@ -184,7 +184,7 @@ class RotatingBackup(object):
 		"""
 
 		if value is not None:
-			assert type(value) in (int, float), "'{0}' attribute: '{1}' type is not 'int' or 'float'!".format(
+			assert type(value) is int, "'{0}' attribute: '{1}' type is not 'int'!".format(
 			"count", value)
 			assert value > 0, "'{0}' attribute: '{1}' need to be exactly positive!".format("count", value)
 		self.__count = value

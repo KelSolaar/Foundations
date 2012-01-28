@@ -209,15 +209,15 @@ def isBinaryFile(file):
 	:return: Is file binary. ( Boolean )
 	"""
 
-	fileHandler = open(file, "rb")
+	fileHandle = open(file, "rb")
 	try:
 		chunkSize = 1024
 		while True:
-			chunk = fileHandler.read(chunkSize)
+			chunk = fileHandle.read(chunkSize)
 			if "\0" in chunk:
 				return True
 			if len(chunk) < chunkSize:
 				break
 	finally:
-		fileHandler.close()
+		fileHandle.close()
 	return False
