@@ -77,6 +77,7 @@ class FileTestCase(unittest.TestCase):
 		"""
 
 		requiredMethods = ("read",
+							"readAll",
 							"write",
 							"append")
 
@@ -94,6 +95,17 @@ class FileTestCase(unittest.TestCase):
 		self.assertTrue(readSuccess)
 		self.assertIsInstance(ioFile.content, list)
 		self.assertListEqual(ioFile.content, FILE_CONTENT)
+
+	def testReadAll(self):
+		"""
+		This method tests :meth:`foundations.io.File.readAll` method.
+		"""
+
+		ioFile = File(TEST_FILE)
+		self.assertIsInstance(ioFile.content, list)
+		content = ioFile.readAll()
+		self.assertIsInstance(ioFile.content, list)
+		self.assertEqual(content, "".join(FILE_CONTENT))
 
 	def testWrite(self):
 		"""

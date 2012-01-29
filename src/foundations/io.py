@@ -154,7 +154,7 @@ class File(object):
 	@foundations.exceptions.exceptionsHandler(None, False, IOError)
 	def read(self, mode="r"):
 		"""
-		This method reads given file and return the content as a list.
+		This method reads given file content.
 
 		:param mode: File read mode. ( String )
 		:return: Method success. ( Boolean )
@@ -166,6 +166,19 @@ class File(object):
 		with open(self.__file, mode) as file:
 			self.__content = file.readlines()
 			return True
+
+	@core.executionTrace
+	@foundations.exceptions.exceptionsHandler(None, False, IOError)
+	def readAll(self):
+		"""
+		This method reads given file content and returns it.
+
+		:param mode: File read mode. ( String )
+		:return: File content. ( String )
+		"""
+
+		if self.read():
+			return "".join(self.__content)
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, OSError)
