@@ -144,7 +144,7 @@ class Structure(dict):
 		try:
 			return dict.__getitem__(self, attribute)
 		except KeyError:
-			raise AttributeError
+			raise AttributeError("'{0}' object has no attribute '{1}'".format(self.__class__.__name__, attribute))
 
 	# @core.executionTrace
 	def __setattr__(self, attribute, value):
