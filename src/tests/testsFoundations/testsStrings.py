@@ -37,7 +37,8 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["GetNiceNameTestCase",
+__all__ = ["EncodeTestCase",
+		"GetNiceNameTestCase",
 		"GetVersionRankTestCase",
 		"GetSplitextBasenameTestCase",
 		"GetCommonAncestorTestCase",
@@ -55,6 +56,18 @@ __all__ = ["GetNiceNameTestCase",
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
+class EncodeTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.strings.encode` definition units tests methods.
+	"""
+
+	def testEncode(self):
+		"""
+		This method tests :func:`foundations.strings.encode` definition.
+		"""
+
+		self.assertIsInstance(strings.encode("myData"), unicode)
+
 class GetNiceNameTestCase(unittest.TestCase):
 	"""
 	This class defines :func:`foundations.strings.getNiceName` definition units tests methods.

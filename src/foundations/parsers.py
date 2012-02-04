@@ -620,8 +620,8 @@ class SectionsFileParser(io.File):
 			if search:
 				if not stripComments:
 					comment = namespaces and foundations.namespace.setNamespace(section, "{0}{1}".format(
-							self.__commentMarker, str(commentId)), self.__namespaceSplitter) or \
-							"{0}{1}".format(self.__commentMarker, str(commentId))
+							self.__commentMarker, commentId), self.__namespaceSplitter) or \
+							"{0}{1}".format(self.__commentMarker, commentId)
 					self.__comments[comment] = {"id" : commentId, "content" : stripWhitespaces and \
 												search.group("comment").strip() or search.group("comment")}
 					commentId += 1
@@ -854,7 +854,7 @@ class SectionsFileParser(io.File):
 			elif namespace.setNamespace(section, attribute) in self.__sections[section]:
 				value = self.__sections[section][namespace.setNamespace(section, attribute)]
 			LOGGER.debug("> Attribute: '{0}', value: '{1}'.".format(attribute, value))
-			value = encode and unicode(value, Constants.encodingFormat, Constants.encodingError) or value
+			value = encode and foundations.strings.encode(value) or value
 			return value
 
 	@core.executionTrace

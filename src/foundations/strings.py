@@ -41,6 +41,7 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["LOGGER",
+			"encode",
 			"getNiceName",
 			"getVersionRank",
 			"getSplitextBasename",
@@ -61,6 +62,25 @@ LOGGER = logging.getLogger(Constants.logger)
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
+@core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
+def encode(data):
+	"""
+	This definition encodes given data to unicode using package default settings.
+
+	Usage::
+
+		>>> encode("myData")
+		u'myData'
+		>>> encode("汉字/漢字")
+		u'\u6c49\u5b57/\u6f22\u5b57'
+
+	:param data: Data to encode. ( String )
+	:return: Encoded data. ( Unicode )
+	"""
+
+	return unicode(data, Constants.encodingFormat, Constants.encodingError)
+
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getNiceName(name):
