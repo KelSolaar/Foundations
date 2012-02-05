@@ -69,7 +69,6 @@ class RotatingBackup(object):
 			True
 			>>> for i in range(3):
 			...	backup.backup()
-			...
 			True
 			True
 			True
