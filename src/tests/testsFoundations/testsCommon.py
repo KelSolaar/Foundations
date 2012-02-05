@@ -129,7 +129,7 @@ class PathExistsTestCase(unittest.TestCase):
 
 		self.assertEqual(foundations.common.pathExists(None), None)
 		self.assertTrue(foundations.common.pathExists(__file__))
-		self.assertFalse(foundations.common.pathExists(str()))
+		self.assertFalse(foundations.common.pathExists(unicode()))
 
 class IsBinaryFileTestCase(unittest.TestCase):
 	"""

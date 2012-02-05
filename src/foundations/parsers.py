@@ -33,7 +33,7 @@ import foundations.dataStructures
 import foundations.exceptions
 import foundations.io as io
 import foundations.namespace as namespace
-import foundations.strings
+import foundations.strings as strings
 import foundations.walkers
 from foundations.globals.constants import Constants
 
@@ -854,7 +854,7 @@ class SectionsFileParser(io.File):
 			elif namespace.setNamespace(section, attribute) in self.__sections[section]:
 				value = self.__sections[section][namespace.setNamespace(section, attribute)]
 			LOGGER.debug("> Attribute: '{0}', value: '{1}'.".format(attribute, value))
-			value = encode and foundations.strings.encode(value) or value
+			value = encode and strings.encode(value) or value
 			return value
 
 	@core.executionTrace
@@ -896,7 +896,7 @@ class SectionsFileParser(io.File):
 		LOGGER.debug("> Setting '{0}' file content.".format(self.file))
 		attributeTemplate = spacesAroundSplitter and "{{0}} {0} {{1}}\n".format(splitter) or \
 							"{{0}} {0} {{1}}\n".format(splitter)
-		attributeTemplate = foundations.strings.replace(attributeTemplate, {"{{" : "{", "}}" : "}"})
+		attributeTemplate = strings.replace(attributeTemplate, {"{{" : "{", "}}" : "}"})
 		commentTemplate = spaceAfterCommentLimiter and "{0} {{0}}\n".format(commentLimiter) or \
 							"{0}{{0}}\n".format(commentLimiter)
 		if self.__defaultsSection in self.__sections:
@@ -976,9 +976,9 @@ class PlistFileParser(io.File):
 
 		self.__unserializers = {"array": lambda x: [value.text for value in x],
 								"dict": lambda x: dict((x[i].text, x[i + 1].text) for i in range(0, len(x), 2)),
-								"key": lambda x: x.text or str(),
-								"string": lambda x: x.text or str(),
-								"data": lambda x: base64.decodestring(x.text or str()),
+								"key": lambda x: x.text or unicode(),
+								"string": lambda x: x.text or unicode(),
+								"data": lambda x: base64.decodestring(x.text or unicode()),
 								"date": lambda x: datetime.datetime(*map(int, re.findall("\d+", x.text))),
 								"true": lambda x: True,
 								"false": lambda x: False,

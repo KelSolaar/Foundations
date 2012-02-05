@@ -11,7 +11,7 @@
 	This module defines **Foundations** package common utilities objects that don't fall in any specific category.
 
 **Others:**
-	:def:`isBinaryFile` from Jorge Orpinel:
+	:func:`isBinaryFile` from Jorge Orpinel:
 	http://stackoverflow.com/questions/898669/how-can-i-detect-if-a-file-is-binary-non-text-in-python
 """
 

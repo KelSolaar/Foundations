@@ -79,7 +79,15 @@ def encode(data):
 	:return: Encoded data. ( Unicode )
 	"""
 
-	return unicode(data, Constants.encodingFormat, Constants.encodingError)
+	encodedData = None
+	if isinstance(data, unicode):
+		encodedData = data
+	else:
+		try:
+			encodedData = unicode(data, Constants.encodingFormat, Constants.encodingError)
+		except TypeError:
+			encodedData = unicode(data.__str__(), Constants.encodingFormat, Constants.encodingError)
+	return encodedData
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)

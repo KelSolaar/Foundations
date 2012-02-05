@@ -67,6 +67,9 @@ class EncodeTestCase(unittest.TestCase):
 		"""
 
 		self.assertIsInstance(strings.encode("myData"), unicode)
+		self.assertIsInstance(strings.encode(0), unicode)
+		self.assertIsInstance(strings.encode(None), unicode)
+		self.assertIsInstance(strings.encode(True), unicode)
 
 class GetNiceNameTestCase(unittest.TestCase):
 	"""
