@@ -38,6 +38,7 @@ __status__ = "Production"
 
 __all__ = ["RESOURCES_DIRECTORY",
 		"LIBRARY",
+		"TEXT_FILE",
 		"GetSystemApplicationDataDirectoryTestCase",
 		"GetUserApplicationDataDirectoryTestCase",
 		"UniqifyTestCase",
@@ -53,6 +54,7 @@ elif platform.system() == "Darwin":
 	LIBRARY = os.path.join(LIBRARIES_DIRECTORY, "freeImage/libfreeimage.dylib")
 elif platform.system() == "Linux":
 	LIBRARY = os.path.join(LIBRARIES_DIRECTORY, "freeImage/libfreeimage.so")
+TEXT_FILE = os.path.join(RESOURCES_DIRECTORY, "loremIpsum.txt")
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
@@ -142,7 +144,7 @@ class IsBinaryFileTestCase(unittest.TestCase):
 		"""
 
 		self.assertTrue(foundations.common.isBinaryFile(LIBRARY))
-		self.assertFalse(foundations.common.isBinaryFile(__file__))
+		self.assertFalse(foundations.common.isBinaryFile(TEXT_FILE))
 
 if __name__ == "__main__":
 	import tests.utilities
