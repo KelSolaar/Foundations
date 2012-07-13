@@ -61,7 +61,9 @@ __all__ = ["LOGGER",
 			"AbstractLibraryError",
 			"LibraryInstantiationError",
 			"LibraryInitializationError",
-			"LibraryExecutionError"]
+			"LibraryExecutionError",
+			"AbstractServerError",
+			"ServerOperationError"]
 
 LOGGER = logging.getLogger(Constants.logger)
 
@@ -438,3 +440,18 @@ class LibraryExecutionError(AbstractLibraryError):
 	"""
 
 	pass
+
+class AbstractServerError(AbstractError):
+	"""
+	This class is the abstract base class for :mod:`tcpServer` module exceptions.
+	"""
+
+	pass
+
+class ServerOperationError(AbstractLibraryError):
+	"""
+	This class is used for :mod:`tcpServer` module :class:`tcpServer.TCPServer` class operations exceptions.
+	"""
+
+	pass
+

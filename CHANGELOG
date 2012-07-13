@@ -1,8 +1,13 @@
-Foundations - 2.0.1 - Stable
+Foundations - 2.0.2 - Stable
 ============================
 
 Change Log
 ==========
+
+2.0.2 - Stable
+--------------
+
+-  Add TCP server implementation through "foundations.tcpServer" module.
 
 2.0.1 - Stable
 --------------
