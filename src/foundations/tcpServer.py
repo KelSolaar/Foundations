@@ -107,41 +107,6 @@ class TcpServer(object):
 	#***	Attributes properties.
 	#******************************************************************************************************************
 	@property
-	def librariesInstances(self):
-		"""
-		This method is the property for **self.__librariesInstances** attribute.
-
-		:return: self.__librariesInstances. ( WeakValueDictionary )
-		"""
-
-		return self.__librariesInstances
-
-	@librariesInstances.setter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
-	def librariesInstances(self, value):
-		"""
-		This method is the setter method for **self.__librariesInstances** attribute.
-
-		:param value: Attribute value. ( WeakValueDictionary )
-		"""
-
-		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "librariesInstances"))
-
-	@librariesInstances.deleter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
-	def librariesInstances(self):
-		"""
-		This method is the deleter method for **self.__librariesInstances** attribute.
-		"""
-
-		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "librariesInstances"))
-
-
-
-
-	@property
 	def address(self):
 		"""
 		This method is the property for **self.__address** attribute.
@@ -180,7 +145,7 @@ class TcpServer(object):
 		"""
 		This method is the property for **self.__port** attribute.
 
-		:return: self.__port. ( String )
+		:return: self.__port. ( Integer )
 		"""
 
 		return self.__port
@@ -197,6 +162,8 @@ class TcpServer(object):
 		if value is not None:
 			assert type(value) is int, "'{0}' attribute: '{1}' type is not 'int'!".format(
 			"port", value)
+			assert type(value) >= 0 and type(value) >= 65535, \
+			"'{0}' attribute: '{1}' value must be in 0-65535 range!".format("port", value)
 		self.__port = value
 
 	@port.deleter
@@ -328,5 +295,3 @@ class TcpServer(object):
 		self.__online = False
 		LOGGER.info("{0} | Server successfully stopped!".format(self.__class__.__name__))
 		return True
-
-
