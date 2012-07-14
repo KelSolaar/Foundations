@@ -123,9 +123,9 @@ def exceptionsHandler(handler=None, raiseException=False, *args):
 			try:
 				return object(*args, **kwargs)
 			except exceptions as exception:
-				handler(exception , traceName, *args, **kwargs)
+				handler(exception, traceName, *args, **kwargs)
 			except Exception as exception:
-				handler(exception , traceName, *args, **kwargs)
+				handler(exception, traceName, *args, **kwargs)
 			finally:
 				if raiseException and exception:
 					raise exception
