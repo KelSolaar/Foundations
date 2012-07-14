@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines the :class:`TcpServer`class and other helpers objects needed to run a **Python** socket server.
+	This module defines the :class:`TCPServer`class and other helpers objects needed to run a **Python** socket server.
 
 **Others:**
 
@@ -39,7 +39,7 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["LOGGER", "EchoRequestsHandler", "TcpServer"]
+__all__ = ["LOGGER", "EchoRequestsHandler", "TCPServer"]
 
 LOGGER = logging.getLogger(Constants.logger)
 
@@ -48,7 +48,7 @@ LOGGER = logging.getLogger(Constants.logger)
 #**********************************************************************************************************************
 class EchoRequestsHandler(SocketServer.BaseRequestHandler):
 	"""
-	This class represents the default requests handler.
+	This class is the default echo requests handler.
 	"""
 
 	@core.executionTrace
@@ -67,7 +67,7 @@ class EchoRequestsHandler(SocketServer.BaseRequestHandler):
 			self.request.send(data)
 		return True
 
-class TcpServer(object):
+class TCPServer(object):
 	"""
 	This class defines a TCP server.
 	"""
@@ -79,7 +79,7 @@ class TcpServer(object):
 		
 		Usage::
 			
-			>>> tcpServer = TcpServer("127.0.0.1", 16384)
+			>>> tcpServer = TCPServer("127.0.0.1", 16384)
 			>>> tcpServer.start()
 			True
 			>>> tcpServer.stop()
@@ -199,6 +199,7 @@ class TcpServer(object):
 			assert issubclass(value, SocketServer.BaseRequestHandler), \
 			"'{0}' attribute: '{1}' is not 'SocketServer.BaseRequestHandler' subclass!".format("handler", value)
 		self.__handler = value
+		self.__handler.container = self
 
 	@handler.deleter
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
@@ -256,7 +257,7 @@ class TcpServer(object):
 
 		if self.__online:
 			raise foundations.exceptions.ServerOperationError(
-			"{0} | '{1}' server is already online!".format(self.__class__.__name__, self))
+			"{0} | '{1}' TCP Server is already online!".format(self.__class__.__name__, self))
 
 		try:
 			self.__server = SocketServer.TCPServer((self.__address, self.__port), self.__handler)
@@ -265,20 +266,20 @@ class TcpServer(object):
 			self.__worker.start()
 			self.__online = True
 			LOGGER.info(
-			"{0} | Server successfully started on '{1}' address and '{2}' port using '{3}' requests handler!".format(
+			"{0} | TCP Server successfully started with '{1}' address on '{2}' port using '{3}' requests handler!".format(
 			self.__class__.__name__, self.__address, self.__port, self.__handler.__name__))
 			return True
 		except socket.error as error:
 			if error.errno == 10048:
 				LOGGER.warning(
-				"{0} | Cannot start server, a connection is already opened on port '{2}'!".format(
+				"{0} | Cannot start TCP Server, a connection is already opened on port '{2}'!".format(
 				self.__class__.__name__, self, self.__port))
 			else:
 				raise error
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ServerOperationError)
-	def stop(self):
+	def stop(self, terminate=False):
 		"""
 		This method stops the TCP server.
 
@@ -287,11 +288,16 @@ class TcpServer(object):
 
 		if not self.__online:
 			raise foundations.exceptions.ServerOperationError(
-			"{0} | '{1}' server is not online!".format(self.__class__.__name__, self))
+			"{0} | '{1}' TCP Server is not online!".format(self.__class__.__name__, self))
 
-		self.__server.shutdown()
+		if not terminate:
+			self.__server.shutdown()
+		else:
+			self.__server._BaseServer__shutdown_request = True
+
 		self.__server = None
 		self.__worker = None
 		self.__online = False
-		LOGGER.info("{0} | Server successfully stopped!".format(self.__class__.__name__))
+
+		LOGGER.info("{0} | TCP Server successfully stopped!".format(self.__class__.__name__))
 		return True

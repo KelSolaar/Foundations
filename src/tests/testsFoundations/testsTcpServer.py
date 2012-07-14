@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-**testsTcpServer.py**
+**testsTCPServer.py**
 
 **Platform:**
 	Windows, Linux, Mac Os X.
@@ -22,7 +22,7 @@ import unittest
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
-from foundations.tcpServer import TcpServer
+from foundations.tcpServer import TCPServer
 from foundations.tcpServer import EchoRequestsHandler
 
 #**********************************************************************************************************************
@@ -35,15 +35,15 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["TcpServerTestCase", "EchoRequestsHandlerTestCase"]
+__all__ = ["TCPServerTestCase", "EchoRequestsHandlerTestCase"]
 
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class TcpServerTestCase(unittest.TestCase):
+class TCPServerTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.tcpServer.TcpServer` class units tests methods.
+	This class defines :class:`foundations.tcpServer.TCPServer` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
@@ -54,7 +54,7 @@ class TcpServerTestCase(unittest.TestCase):
 		requiredAttributes = ("address", "port", "handler", "online")
 
 		for attribute in requiredAttributes:
-			self.assertIn(attribute, dir(TcpServer))
+			self.assertIn(attribute, dir(TCPServer))
 
 	def testRequiredMethods(self):
 		"""
@@ -64,24 +64,24 @@ class TcpServerTestCase(unittest.TestCase):
 		requiredMethods = ("start", "stop")
 
 		for method in requiredMethods:
-			self.assertIn(method, dir(TcpServer))
+			self.assertIn(method, dir(TCPServer))
 
 	def testStart(self):
 		"""
-		This method tests :meth:`foundations.tcpServer.TcpServer.start` method.
+		This method tests :meth:`foundations.tcpServer.TCPServer.start` method.
 		"""
 
-		tcpServer = TcpServer("127.0.0.1", 16384)
+		tcpServer = TCPServer("127.0.0.1", 16384)
 		self.assertTrue(tcpServer.start())
 		self.assertEqual(tcpServer.online, True)
 		tcpServer.stop()
 
 	def testStop(self):
 		"""
-		This method tests :meth:`foundations.tcpServer.TcpServer.stop` method.
+		This method tests :meth:`foundations.tcpServer.TCPServer.stop` method.
 		"""
 
-		tcpServer = TcpServer("127.0.0.1", 16384)
+		tcpServer = TCPServer("127.0.0.1", 16384)
 		tcpServer.start()
 		self.assertTrue(tcpServer.stop())
 		self.assertEqual(tcpServer.online, False)
@@ -103,10 +103,10 @@ class EchoRequestsHandlerTestCase(unittest.TestCase):
 
 	def testHandle(self):
 		"""
-		This method tests :meth:`foundations.tcpServer.TcpServer.handle` method.
+		This method tests :meth:`foundations.tcpServer.TCPServer.handle` method.
 		"""
 
-		tcpServer = TcpServer("127.0.0.1", 16384)
+		tcpServer = TCPServer("127.0.0.1", 16384)
 		tcpServer.start()
 		connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		connection.connect(("127.0.0.1", 16384))
