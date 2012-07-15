@@ -47,6 +47,7 @@ __all__ = ["LOGGER",
 			"FileStructureParsingError",
 			"AttributeStructureParsingError",
 			"AbstractOsError",
+			"PathExistsError",
 			"DirectoryExistsError",
 			"FileExistsError",
 			"AbstractObjectError",
@@ -336,14 +337,21 @@ class AbstractOsError(AbstractError):
 
 	pass
 
-class DirectoryExistsError(AbstractOsError):
+class PathExistsError(AbstractOsError):
+	"""
+	This class is used for non existing path exceptions.
+	"""
+
+	pass
+
+class DirectoryExistsError(PathExistsError):
 	"""
 	This class is used for non existing directory exceptions.
 	"""
 
 	pass
 
-class FileExistsError(AbstractOsError):
+class FileExistsError(PathExistsError):
 	"""
 	This class is used for non existing file exceptions.
 	"""
