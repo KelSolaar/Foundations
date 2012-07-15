@@ -448,7 +448,7 @@ class AbstractServerError(AbstractError):
 
 	pass
 
-class ServerOperationError(AbstractLibraryError):
+class ServerOperationError(AbstractServerError):
 	"""
 	This class is used for :mod:`tcpServer` module :class:`tcpServer.TCPServer` class operations exceptions.
 	"""
