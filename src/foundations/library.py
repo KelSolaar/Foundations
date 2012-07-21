@@ -99,11 +99,11 @@ class Library(object):
 		:return: Class instance. ( Library )
 		"""
 
-		libraryPath = args[0]
+		libraryPath = foundations.common.getFirstItem(args)
 		if foundations.common.pathExists(libraryPath):
-			if not args[0] in cls._Library__librariesInstances:
-				cls._Library__librariesInstances[args[0]] = object.__new__(cls)
-			return cls._Library__librariesInstances[args[0]]
+			if not libraryPath in cls._Library__librariesInstances:
+				cls._Library__librariesInstances[libraryPath] = object.__new__(cls)
+			return cls._Library__librariesInstances[libraryPath]
 		else:
 			raise foundations.exceptions.LibraryInstantiationError(
 			"{0} | '{1}' library path doesn't exists!".format(cls.__class__.__name__, libraryPath))

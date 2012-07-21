@@ -28,6 +28,7 @@ from xml.etree import ElementTree
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
+import foundations.common
 import foundations.core as core
 import foundations.dataStructures
 import foundations.exceptions
@@ -1131,7 +1132,7 @@ class PlistFileParser(io.File):
 				raise foundations.exceptions.FileStructureParsingError(
 				"{0} | '{1}' structure is invalid, parsing exceptions occured!".format(self.__class__.__name__, self.file))
 		else:
-			self.__elements = elementTreeParser.root[0].text
+			self.__elements = foundations.common.getFirstItem(elementTreeParser.root).text
 			return True
 
 	@core.executionTrace
@@ -1222,7 +1223,7 @@ class PlistFileParser(io.File):
 			return
 
 		values = self.filterValues(r"^{0}$".format(element))
-		return values and values[0] or None
+		return foundations.common.getFirstItem(values)
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)

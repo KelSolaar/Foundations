@@ -24,6 +24,7 @@ import unittest
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
+import foundations.environment
 from foundations.environment import Environment
 
 #**********************************************************************************************************************
@@ -36,7 +37,9 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["EnvironmentTestCase"]
+__all__ = ["EnvironmentTestCase",
+		"GetSystemApplicationDataDirectoryTestCase",
+		"GetUserApplicationDataDirectoryTestCase", ]
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
@@ -79,12 +82,12 @@ class EnvironmentTestCase(unittest.TestCase):
 		elif platform.system() == "Darwin":
 			variable = "HOME"
 		elif platform.system() == "Linux":
-			variable = "HOME"		
-		
+			variable = "HOME"
+
 		environment = Environment(variable)
 		self.assertIsInstance(environment.getValues(), dict)
 		self.assertIsInstance(environment.getValues(variable), dict)
-		
+
 		self.assertIsInstance(environment.getValues().get(variable), str)
 		self.assertEqual(environment.getValues()[variable], os.environ[variable])
 		environment.getValues("JOHNDOE_IS_FOR_SURE_A_NON_EXISTING_SYSTEM_ENVIRONMENT_VARIABLE")
@@ -128,6 +131,33 @@ class EnvironmentTestCase(unittest.TestCase):
 		self.assertTrue(environment.setValue("JANE", "DOE"))
 		self.assertIn("JANE", os.environ)
 		self.assertEqual(environment.getValue("JANE"), "DOE")
+
+class GetSystemApplicationDataDirectoryTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.common.getSystemApplicationDataDirectory` definition units tests methods.
+	"""
+
+	def testGetSystemApplicationDataDirectory(self):
+		"""
+		This method tests :func:`foundations.common.getSystemApplicationDataDirectory` definition.
+		"""
+
+		path = foundations.environment.getSystemApplicationDataDirectory()
+		self.assertIsInstance(path, str)
+		self.assertTrue(os.path.exists(path))
+
+class GetUserApplicationDataDirectoryTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.common.getUserApplicationDataDirectory` definition units tests methods.
+	"""
+
+	def testGetUserApplicationDataDirectory(self):
+		"""
+		This method tests :func:`foundations.common.getUserApplicationDataDirectory` definition.
+		"""
+
+		path = foundations.environment.getUserApplicationDataDirectory()
+		self.assertIsInstance(path, str)
 
 if __name__ == "__main__":
 	import tests.utilities

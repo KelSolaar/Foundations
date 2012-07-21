@@ -21,16 +21,12 @@
 import itertools
 import logging
 import os
-import platform
-import sys
-import time
 
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
 import foundations.core as core
 import foundations.exceptions
-from foundations.environment import Environment
 from foundations.globals.constants import Constants
 
 #**********************************************************************************************************************
@@ -44,15 +40,11 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["LOGGER",
-			"getSystemApplicationDataDirectory",
-			"getUserApplicationDataDirectory",
-			"removeLoggingHandler",
-			"exit",
 			"wait",
 			"uniqify",
 			"orderedUniqify",
 			"pathExists",
-			"getFirst",
+			"getFirstItem",
 			"isBinaryFile"]
 
 LOGGER = logging.getLogger(Constants.logger)
@@ -60,104 +52,6 @@ LOGGER = logging.getLogger(Constants.logger)
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-@core.executionTrace
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
-def getSystemApplicationDataDirectory():
-	"""
-	This definition returns the system Application data directory.
-	
-	Examples directories::
-
-		- 'C:\Users\$USER\AppData\Roaming' on Windows 7.
-		- 'C:\Documents and Settings\$USER\Application Data' on Windows XP.
-		- '/Users/$USER/Library/Preferences' on Mac Os X.
-		- '/home/$USER' on Linux.
-
-	:return: User Application data directory. ( String )
-	"""
-
-	if platform.system() == "Windows" or platform.system() == "Microsoft":
-		environmentVariable = Environment("APPDATA")
-		return environmentVariable.getValue()
-
-	elif platform.system() == "Darwin":
-		environmentVariable = Environment("HOME")
-		return os.path.join(environmentVariable.getValue(), "Library/Preferences")
-
-	elif platform.system() == "Linux":
-		environmentVariable = Environment("HOME")
-		return environmentVariable.getValue()
-
-@core.executionTrace
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
-def getUserApplicationDataDirectory():
-	"""
-	| This definition returns the user Application directory.
-	| The difference between :func:`getSystemApplicationDataDirectory`
-		and :func:`getSystemApplicationDataDirectory` definitions is that :func:`getUserApplicationDataDirectory` definition
-		will append :attr:`foundations.globals.constants.Constants.providerDirectory`
-		and :attr:`foundations.globals.constants.Constants.applicationDirectory` attributes values to the path returned.
-
-	Examples directories::
-
-		- 'C:\Users\$USER\AppData\Roaming\Provider\Application' on Windows 7.
-		- 'C:\Documents and Settings\$USER\Application Data\Provider\Application' on Windows XP.
-		- '/Users/$USER/Library/Preferences/Provider/Application' on Mac Os X.
-		- '/home/$USER/.Provider/Application' on Linux.
-
-	:return: User Application directory. ( String )
-	"""
-
-	return os.path.join(getSystemApplicationDataDirectory(), Constants.providerDirectory, Constants.applicationDirectory)
-
-@core.executionTrace
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
-def removeLoggingHandler(logger, handler):
-	"""
-	This definition removes given logging handler from given logger.
-
-	:param logger: Handler parent logger. ( Logger )
-	:param handler: Handler. ( Handler )
-	:return: Definition success. ( Boolean )
-	"""
-
-	len(logger.__dict__["handlers"]) and LOGGER.debug("> Stopping handler: '{0}'.".format(handler))
-	logger.removeHandler(handler)
-	return True
-
-@core.executionTrace
-def exit(exitCode=1):
-	"""
-	This definition shuts down current process logging, associated handlers and then exits to system.
-	
-	:param exitCode: System exit code. ( Integer / String / Object )
-
-	:note: **exitCode** argument is passed to Python :func:`sys.exit` definition.
-	"""
-
-	LOGGER.debug("> {0} | Exiting current process!".format(core.getModule(exit).__name__))
-
-	LOGGER.debug("> Stopping logging handlers and logger!")
-	for handler in LOGGER.__dict__["handlers"]:
-		removeLoggingHandler(LOGGER, handler)
-
-	sys.exit(exitCode)
-
-@core.executionTrace
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
-def wait(waitTime):
-	"""
-	This definition halts current process exection for an user defined time.
-
-	:param waitTime: Current sleep time in seconds. ( Float )
-	:return: Definition success. ( Boolean )
-	"""
-
-	LOGGER.debug("> Waiting '{0}' seconds!".format(waitTime))
-
-	time.sleep(waitTime)
-	return True
-
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def uniqify(sequence):
@@ -202,7 +96,7 @@ def pathExists(path):
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
-def getFirst(iterable, default=None):
+def getFirstItem(iterable, default=None):
 	"""
 	This definition returns the first item of given iterable.
 

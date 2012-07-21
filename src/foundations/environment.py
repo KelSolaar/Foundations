@@ -19,10 +19,12 @@
 #**********************************************************************************************************************
 import logging
 import os
+import platform
 
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
+import foundations.common
 import foundations.core as core
 import foundations.exceptions
 from foundations.globals.constants import Constants
@@ -37,7 +39,10 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["LOGGER", "Environment"]
+__all__ = ["LOGGER",
+			"getSystemApplicationDataDirectory",
+			"getUserApplicationDataDirectory",
+			"Environment"]
 
 LOGGER = logging.getLogger(Constants.logger)
 
@@ -209,7 +214,7 @@ class Environment(object):
 			return self.__variables[variable]
 		else:
 			self.getValues()
-			return self.__variables.values() and self.__variables.values()[0]
+			return foundations.common.getFirstItem(self.__variables.values())
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
@@ -223,3 +228,54 @@ class Environment(object):
 		"""
 
 		return self.setValues(**{variable : value})
+
+@core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
+def getSystemApplicationDataDirectory():
+	"""
+	This definition returns the system Application data directory.
+	
+	Examples directories::
+
+		- 'C:\Users\$USER\AppData\Roaming' on Windows 7.
+		- 'C:\Documents and Settings\$USER\Application Data' on Windows XP.
+		- '/Users/$USER/Library/Preferences' on Mac Os X.
+		- '/home/$USER' on Linux.
+
+	:return: User Application data directory. ( String )
+	"""
+
+	if platform.system() == "Windows" or platform.system() == "Microsoft":
+		environmentVariable = Environment("APPDATA")
+		return environmentVariable.getValue()
+
+	elif platform.system() == "Darwin":
+		environmentVariable = Environment("HOME")
+		return os.path.join(environmentVariable.getValue(), "Library/Preferences")
+
+	elif platform.system() == "Linux":
+		environmentVariable = Environment("HOME")
+		return environmentVariable.getValue()
+
+@core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
+def getUserApplicationDataDirectory():
+	"""
+	| This definition returns the user Application directory.
+	| The difference between :func:`getSystemApplicationDataDirectory`
+		and :func:`getSystemApplicationDataDirectory` definitions is that :func:`getUserApplicationDataDirectory` definition
+		will append :attr:`foundations.globals.constants.Constants.providerDirectory`
+		and :attr:`foundations.globals.constants.Constants.applicationDirectory` attributes values to the path returned.
+
+	Examples directories::
+
+		- 'C:\Users\$USER\AppData\Roaming\Provider\Application' on Windows 7.
+		- 'C:\Documents and Settings\$USER\Application Data\Provider\Application' on Windows XP.
+		- '/Users/$USER/Library/Preferences/Provider/Application' on Mac Os X.
+		- '/home/$USER/.Provider/Application' on Linux.
+
+	:return: User Application directory. ( String )
+	"""
+
+	return os.path.join(getSystemApplicationDataDirectory(), Constants.providerDirectory, Constants.applicationDirectory)
+

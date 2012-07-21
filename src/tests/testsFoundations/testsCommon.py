@@ -39,12 +39,10 @@ __status__ = "Production"
 __all__ = ["RESOURCES_DIRECTORY",
 		"LIBRARY",
 		"TEXT_FILE",
-		"GetSystemApplicationDataDirectoryTestCase",
-		"GetUserApplicationDataDirectoryTestCase",
 		"UniqifyTestCase",
 		"OrderedUniqifyTestCase",
 		"PathExistsTestCase",
-		"getFirstTestCase",
+		"getFirstItemTestCase",
 		"IsBinaryFileTestCase"]
 
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
@@ -60,33 +58,6 @@ TEXT_FILE = os.path.join(RESOURCES_DIRECTORY, "loremIpsum.txt")
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class GetSystemApplicationDataDirectoryTestCase(unittest.TestCase):
-	"""
-	This class defines :func:`foundations.common.getSystemApplicationDataDirectory` definition units tests methods.
-	"""
-
-	def testGetSystemApplicationDataDirectory(self):
-		"""
-		This method tests :func:`foundations.common.getSystemApplicationDataDirectory` definition.
-		"""
-
-		path = foundations.common.getSystemApplicationDataDirectory()
-		self.assertIsInstance(path, str)
-		self.assertTrue(os.path.exists(path))
-
-class GetUserApplicationDataDirectoryTestCase(unittest.TestCase):
-	"""
-	This class defines :func:`foundations.common.getUserApplicationDataDirectory` definition units tests methods.
-	"""
-
-	def testGetUserApplicationDataDirectory(self):
-		"""
-		This method tests :func:`foundations.common.getUserApplicationDataDirectory` definition.
-		"""
-
-		path = foundations.common.getUserApplicationDataDirectory()
-		self.assertIsInstance(path, str)
-
 class UniqifyTestCase(unittest.TestCase):
 	"""
 	This class defines :func:`foundations.common.uniqify` definition units tests methods.
@@ -134,21 +105,21 @@ class PathExistsTestCase(unittest.TestCase):
 		self.assertTrue(foundations.common.pathExists(__file__))
 		self.assertFalse(foundations.common.pathExists(unicode()))
 
-class getFirstTestCase(unittest.TestCase):
+class getFirstItemTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.getFirst` definition units tests methods.
+	This class defines :func:`foundations.common.getFirstItem` definition units tests methods.
 	"""
 
-	def testGetFirst(self):
+	def testGetFirstItem(self):
 		"""
-		This method tests :func:`foundations.common.getFirst` definition.
+		This method tests :func:`foundations.common.getFirstItem` definition.
 		"""
 
-		self.assertEqual(foundations.common.getFirst(None), None)
-		self.assertEqual(foundations.common.getFirst([]), None)
-		self.assertEqual(foundations.common.getFirst([None]), None)
-		self.assertEqual(foundations.common.getFirst([0]), 0)
-		self.assertEqual(foundations.common.getFirst(("Nemo",)), "Nemo")
+		self.assertEqual(foundations.common.getFirstItem(None), None)
+		self.assertEqual(foundations.common.getFirstItem([]), None)
+		self.assertEqual(foundations.common.getFirstItem([None]), None)
+		self.assertEqual(foundations.common.getFirstItem([0]), 0)
+		self.assertEqual(foundations.common.getFirstItem(("Nemo",)), "Nemo")
 
 class IsBinaryFileTestCase(unittest.TestCase):
 	"""

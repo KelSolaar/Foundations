@@ -24,6 +24,7 @@ import hashlib
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
+import foundations.common
 import foundations.core as core
 import foundations.exceptions
 import foundations.namespace as namespace
@@ -221,7 +222,7 @@ class OsWalker(object):
 					LOGGER.debug("> '{0}' file filtered in!".format(path))
 
 					hashKey = hashlib.md5(path).hexdigest()
-					name = namespace.setNamespace(os.path.splitext(item)[0],
+					name = namespace.setNamespace(foundations.common.getFirstItem(os.path.splitext(item)),
 													shorterHashKey and hashKey[:self.__hashSize] or hashKey)
 					LOGGER.debug("> Adding '{0}' with path: '{1}' to files list.".format(name, path))
 					self.__files[name] = path

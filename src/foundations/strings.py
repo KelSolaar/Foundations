@@ -26,6 +26,7 @@ import re
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
+import foundations.common
 import foundations.core as core
 import foundations.exceptions
 from foundations.globals.constants import Constants
@@ -146,7 +147,7 @@ def getSplitextBasename(path):
 	:return: Splitext basename. ( String )
 	"""
 
-	basename = os.path.splitext(os.path.basename(os.path.normpath(path)))[0]
+	basename = foundations.common.getFirstItem(os.path.splitext(os.path.basename(os.path.normpath(path))))
 	LOGGER.debug("> Splitext basename: '{0}'.".format(basename))
 	return basename
 
@@ -170,7 +171,7 @@ def getCommonAncestor(*args):
 	array = map(set, zip(*args))
 	divergence = filter(lambda i: len(i) > 1, array)
 	if divergence:
-		ancestor = args[0][:array.index(divergence[0])]
+		ancestor = foundations.common.getFirstItem(args)[:array.index(foundations.common.getFirstItem(divergence))]
 	else:
 		ancestor = min(args)
 	LOGGER.debug("> Common Ancestor: '{0}'".format(ancestor))

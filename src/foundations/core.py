@@ -60,7 +60,10 @@ __all__ = ["THREADS_IDENTIFIERS",
 			"extractStack",
 			"executionTrace",
 			"executionTime",
-			"memoize"]
+			"memoize",
+			"removeLoggingHandler",
+			"exit",
+			"wait"]
 
 THREADS_IDENTIFIERS = {}
 
@@ -268,7 +271,7 @@ def getTraceName(object):
 	
 	Examples names::
 
-		'foundations.common | getUserApplicationDataDirectory()'.
+		'foundations.environment | getUserApplicationDataDirectory()'.
 		'__main__ | _setUserApplicationDataDirectory()'.
 		'__main__ | Preferences.__init__()'.
 		'UndefinedObject'.
@@ -322,11 +325,11 @@ def executionTrace(object):
 	
 	Entering in an object::
 		
-		DEBUG   : --->>> 'foundations.common | getUserApplicationDataDirectory()' <<<---
+		DEBUG   : --->>> 'foundations.environment | getUserApplicationDataDirectory()' <<<---
 		
 	Exiting from an object::
 		
-		DEBUG   : --->>> 'foundations.common | getSystemApplicationDataDirectory()' <<<---
+		DEBUG   : --->>> 'foundations.environment | getSystemApplicationDataDirectory()' <<<---
 	
 	:param object: Object to decorate. ( Object )
 	:return: Object. ( Object )
@@ -448,3 +451,49 @@ def memoize(cache=None):
 		return function
 
 	return wrapper
+
+@executionTrace
+def removeLoggingHandler(logger, handler):
+	"""
+	This definition removes given logging handler from given logger.
+
+	:param logger: Handler parent logger. ( Logger )
+	:param handler: Handler. ( Handler )
+	:return: Definition success. ( Boolean )
+	"""
+
+	len(logger.__dict__["handlers"]) and LOGGER.debug("> Stopping handler: '{0}'.".format(handler))
+	logger.removeHandler(handler)
+	return True
+
+@executionTrace
+def exit(exitCode=1):
+	"""
+	This definition shuts down current process logging, associated handlers and then exits to system.
+	
+	:param exitCode: System exit code. ( Integer / String / Object )
+
+	:note: **exitCode** argument is passed to Python :func:`sys.exit` definition.
+	"""
+
+	LOGGER.debug("> {0} | Exiting current process!".format(getModule(exit).__name__))
+
+	LOGGER.debug("> Stopping logging handlers and logger!")
+	for handler in LOGGER.__dict__["handlers"]:
+		removeLoggingHandler(LOGGER, handler)
+
+	sys.exit(exitCode)
+
+@executionTrace
+def wait(waitTime):
+	"""
+	This definition halts current process exection for an user defined time.
+
+	:param waitTime: Current sleep time in seconds. ( Float )
+	:return: Definition success. ( Boolean )
+	"""
+
+	LOGGER.debug("> Waiting '{0}' seconds!".format(waitTime))
+
+	time.sleep(waitTime)
+	return True
