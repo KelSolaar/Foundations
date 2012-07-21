@@ -44,6 +44,7 @@ __all__ = ["RESOURCES_DIRECTORY",
 		"UniqifyTestCase",
 		"OrderedUniqifyTestCase",
 		"PathExistsTestCase",
+		"getFirstTestCase",
 		"IsBinaryFileTestCase"]
 
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
@@ -132,6 +133,22 @@ class PathExistsTestCase(unittest.TestCase):
 		self.assertEqual(foundations.common.pathExists(None), None)
 		self.assertTrue(foundations.common.pathExists(__file__))
 		self.assertFalse(foundations.common.pathExists(unicode()))
+
+class getFirstTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.common.getFirst` definition units tests methods.
+	"""
+
+	def testGetFirst(self):
+		"""
+		This method tests :func:`foundations.common.getFirst` definition.
+		"""
+
+		self.assertEqual(foundations.common.getFirst(None), None)
+		self.assertEqual(foundations.common.getFirst([]), None)
+		self.assertEqual(foundations.common.getFirst([None]), None)
+		self.assertEqual(foundations.common.getFirst([0]), 0)
+		self.assertEqual(foundations.common.getFirst(("Nemo",)), "Nemo")
 
 class IsBinaryFileTestCase(unittest.TestCase):
 	"""

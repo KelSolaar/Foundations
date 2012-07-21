@@ -52,6 +52,7 @@ __all__ = ["LOGGER",
 			"uniqify",
 			"orderedUniqify",
 			"pathExists",
+			"getFirst",
 			"isBinaryFile"]
 
 LOGGER = logging.getLogger(Constants.logger)
@@ -198,6 +199,23 @@ def pathExists(path):
 		return
 	else:
 		return os.path.exists(path)
+
+@core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
+def getFirst(iterable, default=None):
+	"""
+	This definition returns the first item of given iterable.
+
+	:param iterable: Iterable. ( Object )
+	:param default: Default value. ( Object )
+	:return: First iterable item. ( Object )
+	"""
+
+	if not iterable:
+		return default
+
+	for item in iterable:
+		return item
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
