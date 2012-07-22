@@ -257,7 +257,10 @@ class AbstractCompositeNodeTestCase(unittest.TestCase):
 
 		nodeA = AbstractCompositeNode("MyNodeA")
 		nodeB = AbstractCompositeNode("MyNodeB", nodeA)
+		nodeC = AbstractCompositeNode("MyNodeC", nodeA)
 		self.assertEqual(nodeA.child(0), nodeB)
+		self.assertEqual(nodeA.child(1), nodeC)
+		self.assertEqual(nodeA.child(2), None)
 
 	def testIndexOf(self):
 		"""

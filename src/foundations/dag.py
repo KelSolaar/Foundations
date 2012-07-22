@@ -691,7 +691,7 @@ class AbstractCompositeNode(AbstractNode):
 		if not self.__children:
 			return
 
-		if index >= 0 or index <= len(self.__children):
+		if index >= 0 and index < len(self.__children):
 			return self.__children[index]
 
 	# @core.executionTrace
