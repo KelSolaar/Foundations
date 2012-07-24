@@ -21,6 +21,7 @@ import inspect
 import logging
 import os
 from PyQt4 import uic
+from PyQt4.QtGui import QApplication
 from PyQt4.QtGui import QWidget
 
 #**********************************************************************************************************************
@@ -41,7 +42,7 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["LOGGER", "RESOURCES_DIRECTORY", "DEFAULT_UI_FILE", "QWidgetFactory"]
+__all__ = ["LOGGER", "RESOURCES_DIRECTORY", "DEFAULT_UI_FILE", "centerWidgetOnScreen", "QWidgetFactory"]
 
 LOGGER = logging.getLogger(Constants.logger)
 
@@ -51,6 +52,23 @@ DEFAULT_UI_FILE = os.path.join(RESOURCES_DIRECTORY, "QWidget.ui")
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
+@core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
+def centerWidgetOnScreen(widget, screen=None):
+	"""
+	This definition centers the given Widget on the screen.
+
+	:param widget: Current Widget. ( QWidget )
+	:param screen: Screen used for centering. ( Integer )
+	:return: Definition success. ( Boolean )
+	"""
+
+	screen = screen and screen or QApplication.desktop().primaryScreen()
+	desktopWidth = QApplication.desktop().screenGeometry(screen).width()
+	desktopHeight = QApplication.desktop().screenGeometry(screen).height()
+	widget.move(desktopWidth / 2 - widget.width() / 2, desktopHeight / 2 - widget.height() / 2)
+	return True
+
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def QWidgetFactory(uiFile=None, *args, **kwargs):
@@ -142,6 +160,8 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 			super(QWidget, self).show()
 			if self.__geometry is not None:
 				self.restoreGeometry(self.__geometry)
+			else:
+				centerWidgetOnScreen(self)
 
 		@core.executionTrace
 		def closeEvent(self, event):
