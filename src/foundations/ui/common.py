@@ -91,6 +91,8 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 
 			self.__uiFile = file
 
+			self.__geometry = None
+
 			self.setupUi(self)
 
 		#**************************************************************************************************************
@@ -127,5 +129,29 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 
 			raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(
 			self.__class__.__name__, "uiFile"))
+
+		#******************************************************************************************************************
+		#***	Class methods.
+		#******************************************************************************************************************
+		@core.executionTrace
+		def show(self):
+			"""
+			This method reimplements the :meth:`QWidget.show` method.
+			"""
+
+			super(QWidget, self).show()
+			if self.__geometry is not None:
+				self.restoreGeometry(self.__geometry)
+
+		@core.executionTrace
+		def closeEvent(self, event):
+			"""
+			This method reimplements the :meth:`QWidget.closeEvent` method.
+	
+			:param event: QEvent. ( QEvent )
+			"""
+
+			self.__geometry = self.saveGeometry()
+			event.accept()
 
 	return QWidget
