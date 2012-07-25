@@ -165,15 +165,14 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 
 			wasHidden = not self.isVisible()
 
+			if self.__geometry is None and wasHidden:
+				centerWidgetOnScreen(self)
+
 			super(QWidget, self).show()
 
-			if not wasHidden:
-				return
-
-			if self.__geometry is not None:
+			if self.__geometry is not None and wasHidden:
 				self.restoreGeometry(self.__geometry)
-			else:
-				centerWidgetOnScreen(self)
+				
 
 		@core.executionTrace
 		def closeEvent(self, event):
