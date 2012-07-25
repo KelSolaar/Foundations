@@ -98,7 +98,7 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 		def __init__(self, *args, **kwargs):
 			"""
 			This method initializes the class.
-	
+
 			:param \*args: Arguments. ( \* )
 			:param \*\*kwargs: Keywords arguments. ( \*\* )
 			"""
@@ -120,7 +120,7 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 		def uiFile(self):
 			"""
 			This method is the property for **self.__uiFile** attribute.
-	
+
 			:return: self.__uiFile. ( String )
 			"""
 
@@ -131,7 +131,7 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 		def uiFile(self, value):
 			"""
 			This method is the setter method for **self.__uiFile** attribute.
-	
+
 			:param value: Attribute value. ( String )
 			"""
 
@@ -152,10 +152,16 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 		#***	Class methods.
 		#******************************************************************************************************************
 		@core.executionTrace
-		def show(self):
+		def show(self, setGeometry=True):
 			"""
 			This method reimplements the :meth:`QWidget.show` method.
+
+			:param setGeometry: Set geometry. ( Boolean )
 			"""
+
+			if not setGeometry:
+				super(QWidget, self).show()
+				return
 
 			wasHidden = not self.isVisible()
 
@@ -173,7 +179,7 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 		def closeEvent(self, event):
 			"""
 			This method reimplements the :meth:`QWidget.closeEvent` method.
-	
+
 			:param event: QEvent. ( QEvent )
 			"""
 
