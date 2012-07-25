@@ -66,7 +66,7 @@ def centerWidgetOnScreen(widget, screen=None):
 	screen = screen and screen or QApplication.desktop().primaryScreen()
 	desktopWidth = QApplication.desktop().screenGeometry(screen).width()
 	desktopHeight = QApplication.desktop().screenGeometry(screen).height()
-	widget.move(desktopWidth / 2 - widget.width() / 2, desktopHeight / 2 - widget.height() / 2)
+	widget.move(desktopWidth / 2 - widget.sizeHint().width() / 2, desktopHeight / 2 - widget.sizeHint().height() / 2)
 	return True
 
 @core.executionTrace
