@@ -787,7 +787,7 @@ class AbstractCompositeNode(AbstractNode):
 			return
 
 		child = self.__children.pop(index)
-		child.__parent = None
+		child.parent = None
 		return True
 
 	@core.executionTrace
@@ -816,7 +816,7 @@ class AbstractCompositeNode(AbstractNode):
 			return
 
 		self.__children.insert(index, child)
-		child.__parent = self
+		child.parent = self
 		return True
 
 	# @core.executionTrace
