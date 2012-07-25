@@ -157,7 +157,13 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 			This method reimplements the :meth:`QWidget.show` method.
 			"""
 
+			wasHidden = not self.isVisible()
+
 			super(QWidget, self).show()
+
+			if not wasHidden:
+				return
+
 			if self.__geometry is not None:
 				self.restoreGeometry(self.__geometry)
 			else:
