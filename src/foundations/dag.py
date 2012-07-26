@@ -780,7 +780,7 @@ class AbstractCompositeNode(AbstractNode):
 			['MyNodeB']
 
 		:param index: Node index. ( Integer )
-		:return: Method success. ( Boolean )
+		:return: Removed child. ( AbstractNode / AbstractCompositeNode / Object )
 		"""
 
 		if index < 0 or index > len(self.__children):
@@ -788,7 +788,7 @@ class AbstractCompositeNode(AbstractNode):
 
 		child = self.__children.pop(index)
 		child.parent = None
-		return True
+		return child
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)

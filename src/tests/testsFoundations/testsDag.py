@@ -302,8 +302,9 @@ class AbstractCompositeNodeTestCase(unittest.TestCase):
 
 		nodeA = AbstractCompositeNode("MyNodeA")
 		nodeB = AbstractCompositeNode("MyNodeB", nodeA)
-		self.assertTrue(nodeA.removeChild(0))
+		self.assertEqual(nodeA.removeChild(0), nodeB)
 		self.assertListEqual(nodeA.children, [])
+		self.assertEqual(nodeB.parent, None)
 
 	def testInsertChild(self):
 		"""
