@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines the :class:`OsWalker` class and others walking related objects.
+	This module defines the :class:`FilesWalker` class and others walking related objects.
 
 **Others:**
 
@@ -41,14 +41,14 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["LOGGER", "OsWalker", "dictionariesWalker", "nodesWalker"]
+__all__ = ["LOGGER", "FilesWalker", "dictionariesWalker", "nodesWalker"]
 
 LOGGER = logging.getLogger(Constants.logger)
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class OsWalker(object):
+class FilesWalker(object):
 	"""
 	This class provides methods for walking in a directory and retrieving filters matched files.
 	"""
@@ -60,13 +60,13 @@ class OsWalker(object):
 	
 		Usage::
 		
-			>>> osWalker = OsWalker("./Foundations/src/tests/testsFoundations/resources/standard/level_0")
-			>>> osWalker.walk().keys()
+			>>> filesWalker = FilesWalker("./Foundations/src/tests/testsFoundations/resources/standard/level_0")
+			>>> filesWalker.walk().keys()
 			['standard|0d24f027', 'standard|407ed3b2', 'standard|20efaeaf', 'loremIpsum|ddf30259']
-			>>> osWalker.walk(filtersIn=("\.sIBLT$",))
+			>>> filesWalker.walk(filtersIn=("\.sIBLT$",))
 			{'standard|20efaeaf': 
 			'./Foundations/src/tests/testsFoundations/resources/standard/level_0/level_1/level_2/standard.sIBLT'}
-			>>> osWalker.walk(filtersOut=("\.sIBLT$", "\.rc$", "\.ibl$")).values()
+			>>> filesWalker.walk(filtersOut=("\.sIBLT$", "\.rc$", "\.ibl$")).values()
 			['./Foundations/src/tests/testsFoundations/resources/standard/level_0/level_1/loremIpsum.txt']
 			
 		:param root: Root directory to recursively walk. ( String )
@@ -223,7 +223,7 @@ class OsWalker(object):
 
 					hashKey = hashlib.md5(path).hexdigest()
 					name = namespace.setNamespace(foundations.common.getFirstItem(os.path.splitext(item)),
-													shorterHashKey and hashKey[:self.__hashSize] or hashKey)
+													hashKey[:self.__hashSize] if shorterHashKey else hashKey)
 					LOGGER.debug("> Adding '{0}' with path: '{1}' to files list.".format(name, path))
 					self.__files[name] = path
 

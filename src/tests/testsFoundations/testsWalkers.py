@@ -26,7 +26,7 @@ import unittest
 import foundations.namespace as namespace
 import foundations.strings as strings
 import foundations.walkers
-from foundations.walkers import OsWalker
+from foundations.walkers import FilesWalker
 from foundations.dag import AbstractCompositeNode
 
 #**********************************************************************************************************************
@@ -42,7 +42,7 @@ __status__ = "Production"
 __all__ = ["RESOURCES_DIRECTORY",
 			"ROOT_DIRECTORY",
 			"TREE_HIERARCHY",
-			"OsWalkerTestCase",
+			"FilesWalkerTestCase",
 			"DictionariesWalkerTestCase",
 			"NodesWalkerTestCase"]
 
@@ -56,9 +56,9 @@ TREE_HIERARCHY = ("loremIpsum.txt", "standard.ibl", "standard.rc", "standard.sIB
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class OsWalkerTestCase(unittest.TestCase):
+class FilesWalkerTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.walkers.OsWalker` class units tests methods.
+	This class defines :class:`foundations.walkers.FilesWalker` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
@@ -71,7 +71,7 @@ class OsWalkerTestCase(unittest.TestCase):
 								"files")
 
 		for attribute in requiredAttributes:
-			self.assertIn(attribute, dir(OsWalker))
+			self.assertIn(attribute, dir(FilesWalker))
 
 	def testRequiredMethods(self):
 		"""
@@ -81,50 +81,50 @@ class OsWalkerTestCase(unittest.TestCase):
 		requiredMethods = ("walk",)
 
 		for method in requiredMethods:
-			self.assertIn(method, dir(OsWalker))
+			self.assertIn(method, dir(FilesWalker))
 
 	def testWalk(self):
 		"""
-		This method tests :meth:`foundations.walkers.OsWalker.walk` method.
+		This method tests :meth:`foundations.walkers.FilesWalker.walk` method.
 		"""
 
-		osWalker = OsWalker()
-		osWalker.root = os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY)
-		osWalker.walk()
-		for path in osWalker.files.itervalues():
+		filesWalker = FilesWalker()
+		filesWalker.root = os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY)
+		filesWalker.walk()
+		for path in filesWalker.files.itervalues():
 			self.assertTrue(os.path.exists(path))
 
 		referencePaths = [strings.replace(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY, path),
 											{"/":"|", "\\":"|"}) for path in TREE_HIERARCHY]
-		walkerFiles = [strings.replace(path, {"/":"|", "\\":"|"}) for path in osWalker.files.itervalues()]
+		walkerFiles = [strings.replace(path, {"/":"|", "\\":"|"}) for path in filesWalker.files.itervalues()]
 		for item in referencePaths:
 			self.assertIn(item, walkerFiles)
 
-		osWalker.walk(filtersOut=("\.rc$",))
-		walkerFiles = [strings.replace(path, {"/":"|", "\\":"|"}) for path in osWalker.files.itervalues()]
+		filesWalker.walk(filtersOut=("\.rc$",))
+		walkerFiles = [strings.replace(path, {"/":"|", "\\":"|"}) for path in filesWalker.files.itervalues()]
 		for item in walkerFiles:
 			self.assertTrue(not re.search(r"\.rc$", item))
 
-		osWalker.walk(filtersOut=("\.ibl", "\.rc$", "\.sIBLT$", "\.txt$"))
-		self.assertTrue(not osWalker.files)
+		filesWalker.walk(filtersOut=("\.ibl", "\.rc$", "\.sIBLT$", "\.txt$"))
+		self.assertTrue(not filesWalker.files)
 
 		referencePaths = [strings.replace(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY, path),
 										{"/":"|", "\\":"|"}) for path in TREE_HIERARCHY if re.search(r"\.rc$", path)]
 		filter = "\.rc$"
-		osWalker.walk(filtersIn=(filter,))
-		walkerFiles = [strings.replace(path, {"/":"|", "\\":"|"}) for path in osWalker.files.itervalues()]
+		filesWalker.walk(filtersIn=(filter,))
+		walkerFiles = [strings.replace(path, {"/":"|", "\\":"|"}) for path in filesWalker.files.itervalues()]
 		for item in referencePaths:
 			self.assertIn(item, walkerFiles)
 		for item in walkerFiles:
 			self.assertTrue(re.search(filter, item))
 
-		osWalker.hashSize = 24
-		osWalker.walk()
-		for item in osWalker.files:
-			self.assertEqual(len(namespace.removeNamespace(item)), osWalker.hashSize)
+		filesWalker.hashSize = 24
+		filesWalker.walk()
+		for item in filesWalker.files:
+			self.assertEqual(len(namespace.removeNamespace(item)), filesWalker.hashSize)
 
-		osWalker.walk(visitor=lambda x, y: x.pop(y))
-		self.assertDictEqual(osWalker.files, {})
+		filesWalker.walk(visitor=lambda x, y: x.pop(y))
+		self.assertDictEqual(filesWalker.files, {})
 
 class DictionariesWalkerTestCase(unittest.TestCase):
 	"""
