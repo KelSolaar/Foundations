@@ -242,9 +242,11 @@ class AbstractCompositeNodeTestCase(unittest.TestCase):
 							"addChild",
 							"removeChild",
 							"insertChild",
+							"hasChildren",
 							"childrenCount",
-							"findChildren",
 							"sortChildren",
+							"findChildren",
+							"findFamily",
 							"listNode")
 
 		for method in requiredMethods:
@@ -318,6 +320,16 @@ class AbstractCompositeNodeTestCase(unittest.TestCase):
 		self.assertTrue(nodeA.insertChild(nodeD, 1))
 		for i, node in enumerate((nodeB, nodeD, nodeC)):
 			self.assertEqual(nodeA.indexOf(node), i)
+
+	def testHasChildren(self):
+		"""
+		This method tests :meth:`foundations.dag.AbstractCompositeNode.hasChildren` method.
+		"""
+
+		nodeA = AbstractCompositeNode("MyNodeA")
+		self.assertFalse(nodeA.hasChildren())
+		nodeB = AbstractCompositeNode("MyNodeB", nodeA)
+		self.assertTrue(nodeA.hasChildren())
 
 	def testChildrenCount(self):
 		"""
@@ -402,6 +414,36 @@ class AbstractCompositeNodeTestCase(unittest.TestCase):
 		self.assertEqual(nodeA.children[1].children[1], nodeE)
 		self.assertEqual(nodeA.children[1].children[2], nodeD)
 		self.assertEqual(nodeA.children[1].children[3], nodeG)
+
+	def testListFamily(self):
+		"""
+		This method tests :meth:`foundations.dag.AbstractCompositeNode.listFamily` method.
+		"""
+
+		class FamilyB(AbstractCompositeNode):
+			__family = "B"
+
+		class FamilyC(AbstractCompositeNode):
+			__family = "C"
+
+		nodeA = AbstractCompositeNode("MyNodeA")
+		nodeB = FamilyB("MyNodeB", nodeA)
+		nodeC = FamilyC("MyNodeC", nodeA)
+		nodeD = FamilyB("MyNodeD", nodeC)
+		nodeE = FamilyB("MyNodeE", nodeD)
+		nodeF = FamilyC("MyNodeE", nodeE)
+
+		familyNodes = [nodeB, nodeD, nodeE]
+		foundNodes = nodeA.findFamily("B")
+		for node in familyNodes:
+			self.assertIn(node, foundNodes)
+
+		familyNodes = [nodeC, nodeF]
+		foundNodes = nodeA.findFamily("C")
+		for node in familyNodes:
+			self.assertIn(node, foundNodes)
+
+		self.assertEqual(nodeA.findFamily("C", node=nodeE).pop(), nodeF)
 
 	def testListNode(self):
 		"""

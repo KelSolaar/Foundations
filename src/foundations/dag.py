@@ -28,6 +28,7 @@ import weakref
 import foundations.core as core
 import foundations.dataStructures
 import foundations.exceptions
+import foundations.walkers
 from foundations.globals.constants import Constants
 
 #**********************************************************************************************************************
@@ -821,6 +822,23 @@ class AbstractCompositeNode(AbstractNode):
 
 	# @core.executionTrace
 	# @foundations.exceptions.exceptionsHandler(None, False, Exception)
+	def hasChildren(self):
+		"""
+		This method returns if the node has children.
+
+		Usage::
+
+			>>> nodeA = AbstractCompositeNode("MyNodeA")
+			>>> nodeA.hasChildren()
+			False
+
+		:return: Children count. ( Integer )
+		"""
+
+		return True if self.childrenCount() > 0 else False
+
+	# @core.executionTrace
+	# @foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def childrenCount(self):
 		"""
 		This method returns the children count.
@@ -901,6 +919,20 @@ class AbstractCompositeNode(AbstractNode):
 				child not in candidates and candidates.append(child)
 			child.findChildren(pattern, flags, candidates)
 		return candidates
+
+	# @core.executionTrace
+	# @foundations.exceptions.exceptionsHandler(None, False, Exception)
+	def findFamily(self, pattern=r".*", flags=0, node=None):
+		"""
+		This method returns the nodes from given family.
+		
+		:param pattern: Matching pattern. ( String )
+		:param flags: Matching regex flags. ( Integer )
+		:param node: Node to start walking from. (  AbstractNode / AbstractCompositeNode / Object )
+		:return: Family nodes. ( List )
+		"""
+
+		return [node for node in foundations.walkers.nodesWalker(node or self) if re.search(pattern, node.family, flags)]
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
