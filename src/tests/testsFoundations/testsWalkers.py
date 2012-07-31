@@ -165,9 +165,12 @@ class NodesWalkerTestCase(unittest.TestCase):
 		nodeF = AbstractCompositeNode("MyNodeF", nodeD)
 		nodeG = AbstractCompositeNode("MyNodeG", nodeF)
 		nodeH = AbstractCompositeNode("MyNodeH", nodeG)
-		yieldedValues = (nodeB, nodeC, nodeD, nodeE, nodeF, nodeG, nodeH)
-		for node in foundations.walkers.nodesWalker(nodeA):
-			self.assertIn(node, yieldedValues)
+		values = [nodeB, nodeC, nodeD, nodeE, nodeF, nodeG, nodeH]
+		for node in values:
+			self.assertIn(node, list(foundations.walkers.nodesWalker(nodeA)))
+
+		values = [nodeG, nodeF, nodeD, nodeB, nodeA]
+		self.assertEquals(list(foundations.walkers.nodesWalker(nodeH, ascendants=True)), values)
 
 if __name__ == "__main__":
 	import tests.utilities

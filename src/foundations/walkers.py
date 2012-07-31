@@ -264,7 +264,7 @@ def dictionariesWalker(dictionary, path=()):
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
-def nodesWalker(node):
+def nodesWalker(node, ascendants=False):
 	"""
 	This definition is a generator used to walk into nodes hierarchy.
 	
@@ -289,14 +289,22 @@ def nodesWalker(node):
 		MyNodeC
 
 	:param node: Node to walk. ( AbstractCompositeNode )
+	:param ascendants: Ascendants instead of descendants will be yielded. ( Boolean )
 	:return: Node. ( AbstractNode / AbstractCompositeNode )
 	"""
 
-	if not hasattr(node, "children"):
+	attribute = "children" if not ascendants else "parent"
+	if not hasattr(node, attribute):
 		return
 
-	for child in node.children:
-		yield child
-		if  child.children:
-			for value in nodesWalker(child):
-				yield value
+	elements = getattr(node, attribute)
+	elements = elements if isinstance(elements, list) else [elements]
+
+	for element in elements:
+		yield element
+
+		if not getattr(element, attribute):
+			continue
+
+		for subElement in nodesWalker(element, ascendants=ascendants):
+			yield subElement
