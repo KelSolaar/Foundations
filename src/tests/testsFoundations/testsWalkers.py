@@ -41,17 +41,23 @@ __status__ = "Production"
 
 __all__ = ["RESOURCES_DIRECTORY",
 			"ROOT_DIRECTORY",
+			"FILES_TREE_HIERARCHY",
 			"TREE_HIERARCHY",
 			"FilesWalkerTestCase",
+			"DepthWalkerTestCase",
 			"DictionariesWalkerTestCase",
 			"NodesWalkerTestCase"]
 
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
 ROOT_DIRECTORY = "standard"
-TREE_HIERARCHY = ("loremIpsum.txt", "standard.ibl", "standard.rc", "standard.sIBLT",
+FILES_TREE_HIERARCHY = ("loremIpsum.txt", "standard.ibl", "standard.rc", "standard.sIBLT",
 					"level_0/standard.ibl",
 					"level_0/level_1/loremIpsum.txt", "level_0/level_1/standard.rc",
 					"level_0/level_1/level_2/standard.sIBLT")
+TREE_HIERARCHY = ((["level_0"], ["loremIpsum.txt", "standard.ibl", "standard.rc", "standard.sIBLT"]),
+					(["level_1"], ["standard.ibl"]),
+					(["level_2"], ["loremIpsum.txt", "standard.rc"]),
+					([], ["standard.sIBLT"]))
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
@@ -95,7 +101,7 @@ class FilesWalkerTestCase(unittest.TestCase):
 			self.assertTrue(os.path.exists(path))
 
 		referencePaths = [strings.replace(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY, path),
-											{"/":"|", "\\":"|"}) for path in TREE_HIERARCHY]
+											{"/":"|", "\\":"|"}) for path in FILES_TREE_HIERARCHY]
 		walkerFiles = [strings.replace(path, {"/":"|", "\\":"|"}) for path in filesWalker.files.itervalues()]
 		for item in referencePaths:
 			self.assertIn(item, walkerFiles)
@@ -109,7 +115,7 @@ class FilesWalkerTestCase(unittest.TestCase):
 		self.assertTrue(not filesWalker.files)
 
 		referencePaths = [strings.replace(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY, path),
-										{"/":"|", "\\":"|"}) for path in TREE_HIERARCHY if re.search(r"\.rc$", path)]
+										{"/":"|", "\\":"|"}) for path in FILES_TREE_HIERARCHY if re.search(r"\.rc$", path)]
 		filter = "\.rc$"
 		filesWalker.walk(filtersIn=(filter,))
 		walkerFiles = [strings.replace(path, {"/":"|", "\\":"|"}) for path in filesWalker.files.itervalues()]
@@ -125,6 +131,42 @@ class FilesWalkerTestCase(unittest.TestCase):
 
 		filesWalker.walk(visitor=lambda x, y: x.pop(y))
 		self.assertDictEqual(filesWalker.files, {})
+
+class DictionariesWalkerTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.walkers.dictionariesWalker` definition units tests methods.
+	"""
+
+	def testDictionariesWalker(self):
+		"""
+		This method tests :func:`foundations.walkers.dictionariesWalker` definition.
+		"""
+
+		nestedDictionary = {"Level 1A":{"Level 2A": { "Level 3A" : "Higher Level"}},
+							"Level 1B" : "Lower level", "Level 1C" : {}}
+		yieldedValues = ((("Level 1A", "Level 2A"), "Level 3A", "Higher Level"), ((), "Level 1B", "Lower level"))
+		for value in foundations.walkers.dictionariesWalker(nestedDictionary):
+			self.assertIsInstance(value, tuple)
+			self.assertIn(value, yieldedValues)
+		for path, key, value in foundations.walkers.dictionariesWalker(nestedDictionary):
+			self.assertIsInstance(path, tuple)
+			self.assertIsInstance(key, str)
+			self.assertIsInstance(value, str)
+
+class DepthWalkerTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.walkers.depthWalker` definition units tests methods.
+	"""
+
+	def testDepthWalker(self):
+		"""
+		This method tests :func:`foundations.walkers.depthWalker` definition.
+		"""
+
+		for i, value in \
+		enumerate(foundations.walkers.depthWalker(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY), maximumDepth=2)):
+			parentDirectory, directories, files = value
+			self.assertEqual((directories, files), TREE_HIERARCHY[i])
 
 class DictionariesWalkerTestCase(unittest.TestCase):
 	"""

@@ -41,7 +41,7 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["LOGGER", "FilesWalker", "dictionariesWalker", "nodesWalker"]
+__all__ = ["LOGGER", "FilesWalker", "depthWalker", "dictionariesWalker", "nodesWalker"]
 
 LOGGER = logging.getLogger(Constants.logger)
 
@@ -211,10 +211,10 @@ class FilesWalker(object):
 			return
 
 		self.__files = {}
-		for root, dirs, files in os.walk(self.__root, topdown=False, followlinks=True):
+		for parentDirectory, directories, files in os.walk(self.__root, topdown=False, followlinks=True):
 			for item in files:
 				LOGGER.debug("> Current file: '{0}' in '{1}'.".format(item, self.__root))
-				path = strings.toForwardSlashes(os.path.join(root, item))
+				path = strings.toForwardSlashes(os.path.join(parentDirectory, item))
 				if os.path.isfile(path):
 					if not strings.filterWords((path,), filtersIn, filtersOut, flags):
 						continue
@@ -230,6 +230,25 @@ class FilesWalker(object):
 					visitor and visitor(self.__files, name)
 
 		return self.__files
+
+@core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
+def depthWalker(directory, maximumDepth=1):
+	"""
+	This definition is a generator used to walk into directories using given maximum depth.
+
+	:param directory: Directory to walk. ( String )
+	:param maximumDepth: Maximum depth. ( Integer )
+	:return: Parent directory, directories, files. ( Tuple )
+	"""
+
+	separator = os.path.sep
+	baseDepth = directory.count(separator)
+
+	for parentDirectory, directories, files in os.walk(directory):
+		yield parentDirectory, directories, files
+		if baseDepth + maximumDepth <= parentDirectory.count(separator):
+			del directories[:]
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
