@@ -322,6 +322,9 @@ def nodesWalker(node, ascendants=False):
 	for element in elements:
 		yield element
 
+		if not hasattr(element, attribute):
+			continue
+
 		if not getattr(element, attribute):
 			continue
 
