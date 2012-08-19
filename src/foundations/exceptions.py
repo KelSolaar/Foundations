@@ -43,6 +43,7 @@ __all__ = ["LOGGER",
 			"exceptionsHandler",
 			"defaultExceptionsHandler",
 			"AbstractError",
+			"BreakIteration",
 			"AbstractParsingError",
 			"FileStructureParsingError",
 			"AttributeStructureParsingError",
@@ -241,6 +242,13 @@ class AbstractError(Exception):
 		"""
 
 		return str(self.__value)
+
+class BreakIteration(AbstractError):
+	"""
+	This class is used to break nested loop iterations.
+	"""
+
+	pass
 
 class AbstractParsingError(AbstractError):
 	"""
