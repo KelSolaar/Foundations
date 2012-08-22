@@ -45,7 +45,8 @@ __all__ = ["LOGGER",
 			"orderedUniqify",
 			"pathExists",
 			"getFirstItem",
-			"isBinaryFile"]
+			"isBinaryFile",
+			"repeat"]
 
 LOGGER = logging.getLogger(Constants.logger)
 
@@ -133,3 +134,16 @@ def isBinaryFile(file):
 	finally:
 		fileHandle.close()
 	return False
+
+@core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
+def repeat(object, iterations=1):
+	"""
+	This definition repeats given object iterations times.
+
+	:param object: Object to repeat. ( Object )
+	:param iterations: Repetitions number. ( Integer )
+	:return: Object return values. ( List )
+	"""
+
+	return [object() for i in range(iterations)]

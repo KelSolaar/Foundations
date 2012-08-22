@@ -43,7 +43,8 @@ __all__ = ["RESOURCES_DIRECTORY",
 		"OrderedUniqifyTestCase",
 		"PathExistsTestCase",
 		"getFirstItemTestCase",
-		"IsBinaryFileTestCase"]
+		"IsBinaryFileTestCase",
+		"RepeatTestCase"]
 
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
 LIBRARIES_DIRECTORY = os.path.join(RESOURCES_DIRECTORY, "libraries")
@@ -133,6 +134,22 @@ class IsBinaryFileTestCase(unittest.TestCase):
 
 		self.assertTrue(foundations.common.isBinaryFile(LIBRARY))
 		self.assertFalse(foundations.common.isBinaryFile(TEXT_FILE))
+
+class RepeatTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.common.isBinaryFile` definition units tests methods.
+	"""
+
+	def testRepeat(self):
+		"""
+		This method tests :func:`foundations.common.repeat` definition.
+		"""
+
+		def foo(bar):
+			return bar
+
+		self.assertEqual(len(foundations.common.repeat(lambda: foo(True), 10)), 10)
+		self.assertEqual(foundations.common.repeat(lambda: foo(True), 2), [True, True])
 
 if __name__ == "__main__":
 	import tests.utilities
