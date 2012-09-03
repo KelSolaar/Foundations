@@ -814,7 +814,7 @@ class AbstractCompositeNode(AbstractNode):
 		"""
 
 		if index < 0 or index > len(self.__children):
-			return
+			return False
 
 		self.__children.insert(index, child)
 		child.parent = self

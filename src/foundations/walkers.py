@@ -207,10 +207,10 @@ class FilesWalker(object):
 		if filtersOut:
 			LOGGER.debug("> Current filters out: '{0}'.".format(filtersOut))
 
-		if not self.__root:
-			return
-
 		self.__files = {}
+		if not self.__root:
+			return self.__files
+
 		for parentDirectory, directories, files in os.walk(self.__root, topdown=False, followlinks=True):
 			for item in files:
 				LOGGER.debug("> Current file: '{0}' in '{1}'.".format(item, self.__root))

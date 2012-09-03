@@ -91,7 +91,7 @@ def pathExists(path):
 	"""
 
 	if not path:
-		return
+		return False
 	else:
 		return os.path.exists(path)
 

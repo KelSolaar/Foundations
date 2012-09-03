@@ -102,7 +102,7 @@ class PathExistsTestCase(unittest.TestCase):
 		This method tests :func:`foundations.common.pathExists` definition.
 		"""
 
-		self.assertEqual(foundations.common.pathExists(None), None)
+		self.assertEqual(foundations.common.pathExists(None), False)
 		self.assertTrue(foundations.common.pathExists(__file__))
 		self.assertFalse(foundations.common.pathExists(unicode()))
 

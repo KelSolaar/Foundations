@@ -600,7 +600,7 @@ class SectionsFileParser(io.File):
 		LOGGER.debug("> Reading sections from: '{0}'.".format(self.file))
 
 		if not self.content:
-			return
+			return False
 
 		if not orderedDictionary:
 			self.__sections = {}
@@ -696,7 +696,7 @@ class SectionsFileParser(io.File):
 		"""
 
 		if not self.__sections:
-			return
+			return False
 
 		if section in self.__sections:
 			LOGGER.debug("> '{0}' section exists in '{1}'.".format(section, self))
@@ -730,7 +730,7 @@ class SectionsFileParser(io.File):
 		"""
 
 		if not self.__sections:
-			return
+			return False
 
 		if namespace.removeNamespace(attribute, rootOnly=True) in self.getAttributes(section,
 																					orderedDictionary=True,
@@ -813,11 +813,11 @@ class SectionsFileParser(io.File):
 		:return: All sections / files attributes. ( OrderedDict / Dictionary )
 		"""
 
-		if not self.__sections:
-			return
-
 		dictionary = orderedDictionary and OrderedDict or dict
 		allAttributes = dictionary()
+		if not self.__sections:
+			return allAttributes
+
 		for attributes in self.__sections.itervalues():
 			for attribute, value in attributes.iteritems():
 				allAttributes[attribute] = value
@@ -847,7 +847,7 @@ class SectionsFileParser(io.File):
 		"""
 
 		if not self.__sections:
-			return
+			return str()
 
 		if self.attributeExists(attribute, section):
 			if attribute in self.__sections[section]:
@@ -892,7 +892,7 @@ class SectionsFileParser(io.File):
 		"""
 
 		if not self.__sections:
-			return
+			return False
 
 		LOGGER.debug("> Setting '{0}' file content.".format(self.file))
 		attributeTemplate = spacesAroundSplitter and "{{0}} {0} {{1}}\n".format(splitter) or \
@@ -1156,7 +1156,7 @@ class PlistFileParser(io.File):
 		"""
 
 		if not self.__elements:
-			return
+			return False
 
 		for item in foundations.walkers.dictionariesWalker(self.__elements):
 			path, key, value = item
@@ -1190,10 +1190,10 @@ class PlistFileParser(io.File):
 		:return: Values. ( List )
 		"""
 
-		if not self.__elements:
-			return
-
 		values = []
+		if not self.__elements:
+			return values
+
 		for item in foundations.walkers.dictionariesWalker(self.__elements):
 			path, element, value = item
 			if re.search(pattern, element, flags):
@@ -1215,8 +1215,7 @@ class PlistFileParser(io.File):
 			'My Value A'
 
 		:param element: Element to get the value. ( String )
-		:param flags: Regex flags. ( Integer )
-		:return: Method success. ( Boolean )
+		:return: Element value. ( Object )
 		"""
 
 		if not self.__elements:
