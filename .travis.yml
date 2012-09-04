@@ -1,4 +1,21 @@
 language: python
 python:
   - "2.7"
-script: nosetests --exclude "testsLibrary.py"
+before_install:
+  - cd ..
+  - git clone -b hdrlabs git://github.com/KelSolaar/FreeImage.git
+  - cd FreeImage
+  - make
+  - cp libfreeimage-3.15.1.so ../Foundations/src/tests/testsFoundations/resources/libraries/freeImage/libfreeimage.so
+  - cd ../Foundations
+install:
+  - sudo apt-get install python-qt4 python-qt4-dev python-sip python-sip-dev
+  - ln -s /usr/lib/python2.7/dist-packages/PyQt4/ $VIRTUAL_ENV/lib/python2.7/site-packages/
+  - ln -s /usr/lib/python2.7/dist-packages/sip.so $VIRTUAL_ENV/lib/python2.7/site-packages/
+  - ln -s /usr/lib/python2.7/dist-packages/sipdistutils.py $VIRTUAL_ENV/lib/python2.7/site-packages/
+  - ln -s /usr/lib/python2.7/dist-packages/sipconfig.py $VIRTUAL_ENV/lib/python2.7/site-packages/
+  - ln -s /usr/lib/python2.7/dist-packages/sipconfig_nd.py $VIRTUAL_ENV/lib/python2.7/site-packages/
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+script: nosetests
