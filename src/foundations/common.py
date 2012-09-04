@@ -106,7 +106,7 @@ def getFirstItem(iterable, default=None):
 	:return: First iterable item. ( Object )
 	"""
 
-	if not len(iterable):
+	if not iterable:
 		return default
 
 	for item in iterable:
