@@ -166,7 +166,7 @@ class DepthWalkerTestCase(unittest.TestCase):
 		for i, value in \
 		enumerate(foundations.walkers.depthWalker(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY), maximumDepth=2)):
 			parentDirectory, directories, files = value
-			self.assertEqual((directories, files), TREE_HIERARCHY[i])
+			self.assertEqual((directories, sorted(files)), (TREE_HIERARCHY[i][0], sorted(TREE_HIERARCHY[i][1])))
 
 class DictionariesWalkerTestCase(unittest.TestCase):
 	"""
