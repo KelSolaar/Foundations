@@ -117,5 +117,5 @@ class EchoRequestsHandlerTestCase(unittest.TestCase):
 		tcpServer.stop()
 
 if __name__ == "__main__":
-	import tests.utilities
+	import foundations.tests.utilities
 	unittest.main()

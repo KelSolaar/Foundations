@@ -11,7 +11,6 @@
 	This module runs the tests suite.
 
 **Others:**
-
 """
 
 #**********************************************************************************************************************
@@ -64,5 +63,5 @@ def testsSuite():
 	return testsLoader.discover(os.path.dirname(__file__))
 
 if __name__ == "__main__":
-	import utilities
+	import foundations.tests.utilities
 	unittest.TextTestRunner(verbosity=2).run(testsSuite())

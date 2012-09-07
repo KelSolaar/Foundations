@@ -152,5 +152,5 @@ class RepeatTestCase(unittest.TestCase):
 		self.assertEqual(foundations.common.repeat(lambda: foo(True), 2), [True, True])
 
 if __name__ == "__main__":
-	import tests.utilities
+	import foundations.tests.utilities
 	unittest.main()

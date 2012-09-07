@@ -215,5 +215,5 @@ class NodesWalkerTestCase(unittest.TestCase):
 		self.assertEquals(list(foundations.walkers.nodesWalker(nodeH, ascendants=True)), values)
 
 if __name__ == "__main__":
-	import tests.utilities
+	import foundations.tests.utilities
 	unittest.main()

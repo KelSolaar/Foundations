@@ -90,5 +90,5 @@ class RotatingBackupTestCase(unittest.TestCase):
 		shutil.rmtree(tempDirectory)
 
 if __name__ == "__main__":
-	import tests.utilities
+	import foundations.tests.utilities
 	unittest.main()

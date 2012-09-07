@@ -61,5 +61,5 @@ class QWidgetFactoryTestCase(unittest.TestCase):
 		self.assertEqual(widget.__class__, QWidget.__class__)
 
 if __name__ == "__main__":
-	import tests.utilities
+	import foundations.tests.utilities
 	unittest.main()

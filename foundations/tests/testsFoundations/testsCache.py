@@ -98,5 +98,5 @@ class CacheTestCase(unittest.TestCase):
 		self.assertDictEqual(cache, {})
 
 if __name__ == "__main__":
-	import tests.utilities
+	import foundations.tests.utilities
 	unittest.main()

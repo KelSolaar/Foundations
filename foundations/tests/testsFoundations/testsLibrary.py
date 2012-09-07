@@ -134,5 +134,5 @@ class LibraryTestCase(unittest.TestCase):
 				self.assertEqual(getattr(library, function)(), value)
 
 if __name__ == "__main__":
-	import tests.utilities
+	import foundations.tests.utilities
 	unittest.main()

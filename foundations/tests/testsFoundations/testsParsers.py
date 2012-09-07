@@ -754,5 +754,5 @@ class GetAttributeCompoundTestCase(unittest.TestCase):
 		self.assertEqual(compound.link, foundations.parsers.getAttributeCompound("Attribute", data).link)
 
 if __name__ == "__main__":
-	import tests.utilities
+	import foundations.tests.utilities
 	unittest.main()

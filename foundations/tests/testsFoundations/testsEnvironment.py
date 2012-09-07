@@ -160,5 +160,5 @@ class GetUserApplicationDataDirectoryTestCase(unittest.TestCase):
 		self.assertIsInstance(path, str)
 
 if __name__ == "__main__":
-	import tests.utilities
+	import foundations.tests.utilities
 	unittest.main()

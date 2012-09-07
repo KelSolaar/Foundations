@@ -86,5 +86,5 @@ class RemoveNamespaceTestCase(unittest.TestCase):
 		self.assertEqual(namespace.removeNamespace("Namespace|Attribute|Value", rootOnly=True), "Attribute|Value")
 
 if __name__ == "__main__":
-	import tests.utilities
+	import foundations.tests.utilities
 	unittest.main()

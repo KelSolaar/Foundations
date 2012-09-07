@@ -332,5 +332,5 @@ class IsWebsiteTestCase(unittest.TestCase):
 		self.assertFalse(strings.isWebsite("domain.com"))
 
 if __name__ == "__main__":
-	import tests.utilities
+	import foundations.tests.utilities
 	unittest.main()

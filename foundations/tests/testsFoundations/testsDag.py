@@ -472,5 +472,5 @@ class AbstractCompositeNodeTestCase(unittest.TestCase):
 		self.assertEqual(nodeA, data)
 
 if __name__ == "__main__":
-	import tests.utilities
+	import foundations.tests.utilities
 	unittest.main()
