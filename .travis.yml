@@ -6,7 +6,7 @@ before_install:
   - git clone -b hdrlabs git://github.com/KelSolaar/FreeImage.git
   - cd FreeImage
   - make
-  - cp libfreeimage-3.15.1.so ../Foundations/src/tests/testsFoundations/resources/libraries/freeImage/libfreeimage.so
+  - cp libfreeimage-3.15.1.so ../Foundations/foundations/tests/testsFoundations/resources/libraries/freeImage/libfreeimage.so
   - cd ../Foundations
 install:
   - sudo apt-get install python-qt4 python-qt4-dev python-sip python-sip-dev
