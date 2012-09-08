@@ -1,8 +1,8 @@
 Foundations - 2.0.2 - Stable
 ============================
 
-Change Log
-==========
+Changes
+=======
 
 2.0.2 - Stable
 --------------
