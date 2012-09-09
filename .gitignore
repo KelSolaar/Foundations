@@ -7,3 +7,6 @@
 *.log
 *.pyc
 *.pyo
+
+docs/documentation/sphinx/build
+docs/documentation/sphinx/source/resources/packages

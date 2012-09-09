@@ -295,7 +295,7 @@ def removeStrip(string, pattern):
 		'Doe'
 
 	:param string: String to manipulate. ( String )
-	:param pattern: Replacement regex pattern. ( String )
+	:param pattern: Replacement pattern. ( String )
 	:return: Manipulated string. ( String )
 	"""
 

@@ -862,9 +862,6 @@ class AbstractCompositeNode(AbstractNode):
 		"""
 		This method sorts the children using either the given attribute or the node name.
 
-		Usage::
-
-
 		:param attribute: Attribute name used for sorting. ( String )
 		:param reverseOrder: Sort in reverse order. ( Boolean )
 		:return: Method success. ( Boolean )
