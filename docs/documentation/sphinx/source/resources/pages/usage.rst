@@ -1,18 +1,5 @@
-Foundations
-===========
-
-..  image:: https://secure.travis-ci.org/KelSolaar/Foundations.png?branch=master
-
-Introduction
-------------
-
-**Foundations** is the core package of `Umbra <http://github.com/KelSolaar/Umbra>`_, `sIBL_GUI <http://github.com/KelSolaar/sIBL_GUI>`_, `sIBL_Reporter <http://github.com/KelSolaar/sIBL_Reporter>`_. It provides modules defining various utilities classes and definitions used in those packages.
-
-Installation
-------------
-
-Usage
------
+_`Usage`
+========
 
 Given the large spectrum of the objects defined in **Foundations** package, please refer to the Api ( `Foundations - Api <index.html>`_ ) for precise usage examples about each modules. Here are listed a few non exhaustive usage examples.
 
@@ -88,18 +75,15 @@ Given the large spectrum of the objects defined in **Foundations** package, plea
 
 .. code:: python
 
-	>>> filesWalker = FilesWalker("./Foundations/src/tests/testsFoundations/resources/standard/level_0")
+	>>> filesWalker = FilesWalker("./Foundations/src/tests/testsFoundations/../standard/level_0")
 	>>> filesWalker.walk().keys()
 	['standard|0d24f027', 'standard|407ed3b2', 'standard|20efaeaf', 'loremIpsum|ddf30259']
 	>>> filesWalker.walk(filtersIn=("\.sIBLT$",))
-	{'standard|20efaeaf': './Foundations/src/tests/testsFoundations/resources/standard/level_0/level_1/level_2/standard.sIBLT'}
+	{'standard|20efaeaf': './Foundations/src/tests/testsFoundations/../standard/level_0/level_1/level_2/standard.sIBLT'}
 	>>> filesWalker.walk(filtersOut=("\.sIBLT$", "\.rc$", "\.ibl$")).values()
-	['./Foundations/src/tests/testsFoundations/resources/standard/level_0/level_1/loremIpsum.txt']
+	['./Foundations/src/tests/testsFoundations/../standard/level_0/level_1/loremIpsum.txt']
 
-About
------
+.. raw:: html
 
-| Foundations by Thomas Mansencal – 2008 - 2012
-| Copyright© 2008 - 2012 – Thomas Mansencal – `thomas.mansencal@gmail.com <mailto:thomas.mansencal@gmail.com>`_
-| This software is released under terms of GNU GPL V3 license: http://www.gnu.org/licenses/
-| `http://www.thomasmansencal.com/ <http://www.thomasmansencal.com/>`_
+    <br/>
+

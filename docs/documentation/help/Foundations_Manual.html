@@ -82,6 +82,9 @@
 						<a class="reference internal" href="#installation">Installation</a>
 					</li>
 					<li>
+						<a class="reference internal" href="#usage">Usage</a>
+					</li>
+					<li>
 						<a class="reference internal" href="#changes">Changes</a>
 					</li>
 					<li>
@@ -106,9 +109,105 @@
 				<h1>
 					<span class="target" id="installation">Installation</span>
 				</h1><br />
-				<!-- .api -->
+				<!-- .usage -->
 			</div>
 			<div class="section" id="id3">
+				<h1>
+					<span class="target" id="usage">Usage</span>
+				</h1>
+				<p>
+					Given the large spectrum of the objects defined in <strong>Foundations</strong> package, please refer to the Api ( <a class="reference external" href="index.html">Foundations - Api</a> ) for precise usage examples about each modules. Here are listed a few non exhaustive usage examples.
+				</p>
+				<ul class="simple">
+					<li>foundations.dataStructures.Structure:
+					</li>
+				</ul>
+				<pre class="code python literal-block">
+<span class="o">&gt;&gt;&gt;</span> <span class="n">person</span> <span class="o">=</span> <span class="n">Structure</span><span class="p">(</span><span class="n">firstName</span><span class="o">=</span><span class="s">&quot;Doe&quot;</span><span class="p">,</span> <span class="n">lastName</span><span class="o">=</span><span class="s">&quot;John&quot;</span><span class="p">,</span> <span class="n">gender</span><span class="o">=</span><span class="s">&quot;male&quot;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">person</span><span class="o">.</span><span class="n">firstName</span>
+<span class="s">'Doe'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">person</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="p">[</span><span class="s">'gender'</span><span class="p">,</span> <span class="s">'firstName'</span><span class="p">,</span> <span class="s">'lastName'</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">person</span><span class="p">[</span><span class="s">&quot;gender&quot;</span><span class="p">]</span>
+<span class="s">'male'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">del</span><span class="p">(</span><span class="n">person</span><span class="p">[</span><span class="s">&quot;gender&quot;</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">person</span><span class="p">[</span><span class="s">&quot;gender&quot;</span><span class="p">]</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s">&quot;&lt;console&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">KeyError</span><span class="p">:</span> <span class="s">'gender'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">person</span><span class="o">.</span><span class="n">gender</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s">&quot;&lt;console&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">AttributeError</span><span class="p">:</span> <span class="s">'Structure'</span> <span class="nb">object</span> <span class="n">has</span> <span class="n">no</span> <span class="n">attribute</span> <span class="s">'gender'</span>
+</pre>
+				<ul class="simple">
+					<li>foundations.dataStructures.Lookup:
+					</li>
+				</ul>
+				<pre class="code python literal-block">
+<span class="o">&gt;&gt;&gt;</span> <span class="n">person</span> <span class="o">=</span> <span class="n">Lookup</span><span class="p">(</span><span class="n">firstName</span><span class="o">=</span><span class="s">&quot;Doe&quot;</span><span class="p">,</span> <span class="n">lastName</span><span class="o">=</span><span class="s">&quot;John&quot;</span><span class="p">,</span> <span class="n">gender</span><span class="o">=</span><span class="s">&quot;male&quot;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">person</span><span class="o">.</span><span class="n">getFirstKeyFromValue</span><span class="p">(</span><span class="s">&quot;Doe&quot;</span><span class="p">)</span>
+<span class="s">'firstName'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">persons</span> <span class="o">=</span> <span class="n">foundations</span><span class="o">.</span><span class="n">foundations</span><span class="o">.</span><span class="n">dataStructures</span><span class="o">.</span><span class="n">Lookup</span><span class="p">(</span><span class="n">John</span><span class="o">=</span><span class="s">&quot;Doe&quot;</span><span class="p">,</span> <span class="n">Jane</span><span class="o">=</span><span class="s">&quot;Doe&quot;</span><span class="p">,</span> <span class="n">Luke</span><span class="o">=</span><span class="s">&quot;Skywalker&quot;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">persons</span><span class="o">.</span><span class="n">getKeysFromValue</span><span class="p">(</span><span class="s">&quot;Doe&quot;</span><span class="p">)</span>
+<span class="p">[</span><span class="s">'Jane'</span><span class="p">,</span> <span class="s">'John'</span><span class="p">]</span>
+</pre>
+				<ul class="simple">
+					<li>foundations.environment.Environment:
+					</li>
+				</ul>
+				<pre class="code python literal-block">
+<span class="o">&gt;&gt;&gt;</span> <span class="n">environment</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">(</span><span class="n">JOHN</span><span class="o">=</span><span class="s">&quot;DOE&quot;</span><span class="p">,</span> <span class="n">DOE</span><span class="o">=</span><span class="s">&quot;JOHN&quot;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">environment</span><span class="o">.</span><span class="n">setValues</span><span class="p">()</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">os</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&quot;JOHN&quot;</span><span class="p">]</span>
+<span class="s">'DOE'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&quot;DOE&quot;</span><span class="p">]</span>
+<span class="s">'JOHN'</span>
+</pre>
+				<ul class="simple">
+					<li>foundations.strings.getNiceName:
+					</li>
+				</ul>
+				<pre class="code python literal-block">
+<span class="o">&gt;&gt;&gt;</span> <span class="n">getNiceName</span><span class="p">(</span><span class="s">&quot;getMeANiceName&quot;</span><span class="p">)</span>
+<span class="s">'Get Me A Nice Name'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">getNiceName</span><span class="p">(</span><span class="s">&quot;__getMeANiceName&quot;</span><span class="p">)</span>
+<span class="s">'__Get Me A Nice Name'</span>
+</pre>
+				<ul class="simple">
+					<li>foundations.strings.getSplitextBasename:
+					</li>
+				</ul>
+				<pre class="code python literal-block">
+<span class="o">&gt;&gt;&gt;</span> <span class="n">getSplitextBasename</span><span class="p">(</span><span class="s">&quot;/Users/JohnDoe/Documents/Test.txt&quot;</span><span class="p">)</span>
+<span class="s">'Test'</span>
+</pre>
+				<ul class="simple">
+					<li>foundations.strings.getCommonPathsAncestor:
+					</li>
+				</ul>
+				<pre class="code python literal-block">
+<span class="o">&gt;&gt;&gt;</span> <span class="n">getCommonPathsAncestor</span><span class="p">(</span><span class="s">&quot;/Users/JohnDoe/Documents&quot;</span><span class="p">,</span> <span class="s">&quot;/Users/JohnDoe/Documents/Test.txt&quot;</span><span class="p">)</span>
+<span class="s">'/Users/JohnDoe/Documents'</span>
+</pre>
+				<ul class="simple">
+					<li>foundations.walkers.FilesWalker:
+					</li>
+				</ul>
+				<pre class="code python literal-block">
+<span class="o">&gt;&gt;&gt;</span> <span class="n">filesWalker</span> <span class="o">=</span> <span class="n">FilesWalker</span><span class="p">(</span><span class="s">&quot;./Foundations/src/tests/testsFoundations/resources/standard/level_0&quot;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">filesWalker</span><span class="o">.</span><span class="n">walk</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="p">[</span><span class="s">'standard|0d24f027'</span><span class="p">,</span> <span class="s">'standard|407ed3b2'</span><span class="p">,</span> <span class="s">'standard|20efaeaf'</span><span class="p">,</span> <span class="s">'loremIpsum|ddf30259'</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">filesWalker</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">filtersIn</span><span class="o">=</span><span class="p">(</span><span class="s">&quot;\.sIBLT$&quot;</span><span class="p">,))</span>
+<span class="p">{</span><span class="s">'standard|20efaeaf'</span><span class="p">:</span> <span class="s">'./Foundations/src/tests/testsFoundations/resources/standard/level_0/level_1/level_2/standard.sIBLT'</span><span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">filesWalker</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">filtersOut</span><span class="o">=</span><span class="p">(</span><span class="s">&quot;\.sIBLT$&quot;</span><span class="p">,</span> <span class="s">&quot;\.rc$&quot;</span><span class="p">,</span> <span class="s">&quot;\.ibl$&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+<span class="p">[</span><span class="s">'./Foundations/src/tests/testsFoundations/resources/standard/level_0/level_1/loremIpsum.txt'</span><span class="p">]</span>
+</pre><br />
+				<!-- .api -->
+			</div>
+			<div class="section" id="id4">
 				<h1>
 					<span class="target" id="api">Api</span>
 				</h1>
@@ -117,7 +216,7 @@
 				</p><br />
 				<!-- .changes -->
 			</div>
-			<div class="section" id="id4">
+			<div class="section" id="id6">
 				<h1>
 					<span class="target" id="changes">Changes</span>
 				</h1>
@@ -126,7 +225,7 @@
 				</p><br />
 				<!-- .about -->
 			</div>
-			<div class="section" id="id5">
+			<div class="section" id="id7">
 				<h1>
 					<span class="target" id="about">About</span>
 				</h1>
