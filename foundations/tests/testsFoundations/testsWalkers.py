@@ -27,7 +27,7 @@ import foundations.namespace as namespace
 import foundations.strings as strings
 import foundations.walkers
 from foundations.walkers import FilesWalker
-from foundations.dag import AbstractCompositeNode
+from foundations.nodes import AbstractCompositeNode
 
 #**********************************************************************************************************************
 #***	Module attributes.

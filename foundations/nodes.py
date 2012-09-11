@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 
 """
-**dag.py**
+**nodes.py**
 
 **Platform:**
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines various dag related classes.
+	This module defines various nodes and dag related classes.
 
 **Others:**
 	Portions of the code from DAG by Simon Wittber: http://pypi.python.org/pypi/DAG/ and
@@ -561,7 +561,7 @@ class AbstractCompositeNode(AbstractNode):
 		:param children: Children. ( List )
 		:param \*\*kwargs: Keywords arguments. ( \*\* )
 		
-		:note: :data:`pickle.HIGHEST_PROTOCOL` must be used to pickle :class:`foundations.dag.AbstractCompositeNode` class.
+		:note: :data:`pickle.HIGHEST_PROTOCOL` must be used to pickle :class:`foundations.nodes.AbstractCompositeNode` class.
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
