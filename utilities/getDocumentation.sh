@@ -24,13 +24,13 @@ echo ---------------------------------------------------------------------------
 echo Sphinx Documentation Build - Begin
 echo -------------------------------------------------------------------------------
 python $UTILITIES/sliceDocumentation.py "$HELP/Foundations_Manual.rst" "$SPHINX/source/resources/pages"
-python $UTILITIES/getSphinxDocumentationTocTree.py "$SPHINX/source/resources/pages/tocTree.rst" "$SPHINX/source/index.rst" "$SPHINX/source/resources/pages"
+python $UTILITIES/getSphinxDocumentationTocTree.py "Foundations" "$SPHINX/source/resources/pages/tocTree.rst" "$SPHINX/source/index.rst" "$SPHINX/source/resources/pages"
 rm -rf $SPHINX/build
-rm -rf $SPHINX/source/resources/src
+rm -rf $SPHINX/source/resources/packages
 rm $SPHINX/source/resources/pages/api/*
 rm "$SPHINX/source/resources/pages/tocTree.rst"
-python $UTILITIES/getSphinxDocumentationApi.py "foundations" "$SPHINX/source/resources/src" "$SPHINX/source/resources/pages/api" "$SPHINX/source/resources/pages/api.rst"
-export PYTHONPATH=$SPHINX/source/resources/src
+python $UTILITIES/getSphinxDocumentationApi.py "foundations" "$SPHINX/source/resources/packages" "$SPHINX/source/resources/pages/api" "$SPHINX/source/resources/pages/api.rst"
+export PYTHONPATH=$SPHINX/source/resources/packages
 sphinx-build -b html -d $SPHINX/build/doctrees $SPHINX/source $SPHINX/build/html
 echo -------------------------------------------------------------------------------
 echo Sphinx Documentation Build - End
