@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines the :class:`FilesWalker` class and others walking related objects.
+	This module defines various walking related objects.
 
 **Others:**
 
@@ -19,15 +19,12 @@
 #**********************************************************************************************************************
 import logging
 import os
-import hashlib
 
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
-import foundations.common
 import foundations.core as core
 import foundations.exceptions
-import foundations.namespace as namespace
 import foundations.strings as strings
 from foundations.globals.constants import Constants
 
@@ -41,201 +38,77 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["LOGGER", "FilesWalker", "depthWalker", "dictionariesWalker", "nodesWalker"]
+__all__ = ["LOGGER", "filesWalker", "depthWalker", "dictionariesWalker", "nodesWalker"]
 
 LOGGER = logging.getLogger(Constants.logger)
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class FilesWalker(object):
+@core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
+def filesWalker(directory, filtersIn=None, filtersOut=None, flags=0):
 	"""
-	This class provides methods for walking in a directory and retrieving filters matched files.
-	"""
+	This definition is a generator used to walk files using given filters.
 
-	@core.executionTrace
-	def __init__(self, root=None, hashSize=8):
-		"""
-		This method initializes the class.
-	
-		Usage::
+	Usage::
 		
-			>>> filesWalker = FilesWalker("./Foundations/src/tests/testsFoundations/resources/standard/level_0")
-			>>> filesWalker.walk().keys()
-			['standard|0d24f027', 'standard|407ed3b2', 'standard|20efaeaf', 'loremIpsum|ddf30259']
-			>>> filesWalker.walk(filtersIn=("\.sIBLT$",))
-			{'standard|20efaeaf': 
-			'./Foundations/src/tests/testsFoundations/resources/standard/level_0/level_1/level_2/standard.sIBLT'}
-			>>> filesWalker.walk(filtersOut=("\.sIBLT$", "\.rc$", "\.ibl$")).values()
-			['./Foundations/src/tests/testsFoundations/resources/standard/level_0/level_1/loremIpsum.txt']
-			
-		:param root: Root directory to recursively walk. ( String )
-		:param hashSize: Hash affixe length. ( Integer )
-		"""
+		>>> for file in filesWalker("./foundations/tests/testsFoundations/resources/standard/level_0"):
+		...     print(file)
+		...
+		./foundations/tests/testsFoundations/resources/standard/level_0/level_1/level_2/standard.sIBLT
+		./foundations/tests/testsFoundations/resources/standard/level_0/level_1/loremIpsum.txt
+		./foundations/tests/testsFoundations/resources/standard/level_0/level_1/standard.rc
+		./foundations/tests/testsFoundations/resources/standard/level_0/standard.ibl		
+		>>> for file in filesWalker("./foundations/tests/testsFoundations/resources/standard/level_0", ("\.sIBLT",)):
+		...     print(file)
+		...
+		./foundations/tests/testsFoundations/resources/standard/level_0/level_1/level_2/standard.sIBLT
 
-		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
+	:param directory: Root directory to recursively walk. ( String )
+	:param filtersIn: Regex filters in list. ( Tuple / List )
+	:param filtersIn: Regex filters out list. ( Tuple / List )
+	:param flags: Regex flags. ( Integer )
+	:return: File. ( String )
+	"""
 
-		# --- Setting class attributes. ---
-		self.__root = None
-		self.root = root
-		self.__hashSize = None
-		self.hashSize = hashSize
+	if filtersIn:
+		LOGGER.debug("> Current filters in: '{0}'.".format(filtersIn))
 
-		self.__files = None
+	if filtersOut:
+		LOGGER.debug("> Current filters out: '{0}'.".format(filtersOut))
 
-	#******************************************************************************************************************
-	#***	Attributes properties.
-	#******************************************************************************************************************
-	@property
-	def root(self):
-		"""
-		This method is the property for **self.__root** attribute.
+	for parentDirectory, directories, files in os.walk(directory, topdown=False, followlinks=True):
+		for item in files:
+			LOGGER.debug("> Current file: '{0}' in '{1}'.".format(item, directory))
+			path = strings.toForwardSlashes(os.path.join(parentDirectory, item))
+			if os.path.isfile(path):
+				if not strings.filterWords((path,), filtersIn, filtersOut, flags):
+					continue
 
-		:return: self.__root. ( String )
-		"""
+				LOGGER.debug("> '{0}' file filtered in!".format(path))
 
-		return self.__root
-
-	@root.setter
-	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
-	def root(self, value):
-		"""
-		This method is the setter method for **self.__root** attribute.
-
-		:param value: Attribute value. ( String )
-		"""
-
-		if value is not None:
-			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("root", value)
-			assert os.path.exists(value), "'{0}' attribute: '{1}' directory doesn't exists!".format("root", value)
-		self.__root = value
-
-	@root.deleter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
-	def root(self):
-		"""
-		This method is the deleter method for **self.__root** attribute.
-		"""
-
-		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "root"))
-
-	@property
-	def hashSize(self):
-		"""
-		This method is the property for **self.__hashSize** attribute.
-
-		:return: self.__hashSize. ( Integer )
-		"""
-
-		return self.__hashSize
-
-	@hashSize.setter
-	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
-	def hashSize(self, value):
-		"""
-		This method is the setter method for **self.__hashSize** attribute.
-
-		:param value: Attribute value. ( Integer )
-		"""
-
-		if value is not None:
-			assert type(value) is int, "'{0}' attribute: '{1}' type is not 'int'!".format("hashSize", value)
-		self.__hashSize = value
-
-	@hashSize.deleter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
-	def hashSize(self):
-		"""
-		This method is the deleter method for **self.__hashSize** attribute.
-		"""
-
-		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "hashSize"))
-
-	@property
-	def files(self):
-		"""
-		This method is the property for **self.__files** attribute.
-
-		:return: self.__files. ( Dictionary )
-		"""
-
-		return self.__files
-
-	@files.setter
-	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
-	def files(self, value):
-		"""
-		This method is the setter method for **self.__files** attribute.
-
-		:param value: Attribute value. ( Dictionary )
-		"""
-
-		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "files"))
-
-	@files.deleter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
-	def files(self):
-		"""
-		This method is the deleter method for **self.__files** attribute.
-		"""
-
-		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "files"))
-
-	#******************************************************************************************************************
-	#***	Class methods.
-	#******************************************************************************************************************
-	@core.executionTrace
-	@foundations.exceptions.exceptionsHandler()
-	def walk(self, filtersIn=None, filtersOut=None, flags=0, shorterHashKey=True, visitor=None):
-		"""
-		This method gets root directory files list as a dictionary using given filters.
-
-		:param filtersIn: Regex filters in list. ( Tuple / List )
-		:param filtersIn: Regex filters out list. ( Tuple / List )
-		:param flags: Regex flags. ( Integer )
-		:param visitor: Visitor object. ( Object )
-		:return: Files list. ( Dictionary or None )
-		"""
-
-		if filtersIn:
-			LOGGER.debug("> Current filters in: '{0}'.".format(filtersIn))
-
-		if filtersOut:
-			LOGGER.debug("> Current filters out: '{0}'.".format(filtersOut))
-
-		self.__files = {}
-		if not self.__root:
-			return self.__files
-
-		for parentDirectory, directories, files in os.walk(self.__root, topdown=False, followlinks=True):
-			for item in files:
-				LOGGER.debug("> Current file: '{0}' in '{1}'.".format(item, self.__root))
-				path = strings.toForwardSlashes(os.path.join(parentDirectory, item))
-				if os.path.isfile(path):
-					if not strings.filterWords((path,), filtersIn, filtersOut, flags):
-						continue
-
-					LOGGER.debug("> '{0}' file filtered in!".format(path))
-
-					hashKey = hashlib.md5(path).hexdigest()
-					name = namespace.setNamespace(foundations.common.getFirstItem(os.path.splitext(item)),
-													hashKey[:self.__hashSize] if shorterHashKey else hashKey)
-					LOGGER.debug("> Adding '{0}' with path: '{1}' to files list.".format(name, path))
-					self.__files[name] = path
-
-					visitor and visitor(self.__files, name)
-
-		return self.__files
+				yield path
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def depthWalker(directory, maximumDepth=1):
 	"""
 	This definition is a generator used to walk into directories using given maximum depth.
+
+	Usage::
+		
+		>>> for item in depthWalker("./foundations/tests/testsFoundations/resources/standard/level_0"):
+		...     print(item)
+		...
+		('./foundations/tests/testsFoundations/resources/standard/level_0', ['level_1'], ['standard.ibl'])
+		('./foundations/tests/testsFoundations/resources/standard/level_0/level_1', ['level_2'], ['loremIpsum.txt', 'standard.rc'])
+		>>> for item in depthWalker("./foundations/tests/testsFoundations/resources/standard/level_0", 2):
+		...     print(item)
+		...
+		('./foundations/tests/testsFoundations/resources/standard/level_0', ['level_1'], ['standard.ibl'])
+		('./foundations/tests/testsFoundations/resources/standard/level_0/level_1', ['level_2'], ['loremIpsum.txt', 'standard.rc'])
+		('./foundations/tests/testsFoundations/resources/standard/level_0/level_1/level_2', [], ['standard.sIBLT'])
 
 	:param directory: Directory to walk. ( String )
 	:param maximumDepth: Maximum depth. ( Integer )

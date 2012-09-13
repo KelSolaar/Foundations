@@ -193,17 +193,21 @@
 <span class="s">'/Users/JohnDoe/Documents'</span>
 </pre>
 				<ul class="simple">
-					<li>foundations.walkers.FilesWalker:
+					<li>foundations.walkers.filesWalker:
 					</li>
 				</ul>
 				<pre class="code python literal-block">
-<span class="o">&gt;&gt;&gt;</span> <span class="n">filesWalker</span> <span class="o">=</span> <span class="n">FilesWalker</span><span class="p">(</span><span class="s">&quot;./Foundations/src/tests/testsFoundations/resources/standard/level_0&quot;</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">filesWalker</span><span class="o">.</span><span class="n">walk</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-<span class="p">[</span><span class="s">'standard|0d24f027'</span><span class="p">,</span> <span class="s">'standard|407ed3b2'</span><span class="p">,</span> <span class="s">'standard|20efaeaf'</span><span class="p">,</span> <span class="s">'loremIpsum|ddf30259'</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">filesWalker</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">filtersIn</span><span class="o">=</span><span class="p">(</span><span class="s">&quot;\.sIBLT$&quot;</span><span class="p">,))</span>
-<span class="p">{</span><span class="s">'standard|20efaeaf'</span><span class="p">:</span> <span class="s">'./Foundations/src/tests/testsFoundations/resources/standard/level_0/level_1/level_2/standard.sIBLT'</span><span class="p">}</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">filesWalker</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">filtersOut</span><span class="o">=</span><span class="p">(</span><span class="s">&quot;\.sIBLT$&quot;</span><span class="p">,</span> <span class="s">&quot;\.rc$&quot;</span><span class="p">,</span> <span class="s">&quot;\.ibl$&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
-<span class="p">[</span><span class="s">'./Foundations/src/tests/testsFoundations/resources/standard/level_0/level_1/loremIpsum.txt'</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="nb">file</span> <span class="ow">in</span> <span class="n">filesWalker</span><span class="p">(</span><span class="s">&quot;./foundations/tests/testsFoundations/resources/standard/level_0&quot;</span><span class="p">):</span>
+<span class="o">...</span>	 <span class="k">print</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="o">./</span><span class="n">foundations</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">testsFoundations</span><span class="o">/</span><span class="n">resources</span><span class="o">/</span><span class="n">standard</span><span class="o">/</span><span class="n">level_0</span><span class="o">/</span><span class="n">level_1</span><span class="o">/</span><span class="n">level_2</span><span class="o">/</span><span class="n">standard</span><span class="o">.</span><span class="n">sIBLT</span>
+<span class="o">./</span><span class="n">foundations</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">testsFoundations</span><span class="o">/</span><span class="n">resources</span><span class="o">/</span><span class="n">standard</span><span class="o">/</span><span class="n">level_0</span><span class="o">/</span><span class="n">level_1</span><span class="o">/</span><span class="n">loremIpsum</span><span class="o">.</span><span class="n">txt</span>
+<span class="o">./</span><span class="n">foundations</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">testsFoundations</span><span class="o">/</span><span class="n">resources</span><span class="o">/</span><span class="n">standard</span><span class="o">/</span><span class="n">level_0</span><span class="o">/</span><span class="n">level_1</span><span class="o">/</span><span class="n">standard</span><span class="o">.</span><span class="n">rc</span>
+<span class="o">./</span><span class="n">foundations</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">testsFoundations</span><span class="o">/</span><span class="n">resources</span><span class="o">/</span><span class="n">standard</span><span class="o">/</span><span class="n">level_0</span><span class="o">/</span><span class="n">standard</span><span class="o">.</span><span class="n">ibl</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="nb">file</span> <span class="ow">in</span> <span class="n">filesWalker</span><span class="p">(</span><span class="s">&quot;./foundations/tests/testsFoundations/resources/standard/level_0&quot;</span><span class="p">,</span> <span class="p">(</span><span class="s">&quot;\.sIBLT&quot;</span><span class="p">,)):</span>
+<span class="o">...</span>	 <span class="k">print</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="o">./</span><span class="n">foundations</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">testsFoundations</span><span class="o">/</span><span class="n">resources</span><span class="o">/</span><span class="n">standard</span><span class="o">/</span><span class="n">level_0</span><span class="o">/</span><span class="n">level_1</span><span class="o">/</span><span class="n">level_2</span><span class="o">/</span><span class="n">standard</span><span class="o">.</span><span class="n">sIBLT</span>
 </pre><br />
 				<!-- .api -->
 			</div>

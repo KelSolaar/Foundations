@@ -71,17 +71,21 @@ Given the large spectrum of the objects defined in **Foundations** package, plea
 	>>> getCommonPathsAncestor("/Users/JohnDoe/Documents", "/Users/JohnDoe/Documents/Test.txt")
 	'/Users/JohnDoe/Documents'
 
--  foundations.walkers.FilesWalker:
+-  foundations.walkers.filesWalker:
 
 .. code:: python
 
-	>>> filesWalker = FilesWalker("./Foundations/src/tests/testsFoundations/../standard/level_0")
-	>>> filesWalker.walk().keys()
-	['standard|0d24f027', 'standard|407ed3b2', 'standard|20efaeaf', 'loremIpsum|ddf30259']
-	>>> filesWalker.walk(filtersIn=("\.sIBLT$",))
-	{'standard|20efaeaf': './Foundations/src/tests/testsFoundations/../standard/level_0/level_1/level_2/standard.sIBLT'}
-	>>> filesWalker.walk(filtersOut=("\.sIBLT$", "\.rc$", "\.ibl$")).values()
-	['./Foundations/src/tests/testsFoundations/../standard/level_0/level_1/loremIpsum.txt']
+	>>> for file in filesWalker("./foundations/tests/testsFoundations/../standard/level_0"):
+	...     print(file)
+	...
+	./foundations/tests/testsFoundations/../standard/level_0/level_1/level_2/standard.sIBLT
+	./foundations/tests/testsFoundations/../standard/level_0/level_1/loremIpsum.txt
+	./foundations/tests/testsFoundations/../standard/level_0/level_1/standard.rc
+	./foundations/tests/testsFoundations/../standard/level_0/standard.ibl		
+	>>> for file in filesWalker("./foundations/tests/testsFoundations/../standard/level_0", ("\.sIBLT",)):
+	...     print(file)
+	...
+	./foundations/tests/testsFoundations/../standard/level_0/level_1/level_2/standard.sIBLT
 
 .. raw:: html
 

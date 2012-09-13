@@ -23,10 +23,8 @@ import unittest
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
-import foundations.namespace as namespace
 import foundations.strings as strings
 import foundations.walkers
-from foundations.walkers import FilesWalker
 from foundations.nodes import AbstractCompositeNode
 
 #**********************************************************************************************************************
@@ -64,94 +62,48 @@ TREE_HIERARCHY = ((["level_0"], ["loremIpsum.txt", "standard.ibl", "standard.rc"
 #**********************************************************************************************************************
 class FilesWalkerTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.walkers.FilesWalker` class units tests methods.
+	This class defines :func:`foundations.walkers.filesWalker` definition units tests methods.
 	"""
 
-	def testRequiredAttributes(self):
+	def testFilesWalker(self):
 		"""
-		This method tests presence of required attributes.
-		"""
-
-		requiredAttributes = ("root",
-								"hashSize",
-								"files")
-
-		for attribute in requiredAttributes:
-			self.assertIn(attribute, dir(FilesWalker))
-
-	def testRequiredMethods(self):
-		"""
-		This method tests presence of required methods.
+		This method tests :func:`foundations.walkers.filesWalker` definition.
 		"""
 
-		requiredMethods = ("walk",)
 
-		for method in requiredMethods:
-			self.assertIn(method, dir(FilesWalker))
-
-	def testWalk(self):
-		"""
-		This method tests :meth:`foundations.walkers.FilesWalker.walk` method.
-		"""
-
-		filesWalker = FilesWalker()
-		filesWalker.root = os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY)
-		filesWalker.walk()
-		for path in filesWalker.files.itervalues():
+		rootDirectory = os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY)
+		for path in foundations.walkers.filesWalker(rootDirectory):
 			self.assertTrue(os.path.exists(path))
 
 		referencePaths = [strings.replace(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY, path),
 											{"/":"|", "\\":"|"}) for path in FILES_TREE_HIERARCHY]
-		walkerFiles = [strings.replace(path, {"/":"|", "\\":"|"}) for path in filesWalker.files.itervalues()]
+		walkerFiles = \
+		[strings.replace(path, {"/":"|", "\\":"|"}) for path in foundations.walkers.filesWalker(rootDirectory)]
 		for item in referencePaths:
 			self.assertIn(item, walkerFiles)
 
-		filesWalker.walk(filtersOut=("\.rc$",))
-		walkerFiles = [strings.replace(path, {"/":"|", "\\":"|"}) for path in filesWalker.files.itervalues()]
+		walkerFiles = \
+		[strings.replace(path, {"/":"|", "\\":"|"}) \
+		for path in foundations.walkers.filesWalker(rootDirectory, filtersOut=("\.rc$",))]
 		for item in walkerFiles:
 			self.assertTrue(not re.search(r"\.rc$", item))
 
-		filesWalker.walk(filtersOut=("\.ibl", "\.rc$", "\.sIBLT$", "\.txt$"))
-		self.assertTrue(not filesWalker.files)
 
+		walkerFiles = \
+		[strings.replace(path, {"/":"|", "\\":"|"}) \
+		for path in foundations.walkers.filesWalker(rootDirectory, filtersOut=("\.ibl", "\.rc$", "\.sIBLT$", "\.txt$"))]
+		self.assertTrue(not walkerFiles)
+
+		return
 		referencePaths = [strings.replace(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY, path),
 										{"/":"|", "\\":"|"}) for path in FILES_TREE_HIERARCHY if re.search(r"\.rc$", path)]
-		filter = "\.rc$"
-		filesWalker.walk(filtersIn=(filter,))
-		walkerFiles = [strings.replace(path, {"/":"|", "\\":"|"}) for path in filesWalker.files.itervalues()]
+		walkerFiles = \
+		[strings.replace(path, {"/":"|", "\\":"|"}) \
+		for path in foundations.walkers.filesWalker(rootDirectory, filtersIn=("\.rc$",))]
 		for item in referencePaths:
 			self.assertIn(item, walkerFiles)
 		for item in walkerFiles:
 			self.assertTrue(re.search(filter, item))
-
-		filesWalker.hashSize = 24
-		filesWalker.walk()
-		for item in filesWalker.files:
-			self.assertEqual(len(namespace.removeNamespace(item)), filesWalker.hashSize)
-
-		filesWalker.walk(visitor=lambda x, y: x.pop(y))
-		self.assertDictEqual(filesWalker.files, {})
-
-class DictionariesWalkerTestCase(unittest.TestCase):
-	"""
-	This class defines :func:`foundations.walkers.dictionariesWalker` definition units tests methods.
-	"""
-
-	def testDictionariesWalker(self):
-		"""
-		This method tests :func:`foundations.walkers.dictionariesWalker` definition.
-		"""
-
-		nestedDictionary = {"Level 1A":{"Level 2A": { "Level 3A" : "Higher Level"}},
-							"Level 1B" : "Lower level", "Level 1C" : {}}
-		yieldedValues = ((("Level 1A", "Level 2A"), "Level 3A", "Higher Level"), ((), "Level 1B", "Lower level"))
-		for value in foundations.walkers.dictionariesWalker(nestedDictionary):
-			self.assertIsInstance(value, tuple)
-			self.assertIn(value, yieldedValues)
-		for path, key, value in foundations.walkers.dictionariesWalker(nestedDictionary):
-			self.assertIsInstance(path, tuple)
-			self.assertIsInstance(key, str)
-			self.assertIsInstance(value, str)
 
 class DepthWalkerTestCase(unittest.TestCase):
 	"""
