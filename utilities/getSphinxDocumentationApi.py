@@ -81,7 +81,7 @@ TOCTREE_TEMPLATE_BEGIN = ["Api\n",
 
 TOCTREE_TEMPLATE_END = []
 
-EXCLUDED_PYTHON_MODULES = ()
+EXCLUDED_PYTHON_MODULES = ("tests",)
 
 STATEMENTS_UPDATE_MESSAGGE = "#**********************************************************************************************************************\n" \
 							"#***\tSphinx: Statements updated for auto-documentation purpose.\n" \

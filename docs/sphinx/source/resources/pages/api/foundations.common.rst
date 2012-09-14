@@ -19,6 +19,8 @@ Functions
 
 .. autofunction:: getFirstItem
 
+.. autofunction:: getLastItem
+
 .. autofunction:: isBinaryFile
 
 .. autofunction:: repeat

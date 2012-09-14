@@ -1,7 +1,7 @@
 _`Usage`
 ========
 
-Given the large spectrum of the objects defined in **Foundations** package, please refer to the Api ( `Foundations - Api <index.html>`_ ) for precise usage examples about each modules. Here are listed a few non exhaustive usage examples.
+Given the large spectrum of the objects defined in **Foundations** package, please refer to `Foundations - Api <http://thomasmansencal.com/Sharing/Foundations/Support/Documentation/Api/index.html>`_ for precise usage examples about each modules. Here are listed a few non exhaustive usage examples.
 
 -  foundations.dataStructures.Structure:
 

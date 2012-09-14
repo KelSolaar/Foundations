@@ -9,7 +9,8 @@ MANIFEST
 *.pyc
 *.pyo
 
-Foundations.egg-info
-dist
-docs/sphinx/build
-docs/sphinx/source/resources/packages
+Foundations.egg-info/
+dist/
+docs/sphinx/build/
+docs/sphinx/source/resources/packages/
+releases/

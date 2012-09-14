@@ -11,10 +11,23 @@ Introduction
 Installation
 ------------
 
+To install **Foundations** from the `Python Package Index <http://pypi.python.org/pypi/Foundations>`_ you can issue this command in a shell::
+
+	pip install Foundations
+
+or this alternative command::
+
+	easy_install Foundations
+
+Alternatively, if you want to directly install from `Github <http://github.com/KelSolaar/Foundations>`_ source repository::
+
+	git clone git://github.com/KelSolaar/Foundations.git
+	python setup.py install
+
 Usage
 -----
 
-Given the large spectrum of the objects defined in **Foundations** package, please refer to the Api ( `Foundations - Api <index.html>`_ ) for precise usage examples about each modules. Here are listed a few non exhaustive usage examples.
+Given the large spectrum of the objects defined in **Foundations** package, please refer to `Foundations - Api <http://thomasmansencal.com/Sharing/Foundations/Support/Documentation/Api/index.html>`_ for precise usage examples about each modules. Here are listed a few non exhaustive usage examples.
 
 -  foundations.dataStructures.Structure:
 

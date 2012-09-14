@@ -10,8 +10,8 @@ Contents:
  Introduction <resources/pages/introduction>
  Installation <resources/pages/installation>
  Usage <resources/pages/usage>
- Changes <resources/pages/changes>
  Api <resources/pages/api>
+ Changes <resources/pages/changes>
  About <resources/pages/about>
 
 Search:

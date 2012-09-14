@@ -1,13 +1,18 @@
 Foundations - 2.0.2 - Stable
 ============================
 
+.. .changes
+
 Changes
 =======
 
 2.0.2 - Stable
 --------------
 
--  Add TCP server implementation through "foundations.tcpServer" module.
+-  Updated package directory structure to be compliant with "Python Package Index".
+-  Added documentation / Api files.
+-  Added TCP server implementation through "foundations.tcpServer" module.
+-  "foundations.walkers.FilesWalker" class has been refactored to "foundations.walkers.filesWalker" generator definition.
 
 2.0.1 - Stable
 --------------
@@ -18,13 +23,13 @@ Changes
 --------------
 
 -  Major package refactor.
--  Adde "cache", "dag", "dataStructures" modules and associated units tests module.
+-  Added "cache", "dag", "dataStructures" modules and associated units tests module.
 
 1.0.4 - Stable
 --------------
 
 -  Reorganize package directories structure.
--  Adde "rotatingBackup" module and associated "testsRotatingBackup" units tests module.
+-  Added "rotatingBackup" module and associated "testsRotatingBackup" units tests module.
 
 1.0.3 - Stable
 --------------
@@ -50,10 +55,12 @@ Changes
 
 -  Initial Release of Foundations.
 
+.. .about
+
 About
 -----
 
-| sIBL_GUI by Thomas Mansencal – 2008 - 2012
+| Foundations by Thomas Mansencal – 2008 - 2012
 | Copyright© 2008 - 2012 – Thomas Mansencal – `thomas.mansencal@gmail.com <mailto:thomas.mansencal@gmail.com>`_
 | This software is released under terms of GNU GPL V3 license: http://www.gnu.org/licenses/
 | `http://www.thomasmansencal.com/ <http://www.thomasmansencal.com/>`_
