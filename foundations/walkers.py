@@ -65,7 +65,7 @@ def filesWalker(directory, filtersIn=None, filtersOut=None, flags=0):
 		...
 		./foundations/tests/testsFoundations/resources/standard/level_0/level_1/level_2/standard.sIBLT
 
-	:param directory: Root directory to recursively walk. ( String )
+	:param directory: Directory to recursively walk. ( String )
 	:param filtersIn: Regex filters in list. ( Tuple / List )
 	:param filtersIn: Regex filters out list. ( Tuple / List )
 	:param flags: Regex flags. ( Integer )
