@@ -34,7 +34,11 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["SetNamespaceTestCase", "GetNamespaceTestCase", "RemoveNamespaceTestCase"]
+__all__ = ["SetNamespaceTestCase",
+		"GetNamespaceTestCase",
+		"RemoveNamespaceTestCase",
+		"GetRootTestCase",
+		"GetLeafTestCase"]
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
@@ -84,6 +88,34 @@ class RemoveNamespaceTestCase(unittest.TestCase):
 		self.assertEqual(namespace.removeNamespace("Namespace:Attribute", ":"), "Attribute")
 		self.assertEqual(namespace.removeNamespace("Namespace|Attribute|Value"), "Value")
 		self.assertEqual(namespace.removeNamespace("Namespace|Attribute|Value", rootOnly=True), "Attribute|Value")
+
+class GetRootTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.namespace.getRoot` definition units tests methods.
+	"""
+
+	def testGetRoot(self):
+		"""
+		This method tests :func:`foundations.namespace.getRoot` definition.
+		"""
+
+		self.assertEqual(namespace.getRoot("Attribute"), None)
+		self.assertEqual(namespace.getRoot("Namespace|Attribute"), "Namespace")
+		self.assertEqual(namespace.getRoot("Namespace:Attribute", ":"), "Namespace")
+
+class GetLeafTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.namespace.getLeaf` definition units tests methods.
+	"""
+
+	def testGetLeaf(self):
+		"""
+		This method tests :func:`foundations.namespace.getLeaf` definition.
+		"""
+
+		self.assertEqual(namespace.getLeaf("Attribute"), "Attribute")
+		self.assertEqual(namespace.getLeaf("Namespace|Attribute"), "Attribute")
+		self.assertEqual(namespace.getLeaf("Namespace:Attribute", ":"), "Attribute")
 
 if __name__ == "__main__":
 	import foundations.tests.utilities

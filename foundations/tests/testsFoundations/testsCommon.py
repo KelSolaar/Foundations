@@ -42,7 +42,8 @@ __all__ = ["RESOURCES_DIRECTORY",
 		"UniqifyTestCase",
 		"OrderedUniqifyTestCase",
 		"PathExistsTestCase",
-		"getFirstItemTestCase",
+		"GetFirstItemTestCase",
+		"GetLastItemTestCase",
 		"IsBinaryFileTestCase",
 		"RepeatTestCase"]
 
@@ -106,7 +107,7 @@ class PathExistsTestCase(unittest.TestCase):
 		self.assertTrue(foundations.common.pathExists(__file__))
 		self.assertFalse(foundations.common.pathExists(unicode()))
 
-class getFirstItemTestCase(unittest.TestCase):
+class GetFirstItemTestCase(unittest.TestCase):
 	"""
 	This class defines :func:`foundations.common.getFirstItem` definition units tests methods.
 	"""
@@ -121,6 +122,24 @@ class getFirstItemTestCase(unittest.TestCase):
 		self.assertEqual(foundations.common.getFirstItem([None]), None)
 		self.assertEqual(foundations.common.getFirstItem([0]), 0)
 		self.assertEqual(foundations.common.getFirstItem(("Nemo",)), "Nemo")
+		self.assertEqual(foundations.common.getFirstItem(("Nemo", "John", "Doe")), "Nemo")
+
+class GetLastItemTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.common.getLastItem` definition units tests methods.
+	"""
+
+	def testGetLastItem(self):
+		"""
+		This method tests :func:`foundations.common.getLastItem` definition.
+		"""
+
+		self.assertEqual(foundations.common.getLastItem(None), None)
+		self.assertEqual(foundations.common.getLastItem([]), None)
+		self.assertEqual(foundations.common.getLastItem([None]), None)
+		self.assertEqual(foundations.common.getLastItem([0]), 0)
+		self.assertEqual(foundations.common.getLastItem(("Nemo",)), "Nemo")
+		self.assertEqual(foundations.common.getLastItem(("Nemo", "John", "Doe")), "Doe")
 
 class IsBinaryFileTestCase(unittest.TestCase):
 	"""

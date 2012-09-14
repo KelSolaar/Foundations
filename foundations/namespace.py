@@ -22,6 +22,7 @@ import logging
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
+import foundations.common
 import foundations.core as core
 import foundations.exceptions
 from foundations.globals.constants import Constants
@@ -36,7 +37,13 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["LOGGER", "NAMESPACE_SPLITTER", "setNamespace", "getNamespace", "removeNamespace"]
+__all__ = ["LOGGER",
+		"NAMESPACE_SPLITTER",
+		"setNamespace",
+		"getNamespace",
+		"removeNamespace",
+		"getRoot",
+		"getLeaf"]
 
 LOGGER = logging.getLogger(Constants.logger)
 
@@ -89,7 +96,7 @@ def getNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False
 	if len(attributeTokens) == 1:
 		LOGGER.debug("> Attribute: '{0}', namespace: '{1}'.".format(attribute, Constants.nullObject))
 	else:
-		namespace = rootOnly and foundations.common.getFirstItem(attributeTokens) or \
+		namespace = foundations.common.getFirstItem(attributeTokens) if rootOnly else \
 		namespaceSplitter.join(attributeTokens[0:-1])
 		LOGGER.debug("> Attribute: '{0}', namespace: '{1}'.".format(attribute, namespace))
 		return namespace
@@ -118,3 +125,43 @@ def removeNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=Fa
 						attributeTokens[len(attributeTokens) - 1]
 	LOGGER.debug("> Attribute: '{0}', stripped attribute: '{1}'.".format(attribute, strippedAttribute))
 	return strippedAttribute
+
+@core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
+def getRoot(attribute, namespaceSplitter=NAMESPACE_SPLITTER):
+	"""
+	This definition returns given attribute root.
+
+	Usage::
+		
+		>>> getNamespace("grandParent|parent|child")
+		'grandParent|parent'
+		>>> getNamespace("grandParent|parent|child", rootOnly=True)
+		'grandParent'
+
+	:param attribute: Attribute. ( String )
+	:param namespaceSplitter: Namespace splitter character. ( String )
+	:return: Attribute namespace. ( String )
+	"""
+
+	return getNamespace(attribute, namespaceSplitter, rootOnly=True)
+
+@core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
+def getLeaf(attribute, namespaceSplitter=NAMESPACE_SPLITTER):
+	"""
+	This definition returns given attribute leaf.
+
+	Usage::
+		
+		>>> getNamespace("grandParent|parent|child")
+		'grandParent|parent'
+		>>> getNamespace("grandParent|parent|child", rootOnly=True)
+		'grandParent'
+
+	:param attribute: Attribute. ( String )
+	:param namespaceSplitter: Namespace splitter character. ( String )
+	:return: Attribute namespace. ( String )
+	"""
+
+	return foundations.common.getLastItem(attribute.split(namespaceSplitter))

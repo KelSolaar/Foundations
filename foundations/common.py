@@ -45,6 +45,7 @@ __all__ = ["LOGGER",
 			"orderedUniqify",
 			"pathExists",
 			"getFirstItem",
+			"getLastItem",
 			"isBinaryFile",
 			"repeat"]
 
@@ -111,6 +112,22 @@ def getFirstItem(iterable, default=None):
 
 	for item in iterable:
 		return item
+
+@core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
+def getLastItem(iterable, default=None):
+	"""
+	This definition returns the last item of given iterable.
+
+	:param iterable: Iterable. ( Object )
+	:param default: Default value. ( Object )
+	:return: Last iterable item. ( Object )
+	"""
+
+	if not iterable:
+		return default
+
+	return iterable[-1]
 
 @core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
