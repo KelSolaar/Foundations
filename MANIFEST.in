@@ -1,0 +1,8 @@
+include COPYING
+include LICENSE
+include *.rst
+graft docs
+graft utilities
+graft foundations/tests/testsFoundations/resources
+graft foundations/ui/resources
+prune docs/sphinx/source/resources/packages

@@ -2,11 +2,14 @@
 .project
 .pydevproject
 .settings
+MANIFEST
 
 *.exe
 *.log
 *.pyc
 *.pyo
 
+Foundations.egg-info
+dist
 docs/sphinx/build
 docs/sphinx/source/resources/packages
