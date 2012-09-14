@@ -3,7 +3,7 @@ _`Usage`
 
 Given the large spectrum of the objects defined in **Foundations** package, please refer to `Foundations - Api <http://thomasmansencal.com/Sharing/Foundations/Support/Documentation/Api/index.html>`_ for precise usage examples about each modules. Here are listed a few non exhaustive usage examples.
 
--  foundations.dataStructures.Structure:
+-  **foundations.dataStructures.Structure**:
 
 .. code:: python
 
@@ -24,7 +24,7 @@ Given the large spectrum of the objects defined in **Foundations** package, plea
 	  File "<console>", line 1, in <module>
 	AttributeError: 'Structure' object has no attribute 'gender'
 
--  foundations.dataStructures.Lookup:
+-  **foundations.dataStructures.Lookup**:
 
 .. code:: python
 
@@ -35,7 +35,7 @@ Given the large spectrum of the objects defined in **Foundations** package, plea
 	>>> persons.getKeysFromValue("Doe")
 	['Jane', 'John']
 
--  foundations.environment.Environment:
+-  **foundations.environment.Environment**:
 
 .. code:: python
 
@@ -48,7 +48,7 @@ Given the large spectrum of the objects defined in **Foundations** package, plea
 	>>> os.environ["DOE"]
 	'JOHN'
 
-- foundations.strings.getNiceName:
+- **foundations.strings.getNiceName**:
 
 .. code:: python
 
@@ -57,21 +57,21 @@ Given the large spectrum of the objects defined in **Foundations** package, plea
 	>>> getNiceName("__getMeANiceName")
 	'__Get Me A Nice Name'
 
-- foundations.strings.getSplitextBasename:
+- **foundations.strings.getSplitextBasename**:
 
 .. code:: python
 
 	>>> getSplitextBasename("/Users/JohnDoe/Documents/Test.txt")
 	'Test'
 
-- foundations.strings.getCommonPathsAncestor:
+- **foundations.strings.getCommonPathsAncestor**:
 
 .. code:: python
 
 	>>> getCommonPathsAncestor("/Users/JohnDoe/Documents", "/Users/JohnDoe/Documents/Test.txt")
 	'/Users/JohnDoe/Documents'
 
--  foundations.walkers.filesWalker:
+-  **foundations.walkers.filesWalker**:
 
 .. code:: python
 
