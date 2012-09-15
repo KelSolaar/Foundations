@@ -40,7 +40,7 @@ __all__ = ["LOGGER", "LOGGING_CONSOLE_HANDLER"]
 
 LOGGER = logging.getLogger(Constants.logger)
 
-# Starting The Console Handler.
+# Starting the console handler.
 LOGGING_CONSOLE_HANDLER = logging.StreamHandler(sys.__stdout__)
 LOGGING_CONSOLE_HANDLER.setFormatter(core.LOGGING_DEFAULT_FORMATTER)
 LOGGER.addHandler(LOGGING_CONSOLE_HANDLER)
