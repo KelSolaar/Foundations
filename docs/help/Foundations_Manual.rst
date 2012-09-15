@@ -154,7 +154,7 @@ Given the large spectrum of the objects defined in **Foundations** package, plea
 _`Api`
 ======
 
-*Foundations* Api documentation is available here: `Foundations - Api <http://thomasmansencal.com/Sharing/Foundations/Support/Documentation/Api/index.html>`_
+**Foundations** Api documentation is available here: `Foundations - Api <http://thomasmansencal.com/Sharing/Foundations/Support/Documentation/Api/index.html>`_
 
 .. raw:: html
 
@@ -174,7 +174,7 @@ _`Changes`
 _`About`
 ========
 
-| *Foundations* by Thomas Mansencal - 2008 - 2012
+| **Foundations** by Thomas Mansencal - 2008 - 2012
 | Copyright© 2008 - 2012 - Thomas Mansencal - `thomas.mansencal@gmail.com <mailto:thomas.mansencal@gmail.com>`_
 | This software is released under terms of GNU GPL V3 license: http://www.gnu.org/licenses/
 | http://www.thomasmansencal.com/
