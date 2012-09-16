@@ -44,7 +44,7 @@ import imp
 import tokenize
 from token import NAME, DEDENT, OP
 from operator import itemgetter
-if sys.version_info[:2] == (2, 6):
+if sys.version_info[:2] <= (2, 6):
 	from ordereddict import OrderedDict
 else:
 	from collections import OrderedDict

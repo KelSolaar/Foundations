@@ -21,7 +21,7 @@ import os
 import platform
 import re
 import sys
-if sys.version_info[:2] == (2, 6):
+if sys.version_info[:2] <= (2, 6):
 	import unittest2 as unittest
 else:
 	import unittest

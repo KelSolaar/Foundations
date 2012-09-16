@@ -19,7 +19,7 @@
 #**********************************************************************************************************************
 import logging
 import sys
-if sys.version_info[:2] == (2, 6):
+if sys.version_info[:2] <= (2, 6):
 	from ordereddict import OrderedDict
 else:
 	from collections import OrderedDict
@@ -267,7 +267,7 @@ class OrderedStructure(OrderedDict):
 		:param value.: Value. ( Object )
 		"""
 
-		if sys.version_info[:2] == (2, 6):
+		if sys.version_info[:2] <= (2, 6):
 			if not attribute in ("_OrderedDict__map", "_OrderedDict__end"):
 				OrderedDict.__setitem__(self, attribute, value)
 		else:
@@ -284,7 +284,7 @@ class OrderedStructure(OrderedDict):
 		:param attribute.: Attribute. ( Object )
 		"""
 
-		if sys.version_info[:2] == (2, 6):
+		if sys.version_info[:2] <= (2, 6):
 			if not attribute in ("_OrderedDict__map", "_OrderedDict__end"):
 				OrderedDict.__delitem__(self, attribute)
 		else:

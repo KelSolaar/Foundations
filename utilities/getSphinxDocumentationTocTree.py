@@ -21,7 +21,7 @@ import logging
 import os
 import re
 import sys
-if sys.version_info[:2] == (2, 6):
+if sys.version_info[:2] <= (2, 6):
 	from ordereddict import OrderedDict
 else:
 	from collections import OrderedDict
