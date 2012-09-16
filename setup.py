@@ -1,7 +1,8 @@
-import foundations.globals.constants
-
+import re
 from setuptools import setup
 from setuptools import find_packages
+
+import foundations.globals.constants
 
 def getLongDescription():
 	"""
@@ -10,14 +11,17 @@ def getLongDescription():
 	:return: Package long description. ( String )
 	"""
 
-	description = str()
+	description = []
 	with open("README.rst") as file:
 		for line in file:
-			if ".. code:: python" in line:
+			if ".. code:: python" in line and len(description) >= 2:
+				blockLine = description[-2]
+				if re.search(r":$", blockLine) and not re.search(r"::$", blockLine):
+					description[-2] = "::".join(blockLine.rsplit(":", 1))
 				continue
 
-			description += line
-	return description
+			description.append(line)
+	return str().join(description)
 
 setup(name=foundations.globals.constants.Constants.applicationName,
 	version=foundations.globals.constants.Constants.releaseVersion,
