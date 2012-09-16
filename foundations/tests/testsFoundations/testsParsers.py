@@ -20,8 +20,13 @@
 import datetime
 import os
 import tempfile
-import unittest
-from collections import OrderedDict
+import sys
+if sys.version_info[:2] == (2, 6):
+	import unittest2 as unittest
+	from ordereddict import OrderedDict
+else:
+	import unittest
+	from collections import OrderedDict
 
 #**********************************************************************************************************************
 #***	Internal imports.

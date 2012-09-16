@@ -18,7 +18,11 @@
 #***	External imports.
 #**********************************************************************************************************************
 import logging
-from collections import OrderedDict
+import sys
+if sys.version_info[:2] == (2, 6):
+	from ordereddict import OrderedDict
+else:
+	from collections import OrderedDict
 
 #**********************************************************************************************************************
 #***	Internal imports.
@@ -263,9 +267,13 @@ class OrderedStructure(OrderedDict):
 		:param value.: Value. ( Object )
 		"""
 
-		if hasattr(self, "_OrderedDict__root") and hasattr(self, "_OrderedDict__map"):
-			if self._OrderedDict__root:
+		if sys.version_info[:2] == (2, 6):
+			if not attribute in ("_OrderedDict__map", "_OrderedDict__end"):
 				OrderedDict.__setitem__(self, attribute, value)
+		else:
+			if hasattr(self, "_OrderedDict__root") and hasattr(self, "_OrderedDict__map"):
+				if self._OrderedDict__root:
+					OrderedDict.__setitem__(self, attribute, value)
 		OrderedDict.__setattr__(self, attribute, value)
 
 	# @core.executionTrace
@@ -276,9 +284,13 @@ class OrderedStructure(OrderedDict):
 		:param attribute.: Attribute. ( Object )
 		"""
 
-		if hasattr(self, "_OrderedDict__root") and hasattr(self, "_OrderedDict__map"):
-			if self._OrderedDict__root:
+		if sys.version_info[:2] == (2, 6):
+			if not attribute in ("_OrderedDict__map", "_OrderedDict__end"):
 				OrderedDict.__delitem__(self, attribute)
+		else:
+			if hasattr(self, "_OrderedDict__root") and hasattr(self, "_OrderedDict__map"):
+				if self._OrderedDict__root:
+					OrderedDict.__delitem__(self, attribute)
 		OrderedDict.__delattr__(self, attribute)
 
 class Lookup(dict):

@@ -20,7 +20,11 @@
 import inspect
 import logging
 import types
-import unittest
+import sys
+if sys.version_info[:2] == (2, 6):
+	import unittest2 as unittest
+else:
+	import unittest
 
 #**********************************************************************************************************************
 #***	Internal imports.

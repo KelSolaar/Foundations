@@ -22,8 +22,12 @@ import base64
 import datetime
 import logging
 import re
-from collections import OrderedDict
+import sys
 from xml.etree import ElementTree
+if sys.version_info[:2] == (2, 6):
+	from ordereddict import OrderedDict
+else:
+	from collections import OrderedDict
 
 #**********************************************************************************************************************
 #***	Internal imports.
