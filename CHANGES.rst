@@ -1,10 +1,15 @@
-Foundations - 2.0.2 - Stable
+Foundations - 2.0.3 - Stable
 ============================
 
 .. .changes
 
 Changes
 =======
+
+2.0.3 - Stable
+--------------
+
+-  Added support for "Python 2.6".
 
 2.0.2 - Stable
 --------------

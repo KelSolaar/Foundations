@@ -39,7 +39,7 @@ _`Installation`
 
 The following dependencies are needed:
 
--  **Python 2.7.3**: http://www.python.org/
+-  **Python 2.6.7** or **Python 2.7.3**: http://www.python.org/
 -  **PyQt**: http://www.riverbankcomputing.co.uk/
 
 To install **Foundations** from the `Python Package Index <http://pypi.python.org/pypi/Foundations>`_ you can issue this command in a shell::
