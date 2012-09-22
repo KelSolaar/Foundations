@@ -49,7 +49,8 @@ __all__ = ["RESOURCES_DIRECTORY",
 		"GetFirstItemTestCase",
 		"GetLastItemTestCase",
 		"IsBinaryFileTestCase",
-		"RepeatTestCase"]
+		"RepeatTestCase",
+		"DependencyResolverTestCase"]
 
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
 LIBRARIES_DIRECTORY = os.path.join(RESOURCES_DIRECTORY, "libraries")
@@ -173,6 +174,23 @@ class RepeatTestCase(unittest.TestCase):
 
 		self.assertEqual(len(foundations.common.repeat(lambda: foo(True), 10)), 10)
 		self.assertEqual(foundations.common.repeat(lambda: foo(True), 2), [True, True])
+
+class DependencyResolverTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.common.dependencyResolver` definition units tests methods.
+	"""
+
+	def testDependencyResolver(self):
+		"""
+		This method tests :func:`foundations.common.dependencyResolver` definition.
+		"""
+
+		dependencies = {"c" : ("a", "b"),
+						"d" : ("c",),
+						"f" : ("b",)}
+
+		self.assertEquals(foundations.common.dependencyResolver(dependencies),
+						[set(["a", "b"]), set(["c", "f"]), set(["d"])])
 
 if __name__ == "__main__":
 	import foundations.tests.utilities

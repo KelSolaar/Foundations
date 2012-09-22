@@ -13,6 +13,8 @@
 **Others:**
 	:func:`isBinaryFile` from Jorge Orpinel:
 	http://stackoverflow.com/questions/898669/how-can-i-detect-if-a-file-is-binary-non-text-in-python
+	:func:`dependencyResolver` from Louis RIVIERE: http://code.activestate.com/recipes/576570-dependency-resolver/
+
 """
 
 #**********************************************************************************************************************
@@ -47,7 +49,8 @@ __all__ = ["LOGGER",
 			"getFirstItem",
 			"getLastItem",
 			"isBinaryFile",
-			"repeat"]
+			"repeat",
+			"dependencyResolver"]
 
 LOGGER = logging.getLogger(Constants.logger)
 
@@ -164,3 +167,22 @@ def repeat(object, iterations=1):
 	"""
 
 	return [object() for i in range(iterations)]
+
+@core.executionTrace
+@foundations.exceptions.exceptionsHandler(None, False, Exception)
+def dependencyResolver(dependencies):
+	"""
+	This definition resolves given dependencies.
+
+	:param dependencies: Dependencies to resolve. ( Dictionary )
+	:return: Resolved dependencies. ( List )
+	"""
+
+	items = dict((key, set(dependencies[key])) for key in dependencies)
+	resolvedDependencies = []
+	while items:
+		batch = set(item for value in items.values() for item in value) - set(items.keys())
+		batch.update(key for key, value in items.items() if not value)
+		resolvedDependencies.append(batch)
+		items = dict(((key, value - batch) for key, value in items.items() if value))
+	return resolvedDependencies
