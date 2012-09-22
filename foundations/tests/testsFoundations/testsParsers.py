@@ -598,6 +598,8 @@ class SectionsFileParserTestCase(unittest.TestCase):
 																									encode=True), unicode)
 				self.assertEqual(sectionsFileParser.getValue(attribute, namespace.getNamespace(attribute,
 																								rootOnly=True)), value)
+			self.assertEqual(sectionsFileParser.getValue("attribute", "section", default=None), None)
+			self.assertEqual(sectionsFileParser.getValue("attribute", "section", default=list()), list())
 
 	def testWrite(self):
 		"""

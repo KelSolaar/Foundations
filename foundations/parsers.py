@@ -747,7 +747,7 @@ class SectionsFileParser(io.File):
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, KeyError)
-	def getAttributes(self, section, orderedDictionary=True, stripNamespaces=False, raiseExceptions=True):
+	def getAttributes(self, section, orderedDictionary=True, stripNamespaces=False):
 		"""
 		This method returns given section attributes.
 
@@ -769,30 +769,22 @@ class SectionsFileParser(io.File):
 		:param section: Section containing the requested attributes. ( String )
 		:param orderedDictionary: Use an :class:`collections.OrderedDict` dictionary to store the attributes. ( String )
 		:param stripNamespaces: Strip namespaces while retrieving attributes. ( Boolean )
-		:param raiseExceptions: Raise if section doesn't exists. ( Boolean )
 		:return: Attributes. ( OrderedDict / Dictionary )
 		"""
 
 		LOGGER.debug("> Getting section '{0}' attributes.".format(section))
-		if self.sectionExists(section):
-			dictionary = orderedDictionary and OrderedDict or dict
-			attributes = dictionary()
-			if stripNamespaces:
-				for attribute, value in self.__sections[section].iteritems():
-					attributes[namespace.removeNamespace(attribute, rootOnly=True)] = value
-			else:
-				attributes.update(self.__sections[section])
-			LOGGER.debug("> Attributes: '{0}'.".format(attributes))
+		dictionary = orderedDictionary and OrderedDict or dict
+		attributes = dictionary()
+		if not self.sectionExists(section):
 			return attributes
+
+		if stripNamespaces:
+			for attribute, value in self.__sections[section].iteritems():
+				attributes[namespace.removeNamespace(attribute, rootOnly=True)] = value
 		else:
-			if raiseExceptions:
-				raise KeyError("{0} | '{1}' section doesn't exists in '{2}' sections!".format(self.__class__.__name__,
-																							section,
-																							self.file))
-			else:
-				LOGGER.warning("!> {0} | '{1}' section doesn't exists in '{2}' sections!".format(self.__class__.__name__,
-																								section,
-																								self.file))
+			attributes.update(self.__sections[section])
+		LOGGER.debug("> Attributes: '{0}'.".format(attributes))
+		return attributes
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
@@ -829,7 +821,7 @@ class SectionsFileParser(io.File):
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, KeyError)
-	def getValue(self, attribute, section, encode=False):
+	def getValue(self, attribute, section, encode=False, default=str()):
 		"""
 		This method returns requested attribute value.
 
@@ -847,20 +839,23 @@ class SectionsFileParser(io.File):
 		:param attribute: Attribute name. ( String )
 		:param section: Section containing the searched attribute. ( String )
 		:param encode: Encode value to unicode. ( Boolean )
+		:param default: Default return value. ( Object )
 		:return: Attribute value. ( String )
 		"""
 
 		if not self.__sections:
-			return str()
+			return default
 
-		if self.attributeExists(attribute, section):
-			if attribute in self.__sections[section]:
-				value = self.__sections[section][attribute]
-			elif namespace.setNamespace(section, attribute) in self.__sections[section]:
-				value = self.__sections[section][namespace.setNamespace(section, attribute)]
-			LOGGER.debug("> Attribute: '{0}', value: '{1}'.".format(attribute, value))
-			value = encode and strings.encode(value) or value
-			return value
+		if not self.attributeExists(attribute, section):
+			return default
+
+		if attribute in self.__sections[section]:
+			value = self.__sections[section][attribute]
+		elif namespace.setNamespace(section, attribute) in self.__sections[section]:
+			value = self.__sections[section][namespace.setNamespace(section, attribute)]
+		LOGGER.debug("> Attribute: '{0}', value: '{1}'.".format(attribute, value))
+		value = strings.encode(value) if encode else value
+		return value
 
 	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
