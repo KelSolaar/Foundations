@@ -72,7 +72,6 @@ class AttributeCompound(foundations.dataStructures.Structure):
 
 	"""
 
-	@core.executionTrace
 	def __init__(self, **kwargs):
 		"""
 		This method initializes the class.
@@ -112,7 +111,6 @@ class SectionsFileParser(io.File):
 
 	"""
 
-	@core.executionTrace
 	def __init__(self,
 				file=None,
 				splitters=("=", ":"),
@@ -552,7 +550,6 @@ class SectionsFileParser(io.File):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.FileStructureParsingError)
 	def parse(self,
 			orderedDictionary=True,
@@ -676,7 +673,6 @@ class SectionsFileParser(io.File):
 
 		return True
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def sectionExists(self, section):
 		"""
@@ -709,7 +705,6 @@ class SectionsFileParser(io.File):
 			LOGGER.debug("> '{0}' section doesn't exists in '{1}'.".format(section, self))
 			return False
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, KeyError)
 	def attributeExists(self, attribute, section):
 		"""
@@ -745,7 +740,6 @@ class SectionsFileParser(io.File):
 			LOGGER.debug("> '{0}' attribute doesn't exists in '{1}' section.".format(attribute, section))
 			return False
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, KeyError)
 	def getAttributes(self, section, orderedDictionary=True, stripNamespaces=False):
 		"""
@@ -786,7 +780,6 @@ class SectionsFileParser(io.File):
 		LOGGER.debug("> Attributes: '{0}'.".format(attributes))
 		return attributes
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def getAllAttributes(self, orderedDictionary=True):
 		"""
@@ -819,7 +812,6 @@ class SectionsFileParser(io.File):
 				allAttributes[attribute] = value
 		return allAttributes
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, KeyError)
 	def getValue(self, attribute, section, encode=False, default=str()):
 		"""
@@ -857,7 +849,6 @@ class SectionsFileParser(io.File):
 		value = strings.encode(value) if encode else value
 		return value
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def write(self,
 			namespaces=False,
@@ -948,7 +939,6 @@ class PlistFileParser(io.File):
 	This class provides methods to parse plist files.
 	"""
 
-	@core.executionTrace
 	def __init__(self, file=None):
 		"""
 		This method initializes the class.
@@ -1093,7 +1083,6 @@ class PlistFileParser(io.File):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.FileStructureParsingError)
 	def parse(self, raiseParsingErrors=True):
 		"""
@@ -1134,7 +1123,6 @@ class PlistFileParser(io.File):
 			self.__elements = foundations.common.getFirstItem(elementTreeParser.root).text
 			return True
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, KeyError)
 	def elementExists(self, element):
 		"""
@@ -1166,7 +1154,6 @@ class PlistFileParser(io.File):
 		LOGGER.debug("> '{0}' element doesn't exists.".format(element))
 		return False
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def filterValues(self, pattern, flags=0):
 		"""
@@ -1223,7 +1210,6 @@ class PlistFileParser(io.File):
 		values = self.filterValues(r"^{0}$".format(element))
 		return foundations.common.getFirstItem(values)
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getAttributeCompound(attribute, value=None, splitter="|", bindingIdentifier="@"):
 	"""

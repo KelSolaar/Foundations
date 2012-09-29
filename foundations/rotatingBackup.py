@@ -51,7 +51,6 @@ class RotatingBackup(object):
 	This class provides a rotating backup system.
 	"""
 
-	@core.executionTrace
 	def __init__(self, source=None, destination=None, count=3):
 		"""
 		This method initializes the class.
@@ -202,7 +201,6 @@ class RotatingBackup(object):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def backup(self):
 		"""

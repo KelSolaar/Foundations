@@ -53,7 +53,6 @@ class Attribute(foundations.dataStructures.Structure):
 	This class represents a storage object for the :class:`AbstractNode` class attributes.
 	"""
 
-	@core.executionTrace
 	def __init__(self, name=None, value=None, **kwargs):
 		"""
 		This method initializes the class.
@@ -153,7 +152,6 @@ class Attribute(foundations.dataStructures.Structure):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	# @core.executionTrace
 	def __repr__(self):
 		"""
 		This method reimplements the :meth:`foundations.dataStructures.Structure.__repr__` method.
@@ -181,7 +179,6 @@ class AbstractNode(foundations.dataStructures.Structure):
 	__nodesInstances = weakref.WeakValueDictionary()
 	"""Node instances: Each node, once instanced is stored in this attribute. ( Dictionary )"""
 
-	@core.executionTrace
 	def __new__(cls, *args, **kwargs):
 		"""
 		This method is the constructor of the class.
@@ -199,7 +196,6 @@ class AbstractNode(foundations.dataStructures.Structure):
 		AbstractNode._AbstractNode__instanceId += 1
 		return instance
 
-	@core.executionTrace
 	def __init__(self, name=None, **kwargs):
 		"""
 		This method initializes the class.
@@ -363,7 +359,6 @@ class AbstractNode(foundations.dataStructures.Structure):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	# @core.executionTrace
 	def __repr__(self):
 		"""
 		This method reimplements the :meth:`foundations.dataStructures.Structure.__repr__` method.
@@ -373,7 +368,6 @@ class AbstractNode(foundations.dataStructures.Structure):
 
 		return "<{0} object at {1}>".format(self.__class__.__name__, hex(id(self)))
 
-	# @core.executionTrace
 	def __hash__(self):
 		"""
 		This method reimplements the :meth:`foundations.dataStructures.Structure.__hash__` method.
@@ -387,7 +381,6 @@ class AbstractNode(foundations.dataStructures.Structure):
 
 		return hash(self.__identity)
 
-	@core.executionTrace
 	def __cmp__(self, other):
 		"""
 		This method reimplements the :meth:`foundations.dataStructures.Structure.__cmp__` method.
@@ -401,7 +394,6 @@ class AbstractNode(foundations.dataStructures.Structure):
 		else:
 			raise TypeError("Unable to compare '{0}' and '{1}' objects.".format(self, other))
 
-	@core.executionTrace
 	def __getDefaultNodeName(self):
 		"""
 		This method gets the default node name.
@@ -412,7 +404,6 @@ class AbstractNode(foundations.dataStructures.Structure):
 		return "{0}{1}".format(self.family, self.__identity)
 
 	@classmethod
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def getNodeByIdentity(cls, identity):
 		"""
@@ -432,7 +423,6 @@ class AbstractNode(foundations.dataStructures.Structure):
 
 		return cls.__nodesInstances.get(identity, None)
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def listAttributes(self):
 		"""
@@ -449,7 +439,6 @@ class AbstractNode(foundations.dataStructures.Structure):
 
 		return [attribute for attribute, value in self.iteritems() if issubclass(value.__class__, Attribute)]
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def getAttributes(self):
 		"""
@@ -466,7 +455,6 @@ class AbstractNode(foundations.dataStructures.Structure):
 
 		return [attribute for attribute in self.itervalues() if issubclass(attribute.__class__, Attribute)]
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def attributeExists(self, name):
 		"""
@@ -489,7 +477,6 @@ class AbstractNode(foundations.dataStructures.Structure):
 				return True
 		return False
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.NodeAttributeTypeError)
 	def addAttribute(self, name, value):
 		"""
@@ -518,7 +505,6 @@ class AbstractNode(foundations.dataStructures.Structure):
 		self[name] = value
 		return True
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.NodeAttributeExistsError)
 	def removeAttribute(self, name):
 		"""
@@ -551,7 +537,6 @@ class AbstractCompositeNode(AbstractNode):
 	__family = "AbstractComposite"
 	"""Node family. ( String )"""
 
-	@core.executionTrace
 	def __init__(self, name=None, parent=None, children=None, **kwargs):
 		"""
 		This method initializes the class.
@@ -652,7 +637,6 @@ class AbstractCompositeNode(AbstractNode):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	# @core.executionTrace
 	def __eq__(self, object):
 		"""
 		This method reimplements the :meth:`AbstractNode.__repr__` method.
@@ -669,7 +653,6 @@ class AbstractCompositeNode(AbstractNode):
 		else:
 			return False
 
-	# @core.executionTrace
 	# @foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def child(self, index):
 		"""
@@ -695,7 +678,6 @@ class AbstractCompositeNode(AbstractNode):
 		if index >= 0 and index < len(self.__children):
 			return self.__children[index]
 
-	# @core.executionTrace
 	# @foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def indexOf(self, child):
 		"""
@@ -719,7 +701,6 @@ class AbstractCompositeNode(AbstractNode):
 			if child is item:
 				return i
 
-	# @core.executionTrace
 	# @foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def row(self):
 		"""
@@ -741,7 +722,6 @@ class AbstractCompositeNode(AbstractNode):
 		if self.__parent:
 			return self.__parent.indexOf(self)
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def addChild(self, child):
 		"""
@@ -764,7 +744,6 @@ class AbstractCompositeNode(AbstractNode):
 		child.parent = self
 		return True
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def removeChild(self, index):
 		"""
@@ -791,7 +770,6 @@ class AbstractCompositeNode(AbstractNode):
 		child.parent = None
 		return child
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def insertChild(self, child, index):
 		"""
@@ -820,7 +798,6 @@ class AbstractCompositeNode(AbstractNode):
 		child.parent = self
 		return True
 
-	# @core.executionTrace
 	# @foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def hasChildren(self):
 		"""
@@ -837,7 +814,6 @@ class AbstractCompositeNode(AbstractNode):
 
 		return True if self.childrenCount() > 0 else False
 
-	# @core.executionTrace
 	# @foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def childrenCount(self):
 		"""
@@ -856,7 +832,6 @@ class AbstractCompositeNode(AbstractNode):
 
 		return len(self.__children)
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def sortChildren(self, attribute=None, reverseOrder=False):
 		"""
@@ -888,7 +863,6 @@ class AbstractCompositeNode(AbstractNode):
 
 		return True
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def findChildren(self, pattern=r".*", flags=0, candidates=None):
 		"""
@@ -917,7 +891,6 @@ class AbstractCompositeNode(AbstractNode):
 			child.findChildren(pattern, flags, candidates)
 		return candidates
 
-	# @core.executionTrace
 	# @foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def findFamily(self, pattern=r".*", flags=0, node=None):
 		"""
@@ -931,7 +904,6 @@ class AbstractCompositeNode(AbstractNode):
 
 		return [node for node in foundations.walkers.nodesWalker(node or self) if re.search(pattern, node.family, flags)]
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def listNode(self, tabLevel= -1):
 		"""

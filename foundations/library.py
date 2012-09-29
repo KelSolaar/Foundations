@@ -53,7 +53,6 @@ class LibraryHook(foundations.dataStructures.Structure):
 	This class represents a library hook used by the :class:`Library` class to bind target library functions.
 	"""
 
-	@core.executionTrace
 	def __init__(self, **kwargs):
 		"""
 		This method initializes the class.
@@ -88,7 +87,6 @@ class Library(object):
 	callback = ctypes.CFUNCTYPE(ctypes.c_void_p, ctypes.c_int, ctypes.c_char_p)
 	"""callback: Defines library callback default function.	( ctypes.CFUNCTYPE )"""
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.LibraryInstantiationError)
 	def __new__(cls, *args, **kwargs):
 		"""
@@ -108,7 +106,6 @@ class Library(object):
 			raise foundations.exceptions.LibraryInstantiationError(
 			"{0} | '{1}' library path doesn't exists!".format(cls.__class__.__name__, libraryPath))
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.LibraryInitializationError)
 	def __init__(self, libraryPath, functions=None, bindLibrary=True):
 		"""
@@ -327,7 +324,6 @@ class Library(object):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def bindFunction(self, function):
 		"""
@@ -357,7 +353,6 @@ class Library(object):
 			functionObject.restype = function.returnValue
 		return True
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, AttributeError)
 	def bindLibrary(self):
 		"""

@@ -51,7 +51,6 @@ class Cache(dict):
 		
 	"""
 
-	@core.executionTrace
 	def __init__(self, **kwargs):
 		"""
 		This method initializes the class.
@@ -64,7 +63,6 @@ class Cache(dict):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def addContent(self, **content):
 		"""
@@ -87,7 +85,6 @@ class Cache(dict):
 		self.update(**content)
 		return True
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def removeContent(self, *keys):
 		"""
@@ -116,7 +113,6 @@ class Cache(dict):
 			del self[key]
 		return True
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def getContent(self, key):
 		"""
@@ -138,7 +134,6 @@ class Cache(dict):
 
 		return self.get(key)
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def flushContent(self):
 		"""

@@ -57,7 +57,6 @@ LOGGER = logging.getLogger(Constants.logger)
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def uniqify(sequence):
 	"""
@@ -71,7 +70,6 @@ def uniqify(sequence):
 
 	return [key for key, group in itertools.groupby(sorted(sequence))]
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def orderedUniqify(sequence):
 	"""
@@ -84,7 +82,6 @@ def orderedUniqify(sequence):
 	items = set()
 	return [key for key in sequence if key not in items and not items.add(key)]
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def pathExists(path):
 	"""
@@ -99,7 +96,6 @@ def pathExists(path):
 	else:
 		return os.path.exists(path)
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getFirstItem(iterable, default=None):
 	"""
@@ -116,7 +112,6 @@ def getFirstItem(iterable, default=None):
 	for item in iterable:
 		return item
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getLastItem(iterable, default=None):
 	"""
@@ -132,7 +127,6 @@ def getLastItem(iterable, default=None):
 
 	return iterable[-1]
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def isBinaryFile(file):
 	"""
@@ -155,7 +149,6 @@ def isBinaryFile(file):
 		fileHandle.close()
 	return False
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def repeat(object, iterations=1):
 	"""
@@ -168,7 +161,6 @@ def repeat(object, iterations=1):
 
 	return [object() for i in range(iterations)]
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def dependencyResolver(dependencies):
 	"""

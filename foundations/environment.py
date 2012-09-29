@@ -54,7 +54,6 @@ class Environment(object):
 	This class provides methods to manipulate environment variables.
 	"""
 
-	@core.executionTrace
 	def __init__(self, *args, **kwargs):
 		"""
 		This method initializes the class.
@@ -124,7 +123,6 @@ class Environment(object):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	@core.executionTrace
 	def __addVariables(self, *args, **kwargs):
 		"""
 		This method adds given variables to __variables attribute.
@@ -137,7 +135,6 @@ class Environment(object):
 			self.__variables[variable] = None
 		self.__variables.update(kwargs)
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def getValues(self, *args):
 		"""
@@ -165,7 +162,6 @@ class Environment(object):
 			self.__variables[variable] = os.environ.get(variable, None)
 		return self.__variables
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def setValues(self, **kwargs):
 		"""
@@ -197,7 +193,6 @@ class Environment(object):
 			os.environ[key] = value
 		return True
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def getValue(self, variable=None):
 		"""
@@ -216,7 +211,6 @@ class Environment(object):
 			self.getValues()
 			return foundations.common.getFirstItem(self.__variables.values())
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
 	def setValue(self, variable, value):
 		"""
@@ -229,7 +223,6 @@ class Environment(object):
 
 		return self.setValues(**{variable : value})
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getSystemApplicationDataDirectory():
 	"""
@@ -257,7 +250,6 @@ def getSystemApplicationDataDirectory():
 		environmentVariable = Environment("HOME")
 		return environmentVariable.getValue()
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getUserApplicationDataDirectory():
 	"""

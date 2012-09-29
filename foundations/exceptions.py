@@ -134,7 +134,6 @@ def exceptionsHandler(handler=None, raiseException=False, *args):
 		return function
 	return wrapper
 
-@core.executionTrace
 def defaultExceptionsHandler(exception, traceName, *args, **kwargs):
 	"""
 	This definition provides the default exception handler.
@@ -186,7 +185,6 @@ class AbstractError(Exception):
 	This class is the abstract base class for all **Foundations** package exceptions.
 	"""
 
-	@core.executionTrace
 	def __init__(self, value):
 		"""
 		This method initializes the class.
@@ -233,7 +231,6 @@ class AbstractError(Exception):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	# @core.executionTrace
 	def __str__(self):
 		"""
 		This method returns the exception representation.
@@ -269,7 +266,6 @@ class AttributeStructureParsingError(AbstractParsingError):
 	This class is used for exceptions raised while parsing attribute structure.
 	"""
 
-	@core.executionTrace
 	def __init__(self, value, line=None):
 		"""
 		This method initializes the class.
@@ -325,7 +321,6 @@ class AttributeStructureParsingError(AbstractParsingError):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	# @core.executionTrace
 	def __str__(self):
 		"""
 		This method returns the exception representation.

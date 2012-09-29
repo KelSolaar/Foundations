@@ -51,7 +51,6 @@ class EchoRequestsHandler(SocketServer.BaseRequestHandler):
 	This class is the default echo requests handler.
 	"""
 
-	@core.executionTrace
 	def handle(self):
 		"""
 		This method reimplements the :meth:`SocketServer.BaseRequestHandler.handle` method.
@@ -72,7 +71,6 @@ class TCPServer(object):
 	This class defines a TCP server.
 	"""
 
-	@core.executionTrace
 	def __init__(self, address, port, handler=EchoRequestsHandler):
 		"""
 		This method initializes the class.
@@ -246,7 +244,6 @@ class TCPServer(object):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ServerOperationError)
 	def start(self):
 		"""
@@ -277,7 +274,6 @@ class TCPServer(object):
 			else:
 				raise error
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ServerOperationError)
 	def stop(self, terminate=False):
 		"""

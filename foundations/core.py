@@ -452,7 +452,6 @@ def memoize(cache=None):
 
 	return wrapper
 
-@executionTrace
 def removeLoggingHandler(logger, handler):
 	"""
 	This definition removes given logging handler from given logger.
@@ -466,7 +465,6 @@ def removeLoggingHandler(logger, handler):
 	logger.removeHandler(handler)
 	return True
 
-@executionTrace
 def exit(exitCode=1):
 	"""
 	This definition shuts down current process logging, associated handlers and then exits to system.
@@ -484,7 +482,6 @@ def exit(exitCode=1):
 
 	sys.exit(exitCode)
 
-@executionTrace
 def wait(waitTime):
 	"""
 	This definition halts current process exection for an user defined time.

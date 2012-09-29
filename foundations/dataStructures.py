@@ -66,7 +66,6 @@ class NestedAttribute(object):
 		64
 	"""
 
-	# @core.executionTrace
 	def __getattr__(self, attribute):
 		"""
 		This method returns requested attribute.
@@ -78,7 +77,6 @@ class NestedAttribute(object):
 		self.__dict__[attribute] = NestedAttribute()
 		return self.__dict__[attribute]
 
-	# @core.executionTrace
 	def __setattr__(self, attribute, value):
 		"""
 		This method sets given attribute with given value.
@@ -90,7 +88,6 @@ class NestedAttribute(object):
 		namespaces = attribute.split(".")
 		object.__setattr__(reduce(object.__getattribute__, namespaces[:-1], self), namespaces[-1], value)
 
-	# @core.executionTrace
 	def __delattr__(self, attribute):
 		"""
 		This method deletes given attribute with.
@@ -125,7 +122,6 @@ class Structure(dict):
 		AttributeError: 'Structure' object has no attribute 'gender'
 	"""
 
-	@core.executionTrace
 	def __init__(self, *args, **kwargs):
 		"""
 		This method initializes the class.
@@ -137,7 +133,6 @@ class Structure(dict):
 		dict.__init__(self, **kwargs)
 		self.__dict__.update(**kwargs)
 
-	# @core.executionTrace
 	def __getattr__(self, attribute):
 		"""
 		This method returns given attribute value.
@@ -150,7 +145,6 @@ class Structure(dict):
 		except KeyError:
 			raise AttributeError("'{0}' object has no attribute '{1}'".format(self.__class__.__name__, attribute))
 
-	# @core.executionTrace
 	def __setattr__(self, attribute, value):
 		"""
 		This method sets both key and sibling attribute with given value.
@@ -164,7 +158,6 @@ class Structure(dict):
 
 	__setitem__ = __setattr__
 
-	# @core.executionTrace
 	def __delattr__(self, attribute):
 		"""
 		This method deletes both key and sibling attribute.
@@ -177,7 +170,6 @@ class Structure(dict):
 
 	__delitem__ = __delattr__
 
-	# @core.executionTrace
 	def update(self, *args, **kwargs):
 		"""
 		This method reimplements the :meth:`Dict.update` method.
@@ -220,7 +212,6 @@ class OrderedStructure(OrderedDict):
 		'Kate'
 	"""
 
-	@core.executionTrace
 	def __init__(self, *args, **kwargs):
 		"""
 		This method initializes the class.
@@ -231,7 +222,6 @@ class OrderedStructure(OrderedDict):
 
 		OrderedDict.__init__(self, *args, **kwargs)
 
-	# @core.executionTrace
 	def __setitem__(self, key, value, *args, **kwargs):
 		"""
 		This method sets a key and sibling attribute with given value.
@@ -245,7 +235,6 @@ class OrderedStructure(OrderedDict):
 		OrderedDict.__setitem__(self, key, value, *args, **kwargs)
 		OrderedDict.__setattr__(self, key, value)
 
-	# @core.executionTrace
 	def __delitem__(self, key, *args, **kwargs):
 		"""
 		This method deletes both key and sibling attribute.
@@ -258,7 +247,6 @@ class OrderedStructure(OrderedDict):
 		OrderedDict.__delitem__(self, key, *args, **kwargs)
 		OrderedDict.__delattr__(self, key)
 
-	# @core.executionTrace
 	def __setattr__(self, attribute, value):
 		"""
 		This method sets both key and sibling attribute with given value.
@@ -276,7 +264,6 @@ class OrderedStructure(OrderedDict):
 					OrderedDict.__setitem__(self, attribute, value)
 		OrderedDict.__setattr__(self, attribute, value)
 
-	# @core.executionTrace
 	def __delattr__(self, attribute):
 		"""
 		This method deletes both key and sibling attribute.
@@ -307,7 +294,6 @@ class Lookup(dict):
 		['Jane', 'John']
 	"""
 
-	# @core.executionTrace
 	def getFirstKeyFromValue(self, value):
 		"""
 		This method gets the first key from given value.
@@ -320,7 +306,6 @@ class Lookup(dict):
 			if data == value:
 				return key
 
-	# @core.executionTrace
 	def getKeysFromValue(self, value):
 		"""
 		This method gets the keys from given value.

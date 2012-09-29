@@ -51,7 +51,6 @@ class File(object):
 	This class provides methods to read / write and append to files.
 	"""
 
-	@core.executionTrace
 	def __init__(self, file=None, content=None):
 		"""
 		This method initializes the class.
@@ -150,7 +149,6 @@ class File(object):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, IOError)
 	def read(self, mode="r"):
 		"""
@@ -167,7 +165,6 @@ class File(object):
 			self.__content = file.readlines()
 			return True
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, IOError)
 	def readAll(self):
 		"""
@@ -180,7 +177,6 @@ class File(object):
 		if self.read():
 			return "".join(self.__content)
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, OSError)
 	def write(self, mode="w"):
 		"""
@@ -197,7 +193,6 @@ class File(object):
 				file.write(line)
 			return True
 
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, OSError)
 	def append(self, mode="a"):
 		"""
@@ -214,7 +209,6 @@ class File(object):
 				file.write(line)
 			return True
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, OSError)
 def setDirectory(path):
 	"""
@@ -234,7 +228,6 @@ def setDirectory(path):
 		LOGGER.debug("> '{0}' directory already exist, skipping creation!".format(path))
 		return True
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, OSError)
 def copy(source, destination):
 	"""
@@ -253,7 +246,6 @@ def copy(source, destination):
 		shutil.copytree(source, destination)
 	return True
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, OSError)
 def remove(path):
 	"""

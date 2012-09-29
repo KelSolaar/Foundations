@@ -45,7 +45,6 @@ LOGGER = logging.getLogger(Constants.logger)
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def filesWalker(directory, filtersIn=None, filtersOut=None, flags=0):
 	"""
@@ -90,7 +89,6 @@ def filesWalker(directory, filtersIn=None, filtersOut=None, flags=0):
 
 				yield path
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def depthWalker(directory, maximumDepth=1):
 	"""
@@ -123,7 +121,6 @@ def depthWalker(directory, maximumDepth=1):
 		if baseDepth + maximumDepth <= parentDirectory.count(separator):
 			del directories[:]
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def dictionariesWalker(dictionary, path=()):
 	"""
@@ -154,7 +151,6 @@ def dictionariesWalker(dictionary, path=()):
 			for value in dictionariesWalker(dictionary[key], path + (key,)):
 				yield value
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def nodesWalker(node, ascendants=False):
 	"""

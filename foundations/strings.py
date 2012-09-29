@@ -63,7 +63,6 @@ LOGGER = logging.getLogger(Constants.logger)
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def encode(data):
 	"""
@@ -90,7 +89,6 @@ def encode(data):
 			encodedData = unicode(data.__str__(), Constants.encodingFormat, Constants.encodingError)
 	return encodedData
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getNiceName(name):
 	"""
@@ -110,7 +108,6 @@ def getNiceName(name):
 	chunks = re.sub(r"(.)([A-Z][a-z]+)", r"\1 \2", name)
 	return " ".join(element.title() for element in re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", chunks).split())
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getVersionRank(version):
 	"""
@@ -132,7 +129,6 @@ def getVersionRank(version):
 	LOGGER.debug("> Rank: '{0}'.".format(rank))
 	return rank
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getSplitextBasename(path):
 	"""
@@ -151,7 +147,6 @@ def getSplitextBasename(path):
 	LOGGER.debug("> Splitext basename: '{0}'.".format(basename))
 	return basename
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getCommonAncestor(*args):
 	"""
@@ -177,7 +172,6 @@ def getCommonAncestor(*args):
 	LOGGER.debug("> Common Ancestor: '{0}'".format(ancestor))
 	return ancestor
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getCommonPathsAncestor(*args):
 	"""
@@ -196,7 +190,6 @@ def getCommonPathsAncestor(*args):
 	LOGGER.debug("> Common Paths Ancestor: '{0}'".format(pathAncestor))
 	return pathAncestor
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getWords(data):
 	"""
@@ -215,7 +208,6 @@ def getWords(data):
 	LOGGER.debug("> Words: '{0}'".format(", ".join(words)))
 	return words
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 	"""
@@ -262,7 +254,6 @@ def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 	LOGGER.debug("> Filtered words: '{0}'".format(", ".join(filteredWords)))
 	return filteredWords
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def replace(string, data):
 	"""
@@ -283,7 +274,6 @@ def replace(string, data):
 		string = string.replace(old, new)
 	return string
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def removeStrip(string, pattern):
 	"""
@@ -301,7 +291,6 @@ def removeStrip(string, pattern):
 
 	return string.replace(pattern, "").strip()
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def toForwardSlashes(data):
 	"""
@@ -320,7 +309,6 @@ def toForwardSlashes(data):
 	LOGGER.debug("> Data: '{0}' to forward slashes.".format(data))
 	return data
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def toBackwardSlashes(data):
 	"""
@@ -339,7 +327,6 @@ def toBackwardSlashes(data):
 	LOGGER.debug("> Data: '{0}' to backward slashes.".format(data))
 	return data
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def toPosixPath(path):
 	"""
@@ -358,7 +345,6 @@ def toPosixPath(path):
 	LOGGER.debug("> Stripped converted to Posix path: '{0}'.".format(posixPath))
 	return posixPath
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getNormalizedPath(path):
 	"""
@@ -382,7 +368,6 @@ def getNormalizedPath(path):
 		LOGGER.debug("> Path: '{0}', normalized path.".format(path))
 		return path
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def isEmail(data):
 	"""
@@ -406,7 +391,6 @@ def isEmail(data):
 		LOGGER.debug("> {0}' is not matched as email.".format(data))
 		return False
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def isWebsite(data):
 	"""

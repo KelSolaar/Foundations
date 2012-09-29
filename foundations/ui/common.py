@@ -52,7 +52,6 @@ DEFAULT_UI_FILE = os.path.join(RESOURCES_DIRECTORY, "QWidget.ui")
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def centerWidgetOnScreen(widget, screen=None):
 	"""
@@ -69,7 +68,6 @@ def centerWidgetOnScreen(widget, screen=None):
 	widget.move(desktopWidth / 2 - widget.sizeHint().width() / 2, desktopHeight / 2 - widget.sizeHint().height() / 2)
 	return True
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def QWidgetFactory(uiFile=None, *args, **kwargs):
 	"""
@@ -94,7 +92,6 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 		This class is built by the :def:`QWidgetFactory` definition.
 		"""
 
-		@core.executionTrace
 		def __init__(self, *args, **kwargs):
 			"""
 			This method initializes the class.
@@ -151,7 +148,6 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 		#******************************************************************************************************************
 		#***	Class methods.
 		#******************************************************************************************************************
-		@core.executionTrace
 		def show(self, setGeometry=True):
 			"""
 			This method reimplements the :meth:`QWidget.show` method.
@@ -174,7 +170,6 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 				self.restoreGeometry(self.__geometry)
 				
 
-		@core.executionTrace
 		def closeEvent(self, event):
 			"""
 			This method reimplements the :meth:`QWidget.closeEvent` method.

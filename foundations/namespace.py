@@ -52,7 +52,6 @@ NAMESPACE_SPLITTER = "|"
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def setNamespace(namespace, attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 	"""
@@ -73,7 +72,6 @@ def setNamespace(namespace, attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 	LOGGER.debug("> Namespace: '{0}', attribute: '{1}', long name: '{2}'.".format(namespace, attribute, longName))
 	return longName
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False):
 	"""
@@ -101,7 +99,6 @@ def getNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False
 		LOGGER.debug("> Attribute: '{0}', namespace: '{1}'.".format(attribute, namespace))
 		return namespace
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def removeNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False):
 	"""
@@ -126,7 +123,6 @@ def removeNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=Fa
 	LOGGER.debug("> Attribute: '{0}', stripped attribute: '{1}'.".format(attribute, strippedAttribute))
 	return strippedAttribute
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getRoot(attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 	"""
@@ -146,7 +142,6 @@ def getRoot(attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 
 	return getNamespace(attribute, namespaceSplitter, rootOnly=True)
 
-@core.executionTrace
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getLeaf(attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 	"""

@@ -53,7 +53,6 @@ class Pkzip(object):
 	This class provides methods to manipulate zip files.
 	"""
 
-	@core.executionTrace
 	def __init__(self, archive=None):
 		"""
 		This method initializes the class.
@@ -116,7 +115,6 @@ class Pkzip(object):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	@core.executionTrace
 	@foundations.exceptions.exceptionsHandler(None, False, OSError, Exception)
 	def extract(self, target):
 		"""
