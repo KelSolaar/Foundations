@@ -3,11 +3,6 @@ _`foundations.dataStructures`
 
 .. automodule:: foundations.dataStructures
 
-Module Attributes
------------------
-
-.. attribute:: foundations.dataStructures.LOGGER
-
 Classes
 -------
 

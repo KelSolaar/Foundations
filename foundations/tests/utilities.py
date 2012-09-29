@@ -15,16 +15,9 @@
 """
 
 #**********************************************************************************************************************
-#***	External imports.
-#**********************************************************************************************************************
-import logging
-import sys
-
-#**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
-import foundations.core as core
-from foundations.globals.constants import Constants
+import foundations.verbose
 
 #**********************************************************************************************************************
 #***	Module attributes.
@@ -36,11 +29,7 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["LOGGER", "LOGGING_CONSOLE_HANDLER"]
+__all__ = ["LOGGER"]
 
-LOGGER = logging.getLogger(Constants.logger)
-
-# Starting the console handler.
-LOGGING_CONSOLE_HANDLER = logging.StreamHandler(sys.__stdout__)
-LOGGING_CONSOLE_HANDLER.setFormatter(core.LOGGING_DEFAULT_FORMATTER)
-LOGGER.addHandler(LOGGING_CONSOLE_HANDLER)
+LOGGER = foundations.verbose.installLogger()
+foundations.verbose.getLoggingConsoleHandler()

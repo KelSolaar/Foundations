@@ -15,16 +15,11 @@
 """
 
 #**********************************************************************************************************************
-#***	External imports.
-#**********************************************************************************************************************
-import logging
-
-#**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
 import foundations.common
-import foundations.core as core
 import foundations.exceptions
+import foundations.verbose
 from foundations.globals.constants import Constants
 
 #**********************************************************************************************************************
@@ -38,14 +33,14 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["LOGGER",
-		"NAMESPACE_SPLITTER",
-		"setNamespace",
-		"getNamespace",
-		"removeNamespace",
-		"getRoot",
-		"getLeaf"]
+			"NAMESPACE_SPLITTER",
+			"setNamespace",
+			"getNamespace",
+			"removeNamespace",
+			"getRoot",
+			"getLeaf"]
 
-LOGGER = logging.getLogger(Constants.logger)
+LOGGER = foundations.verbose.installLogger()
 
 NAMESPACE_SPLITTER = "|"
 

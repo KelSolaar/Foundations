@@ -18,7 +18,6 @@
 #***	External imports.
 #**********************************************************************************************************************
 import inspect
-import logging
 import os
 from PyQt4 import uic
 from PyQt4.QtGui import QApplication
@@ -28,8 +27,8 @@ from PyQt4.QtGui import QWidget
 #***	Internal imports.
 #**********************************************************************************************************************
 import foundations.common
-import foundations.core as core
 import foundations.exceptions
+import foundations.verbose
 from foundations.globals.constants import Constants
 
 #**********************************************************************************************************************
@@ -44,7 +43,7 @@ __status__ = "Production"
 
 __all__ = ["LOGGER", "RESOURCES_DIRECTORY", "DEFAULT_UI_FILE", "centerWidgetOnScreen", "QWidgetFactory"]
 
-LOGGER = logging.getLogger(Constants.logger)
+LOGGER = foundations.verbose.installLogger()
 
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
 DEFAULT_UI_FILE = os.path.join(RESOURCES_DIRECTORY, "QWidget.ui")
@@ -168,7 +167,7 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 
 			if self.__geometry is not None and wasHidden:
 				self.restoreGeometry(self.__geometry)
-				
+
 
 		def closeEvent(self, event):
 			"""

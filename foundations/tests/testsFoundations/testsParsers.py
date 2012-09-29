@@ -351,7 +351,7 @@ RANDOM_COMMENTS = {"component" : {"Component|#0" : {"content" : "Component comme
 								"sIBL File Attributes|#1" : {"content" :
 														"sIBL File Attributes comment for tests purpose.", "id" : 1}}}
 
-SCRIPT_RAW_SECTION = [ "// @OutputScript - @Release for @Software @Version\n",
+SCRIPT_RAW_SECTION = ["// @OutputScript - @Release for @Software @Version\n",
 						"// Author: @Author\n",
 						"// EMail: @Email\n",
 						"// Homepage: @Url\n",

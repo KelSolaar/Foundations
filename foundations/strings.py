@@ -17,7 +17,6 @@
 #**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
-import logging
 import os
 import platform
 import posixpath
@@ -27,8 +26,8 @@ import re
 #***	Internal imports.
 #**********************************************************************************************************************
 import foundations.common
-import foundations.core as core
 import foundations.exceptions
+import foundations.verbose
 from foundations.globals.constants import Constants
 
 #**********************************************************************************************************************
@@ -58,7 +57,7 @@ __all__ = ["LOGGER",
 			"isEmail",
 			"isWebsite"]
 
-LOGGER = logging.getLogger(Constants.logger)
+LOGGER = foundations.verbose.installLogger()
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.

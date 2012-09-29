@@ -23,5 +23,7 @@ Modules Summary:
    foundations.streamObject <api/foundations.streamObject>
    foundations.strings <api/foundations.strings>
    foundations.tcpServer <api/foundations.tcpServer>
+   foundations.trace <api/foundations.trace>
    foundations.ui.common <api/foundations.ui.common>
+   foundations.verbose <api/foundations.verbose>
    foundations.walkers <api/foundations.walkers>

@@ -3,11 +3,6 @@ _`foundations.tcpServer`
 
 .. automodule:: foundations.tcpServer
 
-Module Attributes
------------------
-
-.. attribute:: foundations.tcpServer.LOGGER
-
 Classes
 -------
 

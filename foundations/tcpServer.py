@@ -18,16 +18,14 @@
 #***	External imports.
 #**********************************************************************************************************************
 import SocketServer
-import logging
 import socket
 import threading
 
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
-import foundations.core as core
 import foundations.exceptions
-from foundations.globals.constants import Constants
+import foundations.verbose
 
 #**********************************************************************************************************************
 #***	Module attributes.
@@ -41,7 +39,7 @@ __status__ = "Production"
 
 __all__ = ["LOGGER", "EchoRequestsHandler", "TCPServer"]
 
-LOGGER = logging.getLogger(Constants.logger)
+LOGGER = foundations.verbose.installLogger()
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.

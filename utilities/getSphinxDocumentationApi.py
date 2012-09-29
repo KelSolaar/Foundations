@@ -17,10 +17,7 @@
 #**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
-import importlib
-import logging
 import os
-import pyclbr
 import re
 import shutil
 import sys
@@ -33,11 +30,10 @@ else:
 #***	Internal imports.
 #**********************************************************************************************************************
 import foundations.common
-import foundations.core as core
 import foundations.strings as strings
+import foundations.verbose
 import foundations.walkers
 from foundations.io import File
-from foundations.globals.constants import Constants
 
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "libraries"))
 import python.pyclbr as moduleBrowser
@@ -53,7 +49,6 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["LOGGER",
-		"LOGGING_CONSOLE_HANDLER",
 		"FILES_EXTENSION",
 		"TOCTREE_TEMPLATE_BEGIN",
 		"TOCTREE_TEMPLATE_END",
@@ -63,13 +58,7 @@ __all__ = ["LOGGER",
 		"CONTENT_SUBSTITUTIONS",
 		"getSphinxDocumentationApi"]
 
-LOGGER = logging.getLogger(Constants.logger)
-
-LOGGING_CONSOLE_HANDLER = logging.StreamHandler(sys.stdout)
-LOGGING_CONSOLE_HANDLER.setFormatter(core.LOGGING_DEFAULT_FORMATTER)
-LOGGER.addHandler(LOGGING_CONSOLE_HANDLER)
-
-core.setVerbosityLevel(3)
+LOGGER = foundations.verbose.installLogger()
 
 FILES_EXTENSION = ".rst"
 
@@ -94,6 +83,9 @@ DECORATORS_COMMENT_MESSAGE = "#***\tSphinx: Decorator commented for auto-documen
 
 CONTENT_SUBSTITUTIONS = {"This method initializes the class.\n" :
 						".. Sphinx: Statements updated for auto-documentation purpose.\n"}
+
+foundations.verbose.getLoggingConsoleHandler()
+foundations.verbose.setVerbosityLevel(3)
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.

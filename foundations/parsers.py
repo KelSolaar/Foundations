@@ -20,7 +20,6 @@
 #**********************************************************************************************************************
 import base64
 import datetime
-import logging
 import re
 import sys
 from xml.etree import ElementTree
@@ -33,14 +32,13 @@ else:
 #***	Internal imports.
 #**********************************************************************************************************************
 import foundations.common
-import foundations.core as core
 import foundations.dataStructures
 import foundations.exceptions
 import foundations.io as io
 import foundations.namespace as namespace
 import foundations.strings as strings
+import foundations.verbose
 import foundations.walkers
-from foundations.globals.constants import Constants
 
 #**********************************************************************************************************************
 #***	Module attributes.
@@ -54,7 +52,7 @@ __status__ = "Production"
 
 __all__ = ["LOGGER", "AttributeCompound", "SectionsFileParser", "PlistFileParser", "getAttributeCompound"]
 
-LOGGER = logging.getLogger(Constants.logger)
+LOGGER = foundations.verbose.installLogger()
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.

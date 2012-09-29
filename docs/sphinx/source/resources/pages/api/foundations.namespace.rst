@@ -6,8 +6,6 @@ _`foundations.namespace`
 Module Attributes
 -----------------
 
-.. attribute:: foundations.namespace.LOGGER
-
 .. attribute:: foundations.namespace.NAMESPACE_SPLITTER
 
 Functions

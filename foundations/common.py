@@ -21,15 +21,13 @@
 #***	External imports.
 #**********************************************************************************************************************
 import itertools
-import logging
 import os
 
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
-import foundations.core as core
 import foundations.exceptions
-from foundations.globals.constants import Constants
+import foundations.verbose
 
 #**********************************************************************************************************************
 #***	Module attributes.
@@ -52,7 +50,7 @@ __all__ = ["LOGGER",
 			"repeat",
 			"dependencyResolver"]
 
-LOGGER = logging.getLogger(Constants.logger)
+LOGGER = foundations.verbose.installLogger()
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.

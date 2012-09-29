@@ -17,7 +17,6 @@
 #**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
-import logging
 import os
 import shutil
 
@@ -25,9 +24,8 @@ import shutil
 #***	Internal imports.
 #**********************************************************************************************************************
 import foundations.common
-import foundations.core as core
+import foundations.verbose
 import foundations.exceptions
-from foundations.globals.constants import Constants
 
 #**********************************************************************************************************************
 #***	Module attributes.
@@ -41,7 +39,7 @@ __status__ = "Production"
 
 __all__ = ["LOGGER", "File", "setDirectory", "copy", "remove"]
 
-LOGGER = logging.getLogger(Constants.logger)
+LOGGER = foundations.verbose.installLogger()
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.

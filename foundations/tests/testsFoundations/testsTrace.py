@@ -18,6 +18,7 @@
 #***	External imports.
 #**********************************************************************************************************************
 import inspect
+import logging
 import types
 import sys
 if sys.version_info[:2] <= (2, 6):
@@ -29,6 +30,7 @@ else:
 #***	Internal imports.
 #**********************************************************************************************************************
 import foundations.core as core
+from foundations.globals.constants import Constants
 
 #**********************************************************************************************************************
 #***	Module attributes.
@@ -40,7 +42,9 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["GetFrameTestCase",
+__all__ = ["StandardMessageHookTestCase",
+		"SetVerbosityLevelTestCase",
+		"GetFrameTestCase",
 		"GetCodeLayerNameTestCase",
 		"GetModuleTestCase",
 		"GetTraceNameTestCase"]
@@ -48,6 +52,47 @@ __all__ = ["GetFrameTestCase",
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
+class StandardMessageHookTestCase(unittest.TestCase):
+	"""
+	This class defines :class:`foundations.core.StandardMessageHook` class units tests methods.
+	"""
+
+	def testRequiredAttributes(self):
+		"""
+		This method tests presence of required attributes.
+		"""
+
+		requiredAttributes = ("logger",)
+
+		for attribute in requiredAttributes:
+			self.assertIn(attribute, dir(core.StandardMessageHook))
+
+	def testRequiredMethods(self):
+		"""
+		This method tests presence of required methods.
+		"""
+
+		requiredMethods = ("write",)
+
+		for method in requiredMethods:
+			self.assertIn(method, dir(core.StandardMessageHook))
+
+class SetVerbosityLevelTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.foundations.verbose.setVerbosityLevel` definition units tests methods.
+	"""
+
+	def testSetVerbosityLevel(self):
+		"""
+		This method tests :func:`foundations.foundations.verbose.setVerbosityLevel` definition.
+		"""
+
+		logger = logging.getLogger(Constants.logger)
+		levels = {logging.CRITICAL:0, logging.ERROR:1, logging.WARNING:2, logging.INFO:3, logging.DEBUG:4  }
+		for level, value in levels.iteritems():
+			foundations.verbose.setVerbosityLevel(value)
+			self.assertEqual(level, logger.level)
+
 class GetFrameTestCase(unittest.TestCase):
 	"""
 	This class defines :func:`foundations.core.getFrame` definition units tests methods.

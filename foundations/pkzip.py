@@ -18,18 +18,15 @@
 #***	External imports.
 #**********************************************************************************************************************
 from cStringIO import StringIO
-import logging
 import os
 import zipfile
 
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
-import foundations.common
-import foundations.core as core
 import foundations.io as io
 import foundations.exceptions
-from foundations.globals.constants import Constants
+import foundations.verbose
 
 #**********************************************************************************************************************
 #***	Module attributes.
@@ -43,7 +40,7 @@ __status__ = "Production"
 
 __all__ = ["LOGGER", "Pkzip"]
 
-LOGGER = logging.getLogger(Constants.logger)
+LOGGER = foundations.verbose.installLogger()
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.

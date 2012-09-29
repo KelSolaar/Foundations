@@ -19,7 +19,6 @@
 #**********************************************************************************************************************
 import functools
 import inspect
-import logging
 import sys
 import traceback
 
@@ -27,6 +26,7 @@ import traceback
 #***	Internal imports.
 #**********************************************************************************************************************
 import foundations.core as core
+import foundations.verbose
 from foundations.globals.constants import Constants
 
 #**********************************************************************************************************************
@@ -67,7 +67,7 @@ __all__ = ["LOGGER",
 			"AbstractServerError",
 			"ServerOperationError"]
 
-LOGGER = logging.getLogger(Constants.logger)
+LOGGER = foundations.verbose.installLogger()
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.

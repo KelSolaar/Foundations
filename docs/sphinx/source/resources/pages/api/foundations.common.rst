@@ -3,11 +3,6 @@ _`foundations.common`
 
 .. automodule:: foundations.common
 
-Module Attributes
------------------
-
-.. attribute:: foundations.common.LOGGER
-
 Functions
 ---------
 
@@ -24,4 +19,6 @@ Functions
 .. autofunction:: isBinaryFile
 
 .. autofunction:: repeat
+
+.. autofunction:: dependencyResolver
 

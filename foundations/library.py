@@ -18,7 +18,6 @@
 #***	External imports.
 #**********************************************************************************************************************
 import ctypes
-import logging
 import os
 import platform
 
@@ -26,10 +25,9 @@ import platform
 #***	Internal imports.
 #**********************************************************************************************************************
 import foundations.common
-import foundations.core as core
 import foundations.dataStructures
 import foundations.exceptions
-from foundations.globals.constants import Constants
+import foundations.verbose
 
 #**********************************************************************************************************************
 #***	Module attributes.
@@ -43,7 +41,7 @@ __status__ = "Production"
 
 __all__ = ["LOGGER", "LibraryHook", "Library"]
 
-LOGGER = logging.getLogger(Constants.logger)
+LOGGER = foundations.verbose.installLogger()
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.

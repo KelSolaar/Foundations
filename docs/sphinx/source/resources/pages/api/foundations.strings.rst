@@ -3,11 +3,6 @@ _`foundations.strings`
 
 .. automodule:: foundations.strings
 
-Module Attributes
------------------
-
-.. attribute:: foundations.strings.LOGGER
-
 Functions
 ---------
 
