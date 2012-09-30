@@ -31,7 +31,7 @@ else:
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
-import foundations.namespace as namespace
+import foundations.namespace
 import foundations.parsers
 import foundations.walkers
 from foundations.parsers import PlistFileParser
@@ -548,9 +548,9 @@ class SectionsFileParserTestCase(unittest.TestCase):
 			sectionsFileParser = SectionsFileParser(file)
 			sectionsFileParser.read() and sectionsFileParser.parse(False, rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			for attribute in RANDOM_ATTRIBUTES[type]:
-				self.assertTrue(sectionsFileParser.attributeExists(attribute, namespace.getNamespace(attribute,
+				self.assertTrue(sectionsFileParser.attributeExists(attribute, foundations.namespace.getNamespace(attribute,
 																									rootOnly=True)))
-				self.assertFalse(sectionsFileParser.attributeExists("Unknown", namespace.getNamespace(attribute,
+				self.assertFalse(sectionsFileParser.attributeExists("Unknown", foundations.namespace.getNamespace(attribute,
 																									rootOnly=True)))
 
 	def testGetAttributes(self):
@@ -591,12 +591,12 @@ class SectionsFileParserTestCase(unittest.TestCase):
 			sectionsFileParser = SectionsFileParser(file)
 			sectionsFileParser.read() and sectionsFileParser.parse(False, rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			for attribute, value in RANDOM_ATTRIBUTES[type].iteritems():
-				self.assertIsInstance(sectionsFileParser.getValue(attribute, namespace.getNamespace(attribute,
+				self.assertIsInstance(sectionsFileParser.getValue(attribute, foundations.namespace.getNamespace(attribute,
 																									rootOnly=True)), str)
-				self.assertIsInstance(sectionsFileParser.getValue(attribute, namespace.getNamespace(attribute,
+				self.assertIsInstance(sectionsFileParser.getValue(attribute, foundations.namespace.getNamespace(attribute,
 																									rootOnly=True),
 																									encode=True), unicode)
-				self.assertEqual(sectionsFileParser.getValue(attribute, namespace.getNamespace(attribute,
+				self.assertEqual(sectionsFileParser.getValue(attribute, foundations.namespace.getNamespace(attribute,
 																								rootOnly=True)), value)
 			self.assertEqual(sectionsFileParser.getValue("attribute", "section", default=None), None)
 			self.assertEqual(sectionsFileParser.getValue("attribute", "section", default=list()), list())

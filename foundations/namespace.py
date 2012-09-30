@@ -70,7 +70,7 @@ def setNamespace(namespace, attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def getNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False):
 	"""
-	This definition returns given attribute namespace.
+	This definition returns given attribute foundations.namespace.
 
 	Usage::
 		
@@ -81,8 +81,8 @@ def getNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False
 
 	:param attribute: Attribute. ( String )
 	:param namespaceSplitter: Namespace splitter character. ( String )
-	:param rootOnly: Return only root namespace. ( Boolean )
-	:return: Attribute namespace. ( String )
+	:param rootOnly: Return only root foundations.namespace. ( Boolean )
+	:return: Attribute foundations.namespace. ( String )
 	"""
 
 	attributeTokens = attribute.split(namespaceSplitter)
@@ -97,7 +97,7 @@ def getNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False
 @foundations.exceptions.exceptionsHandler(None, False, Exception)
 def removeNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False):
 	"""
-	This definition returns attribute with stripped namespace.
+	This definition returns attribute with stripped foundations.namespace.
 
 	Usage::
 		
@@ -108,8 +108,8 @@ def removeNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=Fa
 
 	:param attribute: Attribute. ( String )
 	:param namespaceSplitter: Namespace splitter character. ( String )
-	:param rootOnly: Remove only root namespace. ( Boolean )
-	:return: Attribute without namespace. ( String )
+	:param rootOnly: Remove only root foundations.namespace. ( Boolean )
+	:return: Attribute without foundations.namespace. ( String )
 	"""
 
 	attributeTokens = attribute.split(namespaceSplitter)
@@ -132,7 +132,7 @@ def getRoot(attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 
 	:param attribute: Attribute. ( String )
 	:param namespaceSplitter: Namespace splitter character. ( String )
-	:return: Attribute namespace. ( String )
+	:return: Attribute foundations.namespace. ( String )
 	"""
 
 	return getNamespace(attribute, namespaceSplitter, rootOnly=True)
@@ -151,7 +151,7 @@ def getLeaf(attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 
 	:param attribute: Attribute. ( String )
 	:param namespaceSplitter: Namespace splitter character. ( String )
-	:return: Attribute namespace. ( String )
+	:return: Attribute foundations.namespace. ( String )
 	"""
 
 	return foundations.common.getLastItem(attribute.split(namespaceSplitter))

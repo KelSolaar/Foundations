@@ -29,7 +29,7 @@ else:
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
-import foundations.strings as strings
+import foundations.strings
 
 #**********************************************************************************************************************
 #***	Module attributes.
@@ -70,10 +70,10 @@ class EncodeTestCase(unittest.TestCase):
 		This method tests :func:`foundations.strings.encode` definition.
 		"""
 
-		self.assertIsInstance(strings.encode("myData"), unicode)
-		self.assertIsInstance(strings.encode(0), unicode)
-		self.assertIsInstance(strings.encode(None), unicode)
-		self.assertIsInstance(strings.encode(True), unicode)
+		self.assertIsInstance(foundations.strings.encode("myData"), unicode)
+		self.assertIsInstance(foundations.strings.encode(0), unicode)
+		self.assertIsInstance(foundations.strings.encode(None), unicode)
+		self.assertIsInstance(foundations.strings.encode(True), unicode)
 
 class GetNiceNameTestCase(unittest.TestCase):
 	"""
@@ -85,12 +85,12 @@ class GetNiceNameTestCase(unittest.TestCase):
 		This method tests :func:`foundations.strings.getNiceName` definition.
 		"""
 
-		self.assertIsInstance(strings.getNiceName("testGetNiceName"), str)
-		self.assertEqual(strings.getNiceName("testGetNiceName"), "Test Get Nice Name")
-		self.assertEqual(strings.getNiceName("TestGetNiceName"), "Test Get Nice Name")
-		self.assertEqual(strings.getNiceName("_testGetNiceName"), "_Test Get Nice Name")
-		self.assertEqual(strings.getNiceName("Test Get NiceName"), "Test Get Nice Name")
-		self.assertEqual(strings.getNiceName("testGetMeANiceName"), "Test Get Me A Nice Name")
+		self.assertIsInstance(foundations.strings.getNiceName("testGetNiceName"), str)
+		self.assertEqual(foundations.strings.getNiceName("testGetNiceName"), "Test Get Nice Name")
+		self.assertEqual(foundations.strings.getNiceName("TestGetNiceName"), "Test Get Nice Name")
+		self.assertEqual(foundations.strings.getNiceName("_testGetNiceName"), "_Test Get Nice Name")
+		self.assertEqual(foundations.strings.getNiceName("Test Get NiceName"), "Test Get Nice Name")
+		self.assertEqual(foundations.strings.getNiceName("testGetMeANiceName"), "Test Get Me A Nice Name")
 
 class GetVersionRankTestCase(unittest.TestCase):
 	"""
@@ -102,11 +102,11 @@ class GetVersionRankTestCase(unittest.TestCase):
 		This method tests :func:`foundations.strings.getVersionRank` definition.
 		"""
 
-		self.assertIsInstance(strings.getVersionRank("0.0.0"), int)
-		self.assertEqual(strings.getVersionRank("0.0.0"), 0)
-		self.assertEqual(strings.getVersionRank("0.1.0"), 10)
-		self.assertEqual(strings.getVersionRank("1.1.0"), 110)
-		self.assertEqual(strings.getVersionRank("1.2.3.4.5"), 12345)
+		self.assertIsInstance(foundations.strings.getVersionRank("0.0.0"), int)
+		self.assertEqual(foundations.strings.getVersionRank("0.0.0"), 0)
+		self.assertEqual(foundations.strings.getVersionRank("0.1.0"), 10)
+		self.assertEqual(foundations.strings.getVersionRank("1.1.0"), 110)
+		self.assertEqual(foundations.strings.getVersionRank("1.2.3.4.5"), 12345)
 
 class GetSplitextBasenameTestCase(unittest.TestCase):
 	"""
@@ -118,10 +118,10 @@ class GetSplitextBasenameTestCase(unittest.TestCase):
 		This method tests :func:`foundations.strings.getSplitextBasename` definition.
 		"""
 
-		self.assertIsInstance(strings.getSplitextBasename("/Users/JohnDoe/Documents"), str)
-		self.assertEqual(strings.getSplitextBasename("/Users/JohnDoe/Documents/Test.txt"), "Test")
-		self.assertEqual(strings.getSplitextBasename("/Users/JohnDoe/Documents/Test"), "Test")
-		self.assertEqual(strings.getSplitextBasename("/Users/JohnDoe/Documents/Test/"), "Test")
+		self.assertIsInstance(foundations.strings.getSplitextBasename("/Users/JohnDoe/Documents"), str)
+		self.assertEqual(foundations.strings.getSplitextBasename("/Users/JohnDoe/Documents/Test.txt"), "Test")
+		self.assertEqual(foundations.strings.getSplitextBasename("/Users/JohnDoe/Documents/Test"), "Test")
+		self.assertEqual(foundations.strings.getSplitextBasename("/Users/JohnDoe/Documents/Test/"), "Test")
 
 class GetCommonAncestorTestCase(unittest.TestCase):
 	"""
@@ -133,12 +133,12 @@ class GetCommonAncestorTestCase(unittest.TestCase):
 		This method tests :func:`foundations.strings.getCommonAncestor` definition.
 		"""
 
-		self.assertTupleEqual(strings.getCommonAncestor(("1", "2", "3"), ("1", "2", "0"), ("1", "2", "3", "4")),
+		self.assertTupleEqual(foundations.strings.getCommonAncestor(("1", "2", "3"), ("1", "2", "0"), ("1", "2", "3", "4")),
 														("1", "2"))
-		self.assertEqual(strings.getCommonAncestor("azerty", "azetty", "azello"), "aze")
-		self.assertEqual(strings.getCommonAncestor("/Users/JohnDoe/Documents", "/Users/JohnDoe/Documents/Test.txt"),
+		self.assertEqual(foundations.strings.getCommonAncestor("azerty", "azetty", "azello"), "aze")
+		self.assertEqual(foundations.strings.getCommonAncestor("/Users/JohnDoe/Documents", "/Users/JohnDoe/Documents/Test.txt"),
 						"/Users/JohnDoe/Documents")
-		self.assertFalse(strings.getCommonAncestor("azerty", "qwerty"))
+		self.assertFalse(foundations.strings.getCommonAncestor("azerty", "qwerty"))
 
 class GetCommonPathsAncestorTestCase(unittest.TestCase):
 	"""
@@ -150,14 +150,14 @@ class GetCommonPathsAncestorTestCase(unittest.TestCase):
 		This method tests :func:`foundations.strings.getCommonPathsAncestor` definition.
 		"""
 
-		self.assertEqual(strings.getCommonPathsAncestor("{0}{1}".format(os.sep,
+		self.assertEqual(foundations.strings.getCommonPathsAncestor("{0}{1}".format(os.sep,
 														os.sep.join(("Users", "JohnDoe", "Documents"))),
 														"{0}{1}".format(os.sep,
 														os.sep.join(("Users", "JohnDoe", "Documents", "Test.txt")))),
 														"{0}{1}".format(os.sep,
 														os.sep.join(("Users", "JohnDoe", "Documents"))))
 
-		self.assertFalse(strings.getCommonPathsAncestor("{0}{1}".format(os.sep, os.sep.join(("JohnDoe", "Documents"))),
+		self.assertFalse(foundations.strings.getCommonPathsAncestor("{0}{1}".format(os.sep, os.sep.join(("JohnDoe", "Documents"))),
 														"{0}{1}".format(os.sep,
 														os.sep.join(("Users", "JohnDoe", "Documents", "Test.txt")))))
 
@@ -171,10 +171,10 @@ class GetWordsTestCase(unittest.TestCase):
 		This method tests :func:`foundations.strings.getWords` definition.
 		"""
 
-		self.assertIsInstance(strings.getWords("Users are John Doe and Jane Doe."), list)
-		self.assertListEqual(strings.getWords("Users are John Doe and Jane Doe."),
+		self.assertIsInstance(foundations.strings.getWords("Users are John Doe and Jane Doe."), list)
+		self.assertListEqual(foundations.strings.getWords("Users are John Doe and Jane Doe."),
 							"Users are John Doe and Jane Doe".split())
-		self.assertListEqual(strings.getWords("Users are: John Doe, Jane Doe, Z6PO."),
+		self.assertListEqual(foundations.strings.getWords("Users are: John Doe, Jane Doe, Z6PO."),
 							"Users are John Doe Jane Doe Z6PO".split())
 
 class FilterWordsTestCase(unittest.TestCase):
@@ -187,24 +187,24 @@ class FilterWordsTestCase(unittest.TestCase):
 		This method tests :func:`foundations.strings.filterWords` definition.
 		"""
 
-		self.assertIsInstance(strings.filterWords("Users are John Doe and Jane Doe".split()), list)
-		self.assertListEqual(strings.filterWords("Users are John Doe and Jane Doe".split(),
+		self.assertIsInstance(foundations.strings.filterWords("Users are John Doe and Jane Doe".split()), list)
+		self.assertListEqual(foundations.strings.filterWords("Users are John Doe and Jane Doe".split(),
 												filtersIn=("Users", "John")),
 												"Users John".split())
-		self.assertListEqual(strings.filterWords("Users are John Doe and Jane Doe".split(),
+		self.assertListEqual(foundations.strings.filterWords("Users are John Doe and Jane Doe".split(),
 												filtersIn=("users", "john"),
 												flags=re.IGNORECASE),
 												"Users John".split())
-		self.assertListEqual(strings.filterWords("Users are John Doe and Jane Doe".split(),
+		self.assertListEqual(foundations.strings.filterWords("Users are John Doe and Jane Doe".split(),
 												filtersIn=("Nemo",)),
 												[])
-		self.assertListEqual(strings.filterWords("Users are John Doe and Jane Doe".split(),
+		self.assertListEqual(foundations.strings.filterWords("Users are John Doe and Jane Doe".split(),
 												filtersOut=("Users", "John")),
 												"are Doe and Jane Doe".split())
-		self.assertListEqual(strings.filterWords("Users are John Doe and Jane Doe".split(),
+		self.assertListEqual(foundations.strings.filterWords("Users are John Doe and Jane Doe".split(),
 												filtersOut=("Users are John Doe and Jane Doe".split())),
 												[])
-		self.assertListEqual(strings.filterWords("Users are John Doe and Jane Doe".split(),
+		self.assertListEqual(foundations.strings.filterWords("Users are John Doe and Jane Doe".split(),
 												filtersIn=("Users",),
 												filtersOut=("Users",)),
 												[])
@@ -219,10 +219,10 @@ class ReplaceTestCase(unittest.TestCase):
 		This method tests :func:`foundations.strings.replace` definition.
 		"""
 
-		self.assertIsInstance(strings.replace("To@Forward|Slashes@Test|Case", {}), str)
-		self.assertEqual(strings.replace("To@Forward|Slashes@Test|Case", {"@":"|", "|":":"}),
+		self.assertIsInstance(foundations.strings.replace("To@Forward|Slashes@Test|Case", {}), str)
+		self.assertEqual(foundations.strings.replace("To@Forward|Slashes@Test|Case", {"@":"|", "|":":"}),
 						"To:Forward:Slashes:Test:Case")
-		self.assertEqual(strings.replace("To@Forward@Slashes@Test@Case", {"@":"|", "|":"@"}),
+		self.assertEqual(foundations.strings.replace("To@Forward@Slashes@Test@Case", {"@":"|", "|":"@"}),
 						"To@Forward@Slashes@Test@Case")
 
 class RemoveStripTestCase(unittest.TestCase):
@@ -235,9 +235,9 @@ class RemoveStripTestCase(unittest.TestCase):
 		This method tests :func:`foundations.strings.removeStrip` definition.
 		"""
 
-		self.assertIsInstance(strings.removeStrip("John Doe", "John"), str)
-		self.assertEqual(strings.removeStrip("John Doe", "John"), "Doe")
-		self.assertEqual(strings.removeStrip("John Doe", "Doe"), "John")
+		self.assertIsInstance(foundations.strings.removeStrip("John Doe", "John"), str)
+		self.assertEqual(foundations.strings.removeStrip("John Doe", "John"), "Doe")
+		self.assertEqual(foundations.strings.removeStrip("John Doe", "Doe"), "John")
 
 class ToForwardSlashesTestCase(unittest.TestCase):
 	"""
@@ -249,9 +249,9 @@ class ToForwardSlashesTestCase(unittest.TestCase):
 		This method tests :func:`foundations.strings.toForwardSlashes` definition.
 		"""
 
-		self.assertIsInstance(strings.toForwardSlashes("To\Forward\Slashes\Test\Case"), str)
-		self.assertEqual(strings.toForwardSlashes("To\Forward\Slashes\Test\Case"), "To/Forward/Slashes/Test/Case")
-		self.assertEqual(strings.toForwardSlashes("\Users/JohnDoe\Documents"), "/Users/JohnDoe/Documents")
+		self.assertIsInstance(foundations.strings.toForwardSlashes("To\Forward\Slashes\Test\Case"), str)
+		self.assertEqual(foundations.strings.toForwardSlashes("To\Forward\Slashes\Test\Case"), "To/Forward/Slashes/Test/Case")
+		self.assertEqual(foundations.strings.toForwardSlashes("\Users/JohnDoe\Documents"), "/Users/JohnDoe/Documents")
 
 class ToBackwardSlashesTestCase(unittest.TestCase):
 	"""
@@ -263,9 +263,9 @@ class ToBackwardSlashesTestCase(unittest.TestCase):
 		This method tests :func:`foundations.strings.toBackwardSlashes` definition.
 		"""
 
-		self.assertIsInstance(strings.toBackwardSlashes("\Users\JohnDoe\Documents"), str)
-		self.assertEqual(strings.toBackwardSlashes("To/Forward/Slashes/Test/Case"), "To\Forward\Slashes\Test\Case")
-		self.assertEqual(strings.toBackwardSlashes("/Users/JohnDoe/Documents"), "\Users\JohnDoe\Documents")
+		self.assertIsInstance(foundations.strings.toBackwardSlashes("\Users\JohnDoe\Documents"), str)
+		self.assertEqual(foundations.strings.toBackwardSlashes("To/Forward/Slashes/Test/Case"), "To\Forward\Slashes\Test\Case")
+		self.assertEqual(foundations.strings.toBackwardSlashes("/Users/JohnDoe/Documents"), "\Users\JohnDoe\Documents")
 
 class ToPosixPathTestCase(unittest.TestCase):
 	"""
@@ -277,9 +277,9 @@ class ToPosixPathTestCase(unittest.TestCase):
 		This method tests :func:`foundations.strings.toPosixPath` definition.
 		"""
 
-		self.assertIsInstance(strings.toPosixPath("c:\\Users\\JohnDoe\\Documents"), str)
-		self.assertEqual(strings.toPosixPath("c:\\Users\\JohnDoe\\Documents"), "/Users/JohnDoe/Documents")
-		self.assertEqual(strings.toPosixPath("\\Server\Users\\JohnDoe\\Documents"), "/Server/Users/JohnDoe/Documents")
+		self.assertIsInstance(foundations.strings.toPosixPath("c:\\Users\\JohnDoe\\Documents"), str)
+		self.assertEqual(foundations.strings.toPosixPath("c:\\Users\\JohnDoe\\Documents"), "/Users/JohnDoe/Documents")
+		self.assertEqual(foundations.strings.toPosixPath("\\Server\Users\\JohnDoe\\Documents"), "/Server/Users/JohnDoe/Documents")
 
 class GetNormalizedPathTestCase(unittest.TestCase):
 	"""
@@ -291,14 +291,14 @@ class GetNormalizedPathTestCase(unittest.TestCase):
 		This method tests :func:`foundations.strings.getNormalizedPath` definition.
 		"""
 
-		self.assertIsInstance(strings.getNormalizedPath("/Users/JohnDoe/Documents"), str)
+		self.assertIsInstance(foundations.strings.getNormalizedPath("/Users/JohnDoe/Documents"), str)
 		if platform.system() == "Windows" or platform.system() == "Microsoft":
-			self.assertEqual(strings.getNormalizedPath("C:/Users\JohnDoe/Documents"), r"C:\\Users\\JohnDoe\\Documents")
-			self.assertEqual(strings.getNormalizedPath("C://Users\/JohnDoe//Documents/"), r"C:\\Users\\JohnDoe\\Documents")
-			self.assertEqual(strings.getNormalizedPath("C:\\Users\\JohnDoe\\Documents"), r"C:\\Users\\JohnDoe\\Documents")
+			self.assertEqual(foundations.strings.getNormalizedPath("C:/Users\JohnDoe/Documents"), r"C:\\Users\\JohnDoe\\Documents")
+			self.assertEqual(foundations.strings.getNormalizedPath("C://Users\/JohnDoe//Documents/"), r"C:\\Users\\JohnDoe\\Documents")
+			self.assertEqual(foundations.strings.getNormalizedPath("C:\\Users\\JohnDoe\\Documents"), r"C:\\Users\\JohnDoe\\Documents")
 		else:
-			self.assertEqual(strings.getNormalizedPath("/Users/JohnDoe/Documents/"), "/Users/JohnDoe/Documents")
-			self.assertEqual(strings.getNormalizedPath("/Users\JohnDoe/Documents"), "/Users\JohnDoe/Documents")
+			self.assertEqual(foundations.strings.getNormalizedPath("/Users/JohnDoe/Documents/"), "/Users/JohnDoe/Documents")
+			self.assertEqual(foundations.strings.getNormalizedPath("/Users\JohnDoe/Documents"), "/Users\JohnDoe/Documents")
 
 class IsEmailTestCase(unittest.TestCase):
 	"""
@@ -310,11 +310,11 @@ class IsEmailTestCase(unittest.TestCase):
 		This method tests :func:`foundations.strings.isEmail` definition.
 		"""
 
-		self.assertIsInstance(strings.isEmail("john.doe@domain.com"), bool)
-		self.assertTrue(strings.isEmail("john.doe@domain.com"))
-		self.assertTrue(strings.isEmail("john.doe@domain.server.department.company.com"))
-		self.assertFalse(strings.isEmail("john.doe"))
-		self.assertFalse(strings.isEmail("john.doe@domain"))
+		self.assertIsInstance(foundations.strings.isEmail("john.doe@domain.com"), bool)
+		self.assertTrue(foundations.strings.isEmail("john.doe@domain.com"))
+		self.assertTrue(foundations.strings.isEmail("john.doe@domain.server.department.company.com"))
+		self.assertFalse(foundations.strings.isEmail("john.doe"))
+		self.assertFalse(foundations.strings.isEmail("john.doe@domain"))
 
 class IsWebsiteTestCase(unittest.TestCase):
 	"""
@@ -326,14 +326,14 @@ class IsWebsiteTestCase(unittest.TestCase):
 		This method tests :func:`foundations.strings.isWebsite` definition.
 		"""
 
-		self.assertIsInstance(strings.isWebsite("http://domain.com"), bool)
-		self.assertTrue(strings.isWebsite("http://www.domain.com"))
-		self.assertTrue(strings.isWebsite("http://domain.com"))
-		self.assertTrue(strings.isWebsite("https://domain.com"))
-		self.assertTrue(strings.isWebsite("ftp://domain.com"))
-		self.assertTrue(strings.isWebsite("http://domain.subdomain.com"))
-		self.assertFalse(strings.isWebsite(".com"))
-		self.assertFalse(strings.isWebsite("domain.com"))
+		self.assertIsInstance(foundations.strings.isWebsite("http://domain.com"), bool)
+		self.assertTrue(foundations.strings.isWebsite("http://www.domain.com"))
+		self.assertTrue(foundations.strings.isWebsite("http://domain.com"))
+		self.assertTrue(foundations.strings.isWebsite("https://domain.com"))
+		self.assertTrue(foundations.strings.isWebsite("ftp://domain.com"))
+		self.assertTrue(foundations.strings.isWebsite("http://domain.subdomain.com"))
+		self.assertFalse(foundations.strings.isWebsite(".com"))
+		self.assertFalse(foundations.strings.isWebsite("domain.com"))
 
 if __name__ == "__main__":
 	import foundations.tests.utilities

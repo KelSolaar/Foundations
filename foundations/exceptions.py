@@ -25,7 +25,7 @@ import traceback
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
-import foundations.core as core
+import foundations.core
 import foundations.verbose
 from foundations.globals.constants import Constants
 
@@ -107,7 +107,7 @@ def exceptionsHandler(handler=None, raiseException=False, *args):
 		:return: Object. ( Object )
 		"""
 
-		traceName = core.getTraceName(object)
+		traceName = foundations.core.getTraceName(object)
 
 		@functools.wraps(object)
 		def function(*args, **kwargs):
@@ -165,7 +165,7 @@ def defaultExceptionsHandler(exception, traceName, *args, **kwargs):
 	LOGGER.error("!> {0}".format(Constants.loggingSeparators))
 
 	exceptionType, exceptionValue, trcback = sys.exc_info()
-	stack = core.extractStack(trcback.tb_frame.f_back)
+	stack = foundations.core.extractStack(trcback.tb_frame.f_back)
 	frames = inspect.getinnerframes(trcback)
 	for frame , filename, lineNumber, name, line, value in frames:
 		skipFrame = frame.f_locals.get("__stackTraceFrameTag__")

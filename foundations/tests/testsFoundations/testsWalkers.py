@@ -27,7 +27,7 @@ else:
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
-import foundations.strings as strings
+import foundations.strings
 import foundations.walkers
 from foundations.nodes import AbstractCompositeNode
 
@@ -79,30 +79,30 @@ class FilesWalkerTestCase(unittest.TestCase):
 		for path in foundations.walkers.filesWalker(rootDirectory):
 			self.assertTrue(os.path.exists(path))
 
-		referencePaths = [strings.replace(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY, path),
+		referencePaths = [foundations.strings.replace(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY, path),
 											{"/":"|", "\\":"|"}) for path in FILES_TREE_HIERARCHY]
 		walkerFiles = \
-		[strings.replace(path, {"/":"|", "\\":"|"}) for path in foundations.walkers.filesWalker(rootDirectory)]
+		[foundations.strings.replace(path, {"/":"|", "\\":"|"}) for path in foundations.walkers.filesWalker(rootDirectory)]
 		for item in referencePaths:
 			self.assertIn(item, walkerFiles)
 
 		walkerFiles = \
-		[strings.replace(path, {"/":"|", "\\":"|"}) \
+		[foundations.strings.replace(path, {"/":"|", "\\":"|"}) \
 		for path in foundations.walkers.filesWalker(rootDirectory, filtersOut=("\.rc$",))]
 		for item in walkerFiles:
 			self.assertTrue(not re.search(r"\.rc$", item))
 
 
 		walkerFiles = \
-		[strings.replace(path, {"/":"|", "\\":"|"}) \
+		[foundations.strings.replace(path, {"/":"|", "\\":"|"}) \
 		for path in foundations.walkers.filesWalker(rootDirectory, filtersOut=("\.ibl", "\.rc$", "\.sIBLT$", "\.txt$"))]
 		self.assertTrue(not walkerFiles)
 
 		return
-		referencePaths = [strings.replace(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY, path),
+		referencePaths = [foundations.strings.replace(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY, path),
 										{"/":"|", "\\":"|"}) for path in FILES_TREE_HIERARCHY if re.search(r"\.rc$", path)]
 		walkerFiles = \
-		[strings.replace(path, {"/":"|", "\\":"|"}) \
+		[foundations.strings.replace(path, {"/":"|", "\\":"|"}) \
 		for path in foundations.walkers.filesWalker(rootDirectory, filtersIn=("\.rc$",))]
 		for item in referencePaths:
 			self.assertIn(item, walkerFiles)

@@ -34,9 +34,9 @@ else:
 import foundations.common
 import foundations.dataStructures
 import foundations.exceptions
-import foundations.io as io
-import foundations.namespace as namespace
-import foundations.strings as strings
+import foundations.io
+import foundations.namespace
+import foundations.strings
 import foundations.verbose
 import foundations.walkers
 
@@ -89,7 +89,7 @@ class AttributeCompound(foundations.dataStructures.Structure):
 
 		foundations.dataStructures.Structure.__init__(self, **kwargs)
 
-class SectionsFileParser(io.File):
+class SectionsFileParser(foundations.io.File):
 	"""
 	This class provides methods to parse sections file format files,
 	an alternative configuration file parser is available directly with Python: :class:`ConfigParser.ConfigParser`.
@@ -146,7 +146,7 @@ class SectionsFileParser(io.File):
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
-		io.File.__init__(self, file)
+		foundations.io.File.__init__(self, file)
 
 		# --- Setting class attributes. ---
 		self.__splitters = None
@@ -729,7 +729,7 @@ class SectionsFileParser(io.File):
 		if not self.__sections:
 			return False
 
-		if namespace.removeNamespace(attribute, rootOnly=True) in self.getAttributes(section,
+		if foundations.namespace.removeNamespace(attribute, rootOnly=True) in self.getAttributes(section,
 																					orderedDictionary=True,
 																					stripNamespaces=True):
 			LOGGER.debug("> '{0}' attribute exists in '{1}' section.".format(attribute, section))
@@ -772,7 +772,7 @@ class SectionsFileParser(io.File):
 
 		if stripNamespaces:
 			for attribute, value in self.__sections[section].iteritems():
-				attributes[namespace.removeNamespace(attribute, rootOnly=True)] = value
+				attributes[foundations.namespace.removeNamespace(attribute, rootOnly=True)] = value
 		else:
 			attributes.update(self.__sections[section])
 		LOGGER.debug("> Attributes: '{0}'.".format(attributes))
@@ -841,10 +841,10 @@ class SectionsFileParser(io.File):
 
 		if attribute in self.__sections[section]:
 			value = self.__sections[section][attribute]
-		elif namespace.setNamespace(section, attribute) in self.__sections[section]:
-			value = self.__sections[section][namespace.setNamespace(section, attribute)]
+		elif foundations.namespace.setNamespace(section, attribute) in self.__sections[section]:
+			value = self.__sections[section][foundations.namespace.setNamespace(section, attribute)]
 		LOGGER.debug("> Attribute: '{0}', value: '{1}'.".format(attribute, value))
-		value = strings.encode(value) if encode else value
+		value = foundations.strings.encode(value) if encode else value
 		return value
 
 	@foundations.exceptions.exceptionsHandler(None, False, Exception)
@@ -885,7 +885,7 @@ class SectionsFileParser(io.File):
 		LOGGER.debug("> Setting '{0}' file content.".format(self.file))
 		attributeTemplate = spacesAroundSplitter and "{{0}} {0} {{1}}\n".format(splitter) or \
 							"{{0}} {0} {{1}}\n".format(splitter)
-		attributeTemplate = strings.replace(attributeTemplate, {"{{" : "{", "}}" : "}"})
+		attributeTemplate = foundations.strings.replace(attributeTemplate, {"{{" : "{", "}}" : "}"})
 		commentTemplate = spaceAfterCommentLimiter and "{0} {{0}}\n".format(commentLimiter) or \
 							"{0}{{0}}\n".format(commentLimiter)
 		if self.__defaultsSection in self.__sections:
@@ -929,10 +929,10 @@ class SectionsFileParser(io.File):
 					self.content.append(attributeTemplate.format(attribute, value))
 			if i != len(self.__sections) - 1:
 				self.content.append("\n")
-		io.File.write(self)
+		foundations.io.File.write(self)
 		return True
 
-class PlistFileParser(io.File):
+class PlistFileParser(foundations.io.File):
 	"""
 	This class provides methods to parse plist files.
 	"""
@@ -956,7 +956,7 @@ class PlistFileParser(io.File):
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
-		io.File.__init__(self, file)
+		foundations.io.File.__init__(self, file)
 
 		# --- Setting class attributes. ---
 		self.__elements = None

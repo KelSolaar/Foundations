@@ -24,7 +24,7 @@ import zipfile
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
-import foundations.io as io
+import foundations.io
 import foundations.exceptions
 import foundations.verbose
 
@@ -131,7 +131,7 @@ class Pkzip(object):
 		directories.reverse()
 
 		for directory in directories:
-			not os.path.isdir(os.path.join(target, directory)) and io.setDirectory(os.path.join(target, directory))
+			not os.path.isdir(os.path.join(target, directory)) and foundations.io.setDirectory(os.path.join(target, directory))
 
 		for file in files:
 			LOGGER.info("{0} | Extracting '{1}' file!".format(self.__class__.__name__, file))

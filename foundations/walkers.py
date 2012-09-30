@@ -23,7 +23,7 @@ import os
 #***	Internal imports.
 #**********************************************************************************************************************
 import foundations.exceptions
-import foundations.strings as strings
+import foundations.strings
 import foundations.verbose
 
 #**********************************************************************************************************************
@@ -78,9 +78,9 @@ def filesWalker(directory, filtersIn=None, filtersOut=None, flags=0):
 	for parentDirectory, directories, files in os.walk(directory, topdown=False, followlinks=True):
 		for item in files:
 			LOGGER.debug("> Current file: '{0}' in '{1}'.".format(item, directory))
-			path = strings.toForwardSlashes(os.path.join(parentDirectory, item))
+			path = foundations.strings.toForwardSlashes(os.path.join(parentDirectory, item))
 			if os.path.isfile(path):
-				if not strings.filterWords((path,), filtersIn, filtersOut, flags):
+				if not foundations.strings.filterWords((path,), filtersIn, filtersOut, flags):
 					continue
 
 				LOGGER.debug("> '{0}' file filtered in!".format(path))

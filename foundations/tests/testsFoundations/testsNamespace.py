@@ -26,7 +26,7 @@ else:
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
-import foundations.namespace as namespace
+import foundations.namespace
 
 #**********************************************************************************************************************
 #***	Module attributes.
@@ -57,9 +57,9 @@ class SetNamespaceTestCase(unittest.TestCase):
 		This method tests :func:`foundations.namespace.setNamespace` definition.
 		"""
 
-		self.assertIsInstance(namespace.setNamespace("Namespace", "Attribute"), str)
-		self.assertEqual(namespace.setNamespace("Namespace", "Attribute"), "Namespace|Attribute")
-		self.assertEqual(namespace.setNamespace("Namespace", "Attribute", ":"), "Namespace:Attribute")
+		self.assertIsInstance(foundations.namespace.setNamespace("Namespace", "Attribute"), str)
+		self.assertEqual(foundations.namespace.setNamespace("Namespace", "Attribute"), "Namespace|Attribute")
+		self.assertEqual(foundations.namespace.setNamespace("Namespace", "Attribute", ":"), "Namespace:Attribute")
 
 class GetNamespaceTestCase(unittest.TestCase):
 	"""
@@ -71,11 +71,11 @@ class GetNamespaceTestCase(unittest.TestCase):
 		This method tests :func:`foundations.namespace.getNamespace` definition.
 		"""
 
-		self.assertIsInstance(namespace.getNamespace("Namespace:Attribute", ":"), str)
-		self.assertEqual(namespace.getNamespace("Namespace|Attribute"), "Namespace")
-		self.assertEqual(namespace.getNamespace("Namespace:Attribute", ":"), "Namespace")
-		self.assertEqual(namespace.getNamespace("Namespace|Attribute|Value", rootOnly=True), "Namespace")
-		self.assertIsNone(namespace.getNamespace("Namespace"))
+		self.assertIsInstance(foundations.namespace.getNamespace("Namespace:Attribute", ":"), str)
+		self.assertEqual(foundations.namespace.getNamespace("Namespace|Attribute"), "Namespace")
+		self.assertEqual(foundations.namespace.getNamespace("Namespace:Attribute", ":"), "Namespace")
+		self.assertEqual(foundations.namespace.getNamespace("Namespace|Attribute|Value", rootOnly=True), "Namespace")
+		self.assertIsNone(foundations.namespace.getNamespace("Namespace"))
 
 class RemoveNamespaceTestCase(unittest.TestCase):
 	"""
@@ -87,11 +87,11 @@ class RemoveNamespaceTestCase(unittest.TestCase):
 		This method tests :func:`foundations.namespace.removeNamespace` definition.
 		"""
 
-		self.assertIsInstance(namespace.removeNamespace("Namespace|Attribute"), str)
-		self.assertEqual(namespace.removeNamespace("Namespace|Attribute"), "Attribute")
-		self.assertEqual(namespace.removeNamespace("Namespace:Attribute", ":"), "Attribute")
-		self.assertEqual(namespace.removeNamespace("Namespace|Attribute|Value"), "Value")
-		self.assertEqual(namespace.removeNamespace("Namespace|Attribute|Value", rootOnly=True), "Attribute|Value")
+		self.assertIsInstance(foundations.namespace.removeNamespace("Namespace|Attribute"), str)
+		self.assertEqual(foundations.namespace.removeNamespace("Namespace|Attribute"), "Attribute")
+		self.assertEqual(foundations.namespace.removeNamespace("Namespace:Attribute", ":"), "Attribute")
+		self.assertEqual(foundations.namespace.removeNamespace("Namespace|Attribute|Value"), "Value")
+		self.assertEqual(foundations.namespace.removeNamespace("Namespace|Attribute|Value", rootOnly=True), "Attribute|Value")
 
 class GetRootTestCase(unittest.TestCase):
 	"""
@@ -103,9 +103,9 @@ class GetRootTestCase(unittest.TestCase):
 		This method tests :func:`foundations.namespace.getRoot` definition.
 		"""
 
-		self.assertEqual(namespace.getRoot("Attribute"), None)
-		self.assertEqual(namespace.getRoot("Namespace|Attribute"), "Namespace")
-		self.assertEqual(namespace.getRoot("Namespace:Attribute", ":"), "Namespace")
+		self.assertEqual(foundations.namespace.getRoot("Attribute"), None)
+		self.assertEqual(foundations.namespace.getRoot("Namespace|Attribute"), "Namespace")
+		self.assertEqual(foundations.namespace.getRoot("Namespace:Attribute", ":"), "Namespace")
 
 class GetLeafTestCase(unittest.TestCase):
 	"""
@@ -117,9 +117,9 @@ class GetLeafTestCase(unittest.TestCase):
 		This method tests :func:`foundations.namespace.getLeaf` definition.
 		"""
 
-		self.assertEqual(namespace.getLeaf("Attribute"), "Attribute")
-		self.assertEqual(namespace.getLeaf("Namespace|Attribute"), "Attribute")
-		self.assertEqual(namespace.getLeaf("Namespace:Attribute", ":"), "Attribute")
+		self.assertEqual(foundations.namespace.getLeaf("Attribute"), "Attribute")
+		self.assertEqual(foundations.namespace.getLeaf("Namespace|Attribute"), "Attribute")
+		self.assertEqual(foundations.namespace.getLeaf("Namespace:Attribute", ":"), "Attribute")
 
 if __name__ == "__main__":
 	import foundations.tests.utilities
