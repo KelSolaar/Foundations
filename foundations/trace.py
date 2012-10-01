@@ -1,8 +1,12 @@
 import functools
 import inspect
+import re
 import sys
 
-TRACED_MODULES = set()
+REGISTERED_MODULES = set()
+
+TRACER_SYMBOL = "_trace__tracer__"
+UNTRACER_SYMBOL = "_trace__untracer__"
 
 def getName(item):
 	" Return an item's name. "
@@ -32,41 +36,48 @@ def formatArguments(arg_val):
 	arg, val = arg_val
 	return "%s=%r" % (arg, val)
 
-def defaultTracer(fn):
+def tracer(function):
 	""" Echo calls to a function.
 
 	Returns a decorated version of the input function which "tracees" calls
 	made to it by writing out the function's name and the arguments it was
 	called with.
 	"""
-	# Unpack function's arg count, arg names, arg defaults
-	code = fn.func_code
-	argcount = code.co_argcount
-	argnames = code.co_varnames[:argcount]
-	fn_defaults = fn.func_defaults or list()
-	argdefs = dict(zip(argnames[-len(fn_defaults):], fn_defaults))
 
-	@functools.wraps(fn)
-	def wrapped(*v, **k):
-		# Collect function arguments by chaining together positional,
-		# defaulted, extra positional and keyword arguments.
-		positional = map(formatArguments, zip(argnames, v))
-		defaulted = [formatArguments((a, argdefs[a])) for a in argnames[len(v):] if a not in k]
-		nameless = map(repr, v[argcount:])
-		keyword = map(formatArguments, k.items())
-		args = positional + defaulted + nameless + keyword
-		print("%s(%s)" % (getName(fn), ", ".join(args)))
-		return fn(*v, **k)
+	@functools.wraps(function)
+	def wrapped(*args, **kwargs):
+		# print inspect.currentframe().f_back.f_code.co_name
+
+		code = function.func_code
+		argsCount = code.co_argcount
+		argsNames = code.co_varnames[:argsCount]
+		functionDefaults = function.func_defaults or list()
+		argsDefaults = dict(zip(argsNames[-len(functionDefaults):], functionDefaults))
+
+		positionalArgs = map(formatArguments, zip(argsNames, args))
+		defaultedArgs = [formatArguments((name, argsDefaults[name])) for name in argsNames[len(args):] if name not in kwargs]
+		namelessArgs = map(repr, args[argsCount:])
+		keywordArgs = map(formatArguments, kwargs.items())
+		sys.stdout.write("{0}.({1})\n".format(getName(function),
+											", ".join(positionalArgs + defaultedArgs + namelessArgs + keywordArgs)))
+		return function(*args, **kwargs)
 	return wrapped
 
-def traceInstancemethod(cls, method, tracer=defaultTracer):
+def untracer(function):
+	@functools.wraps(function)
+	def wrapped(*args, **kwargs):
+		return function(*args, **kwargs)
+	setattr(wrapped, UNTRACER_SYMBOL, True)
+	return wrapped
+
+def traceInstancemethod(cls, method, tracer=tracer):
 	""" Change an instancemethod so that calls to it are traceed.
 
 	Replacing a classmethod is a little more tricky.
 	See: http://www.python.org/doc/current/ref/types.html
 	"""
 	name = getMethodName(method)
-	if name in ("__str__", "__repr__"):
+	if name in ("__str__", "__repr__") or method.__dict__.get(UNTRACER_SYMBOL):
 		return
 
 	if isClassMethod(method):
@@ -74,37 +85,57 @@ def traceInstancemethod(cls, method, tracer=defaultTracer):
 	else:
 		setattr(cls, name, tracer(method))
 
-def traceClass(cls, tracer=defaultTracer):
+def traceClass(cls, tracer=tracer):
 	""" Echo calls to class methods and static functions
 	"""
 	for name, method in inspect.getmembers(cls, inspect.ismethod):
+		if method.__dict__.get(UNTRACER_SYMBOL):
+			continue
+
 		traceInstancemethod(cls, method)
-	for name, fn in inspect.getmembers(cls, inspect.isfunction):
-		setattr(cls, getName(fn), staticmethod(tracer(fn)))
+
+	for name, function in inspect.getmembers(cls, inspect.isfunction):
+		if function.__dict__.get(UNTRACER_SYMBOL):
+			continue
+
+		setattr(cls, getName(function), staticmethod(tracer(function)))
+
 	for name, accessor in inspect.getmembers(cls, lambda x: type(x) is property):
+		if accessor.fget.__dict__.get(UNTRACER_SYMBOL) or \
+		accessor.fset.__dict__.get(UNTRACER_SYMBOL) or \
+		accessor.fdel.__dict__.get(UNTRACER_SYMBOL):
+			continue
+
 		setattr(cls, name, property(tracer(accessor.fget),
 									tracer(accessor.fset),
 									tracer(accessor.fdel)))
 
-def traceModule(module, tracer=defaultTracer):
+def traceModule(module, tracer=tracer):
 	""" Echo calls to functions and methods in a module.
 	"""
-	for fname, fn in inspect.getmembers(module, inspect.isfunction):
-		setattr(module, fname, tracer(fn))
+	for name, function in inspect.getmembers(module, inspect.isfunction):
+		if function.__dict__.get(UNTRACER_SYMBOL):
+			continue
+
+		setattr(module, name, tracer(function))
+
 	for name, cls in inspect.getmembers(module, inspect.isclass):
 		traceClass(cls)
 
 def registerModule(module=None):
-	global TRACED_MODULES
+	global REGISTERED_MODULES
 	if module is None:
 		# Note: inspect.getmodule() can return the wrong module if it has been imported with different relatives paths.
 		module = sys.modules.get(inspect.currentframe().f_back.f_globals["__name__"])
-	TRACED_MODULES.add(module)
+	REGISTERED_MODULES.add(module)
 
-def installTracer():
-	for module in TRACED_MODULES:
-		if hasattr(module, "__trace__"):
+def installTracer(pattern=r".*", flags=0):
+	for module in REGISTERED_MODULES:
+		if hasattr(module, TRACER_SYMBOL):
+			continue
+
+		if not re.search(pattern, module.__name__, flags=flags):
 			continue
 
 		traceModule(module)
-		module.__trace__ = True
+		setattr(module, TRACER_SYMBOL, True)

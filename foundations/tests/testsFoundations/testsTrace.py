@@ -42,7 +42,7 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["StandardMessageHookTestCase",
+__all__ = ["StandardOutputStreamerTestCase",
 		"SetVerbosityLevelTestCase",
 		"GetFrameTestCase",
 		"GetCodeLayerNameTestCase",
@@ -52,9 +52,9 @@ __all__ = ["StandardMessageHookTestCase",
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class StandardMessageHookTestCase(unittest.TestCase):
+class StandardOutputStreamerTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.core.StandardMessageHook` class units tests methods.
+	This class defines :class:`foundations.core.StandardOutputStreamer` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
@@ -65,7 +65,7 @@ class StandardMessageHookTestCase(unittest.TestCase):
 		requiredAttributes = ("logger",)
 
 		for attribute in requiredAttributes:
-			self.assertIn(attribute, dir(core.StandardMessageHook))
+			self.assertIn(attribute, dir(core.StandardOutputStreamer))
 
 	def testRequiredMethods(self):
 		"""
@@ -75,16 +75,16 @@ class StandardMessageHookTestCase(unittest.TestCase):
 		requiredMethods = ("write",)
 
 		for method in requiredMethods:
-			self.assertIn(method, dir(core.StandardMessageHook))
+			self.assertIn(method, dir(core.StandardOutputStreamer))
 
 class SetVerbosityLevelTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.foundations.verbose.setVerbosityLevel` definition units tests methods.
+	This class defines :func:`foundations.verbose.setVerbosityLevel` definition units tests methods.
 	"""
 
 	def testSetVerbosityLevel(self):
 		"""
-		This method tests :func:`foundations.foundations.verbose.setVerbosityLevel` definition.
+		This method tests :func:`foundations.verbose.setVerbosityLevel` definition.
 		"""
 
 		logger = logging.getLogger(Constants.logger)

@@ -22,10 +22,12 @@ import inspect
 import logging
 import sys
 import threading
+import tempfile
 
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
+import foundations.trace
 from foundations.globals.constants import Constants
 
 #**********************************************************************************************************************
@@ -43,10 +45,14 @@ __all__ = ["THREADS_IDENTIFIERS",
 			"LOGGING_DEFAULT_FORMATTER",
 			"LOGGING_EXTENDED_FORMATTER",
 			"LOGGING_STANDARD_FORMATTER",
-			"StandardMessageHook",
-			"installLogger"
-			"setVerbosityLevel",
-			"removeLoggingHandler"]
+			"Streamer"
+			"StandardOutputStreamer",
+			"installLogger",
+			"getLoggingConsoleHandler",
+			"getLoggingFileHandler",
+			"getLoggingStreamHandler",
+			"removeLoggingHandler",
+			"setVerbosityLevel"]
 
 THREADS_IDENTIFIERS = {}
 
@@ -71,6 +77,7 @@ def _LogRecord_getAttribute(self, attribute):
 		return object.__getattribute__(self, attribute)
 	else:
 		return object.__getattribute__(self, attribute)
+
 logging.LogRecord.__getattribute__ = _LogRecord_getAttribute
 
 #**********************************************************************************************************************
@@ -85,68 +92,7 @@ LOGGING_STANDARD_FORMATTER = logging.Formatter()
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class StandardMessageHook(object):
-	"""
-	| This class is a redirection object intented to be used for :data:`sys.stdout` and :data:`sys.stderr` streams.
-	| Logging messages will be written to given logger handlers.
-	"""
-
-	def __init__(self, logger):
-		"""
-		This method initializes the class.
-
-		:param logger: Logger. ( Object )
-		"""
-
-		self.__logger = logger
-
-	#******************************************************************************************************************
-	#***	Attributes properties.
-	#******************************************************************************************************************
-	@property
-	def logger(self):
-		"""
-		This method is the property for **self.__logger** attribute.
-
-		:return: self.__logger. ( Logger )
-		"""
-
-		return self.__logger
-
-	@logger.setter
-	def logger(self, value):
-		"""
-		This method is the setter method for **self.__logger** attribute.
-
-		:param value: Attribute value. ( Logger )
-		"""
-
-		raise Exception("{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "logger"))
-
-	@logger.deleter
-	def logger(self):
-		"""
-		This method is the deleter method for **self.__logger** attribute.
-		"""
-
-		raise Exception("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "logger"))
-
-	#******************************************************************************************************************
-	#***	Class methods.
-	#******************************************************************************************************************
-	def write(self, message):
-		"""
-		This method writes given message to logger handlers.
-
-		:param message: Message. ( String )
-		:return: Method success. ( Boolean )
-		"""
-
-		for handler in self.__logger.__dict__["handlers"]:
-			handler.stream.write(message)
-		return True
-
-class BaseStream(object):
+class Streamer(object):
 	"""
 	This class is intented to be used as a stream object for :class:`logging.StreamHandler` logging handler. 
 	"""
@@ -212,31 +158,129 @@ class BaseStream(object):
 
 		pass
 
-def installLogger(module=None):
-	logger = logging.getLogger(Constants.logger)
+class StandardOutputStreamer(object):
+	"""
+	| This class is a redirection object intented to be used for :data:`sys.stdout` and :data:`sys.stderr` streams.
+	| Logging messages will be written to given logger handlers.
+	"""
+
+	def __init__(self, logger):
+		"""
+		This method initializes the class.
+
+		:param logger: Logger. ( Object )
+		"""
+
+		self.__logger = logger
+
+	#******************************************************************************************************************
+	#***	Attributes properties.
+	#******************************************************************************************************************
+	@property
+	def logger(self):
+		"""
+		This method is the property for **self.__logger** attribute.
+
+		:return: self.__logger. ( Logger )
+		"""
+
+		return self.__logger
+
+	@logger.setter
+	def logger(self, value):
+		"""
+		This method is the setter method for **self.__logger** attribute.
+
+		:param value: Attribute value. ( Logger )
+		"""
+
+		raise Exception("{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "logger"))
+
+	@logger.deleter
+	def logger(self):
+		"""
+		This method is the deleter method for **self.__logger** attribute.
+		"""
+
+		raise Exception("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "logger"))
+
+	#******************************************************************************************************************
+	#***	Class methods.
+	#******************************************************************************************************************
+	def write(self, message):
+		"""
+		This method writes given message to logger handlers.
+
+		:param message: Message. ( String )
+		:return: Method success. ( Boolean )
+		"""
+
+		for handler in self.__logger.__dict__["handlers"]:
+			handler.stream.write(message)
+		return True
+
+def installLogger(logger=None, module=None):
+	"""
+	This definition installs given logger in given module or default logger in caller introspected nodule.
+
+	:param logger: Logger to intall. ( Logger )
+	:param module: Module. ( Module )
+	:return: Logger. ( Logger )
+	"""
+
+	logger = logging.getLogger(Constants.logger) if logger is None else logger
 	if module is None:
 		# Note: inspect.getmodule() can return the wrong module if it has been imported with different relatives paths.
-		inspect.currentframe().f_back.f_globals["LOGGER"] = logger
-	else:
-		module.LOGGER = logger
+		module = sys.modules.get(inspect.currentframe().f_back.f_globals["__name__"])
+	setattr(module, "LOGGER", logger)
+
+	foundations.trace.registerModule(module)
+
 	return logger
 
-def getLoggingConsoleHandler():
+def getLoggingConsoleHandler(logger=None):
+	"""
+	This definition adds a logging console handler to given logger or default logger.
+
+	:param logger: Logger to add the handler to. ( Logger )
+	:return: Added handler. ( Handler )
+	"""
+
+	logger = LOGGER if logger is None else logger
 	loggingConsoleHandler = logging.StreamHandler(sys.__stdout__)
 	loggingConsoleHandler.setFormatter(LOGGING_DEFAULT_FORMATTER)
-	LOGGER.addHandler(loggingConsoleHandler)
+	logger.addHandler(loggingConsoleHandler)
 	return loggingConsoleHandler
 
-def getLoggingFileHandler(file):
+def getLoggingFileHandler(logger=None, file=None):
+	"""
+	This definition adds a logging file handler to given logger or default logger using given file.
+
+	:param logger: Logger to add the handler to. ( Logger )
+	:param file: File to verbose into. ( String )
+	:return: Added handler. ( Handler )
+	"""
+
+	logger = LOGGER if logger is None else logger
+	file = tempfile.NamedTemporaryFile().name if file is None else file
 	loggingFileHandler = logging.FileHandler(file)
 	loggingFileHandler.setFormatter(LOGGING_DEFAULT_FORMATTER)
-	LOGGER.addHandler(loggingFileHandler)
+	logger.addHandler(loggingFileHandler)
 	return loggingFileHandler
 
-def getLoggingStreamHandler():
-	loggingStreamHandler = logging.StreamHandler(BaseStream())
+def getLoggingStreamHandler(logger=None):
+	"""
+	This definition adds a logging stream handler to given logger or default logger using given file.
+
+	:param logger: Logger to add the handler to. ( Logger )
+	:param file: File to verbose into. ( String )
+	:return: Added handler. ( Handler )
+	"""
+
+	logger = LOGGER if logger is None else logger
+	loggingStreamHandler = logging.StreamHandler(Streamer())
 	loggingStreamHandler.setFormatter(LOGGING_DEFAULT_FORMATTER)
-	LOGGER.addHandler(loggingStreamHandler)
+	logger.addHandler(loggingStreamHandler)
 	return loggingStreamHandler
 
 def removeLoggingHandler(logger, handler):

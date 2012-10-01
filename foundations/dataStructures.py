@@ -287,7 +287,7 @@ class Lookup(dict):
 		>>> person = Lookup(firstName="Doe", lastName="John", gender="male")
 		>>> person.getFirstKeyFromValue("Doe")
 		'firstName'
-		>>> persons = foundations.foundations.dataStructures.Lookup(John="Doe", Jane="Doe", Luke="Skywalker")
+		>>> persons = foundations.dataStructures.Lookup(John="Doe", Jane="Doe", Luke="Skywalker")
 		>>> persons.getKeysFromValue("Doe")
 		['Jane', 'John']
 	"""

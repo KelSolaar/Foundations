@@ -17,9 +17,7 @@
 #**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
-import inspect
 import logging
-import types
 import sys
 if sys.version_info[:2] <= (2, 6):
 	import unittest2 as unittest
@@ -29,7 +27,7 @@ else:
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
-import foundations.core as core
+import foundations.verbose
 from foundations.globals.constants import Constants
 
 #**********************************************************************************************************************
@@ -42,19 +40,42 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["StandardMessageHookTestCase",
-		"SetVerbosityLevelTestCase",
-		"GetFrameTestCase",
-		"GetCodeLayerNameTestCase",
-		"GetModuleTestCase",
-		"GetTraceNameTestCase"]
+__all__ = ["StreamerTestCase",
+		"StandardOutputStreamerTestCase",
+		"SetVerbosityLevelTestCase"]
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class StandardMessageHookTestCase(unittest.TestCase):
+class StreamerTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.core.StandardMessageHook` class units tests methods.
+	This class defines :class:`foundations.verbose.Streamer` class units tests methods.
+	"""
+
+	def testRequiredAttributes(self):
+		"""
+		This method tests presence of required attributes.
+		"""
+
+		requiredAttributes = ("stream",)
+
+		for attribute in requiredAttributes:
+			self.assertIn(attribute, dir(foundations.verbose.Streamer))
+
+	def testRequiredMethods(self):
+		"""
+		This method tests presence of required methods.
+		"""
+
+		requiredMethods = ("write",
+							"flush")
+
+		for method in requiredMethods:
+			self.assertIn(method, dir(foundations.verbose.Streamer))
+
+class StandardOutputStreamerTestCase(unittest.TestCase):
+	"""
+	This class defines :class:`foundations.core.StandardOutputStreamer` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
@@ -65,7 +86,7 @@ class StandardMessageHookTestCase(unittest.TestCase):
 		requiredAttributes = ("logger",)
 
 		for attribute in requiredAttributes:
-			self.assertIn(attribute, dir(core.StandardMessageHook))
+			self.assertIn(attribute, dir(foundations.verbose.StandardOutputStreamer))
 
 	def testRequiredMethods(self):
 		"""
@@ -75,16 +96,31 @@ class StandardMessageHookTestCase(unittest.TestCase):
 		requiredMethods = ("write",)
 
 		for method in requiredMethods:
-			self.assertIn(method, dir(core.StandardMessageHook))
+			self.assertIn(method, dir(foundations.verbose.StandardOutputStreamer))
+
+class InstallLoggerTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.verbose.installLogger` definition units tests methods.
+	"""
+
+	def testInstallLogger(self):
+		"""
+		This method tests :func:`foundations.verbose.installLogger` definition.
+		"""
+
+		self.assertTrue(not hasattr(sys.modules.get(__name__), "LOGGER"))
+		foundations.verbose.installLogger()
+		self.assertTrue(hasattr(sys.modules.get(__name__), "LOGGER"))
+		self.assertIsInstance(LOGGER, logging.Logger)
 
 class SetVerbosityLevelTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.foundations.verbose.setVerbosityLevel` definition units tests methods.
+	This class defines :func:`foundations.verbose.setVerbosityLevel` definition units tests methods.
 	"""
 
 	def testSetVerbosityLevel(self):
 		"""
-		This method tests :func:`foundations.foundations.verbose.setVerbosityLevel` definition.
+		This method tests :func:`foundations.verbose.setVerbosityLevel` definition.
 		"""
 
 		logger = logging.getLogger(Constants.logger)
@@ -92,59 +128,6 @@ class SetVerbosityLevelTestCase(unittest.TestCase):
 		for level, value in levels.iteritems():
 			foundations.verbose.setVerbosityLevel(value)
 			self.assertEqual(level, logger.level)
-
-class GetFrameTestCase(unittest.TestCase):
-	"""
-	This class defines :func:`foundations.core.getFrame` definition units tests methods.
-	"""
-
-	def testGetFrame(self):
-		"""
-		This method tests :func:`foundations.core.getFrame` definition.
-		"""
-
-		self.assertIsInstance(core.getFrame(0), inspect.currentframe().__class__)
-
-class GetCodeLayerNameTestCase(unittest.TestCase):
-	"""
-	This class defines :func:`foundations.core.getCodeLayerName` definition units tests methods.
-	"""
-
-	def testGetCodeLayerName(self):
-		"""
-		This method tests :func:`foundations.core.getCodeLayerName` definition.
-		"""
-
-		codeLayerName = core.getCodeLayerName()
-		self.assertIsInstance(codeLayerName, str)
-		self.assertEqual(codeLayerName, inspect.currentframe().f_code.co_name)
-
-class GetModuleTestCase(unittest.TestCase):
-	"""
-	This class defines :func:`foundations.core.getModule` definition units tests methods.
-	"""
-
-	def testGetModule(self):
-		"""
-		This method tests :func:`foundations.core.getModule` definition.
-		"""
-
-		self.assertEqual(type(core.getModule(object)), types.ModuleType)
-		self.assertEqual(core.getModule(object), inspect.getmodule(object))
-
-class GetTraceNameTestCase(unittest.TestCase):
-	"""
-	This class defines :func:`foundations.core.getTraceName` definition units tests methods.
-	"""
-
-	def testGetObjectName(self):
-		"""
-		This method tests :func:`foundations.core.getTraceName` definition.
-		"""
-
-		objectName = core.getTraceName(object)
-		self.assertIsInstance(objectName, str)
-		self.assertEqual(objectName, "__builtin__ | testGetObjectName.object()")
 
 if __name__ == "__main__":
 	unittest.main()
