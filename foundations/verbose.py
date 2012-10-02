@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines **Foundations** package verbosing objects.
+	This module defines **Foundations** package verbose and logging objects.
 
 **Others:**
 
@@ -48,6 +48,7 @@ __all__ = ["THREADS_IDENTIFIERS",
 			"Streamer"
 			"StandardOutputStreamer",
 			"installLogger",
+			"uninstallLogger",
 			"getLoggingConsoleHandler",
 			"getLoggingFileHandler",
 			"getLoggingStreamHandler",
@@ -223,7 +224,7 @@ def installLogger(logger=None, module=None):
 	"""
 	This definition installs given logger in given module or default logger in caller introspected nodule.
 
-	:param logger: Logger to intall. ( Logger )
+	:param logger: Logger to install. ( Logger )
 	:param module: Module. ( Module )
 	:return: Logger. ( Logger )
 	"""
@@ -238,65 +239,85 @@ def installLogger(logger=None, module=None):
 
 	return logger
 
-def getLoggingConsoleHandler(logger=None):
+def uninstallLogger(logger=None, module=None):
+	"""
+	This definition uninstalls given logger in given module or default logger in caller introspected nodule.
+
+	:param logger: Logger to uninstall. ( Logger )
+	:param module: Module. ( Module )
+	:return: Definition success. ( Boolean )
+	"""
+
+	logger = logging.getLogger(Constants.logger) if logger is None else logger
+	if module is None:
+		# Note: inspect.getmodule() can return the wrong module if it has been imported with different relatives paths.
+		module = sys.modules.get(inspect.currentframe().f_back.f_globals["__name__"])
+	hasattr(module, "LOGGER") and delattr(module, "LOGGER")
+	return True
+
+def getLoggingConsoleHandler(logger=None, formatter=LOGGING_DEFAULT_FORMATTER):
 	"""
 	This definition adds a logging console handler to given logger or default logger.
 
 	:param logger: Logger to add the handler to. ( Logger )
+	:param formatter: Handler formatter. ( F )
 	:return: Added handler. ( Handler )
 	"""
 
 	logger = LOGGER if logger is None else logger
 	loggingConsoleHandler = logging.StreamHandler(sys.__stdout__)
-	loggingConsoleHandler.setFormatter(LOGGING_DEFAULT_FORMATTER)
+	loggingConsoleHandler.setFormatter(formatter)
 	logger.addHandler(loggingConsoleHandler)
 	return loggingConsoleHandler
 
-def getLoggingFileHandler(logger=None, file=None):
+def getLoggingFileHandler(logger=None, file=None, formatter=LOGGING_DEFAULT_FORMATTER):
 	"""
 	This definition adds a logging file handler to given logger or default logger using given file.
 
 	:param logger: Logger to add the handler to. ( Logger )
 	:param file: File to verbose into. ( String )
+	:param formatter: Handler formatter. ( Formatter )
 	:return: Added handler. ( Handler )
 	"""
 
 	logger = LOGGER if logger is None else logger
 	file = tempfile.NamedTemporaryFile().name if file is None else file
 	loggingFileHandler = logging.FileHandler(file)
-	loggingFileHandler.setFormatter(LOGGING_DEFAULT_FORMATTER)
+	loggingFileHandler.setFormatter(formatter)
 	logger.addHandler(loggingFileHandler)
 	return loggingFileHandler
 
-def getLoggingStreamHandler(logger=None):
+def getLoggingStreamHandler(logger=None, formatter=LOGGING_DEFAULT_FORMATTER):
 	"""
 	This definition adds a logging stream handler to given logger or default logger using given file.
 
 	:param logger: Logger to add the handler to. ( Logger )
 	:param file: File to verbose into. ( String )
+	:param formatter: Handler formatter. ( Formatter )
 	:return: Added handler. ( Handler )
 	"""
 
 	logger = LOGGER if logger is None else logger
 	loggingStreamHandler = logging.StreamHandler(Streamer())
-	loggingStreamHandler.setFormatter(LOGGING_DEFAULT_FORMATTER)
+	loggingStreamHandler.setFormatter(formatter)
 	logger.addHandler(loggingStreamHandler)
 	return loggingStreamHandler
 
-def removeLoggingHandler(logger, handler):
+def removeLoggingHandler(handler, logger=None):
 	"""
 	This definition removes given logging handler from given logger.
 
-	:param logger: Handler parent logger. ( Logger )
 	:param handler: Handler. ( Handler )
+	:param logger: Handler logger. ( Logger )
 	:return: Definition success. ( Boolean )
 	"""
 
-	len(logger.__dict__["handlers"]) and LOGGER.debug("> Stopping handler: '{0}'.".format(handler))
+	logger = LOGGER if logger is None else logger
+	logger.handlers and LOGGER.debug("> Stopping handler: '{0}'.".format(handler))
 	logger.removeHandler(handler)
 	return True
 
-def setVerbosityLevel(verbosityLevel):
+def setVerbosityLevel(verbosityLevel=3, logger=None):
 	"""
 	This definition defines logging verbosity level.
 
@@ -309,22 +330,24 @@ def setVerbosityLevel(verbosityLevel):
 		4: Debug.
 
 	:param verbosityLevel: Verbosity level. ( Integer )
+	:param logger: Logger to set the verbosity level to. ( Logger )
 	:return: Definition success. ( Boolean )
 	"""
 
+	logger = LOGGER if logger is None else logger
 	if verbosityLevel == 0:
-		LOGGER.setLevel(logging.CRITICAL)
+		logger.setLevel(logging.CRITICAL)
 		logging.disable(logging.ERROR)
 	elif verbosityLevel == 1:
-		LOGGER.setLevel(logging.ERROR)
+		logger.setLevel(logging.ERROR)
 		logging.disable(logging.WARNING)
 	elif verbosityLevel == 2:
-		LOGGER.setLevel(logging.WARNING)
+		logger.setLevel(logging.WARNING)
 		logging.disable(logging.INFO)
 	elif verbosityLevel == 3:
-		LOGGER.setLevel(logging.INFO)
+		logger.setLevel(logging.INFO)
 		logging.disable(logging.DEBUG)
 	elif verbosityLevel == 4:
-		LOGGER.setLevel(logging.DEBUG)
+		logger.setLevel(logging.DEBUG)
 		logging.disable(logging.NOTSET)
 	return True

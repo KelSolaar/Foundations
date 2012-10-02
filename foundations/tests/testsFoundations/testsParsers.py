@@ -612,7 +612,8 @@ class SectionsFileParserTestCase(unittest.TestCase):
 			readSectionsFileParser.read() and \
 			readSectionsFileParser.parse(stripComments=False, rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 
-			writeSectionsFileParser = SectionsFileParser(tempfile.mkstemp()[1])
+			fileDescriptor, path = tempfile.mkstemp()
+			writeSectionsFileParser = SectionsFileParser(path)
 			writeSectionsFileParser.sections = readSectionsFileParser.sections
 			writeSectionsFileParser.comments = readSectionsFileParser.comments
 			writeSectionsFileParser.write()
@@ -621,7 +622,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 			checkingSectionsFileParser.read() and checkingSectionsFileParser.parse(stripComments=False,
 																			rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			self.assertDictEqual(readSectionsFileParser.sections, checkingSectionsFileParser.sections)
-			os.remove(writeSectionsFileParser.file)
+			os.close(fileDescriptor)
 
 		# Standard sections files with namespaces.
 		for type, file in STANDARD_FILES.iteritems():
@@ -630,7 +631,8 @@ class SectionsFileParserTestCase(unittest.TestCase):
 																			stripComments=False,
 																			rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 
-			writeSectionsFileParser = SectionsFileParser(tempfile.mkstemp()[1])
+			fileDescriptor, path = tempfile.mkstemp()
+			writeSectionsFileParser = SectionsFileParser(path)
 			writeSectionsFileParser.sections = readSectionsFileParser.sections
 			writeSectionsFileParser.comments = readSectionsFileParser.comments
 			writeSectionsFileParser.write(namespaces=True)
@@ -640,13 +642,14 @@ class SectionsFileParserTestCase(unittest.TestCase):
 																			stripComments=False,
 																			rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			self.assertDictEqual(readSectionsFileParser.sections, checkingSectionsFileParser.sections)
-			os.remove(writeSectionsFileParser.file)
+			os.close(fileDescriptor)
 
 		# Default section file.
 		readSectionsFileParser = SectionsFileParser(DEFAULTS_FILE)
 		readSectionsFileParser.read() and readSectionsFileParser.parse()
 
-		writeSectionsFileParser = SectionsFileParser(tempfile.mkstemp()[1])
+		fileDescriptor, path = tempfile.mkstemp()
+		writeSectionsFileParser = SectionsFileParser(path)
 		writeSectionsFileParser.sections = readSectionsFileParser.sections
 		writeSectionsFileParser.comments = readSectionsFileParser.comments
 		writeSectionsFileParser.write()

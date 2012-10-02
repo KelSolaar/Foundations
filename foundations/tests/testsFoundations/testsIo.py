@@ -116,21 +116,23 @@ class FileTestCase(unittest.TestCase):
 		This method tests :meth:`foundations.io.File.write` method.
 		"""
 
-		ioFile = File(tempfile.mkstemp()[1])
+		fileDescriptor, path = tempfile.mkstemp()
+		ioFile = File(path)
 		self.assertIsInstance(ioFile.content, list)
 		ioFile.content = FILE_CONTENT
 		writeSuccess = ioFile.write()
 		self.assertTrue(writeSuccess)
 		ioFile.read()
 		self.assertListEqual(ioFile.content, FILE_CONTENT)
-		os.remove(ioFile.file)
+		os.close(fileDescriptor)
 
 	def testAppend(self):
 		"""
 		This method tests :meth:`foundations.io.File.append` method.
 		"""
 
-		ioFile = File(tempfile.mkstemp()[1])
+		fileDescriptor, path = tempfile.mkstemp()
+		ioFile = File(path)
 		self.assertIsInstance(ioFile.content, list)
 		ioFile.content = FILE_CONTENT
 		ioFile.write()
@@ -138,7 +140,7 @@ class FileTestCase(unittest.TestCase):
 		self.assertTrue(append)
 		ioFile.read()
 		self.assertListEqual(ioFile.content, FILE_CONTENT + FILE_CONTENT)
-		os.remove(ioFile.file)
+		os.close(fileDescriptor)
 
 class SetDirectoryTestCase(unittest.TestCase):
 	"""

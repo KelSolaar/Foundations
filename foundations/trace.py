@@ -1,67 +1,133 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""
+**trace.py**
+
+**Platform:**
+	Windows, Linux, Mac Os X.
+
+**Description:**
+	This module defines **Foundations** package trace objects.
+
+**Others:**
+
+"""
+
+#**********************************************************************************************************************
+#***	External imports.
+#**********************************************************************************************************************
 import functools
 import inspect
 import re
 import sys
+
+#**********************************************************************************************************************
+#***	Module attributes.
+#**********************************************************************************************************************
+__author__ = "Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2012 - Thomas Mansencal"
+__license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
+__maintainer__ = "Thomas Mansencal"
+__email__ = "thomas.mansencal@gmail.com"
+__status__ = "Production"
+
+__all__ = ["StandardOutputStreamerTestCase",
+		"SetVerbosityLevelTestCase",
+		"GetFrameTestCase",
+		"GetCodeLayerNameTestCase",
+		"GetModuleTestCase",
+		"GetTraceNameTestCase"]
 
 REGISTERED_MODULES = set()
 
 TRACER_SYMBOL = "_trace__tracer__"
 UNTRACER_SYMBOL = "_trace__untracer__"
 
-def getName(item):
-	" Return an item's name. "
-	return item.__name__
+#**********************************************************************************************************************
+#***	Module classes and definitions.
+#**********************************************************************************************************************
+def getObjectName(object):
+	"""
+	This definition returns given object name.
 
-def isClassMethod(method):
-	" Determine if an instancemethod is a classmethod. "
-	return method.im_self is not None
+	:param object: Object to retrieve the name. ( Object )
+	:return: Object name. ( String )
+	"""
+
+	return object.__name__
 
 def getMethodName(method):
-	""" Return a method's name.
-	
-	This function returns the name the method is accessed by from
-	outside the class (i.e. it prefixes "private" methods appropriately).
 	"""
-	name = getName(method)
+	This definition returns given method name.
+
+	:param method: Method to retrieve the name. ( Object )
+	:return: Method name. ( String )
+	"""
+
+	name = getObjectName(method)
 	if name.startswith("__") and not name.endswith("__"):
-		name = "_%s%s" % (getName(method.im_class), name)
+		name = "_{0}{1}".format(getObjectName(method.im_class), name)
 	return name
 
-def formatArguments(arg_val):
-	""" Return a string representing a (name, value) pair.
-
-	>>> formatArguments(('x', (1, 2, 3)))
-	'x=(1, 2, 3)'
+def isClassMethod(method):
 	"""
-	arg, val = arg_val
-	return "%s=%r" % (arg, val)
+	This definition returns if given method is a class method.
 
-def tracer(function):
-	""" Echo calls to a function.
-
-	Returns a decorated version of the input function which "tracees" calls
-	made to it by writing out the function's name and the arguments it was
-	called with.
+	:param method: Method. ( Object )
+	:return: Is class method. ( Boolean )
 	"""
 
-	@functools.wraps(function)
-	def wrapped(*args, **kwargs):
-		# print inspect.currentframe().f_back.f_code.co_name
+	return method.im_self is not None
 
-		code = function.func_code
+def formatArgument(argumentValue):
+	"""
+	This definition returns a string representing an argument / value pair.
+
+	Usage::
+	
+		>>> formatArgument(('x', (1, 2, 3)))
+		'x=(1, 2, 3)'
+	
+	:param argumentValue: Argument / value pair. ( Tuple )
+	:return: Formatted .argument / value pair. ( String )
+	"""
+
+	return "{0}={1!r}".format(*argumentValue)
+
+def tracer(object):
+	"""
+	| This decorator object is used for execution tracing.
+	| Any method / definition decorated will have it's execution traced.
+	
+	:param object: Object to decorate. ( Object )
+	:return: Object. ( Object )
+	"""
+
+	@functools.wraps(object)
+	def tracerWrapped(*args, **kwargs):
+		"""
+		This decorator is used for execution tracing.
+
+		:param \*args: Arguments. ( \* )
+		:param \*\*kwargs: Keywords arguments. ( \*\* )
+		:return: Object. ( Object )
+		"""
+
+		code = object.func_code
 		argsCount = code.co_argcount
 		argsNames = code.co_varnames[:argsCount]
-		functionDefaults = function.func_defaults or list()
+		functionDefaults = object.func_defaults or list()
 		argsDefaults = dict(zip(argsNames[-len(functionDefaults):], functionDefaults))
 
-		positionalArgs = map(formatArguments, zip(argsNames, args))
-		defaultedArgs = [formatArguments((name, argsDefaults[name])) for name in argsNames[len(args):] if name not in kwargs]
+		positionalArgs = map(formatArgument, zip(argsNames, args))
+		defaultedArgs = [formatArgument((name, argsDefaults[name])) for name in argsNames[len(args):] if name not in kwargs]
 		namelessArgs = map(repr, args[argsCount:])
-		keywordArgs = map(formatArguments, kwargs.items())
-		sys.stdout.write("{0}.({1})\n".format(getName(function),
+		keywordArgs = map(formatArgument, kwargs.items())
+		sys.stdout.write("{0}({1})\n".format(getObjectName(object),
 											", ".join(positionalArgs + defaultedArgs + namelessArgs + keywordArgs)))
-		return function(*args, **kwargs)
-	return wrapped
+		return object(*args, **kwargs)
+	return tracerWrapped
 
 def untracer(function):
 	@functools.wraps(function)
@@ -98,7 +164,7 @@ def traceClass(cls, tracer=tracer):
 		if function.__dict__.get(UNTRACER_SYMBOL):
 			continue
 
-		setattr(cls, getName(function), staticmethod(tracer(function)))
+		setattr(cls, getObjectName(function), staticmethod(tracer(function)))
 
 	for name, accessor in inspect.getmembers(cls, lambda x: type(x) is property):
 		if accessor.fget.__dict__.get(UNTRACER_SYMBOL) or \
@@ -113,6 +179,9 @@ def traceClass(cls, tracer=tracer):
 def traceModule(module, tracer=tracer):
 	""" Echo calls to functions and methods in a module.
 	"""
+
+	global REGISTERED_MODULES
+
 	for name, function in inspect.getmembers(module, inspect.isfunction):
 		if function.__dict__.get(UNTRACER_SYMBOL):
 			continue
@@ -122,11 +191,15 @@ def traceModule(module, tracer=tracer):
 	for name, cls in inspect.getmembers(module, inspect.isclass):
 		traceClass(cls)
 
+	REGISTERED_MODULES.add(module)
+
 def registerModule(module=None):
 	global REGISTERED_MODULES
+
 	if module is None:
 		# Note: inspect.getmodule() can return the wrong module if it has been imported with different relatives paths.
 		module = sys.modules.get(inspect.currentframe().f_back.f_globals["__name__"])
+
 	REGISTERED_MODULES.add(module)
 
 def installTracer(pattern=r".*", flags=0):

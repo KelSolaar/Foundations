@@ -52,7 +52,6 @@ __all__ = ["LOGGER",
 			"executionTrace",
 			"executionTime",
 			"memoize",
-			"removeLoggingHandler",
 			"exit",
 			"wait"]
 
@@ -329,8 +328,8 @@ def exit(exitCode=1):
 	LOGGER.debug("> {0} | Exiting current process!".format(getModule(exit).__name__))
 
 	LOGGER.debug("> Stopping logging handlers and logger!")
-	for handler in LOGGER.__dict__["handlers"]:
-		foundations.verbose.removeLoggingHandler(LOGGER, handler)
+	for handler in LOGGER.handlers:
+		foundations.verbose.removeLoggingHandler(handler)
 
 	sys.exit(exitCode)
 

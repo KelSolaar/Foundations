@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 
 """
-**testsCore.py**
+**testsTrace.py**
 
 **Platform:**
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines units tests for :mod:`foundations.core` module.
+	This module defines units tests for :mod:`foundations.trace` module.
 
 **Others:**
 

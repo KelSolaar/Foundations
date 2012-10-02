@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 
 """
-**testsCore.py**
+**testsVerbose.py**
 
 **Platform:**
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines units tests for :mod:`foundations.core` module.
+	This module defines units tests for :mod:`foundations.verbose` module.
 
 **Others:**
 
@@ -18,11 +18,13 @@
 #***	External imports.
 #**********************************************************************************************************************
 import logging
+import os
 import sys
 if sys.version_info[:2] <= (2, 6):
 	import unittest2 as unittest
 else:
 	import unittest
+import tempfile
 
 #**********************************************************************************************************************
 #***	Internal imports.
@@ -42,6 +44,12 @@ __status__ = "Production"
 
 __all__ = ["StreamerTestCase",
 		"StandardOutputStreamerTestCase",
+		"InstallLoggerTestCase",
+		"UninstallLoggerTestCase",
+		"GetLoggingConsoleHandlerTestCase",
+		"GetLoggingFileHandlerTestCase",
+		"GetLoggingStreamHandlerTestCase",
+		"RemoveLoggingHandlerTestCase",
 		"SetVerbosityLevelTestCase"]
 
 #**********************************************************************************************************************
@@ -112,6 +120,100 @@ class InstallLoggerTestCase(unittest.TestCase):
 		foundations.verbose.installLogger()
 		self.assertTrue(hasattr(sys.modules.get(__name__), "LOGGER"))
 		self.assertIsInstance(LOGGER, logging.Logger)
+		foundations.verbose.uninstallLogger()
+
+class UninstallLoggerTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.verbose.uninstallLogger` definition units tests methods.
+	"""
+
+	def testUninstallLogger(self):
+		"""
+		This method tests :func:`foundations.verbose.uninstallLogger` definition.
+		"""
+
+		foundations.verbose.installLogger()
+		self.assertTrue(hasattr(sys.modules.get(__name__), "LOGGER"))
+		foundations.verbose.uninstallLogger()
+		self.assertTrue(not hasattr(sys.modules.get(__name__), "LOGGER"))
+
+class GetLoggingConsoleHandlerTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.verbose.getLoggingConsoleHandler` definition units tests methods.
+	"""
+
+	def testGetLoggingConsoleHandler(self):
+		"""
+		This method tests :func:`foundations.verbose.getLoggingConsoleHandler` definition.
+		"""
+
+		foundations.verbose.installLogger()
+		handler = foundations.verbose.getLoggingConsoleHandler()
+		self.assertIsInstance(handler, logging.Handler)
+		self.assertIn(handler, LOGGER.handlers)
+		del LOGGER.handlers[:]
+		foundations.verbose.uninstallLogger()
+
+class GetLoggingFileHandlerTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.verbose.getLoggingFileHandler` definition units tests methods.
+	"""
+
+	def testGetLoggingFileHandler(self):
+		"""
+		This method tests :func:`foundations.verbose.getLoggingFileHandler` definition.
+		"""
+
+		foundations.verbose.installLogger()
+		fileDescriptor, path = tempfile.mkstemp()
+		handler = foundations.verbose.getLoggingFileHandler(file=path,
+															formatter=foundations.verbose.LOGGING_STANDARD_FORMATTER)
+		self.assertIsInstance(handler, logging.Handler)
+		self.assertIn(handler, LOGGER.handlers)
+		message = "This is a test error message!"
+		LOGGER.error(message)
+		with file(path) as f:
+			content = f.readlines()
+		self.assertEqual(message, content.pop().strip())
+		del LOGGER.handlers[:]
+		foundations.verbose.uninstallLogger()
+		os.close(fileDescriptor)
+
+class GetLoggingStreamHandlerTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.verbose.getLoggingStreamHandler` definition units tests methods.
+	"""
+
+	def testGetLoggingStreamHandler(self):
+		"""
+		This method tests :func:`foundations.verbose.getLoggingStreamHandler` definition.
+		"""
+
+		foundations.verbose.installLogger()
+		handler = foundations.verbose.getLoggingStreamHandler(formatter=foundations.verbose.LOGGING_STANDARD_FORMATTER)
+		self.assertIsInstance(handler, logging.Handler)
+		self.assertIn(handler, LOGGER.handlers)
+		message = "This is a test error message!"
+		LOGGER.error(message)
+		self.assertEqual(message, handler.stream.stream.pop().strip())
+		del LOGGER.handlers[:]
+		foundations.verbose.uninstallLogger()
+
+class RemoveLoggingHandlerTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.verbose.removeLoggingHandler` definition units tests methods.
+	"""
+
+	def testRemoveLoggingHandler(self):
+		"""
+		This method tests :func:`foundations.verbose.removeLoggingHandler` definition.
+		"""
+
+		foundations.verbose.installLogger()
+		foundations.verbose.removeLoggingHandler(foundations.verbose.getLoggingConsoleHandler())
+		foundations.verbose.removeLoggingHandler(foundations.verbose.getLoggingStreamHandler())
+		self.assertListEqual(LOGGER.handlers, list())
+		foundations.verbose.uninstallLogger()
 
 class SetVerbosityLevelTestCase(unittest.TestCase):
 	"""
@@ -123,11 +225,12 @@ class SetVerbosityLevelTestCase(unittest.TestCase):
 		This method tests :func:`foundations.verbose.setVerbosityLevel` definition.
 		"""
 
-		logger = logging.getLogger(Constants.logger)
+		foundations.verbose.installLogger()
 		levels = {logging.CRITICAL:0, logging.ERROR:1, logging.WARNING:2, logging.INFO:3, logging.DEBUG:4  }
 		for level, value in levels.iteritems():
 			foundations.verbose.setVerbosityLevel(value)
-			self.assertEqual(level, logger.level)
+			self.assertEqual(level, LOGGER.level)
+		foundations.verbose.uninstallLogger()
 
 if __name__ == "__main__":
 	unittest.main()
