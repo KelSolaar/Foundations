@@ -32,17 +32,30 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["StandardOutputStreamerTestCase",
-		"SetVerbosityLevelTestCase",
-		"GetFrameTestCase",
-		"GetCodeLayerNameTestCase",
-		"GetModuleTestCase",
-		"GetTraceNameTestCase"]
+__all__ = ["REGISTERED_MODULES",
+			"TRACER_SYMBOL",
+			"UNTRACER_SYMBOL",
+			"TRACER_HOOK",
+			"getObjectName",
+			"getMethodName",
+			"isClassMethod",
+			"formatArgument",
+			"tracer",
+			"tracerWrapped",
+			"untracer",
+			"wrapped",
+			"traceMethod",
+			"traceClass",
+			"traceModule",
+			"registerModule",
+			"installTracer"]
 
 REGISTERED_MODULES = set()
 
 TRACER_SYMBOL = "_trace__tracer__"
 UNTRACER_SYMBOL = "_trace__untracer__"
+
+TRACER_HOOK = "_trace__hook__"
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
@@ -127,38 +140,67 @@ def tracer(object):
 		sys.stdout.write("{0}({1})\n".format(getObjectName(object),
 											", ".join(positionalArgs + defaultedArgs + namelessArgs + keywordArgs)))
 		return object(*args, **kwargs)
+	setattr(tracerWrapped, TRACER_HOOK, object)
 	return tracerWrapped
 
 def untracer(function):
+	"""
+	This decorator object is used to mark decorated object as non tracable.
+	
+	:param object: Object to decorate. ( Object )
+	:return: Object. ( Object )
+	"""
+
 	@functools.wraps(function)
 	def wrapped(*args, **kwargs):
+		"""
+		This decorator object is used to mark decorated object as non tracable.
+
+		:param \*args: Arguments. ( \* )
+		:param \*\*kwargs: Keywords arguments. ( \*\* )
+		:return: Object. ( Object )
+		"""
+
 		return function(*args, **kwargs)
+
 	setattr(wrapped, UNTRACER_SYMBOL, True)
+
 	return wrapped
 
-def traceInstancemethod(cls, method, tracer=tracer):
-	""" Change an instancemethod so that calls to it are traceed.
-
-	Replacing a classmethod is a little more tricky.
-	See: http://www.python.org/doc/current/ref/types.html
+def traceMethod(cls, method, tracer=tracer):
 	"""
+	This definition traces given method using given tracer.
+
+	:param cls: Class of the method. ( Object )
+	:param method: Method to trace. ( Object )
+	:param tracer: Tracer. ( Object )
+	:return: Definition success. ( Boolean )
+	"""
+
 	name = getMethodName(method)
 	if name in ("__str__", "__repr__") or method.__dict__.get(UNTRACER_SYMBOL):
-		return
+		return False
 
 	if isClassMethod(method):
 		setattr(cls, name, classmethod(tracer(method.im_func)))
 	else:
 		setattr(cls, name, tracer(method))
+	return True
 
 def traceClass(cls, tracer=tracer):
-	""" Echo calls to class methods and static functions
 	"""
+	This definition traces given class using given tracer.
+
+	:param cls: Class to trace. ( Object )
+	:param tracer: Tracer. ( Object )
+	:return: Definition success. ( Boolean )
+	"""
+
 	for name, method in inspect.getmembers(cls, inspect.ismethod):
 		if method.__dict__.get(UNTRACER_SYMBOL):
 			continue
 
-		traceInstancemethod(cls, method)
+		traceMethod(cls, method)
 
 	for name, function in inspect.getmembers(cls, inspect.isfunction):
 		if function.__dict__.get(UNTRACER_SYMBOL):
@@ -175,9 +217,15 @@ def traceClass(cls, tracer=tracer):
 		setattr(cls, name, property(tracer(accessor.fget),
 									tracer(accessor.fset),
 									tracer(accessor.fdel)))
+	return True
 
 def traceModule(module, tracer=tracer):
-	""" Echo calls to functions and methods in a module.
+	"""
+	This definition traces given module using given tracer.
+
+	:param module: Module to trace. ( Module )
+	:param tracer: Tracer. ( Object )
+	:return: Definition success. ( Boolean )
 	"""
 
 	global REGISTERED_MODULES
@@ -192,8 +240,16 @@ def traceModule(module, tracer=tracer):
 		traceClass(cls)
 
 	REGISTERED_MODULES.add(module)
+	return True
 
 def registerModule(module=None):
+	"""
+	This definition registers given module or caller introspected module in the candidates modules for tracing.
+
+	:param module: Module to register. ( Module )
+	:return: Definition success. ( Boolean )
+	"""
+
 	global REGISTERED_MODULES
 
 	if module is None:
@@ -201,8 +257,17 @@ def registerModule(module=None):
 		module = sys.modules.get(inspect.currentframe().f_back.f_globals["__name__"])
 
 	REGISTERED_MODULES.add(module)
+	return True
 
 def installTracer(pattern=r".*", flags=0):
+	"""
+	This definition installs the tracer in the candidates modules for tracing matching given pattern.
+
+	:param pattern: Matching pattern. ( String )
+	:param flags: Matching regex flags. ( Integer )
+	:return: Definition success. ( Boolean )
+	"""
+
 	for module in REGISTERED_MODULES:
 		if hasattr(module, TRACER_SYMBOL):
 			continue
@@ -212,3 +277,5 @@ def installTracer(pattern=r".*", flags=0):
 
 		traceModule(module)
 		setattr(module, TRACER_SYMBOL, True)
+	return True
+

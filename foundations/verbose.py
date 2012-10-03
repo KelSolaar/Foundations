@@ -222,7 +222,7 @@ class StandardOutputStreamer(object):
 
 def installLogger(logger=None, module=None):
 	"""
-	This definition installs given logger in given module or default logger in caller introspected nodule.
+	This definition installs given logger in given module or default logger in caller introspected module.
 
 	:param logger: Logger to install. ( Logger )
 	:param module: Module. ( Module )
@@ -241,7 +241,7 @@ def installLogger(logger=None, module=None):
 
 def uninstallLogger(logger=None, module=None):
 	"""
-	This definition uninstalls given logger in given module or default logger in caller introspected nodule.
+	This definition uninstalls given logger in given module or default logger in caller introspected module.
 
 	:param logger: Logger to uninstall. ( Logger )
 	:param module: Module. ( Module )
