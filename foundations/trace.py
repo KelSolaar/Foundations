@@ -11,6 +11,7 @@
 	This module defines **Foundations** package trace objects.
 
 **Others:**
+	Portions of the code from echo.py by Thomas Guest: http://wordaligned.org/svn/etc/echo/echo.py.
 
 """
 
@@ -45,8 +46,11 @@ __all__ = ["REGISTERED_MODULES",
 			"untracer",
 			"wrapped",
 			"traceMethod",
+			"untraceMethod",
 			"traceClass",
+			"untraceClass",
 			"traceModule",
+			"untraceModule",
 			"registerModule",
 			"installTracer"]
 
@@ -187,6 +191,26 @@ def traceMethod(cls, method, tracer=tracer):
 		setattr(cls, name, tracer(method))
 	return True
 
+def untraceMethod(cls, method):
+	"""
+	This definition untraces given method.
+
+	:param cls: Class of the method. ( Object )
+	:param method: Method to untrace. ( Object )
+	:return: Definition success. ( Boolean )
+	"""
+
+	name = getMethodName(method)
+	if name in ("__str__", "__repr__") or not hasattr(method, TRACER_HOOK):
+		return False
+
+	hook = getattr(method, TRACER_HOOK)
+	if isClassMethod(method):
+		setattr(cls, name, classmethod(hook))
+	else:
+		setattr(cls, name, hook)
+	return True
+
 def traceClass(cls, tracer=tracer):
 	"""
 	This definition traces given class using given tracer.
@@ -219,6 +243,37 @@ def traceClass(cls, tracer=tracer):
 									tracer(accessor.fdel)))
 	return True
 
+def untraceClass(cls):
+	"""
+	This definition untraces given class.
+
+	:param cls: Class to untrace. ( Object )
+	:return: Definition success. ( Boolean )
+	"""
+
+	for name, method in inspect.getmembers(cls, inspect.ismethod):
+		if not hasattr(method, TRACER_HOOK):
+			continue
+
+		untraceMethod(cls, method)
+
+	for name, function in inspect.getmembers(cls, inspect.isfunction):
+		if not hasattr(function, TRACER_HOOK):
+			continue
+
+		setattr(cls, getObjectName(function), staticmethod(getattr(function, TRACER_HOOK)))
+
+	for name, accessor in inspect.getmembers(cls, lambda x: type(x) is property):
+		if not hasattr(accessor.fget, TRACER_HOOK) or \
+		not hasattr(accessor.fset, TRACER_HOOK) or \
+		not hasattr(accessor.fdel, TRACER_HOOK):
+			continue
+
+		setattr(cls, name, property(getattr(accessor.fget, TRACER_HOOK),
+									getattr(accessor.fset, TRACER_HOOK),
+									getattr(accessor.fdel, TRACER_HOOK)))
+	return True
+
 def traceModule(module, tracer=tracer):
 	"""
 	This definition traces given module using given tracer.
@@ -242,6 +297,24 @@ def traceModule(module, tracer=tracer):
 	REGISTERED_MODULES.add(module)
 	return True
 
+def untraceModule(module):
+	"""
+	This definition untraces given module.
+
+	:param module: Module to untrace. ( Module )
+	:return: Definition success. ( Boolean )
+	"""
+
+	for name, function in inspect.getmembers(module, inspect.isfunction):
+		if not hasattr(function, TRACER_HOOK):
+			continue
+
+		setattr(module, name, getattr(function, TRACER_HOOK))
+
+	for name, cls in inspect.getmembers(module, inspect.isclass):
+		untraceClass(cls)
+	return True
+
 def registerModule(module=None):
 	"""
 	This definition registers given module or caller introspected module in the candidates modules for tracing.
@@ -259,10 +332,11 @@ def registerModule(module=None):
 	REGISTERED_MODULES.add(module)
 	return True
 
-def installTracer(pattern=r".*", flags=0):
+def installTracer(tracer=tracer, pattern=r".*", flags=0):
 	"""
-	This definition installs the tracer in the candidates modules for tracing matching given pattern.
+	This definition installs given tracer in the candidates modules for tracing matching given pattern.
 
+	:param tracer: Tracer. ( Object )
 	:param pattern: Matching pattern. ( String )
 	:param flags: Matching regex flags. ( Integer )
 	:return: Definition success. ( Boolean )
@@ -275,7 +349,25 @@ def installTracer(pattern=r".*", flags=0):
 		if not re.search(pattern, module.__name__, flags=flags):
 			continue
 
-		traceModule(module)
+		traceModule(module, tracer)
 		setattr(module, TRACER_SYMBOL, True)
 	return True
 
+def uninstallTracer(pattern=r".*", flags=0):
+	"""
+	This definition installs the tracer in the candidates modules for tracing matching given pattern.
+
+	:param pattern: Matching pattern. ( String )
+	:param flags: Matching regex flags. ( Integer )
+	:return: Definition success. ( Boolean )
+	"""
+
+	for module in REGISTERED_MODULES:
+		if not re.search(pattern, module.__name__, flags=flags):
+			continue
+
+		if hasattr(module, TRACER_SYMBOL):
+			delattr(module, TRACER_SYMBOL)
+
+		untraceModule(module)
+	return True
