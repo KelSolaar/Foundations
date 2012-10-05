@@ -35,15 +35,23 @@ __status__ = "Production"
 
 __all__ = ["REGISTERED_MODULES",
 			"TRACER_SYMBOL",
-			"UNTRACER_SYMBOL",
+			"UNTRACABLE_SYMBOL",
 			"TRACER_HOOK",
+			"setTracerHook",
+			"getTracerHook",
+			"isTraced",
+			"isUntracable",
+			"setTraced",
+			"setUntraced",
+			"setUntracable"
 			"getObjectName",
 			"getMethodName",
 			"isClassMethod",
 			"formatArgument",
 			"tracer",
+			"untracer"
 			"tracerWrapped",
-			"untracer",
+			"untracable",
 			"wrapped",
 			"traceMethod",
 			"untraceMethod",
@@ -57,13 +65,90 @@ __all__ = ["REGISTERED_MODULES",
 REGISTERED_MODULES = set()
 
 TRACER_SYMBOL = "_trace__tracer__"
-UNTRACER_SYMBOL = "_trace__untracer__"
+UNTRACABLE_SYMBOL = "_trace__untracable__"
 
 TRACER_HOOK = "_trace__hook__"
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
+def setTracerHook(object, hook):
+	"""
+	This definition sets given object tracer hook on given object.
+
+	:param hook: Tracer hook. ( Object )
+	:param object: Object. ( Object )
+	:return: Definition success. ( Boolean )
+	"""
+
+	setattr(object, TRACER_HOOK, hook)
+	return True
+
+def getTracerHook(object):
+	"""
+	This definition returns given object tracer hook.
+
+	:param object: Object. ( Object )
+	:return: Object tracer hook. ( Object )
+	"""
+
+	if hasattr(object, TRACER_HOOK):
+		return getattr(object, TRACER_HOOK)
+
+def isTraced(object):
+	"""
+	This definition returns if given object is traced.
+
+	:param object: Object. ( Object )
+	:return: Is object traced. ( Boolean )
+	"""
+
+	return hasattr(object, TRACER_SYMBOL)
+
+def isUntracable(object):
+	"""
+	This definition returns if given object is untraced.
+
+	:param object: Object. ( Object )
+	:return: Is object untraced. ( Boolean )
+	"""
+
+	return hasattr(object, UNTRACABLE_SYMBOL)
+
+def setTraced(object):
+	"""
+	This definition sets given object as traced.
+
+	:param object: Object. ( Object )
+	:return: Definition success. ( Boolean )
+	"""
+
+	setattr(object, TRACER_SYMBOL, True)
+	return True
+
+def setUntraced(object):
+	"""
+	This definition sets given object as untraced.
+
+	:param object: Object. ( Object )
+	:return: Definition success. ( Boolean )
+	"""
+
+	if isTraced(object):
+		delattr(object, TRACER_SYMBOL)
+	return True
+
+def setUntracable(object):
+	"""
+	This definition sets given object as untraced.
+
+	:param object: Object. ( Object )
+	:return: Definition success. ( Boolean )
+	"""
+
+	setattr(object, UNTRACABLE_SYMBOL, True)
+	return True
+
 def getObjectName(object):
 	"""
 	This definition returns given object name.
@@ -95,6 +180,9 @@ def isClassMethod(method):
 	:return: Is class method. ( Boolean )
 	"""
 
+	if type(method) is type(lambda x: None):
+		return False
+
 	return method.im_self is not None
 
 def formatArgument(argumentValue):
@@ -103,8 +191,8 @@ def formatArgument(argumentValue):
 
 	Usage::
 	
-		>>> formatArgument(('x', (1, 2, 3)))
-		'x=(1, 2, 3)'
+		>>> formatArgument(('x', (0, 1, 2)))
+		'x=(0, 1, 2)'
 	
 	:param argumentValue: Argument / value pair. ( Tuple )
 	:return: Formatted .argument / value pair. ( String )
@@ -120,6 +208,9 @@ def tracer(object):
 	:param object: Object to decorate. ( Object )
 	:return: Object. ( Object )
 	"""
+
+	if isUntracable(object):
+		return object
 
 	@functools.wraps(object)
 	def tracerWrapped(*args, **kwargs):
@@ -144,10 +235,27 @@ def tracer(object):
 		sys.stdout.write("{0}({1})\n".format(getObjectName(object),
 											", ".join(positionalArgs + defaultedArgs + namelessArgs + keywordArgs)))
 		return object(*args, **kwargs)
-	setattr(tracerWrapped, TRACER_HOOK, object)
+
+	setTracerHook(tracerWrapped, object)
+	setTraced(tracerWrapped)
+
 	return tracerWrapped
 
-def untracer(function):
+def untracer(object):
+	"""
+	This definition object is used to untrace given object.
+	
+	:param object: Object to untrace. ( Object )
+	:return: Untraced object. ( Object )
+	"""
+
+	if isTraced(object):
+		tracerHook = getTracerHook(object)
+		setUntraced(tracerHook)
+		return tracerHook
+	return object
+
+def untracable(function):
 	"""
 	This decorator object is used to mark decorated object as non tracable.
 	
@@ -167,7 +275,7 @@ def untracer(function):
 
 		return function(*args, **kwargs)
 
-	setattr(wrapped, UNTRACER_SYMBOL, True)
+	setUntracable(wrapped)
 
 	return wrapped
 
@@ -182,7 +290,7 @@ def traceMethod(cls, method, tracer=tracer):
 	"""
 
 	name = getMethodName(method)
-	if name in ("__str__", "__repr__") or method.__dict__.get(UNTRACER_SYMBOL):
+	if name in ("__str__", "__repr__"):
 		return False
 
 	if isClassMethod(method):
@@ -201,14 +309,13 @@ def untraceMethod(cls, method):
 	"""
 
 	name = getMethodName(method)
-	if name in ("__str__", "__repr__") or not hasattr(method, TRACER_HOOK):
+	if name in ("__str__", "__repr__"):
 		return False
 
-	hook = getattr(method, TRACER_HOOK)
 	if isClassMethod(method):
-		setattr(cls, name, classmethod(hook))
+		setattr(cls, name, classmethod(untracer(method)))
 	else:
-		setattr(cls, name, hook)
+		setattr(cls, name, untracer(method))
 	return True
 
 def traceClass(cls, tracer=tracer):
@@ -221,26 +328,18 @@ def traceClass(cls, tracer=tracer):
 	"""
 
 	for name, method in inspect.getmembers(cls, inspect.ismethod):
-		if method.__dict__.get(UNTRACER_SYMBOL):
-			continue
-
 		traceMethod(cls, method)
 
 	for name, function in inspect.getmembers(cls, inspect.isfunction):
-		if function.__dict__.get(UNTRACER_SYMBOL):
-			continue
-
 		setattr(cls, getObjectName(function), staticmethod(tracer(function)))
 
 	for name, accessor in inspect.getmembers(cls, lambda x: type(x) is property):
-		if accessor.fget.__dict__.get(UNTRACER_SYMBOL) or \
-		accessor.fset.__dict__.get(UNTRACER_SYMBOL) or \
-		accessor.fdel.__dict__.get(UNTRACER_SYMBOL):
-			continue
-
 		setattr(cls, name, property(tracer(accessor.fget),
 									tracer(accessor.fset),
 									tracer(accessor.fdel)))
+
+	setTraced(cls)
+
 	return True
 
 def untraceClass(cls):
@@ -252,26 +351,24 @@ def untraceClass(cls):
 	"""
 
 	for name, method in inspect.getmembers(cls, inspect.ismethod):
-		if not hasattr(method, TRACER_HOOK):
-			continue
-
 		untraceMethod(cls, method)
 
 	for name, function in inspect.getmembers(cls, inspect.isfunction):
-		if not hasattr(function, TRACER_HOOK):
+		if not isTraced(function):
 			continue
 
-		setattr(cls, getObjectName(function), staticmethod(getattr(function, TRACER_HOOK)))
+		setattr(cls, getObjectName(function), staticmethod(untracer(function)))
 
 	for name, accessor in inspect.getmembers(cls, lambda x: type(x) is property):
-		if not hasattr(accessor.fget, TRACER_HOOK) or \
-		not hasattr(accessor.fset, TRACER_HOOK) or \
-		not hasattr(accessor.fdel, TRACER_HOOK):
+		if not isTraced(accessor.fget) or not isTraced(accessor.fset) or not isTraced(accessor.fdel):
 			continue
 
-		setattr(cls, name, property(getattr(accessor.fget, TRACER_HOOK),
-									getattr(accessor.fset, TRACER_HOOK),
-									getattr(accessor.fdel, TRACER_HOOK)))
+		setattr(cls, name, property(untracer(accessor.fget),
+									untracer(accessor.fset),
+									untracer(accessor.fdel)))
+
+	setUntraced(cls)
+
 	return True
 
 def traceModule(module, tracer=tracer):
@@ -286,15 +383,15 @@ def traceModule(module, tracer=tracer):
 	global REGISTERED_MODULES
 
 	for name, function in inspect.getmembers(module, inspect.isfunction):
-		if function.__dict__.get(UNTRACER_SYMBOL):
-			continue
-
 		setattr(module, name, tracer(function))
 
 	for name, cls in inspect.getmembers(module, inspect.isclass):
 		traceClass(cls)
 
 	REGISTERED_MODULES.add(module)
+
+	setTraced(module)
+
 	return True
 
 def untraceModule(module):
@@ -306,13 +403,13 @@ def untraceModule(module):
 	"""
 
 	for name, function in inspect.getmembers(module, inspect.isfunction):
-		if not hasattr(function, TRACER_HOOK):
-			continue
-
-		setattr(module, name, getattr(function, TRACER_HOOK))
+		setattr(module, name, untracer(function))
 
 	for name, cls in inspect.getmembers(module, inspect.isclass):
 		untraceClass(cls)
+
+	setUntraced(module)
+
 	return True
 
 def registerModule(module=None):
@@ -343,14 +440,13 @@ def installTracer(tracer=tracer, pattern=r".*", flags=0):
 	"""
 
 	for module in REGISTERED_MODULES:
-		if hasattr(module, TRACER_SYMBOL):
+		if isTraced(module):
 			continue
 
 		if not re.search(pattern, module.__name__, flags=flags):
 			continue
 
 		traceModule(module, tracer)
-		setattr(module, TRACER_SYMBOL, True)
 	return True
 
 def uninstallTracer(pattern=r".*", flags=0):
@@ -363,11 +459,11 @@ def uninstallTracer(pattern=r".*", flags=0):
 	"""
 
 	for module in REGISTERED_MODULES:
-		if not re.search(pattern, module.__name__, flags=flags):
+		if not isTraced(module):
 			continue
 
-		if hasattr(module, TRACER_SYMBOL):
-			delattr(module, TRACER_SYMBOL)
+		if not re.search(pattern, module.__name__, flags=flags):
+			continue
 
 		untraceModule(module)
 	return True

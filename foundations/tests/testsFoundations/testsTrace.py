@@ -17,9 +17,6 @@
 #**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
-import inspect
-import logging
-import types
 import sys
 if sys.version_info[:2] <= (2, 6):
 	import unittest2 as unittest
@@ -29,8 +26,7 @@ else:
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
-import foundations.core as core
-from foundations.globals.constants import Constants
+import foundations.trace
 
 #**********************************************************************************************************************
 #***	Module attributes.
@@ -42,109 +38,270 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["StandardOutputStreamerTestCase",
-		"SetVerbosityLevelTestCase",
-		"GetFrameTestCase",
-		"GetCodeLayerNameTestCase",
-		"GetModuleTestCase",
-		"GetTraceNameTestCase"]
+__all__ = ["GLOBAL_RETURN_VALUE",
+		"Dummy",
+		"dummy1",
+		"dummy2",
+		"SetTracerHookTestCase",
+		"GetTracerHookTestCase",
+		"IsTracedTestCase",
+		"IsUntracableTestCase",
+		"SetTracedTestCase",
+		"SetUntracedTestCase",
+		"GetObjectNameTestCase",
+		"GetMethodNameTestCase",
+		"IsClassMethodTestCase"]
+
+GLOBAL_RETURN_VALUE = range(10)
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class StandardOutputStreamerTestCase(unittest.TestCase):
+class Dummy(object):
 	"""
-	This class defines :class:`foundations.core.StandardOutputStreamer` class units tests methods.
-	"""
-
-	def testRequiredAttributes(self):
-		"""
-		This method tests presence of required attributes.
-		"""
-
-		requiredAttributes = ("logger",)
-
-		for attribute in requiredAttributes:
-			self.assertIn(attribute, dir(core.StandardOutputStreamer))
-
-	def testRequiredMethods(self):
-		"""
-		This method tests presence of required methods.
-		"""
-
-		requiredMethods = ("write",)
-
-		for method in requiredMethods:
-			self.assertIn(method, dir(core.StandardOutputStreamer))
-
-class SetVerbosityLevelTestCase(unittest.TestCase):
-	"""
-	This class defines :func:`foundations.verbose.setVerbosityLevel` definition units tests methods.
+	This class is a dummy class used to test :mod:`foundations.trace` module.
 	"""
 
-	def testSetVerbosityLevel(self):
-		"""
-		This method tests :func:`foundations.verbose.setVerbosityLevel` definition.
-		"""
+	def __init__(self):
+		self.__attribute = GLOBAL_RETURN_VALUE
 
-		logger = logging.getLogger(Constants.logger)
-		levels = {logging.CRITICAL:0, logging.ERROR:1, logging.WARNING:2, logging.INFO:3, logging.DEBUG:4  }
-		for level, value in levels.iteritems():
-			foundations.verbose.setVerbosityLevel(value)
-			self.assertEqual(level, logger.level)
+	@property
+	def attribute(self):
+		return self.__attribute
 
-class GetFrameTestCase(unittest.TestCase):
+	@attribute.setter
+	def attribute(self, value):
+		self.__attribute = value
+
+	@attribute.deleter
+	def attribute(self):
+		return
+
+	def __str__(self):
+		pass
+
+	def __repr__(self):
+		pass
+
+	def __private(self):
+		return self.__private.__name__
+
+	def public(self):
+		return self.public.__name__
+
+	@foundations.trace.untracable
+	def untracedPublic(self):
+		return self.untracedPublic.__name__
+
+	@staticmethod
+	def static():
+		return Dummy.static.__name__
+
+	@classmethod
+	def clsmethod(cls):
+		return cls.clsmethod.__name__
+
+def dummy1():
+	return GLOBAL_RETURN_VALUE
+
+def dummy2():
+	return GLOBAL_RETURN_VALUE
+
+class SetTracerHookTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.core.getFrame` definition units tests methods.
+	This class defines :class:`foundations.trace.setTracerHook` class units tests methods.
 	"""
 
-	def testGetFrame(self):
+	def testSetTracerHook(self):
 		"""
-		This method tests :func:`foundations.core.getFrame` definition.
+		This method tests :func:`foundations.trace.setTracerHook` definition.
 		"""
 
-		self.assertIsInstance(core.getFrame(0), inspect.currentframe().__class__)
+		object, hook = lambda: None, str()
+		self.assertTrue(foundations.trace.setTracerHook(object, hook))
+		self.assertTrue(hasattr(object, foundations.trace.TRACER_HOOK))
 
-class GetCodeLayerNameTestCase(unittest.TestCase):
+class GetTracerHookTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.core.getCodeLayerName` definition units tests methods.
-	"""
-
-	def testGetCodeLayerName(self):
-		"""
-		This method tests :func:`foundations.core.getCodeLayerName` definition.
-		"""
-
-		codeLayerName = core.getCodeLayerName()
-		self.assertIsInstance(codeLayerName, str)
-		self.assertEqual(codeLayerName, inspect.currentframe().f_code.co_name)
-
-class GetModuleTestCase(unittest.TestCase):
-	"""
-	This class defines :func:`foundations.core.getModule` definition units tests methods.
+	This class defines :class:`foundations.trace.getTracerHook` class units tests methods.
 	"""
 
-	def testGetModule(self):
+	def testGetTracerHook(self):
 		"""
-		This method tests :func:`foundations.core.getModule` definition.
+		This method tests :func:`foundations.trace.getTracerHook` definition.
 		"""
 
-		self.assertEqual(type(core.getModule(object)), types.ModuleType)
-		self.assertEqual(core.getModule(object), inspect.getmodule(object))
+		object, hook = lambda: None, str()
+		foundations.trace.setTracerHook(object, hook),
+		self.assertEqual(foundations.trace.getTracerHook(object), hook)
 
-class GetTraceNameTestCase(unittest.TestCase):
+class IsTracedTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.core.getTraceName` definition units tests methods.
+	This class defines :class:`foundations.trace.isTraced` class units tests methods.
+	"""
+
+	def testIsTraced(self):
+		"""
+		This method tests :func:`foundations.trace.isTraced` definition.
+		"""
+
+		object = lambda: None
+		foundations.trace.setTraced(object)
+		self.assertTrue(foundations.trace.isTraced(object))
+		self.assertFalse(foundations.trace.isTraced(lambda: None))
+
+class IsUntracableTestCase(unittest.TestCase):
+	"""
+	This class defines :class:`foundations.trace.isUntracable` class units tests methods.
+	"""
+
+	def testIsUntracable(self):
+		"""
+		This method tests :func:`foundations.trace.isUntracable` definition.
+		"""
+
+		object = foundations.trace.untracable(lambda: None)
+		self.assertTrue(foundations.trace.isUntracable(object))
+		self.assertFalse(foundations.trace.isUntracable(lambda: None))
+
+class SetTracedTestCase(unittest.TestCase):
+	"""
+	This class defines :class:`foundations.trace.setTraced` class units tests methods.
+	"""
+
+	def testSetTraced(self):
+		"""
+		This method tests :func:`foundations.trace.setTraced` definition.
+		"""
+
+		object = lambda: None
+		self.assertTrue(foundations.trace.setTraced(object))
+		self.assertTrue(hasattr(object, foundations.trace.TRACER_SYMBOL))
+
+class SetUntracedTestCase(unittest.TestCase):
+	"""
+	This class defines :class:`foundations.trace.setUntraced` class units tests methods.
+	"""
+
+	def testSetTraced(self):
+		"""
+		This method tests :func:`foundations.trace.setUntraced` definition.
+		"""
+
+		object = lambda: None
+		foundations.trace.setTraced(object)
+		self.assertTrue(foundations.trace.setUntraced(object))
+		self.assertFalse(hasattr(object, foundations.trace.TRACER_SYMBOL))
+
+class SetUntracableTestCase(unittest.TestCase):
+	"""
+	This class defines :class:`foundations.trace.setUntracable` class units tests methods.
+	"""
+
+	def testSetUntracable(self):
+		"""
+		This method tests :func:`foundations.trace.setUntracable` definition.
+		"""
+
+		object = foundations.trace.untracable(lambda: None)
+		self.assertTrue(hasattr(object, foundations.trace.UNTRACABLE_SYMBOL))
+
+class GetObjectNameTestCase(unittest.TestCase):
+	"""
+	This class defines :class:`foundations.trace.getObjectName` class units tests methods.
 	"""
 
 	def testGetObjectName(self):
 		"""
-		This method tests :func:`foundations.core.getTraceName` definition.
+		This method tests :func:`foundations.trace.getObjectName` definition.
 		"""
 
-		objectName = core.getTraceName(object)
-		self.assertIsInstance(objectName, str)
-		self.assertEqual(objectName, "__builtin__ | testGetObjectName.object()")
+		self.assertEqual(foundations.trace.getObjectName(foundations.trace.getObjectName),
+						foundations.trace.getObjectName.__name__)
+
+class GetMethodNameTestCase(unittest.TestCase):
+	"""
+	This class defines :class:`foundations.trace.getMethodName` class units tests methods.
+	"""
+
+	def testGetMethodName(self):
+		"""
+		This method tests :func:`foundations.trace.getMethodName` definition.
+		"""
+
+		self.assertEqual(foundations.trace.getMethodName(Dummy.public), "public")
+		self.assertEqual(foundations.trace.getMethodName(Dummy._Dummy__private), "_Dummy__private")
+
+class IsClassMethodTestCase(unittest.TestCase):
+	"""
+	This class defines :class:`foundations.trace.isClassMethod` class units tests methods.
+	"""
+
+	def testIsClassMethod(self):
+		"""
+		This method tests :func:`foundations.trace.isClassMethod` definition.
+		"""
+
+		for key, value in {Dummy.clsmethod : True, Dummy.public : False, Dummy.static : False}.iteritems():
+			self.assertEqual(foundations.trace.isClassMethod(key), value)
+
+class FormatArgumentTestCase(unittest.TestCase):
+	"""
+	This class defines :class:`foundations.trace.formatArgument` class units tests methods.
+	"""
+
+	def testFormatArgument(self):
+		"""
+		This method tests :func:`foundations.trace.formatArgument` definition.
+		"""
+
+		self.assertEqual(foundations.trace.formatArgument(("x", range(3))), "x=[0, 1, 2]")
+
+class TracerCase(unittest.TestCase):
+	"""
+	This class defines :class:`foundations.trace.tracer` class units tests methods.
+	"""
+
+	def testTracer(self):
+		"""
+		This method tests :func:`foundations.trace.tracer` definition.
+		"""
+
+		traced = foundations.trace.tracer(dummy)
+		self.assertTrue(hasattr(traced, "_trace__hook__"))
+		self.assertEqual(traced(), GLOBAL_RETURN_VALUE)
+
+class TracerCase(unittest.TestCase):
+	"""
+	This class defines :class:`foundations.trace.tracer` class units tests methods.
+	"""
+
+	def testTracer(self):
+		"""
+		This method tests :func:`foundations.trace.tracer` definition.
+		"""
+
+		tracedFunction = foundations.trace.tracer(dummy1)
+		self.assertTrue(hasattr(tracedFunction, "_trace__tracer__"))
+		self.assertEqual(tracedFunction(), dummy1())
+
+class untracableCase(unittest.TestCase):
+	"""
+	This class defines :class:`foundations.trace.untracable` class units tests methods.
+	"""
+
+	def testUntracer(self):
+		"""
+		This method tests :func:`foundations.trace.untracable` definition.
+		"""
+
+		untracedFunction = foundations.trace.untracable(dummy2)
+		self.assertTrue(hasattr(untracedFunction, "_trace__untracable__"))
+		self.assertEqual(untracedFunction(), dummy2())
+
+		untracedFunction = foundations.trace.tracer(untracedFunction)
+		self.assertFalse(hasattr(untracedFunction, "_trace__tracer__"))
+		self.assertEqual(untracedFunction(), dummy2())
 
 if __name__ == "__main__":
 	unittest.main()
