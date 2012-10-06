@@ -37,6 +37,7 @@ __all__ = ["REGISTERED_MODULES",
 			"TRACER_SYMBOL",
 			"UNTRACABLE_SYMBOL",
 			"TRACER_HOOK",
+			"UNTRACABLE_NAMES",
 			"setTracerHook",
 			"getTracerHook",
 			"isTraced",
@@ -46,6 +47,7 @@ __all__ = ["REGISTERED_MODULES",
 			"setUntracable"
 			"getObjectName",
 			"getMethodName",
+			"isStaticMethod",
 			"isClassMethod",
 			"formatArgument",
 			"tracer",
@@ -68,6 +70,8 @@ TRACER_SYMBOL = "_trace__tracer__"
 UNTRACABLE_SYMBOL = "_trace__untracable__"
 
 TRACER_HOOK = "_trace__hook__"
+
+UNTRACABLE_NAMES = ("__str__", "__repr__")
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
@@ -107,10 +111,10 @@ def isTraced(object):
 
 def isUntracable(object):
 	"""
-	This definition returns if given object is untraced.
+	This definition returns if given object is untracable.
 
 	:param object: Object. ( Object )
-	:return: Is object untraced. ( Boolean )
+	:return: Is object untracable. ( Boolean )
 	"""
 
 	return hasattr(object, UNTRACABLE_SYMBOL)
@@ -172,6 +176,16 @@ def getMethodName(method):
 		name = "_{0}{1}".format(getObjectName(method.im_class), name)
 	return name
 
+def isStaticMethod(method):
+	"""
+	This definition returns if given method is a static method.
+
+	:param method: Method. ( Object )
+	:return: Is static method. ( Boolean )
+	"""
+
+	return type(method) is type(lambda x: None)
+
 def isClassMethod(method):
 	"""
 	This definition returns if given method is a class method.
@@ -209,7 +223,7 @@ def tracer(object):
 	:return: Object. ( Object )
 	"""
 
-	if isUntracable(object):
+	if isTraced(object) or isUntracable(object) or getObjectName(object) in UNTRACABLE_NAMES:
 		return object
 
 	@functools.wraps(object)
@@ -250,9 +264,7 @@ def untracer(object):
 	"""
 
 	if isTraced(object):
-		tracerHook = getTracerHook(object)
-		setUntraced(tracerHook)
-		return tracerHook
+		return getTracerHook(object)
 	return object
 
 def untracable(function):
@@ -281,7 +293,7 @@ def untracable(function):
 
 def traceMethod(cls, method, tracer=tracer):
 	"""
-	This definition traces given method using given tracer.
+	This definition traces given class method using given tracer.
 
 	:param cls: Class of the method. ( Object )
 	:param method: Method to trace. ( Object )
@@ -289,12 +301,14 @@ def traceMethod(cls, method, tracer=tracer):
 	:return: Definition success. ( Boolean )
 	"""
 
-	name = getMethodName(method)
-	if name in ("__str__", "__repr__"):
+	if isUntracable(method) or getObjectName(method) in UNTRACABLE_NAMES:
 		return False
 
+	name = getMethodName(method)
 	if isClassMethod(method):
 		setattr(cls, name, classmethod(tracer(method.im_func)))
+	elif isStaticMethod(method):
+		setattr(cls, name, staticmethod(tracer(method)))
 	else:
 		setattr(cls, name, tracer(method))
 	return True
@@ -308,12 +322,14 @@ def untraceMethod(cls, method):
 	:return: Definition success. ( Boolean )
 	"""
 
-	name = getMethodName(method)
-	if name in ("__str__", "__repr__"):
+	if isUntracable(method) or getObjectName(method) in UNTRACABLE_NAMES:
 		return False
 
+	name = getMethodName(method)
 	if isClassMethod(method):
 		setattr(cls, name, classmethod(untracer(method)))
+	elif isStaticMethod(method):
+		setattr(cls, name, staticmethod(untracer(method)))
 	else:
 		setattr(cls, name, untracer(method))
 	return True
@@ -331,7 +347,7 @@ def traceClass(cls, tracer=tracer):
 		traceMethod(cls, method)
 
 	for name, function in inspect.getmembers(cls, inspect.isfunction):
-		setattr(cls, getObjectName(function), staticmethod(tracer(function)))
+		traceMethod(cls, function)
 
 	for name, accessor in inspect.getmembers(cls, lambda x: type(x) is property):
 		setattr(cls, name, property(tracer(accessor.fget),
@@ -354,10 +370,7 @@ def untraceClass(cls):
 		untraceMethod(cls, method)
 
 	for name, function in inspect.getmembers(cls, inspect.isfunction):
-		if not isTraced(function):
-			continue
-
-		setattr(cls, getObjectName(function), staticmethod(untracer(function)))
+		untraceMethod(cls, function)
 
 	for name, accessor in inspect.getmembers(cls, lambda x: type(x) is property):
 		if not isTraced(accessor.fget) or not isTraced(accessor.fset) or not isTraced(accessor.fdel):

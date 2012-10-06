@@ -2,26 +2,22 @@
 # -*- coding: utf-8 -*-
 
 """
-**tests.py**
+**dummy.py**
 
 **Platform:**
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module runs the tests suite.
+	This module defines helpers objects for **Foundations** package units tests.
 
 **Others:**
+
 """
 
 #**********************************************************************************************************************
-#***	External imports.
+#***	Internal imports.
 #**********************************************************************************************************************
-import os
-import sys
-if sys.version_info[:2] <= (2, 6):
-	import unittest2 as unittest
-else:
-	import unittest
+import foundations.trace
 
 #**********************************************************************************************************************
 #***	Module attributes.
@@ -33,34 +29,63 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["testsSuite"]
+__all__ = ["GLOBAL_RETURN_VALUE",
+		"Dummy",
+		"dummy1",
+		"dummy2"]
+
+GLOBAL_RETURN_VALUE = range(10)
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-def _setApplicationPackageDirectory():
+class Dummy(object):
 	"""
-	This definition sets the package directory in the path.
-
-	:return: Definition success. ( Boolean )
+	This class is a dummy class mainly used to test :mod:`foundations.trace` module.
 	"""
 
-	applicationPackageDirectory = os.path.normpath(os.path.join(sys.path[0], "../"))
-	applicationPackageDirectory not in sys.path and sys.path.append(applicationPackageDirectory)
-	return True
+	def __init__(self):
+		self.__attribute = GLOBAL_RETURN_VALUE
 
-_setApplicationPackageDirectory()
+	@property
+	def attribute(self):
+		return self.__attribute
 
-def testsSuite():
-	"""
-	This definitions runs the tests suite.
-	
-	:return: Tests suite. ( TestSuite )
-	"""
+	@attribute.setter
+	def attribute(self, value):
+		self.__attribute = value
 
-	testsLoader = unittest.TestLoader()
-	return testsLoader.discover(os.path.dirname(__file__))
+	@attribute.deleter
+	def attribute(self):
+		return
 
-if __name__ == "__main__":
-	import foundations.tests.utilities
-	unittest.TextTestRunner(verbosity=2).run(testsSuite())
+	def __str__(self):
+		pass
+
+	def __repr__(self):
+		pass
+
+	def __privateMethod(self):
+		return self.__privateMethod.__name__
+
+	def publicMethod(self):
+		return self.publicMethod.__name__
+
+	@foundations.trace.untracable
+	def untracedPublic(self):
+		return self.untracedPublic.__name__
+
+	@staticmethod
+	def staticMethod():
+		return Dummy.staticMethod.__name__
+
+	@classmethod
+	def clsMethod(cls):
+		return cls.clsMethod.__name__
+
+def dummy1():
+	return GLOBAL_RETURN_VALUE
+
+@foundations.trace.untracable
+def dummy2():
+	return GLOBAL_RETURN_VALUE
