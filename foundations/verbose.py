@@ -17,8 +17,10 @@
 #**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
+import functools
 import hashlib
 import inspect
+import itertools
 import logging
 import sys
 import threading
@@ -41,12 +43,15 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["THREADS_IDENTIFIERS",
+			"INDENT_LEVEL",
 			"LOGGER",
 			"LOGGING_DEFAULT_FORMATTER",
 			"LOGGING_EXTENDED_FORMATTER",
 			"LOGGING_STANDARD_FORMATTER",
 			"Streamer"
 			"StandardOutputStreamer",
+			"indentMessage",
+			"tracer",
 			"installLogger",
 			"uninstallLogger",
 			"getLoggingConsoleHandler",
@@ -56,6 +61,8 @@ __all__ = ["THREADS_IDENTIFIERS",
 			"setVerbosityLevel"]
 
 THREADS_IDENTIFIERS = {}
+
+INDENT_LEVEL = 0
 
 #**********************************************************************************************************************
 #***	Logging classes and definitions.
@@ -219,6 +226,76 @@ class StandardOutputStreamer(object):
 		for handler in self.__logger.__dict__["handlers"]:
 			handler.stream.write(message)
 		return True
+
+def indentMessage(message):
+	"""
+	This definition idents given message using the attr`INDENT_LEVEL` attribute value.
+
+	:param message: Message to indent. ( String )
+	:return: indented message. ( String )
+	"""
+
+	return "{0}{1}".format(" " * 4 * INDENT_LEVEL, message)
+
+def tracer(object):
+	"""
+	| This decorator is used for execution tracing.
+	| Any method / definition decorated will have it's execution traced through debug messages.
+	| Both object entry and exit are logged.
+	
+	Entering in an object::
+		
+		DEBUG   : ---> foundations.environment.getUserApplicationDataDirectory() <<<---
+		
+	Exiting from an object::
+		
+		DEBUG   : <--- foundations.environment.getSystemApplicationDataDirectory() ^ '...' --->
+	
+	:param object: Object to decorate. ( Object )
+	:return: Object. ( Object )
+	"""
+
+	@functools.wraps(object)
+	@functools.partial(foundations.trace.validateTracer, object)
+	def tracerWrapped(*args, **kwargs):
+		"""
+		This decorator is used for execution tracing.
+
+		:param \*args: Arguments. ( \* )
+		:param \*\*kwargs: Keywords arguments. ( \*\* )
+		:return: Object. ( Object )
+		"""
+
+		global INDENT_LEVEL
+
+		traceName = foundations.trace.getTraceName(object)
+
+		code = object.func_code
+		argsCount = code.co_argcount
+		argsNames = code.co_varnames[:argsCount]
+		functionDefaults = object.func_defaults or list()
+		argsDefaults = dict(zip(argsNames[-len(functionDefaults):], functionDefaults))
+
+		positionalArgs = map(foundations.trace.formatArgument, zip(argsNames, args))
+		defaultedArgs = [foundations.trace.formatArgument((name, argsDefaults[name])) \
+						for name in argsNames[len(args):] if name not in kwargs]
+		namelessArgs = map(repr, args[argsCount:])
+		keywordArgs = map(foundations.trace.formatArgument, kwargs.items())
+		LOGGER.debug(indentMessage("---> {0}({1}) <---".format(traceName,
+																", ".join(itertools.chain(positionalArgs,
+																						defaultedArgs,
+																						namelessArgs,
+																						keywordArgs)))))
+
+		INDENT_LEVEL += 1
+		value = object(*args, **kwargs)
+		INDENT_LEVEL -= 1
+
+		LOGGER.debug(indentMessage("<--- {0} ^ {1} --->".format(traceName, repr(value))))
+
+		return value
+
+	return tracerWrapped
 
 def installLogger(logger=None, module=None):
 	"""

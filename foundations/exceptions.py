@@ -107,7 +107,7 @@ def exceptionsHandler(handler=None, raiseException=False, *args):
 		:return: Object. ( Object )
 		"""
 
-		traceName = foundations.core.getTraceName(object)
+		traceName = foundations.trace.getTraceName(object)
 
 		@functools.wraps(object)
 		def function(*args, **kwargs):

@@ -29,8 +29,9 @@ import tempfile
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
+import foundations.tests.testsFoundations.resources.dummy
 import foundations.verbose
-from foundations.globals.constants import Constants
+from foundations.tests.testsFoundations.resources.dummy import dummy1
 
 #**********************************************************************************************************************
 #***	Module attributes.
@@ -44,6 +45,8 @@ __status__ = "Production"
 
 __all__ = ["StreamerTestCase",
 		"StandardOutputStreamerTestCase",
+		"IndentMessageTestCase",
+		"TracerTestCase",
 		"InstallLoggerTestCase",
 		"UninstallLoggerTestCase",
 		"GetLoggingConsoleHandlerTestCase",
@@ -105,6 +108,32 @@ class StandardOutputStreamerTestCase(unittest.TestCase):
 
 		for method in requiredMethods:
 			self.assertIn(method, dir(foundations.verbose.StandardOutputStreamer))
+
+class IndentMessageTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.verbose.indentMessage` definition units tests methods.
+	"""
+
+	def testIndentMessage(self):
+		"""
+		This method tests :func:`foundations.verbose.indentMessage` definition.
+		"""
+
+		self.assertIsInstance(foundations.verbose.indentMessage("message"), str)
+
+class TracerTestCase(unittest.TestCase):
+	"""
+	This class defines :class:`foundations.trace.tracer` class units tests methods.
+	"""
+
+	def testTracer(self):
+		"""
+		This method tests :func:`foundations.trace.tracer` definition.
+		"""
+
+		object = foundations.verbose.tracer(dummy1)
+		self.assertTrue(foundations.trace.isTraced(object))
+		self.assertEqual(object(), foundations.tests.testsFoundations.resources.dummy.GLOBAL_RETURN_VALUE)
 
 class InstallLoggerTestCase(unittest.TestCase):
 	"""

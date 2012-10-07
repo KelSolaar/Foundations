@@ -63,7 +63,6 @@ class ConstantsTestCase(unittest.TestCase):
 								"verbosityLabels",
 								"loggingDefaultFormatter",
 								"loggingSeparators",
-								"executionTraceArgumentMaximumLength",
 								"excludeTaggedFramesFromStackTrace",
 								"encodingFormat",
 								"encodingError",
@@ -147,13 +146,6 @@ class ConstantsTestCase(unittest.TestCase):
 		"""
 
 		self.assertIsInstance(Constants.loggingSeparators, str)
-
-	def testExecutionTraceArgumentMaximumLengthAttribute(self):
-		"""
-		This method tests :attr:`foundations.globals.constants.Constants.executionTraceArgumentMaximumLength` attribute.
-		"""
-
-		self.assertIsInstance(Constants.executionTraceArgumentMaximumLength, int)
 
 	def testExcludeTaggedFramesFromStackTraceAttribute(self):
 		"""
