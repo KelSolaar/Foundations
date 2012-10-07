@@ -63,7 +63,6 @@ class ConstantsTestCase(unittest.TestCase):
 								"verbosityLabels",
 								"loggingDefaultFormatter",
 								"loggingSeparators",
-								"excludeTaggedFramesFromStackTrace",
 								"encodingFormat",
 								"encodingError",
 								"applicationDirectory",
@@ -146,13 +145,6 @@ class ConstantsTestCase(unittest.TestCase):
 		"""
 
 		self.assertIsInstance(Constants.loggingSeparators, str)
-
-	def testExcludeTaggedFramesFromStackTraceAttribute(self):
-		"""
-		This method tests :attr:`foundations.globals.constants.Constants.excludeTaggedFramesFromStackTrace` attribute.
-		"""
-
-		self.assertIsInstance(Constants.excludeTaggedFramesFromStackTrace, bool)
 
 	def testEncodingFormatAttribute(self):
 		"""

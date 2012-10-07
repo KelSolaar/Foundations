@@ -118,7 +118,7 @@ def exceptionsHandler(handler=None, raiseException=False, *args):
 			:param \*\*kwargs: Keywords arguments. ( \*\* )
 			"""
 
-			__stackTraceFrameTag__ = Constants.excludeTaggedFramesFromStackTrace
+			__stackTraceFrameTag__ = True
 
 			exception = None
 
