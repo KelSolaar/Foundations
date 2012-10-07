@@ -39,6 +39,8 @@ __all__ = ["REGISTERED_MODULES",
 			"UNTRACABLE_SYMBOL",
 			"TRACER_HOOK",
 			"UNTRACABLE_NAMES",
+			"TRACE_NAMES_CACHE",
+			"TRACE_WALKER_CACHE",
 			"setTracerHook",
 			"getTracerHook",
 			"isTraced",
@@ -76,6 +78,9 @@ UNTRACABLE_SYMBOL = "_trace__untracable__"
 TRACER_HOOK = "_trace__hook__"
 
 UNTRACABLE_NAMES = ("__str__", "__repr__")
+
+TRACE_NAMES_CACHE = {}
+TRACE_WALKER_CACHE = {}
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
@@ -200,16 +205,27 @@ def getTraceName(object):
 	:return: Object trace name. ( String )
 	"""
 
-	if type(object) is property:
-		object = object.fget
+	global TRACE_NAMES_CACHE
+	global TRACE_WALKER_CACHE
 
-	module = inspect.getmodule(object)
-	if module is None:
-		return
+	traceName = TRACE_NAMES_CACHE.get(object)
+	if traceName is None:
+		if type(object) is property:
+			object = object.fget
 
-	for (cls, member) in traceWalker(module):
-		if object in (cls, untracer(member)):
-			return ".".join(map(getObjectName, filter(lambda x: x is not None, (module, cls, member))))
+		module = inspect.getmodule(object)
+		if module is None:
+			return
+
+		members = TRACE_WALKER_CACHE.get(module)
+		if members is None:
+			TRACE_WALKER_CACHE[module] = members = tuple(traceWalker(module))
+
+		for (cls, member) in members:
+			if object in (cls, untracer(member)):
+				TRACE_NAMES_CACHE[object] = traceName = \
+				".".join(map(getObjectName, filter(lambda x: x is not None, (module, cls, member))))
+	return traceName
 
 def getMethodName(method):
 	"""
