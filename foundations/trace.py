@@ -58,7 +58,6 @@ __all__ = ["REGISTERED_MODULES",
 			"validateTracer",
 			"tracer",
 			"untracer"
-			"tracerWrapped",
 			"untracable",
 			"wrapped",
 			"traceMethod",
@@ -306,7 +305,7 @@ def tracer(object):
 
 	@functools.wraps(object)
 	@functools.partial(validateTracer, object)
-	def tracerWrapped(*args, **kwargs):
+	def tracerWrapper(*args, **kwargs):
 		"""
 		This decorator is used for execution tracing.
 
@@ -332,7 +331,7 @@ def tracer(object):
 																	keywordArgs))))
 		return object(*args, **kwargs)
 
-	return tracerWrapped
+	return tracerWrapper
 
 def untracer(object):
 	"""
@@ -346,7 +345,7 @@ def untracer(object):
 		return getTracerHook(object)
 	return object
 
-def untracable(function):
+def untracable(object):
 	"""
 	This decorator object is used to mark decorated object as non tracable.
 	
@@ -354,8 +353,8 @@ def untracable(function):
 	:return: Object. ( Object )
 	"""
 
-	@functools.wraps(function)
-	def wrapped(*args, **kwargs):
+	@functools.wraps(object)
+	def untracableWrapper(*args, **kwargs):
 		"""
 		This decorator object is used to mark decorated object as non tracable.
 
@@ -364,11 +363,11 @@ def untracable(function):
 		:return: Object. ( Object )
 		"""
 
-		return function(*args, **kwargs)
+		return object(*args, **kwargs)
 
-	setUntracable(wrapped)
+	setUntracable(untracableWrapper)
 
-	return wrapped
+	return untracableWrapper
 
 def traceMethod(cls, method, tracer=tracer):
 	"""

@@ -257,7 +257,7 @@ def tracer(object):
 
 	@functools.wraps(object)
 	@functools.partial(foundations.trace.validateTracer, object)
-	def tracerWrapped(*args, **kwargs):
+	def tracerWrapper(*args, **kwargs):
 		"""
 		This decorator is used for execution tracing.
 
@@ -295,7 +295,7 @@ def tracer(object):
 
 		return value
 
-	return tracerWrapped
+	return tracerWrapper
 
 def installLogger(logger=None, module=None):
 	"""

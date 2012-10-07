@@ -56,7 +56,7 @@ def executionTime(object):
 	"""
 
 	@functools.wraps(object)
-	def function(*args, **kwargs):
+	def executionTimeWrapper(*args, **kwargs):
 		"""
 		This decorator is used for execution timing.
 
@@ -76,7 +76,7 @@ def executionTime(object):
 
 		return value
 
-	return function
+	return executionTimeWrapper
 
 def memoize(cache=None):
 	"""
@@ -91,7 +91,7 @@ def memoize(cache=None):
 	if cache is None:
 		cache = {}
 
-	def wrapper(object):
+	def memoizeDecorator(object):
 		"""
 		This decorator is used for object memoization.
 
@@ -100,7 +100,7 @@ def memoize(cache=None):
 		"""
 
 		@functools.wraps(object)
-		def function(*args, **kwargs):
+		def memoizeWrapper(*args, **kwargs):
 			"""
 			This decorator is used for object memoization.
 	
@@ -119,6 +119,6 @@ def memoize(cache=None):
 
 			return cache[key]
 
-		return function
+		return memoizeWrapper
 
-	return wrapper
+	return memoizeDecorator

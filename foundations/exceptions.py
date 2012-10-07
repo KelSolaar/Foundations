@@ -164,7 +164,7 @@ def handleExceptions(handler=defaultExceptionsHandler, raiseException=False, *ar
 			This definition raises a 'ZeroDivisionError' exception.
 			'''
 
-			return value / 0;
+			return value / 0
 
 	:param handler: Custom handler. ( Object )
 	:param raiseException: Raise the exception. ( Boolean )
@@ -175,7 +175,7 @@ def handleExceptions(handler=defaultExceptionsHandler, raiseException=False, *ar
 	exceptions = list(args)
 	exceptions.append(Exception)
 
-	def wrapper(object):
+	def handleExceptionsDecorator(object):
 		"""
 		This decorator is used for exceptions handling.
 
@@ -186,7 +186,7 @@ def handleExceptions(handler=defaultExceptionsHandler, raiseException=False, *ar
 		traceName = foundations.trace.getTraceName(object)
 
 		@functools.wraps(object)
-		def function(*args, **kwargs):
+		def handleExceptionsWrapper(*args, **kwargs):
 			"""
 			This decorator is used for exceptions handling.
 
@@ -206,8 +206,9 @@ def handleExceptions(handler=defaultExceptionsHandler, raiseException=False, *ar
 				if raiseException and exception:
 					raise exception
 
-		return function
-	return wrapper
+		return handleExceptionsWrapper
+
+	return handleExceptionsDecorator
 
 class AbstractError(Exception):
 	"""
