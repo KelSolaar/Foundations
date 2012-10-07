@@ -49,10 +49,13 @@ __all__ = ["SetTracerHookTestCase",
 		"IsUntracableTestCase",
 		"SetTracedTestCase",
 		"SetUntracedTestCase",
+		"TraceWalkerTestCase"
 		"GetObjectNameTestCase",
+		"GetTraceNameTestCase",
 		"GetMethodNameTestCase",
 		"IsStaticMethodTestCase",
 		"IsClassMethodTestCase",
+		"ValidateTracerTestCase"
 		"TracerTestCase",
 		"UntracerTestCase",
 		"UntracableTestCase",
@@ -179,6 +182,34 @@ class SetUntracableTestCase(unittest.TestCase):
 		object = foundations.trace.untracable(lambda: None)
 		self.assertTrue(hasattr(object, foundations.trace.UNTRACABLE_SYMBOL))
 
+class TraceWalkerTestCase(unittest.TestCase):
+	"""
+	This class defines :class:`foundations.trace.traceWalker` class units tests methods.
+	"""
+
+	def testTraceWalker(self):
+		"""
+		This method tests :func:`foundations.trace.traceWalker` definition.
+		"""
+
+		module = foundations.tests.testsFoundations.resources.dummy
+		members = list(foundations.trace.traceWalker(module))
+
+		for method in TRACABLE_METHODS.itervalues():
+			self.assertIn((Dummy, method), members)
+
+		for method in UNTRACABLE_METHODS.itervalues():
+			self.assertIn((Dummy, method), members)
+
+		for definition in TRACABLE_DEFINITIONS.itervalues():
+			self.assertIn((None, definition), members)
+
+		for definition in UNTRACABLE_DEFINITIONS.itervalues():
+			self.assertIn((None, definition), members)
+
+		for accessor in (Dummy.attribute.fget, Dummy.attribute.fset, Dummy.attribute.fdel):
+			self.assertIn((Dummy, accessor), members)
+
 class GetObjectNameTestCase(unittest.TestCase):
 	"""
 	This class defines :class:`foundations.trace.getObjectName` class units tests methods.
@@ -191,6 +222,25 @@ class GetObjectNameTestCase(unittest.TestCase):
 
 		self.assertEqual(foundations.trace.getObjectName(foundations.trace.getObjectName),
 						foundations.trace.getObjectName.__name__)
+
+class GetTraceNameTestCase(unittest.TestCase):
+	"""
+	This class defines :class:`foundations.trace.getTraceName` class units tests methods.
+	"""
+
+	def testGetTraceName(self):
+		"""
+		This method tests :func:`foundations.trace.getTraceName` definition.
+		"""
+
+		self.assertEqual(foundations.trace.getTraceName(dummy1),
+						"foundations.tests.testsFoundations.resources.dummy.dummy1")
+		self.assertEqual(foundations.trace.getTraceName(Dummy.publicMethod),
+						"foundations.tests.testsFoundations.resources.dummy.Dummy.publicMethod")
+		self.assertEqual(foundations.trace.getTraceName(Dummy._Dummy__privateMethod),
+						"foundations.tests.testsFoundations.resources.dummy.Dummy.__privateMethod")
+		self.assertEqual(foundations.trace.getTraceName(Dummy.attribute),
+						"foundations.tests.testsFoundations.resources.dummy.Dummy.attribute")
 
 class GetMethodNameTestCase(unittest.TestCase):
 	"""
@@ -242,6 +292,25 @@ class FormatArgumentTestCase(unittest.TestCase):
 		"""
 
 		self.assertEqual(foundations.trace.formatArgument(("x", range(3))), "x=[0, 1, 2]")
+
+class ValidateTracerTestCase(unittest.TestCase):
+	"""
+	This class defines :class:`foundations.trace.validateTracer` class units tests methods.
+	"""
+
+	def testValidateTracer(self):
+		"""
+		This method tests :func:`foundations.trace.validateTracer` definition.
+		"""
+
+		wrapped = foundations.trace.validateTracer(dummy1, lambda x: x)
+		self.assertTrue(hasattr(wrapped, foundations.trace.TRACER_HOOK))
+		self.assertTrue(foundations.trace.isTraced(wrapped))
+
+		wrapped = foundations.trace.validateTracer(dummy2, lambda x: x)
+		self.assertFalse(hasattr(wrapped, foundations.trace.TRACER_HOOK))
+		self.assertFalse(foundations.trace.isTraced(wrapped))
+		self.assertEqual(wrapped, dummy2)
 
 class TracerTestCase(unittest.TestCase):
 	"""

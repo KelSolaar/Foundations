@@ -22,6 +22,7 @@ import functools
 import inspect
 import re
 import sys
+import itertools
 
 #**********************************************************************************************************************
 #***	Module attributes.
@@ -45,11 +46,14 @@ __all__ = ["REGISTERED_MODULES",
 			"setTraced",
 			"setUntraced",
 			"setUntracable"
+			"traceWalker",
 			"getObjectName",
+			"getTraceName",
 			"getMethodName",
 			"isStaticMethod",
 			"isClassMethod",
 			"formatArgument",
+			"validateTracer",
 			"tracer",
 			"untracer"
 			"tracerWrapped",
@@ -153,6 +157,31 @@ def setUntracable(object):
 	setattr(object, UNTRACABLE_SYMBOL, True)
 	return True
 
+def traceWalker(module):
+	"""
+	This definition is a generator used to walk into modules.
+	
+	:param module: Module to walk. ( Module )
+	:return: Class / Function / Method. ( Object / Object )
+	"""
+
+	for name, function in inspect.getmembers(module, inspect.isfunction):
+		yield None, function
+
+	for name, cls in inspect.getmembers(module, inspect.isclass):
+		yield cls, None
+
+		for name, method in inspect.getmembers(cls, inspect.ismethod):
+			yield cls, method
+
+		for name, function in inspect.getmembers(cls, inspect.isfunction):
+			yield cls, function
+
+		for name, accessor in inspect.getmembers(cls, lambda x: type(x) is property):
+			yield cls, accessor.fget
+			yield cls, accessor.fset
+			yield cls, accessor.fdel
+
 def getObjectName(object):
 	"""
 	This definition returns given object name.
@@ -162,6 +191,25 @@ def getObjectName(object):
 	"""
 
 	return object.__name__
+
+def getTraceName(object):
+	"""
+	This definition returns given object trace name.
+	
+	:param object: Object. ( Object )
+	:return: Object trace name. ( String )
+	"""
+
+	if type(object) is property:
+		object = object.fget
+
+	module = inspect.getmodule(object)
+	if module is None:
+		return
+
+	for (cls, member) in traceWalker(module):
+		if object in (cls, untracer(member)):
+			return ".".join(map(getObjectName, filter(lambda x: x is not None, (module, cls, member))))
 
 def getMethodName(method):
 	"""
@@ -214,6 +262,23 @@ def formatArgument(argumentValue):
 
 	return "{0}={1!r}".format(*argumentValue)
 
+def validateTracer(*args):
+	"""
+	This definition is used to validate and finish a tracer by adding mandatory extra attributes.
+
+	:param \*args: Arguments. ( \* )
+	:return: Validated wrapped object. ( Object )
+	"""
+
+	object, wrapped = args
+	if isTraced(object) or isUntracable(object) or getObjectName(object) in UNTRACABLE_NAMES:
+		return object
+
+	setTracerHook(wrapped, object)
+	setTraced(wrapped)
+
+	return wrapped
+
 def tracer(object):
 	"""
 	| This decorator object is used for execution tracing.
@@ -223,10 +288,8 @@ def tracer(object):
 	:return: Object. ( Object )
 	"""
 
-	if isTraced(object) or isUntracable(object) or getObjectName(object) in UNTRACABLE_NAMES:
-		return object
-
 	@functools.wraps(object)
+	@functools.partial(validateTracer, object)
 	def tracerWrapped(*args, **kwargs):
 		"""
 		This decorator is used for execution tracing.
@@ -246,12 +309,12 @@ def tracer(object):
 		defaultedArgs = [formatArgument((name, argsDefaults[name])) for name in argsNames[len(args):] if name not in kwargs]
 		namelessArgs = map(repr, args[argsCount:])
 		keywordArgs = map(formatArgument, kwargs.items())
-		sys.stdout.write("{0}({1})\n".format(getObjectName(object),
-											", ".join(positionalArgs + defaultedArgs + namelessArgs + keywordArgs)))
+		sys.stdout.write("{0}({1})\n".format(getTraceName(object),
+											", ".join(itertools.chain(positionalArgs,
+																	defaultedArgs,
+																	namelessArgs,
+																	keywordArgs))))
 		return object(*args, **kwargs)
-
-	setTracerHook(tracerWrapped, object)
-	setTraced(tracerWrapped)
 
 	return tracerWrapped
 
@@ -344,10 +407,10 @@ def traceClass(cls, tracer=tracer):
 	"""
 
 	for name, method in inspect.getmembers(cls, inspect.ismethod):
-		traceMethod(cls, method)
+		traceMethod(cls, method, tracer)
 
 	for name, function in inspect.getmembers(cls, inspect.isfunction):
-		traceMethod(cls, function)
+		traceMethod(cls, function, tracer)
 
 	for name, accessor in inspect.getmembers(cls, lambda x: type(x) is property):
 		setattr(cls, name, property(tracer(accessor.fget),
@@ -399,7 +462,7 @@ def traceModule(module, tracer=tracer):
 		setattr(module, name, tracer(function))
 
 	for name, cls in inspect.getmembers(module, inspect.isclass):
-		traceClass(cls)
+		traceClass(cls, tracer)
 
 	REGISTERED_MODULES.add(module)
 
