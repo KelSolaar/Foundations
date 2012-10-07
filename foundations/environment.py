@@ -92,7 +92,7 @@ class Environment(object):
 		return self.__variables
 
 	@variables.setter
-	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
+	@foundations.exceptions.handleExceptions(None, False, AssertionError)
 	def variables(self, value):
 		"""
 		This method is the setter method for **self.__variables** attribute.
@@ -110,7 +110,7 @@ class Environment(object):
 		self.__variables = value
 
 	@variables.deleter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def variables(self):
 		"""
 		This method is the deleter method for **self.__variables** attribute.
@@ -134,7 +134,7 @@ class Environment(object):
 			self.__variables[variable] = None
 		self.__variables.update(kwargs)
 
-	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def getValues(self, *args):
 		"""
 		This method gets environment variables values.
@@ -161,7 +161,7 @@ class Environment(object):
 			self.__variables[variable] = os.environ.get(variable, None)
 		return self.__variables
 
-	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def setValues(self, **kwargs):
 		"""
 		This method sets environment variables values.
@@ -192,7 +192,7 @@ class Environment(object):
 			os.environ[key] = value
 		return True
 
-	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def getValue(self, variable=None):
 		"""
 		This method gets given environment variable value.
@@ -210,7 +210,7 @@ class Environment(object):
 			self.getValues()
 			return foundations.common.getFirstItem(self.__variables.values())
 
-	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def setValue(self, variable, value):
 		"""
 		This method sets given environment variable with given value.
@@ -222,7 +222,7 @@ class Environment(object):
 
 		return self.setValues(**{variable : value})
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def getSystemApplicationDataDirectory():
 	"""
 	This definition returns the system Application data directory.
@@ -249,7 +249,7 @@ def getSystemApplicationDataDirectory():
 		environmentVariable = Environment("HOME")
 		return environmentVariable.getValue()
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def getUserApplicationDataDirectory():
 	"""
 	| This definition returns the user Application directory.

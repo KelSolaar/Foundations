@@ -57,7 +57,7 @@ class Cache(dict):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def addContent(self, **content):
 		"""
 		This method adds given content to the cache.
@@ -79,7 +79,7 @@ class Cache(dict):
 		self.update(**content)
 		return True
 
-	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def removeContent(self, *keys):
 		"""
 		This method removes given content from the cache.
@@ -107,7 +107,7 @@ class Cache(dict):
 			del self[key]
 		return True
 
-	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def getContent(self, key):
 		"""
 		This method gets given content from the cache.
@@ -128,7 +128,7 @@ class Cache(dict):
 
 		return self.get(key)
 
-	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def flushContent(self):
 		"""
 		This method flushes the cache content.

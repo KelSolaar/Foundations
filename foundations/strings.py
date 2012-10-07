@@ -62,7 +62,7 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def encode(data):
 	"""
 	This definition encodes given data to unicode using package default settings.
@@ -88,7 +88,7 @@ def encode(data):
 			encodedData = unicode(data.__str__(), Constants.encodingFormat, Constants.encodingError)
 	return encodedData
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def getNiceName(name):
 	"""
 	This definition converts a string to nice string: **currentLogText** -> **Current Log Text**.
@@ -107,7 +107,7 @@ def getNiceName(name):
 	chunks = re.sub(r"(.)([A-Z][a-z]+)", r"\1 \2", name)
 	return " ".join(element.title() for element in re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", chunks).split())
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def getVersionRank(version):
 	"""
 	This definition converts a version string to it's rank.
@@ -128,7 +128,7 @@ def getVersionRank(version):
 	LOGGER.debug("> Rank: '{0}'.".format(rank))
 	return rank
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def getSplitextBasename(path):
 	"""
 	This definition gets the basename of a path without its extension.
@@ -146,7 +146,7 @@ def getSplitextBasename(path):
 	LOGGER.debug("> Splitext basename: '{0}'.".format(basename))
 	return basename
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def getCommonAncestor(*args):
 	"""
 	This definition gets common ancestor of given iterables.
@@ -171,7 +171,7 @@ def getCommonAncestor(*args):
 	LOGGER.debug("> Common Ancestor: '{0}'".format(ancestor))
 	return ancestor
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def getCommonPathsAncestor(*args):
 	"""
 	This definition gets common paths ancestor of given paths.
@@ -189,7 +189,7 @@ def getCommonPathsAncestor(*args):
 	LOGGER.debug("> Common Paths Ancestor: '{0}'".format(pathAncestor))
 	return pathAncestor
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def getWords(data):
 	"""
 	This method extracts the words from given string.
@@ -207,7 +207,7 @@ def getWords(data):
 	LOGGER.debug("> Words: '{0}'".format(", ".join(words)))
 	return words
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 	"""
 	This method filters the words using the given filters.
@@ -253,7 +253,7 @@ def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 	LOGGER.debug("> Filtered words: '{0}'".format(", ".join(filteredWords)))
 	return filteredWords
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def replace(string, data):
 	"""
 	This definition replaces the data occurences in the string.
@@ -273,7 +273,7 @@ def replace(string, data):
 		string = string.replace(old, new)
 	return string
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def removeStrip(string, pattern):
 	"""
 	This definition removes the pattern occurences in the string and strip the result.
@@ -290,7 +290,7 @@ def removeStrip(string, pattern):
 
 	return string.replace(pattern, "").strip()
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def toForwardSlashes(data):
 	"""
 	This definition converts backward slashes to forward slashes.
@@ -308,7 +308,7 @@ def toForwardSlashes(data):
 	LOGGER.debug("> Data: '{0}' to forward slashes.".format(data))
 	return data
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def toBackwardSlashes(data):
 	"""
 	This definition converts forward slashes to backward slashes.
@@ -326,7 +326,7 @@ def toBackwardSlashes(data):
 	LOGGER.debug("> Data: '{0}' to backward slashes.".format(data))
 	return data
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def toPosixPath(path):
 	"""
 	This definition converts Windows path to Posix path while stripping drives letters and network server slashes.
@@ -344,7 +344,7 @@ def toPosixPath(path):
 	LOGGER.debug("> Stripped converted to Posix path: '{0}'.".format(posixPath))
 	return posixPath
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def getNormalizedPath(path):
 	"""
 	This definition normalizes a path, escaping slashes if needed on Windows.
@@ -367,7 +367,7 @@ def getNormalizedPath(path):
 		LOGGER.debug("> Path: '{0}', normalized path.".format(path))
 		return path
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def isEmail(data):
 	"""
 	This definition check if given data string is an email.
@@ -390,7 +390,7 @@ def isEmail(data):
 		LOGGER.debug("> {0}' is not matched as email.".format(data))
 		return False
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def isWebsite(data):
 	"""
 	This definition check if given data string is a website.

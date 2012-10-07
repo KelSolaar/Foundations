@@ -47,7 +47,7 @@ NAMESPACE_SPLITTER = "|"
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def setNamespace(namespace, attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 	"""
 	This definition sets given namespace to given attribute.
@@ -67,7 +67,7 @@ def setNamespace(namespace, attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 	LOGGER.debug("> Namespace: '{0}', attribute: '{1}', long name: '{2}'.".format(namespace, attribute, longName))
 	return longName
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def getNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False):
 	"""
 	This definition returns given attribute foundations.namespace.
@@ -94,7 +94,7 @@ def getNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False
 		LOGGER.debug("> Attribute: '{0}', namespace: '{1}'.".format(attribute, namespace))
 		return namespace
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def removeNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False):
 	"""
 	This definition returns attribute with stripped foundations.namespace.
@@ -118,7 +118,7 @@ def removeNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=Fa
 	LOGGER.debug("> Attribute: '{0}', stripped attribute: '{1}'.".format(attribute, strippedAttribute))
 	return strippedAttribute
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def getRoot(attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 	"""
 	This definition returns given attribute root.
@@ -137,7 +137,7 @@ def getRoot(attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 
 	return getNamespace(attribute, namespaceSplitter, rootOnly=True)
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def getLeaf(attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 	"""
 	This definition returns given attribute leaf.

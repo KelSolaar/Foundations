@@ -19,13 +19,13 @@
 #**********************************************************************************************************************
 import functools
 import inspect
+import linecache
 import sys
 import traceback
 
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
-import foundations.core
 import foundations.verbose
 from foundations.globals.constants import Constants
 
@@ -40,8 +40,9 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["LOGGER",
-			"exceptionsHandler",
+			"extractStack"
 			"defaultExceptionsHandler",
+			"handleExceptions",
 			"AbstractError",
 			"BreakIteration",
 			"AbstractParsingError",
@@ -69,70 +70,37 @@ __all__ = ["LOGGER",
 
 LOGGER = foundations.verbose.installLogger()
 
+EXCEPTIONS_FRAME_SYMBOL = "_exceptions__frame__"
+
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-def exceptionsHandler(handler=None, raiseException=False, *args):
+def extractStack(frame, exceptionsFrameSymbol=EXCEPTIONS_FRAME_SYMBOL):
 	"""
-	| This decorator is used for exceptions handling.
-	| It's possible to specify an user defined exception handler,
-		if not, :func:`defaultExceptionsHandler` handler will be used.
-	| The decorator uses given exceptions objects
-		or the default Python `Exception <http://docs.python.org/library/exceptions.html#exceptions.Exception>`_ class.
+	| This definition extracts the stack from provided frame.
+	| The code is similar to :func:`traceback.extract_stack` except that it allows frames to be excluded
+		from the stack if the given stack trace frame tag is found in the frame locals and set **True**.
 	
-	Usage::
-
-		@exceptionsHandler(None, False, ZeroDivisionError)
-		def raiseAnException(value):
-			'''
-			This definition raises a 'ZeroDivisionError' exception.
-			'''
-
-			return value / 0;
-
-	:param handler: Custom handler. ( Object )
-	:param raiseException: Raise the exception. ( Boolean )
-	:param \*args: Exceptions. ( Exceptions )
-	:return: Object. ( Object )
+	:param frame: Frame. ( Frame )
+	:param exceptionsFrameSymbol: Stack trace frame tag. ( String )
+	:return: Stack. ( List )
 	"""
 
-	exceptions = tuple((exception for exception in args))
-	handler = handler or defaultExceptionsHandler
+	stack = []
+	while frame is not None:
+		if not frame.f_locals.get(EXCEPTIONS_FRAME_SYMBOL):
+			lineNumber = frame.f_lineno
+			code = frame.f_code
+			codeName = code.co_name
+			filename = code.co_filename
+			linecache.checkcache(filename)
+			line = linecache.getline(filename, lineNumber, frame.f_globals)
+			line = line.strip() if line else None
+			stack.append((filename, lineNumber, codeName, line))
+		frame = frame.f_back
+	stack.reverse()
 
-	def wrapper(object):
-		"""
-		This decorator is used for exceptions handling.
-
-		:param object: Object to decorate. ( Object )
-		:return: Object. ( Object )
-		"""
-
-		traceName = foundations.trace.getTraceName(object)
-
-		@functools.wraps(object)
-		def function(*args, **kwargs):
-			"""
-			This decorator is used for exceptions handling.
-
-			:param \*args: Arguments. ( \* )
-			:param \*\*kwargs: Keywords arguments. ( \*\* )
-			"""
-
-			__stackTraceFrameTag__ = True
-
-			exception = None
-
-			try:
-				return object(*args, **kwargs)
-			except exceptions as exception:
-				handler(exception, traceName, *args, **kwargs)
-			except Exception as exception:
-				handler(exception, traceName, *args, **kwargs)
-			finally:
-				if raiseException and exception:
-					raise exception
-		return function
-	return wrapper
+	return stack
 
 def defaultExceptionsHandler(exception, traceName, *args, **kwargs):
 	"""
@@ -165,11 +133,11 @@ def defaultExceptionsHandler(exception, traceName, *args, **kwargs):
 	LOGGER.error("!> {0}".format(Constants.loggingSeparators))
 
 	exceptionType, exceptionValue, trcback = sys.exc_info()
-	stack = foundations.core.extractStack(trcback.tb_frame.f_back)
+	stack = extractStack(trcback.tb_frame.f_back)
 	frames = inspect.getinnerframes(trcback)
 	for frame , filename, lineNumber, name, line, value in frames:
-		skipFrame = frame.f_locals.get("__stackTraceFrameTag__")
-		skipFrame or stack.append((filename, lineNumber, name, line and str().join(line) or str()))
+		skipFrame = frame.f_locals.get(EXCEPTIONS_FRAME_SYMBOL)
+		skipFrame or stack.append((filename, lineNumber, name, str().join(line) if line else str()))
 
 	sys.stderr.write("Traceback (most recent call last):\n")
 	for filename, lineNumber, name, line in stack:
@@ -179,6 +147,67 @@ def defaultExceptionsHandler(exception, traceName, *args, **kwargs):
 		sys.stderr.write("{0}".format(line))
 
 	return True
+
+def handleExceptions(handler=defaultExceptionsHandler, raiseException=False, *args):
+	"""
+	| This decorator is used for exceptions handling.
+	| It's possible to specify an user defined exception handler,
+		if not, :func:`defaultExceptionsHandler` handler will be used.
+	| The decorator uses given exceptions objects
+		or the default Python `Exception <http://docs.python.org/library/exceptions.html#exceptions.Exception>`_ class.
+	
+	Usage::
+
+		@handleExceptions(None, False, ZeroDivisionError)
+		def raiseAnException(value):
+			'''
+			This definition raises a 'ZeroDivisionError' exception.
+			'''
+
+			return value / 0;
+
+	:param handler: Custom handler. ( Object )
+	:param raiseException: Raise the exception. ( Boolean )
+	:param \*args: Exceptions. ( Exceptions )
+	:return: Object. ( Object )
+	"""
+
+	exceptions = list(args)
+	exceptions.append(Exception)
+
+	def wrapper(object):
+		"""
+		This decorator is used for exceptions handling.
+
+		:param object: Object to decorate. ( Object )
+		:return: Object. ( Object )
+		"""
+
+		traceName = foundations.trace.getTraceName(object)
+
+		@functools.wraps(object)
+		def function(*args, **kwargs):
+			"""
+			This decorator is used for exceptions handling.
+
+			:param \*args: Arguments. ( \* )
+			:param \*\*kwargs: Keywords arguments. ( \*\* )
+			"""
+
+			_exceptions__frame__ = True
+
+			exception = None
+
+			try:
+				return object(*args, **kwargs)
+			except exceptions as exception:
+				handler(exception, traceName, *args, **kwargs)
+			finally:
+				if raiseException and exception:
+					raise exception
+
+		return function
+	return wrapper
 
 class AbstractError(Exception):
 	"""
@@ -296,7 +325,7 @@ class AttributeStructureParsingError(AbstractParsingError):
 		return self.__line
 
 	@line.setter
-	@exceptionsHandler(None, False, AssertionError)
+	@handleExceptions(None, False, AssertionError)
 	def line(self, value):
 		"""
 		This method is the setter method for **self.__line** attribute.
@@ -310,7 +339,7 @@ class AttributeStructureParsingError(AbstractParsingError):
 		self.__line = value
 
 	@line.deleter
-	@exceptionsHandler(None, False, Exception)
+	@handleExceptions(None, False, Exception)
 	def line(self):
 		"""
 		This method is the deleter method for **self.__line** attribute.

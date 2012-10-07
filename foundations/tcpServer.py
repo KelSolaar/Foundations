@@ -113,7 +113,7 @@ class TCPServer(object):
 		return self.__address
 
 	@address.setter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def address(self, value):
 		"""
 		This method is the setter method for **self.__address** attribute.
@@ -127,7 +127,7 @@ class TCPServer(object):
 		self.__address = value
 
 	@address.deleter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def address(self):
 		"""
 		This method is the deleter method for **self.__address** attribute.
@@ -147,7 +147,7 @@ class TCPServer(object):
 		return self.__port
 
 	@port.setter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def port(self, value):
 		"""
 		This method is the setter method for **self.__port** attribute.
@@ -163,7 +163,7 @@ class TCPServer(object):
 		self.__port = value
 
 	@port.deleter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def port(self):
 		"""
 		This method is the deleter method for **self.__port** attribute.
@@ -183,7 +183,7 @@ class TCPServer(object):
 		return self.__handler
 
 	@handler.setter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def handler(self, value):
 		"""
 		This method is the setter method for **self.__handler** attribute.
@@ -198,7 +198,7 @@ class TCPServer(object):
 		self.__handler.container = self
 
 	@handler.deleter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def handler(self):
 		"""
 		This method is the deleter method for **self.__handler** attribute.
@@ -218,7 +218,7 @@ class TCPServer(object):
 		return self.__online
 
 	@online.setter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def online(self, value):
 		"""
 		This method is the setter method for **self.__online** attribute.
@@ -230,7 +230,7 @@ class TCPServer(object):
 		"{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "online"))
 
 	@online.deleter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def online(self):
 		"""
 		This method is the deleter method for **self.__online** attribute.
@@ -242,7 +242,7 @@ class TCPServer(object):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ServerOperationError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ServerOperationError)
 	def start(self):
 		"""
 		This method  starts the TCP server.
@@ -272,7 +272,7 @@ class TCPServer(object):
 			else:
 				raise error
 
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ServerOperationError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ServerOperationError)
 	def stop(self, terminate=False):
 		"""
 		This method stops the TCP server.

@@ -55,7 +55,7 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def uniqify(sequence):
 	"""
 	This definition uniqifies the given sequence even if unhashable.
@@ -68,7 +68,7 @@ def uniqify(sequence):
 
 	return [key for key, group in itertools.groupby(sorted(sequence))]
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def orderedUniqify(sequence):
 	"""
 	This definition uniqifies the given hashable sequence while preserving its order.
@@ -80,7 +80,7 @@ def orderedUniqify(sequence):
 	items = set()
 	return [key for key in sequence if key not in items and not items.add(key)]
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def pathExists(path):
 	"""
 	This definition returns if given path exists.
@@ -94,7 +94,7 @@ def pathExists(path):
 	else:
 		return os.path.exists(path)
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def getFirstItem(iterable, default=None):
 	"""
 	This definition returns the first item of given iterable.
@@ -110,7 +110,7 @@ def getFirstItem(iterable, default=None):
 	for item in iterable:
 		return item
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def getLastItem(iterable, default=None):
 	"""
 	This definition returns the last item of given iterable.
@@ -125,7 +125,7 @@ def getLastItem(iterable, default=None):
 
 	return iterable[-1]
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def isBinaryFile(file):
 	"""
 	This definition returns if given file is a binary file.
@@ -147,7 +147,7 @@ def isBinaryFile(file):
 		fileHandle.close()
 	return False
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def repeat(object, iterations=1):
 	"""
 	This definition repeats given object iterations times.
@@ -159,7 +159,7 @@ def repeat(object, iterations=1):
 
 	return [object() for i in range(iterations)]
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def dependencyResolver(dependencies):
 	"""
 	This definition resolves given dependencies.

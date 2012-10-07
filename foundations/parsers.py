@@ -182,7 +182,7 @@ class SectionsFileParser(foundations.io.File):
 		return self.__splitters
 
 	@splitters.setter
-	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
+	@foundations.exceptions.handleExceptions(None, False, AssertionError)
 	def splitters(self, value):
 		"""
 		This method is the setter method for **self.__splitters** attribute.
@@ -202,7 +202,7 @@ class SectionsFileParser(foundations.io.File):
 		self.__splitters = value
 
 	@splitters.deleter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def splitters(self):
 		"""
 		This method is the deleter method for **self.__splitters** attribute.
@@ -222,7 +222,7 @@ class SectionsFileParser(foundations.io.File):
 		return self.__namespaceSplitter
 
 	@namespaceSplitter.setter
-	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
+	@foundations.exceptions.handleExceptions(None, False, AssertionError)
 	def namespaceSplitter(self, value):
 		"""
 		This method is the setter method for **self.__namespaceSplitter** attribute.
@@ -239,7 +239,7 @@ class SectionsFileParser(foundations.io.File):
 		self.__namespaceSplitter = value
 
 	@namespaceSplitter.deleter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def namespaceSplitter(self):
 		"""
 		This method is the deleter method for **self.__namespaceSplitter** attribute.
@@ -259,7 +259,7 @@ class SectionsFileParser(foundations.io.File):
 		return self.__commentLimiters
 
 	@commentLimiters.setter
-	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
+	@foundations.exceptions.handleExceptions(None, False, AssertionError)
 	def commentLimiters(self, value):
 		"""
 		This method is the setter method for **self.__commentLimiters** attribute.
@@ -276,7 +276,7 @@ class SectionsFileParser(foundations.io.File):
 		self.__commentLimiters = value
 
 	@commentLimiters.deleter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def commentLimiters(self):
 		"""
 		This method is the deleter method for **self.__commentLimiters** attribute.
@@ -296,7 +296,7 @@ class SectionsFileParser(foundations.io.File):
 		return self.__commentMarker
 
 	@commentMarker.setter
-	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
+	@foundations.exceptions.handleExceptions(None, False, AssertionError)
 	def commentMarker(self, value):
 		"""
 		This method is the setter method for **self.__commentMarker** attribute.
@@ -312,7 +312,7 @@ class SectionsFileParser(foundations.io.File):
 		self.__commentMarker = value
 
 	@commentMarker.deleter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def commentMarker(self):
 		"""
 		This method is the deleter method for **self.__commentMarker** attribute.
@@ -332,7 +332,7 @@ class SectionsFileParser(foundations.io.File):
 		return self.__quotationMarkers
 
 	@quotationMarkers.setter
-	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
+	@foundations.exceptions.handleExceptions(None, False, AssertionError)
 	def quotationMarkers(self, value):
 		"""
 		This method is the setter method for **self.__quotationMarkers** attribute.
@@ -353,7 +353,7 @@ class SectionsFileParser(foundations.io.File):
 		self.__quotationMarkers = value
 
 	@quotationMarkers.deleter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def quotationMarkers(self):
 		"""
 		This method is the deleter method for **self.__quotationMarkers** attribute.
@@ -373,7 +373,7 @@ class SectionsFileParser(foundations.io.File):
 		return self.__rawSectionContentIdentifier
 
 	@rawSectionContentIdentifier.setter
-	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
+	@foundations.exceptions.handleExceptions(None, False, AssertionError)
 	def rawSectionContentIdentifier(self, value):
 		"""
 		This method is the setter method for **self.__rawSectionContentIdentifier** attribute.
@@ -387,7 +387,7 @@ class SectionsFileParser(foundations.io.File):
 		self.__rawSectionContentIdentifier = value
 
 	@rawSectionContentIdentifier.deleter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def rawSectionContentIdentifier(self):
 		"""
 		This method is the deleter method for **self.__rawSectionContentIdentifier** attribute.
@@ -407,7 +407,7 @@ class SectionsFileParser(foundations.io.File):
 		return self.__defaultsSection
 
 	@defaultsSection.setter
-	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
+	@foundations.exceptions.handleExceptions(None, False, AssertionError)
 	def defaultsSection(self, value):
 		"""
 		This method is the setter method for **self.__defaultsSection** attribute.
@@ -421,7 +421,7 @@ class SectionsFileParser(foundations.io.File):
 		self.__defaultsSection = value
 
 	@defaultsSection.deleter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def defaultsSection(self):
 		"""
 		This method is the deleter method for **self.__defaultsSection** attribute.
@@ -441,7 +441,7 @@ class SectionsFileParser(foundations.io.File):
 		return self.__sections
 
 	@sections.setter
-	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
+	@foundations.exceptions.handleExceptions(None, False, AssertionError)
 	def sections(self, value):
 		"""
 		This method is the setter method for **self.__sections** attribute.
@@ -460,7 +460,7 @@ class SectionsFileParser(foundations.io.File):
 		self.__sections = value
 
 	@sections.deleter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def sections(self):
 		"""
 		This method is the deleter method for **self.__sections** attribute.
@@ -480,7 +480,7 @@ class SectionsFileParser(foundations.io.File):
 		return self.__comments
 
 	@comments.setter
-	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
+	@foundations.exceptions.handleExceptions(None, False, AssertionError)
 	def comments(self, value):
 		"""
 		This method is the setter method for **self.__comments** attribute.
@@ -499,7 +499,7 @@ class SectionsFileParser(foundations.io.File):
 		self.__comments = value
 
 	@comments.deleter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def comments(self):
 		"""
 		This method is the deleter method for **self.__comments** attribute.
@@ -519,7 +519,7 @@ class SectionsFileParser(foundations.io.File):
 		return self.__parsingErrors
 
 	@parsingErrors.setter
-	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
+	@foundations.exceptions.handleExceptions(None, False, AssertionError)
 	def parsingErrors(self, value):
 		"""
 		This method is the setter method for **self.__parsingErrors** attribute.
@@ -536,7 +536,7 @@ class SectionsFileParser(foundations.io.File):
 		self.__parsingErrors = value
 
 	@parsingErrors.deleter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def parsingErrors(self):
 		"""
 		This method is the deleter method for **self.__parsingErrors** attribute.
@@ -548,7 +548,7 @@ class SectionsFileParser(foundations.io.File):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.FileStructureParsingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.FileStructureParsingError)
 	def parse(self,
 			orderedDictionary=True,
 			rawSections=None,
@@ -671,7 +671,7 @@ class SectionsFileParser(foundations.io.File):
 
 		return True
 
-	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def sectionExists(self, section):
 		"""
 		This method checks if given section exists.
@@ -703,7 +703,7 @@ class SectionsFileParser(foundations.io.File):
 			LOGGER.debug("> '{0}' section doesn't exists in '{1}'.".format(section, self))
 			return False
 
-	@foundations.exceptions.exceptionsHandler(None, False, KeyError)
+	@foundations.exceptions.handleExceptions(None, False, KeyError)
 	def attributeExists(self, attribute, section):
 		"""
 		This method checks if given attribute exists.
@@ -738,7 +738,7 @@ class SectionsFileParser(foundations.io.File):
 			LOGGER.debug("> '{0}' attribute doesn't exists in '{1}' section.".format(attribute, section))
 			return False
 
-	@foundations.exceptions.exceptionsHandler(None, False, KeyError)
+	@foundations.exceptions.handleExceptions(None, False, KeyError)
 	def getAttributes(self, section, orderedDictionary=True, stripNamespaces=False):
 		"""
 		This method returns given section attributes.
@@ -778,7 +778,7 @@ class SectionsFileParser(foundations.io.File):
 		LOGGER.debug("> Attributes: '{0}'.".format(attributes))
 		return attributes
 
-	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def getAllAttributes(self, orderedDictionary=True):
 		"""
 		This method returns all sections attributes.
@@ -810,7 +810,7 @@ class SectionsFileParser(foundations.io.File):
 				allAttributes[attribute] = value
 		return allAttributes
 
-	@foundations.exceptions.exceptionsHandler(None, False, KeyError)
+	@foundations.exceptions.handleExceptions(None, False, KeyError)
 	def getValue(self, attribute, section, encode=False, default=str()):
 		"""
 		This method returns requested attribute value.
@@ -847,7 +847,7 @@ class SectionsFileParser(foundations.io.File):
 		value = foundations.strings.encode(value) if encode else value
 		return value
 
-	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def write(self,
 			namespaces=False,
 			splitter="=",
@@ -987,7 +987,7 @@ class PlistFileParser(foundations.io.File):
 		return self.__elements
 
 	@elements.setter
-	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
+	@foundations.exceptions.handleExceptions(None, False, AssertionError)
 	def elements(self, value):
 		"""
 		This method is the setter method for **self.__elements** attribute.
@@ -1000,7 +1000,7 @@ class PlistFileParser(foundations.io.File):
 		self.__elements = value
 
 	@elements.deleter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def elements(self):
 		"""
 		This method is the deleter method for **self.__elements** attribute.
@@ -1020,7 +1020,7 @@ class PlistFileParser(foundations.io.File):
 		return self.__parsingErrors
 
 	@parsingErrors.setter
-	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
+	@foundations.exceptions.handleExceptions(None, False, AssertionError)
 	def parsingErrors(self, value):
 		"""
 		This method is the setter method for **self.__parsingErrors** attribute.
@@ -1037,7 +1037,7 @@ class PlistFileParser(foundations.io.File):
 		self.__parsingErrors = value
 
 	@parsingErrors.deleter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def parsingErrors(self):
 		"""
 		This method is the deleter method for **self.__parsingErrors** attribute.
@@ -1057,7 +1057,7 @@ class PlistFileParser(foundations.io.File):
 		return self.__unserializers
 
 	@unserializers.setter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def unserializers(self, value):
 		"""
 		This method is the setter method for **self.__unserializers** attribute.
@@ -1069,7 +1069,7 @@ class PlistFileParser(foundations.io.File):
 		"{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "unserializers"))
 
 	@unserializers.deleter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def unserializers(self):
 		"""
 		This method is the deleter method for **self.__unserializers** attribute.
@@ -1081,7 +1081,7 @@ class PlistFileParser(foundations.io.File):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.FileStructureParsingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.FileStructureParsingError)
 	def parse(self, raiseParsingErrors=True):
 		"""
 		This method process the file content.
@@ -1121,7 +1121,7 @@ class PlistFileParser(foundations.io.File):
 			self.__elements = foundations.common.getFirstItem(elementTreeParser.root).text
 			return True
 
-	@foundations.exceptions.exceptionsHandler(None, False, KeyError)
+	@foundations.exceptions.handleExceptions(None, False, KeyError)
 	def elementExists(self, element):
 		"""
 		This method checks if given element exists.
@@ -1152,7 +1152,7 @@ class PlistFileParser(foundations.io.File):
 		LOGGER.debug("> '{0}' element doesn't exists.".format(element))
 		return False
 
-	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def filterValues(self, pattern, flags=0):
 		"""
 		| This method filters the :meth:`PlistFileParser.elements` class property elements using given pattern.
@@ -1184,7 +1184,7 @@ class PlistFileParser(foundations.io.File):
 				values.append(value)
 		return values
 
-	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def getValue(self, element):
 		"""
 		| This method returns the given element value.
@@ -1208,7 +1208,7 @@ class PlistFileParser(foundations.io.File):
 		values = self.filterValues(r"^{0}$".format(element))
 		return foundations.common.getFirstItem(values)
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def getAttributeCompound(attribute, value=None, splitter="|", bindingIdentifier="@"):
 	"""
 	This definition returns an attribute compound.

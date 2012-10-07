@@ -43,7 +43,7 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def filesWalker(directory, filtersIn=None, filtersOut=None, flags=0):
 	"""
 	This definition is a generator used to walk files using given filters.
@@ -87,7 +87,7 @@ def filesWalker(directory, filtersIn=None, filtersOut=None, flags=0):
 
 				yield path
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def depthWalker(directory, maximumDepth=1):
 	"""
 	This definition is a generator used to walk into directories using given maximum depth.
@@ -119,7 +119,7 @@ def depthWalker(directory, maximumDepth=1):
 		if baseDepth + maximumDepth <= parentDirectory.count(separator):
 			del directories[:]
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def dictionariesWalker(dictionary, path=()):
 	"""
 	This definition is a generator used to walk into nested dictionaries.
@@ -149,7 +149,7 @@ def dictionariesWalker(dictionary, path=()):
 			for value in dictionariesWalker(dictionary[key], path + (key,)):
 				yield value
 
-@foundations.exceptions.exceptionsHandler(None, False, Exception)
+@foundations.exceptions.handleExceptions(None, False, Exception)
 def nodesWalker(node, ascendants=False):
 	"""
 	This definition is a generator used to walk into nodes hierarchy.

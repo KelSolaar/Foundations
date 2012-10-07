@@ -85,7 +85,7 @@ class Library(object):
 	callback = ctypes.CFUNCTYPE(ctypes.c_void_p, ctypes.c_int, ctypes.c_char_p)
 	"""callback: Defines library callback default function.	( ctypes.CFUNCTYPE )"""
 
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.LibraryInstantiationError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.LibraryInstantiationError)
 	def __new__(cls, *args, **kwargs):
 		"""
 		This method is the constructor of the class.
@@ -104,7 +104,7 @@ class Library(object):
 			raise foundations.exceptions.LibraryInstantiationError(
 			"{0} | '{1}' library path doesn't exists!".format(cls.__class__.__name__, libraryPath))
 
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.LibraryInitializationError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.LibraryInitializationError)
 	def __init__(self, libraryPath, functions=None, bindLibrary=True):
 		"""
 		This method initializes the class.
@@ -164,7 +164,7 @@ class Library(object):
 		return self.__librariesInstances
 
 	@librariesInstances.setter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def librariesInstances(self, value):
 		"""
 		This method is the setter method for **self.__librariesInstances** attribute.
@@ -176,7 +176,7 @@ class Library(object):
 		"{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "librariesInstances"))
 
 	@librariesInstances.deleter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def librariesInstances(self):
 		"""
 		This method is the deleter method for **self.__librariesInstances** attribute.
@@ -196,7 +196,7 @@ class Library(object):
 		return self.__libraryInstantiated
 
 	@libraryInstantiated.setter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def libraryInstantiated(self, value):
 		"""
 		This method is the setter method for **self.__libraryInstantiated** attribute.
@@ -208,7 +208,7 @@ class Library(object):
 		"{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "libraryInstantiated"))
 
 	@libraryInstantiated.deleter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def libraryInstantiated(self):
 		"""
 		This method is the deleter method for **self.__libraryInstantiated** attribute.
@@ -228,7 +228,7 @@ class Library(object):
 		return self.__libraryPath
 
 	@libraryPath.setter
-	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
+	@foundations.exceptions.handleExceptions(None, False, AssertionError)
 	def libraryPath(self, value):
 		"""
 		This method is the setter method for **self.__libraryPath** attribute.
@@ -243,7 +243,7 @@ class Library(object):
 		self.__libraryPath = value
 
 	@libraryPath.deleter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def libraryPath(self):
 		"""
 		This method is the deleter method for **self.__libraryPath** attribute.
@@ -263,7 +263,7 @@ class Library(object):
 		return self.__functions
 
 	@functions.setter
-	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
+	@foundations.exceptions.handleExceptions(None, False, AssertionError)
 	def functions(self, value):
 		"""
 		This method is the setter method for **self.__functions** attribute.
@@ -279,7 +279,7 @@ class Library(object):
 		self.__functions = value
 
 	@functions.deleter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def functions(self):
 		"""
 		This method is the deleter method for **self.__functions** attribute.
@@ -299,7 +299,7 @@ class Library(object):
 		return self.__library
 
 	@library.setter
-	@foundations.exceptions.exceptionsHandler(None, False, AssertionError)
+	@foundations.exceptions.handleExceptions(None, False, AssertionError)
 	def library(self, value):
 		"""
 		This method is the setter method for **self.__library** attribute.
@@ -310,7 +310,7 @@ class Library(object):
 		self.__library = value
 
 	@library.deleter
-	@foundations.exceptions.exceptionsHandler(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
 	def library(self):
 		"""
 		This method is the deleter method for **self.__library** attribute.
@@ -322,7 +322,7 @@ class Library(object):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	@foundations.exceptions.exceptionsHandler(None, False, Exception)
+	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def bindFunction(self, function):
 		"""
 		This method binds given function to a class object attribute.
@@ -351,7 +351,7 @@ class Library(object):
 			functionObject.restype = function.returnValue
 		return True
 
-	@foundations.exceptions.exceptionsHandler(None, False, AttributeError)
+	@foundations.exceptions.handleExceptions(None, False, AttributeError)
 	def bindLibrary(self):
 		"""
 		This method binds the Library using functions registered in the **self.__functions** attribute.
