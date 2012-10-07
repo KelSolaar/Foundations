@@ -61,7 +61,10 @@ __all__ = ["SetTracerHookTestCase",
 		"TraceClassTestCase",
 		"UntraceClassTestCase",
 		"TraceModuleTestCase",
-		"UntraceModuleTestCase"]
+		"UntraceModuleTestCase",
+		"RegisterModuleTestCase",
+		"InstallTracerTestCase",
+		"UninstallTracerTestCase"]
 
 TRACABLE_METHODS = {"_Dummy__privateMethod" : Dummy._Dummy__privateMethod,
 					"publicMethod" : Dummy.publicMethod,
@@ -450,6 +453,52 @@ class RegisterModuleTestCase(unittest.TestCase):
 
 		self.assertTrue(foundations.trace.registerModule())
 		self.assertIn(sys.modules[__name__], foundations.trace.REGISTERED_MODULES)
+
+		foundations.trace.REGISTERED_MODULES = foundations.trace.REGISTERED_MODULES
+
+class InstallTracerTestCase(unittest.TestCase):
+	"""
+	This class defines :class:`foundations.trace.installTracer` class units tests methods.
+	"""
+
+	def testInstallTracer(self):
+		"""
+		This method tests :func:`foundations.trace.installTracer` definition.
+		"""
+
+		registeredModules = foundations.trace.REGISTERED_MODULES
+		foundations.trace.REGISTERED_MODULES = set()
+
+		module = foundations.tests.testsFoundations.resources.dummy
+		foundations.trace.registerModule(module)
+		self.assertTrue(foundations.trace.installTracer("Nemo"))
+		self.assertFalse(foundations.trace.isTraced(module))
+		self.assertTrue(foundations.trace.installTracer("\w+ummy"))
+		self.assertTrue(foundations.trace.isTraced(module))
+		foundations.trace.uninstallTracer()
+
+		foundations.trace.REGISTERED_MODULES = foundations.trace.REGISTERED_MODULES
+
+class UninstallTracerTestCase(unittest.TestCase):
+	"""
+	This class defines :class:`foundations.trace.uninstallTracer` class units tests methods.
+	"""
+
+	def testUninstallTracer(self):
+		"""
+		This method tests :func:`foundations.trace.uninstallTracer` definition.
+		"""
+
+		registeredModules = foundations.trace.REGISTERED_MODULES
+		foundations.trace.REGISTERED_MODULES = set()
+
+		module = foundations.tests.testsFoundations.resources.dummy
+		foundations.trace.registerModule(module)
+		foundations.trace.installTracer()
+		self.assertTrue(foundations.trace.uninstallTracer("Nemo"))
+		self.assertTrue(foundations.trace.isTraced(module))
+		self.assertTrue(foundations.trace.uninstallTracer("\w+ummy"))
+		self.assertFalse(foundations.trace.isTraced(module))
 
 		foundations.trace.REGISTERED_MODULES = foundations.trace.REGISTERED_MODULES
 

@@ -442,7 +442,7 @@ def registerModule(module=None):
 	REGISTERED_MODULES.add(module)
 	return True
 
-def installTracer(tracer=tracer, pattern=r".*", flags=0):
+def installTracer(pattern=r".*", flags=0, tracer=tracer):
 	"""
 	This definition installs given tracer in the candidates modules for tracing matching given pattern.
 
