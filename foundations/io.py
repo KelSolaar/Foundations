@@ -147,7 +147,6 @@ class File(object):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	@foundations.exceptions.handleExceptions(None, False, IOError)
 	def read(self, mode="r"):
 		"""
 		This method reads given file content.
@@ -163,7 +162,6 @@ class File(object):
 			self.__content = file.readlines()
 			return True
 
-	@foundations.exceptions.handleExceptions(None, False, IOError)
 	def readAll(self):
 		"""
 		This method reads given file content and returns it.
@@ -175,7 +173,6 @@ class File(object):
 		if self.read():
 			return "".join(self.__content)
 
-	@foundations.exceptions.handleExceptions(None, False, OSError)
 	def write(self, mode="w"):
 		"""
 		This method writes content to given file.
@@ -191,7 +188,6 @@ class File(object):
 				file.write(line)
 			return True
 
-	@foundations.exceptions.handleExceptions(None, False, OSError)
 	def append(self, mode="a"):
 		"""
 		This method appends content to given file.
@@ -207,7 +203,6 @@ class File(object):
 				file.write(line)
 			return True
 
-@foundations.exceptions.handleExceptions(None, False, OSError)
 def setDirectory(path):
 	"""
 	| This definition creates a directory with given path.
@@ -226,7 +221,6 @@ def setDirectory(path):
 		LOGGER.debug("> '{0}' directory already exist, skipping creation!".format(path))
 		return True
 
-@foundations.exceptions.handleExceptions(None, False, OSError)
 def copy(source, destination):
 	"""
 	This definition copies the given file or directory to destination.
@@ -244,7 +238,6 @@ def copy(source, destination):
 		shutil.copytree(source, destination)
 	return True
 
-@foundations.exceptions.handleExceptions(None, False, OSError)
 def remove(path):
 	"""
 	This definiton removes the given file or directory.

@@ -127,7 +127,6 @@ class Attribute(foundations.dataStructures.Structure):
 		return self.__value
 
 	@value.setter
-	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def value(self, value):
 		"""
 		This method is the setter method for **self.__value** attribute.
@@ -402,7 +401,6 @@ class AbstractNode(foundations.dataStructures.Structure):
 		return "{0}{1}".format(self.family, self.__identity)
 
 	@classmethod
-	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def getNodeByIdentity(cls, identity):
 		"""
 		This method returns the node with given identity.
@@ -421,7 +419,6 @@ class AbstractNode(foundations.dataStructures.Structure):
 
 		return cls.__nodesInstances.get(identity, None)
 
-	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def listAttributes(self):
 		"""
 		This method returns the node attributes names.
@@ -437,7 +434,6 @@ class AbstractNode(foundations.dataStructures.Structure):
 
 		return [attribute for attribute, value in self.iteritems() if issubclass(value.__class__, Attribute)]
 
-	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def getAttributes(self):
 		"""
 		This method returns the node attributes.
@@ -453,7 +449,6 @@ class AbstractNode(foundations.dataStructures.Structure):
 
 		return [attribute for attribute in self.itervalues() if issubclass(attribute.__class__, Attribute)]
 
-	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def attributeExists(self, name):
 		"""
 		This method returns if given attribute exists in the node.
@@ -651,7 +646,6 @@ class AbstractCompositeNode(AbstractNode):
 		else:
 			return False
 
-	# @foundations.exceptions.handleExceptions(None, False, Exception)
 	def child(self, index):
 		"""
 		This method returns the child associated with given index.
@@ -676,7 +670,6 @@ class AbstractCompositeNode(AbstractNode):
 		if index >= 0 and index < len(self.__children):
 			return self.__children[index]
 
-	# @foundations.exceptions.handleExceptions(None, False, Exception)
 	def indexOf(self, child):
 		"""
 		This method returns the given child index.
@@ -699,7 +692,6 @@ class AbstractCompositeNode(AbstractNode):
 			if child is item:
 				return i
 
-	# @foundations.exceptions.handleExceptions(None, False, Exception)
 	def row(self):
 		"""
 		This method returns the node row.
@@ -720,7 +712,6 @@ class AbstractCompositeNode(AbstractNode):
 		if self.__parent:
 			return self.__parent.indexOf(self)
 
-	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def addChild(self, child):
 		"""
 		This method adds given child to the node.
@@ -742,7 +733,6 @@ class AbstractCompositeNode(AbstractNode):
 		child.parent = self
 		return True
 
-	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def removeChild(self, index):
 		"""
 		This method removes child at given index from the node children.
@@ -768,7 +758,6 @@ class AbstractCompositeNode(AbstractNode):
 		child.parent = None
 		return child
 
-	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def insertChild(self, child, index):
 		"""
 		This method inserts given child at given index.
@@ -796,7 +785,6 @@ class AbstractCompositeNode(AbstractNode):
 		child.parent = self
 		return True
 
-	# @foundations.exceptions.handleExceptions(None, False, Exception)
 	def hasChildren(self):
 		"""
 		This method returns if the node has children.
@@ -812,7 +800,6 @@ class AbstractCompositeNode(AbstractNode):
 
 		return True if self.childrenCount() > 0 else False
 
-	# @foundations.exceptions.handleExceptions(None, False, Exception)
 	def childrenCount(self):
 		"""
 		This method returns the children count.
@@ -830,7 +817,6 @@ class AbstractCompositeNode(AbstractNode):
 
 		return len(self.__children)
 
-	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def sortChildren(self, attribute=None, reverseOrder=False):
 		"""
 		This method sorts the children using either the given attribute or the node name.
@@ -861,7 +847,6 @@ class AbstractCompositeNode(AbstractNode):
 
 		return True
 
-	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def findChildren(self, pattern=r".*", flags=0, candidates=None):
 		"""
 		This method finds the children matching the given patten.
@@ -889,7 +874,6 @@ class AbstractCompositeNode(AbstractNode):
 			child.findChildren(pattern, flags, candidates)
 		return candidates
 
-	# @foundations.exceptions.handleExceptions(None, False, Exception)
 	def findFamily(self, pattern=r".*", flags=0, node=None):
 		"""
 		This method returns the nodes from given family.
@@ -902,7 +886,6 @@ class AbstractCompositeNode(AbstractNode):
 
 		return [node for node in foundations.walkers.nodesWalker(node or self) if re.search(pattern, node.family, flags)]
 
-	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def listNode(self, tabLevel= -1):
 		"""
 		This method lists the current node and its children.

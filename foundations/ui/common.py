@@ -51,7 +51,6 @@ DEFAULT_UI_FILE = os.path.join(RESOURCES_DIRECTORY, "QWidget.ui")
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-@foundations.exceptions.handleExceptions(None, False, Exception)
 def centerWidgetOnScreen(widget, screen=None):
 	"""
 	This definition centers the given Widget on the screen.
@@ -67,7 +66,6 @@ def centerWidgetOnScreen(widget, screen=None):
 	widget.move(desktopWidth / 2 - widget.sizeHint().width() / 2, desktopHeight / 2 - widget.sizeHint().height() / 2)
 	return True
 
-@foundations.exceptions.handleExceptions(None, False, Exception)
 def QWidgetFactory(uiFile=None, *args, **kwargs):
 	"""
 	This definition is a class factory creating `QWidget <http://doc.qt.nokia.com/qwidget.html>`_ classes

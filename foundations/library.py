@@ -322,7 +322,6 @@ class Library(object):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def bindFunction(self, function):
 		"""
 		This method binds given function to a class object attribute.
@@ -351,7 +350,6 @@ class Library(object):
 			functionObject.restype = function.returnValue
 		return True
 
-	@foundations.exceptions.handleExceptions(None, False, AttributeError)
 	def bindLibrary(self):
 		"""
 		This method binds the Library using functions registered in the **self.__functions** attribute.

@@ -199,7 +199,6 @@ class RotatingBackup(object):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def backup(self):
 		"""
 		This method does the rotating backup.

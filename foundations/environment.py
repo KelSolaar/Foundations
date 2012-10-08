@@ -134,7 +134,6 @@ class Environment(object):
 			self.__variables[variable] = None
 		self.__variables.update(kwargs)
 
-	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def getValues(self, *args):
 		"""
 		This method gets environment variables values.
@@ -161,7 +160,6 @@ class Environment(object):
 			self.__variables[variable] = os.environ.get(variable, None)
 		return self.__variables
 
-	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def setValues(self, **kwargs):
 		"""
 		This method sets environment variables values.
@@ -192,7 +190,6 @@ class Environment(object):
 			os.environ[key] = value
 		return True
 
-	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def getValue(self, variable=None):
 		"""
 		This method gets given environment variable value.
@@ -210,7 +207,6 @@ class Environment(object):
 			self.getValues()
 			return foundations.common.getFirstItem(self.__variables.values())
 
-	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def setValue(self, variable, value):
 		"""
 		This method sets given environment variable with given value.
@@ -222,7 +218,6 @@ class Environment(object):
 
 		return self.setValues(**{variable : value})
 
-@foundations.exceptions.handleExceptions(None, False, Exception)
 def getSystemApplicationDataDirectory():
 	"""
 	This definition returns the system Application data directory.
@@ -249,7 +244,6 @@ def getSystemApplicationDataDirectory():
 		environmentVariable = Environment("HOME")
 		return environmentVariable.getValue()
 
-@foundations.exceptions.handleExceptions(None, False, Exception)
 def getUserApplicationDataDirectory():
 	"""
 	| This definition returns the user Application directory.

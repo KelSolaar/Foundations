@@ -112,7 +112,6 @@ class Pkzip(object):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	@foundations.exceptions.handleExceptions(None, False, OSError, Exception)
 	def extract(self, target):
 		"""
 		This method extracts archive file to given directory.

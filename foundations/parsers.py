@@ -671,7 +671,6 @@ class SectionsFileParser(foundations.io.File):
 
 		return True
 
-	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def sectionExists(self, section):
 		"""
 		This method checks if given section exists.
@@ -703,7 +702,6 @@ class SectionsFileParser(foundations.io.File):
 			LOGGER.debug("> '{0}' section doesn't exists in '{1}'.".format(section, self))
 			return False
 
-	@foundations.exceptions.handleExceptions(None, False, KeyError)
 	def attributeExists(self, attribute, section):
 		"""
 		This method checks if given attribute exists.
@@ -738,7 +736,6 @@ class SectionsFileParser(foundations.io.File):
 			LOGGER.debug("> '{0}' attribute doesn't exists in '{1}' section.".format(attribute, section))
 			return False
 
-	@foundations.exceptions.handleExceptions(None, False, KeyError)
 	def getAttributes(self, section, orderedDictionary=True, stripNamespaces=False):
 		"""
 		This method returns given section attributes.
@@ -778,7 +775,6 @@ class SectionsFileParser(foundations.io.File):
 		LOGGER.debug("> Attributes: '{0}'.".format(attributes))
 		return attributes
 
-	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def getAllAttributes(self, orderedDictionary=True):
 		"""
 		This method returns all sections attributes.
@@ -847,7 +843,6 @@ class SectionsFileParser(foundations.io.File):
 		value = foundations.strings.encode(value) if encode else value
 		return value
 
-	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def write(self,
 			namespaces=False,
 			splitter="=",
@@ -1152,7 +1147,6 @@ class PlistFileParser(foundations.io.File):
 		LOGGER.debug("> '{0}' element doesn't exists.".format(element))
 		return False
 
-	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def filterValues(self, pattern, flags=0):
 		"""
 		| This method filters the :meth:`PlistFileParser.elements` class property elements using given pattern.
@@ -1184,7 +1178,6 @@ class PlistFileParser(foundations.io.File):
 				values.append(value)
 		return values
 
-	@foundations.exceptions.handleExceptions(None, False, Exception)
 	def getValue(self, element):
 		"""
 		| This method returns the given element value.
@@ -1208,7 +1201,6 @@ class PlistFileParser(foundations.io.File):
 		values = self.filterValues(r"^{0}$".format(element))
 		return foundations.common.getFirstItem(values)
 
-@foundations.exceptions.handleExceptions(None, False, Exception)
 def getAttributeCompound(attribute, value=None, splitter="|", bindingIdentifier="@"):
 	"""
 	This definition returns an attribute compound.
