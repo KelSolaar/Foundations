@@ -43,7 +43,8 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["SetTracerHookTestCase",
+__all__ = ["IsReadOnly",
+		"SetTracerHookTestCase",
 		"GetTracerHookTestCase",
 		"IsTracedTestCase",
 		"IsUntracableTestCase",
@@ -83,6 +84,27 @@ UNTRACABLE_DEFINITIONS = {"dummy2" : dummy2}
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
+class IsReadOnlyTestCase(unittest.TestCase):
+	"""
+	This class defines :class:`foundations.trace.isReadOnly` class units tests methods.
+	"""
+
+	def testIsReadOnly(self):
+		"""
+		This method tests :func:`foundations.trace.isReadOnly` definition.
+		"""
+
+		self.assertTrue(foundations.trace.isReadOnly(str))
+		self.assertTrue(foundations.trace.isReadOnly(str()))
+		self.assertTrue(foundations.trace.isReadOnly(dict))
+		self.assertTrue(foundations.trace.isReadOnly(dict()))
+
+		class Writable(object):
+			pass
+
+		self.assertFalse(foundations.trace.isReadOnly(Writable))
+		self.assertFalse(foundations.trace.isReadOnly(Writable()))
+
 class SetTracerHookTestCase(unittest.TestCase):
 	"""
 	This class defines :class:`foundations.trace.setTracerHook` class units tests methods.

@@ -102,7 +102,7 @@ def extractStack(frame, exceptionsFrameSymbol=EXCEPTIONS_FRAME_SYMBOL):
 
 	return stack
 
-def defaultExceptionsHandler(exception, traceName, *args, **kwargs):
+def defaultExceptionsHandler(exception, object, *args, **kwargs):
 	"""
 	This definition provides the default exception handler.
 	
@@ -115,11 +115,13 @@ def defaultExceptionsHandler(exception, traceName, *args, **kwargs):
 		- Exception traceback.
 		
 	:param exception: Exception. ( Exception )
-	:param traceName: Function / Method raising the exception. ( String )
+	:param object: Object raising the exception. ( Object )
 	:param \*args: Arguments. ( \* )
 	:param \*\*kwargs: Keywords arguments. ( \*\* )
 	:return: Definition success. ( Boolean )
 	"""
+
+	traceName = foundations.trace.getTraceName(object)
 
 	LOGGER.error("!> {0}".format(Constants.loggingSeparators))
 	LOGGER.error("!> Exception in '{0}'.".format(traceName))
@@ -183,8 +185,6 @@ def handleExceptions(handler=defaultExceptionsHandler, raiseException=False, *ar
 		:return: Object. ( Object )
 		"""
 
-		traceName = foundations.trace.getTraceName(object)
-
 		@functools.wraps(object)
 		def handleExceptionsWrapper(*args, **kwargs):
 			"""
@@ -201,7 +201,7 @@ def handleExceptions(handler=defaultExceptionsHandler, raiseException=False, *ar
 			try:
 				return object(*args, **kwargs)
 			except exceptions as exception:
-				handler(exception, traceName, *args, **kwargs)
+				handler(exception, object, *args, **kwargs)
 			finally:
 				if raiseException and exception:
 					raise exception

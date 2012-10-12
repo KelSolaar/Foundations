@@ -76,5 +76,5 @@ class Constants():
 		providerDirectory = ".HDRLabs"
 		"""Package provider directory: '**HDRLabs** on Windows / Darwin, **.HDRLabs** on Linux' ( String )"""
 
-	nullObject = "None"
+	nullObject = str(None)
 	"""Default null object string: '**None**' ( String )"""

@@ -40,7 +40,7 @@ __all__ = ["REGISTERED_MODULES",
 			"TRACER_HOOK",
 			"UNTRACABLE_NAMES",
 			"TRACE_NAMES_CACHE",
-			"TRACE_WALKER_CACHE",
+			"isReadOnly",
 			"setTracerHook",
 			"getTracerHook",
 			"isTraced",
@@ -84,6 +84,22 @@ TRACE_WALKER_CACHE = {}
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
+def isReadOnly(object):
+	"""
+	This definition returns if given object is read only ( built-in or extension ).
+
+	:param object: Object. ( Object )
+	:return: Is object read only. ( Boolean )
+	"""
+
+	try:
+		attribute = "_trace__read__"
+		setattr(object, attribute, True)
+		delattr(object, attribute)
+		return False
+	except (TypeError, AttributeError) as error:
+		return True
+
 def setTracerHook(object, hook):
 	"""
 	This definition sets given object tracer hook on given object.
@@ -194,6 +210,9 @@ def getObjectName(object):
 	:return: Object name. ( String )
 	"""
 
+	if type(object) is property:
+		return object.fget.__name__
+
 	return object.__name__
 
 def getTraceName(object):
@@ -209,6 +228,9 @@ def getTraceName(object):
 
 	traceName = TRACE_NAMES_CACHE.get(object)
 	if traceName is None:
+
+		TRACE_NAMES_CACHE[object] = traceName = getObjectName(object)
+
 		if type(object) is property:
 			object = object.fget
 
@@ -224,6 +246,8 @@ def getTraceName(object):
 			if object in (cls, untracer(member)):
 				TRACE_NAMES_CACHE[object] = traceName = \
 				".".join(map(getObjectName, filter(lambda x: x is not None, (module, cls, member))))
+				break
+
 	return traceName
 
 def getMethodName(method):
@@ -379,6 +403,9 @@ def traceMethod(cls, method, tracer=tracer):
 	:return: Definition success. ( Boolean )
 	"""
 
+	if isTraced(method):
+		return False
+
 	if isUntracable(method) or getObjectName(method) in UNTRACABLE_NAMES:
 		return False
 
@@ -420,6 +447,9 @@ def traceClass(cls, tracer=tracer):
 	:param tracer: Tracer. ( Object )
 	:return: Definition success. ( Boolean )
 	"""
+
+	if isTraced(cls) or isReadOnly(cls):
+		return False
 
 	for name, method in inspect.getmembers(cls, inspect.ismethod):
 		traceMethod(cls, method, tracer)
@@ -470,6 +500,9 @@ def traceModule(module, tracer=tracer):
 	:param tracer: Tracer. ( Object )
 	:return: Definition success. ( Boolean )
 	"""
+
+	if isTraced(module):
+		return False
 
 	global REGISTERED_MODULES
 
@@ -531,9 +564,6 @@ def installTracer(pattern=r".*", flags=0, tracer=tracer):
 	"""
 
 	for module in REGISTERED_MODULES:
-		if isTraced(module):
-			continue
-
 		if not re.search(pattern, module.__name__, flags=flags):
 			continue
 
