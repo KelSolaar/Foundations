@@ -39,7 +39,9 @@ __all__ = ["REGISTERED_MODULES",
 			"UNTRACABLE_SYMBOL",
 			"TRACER_HOOK",
 			"UNTRACABLE_NAMES",
+			"NULL_OBJECT_NAME",
 			"TRACE_NAMES_CACHE",
+			"TRACE_WALKER_CACHE",
 			"isReadOnly",
 			"setTracerHook",
 			"getTracerHook",
@@ -60,8 +62,12 @@ __all__ = ["REGISTERED_MODULES",
 			"untracer"
 			"untracable",
 			"wrapped",
+			"traceFunction",
+			"untraceFunction",
 			"traceMethod",
 			"untraceMethod",
+			"traceProperty",
+			"untraceProperty",
 			"traceClass",
 			"untraceClass",
 			"traceModule",
@@ -77,6 +83,8 @@ UNTRACABLE_SYMBOL = "_trace__untracable__"
 TRACER_HOOK = "_trace__hook__"
 
 UNTRACABLE_NAMES = ("__str__", "__repr__")
+
+NULL_OBJECT_NAME = str(None)
 
 TRACE_NAMES_CACHE = {}
 TRACE_WALKER_CACHE = {}
@@ -212,8 +220,12 @@ def getObjectName(object):
 
 	if type(object) is property:
 		return object.fget.__name__
-
-	return object.__name__
+	elif hasattr(object, "__name__"):
+		return object.__name__
+	elif hasattr(object, "__class__"):
+		return object.__class__.__name__
+	else:
+		return NULL_OBJECT_NAME
 
 def getTraceName(object):
 	"""
@@ -393,6 +405,42 @@ def untracable(object):
 
 	return untracableWrapper
 
+def traceFunction(module, function, tracer=tracer):
+	"""
+	This definition traces given module function using given tracer.
+
+	:param module: Module of the function. ( Object )
+	:param function: Function to trace. ( Object )
+	:param tracer: Tracer. ( Object )
+	:return: Definition success. ( Boolean )
+	"""
+
+	if isTraced(function):
+		return False
+
+	name = getObjectName(function)
+	if isUntracable(function) or name in UNTRACABLE_NAMES:
+		return False
+
+	setattr(module, name, tracer(function))
+	return True
+
+def untraceFunction(module, function):
+	"""
+	This definition untraces given module function.
+
+	:param module: Module of the function. ( Object )
+	:param function: Function to untrace. ( Object )
+	:return: Definition success. ( Boolean )
+	"""
+
+	if not isTraced(function):
+		return False
+
+	name = getObjectName(function)
+	setattr(module, name, untracer(function))
+	return True
+
 def traceMethod(cls, method, tracer=tracer):
 	"""
 	This definition traces given class method using given tracer.
@@ -406,10 +454,10 @@ def traceMethod(cls, method, tracer=tracer):
 	if isTraced(method):
 		return False
 
-	if isUntracable(method) or getObjectName(method) in UNTRACABLE_NAMES:
+	name = getMethodName(method)
+	if isUntracable(method) or name in UNTRACABLE_NAMES:
 		return False
 
-	name = getMethodName(method)
 	if isClassMethod(method):
 		setattr(cls, name, classmethod(tracer(method.im_func)))
 	elif isStaticMethod(method):
@@ -420,14 +468,14 @@ def traceMethod(cls, method, tracer=tracer):
 
 def untraceMethod(cls, method):
 	"""
-	This definition untraces given method.
+	This definition untraces given class method.
 
 	:param cls: Class of the method. ( Object )
 	:param method: Method to untrace. ( Object )
 	:return: Definition success. ( Boolean )
 	"""
 
-	if isUntracable(method) or getObjectName(method) in UNTRACABLE_NAMES:
+	if not isTraced(method):
 		return False
 
 	name = getMethodName(method)
@@ -439,12 +487,51 @@ def untraceMethod(cls, method):
 		setattr(cls, name, untracer(method))
 	return True
 
-def traceClass(cls, tracer=tracer):
+def traceProperty(cls, accessor, tracer=tracer):
+	"""
+	This definition traces given class property using given tracer.
+
+	:param cls: Class of the property. ( Object )
+	:param accessor: Property to trace. ( Property )
+	:param tracer: Tracer. ( Object )
+	:return: Definition success. ( Boolean )
+	"""
+
+	if isTraced(accessor.fget) and isTraced(accessor.fset) and isTraced(accessor.fdel):
+		return False
+
+	name = getMethodName(accessor)
+	setattr(cls, name, property(tracer(accessor.fget),
+								tracer(accessor.fset),
+								tracer(accessor.fdel)))
+	return True
+
+def untraceProperty(cls, accessor):
+	"""
+	This definition untraces given class property.
+
+	:param cls: Class of the property. ( Object )
+	:param accessor: Property to untrace. ( Property )
+	:return: Definition success. ( Boolean )
+	"""
+
+	if not isTraced(accessor.fget) or not isTraced(accessor.fset) or not isTraced(accessor.fdel):
+		return False
+
+	name = getMethodName(accessor)
+	setattr(cls, name, property(untracer(accessor.fget),
+								untracer(accessor.fset),
+								untracer(accessor.fdel)))
+	return True
+
+def traceClass(cls, tracer=tracer, pattern=r".*", flags=0):
 	"""
 	This definition traces given class using given tracer.
 
 	:param cls: Class to trace. ( Object )
 	:param tracer: Tracer. ( Object )
+	:param pattern: Matching pattern. ( String )
+	:param flags: Matching regex flags. ( Integer )
 	:return: Definition success. ( Boolean )
 	"""
 
@@ -452,15 +539,22 @@ def traceClass(cls, tracer=tracer):
 		return False
 
 	for name, method in inspect.getmembers(cls, inspect.ismethod):
+		if not re.search(pattern, name, flags=flags):
+			continue
+
 		traceMethod(cls, method, tracer)
 
 	for name, function in inspect.getmembers(cls, inspect.isfunction):
+		if not re.search(pattern, name, flags=flags):
+			continue
+
 		traceMethod(cls, function, tracer)
 
 	for name, accessor in inspect.getmembers(cls, lambda x: type(x) is property):
-		setattr(cls, name, property(tracer(accessor.fget),
-									tracer(accessor.fset),
-									tracer(accessor.fdel)))
+		if not re.search(pattern, name, flags=flags):
+			continue
+
+		traceProperty(cls, accessor, tracer)
 
 	setTraced(cls)
 
@@ -481,23 +575,20 @@ def untraceClass(cls):
 		untraceMethod(cls, function)
 
 	for name, accessor in inspect.getmembers(cls, lambda x: type(x) is property):
-		if not isTraced(accessor.fget) or not isTraced(accessor.fset) or not isTraced(accessor.fdel):
-			continue
-
-		setattr(cls, name, property(untracer(accessor.fget),
-									untracer(accessor.fset),
-									untracer(accessor.fdel)))
+		untraceProperty(cls, accessor)
 
 	setUntraced(cls)
 
 	return True
 
-def traceModule(module, tracer=tracer):
+def traceModule(module, tracer=tracer, pattern=r".*", flags=0):
 	"""
 	This definition traces given module using given tracer.
 
 	:param module: Module to trace. ( Module )
 	:param tracer: Tracer. ( Object )
+	:param pattern: Matching pattern. ( String )
+	:param flags: Matching regex flags. ( Integer )
 	:return: Definition success. ( Boolean )
 	"""
 
@@ -507,10 +598,16 @@ def traceModule(module, tracer=tracer):
 	global REGISTERED_MODULES
 
 	for name, function in inspect.getmembers(module, inspect.isfunction):
-		setattr(module, name, tracer(function))
+		if not re.search(pattern, name, flags=flags):
+			continue
+
+		traceFunction(module, function, tracer)
 
 	for name, cls in inspect.getmembers(module, inspect.isclass):
-		traceClass(cls, tracer)
+		if not re.search(pattern, name, flags=flags):
+			continue
+
+		traceClass(cls, tracer, pattern, flags)
 
 	REGISTERED_MODULES.add(module)
 
@@ -527,7 +624,7 @@ def untraceModule(module):
 	"""
 
 	for name, function in inspect.getmembers(module, inspect.isfunction):
-		setattr(module, name, untracer(function))
+		untraceFunction(module, function)
 
 	for name, cls in inspect.getmembers(module, inspect.isclass):
 		untraceClass(cls)
@@ -553,7 +650,7 @@ def registerModule(module=None):
 	REGISTERED_MODULES.add(module)
 	return True
 
-def installTracer(pattern=r".*", flags=0, tracer=tracer):
+def installTracer(tracer=tracer, pattern=r".*", flags=0):
 	"""
 	This definition installs given tracer in the candidates modules for tracing matching given pattern.
 

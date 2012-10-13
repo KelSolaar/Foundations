@@ -32,7 +32,8 @@ __status__ = "Production"
 __all__ = ["GLOBAL_RETURN_VALUE",
 		"Dummy",
 		"dummy1",
-		"dummy2"]
+		"dummy2",
+		"dummy3"]
 
 GLOBAL_RETURN_VALUE = range(10)
 
@@ -88,4 +89,7 @@ def dummy1():
 
 @foundations.trace.untracable
 def dummy2():
+	return GLOBAL_RETURN_VALUE
+
+def dummy3():
 	return GLOBAL_RETURN_VALUE
