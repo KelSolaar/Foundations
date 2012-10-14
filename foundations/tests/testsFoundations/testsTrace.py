@@ -687,9 +687,9 @@ class UninstallTracerTestCase(unittest.TestCase):
 		module = foundations.tests.testsFoundations.resources.dummy
 		foundations.trace.registerModule(module)
 		foundations.trace.installTracer()
-		self.assertTrue(foundations.trace.uninstallTracer("Nemo"))
+		self.assertTrue(foundations.trace.uninstallTracer(r"Nemo"))
 		self.assertTrue(foundations.trace.isTraced(module))
-		self.assertTrue(foundations.trace.uninstallTracer("\w+ummy"))
+		self.assertTrue(foundations.trace.uninstallTracer(r"\w+ummy"))
 		self.assertFalse(foundations.trace.isTraced(module))
 
 		foundations.trace.REGISTERED_MODULES = foundations.trace.REGISTERED_MODULES
