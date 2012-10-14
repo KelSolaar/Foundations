@@ -22,6 +22,7 @@ import inspect
 import linecache
 import sys
 import traceback
+import itertools
 
 #**********************************************************************************************************************
 #***	Internal imports.
@@ -174,8 +175,8 @@ def handleExceptions(handler=defaultExceptionsHandler, raiseException=False, *ar
 	:return: Object. ( Object )
 	"""
 
-	exceptions = list(args)
-	exceptions.append(Exception)
+	handler = handler or defaultExceptionsHandler
+	exceptions = tuple(itertools.chain(args, (Exception,)))
 
 	def handleExceptionsDecorator(object):
 		"""
