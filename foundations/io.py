@@ -89,7 +89,7 @@ class File(object):
 		return self.__file
 
 	@file.setter
-	@foundations.exceptions.handleExceptions(None, False, AssertionError)
+	@foundations.exceptions.handleExceptions(AssertionError)
 	def file(self, value):
 		"""
 		This method is the setter method for **self.__file** attribute.
@@ -102,7 +102,7 @@ class File(object):
 		self.__file = value
 
 	@file.deleter
-	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def file(self):
 		"""
 		This method is the deleter method for **self.__file** attribute.
@@ -122,7 +122,7 @@ class File(object):
 		return self.__content
 
 	@content.setter
-	@foundations.exceptions.handleExceptions(None, False, AssertionError)
+	@foundations.exceptions.handleExceptions(AssertionError)
 	def content(self, value):
 		"""
 		This method is the setter method for **self.__content** attribute.
@@ -135,7 +135,7 @@ class File(object):
 		self.__content = value
 
 	@content.deleter
-	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def content(self):
 		"""
 		This method is the deleter method for **self.__content** attribute.

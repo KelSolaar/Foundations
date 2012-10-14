@@ -85,7 +85,7 @@ class Pkzip(object):
 		return self.__archive
 
 	@archive.setter
-	@foundations.exceptions.handleExceptions(None, False, AssertionError)
+	@foundations.exceptions.handleExceptions(AssertionError)
 	def archive(self, value):
 		"""
 		This method is the setter method for **self.__archive** attribute.
@@ -100,7 +100,7 @@ class Pkzip(object):
 		self.__archive = value
 
 	@archive.deleter
-	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def archive(self):
 		"""
 		This method is the deleter method for **self.__archive** attribute.

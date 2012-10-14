@@ -103,7 +103,7 @@ class RotatingBackup(object):
 		return self.__source
 
 	@source.setter
-	@foundations.exceptions.handleExceptions(None, False, AssertionError)
+	@foundations.exceptions.handleExceptions(AssertionError)
 	def source(self, value):
 		"""
 		This method is the setter method for **self.__source** attribute.
@@ -118,7 +118,7 @@ class RotatingBackup(object):
 		self.__source = value
 
 	@source.deleter
-	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def source(self):
 		"""
 		This method is the deleter method for **self.__source** attribute.
@@ -138,7 +138,7 @@ class RotatingBackup(object):
 		return self.__destination
 
 	@destination.setter
-	@foundations.exceptions.handleExceptions(None, False, AssertionError)
+	@foundations.exceptions.handleExceptions(AssertionError)
 	def destination(self, value):
 		"""
 		This method is the setter method for **self.__destination** attribute.
@@ -152,7 +152,7 @@ class RotatingBackup(object):
 		self.__destination = value
 
 	@destination.deleter
-	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def destination(self):
 		"""
 		This method is the deleter method for **self.__destination** attribute.
@@ -172,7 +172,7 @@ class RotatingBackup(object):
 		return self.__count
 
 	@count.setter
-	@foundations.exceptions.handleExceptions(None, False, AssertionError)
+	@foundations.exceptions.handleExceptions(AssertionError)
 	def count(self, value):
 		"""
 		This method is the setter method for **self.__count** attribute.
@@ -187,7 +187,7 @@ class RotatingBackup(object):
 		self.__count = value
 
 	@count.deleter
-	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def count(self):
 		"""
 		This method is the deleter method for **self.__count** attribute.

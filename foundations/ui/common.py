@@ -121,7 +121,7 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 			return self.__uiFile
 
 		@uiFile.setter
-		@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
+		@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 		def uiFile(self, value):
 			"""
 			This method is the setter method for **self.__uiFile** attribute.
@@ -133,7 +133,7 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 			self.__class__.__name__, "uiFile"))
 
 		@uiFile.deleter
-		@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
+		@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 		def uiFile(self):
 			"""
 			This method is the deleter method for **self.__uiFile** attribute.

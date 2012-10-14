@@ -92,7 +92,7 @@ class Environment(object):
 		return self.__variables
 
 	@variables.setter
-	@foundations.exceptions.handleExceptions(None, False, AssertionError)
+	@foundations.exceptions.handleExceptions(AssertionError)
 	def variables(self, value):
 		"""
 		This method is the setter method for **self.__variables** attribute.
@@ -110,7 +110,7 @@ class Environment(object):
 		self.__variables = value
 
 	@variables.deleter
-	@foundations.exceptions.handleExceptions(None, False, foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def variables(self):
 		"""
 		This method is the deleter method for **self.__variables** attribute.

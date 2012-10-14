@@ -151,7 +151,7 @@ def defaultExceptionsHandler(exception, object, *args, **kwargs):
 
 	return True
 
-def handleExceptions(handler=defaultExceptionsHandler, raiseException=False, *args):
+def handleExceptions(*args):
 	"""
 	| This decorator is used for exceptions handling.
 	| It's possible to specify an user defined exception handler,
@@ -161,7 +161,7 @@ def handleExceptions(handler=defaultExceptionsHandler, raiseException=False, *ar
 	
 	Usage::
 
-		@handleExceptions(None, False, ZeroDivisionError)
+		@handleExceptions(ZeroDivisionError)
 		def raiseAnException(value):
 			'''
 			This definition raises a 'ZeroDivisionError' exception.
@@ -169,14 +169,13 @@ def handleExceptions(handler=defaultExceptionsHandler, raiseException=False, *ar
 
 			return value / 0
 
-	:param handler: Custom handler. ( Object )
-	:param raiseException: Raise the exception. ( Boolean )
-	:param \*args: Exceptions. ( Exceptions )
+			:param \*args: Arguments. ( \* )
+
 	:return: Object. ( Object )
 	"""
 
-	handler = handler or defaultExceptionsHandler
-	exceptions = tuple(itertools.chain(args, (Exception,)))
+	exceptions = tuple(itertools.chain(filter(lambda x: isinstance(x, Exception), args), (Exception,)))
+	handlers = filter(lambda x: inspect.isfunction(x), args) or (defaultExceptionsHandler,)
 
 	def handleExceptionsDecorator(object):
 		"""
@@ -202,10 +201,8 @@ def handleExceptions(handler=defaultExceptionsHandler, raiseException=False, *ar
 			try:
 				return object(*args, **kwargs)
 			except exceptions as exception:
-				handler(exception, object, *args, **kwargs)
-			finally:
-				if raiseException and exception:
-					raise exception
+				for handler in handlers:
+					handler(exception, object, *args, **kwargs)
 
 		return handleExceptionsWrapper
 
