@@ -21,7 +21,6 @@ import inspect
 import os
 from PyQt4 import uic
 from PyQt4.QtGui import QApplication
-from PyQt4.QtGui import QWidget
 
 #**********************************************************************************************************************
 #***	Internal imports.
@@ -29,7 +28,6 @@ from PyQt4.QtGui import QWidget
 import foundations.common
 import foundations.exceptions
 import foundations.verbose
-from foundations.globals.constants import Constants
 
 #**********************************************************************************************************************
 #***	Module attributes.

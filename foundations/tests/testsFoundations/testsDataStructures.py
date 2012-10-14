@@ -120,7 +120,9 @@ class OrderedStructureTestCase(unittest.TestCase):
 		This method tests :class:`foundations.dataStructures.OrderedStructure` class.
 		"""
 
-		structure = foundations.dataStructures.OrderedStructure([("personA", "John"), ("personB", "Jane"), ("personC", "Luke")])
+		structure = foundations.dataStructures.OrderedStructure([("personA", "John"),
+																("personB", "Jane"),
+																("personC", "Luke")])
 		self.assertIn("personA", structure)
 		self.assertTrue(hasattr(structure, "personA"))
 		self.assertListEqual(["personA", "personB", "personC"], structure.keys())

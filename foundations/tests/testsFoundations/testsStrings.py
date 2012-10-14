@@ -136,8 +136,9 @@ class GetCommonAncestorTestCase(unittest.TestCase):
 		self.assertTupleEqual(foundations.strings.getCommonAncestor(("1", "2", "3"), ("1", "2", "0"), ("1", "2", "3", "4")),
 														("1", "2"))
 		self.assertEqual(foundations.strings.getCommonAncestor("azerty", "azetty", "azello"), "aze")
-		self.assertEqual(foundations.strings.getCommonAncestor("/Users/JohnDoe/Documents", "/Users/JohnDoe/Documents/Test.txt"),
-						"/Users/JohnDoe/Documents")
+		self.assertEqual(foundations.strings.getCommonAncestor(
+		"/Users/JohnDoe/Documents", "/Users/JohnDoe/Documents/Test.txt"),
+		"/Users/JohnDoe/Documents")
 		self.assertFalse(foundations.strings.getCommonAncestor("azerty", "qwerty"))
 
 class GetCommonPathsAncestorTestCase(unittest.TestCase):
@@ -157,7 +158,8 @@ class GetCommonPathsAncestorTestCase(unittest.TestCase):
 														"{0}{1}".format(os.sep,
 														os.sep.join(("Users", "JohnDoe", "Documents"))))
 
-		self.assertFalse(foundations.strings.getCommonPathsAncestor("{0}{1}".format(os.sep, os.sep.join(("JohnDoe", "Documents"))),
+		self.assertFalse(foundations.strings.getCommonPathsAncestor("{0}{1}".format(os.sep,
+														os.sep.join(("JohnDoe", "Documents"))),
 														"{0}{1}".format(os.sep,
 														os.sep.join(("Users", "JohnDoe", "Documents", "Test.txt")))))
 
@@ -250,7 +252,8 @@ class ToForwardSlashesTestCase(unittest.TestCase):
 		"""
 
 		self.assertIsInstance(foundations.strings.toForwardSlashes("To\Forward\Slashes\Test\Case"), str)
-		self.assertEqual(foundations.strings.toForwardSlashes("To\Forward\Slashes\Test\Case"), "To/Forward/Slashes/Test/Case")
+		self.assertEqual(foundations.strings.toForwardSlashes("To\Forward\Slashes\Test\Case"),
+						"To/Forward/Slashes/Test/Case")
 		self.assertEqual(foundations.strings.toForwardSlashes("\Users/JohnDoe\Documents"), "/Users/JohnDoe/Documents")
 
 class ToBackwardSlashesTestCase(unittest.TestCase):
@@ -264,7 +267,8 @@ class ToBackwardSlashesTestCase(unittest.TestCase):
 		"""
 
 		self.assertIsInstance(foundations.strings.toBackwardSlashes("\Users\JohnDoe\Documents"), str)
-		self.assertEqual(foundations.strings.toBackwardSlashes("To/Forward/Slashes/Test/Case"), "To\Forward\Slashes\Test\Case")
+		self.assertEqual(foundations.strings.toBackwardSlashes("To/Forward/Slashes/Test/Case"),
+						"To\Forward\Slashes\Test\Case")
 		self.assertEqual(foundations.strings.toBackwardSlashes("/Users/JohnDoe/Documents"), "\Users\JohnDoe\Documents")
 
 class ToPosixPathTestCase(unittest.TestCase):
@@ -279,7 +283,8 @@ class ToPosixPathTestCase(unittest.TestCase):
 
 		self.assertIsInstance(foundations.strings.toPosixPath("c:\\Users\\JohnDoe\\Documents"), str)
 		self.assertEqual(foundations.strings.toPosixPath("c:\\Users\\JohnDoe\\Documents"), "/Users/JohnDoe/Documents")
-		self.assertEqual(foundations.strings.toPosixPath("\\Server\Users\\JohnDoe\\Documents"), "/Server/Users/JohnDoe/Documents")
+		self.assertEqual(foundations.strings.toPosixPath("\\Server\Users\\JohnDoe\\Documents"),
+						"/Server/Users/JohnDoe/Documents")
 
 class GetNormalizedPathTestCase(unittest.TestCase):
 	"""
@@ -293,9 +298,12 @@ class GetNormalizedPathTestCase(unittest.TestCase):
 
 		self.assertIsInstance(foundations.strings.getNormalizedPath("/Users/JohnDoe/Documents"), str)
 		if platform.system() == "Windows" or platform.system() == "Microsoft":
-			self.assertEqual(foundations.strings.getNormalizedPath("C:/Users\JohnDoe/Documents"), r"C:\\Users\\JohnDoe\\Documents")
-			self.assertEqual(foundations.strings.getNormalizedPath("C://Users\/JohnDoe//Documents/"), r"C:\\Users\\JohnDoe\\Documents")
-			self.assertEqual(foundations.strings.getNormalizedPath("C:\\Users\\JohnDoe\\Documents"), r"C:\\Users\\JohnDoe\\Documents")
+			self.assertEqual(foundations.strings.getNormalizedPath("C:/Users\JohnDoe/Documents"),
+							r"C:\\Users\\JohnDoe\\Documents")
+			self.assertEqual(foundations.strings.getNormalizedPath("C://Users\/JohnDoe//Documents/"),
+							r"C:\\Users\\JohnDoe\\Documents")
+			self.assertEqual(foundations.strings.getNormalizedPath("C:\\Users\\JohnDoe\\Documents"),
+							r"C:\\Users\\JohnDoe\\Documents")
 		else:
 			self.assertEqual(foundations.strings.getNormalizedPath("/Users/JohnDoe/Documents/"), "/Users/JohnDoe/Documents")
 			self.assertEqual(foundations.strings.getNormalizedPath("/Users\JohnDoe/Documents"), "/Users\JohnDoe/Documents")

@@ -58,17 +58,18 @@ elif platform.system() == "Darwin":
 elif platform.system() == "Linux":
 	FREEIMAGE_LIBRARY = os.path.join(LIBRARIES_DIRECTORY, "freeImage/libfreeimage.so")
 
-LIBRARIES = {"freeImage":os.path.normpath(os.path.join(os.path.dirname(__file__), FREEIMAGE_LIBRARY))}
+LIBRARIES = {"freeImage" : os.path.normpath(os.path.join(os.path.dirname(__file__), FREEIMAGE_LIBRARY))}
 
-LIBRARIES_FUNCTIONS = {"freeImage":(LibraryHook(name="FreeImage_GetVersion",
+LIBRARIES_FUNCTIONS = {"freeImage" : (LibraryHook(name="FreeImage_GetVersion",
 												argumentsTypes=None,
 												returnValue=ctypes.c_char_p),
 								LibraryHook(name="FreeImage_GetCopyrightMessage",
 											argumentsTypes=None,
 											returnValue=ctypes.c_char_p))}
 
-LIBRARIES_TESTS_CASES = {"freeImage":{"FreeImage_GetVersion":"3.15.1",
-						"FreeImage_GetCopyrightMessage":"This program uses FreeImage, a free, open source image library supporting all common bitmap formats. See http://freeimage.sourceforge.net for details"}}
+LIBRARIES_TESTS_CASES = {"freeImage" : {"FreeImage_GetVersion" : "3.15.1",
+						"FreeImage_GetCopyrightMessage" : "This program uses FreeImage, a free, open source image library supporting all common bitmap formats. See http://freeimage.sourceforge.net for details"}}
+
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************

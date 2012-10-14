@@ -105,7 +105,7 @@ def isReadOnly(object):
 		setattr(object, attribute, True)
 		delattr(object, attribute)
 		return False
-	except (TypeError, AttributeError) as error:
+	except (TypeError, AttributeError):
 		return True
 
 def setTracerHook(object, hook):
