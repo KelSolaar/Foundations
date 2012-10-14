@@ -598,13 +598,13 @@ def traceModule(module, tracer=tracer, pattern=r".*", flags=0):
 	global REGISTERED_MODULES
 
 	for name, function in inspect.getmembers(module, inspect.isfunction):
-		if not re.search(pattern, name, flags=flags):
+		if name not in module.__all__ or not re.search(pattern, name, flags=flags):
 			continue
 
 		traceFunction(module, function, tracer)
 
 	for name, cls in inspect.getmembers(module, inspect.isclass):
-		if not re.search(pattern, name, flags=flags):
+		if name not in module.__all__ or not re.search(pattern, name, flags=flags):
 			continue
 
 		traceClass(cls, tracer, pattern, flags)
