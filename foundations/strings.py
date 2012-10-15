@@ -20,13 +20,13 @@
 import os
 import platform
 import posixpath
+import random
 import re
 
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
 import foundations.common
-import foundations.exceptions
 import foundations.verbose
 from foundations.globals.constants import Constants
 
@@ -41,6 +41,7 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["LOGGER",
+			"ASCII_CHARACTERS",
 			"encode",
 			"getNiceName",
 			"getVersionRank",
@@ -54,10 +55,13 @@ __all__ = ["LOGGER",
 			"toBackwardSlashes",
 			"toPosixPath",
 			"getNormalizedPath",
+			"getRandomSequence",
 			"isEmail",
 			"isWebsite"]
 
 LOGGER = foundations.verbose.installLogger()
+
+ASCII_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
@@ -352,6 +356,21 @@ def getNormalizedPath(path):
 		path = os.path.normpath(path)
 		LOGGER.debug("> Path: '{0}', normalized path.".format(path))
 		return path
+
+def getRandomSequence(length=8):
+	"""
+	This definition returns a random sequence.
+	
+	Usage::
+
+		>>> getRandomSequence()
+		arGAqzf3
+
+	:param length: Length of the sequence. ( Integer )
+	:return: Random sequence. ( String )
+	"""
+
+	return str().join([random.choice(ASCII_CHARACTERS) for i in range(length)])
 
 def isEmail(data):
 	"""

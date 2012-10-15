@@ -54,6 +54,7 @@ __all__ = ["EncodeTestCase",
 		"ToBackwardSlashesTestCase",
 		"ToPosixPathTestCase",
 		"GetNormalizedPathTestCase",
+		"GetRandomSequenceTestCase",
 		"IsEmailTestCase",
 		"IsWebsiteTestCase"]
 
@@ -342,6 +343,18 @@ class IsWebsiteTestCase(unittest.TestCase):
 		self.assertTrue(foundations.strings.isWebsite("http://domain.subdomain.com"))
 		self.assertFalse(foundations.strings.isWebsite(".com"))
 		self.assertFalse(foundations.strings.isWebsite("domain.com"))
+
+class GetRandomSequenceTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.strings.getRandomSequence` definition units tests methods.
+	"""
+
+	def testGetRandomSequence(self):
+		"""
+		This method tests :func:`foundations.strings.getRandomSequence` definition.
+		"""
+
+		self.assertIsInstance(foundations.strings.getRandomSequence(), str)
 
 if __name__ == "__main__":
 	import foundations.tests.utilities
