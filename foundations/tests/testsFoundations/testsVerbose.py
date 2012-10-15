@@ -123,7 +123,7 @@ class IndentMessageTestCase(unittest.TestCase):
 
 class TracerTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.trace.tracer` class units tests methods.
+	This class defines :func:`foundations.trace.tracer` definition units tests methods.
 	"""
 
 	def testTracer(self):
