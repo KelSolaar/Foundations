@@ -48,6 +48,7 @@ __all__ = ["THREADS_IDENTIFIERS",
 			"LOGGING_DEFAULT_FORMATTER",
 			"LOGGING_EXTENDED_FORMATTER",
 			"LOGGING_STANDARD_FORMATTER",
+			"TRACER_LOGGING_FUNCTION",
 			"Streamer"
 			"StandardOutputStreamer",
 			"indentMessage",
@@ -96,6 +97,8 @@ LOGGER = logging.getLogger(Constants.logger)
 LOGGING_DEFAULT_FORMATTER = logging.Formatter("%(levelname)-8s: %(message)s")
 LOGGING_EXTENDED_FORMATTER = logging.Formatter("%(asctime)s - %(threadName)s - %(levelname)-8s: %(message)s")
 LOGGING_STANDARD_FORMATTER = logging.Formatter()
+
+TRACER_LOGGING_FUNCTION = LOGGER.info
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
@@ -245,11 +248,11 @@ def tracer(object):
 	
 	Entering in an object::
 		
-		DEBUG   : ---> foundations.environment.getUserApplicationDataDirectory() <<<---
+		INFO    : ---> foundations.environment.getUserApplicationDataDirectory() <<<---
 		
 	Exiting from an object::
 		
-		DEBUG   : <--- foundations.environment.getSystemApplicationDataDirectory() ^ '...' --->
+		INFO   : <--- foundations.environment.getSystemApplicationDataDirectory() ^ '...' --->
 	
 	:param object: Object to decorate. ( Object )
 	:return: Object. ( Object )
@@ -281,7 +284,7 @@ def tracer(object):
 						for name in argsNames[len(args):] if name not in kwargs]
 		namelessArgs = map(repr, args[argsCount:])
 		keywordArgs = map(foundations.trace.formatArgument, kwargs.items())
-		LOGGER.debug(indentMessage("---> {0}({1}) <---".format(traceName,
+		TRACER_LOGGING_FUNCTION(indentMessage("---> {0}({1}) <---".format(traceName,
 																", ".join(itertools.chain(positionalArgs,
 																						defaultedArgs,
 																						namelessArgs,
@@ -291,7 +294,7 @@ def tracer(object):
 		value = object(*args, **kwargs)
 		INDENT_LEVEL -= 1
 
-		LOGGER.debug(indentMessage("<--- {0} ^ {1} --->".format(traceName, repr(value))))
+		TRACER_LOGGING_FUNCTION(indentMessage("<--- {0} ^ {1} --->".format(traceName, repr(value))))
 
 		return value
 
