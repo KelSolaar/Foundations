@@ -48,6 +48,7 @@ __all__ = ["IsReadOnly",
 		"SetTracerHookTestCase",
 		"GetTracerHookTestCase",
 		"IsTracedTestCase",
+		"IsBaseTracedTestCase",
 		"IsUntracableTestCase",
 		"SetTracedTestCase",
 		"SetUntracedTestCase",
@@ -73,7 +74,8 @@ __all__ = ["IsReadOnly",
 		"UntraceModuleTestCase",
 		"RegisterModuleTestCase",
 		"InstallTracerTestCase",
-		"UninstallTracerTestCase"]
+		"UninstallTracerTestCase",
+		"EvaluateTraceRequestTestCase"]
 
 TRACABLE_METHODS = {"_Dummy__privateMethod" : Dummy._Dummy__privateMethod,
 					"publicMethod" : Dummy.publicMethod,
@@ -153,6 +155,27 @@ class IsTracedTestCase(unittest.TestCase):
 		foundations.trace.setTraced(object)
 		self.assertTrue(foundations.trace.isTraced(object))
 		self.assertFalse(foundations.trace.isTraced(lambda: None))
+
+class IsBaseTracedTestCase(unittest.TestCase):
+	"""
+	This class defines :class:`foundations.trace.isBaseTraced` class units tests methods.
+	"""
+
+	def testIsBaseTraced(self):
+		"""
+		This method tests :func:`foundations.trace.isBaseTraced` definition.
+		"""
+
+		class Dummy2(Dummy):
+			pass
+
+		self.assertFalse(foundations.trace.isBaseTraced(Dummy2))
+
+		foundations.trace.traceClass(Dummy)
+
+		self.assertTrue(foundations.trace.isBaseTraced(Dummy2))
+
+		foundations.trace.untraceClass(Dummy)
 
 class IsUntracableTestCase(unittest.TestCase):
 	"""
@@ -693,6 +716,41 @@ class UninstallTracerTestCase(unittest.TestCase):
 		self.assertFalse(foundations.trace.isTraced(module))
 
 		foundations.trace.REGISTERED_MODULES = foundations.trace.REGISTERED_MODULES
+
+class EvaluateTraceRequestTestCase(unittest.TestCase):
+	"""
+	This class defines :class:`foundations.trace.evaluateTraceRequest` class units tests methods.
+	"""
+
+	def testEvaluateTraceRequest(self):
+		"""
+		This method tests :func:`foundations.trace.evaluateTraceRequest` definition.
+		"""
+
+		module = foundations.tests.testsFoundations.resources.dummy
+
+		self.assertTrue(foundations.trace.evaluateTraceRequest("'foundations.tests.testsFoundations.resources.dummy'"))
+		self.assertTrue(foundations.trace.isTraced(module))
+
+		foundations.trace.untraceModule(module)
+
+		self.assertTrue(foundations.trace.evaluateTraceRequest("['foundations.tests.testsFoundations.resources.dummy']"))
+		self.assertTrue(foundations.trace.isTraced(module))
+
+		foundations.trace.untraceModule(module)
+
+		self.assertTrue(foundations.trace.evaluateTraceRequest(
+		"{'foundations.tests.testsFoundations.resources.dummy' : (r'.*', 0)}"))
+		self.assertTrue(foundations.trace.isTraced(module))
+
+		foundations.trace.untraceModule(module)
+
+		self.assertTrue(foundations.trace.evaluateTraceRequest(
+		"{'foundations.tests.testsFoundations.resources.dummy' : (r'^(?:(?!dummy1).)*$', 0)}"))
+		self.assertTrue(foundations.trace.isTraced(module))
+		self.assertFalse(foundations.trace.isTraced(getattr(module, "dummy1")))
+
+		foundations.trace.untraceModule(module)
 
 if __name__ == "__main__":
 	unittest.main()

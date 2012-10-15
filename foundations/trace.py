@@ -18,6 +18,7 @@
 #**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
+import ast
 import functools
 import inspect
 import re
@@ -46,6 +47,7 @@ __all__ = ["REGISTERED_MODULES",
 			"setTracerHook",
 			"getTracerHook",
 			"isTraced",
+			"isBaseTraced",
 			"isUntracable",
 			"setTraced",
 			"setUntraced",
@@ -73,7 +75,8 @@ __all__ = ["REGISTERED_MODULES",
 			"traceModule",
 			"untraceModule",
 			"registerModule",
-			"installTracer"]
+			"installTracer",
+			"evaluateTraceRequest"]
 
 REGISTERED_MODULES = set()
 
@@ -140,6 +143,19 @@ def isTraced(object):
 	"""
 
 	return hasattr(object, TRACER_SYMBOL)
+
+def isBaseTraced(cls):
+	"""
+	This definition returns if given class has a traced base.
+
+	:param cls: Class. ( Object )
+	:return: Is base traced. ( Boolean )
+	"""
+
+	for base in cls.mro()[1:]:
+		if isTraced(base):
+			return True
+	return False
 
 def isUntracable(object):
 	"""
@@ -293,7 +309,7 @@ def isClassMethod(method):
 	:return: Is class method. ( Boolean )
 	"""
 
-	if type(method) is type(lambda x: None):
+	if isStaticMethod(method):
 		return False
 
 	return method.im_self is not None
@@ -535,7 +551,7 @@ def traceClass(cls, tracer=tracer, pattern=r".*", flags=0):
 	:return: Definition success. ( Boolean )
 	"""
 
-	if isTraced(cls) or isReadOnly(cls):
+	if not isBaseTraced(cls) and (isTraced(cls) or isReadOnly(cls)):
 		return False
 
 	for name, method in inspect.getmembers(cls, inspect.ismethod):
@@ -583,13 +599,15 @@ def untraceClass(cls):
 
 def traceModule(module, tracer=tracer, pattern=r".*", flags=0):
 	"""
-	This definition traces given module using given tracer.
+	This definition traces given module members using given tracer.
 
 	:param module: Module to trace. ( Module )
 	:param tracer: Tracer. ( Object )
 	:param pattern: Matching pattern. ( String )
 	:param flags: Matching regex flags. ( Integer )
 	:return: Definition success. ( Boolean )
+	
+	:note: Only members exported by **__all__** attribute will be traced.
 	"""
 
 	if isTraced(module):
@@ -617,7 +635,7 @@ def traceModule(module, tracer=tracer, pattern=r".*", flags=0):
 
 def untraceModule(module):
 	"""
-	This definition untraces given module.
+	This definition untraces given module members.
 
 	:param module: Module to untrace. ( Module )
 	:return: Definition success. ( Boolean )
@@ -685,3 +703,35 @@ def uninstallTracer(pattern=r".*", flags=0):
 
 		untraceModule(module)
 	return True
+
+def evaluateTraceRequest(data, tracer=tracer):
+	"""
+	This definition evaluate given string trace request.
+
+	Usage::
+
+		Umbra -t "{'umbra.engine' : ('.*', 0), 'umbra.preferences' : (r'.*', 0)}"
+		Umbra -t "['umbra.engine', 'umbra.preferences']"
+		Umbra -t "'umbra.engine, umbra.preferences"
+		
+	:param data: Trace request. ( String )
+	:param tracer: Tracer. ( Object )
+	:return: Definition success. ( Boolean )
+	"""
+
+	data = ast.literal_eval(data)
+
+	if isinstance(data, str):
+		modules = dict.fromkeys(map(lambda x: x.strip(), data.split(",")), (None, None))
+	elif isinstance(data, list):
+		modules = dict.fromkeys(data, (None, None))
+	elif isinstance(data, dict):
+		modules = data
+
+	for module, (pattern, flags) in modules.iteritems():
+		__import__(module)
+		pattern = pattern if pattern is not None else r".*"
+		flags = flags if flags is not None else re.IGNORECASE
+		traceModule(sys.modules[module], tracer, pattern, flags)
+	return True
+
