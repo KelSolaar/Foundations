@@ -783,7 +783,7 @@ class AbstractCompositeNode(AbstractNode):
 
 		self.__children.insert(index, child)
 		child.parent = self
-		return True
+		return child
 
 	def hasChildren(self):
 		"""
