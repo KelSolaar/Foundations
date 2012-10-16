@@ -312,8 +312,8 @@ PARSING_ERRORS_LINES_AND_VALUES = {3 : "Attribute structure is invalid: {0}".for
 									12 : "Attribute structure is invalid: {0}".format(
 										"This statement will produce the line nº '12' parsing error.\n")}
 
-RANDOM_ATTRIBUTES = {"component" : {"Component|Name" : "core.db",
-									"Component|Module" : "db",
+RANDOM_ATTRIBUTES = {"component" : {"Component|Name" : "core.database",
+									"Component|Module" : "database",
 									"Informations|Author" : "Thomas Mansencal",
 									"Informations|Email" : "thomas.mansencal@gmail.com"},
 					"iblSet" : {"Header|ICOfile" : "Icon.jpg",
