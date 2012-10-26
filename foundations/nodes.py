@@ -174,7 +174,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 	"""Node id: Defines the next node instance identity number. ( Integer )"""
 
 	__nodesInstances = weakref.WeakValueDictionary()
-	"""Node instances: Each node, once instanced is stored in this attribute. ( Dictionary )"""
+	"""Nodes instances: Each node, once instanced is referenced in this attribute. ( Dictionary )"""
 
 	def __new__(cls, *args, **kwargs):
 		"""
