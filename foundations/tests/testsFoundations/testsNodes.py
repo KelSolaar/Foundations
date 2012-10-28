@@ -114,16 +114,6 @@ class AbstractNodeTestCase(unittest.TestCase):
 		nodeB = AbstractNode()
 		self.assertEqual(nodeB.name, "Abstract{0}".format(nodeB.identity))
 
-	def testHash(self):
-		"""
-		This method tests :class:`foundations.nodes.AbstractNode` class hash consistency.
-		"""
-
-		nodeA = AbstractNode("MyNodeA")
-		self.assertEqual(nodeA.identity, nodeA.__hash__())
-		nodeB = AbstractNode("MyNodeB")
-		self.assertEqual(nodeB.identity, nodeB.__hash__())
-
 	def testGetNodeByIdentity(self):
 		"""
 		This method tests :meth:`foundations.nodes.AbstractNode.getNodeByIdentity` method.

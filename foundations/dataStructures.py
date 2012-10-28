@@ -147,8 +147,8 @@ class Structure(dict):
 		"""
 		This method sets both key and sibling attribute with given value.
 
-		:param attribute.: Attribute. ( Object )
-		:param value.: Value. ( Object )
+		:param attribute: Attribute. ( Object )
+		:param value: Value. ( Object )
 		"""
 
 		dict.__setitem__(self, attribute, value)
@@ -160,7 +160,7 @@ class Structure(dict):
 		"""
 		This method deletes both key and sibling attribute.
 
-		:param attribute.: Attribute. ( Object )
+		:param attribute: Attribute. ( Object )
 		"""
 
 		dict.__delitem__(self, attribute)
@@ -224,8 +224,8 @@ class OrderedStructure(OrderedDict):
 		"""
 		This method sets a key and sibling attribute with given value.
 
-		:param key.: Key. ( Object )
-		:param value.: Value. ( Object )
+		:param key: Key. ( Object )
+		:param value: Value. ( Object )
 		:param \*args: Arguments. ( \* )
 		:param \*\*kwargs: Key / Value pairs. ( Key / Value pairs )
 		"""
@@ -237,7 +237,7 @@ class OrderedStructure(OrderedDict):
 		"""
 		This method deletes both key and sibling attribute.
 
-		:param key.: Key. ( Object )
+		:param key: Key. ( Object )
 		:param \*args: Arguments. ( \* )
 		:param \*\*kwargs: Key / Value pairs. ( Key / Value pairs )
 		"""
@@ -249,8 +249,8 @@ class OrderedStructure(OrderedDict):
 		"""
 		This method sets both key and sibling attribute with given value.
 
-		:param attribute.: Attribute. ( Object )
-		:param value.: Value. ( Object )
+		:param attribute: Attribute. ( Object )
+		:param value: Value. ( Object )
 		"""
 
 		if sys.version_info[:2] <= (2, 6):
@@ -266,7 +266,7 @@ class OrderedStructure(OrderedDict):
 		"""
 		This method deletes both key and sibling attribute.
 
-		:param attribute.: Attribute. ( Object )
+		:param attribute: Attribute. ( Object )
 		"""
 
 		if sys.version_info[:2] <= (2, 6):
@@ -296,7 +296,7 @@ class Lookup(dict):
 		"""
 		This method gets the first key from given value.
 
-		:param value.: Value. ( Object )
+		:param value: Value. ( Object )
 		:return: Key. ( Object )
 		"""
 
@@ -308,7 +308,7 @@ class Lookup(dict):
 		"""
 		This method gets the keys from given value.
 
-		:param value.: Value. ( Object )
+		:param value: Value. ( Object )
 		:return: Keys. ( Object )
 		"""
 

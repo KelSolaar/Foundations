@@ -149,6 +149,19 @@ class Attribute(foundations.dataStructures.Structure):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
+	def __hash__(self):
+		"""
+		This method reimplements the :meth:`foundations.dataStructures.Structure.__hash__` method.
+		
+		:return: Object hash. ( Integer )
+		
+		:note: :class:`foundations.dataStructures.Structure` inherits from **dict** and
+		should not be made hashable because of its mutability, however considering the fact the id
+		is used as the hash value, making the object hashable should be fairly safe. 
+		"""
+
+		return hash(id(self))
+
 	def __repr__(self):
 		"""
 		This method reimplements the :meth:`foundations.dataStructures.Structure.__repr__` method.
@@ -371,25 +384,12 @@ class AbstractNode(foundations.dataStructures.Structure):
 		
 		:return: Object hash. ( Integer )
 		
-		:note: :class:`foundations.dataStructures.Structure` inherits from **dict** and should not be made hashable because of its mutability,
-		however considering the fact the unique node identity is used as the hash value,
-		making the object hashable should be safe. 
+		:note: :class:`foundations.dataStructures.Structure` inherits from **dict** and
+		should not be made hashable because of its mutability, however considering the fact the id
+		is used as the hash value, making the object hashable should be fairly safe. 
 		"""
 
-		return hash(self.__identity)
-
-	def __cmp__(self, other):
-		"""
-		This method reimplements the :meth:`foundations.dataStructures.Structure.__cmp__` method.
-		
-		:param other: Comparison node. ( AbstractNode )
-		:return: Comparison value. ( Integer )
-		"""
-
-		if type(other) == type(self):
-			return cmp(self.__identity, other.identity)
-		else:
-			raise TypeError("Unable to compare '{0}' and '{1}' objects.".format(self, other))
+		return hash(id(self))
 
 	def __getDefaultNodeName(self):
 		"""
