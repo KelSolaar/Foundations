@@ -17,10 +17,11 @@
 #**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
+import ast
 import functools
 import inspect
-import linecache
 import sys
+import textwrap
 import traceback
 import itertools
 
@@ -41,7 +42,11 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["LOGGER",
-			"extractStack"
+			"extractStack",
+			"extractArguments",
+			"getInnerMostFrame",
+			"formatException",
+			"formatLocals",
 			"defaultExceptionsHandler",
 			"handleExceptions",
 			"AbstractError",
@@ -76,32 +81,109 @@ EXCEPTIONS_FRAME_SYMBOL = "_exceptions__frame__"
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-def extractStack(frame, exceptionsFrameSymbol=EXCEPTIONS_FRAME_SYMBOL):
+def extractStack(frame, context=10, exceptionsFrameSymbol=EXCEPTIONS_FRAME_SYMBOL):
 	"""
-	| This definition extracts the stack from provided frame.
-	| The code is similar to :func:`traceback.extract_stack` except that it allows frames to be excluded
-		from the stack if the given stack trace frame tag is found in the frame locals and set **True**.
+	This definition extracts the stack from given frame while excluded any symbolized frame.
 	
 	:param frame: Frame. ( Frame )
+	:param context: Context to extract. ( Integer )
 	:param exceptionsFrameSymbol: Stack trace frame tag. ( String )
 	:return: Stack. ( List )
 	"""
 
-	stack = []
-	while frame is not None:
-		if not frame.f_locals.get(EXCEPTIONS_FRAME_SYMBOL):
-			lineNumber = frame.f_lineno
-			code = frame.f_code
-			codeName = code.co_name
-			filename = code.co_filename
-			linecache.checkcache(filename)
-			line = linecache.getline(filename, lineNumber, frame.f_globals)
-			line = line.strip() if line else None
-			stack.append((filename, lineNumber, codeName, line))
-		frame = frame.f_back
-	stack.reverse()
+	return list(reversed(filter(lambda x: not x[0].f_locals.get(exceptionsFrameSymbol),
+								inspect.getouterframes(frame, context))))
 
-	return stack
+def extractArguments(frame):
+	"""
+	This definition extracts the arguments from given frame.
+	
+	:param frame: Frame. ( Object )
+	:return: Arguments. ( Tuple )
+	"""
+
+	arguments = ([], None, None)
+	try:
+		source = textwrap.dedent(str().join(inspect.getsourcelines(frame)[0]).replace("\\\n", str()))
+	except (IOError, TypeError) as error:
+		return arguments
+
+	try:
+		node = ast.parse(source)
+	except:
+		return arguments
+
+	if not node.body:
+		return arguments
+
+	node = node.body[0]
+	if not isinstance(node, ast.FunctionDef):
+		return arguments
+
+	return [arg.id for arg in node.args.args], node.args.vararg, node.args.kwarg
+
+def getInnerMostFrame(trcback):
+	"""
+	This definition returns the inner most frame of given traceback.
+	
+	:param trcback: Traceback. ( Traceback )
+	:return: Frame. ( List )
+	"""
+
+	frame = inspect.getinnerframes(trcback).pop()[0]
+	return frame
+
+def formatException(type, message, trcback):
+	"""
+	| This definition formats given exception.
+	| The code produce a similar output to :func:`traceback.format_exception` except that it allows frames to be excluded
+		from the stack if the given stack trace frame tag is found in the frame locals and set **True**.
+	
+	:param type: Exception type. ( Object )
+	:param value: Exception value. ( String )
+	:param trcback: Traceback. ( Traceback )
+	:return: Formated exception. ( List )
+	"""
+
+	stack = extractStack(getInnerMostFrame(trcback), context=1)
+	output = []
+	output.append("Traceback (most recent call last):")
+	for frame, fileName, lineNumber, name, context, index in stack:
+		output.append("  File \"{0}\", line {1}, in {2}".format(fileName, lineNumber, name))
+		output.append("    {0}".format(context.pop().strip()))
+	for line in traceback.format_exception_only(type, message):
+		output.append("{0}".format(line))
+	return output
+
+def formatLocals(trcback):
+	"""
+	This definition formats the frames locals of given traceback.
+	
+	:param trcback: Traceback. ( Traceback )
+	:return: Frames locals. ( List )
+	"""
+
+	output = []
+	stack = extractStack(getInnerMostFrame(trcback))
+	for frame, fileName, lineNumber, name, context, index in stack:
+		argsNames, nameless, keyword = extractArguments(frame)
+		arguments, namelessArgs, keywordArgs, frameLocals = {}, [], {}, {}
+		for key, data in frame.f_locals.iteritems():
+			try:
+				value = repr(data)
+			except:
+				value = Constants.nullObject
+			if key == nameless:
+				namelessArgs = data
+			elif key == keyword:
+				keywordArgs = data.get(keyword, {})
+			elif key in argsNames:
+				arguments[key] = value
+			else:
+				frameLocals[key] = value
+		output.append(("Frame '{0}' in '{1}' at line '{2}'".format(name, fileName, lineNumber),
+					([(arg, arguments[arg]) for arg in argsNames], namelessArgs, keywordArgs, frameLocals)))
+	return output
 
 def defaultExceptionsHandler(exception, object, *args, **kwargs):
 	"""
@@ -123,31 +205,34 @@ def defaultExceptionsHandler(exception, object, *args, **kwargs):
 	"""
 
 	traceName = foundations.trace.getTraceName(object)
+	type, message, trcback = sys.exc_info()
 
 	LOGGER.error("!> {0}".format(Constants.loggingSeparators))
 	LOGGER.error("!> Exception in '{0}'.".format(traceName))
 	LOGGER.error("!> Exception class: '{0}'.".format(exception.__class__.__name__))
 	LOGGER.error("!> Exception description: '{0}'.".format(exception.__doc__ and exception.__doc__.strip() or \
 															Constants.nullObject))
-
 	for i, line in enumerate(str(exception).split("\n")):
 		LOGGER.error("!> Exception message line no. '{0}' : '{1}'.".format(i + 1, line))
 
 	LOGGER.error("!> {0}".format(Constants.loggingSeparators))
+	for frame, frameLocals in formatLocals(trcback):
+		LOGGER.error("!> {0}:".format(frame))
+		arguments, namelessArgs, keywordArgs, frameLocals = frameLocals
+		any((arguments, namelessArgs, keywordArgs)) and LOGGER.error("!> {0:>40}".format("Arguments:"))
+		for key, value in arguments:
+			LOGGER.error("!> {0:>40} = {1}".format(key, value))
+		for value in namelessArgs:
+			LOGGER.error("!> {0:>40}".format(value))
+		for key, value in keywordArgs:
+			LOGGER.error("!> {0:>40} = {1}".format(key, value))
+		frameLocals and LOGGER.error("!> {0:>40}".format("Locals:"))
+		for key, value in sorted(frameLocals.iteritems()):
+			LOGGER.error("!> {0:>40} = {1}".format(key, value))
+		LOGGER.error("!>")
+	LOGGER.error("!> {0}".format(Constants.loggingSeparators))
 
-	exceptionType, exceptionValue, trcback = sys.exc_info()
-	stack = extractStack(trcback.tb_frame.f_back)
-	frames = inspect.getinnerframes(trcback)
-	for frame , filename, lineNumber, name, line, value in frames:
-		skipFrame = frame.f_locals.get(EXCEPTIONS_FRAME_SYMBOL)
-		skipFrame or stack.append((filename, lineNumber, name, str().join(line) if line else str()))
-
-	sys.stderr.write("Traceback (most recent call last):\n")
-	for filename, lineNumber, name, line in stack:
-		sys.stderr.write("  File \"{0}\", line {1}, in {2}\n".format(filename, lineNumber, name))
-		line and sys.stderr.write("   {0}\n".format(line.strip()))
-	for line in traceback.format_exception_only(exceptionType, exceptionValue):
-		sys.stderr.write("{0}".format(line))
+	sys.stderr.write("\n".join(formatException(type, message, trcback)))
 
 	return True
 
@@ -493,4 +578,3 @@ class ServerOperationError(AbstractServerError):
 	"""
 
 	pass
-
