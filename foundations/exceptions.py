@@ -21,6 +21,10 @@ import ast
 import functools
 import inspect
 import sys
+if sys.version_info[:2] <= (2, 6):
+	from ordereddict import OrderedDict
+else:
+	from collections import OrderedDict
 import textwrap
 import traceback
 import itertools
@@ -134,22 +138,21 @@ def extractLocals(trcback):
 	stack = extractStack(getInnerMostFrame(trcback))
 	for frame, fileName, lineNumber, name, context, index in stack:
 		argsNames, nameless, keyword = extractArguments(frame)
-		arguments, namelessArgs, keywordArgs, locals = {}, [], {}, {}
+		arguments, namelessArgs, keywordArgs, locals = OrderedDict(), [], {}, {}
 		for key, data in frame.f_locals.iteritems():
 			try:
 				value = repr(data)
 			except:
 				value = Constants.nullObject
 			if key == nameless:
-				namelessArgs = data
+				namelessArgs = frame.f_locals.get(nameless, ())
 			elif key == keyword:
-				keywordArgs = data.get(keyword, {})
+				keywordArgs = frame.f_locals.get(keyword, {})
 			elif key in argsNames:
 				arguments[key] = value
 			else:
 				locals[key] = value
-		output.append(((name, fileName, lineNumber),
-					([(arg, arguments[arg]) for arg in argsNames], namelessArgs, keywordArgs, locals)))
+		output.append(((name, fileName, lineNumber), (arguments, namelessArgs, keywordArgs, locals)))
 	return output
 
 def getInnerMostFrame(trcback):
@@ -220,11 +223,11 @@ def defaultExceptionsHandler(exception, object, *args, **kwargs):
 		LOGGER.error("!> Frame '{0}' in '{1}' at line '{2}':".format(*frame))
 		arguments, namelessArgs, keywordArgs, locals = locals
 		any((arguments, namelessArgs, keywordArgs)) and LOGGER.error("!> {0:>40}".format("Arguments:"))
-		for key, value in arguments:
+		for key, value in arguments.iteritems():
 			LOGGER.error("!> {0:>40} = {1}".format(key, value))
 		for value in namelessArgs:
 			LOGGER.error("!> {0:>40}".format(value))
-		for key, value in keywordArgs:
+		for key, value in sorted(keywordArgs.iteritems()):
 			LOGGER.error("!> {0:>40} = {1}".format(key, value))
 		locals and LOGGER.error("!> {0:>40}".format("Locals:"))
 		for key, value in sorted(locals.iteritems()):
