@@ -44,9 +44,9 @@ __status__ = "Production"
 __all__ = ["LOGGER",
 			"extractStack",
 			"extractArguments",
+			"extractLocals",
 			"getInnerMostFrame",
 			"formatException",
-			"formatLocals",
 			"defaultExceptionsHandler",
 			"handleExceptions",
 			"AbstractError",
@@ -122,42 +122,9 @@ def extractArguments(frame):
 
 	return [arg.id for arg in node.args.args], node.args.vararg, node.args.kwarg
 
-def getInnerMostFrame(trcback):
+def extractLocals(trcback):
 	"""
-	This definition returns the inner most frame of given traceback.
-	
-	:param trcback: Traceback. ( Traceback )
-	:return: Frame. ( List )
-	"""
-
-	frame = inspect.getinnerframes(trcback).pop()[0]
-	return frame
-
-def formatException(type, message, trcback):
-	"""
-	| This definition formats given exception.
-	| The code produce a similar output to :func:`traceback.format_exception` except that it allows frames to be excluded
-		from the stack if the given stack trace frame tag is found in the frame locals and set **True**.
-	
-	:param type: Exception type. ( Object )
-	:param value: Exception value. ( String )
-	:param trcback: Traceback. ( Traceback )
-	:return: Formated exception. ( List )
-	"""
-
-	stack = extractStack(getInnerMostFrame(trcback), context=1)
-	output = []
-	output.append("Traceback (most recent call last):")
-	for frame, fileName, lineNumber, name, context, index in stack:
-		output.append("  File \"{0}\", line {1}, in {2}".format(fileName, lineNumber, name))
-		output.append("    {0}".format(context.pop().strip()))
-	for line in traceback.format_exception_only(type, message):
-		output.append("{0}".format(line))
-	return output
-
-def formatLocals(trcback):
-	"""
-	This definition formats the frames locals of given traceback.
+	This definition extracts the frames locals of given traceback.
 	
 	:param trcback: Traceback. ( Traceback )
 	:return: Frames locals. ( List )
@@ -167,7 +134,7 @@ def formatLocals(trcback):
 	stack = extractStack(getInnerMostFrame(trcback))
 	for frame, fileName, lineNumber, name, context, index in stack:
 		argsNames, nameless, keyword = extractArguments(frame)
-		arguments, namelessArgs, keywordArgs, frameLocals = {}, [], {}, {}
+		arguments, namelessArgs, keywordArgs, locals = {}, [], {}, {}
 		for key, data in frame.f_locals.iteritems():
 			try:
 				value = repr(data)
@@ -180,9 +147,42 @@ def formatLocals(trcback):
 			elif key in argsNames:
 				arguments[key] = value
 			else:
-				frameLocals[key] = value
-		output.append(("Frame '{0}' in '{1}' at line '{2}'".format(name, fileName, lineNumber),
-					([(arg, arguments[arg]) for arg in argsNames], namelessArgs, keywordArgs, frameLocals)))
+				locals[key] = value
+		output.append(((name, fileName, lineNumber),
+					([(arg, arguments[arg]) for arg in argsNames], namelessArgs, keywordArgs, locals)))
+	return output
+
+def getInnerMostFrame(trcback):
+	"""
+	This definition returns the inner most frame of given traceback.
+	
+	:param trcback: Traceback. ( Traceback )
+	:return: Frame. ( List )
+	"""
+
+	frame = inspect.getinnerframes(trcback).pop()[0]
+	return frame
+
+def formatException(type, message, trcback, context=1):
+	"""
+	| This definition formats given exception.
+	| The code produce a similar output to :func:`traceback.format_exception` except that it allows frames to be excluded
+		from the stack if the given stack trace frame tag is found in the frame locals and set **True**.
+	
+	:param type: Exception type. ( Object )
+	:param value: Exception value. ( String )
+	:param trcback: Traceback. ( Traceback )
+	:return: Formated exception. ( List )
+	"""
+
+	stack = extractStack(getInnerMostFrame(trcback), context=context)
+	output = []
+	output.append("Traceback (most recent call last):")
+	for frame, fileName, lineNumber, name, context, index in stack:
+		output.append("  File \"{0}\", line {1}, in {2}".format(fileName, lineNumber, name))
+		output.append("    {0}".format(context.pop().strip()))
+	for line in traceback.format_exception_only(type, message):
+		output.append("{0}".format(line))
 	return output
 
 def defaultExceptionsHandler(exception, object, *args, **kwargs):
@@ -216,9 +216,9 @@ def defaultExceptionsHandler(exception, object, *args, **kwargs):
 		LOGGER.error("!> Exception message line no. '{0}' : '{1}'.".format(i + 1, line))
 
 	LOGGER.error("!> {0}".format(Constants.loggingSeparators))
-	for frame, frameLocals in formatLocals(trcback):
-		LOGGER.error("!> {0}:".format(frame))
-		arguments, namelessArgs, keywordArgs, frameLocals = frameLocals
+	for frame, locals in extractLocals(trcback):
+		LOGGER.error("!> Frame '{0}' in '{1}' at line '{2}':".format(*frame))
+		arguments, namelessArgs, keywordArgs, locals = locals
 		any((arguments, namelessArgs, keywordArgs)) and LOGGER.error("!> {0:>40}".format("Arguments:"))
 		for key, value in arguments:
 			LOGGER.error("!> {0:>40} = {1}".format(key, value))
@@ -226,8 +226,8 @@ def defaultExceptionsHandler(exception, object, *args, **kwargs):
 			LOGGER.error("!> {0:>40}".format(value))
 		for key, value in keywordArgs:
 			LOGGER.error("!> {0:>40} = {1}".format(key, value))
-		frameLocals and LOGGER.error("!> {0:>40}".format("Locals:"))
-		for key, value in sorted(frameLocals.iteritems()):
+		locals and LOGGER.error("!> {0:>40}".format("Locals:"))
+		for key, value in sorted(locals.iteritems()):
 			LOGGER.error("!> {0:>40} = {1}".format(key, value))
 		LOGGER.error("!>")
 	LOGGER.error("!> {0}".format(Constants.loggingSeparators))
