@@ -3,6 +3,11 @@ _`foundations.parsers`
 
 .. automodule:: foundations.parsers
 
+Module Attributes
+-----------------
+
+.. attribute:: foundations.parsers.LOGGER
+
 Functions
 ---------
 

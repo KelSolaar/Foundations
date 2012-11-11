@@ -8,6 +8,8 @@ Module Attributes
 
 .. attribute:: foundations.verbose.THREADS_IDENTIFIERS
 
+.. attribute:: foundations.verbose.INDENT_LEVEL
+
 .. attribute:: foundations.verbose.LOGGER
 
 .. attribute:: foundations.verbose.LOGGING_DEFAULT_FORMATTER
@@ -16,12 +18,24 @@ Module Attributes
 
 .. attribute:: foundations.verbose.LOGGING_STANDARD_FORMATTER
 
+.. attribute:: foundations.verbose.TRACER_LOGGING_FUNCTION
+
 Functions
 ---------
 
+.. autofunction:: indentMessage
+
+.. autofunction:: tracer
+
 .. autofunction:: installLogger
 
-.. autofunction:: addLoggingConsoleHandler
+.. autofunction:: uninstallLogger
+
+.. autofunction:: getLoggingConsoleHandler
+
+.. autofunction:: getLoggingFileHandler
+
+.. autofunction:: getLoggingStreamHandler
 
 .. autofunction:: removeLoggingHandler
 
@@ -30,7 +44,11 @@ Functions
 Classes
 -------
 
-.. autoclass:: StandardMessageHook
+.. autoclass:: Streamer
+	:show-inheritance:
+	:members:
+
+.. autoclass:: StandardOutputStreamer
 	:show-inheritance:
 	:members:
 

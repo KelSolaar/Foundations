@@ -3,6 +3,11 @@ _`foundations.nodes`
 
 .. automodule:: foundations.nodes
 
+Module Attributes
+-----------------
+
+.. attribute:: foundations.nodes.LOGGER
+
 Classes
 -------
 

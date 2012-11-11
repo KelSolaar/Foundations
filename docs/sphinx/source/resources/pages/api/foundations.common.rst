@@ -3,6 +3,13 @@ _`foundations.common`
 
 .. automodule:: foundations.common
 
+Module Attributes
+-----------------
+
+.. attribute:: foundations.common.LOGGER
+
+.. attribute:: foundations.common.CONNECTION_IP
+
 Functions
 ---------
 
@@ -21,4 +28,6 @@ Functions
 .. autofunction:: repeat
 
 .. autofunction:: dependencyResolver
+
+.. autofunction:: isInternetAvailable
 

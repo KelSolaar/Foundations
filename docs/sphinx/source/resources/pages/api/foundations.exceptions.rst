@@ -3,12 +3,29 @@ _`foundations.exceptions`
 
 .. automodule:: foundations.exceptions
 
+Module Attributes
+-----------------
+
+.. attribute:: foundations.exceptions.LOGGER
+
+.. attribute:: foundations.exceptions.EXCEPTIONS_FRAME_SYMBOL
+
 Functions
 ---------
 
-.. autofunction:: exceptionsHandler
+.. autofunction:: extractStack
+
+.. autofunction:: extractArguments
+
+.. autofunction:: extractLocals
+
+.. autofunction:: getInnerMostFrame
+
+.. autofunction:: formatException
 
 .. autofunction:: defaultExceptionsHandler
+
+.. autofunction:: handleExceptions
 
 Classes
 -------
