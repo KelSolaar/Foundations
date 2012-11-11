@@ -166,14 +166,14 @@ def getInnerMostFrame(trcback):
 	frame = inspect.getinnerframes(trcback).pop()[0]
 	return frame
 
-def formatException(type, message, trcback, context=1):
+def formatException(cls, instance, trcback, context=1):
 	"""
 	| This definition formats given exception.
 	| The code produce a similar output to :func:`traceback.format_exception` except that it allows frames to be excluded
 		from the stack if the given stack trace frame tag is found in the frame locals and set **True**.
 	
-	:param type: Exception type. ( Object )
-	:param value: Exception value. ( String )
+	:param cls: Exception class. ( Object )
+	:param instance: Exception instance. ( Object )
 	:param trcback: Traceback. ( Traceback )
 	:return: Formated exception. ( List )
 	"""
@@ -184,7 +184,7 @@ def formatException(type, message, trcback, context=1):
 	for frame, fileName, lineNumber, name, context, index in stack:
 		output.append("  File \"{0}\", line {1}, in {2}".format(fileName, lineNumber, name))
 		output.append("    {0}".format(context.pop().strip()))
-	for line in traceback.format_exception_only(type, message):
+	for line in traceback.format_exception_only(cls, instance):
 		output.append("{0}".format(line))
 	return output
 
@@ -197,7 +197,7 @@ def defaultExceptionsHandler(exception, object, *args, **kwargs):
 		- Exception traceName.
 		- Exception class.
 		- Exception description / documentation.
-		- Error message.
+		- Error instance.
 		- Exception traceback.
 		
 	:param exception: Exception. ( Exception )
@@ -208,7 +208,7 @@ def defaultExceptionsHandler(exception, object, *args, **kwargs):
 	"""
 
 	traceName = foundations.trace.getTraceName(object)
-	type, message, trcback = sys.exc_info()
+	cls, instance, trcback = sys.exc_info()
 
 	LOGGER.error("!> {0}".format(Constants.loggingSeparators))
 	LOGGER.error("!> Exception in '{0}'.".format(traceName))
@@ -216,7 +216,7 @@ def defaultExceptionsHandler(exception, object, *args, **kwargs):
 	LOGGER.error("!> Exception description: '{0}'.".format(exception.__doc__ and exception.__doc__.strip() or \
 															Constants.nullObject))
 	for i, line in enumerate(str(exception).split("\n")):
-		LOGGER.error("!> Exception message line no. '{0}' : '{1}'.".format(i + 1, line))
+		LOGGER.error("!> Exception instance line no. '{0}' : '{1}'.".format(i + 1, line))
 
 	LOGGER.error("!> {0}".format(Constants.loggingSeparators))
 	for frame, locals in extractLocals(trcback):
@@ -235,7 +235,7 @@ def defaultExceptionsHandler(exception, object, *args, **kwargs):
 		LOGGER.error("!>")
 	LOGGER.error("!> {0}".format(Constants.loggingSeparators))
 
-	sys.stderr.write("\n".join(formatException(type, message, trcback)))
+	sys.stderr.write("\n".join(formatException(cls, instance, trcback)))
 
 	return True
 
