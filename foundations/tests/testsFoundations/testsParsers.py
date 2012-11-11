@@ -383,18 +383,18 @@ class SectionsFileParserTestCase(unittest.TestCase):
 		This method tests presence of required attributes.
 		"""
 
-		requiredAttributes = ("file",
-								"content",
-								"splitters",
-								"namespaceSplitter",
-								"commentLimiters",
-								"commentMarker",
-								"quotationMarkers",
-								"rawSectionContentIdentifier",
-								"defaultsSection",
-								"sections",
-								"comments",
-								"parsingErrors")
+		requiredAttributes = ("path",
+							"content",
+							"splitters",
+							"namespaceSplitter",
+							"commentLimiters",
+							"commentMarker",
+							"quotationMarkers",
+							"rawSectionContentIdentifier",
+							"defaultsSection",
+							"sections",
+							"comments",
+							"parsingErrors")
 
 		for attribute in requiredAttributes:
 			self.assertIn(attribute, dir(SectionsFileParser))
@@ -405,12 +405,12 @@ class SectionsFileParserTestCase(unittest.TestCase):
 		"""
 
 		requiredMethods = ("parse",
-							"sectionExists",
-							"attributeExists",
-							"getAttributes",
-							"getAllAttributes",
-							"getValue",
-							"write")
+						"sectionExists",
+						"attributeExists",
+						"getAttributes",
+						"getAllAttributes",
+						"getValue",
+						"write")
 
 		for method in requiredMethods:
 			self.assertIn(method, dir(SectionsFileParser))
@@ -618,7 +618,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 			writeSectionsFileParser.comments = readSectionsFileParser.comments
 			writeSectionsFileParser.write()
 
-			checkingSectionsFileParser = SectionsFileParser(writeSectionsFileParser.file)
+			checkingSectionsFileParser = SectionsFileParser(writeSectionsFileParser.path)
 			checkingSectionsFileParser.read() and checkingSectionsFileParser.parse(stripComments=False,
 																			rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			self.assertDictEqual(readSectionsFileParser.sections, checkingSectionsFileParser.sections)
@@ -637,7 +637,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 			writeSectionsFileParser.comments = readSectionsFileParser.comments
 			writeSectionsFileParser.write(namespaces=True)
 
-			checkingSectionsFileParser = SectionsFileParser(writeSectionsFileParser.file)
+			checkingSectionsFileParser = SectionsFileParser(writeSectionsFileParser.path)
 			checkingSectionsFileParser.read() and checkingSectionsFileParser.parse(namespaces=False,
 																			stripComments=False,
 																			rawSections=STANDARD_FILES_RAW_SECTIONS[type])
@@ -654,9 +654,9 @@ class SectionsFileParserTestCase(unittest.TestCase):
 		writeSectionsFileParser.comments = readSectionsFileParser.comments
 		writeSectionsFileParser.write()
 
-		checkingSectionsFileParser = SectionsFileParser(writeSectionsFileParser.file)
+		checkingSectionsFileParser = SectionsFileParser(writeSectionsFileParser.path)
 		checkingSectionsFileParser.read() and checkingSectionsFileParser.parse()
-		os.remove(writeSectionsFileParser.file)
+		os.remove(writeSectionsFileParser.path)
 
 class PlistFileParserTestCase(unittest.TestCase):
 	"""
@@ -668,11 +668,11 @@ class PlistFileParserTestCase(unittest.TestCase):
 		This method tests presence of required attributes.
 		"""
 
-		requiredAttributes = ("file",
-								"content",
-								"elements",
-								"parsingErrors",
-								"unserializers")
+		requiredAttributes = ("path",
+							"content",
+							"elements",
+							"parsingErrors",
+							"unserializers")
 
 		for attribute in requiredAttributes:
 			self.assertIn(attribute, dir(PlistFileParser))
@@ -683,9 +683,9 @@ class PlistFileParserTestCase(unittest.TestCase):
 		"""
 
 		requiredMethods = ("parse",
-							"elementExists",
-							"filterValues",
-							"getValue")
+						"elementExists",
+						"filterValues",
+						"getValue")
 
 		for method in requiredMethods:
 			self.assertIn(method, dir(PlistFileParser))

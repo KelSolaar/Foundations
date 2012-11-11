@@ -22,6 +22,7 @@
 #**********************************************************************************************************************
 import itertools
 import os
+import urllib2
 
 #**********************************************************************************************************************
 #***	Internal imports.
@@ -39,17 +40,21 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["LOGGER",
-			"wait",
-			"uniqify",
-			"orderedUniqify",
-			"pathExists",
-			"getFirstItem",
-			"getLastItem",
-			"isBinaryFile",
-			"repeat",
-			"dependencyResolver"]
+		"CONNECTION_IP",
+		"wait",
+		"uniqify",
+		"orderedUniqify",
+		"pathExists",
+		"getFirstItem",
+		"getLastItem",
+		"isBinaryFile",
+		"repeat",
+		"dependencyResolver",
+		"isInternetAvailable"]
 
 LOGGER = foundations.verbose.installLogger()
+
+CONNECTION_IP = "74.125.113.99"
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
@@ -167,3 +172,18 @@ def dependencyResolver(dependencies):
 		resolvedDependencies.append(batch)
 		items = dict(((key, value - batch) for key, value in items.items() if value))
 	return resolvedDependencies
+
+def isInternetAvailable(ip=CONNECTION_IP, timeout=1):
+	"""
+	This definition returns if an internet connection is available.
+
+	:param ip: Alternative address ip to check against. ( String )
+	:param timeout: Timeout in seconds. ( Integer )
+	:return: Is internet available. ( Boolean )
+	"""
+
+	try:
+		urllib2.urlopen("http://{0}".format(ip), timeout=timeout)
+		return True
+	except urllib2.URLError as error:
+		return False

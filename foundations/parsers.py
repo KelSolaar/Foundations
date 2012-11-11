@@ -596,7 +596,7 @@ class SectionsFileParser(foundations.io.File):
 		:return: Method success. ( Boolean )
 		"""
 
-		LOGGER.debug("> Reading sections from: '{0}'.".format(self.file))
+		LOGGER.debug("> Reading sections from: '{0}'.".format(self.path))
 
 		if not self.content:
 			return False
@@ -663,11 +663,11 @@ class SectionsFileParser(foundations.io.File):
 			self.__sections[section] = attributes
 
 		LOGGER.debug("> Sections: '{0}'.".format(self.__sections))
-		LOGGER.debug("> '{0}' file parsing done!".format(self.file))
+		LOGGER.debug("> '{0}' file parsing done!".format(self.path))
 
 		if self.__parsingErrors and raiseParsingErrors:
 			raise foundations.exceptions.FileStructureParsingError(
-			"{0} | '{1}' structure is invalid, parsing exceptions occured!".format(self.__class__.__name__, self.file))
+			"{0} | '{1}' structure is invalid, parsing exceptions occured!".format(self.__class__.__name__, self.path))
 
 		return True
 
@@ -876,7 +876,7 @@ class SectionsFileParser(foundations.io.File):
 		if not self.__sections:
 			return False
 
-		LOGGER.debug("> Setting '{0}' file content.".format(self.file))
+		LOGGER.debug("> Setting '{0}' file content.".format(self.path))
 		attributeTemplate = spacesAroundSplitter and "{{0}} {0} {{1}}\n".format(splitter) or \
 							"{{0}} {0} {{1}}\n".format(splitter)
 		attributeTemplate = foundations.strings.replace(attributeTemplate, {"{{" : "{", "}}" : "}"})
@@ -1092,9 +1092,9 @@ class PlistFileParser(foundations.io.File):
 		:return: Method success. ( Boolean )
 		"""
 
-		LOGGER.debug("> Reading elements from: '{0}'.".format(self.file))
+		LOGGER.debug("> Reading elements from: '{0}'.".format(self.path))
 
-		elementTreeParser = ElementTree.iterparse(self.file)
+		elementTreeParser = ElementTree.iterparse(self.path)
 
 		self.__parsingErrors = []
 		for action, element in elementTreeParser:
@@ -1110,7 +1110,7 @@ class PlistFileParser(foundations.io.File):
 		if self.__parsingErrors:
 			if raiseParsingErrors:
 				raise foundations.exceptions.FileStructureParsingError(
-				"{0} | '{1}' structure is invalid, parsing exceptions occured!".format(self.__class__.__name__, self.file))
+				"{0} | '{1}' structure is invalid, parsing exceptions occured!".format(self.__class__.__name__, self.path))
 		else:
 			self.__elements = foundations.common.getFirstItem(elementTreeParser.root).text
 			return True

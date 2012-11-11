@@ -19,6 +19,7 @@
 #**********************************************************************************************************************
 import os
 import shutil
+import urllib2
 
 #**********************************************************************************************************************
 #***	Internal imports.
@@ -26,6 +27,7 @@ import shutil
 import foundations.common
 import foundations.verbose
 import foundations.exceptions
+import foundations.strings
 
 #**********************************************************************************************************************
 #***	Module attributes.
@@ -46,10 +48,10 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 class File(object):
 	"""
-	This class provides methods to read / write and append to files.
+	This class provides methods to read / write and append to files or retrieve online file content.
 	"""
 
-	def __init__(self, file=None, content=None):
+	def __init__(self, path=None, content=None):
 		"""
 		This method initializes the class.
 		
@@ -63,15 +65,15 @@ class File(object):
 			>>> file.content
 			['Some file content ...\\n', '... ready to be saved!\\n']
 
-		:param file: File path. ( String )
+		:param path: File path. ( String )
 		:param content: Content. ( List )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
 		# --- Setting class attributes. ---
-		self.__file = None
-		self.file = file
+		self.__path = None
+		self.path = path
 		self.__content = None
 		self.content = content or []
 
@@ -79,37 +81,37 @@ class File(object):
 	#***	Attributes properties.
 	#******************************************************************************************************************
 	@property
-	def file(self):
+	def path(self):
 		"""
-		This method is the property for **self.__file** attribute.
+		This method is the property for **self.__path** attribute.
 
-		:return: self.__file. ( String )
+		:return: self.__path. ( String )
 		"""
 
-		return self.__file
+		return self.__path
 
-	@file.setter
+	@path.setter
 	@foundations.exceptions.handleExceptions(AssertionError)
-	def file(self, value):
+	def path(self, value):
 		"""
-		This method is the setter method for **self.__file** attribute.
+		This method is the setter method for **self.__path** attribute.
 
 		:param value: Attribute value. ( String )
 		"""
 
 		if value is not None:
-			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("file", value)
-		self.__file = value
+			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("path", value)
+		self.__path = value
 
-	@file.deleter
+	@path.deleter
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
-	def file(self):
+	def path(self):
 		"""
-		This method is the deleter method for **self.__file** attribute.
+		This method is the deleter method for **self.__path** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "file"))
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "path"))
 
 	@property
 	def content(self):
@@ -147,61 +149,106 @@ class File(object):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	def read(self, mode="r"):
+	def cache(self, mode="r"):
 		"""
-		This method reads given file content.
+		This method reads given file content and stores it in the content cache.
 
 		:param mode: File read mode. ( String )
 		:return: Method success. ( Boolean )
 		"""
 
-		LOGGER.debug("> Current file path: '{0}'.".format(self.__file))
-		LOGGER.debug("> Reading current file content.")
+		self.uncache()
 
-		with open(self.__file, mode) as file:
-			self.__content = file.readlines()
-			return True
+		if foundations.strings.isWebsite(self.__path):
+			try:
+				LOGGER.debug("> Caching '{0}' online file content.".format(self.__path))
+				self.__content = urllib2.urlopen(self.__path).readlines()
+				return True
+			except urllib2.URLError as error:
+				LOGGER.warning(
+				"!> {0} | Cannot read '{1}' online file: '{2}'.".format(self.__class__.__name__, self.__path, error))
+		elif foundations.common.pathExists(self.__path):
+			with open(self.__path, mode) as file:
+				LOGGER.debug("> Caching '{0}' file content.".format(self.__path))
+				self.__content = file.readlines()
+				return True
+		return False
 
-	def readAll(self):
+	def uncache(self):
 		"""
-		This method reads given file content and returns it.
+		This method uncaches the cached content.
 
-		:param mode: File read mode. ( String )
+		:return: Method success. ( Boolean )
+		"""
+
+		LOGGER.debug("> Uncaching '{0}' file content.".format(self.__path))
+
+		self.__content = []
+		return True
+
+	def read(self):
+		"""
+		This method returns defined file content.
+
 		:return: File content. ( String )
 		"""
 
-		if self.read():
-			return "".join(self.__content)
+		return str().join(self.__content) if self.cache() else str()
 
 	def write(self, mode="w"):
 		"""
-		This method writes content to given file.
+		This method writes content to defined file.
 
 		:param mode: File write mode. ( String )
 		:return: Method success. ( Boolean )
 		"""
 
-		LOGGER.debug("> Current file path: '{0}'.".format(self.__file))
+		if foundations.strings.isWebsite(self.__path):
+			LOGGER.warning("!> {0} | Cannot write to '{1}' online file!".format(self.__class__.__name__, self.__path))
+			return False
 
-		with open(self.__file, mode) as file:
+		with open(self.__path, mode) as file:
+			LOGGER.debug("> Writting '{0}' file content.".format(self.__path))
 			for line in self.__content:
 				file.write(line)
 			return True
+		return False
 
 	def append(self, mode="a"):
 		"""
-		This method appends content to given file.
+		This method appends content to defined file.
 
 		:param mode: File write mode. ( String )
 		:return: Method success. ( Boolean )
 		"""
 
-		LOGGER.debug("> Current file path: '{0}'.".format(self.__file))
+		if foundations.strings.isWebsite(self.__path):
+			LOGGER.warning("!> {0} | Cannot append to '{1}' online file!".format(self.__class__.__name__, self.__path))
+			return False
 
-		with open(self.__file, mode) as file:
+		with open(self.__path, mode) as file:
+			LOGGER.debug("> Appending to '{0}' file content.".format(self.__path))
 			for line in self.__content:
 				file.write(line)
 			return True
+		return False
+
+	def clear(self):
+		"""
+		This method clears the defined file content.
+
+		:return: Method success. ( Boolean )
+		"""
+
+		if foundations.strings.isWebsite(self.__path):
+			LOGGER.warning("!> {0} | Cannot clear '{1}' online file!".format(self.__class__.__name__, self.__path))
+			return False
+
+		if self.uncache():
+			LOGGER.debug("> Clearing '{0}' file content.".format(self.__path))
+			return self.write()
+		else:
+			return False
 
 def setDirectory(path):
 	"""

@@ -42,12 +42,12 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["RESOURCES_DIRECTORY",
-			"TEST_FILE",
-			"FILE_CONTENT",
-			"FileTestCase",
-			"SetDirectoryTestCase",
-			"CopyTestCase",
-			"RemoveTestCase"]
+		"TEST_FILE",
+		"FILE_CONTENT",
+		"FileTestCase",
+		"SetDirectoryTestCase",
+		"CopyTestCase",
+		"RemoveTestCase"]
 
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
 TEST_FILE = os.path.join(RESOURCES_DIRECTORY, "loremIpsum.txt")
@@ -70,8 +70,8 @@ class FileTestCase(unittest.TestCase):
 		This method tests presence of required attributes.
 		"""
 
-		requiredAttributes = ("file",
-								"content")
+		requiredAttributes = ("path",
+							"content")
 
 		for attribute in requiredAttributes:
 			self.assertIn(attribute, dir(File))
@@ -81,13 +81,38 @@ class FileTestCase(unittest.TestCase):
 		This method tests presence of required methods.
 		"""
 
-		requiredMethods = ("read",
-							"readAll",
-							"write",
-							"append")
+		requiredMethods = ("cache",
+						"uncache",
+						"read",
+						"write",
+						"append",
+						"clear")
 
 		for method in requiredMethods:
 			self.assertIn(method, dir(File))
+
+	def testCache(self):
+		"""
+		This method tests :meth:`foundations.io.File.cache` method.
+		"""
+
+		ioFile = File(TEST_FILE)
+		self.assertIsInstance(ioFile.content, list)
+		cacheSuccess = ioFile.cache()
+		self.assertTrue(cacheSuccess)
+		self.assertIsInstance(ioFile.content, list)
+		self.assertListEqual(ioFile.content, FILE_CONTENT)
+
+	def testUncache(self):
+		"""
+		This method tests :meth:`foundations.io.File.uncache` method.
+		"""
+
+		ioFile = File(TEST_FILE)
+		ioFile.cache()
+		self.assertListEqual(ioFile.content, FILE_CONTENT)
+		ioFile.uncache()
+		self.assertListEqual(ioFile.content, [])
 
 	def testRead(self):
 		"""
@@ -96,19 +121,7 @@ class FileTestCase(unittest.TestCase):
 
 		ioFile = File(TEST_FILE)
 		self.assertIsInstance(ioFile.content, list)
-		readSuccess = ioFile.read()
-		self.assertTrue(readSuccess)
-		self.assertIsInstance(ioFile.content, list)
-		self.assertListEqual(ioFile.content, FILE_CONTENT)
-
-	def testReadAll(self):
-		"""
-		This method tests :meth:`foundations.io.File.readAll` method.
-		"""
-
-		ioFile = File(TEST_FILE)
-		self.assertIsInstance(ioFile.content, list)
-		content = ioFile.readAll()
+		content = ioFile.read()
 		self.assertIsInstance(ioFile.content, list)
 		self.assertEqual(content, "".join(FILE_CONTENT))
 
@@ -123,7 +136,7 @@ class FileTestCase(unittest.TestCase):
 		ioFile.content = FILE_CONTENT
 		writeSuccess = ioFile.write()
 		self.assertTrue(writeSuccess)
-		ioFile.read()
+		ioFile.cache()
 		self.assertListEqual(ioFile.content, FILE_CONTENT)
 		os.close(fileDescriptor)
 
@@ -139,8 +152,23 @@ class FileTestCase(unittest.TestCase):
 		ioFile.write()
 		append = ioFile.append()
 		self.assertTrue(append)
-		ioFile.read()
+		ioFile.cache()
 		self.assertListEqual(ioFile.content, FILE_CONTENT + FILE_CONTENT)
+		os.close(fileDescriptor)
+
+	def testClear(self):
+		"""
+		This method tests :meth:`foundations.io.File.clear` method.
+		"""
+
+		fileDescriptor, path = tempfile.mkstemp()
+		ioFile = File(path)
+		self.assertIsInstance(ioFile.content, list)
+		ioFile.content = FILE_CONTENT
+		ioFile.write()
+		self.assertTrue(ioFile.clear())
+		ioFile.cache()
+		self.assertListEqual(ioFile.content, [])
 		os.close(fileDescriptor)
 
 class SetDirectoryTestCase(unittest.TestCase):

@@ -267,7 +267,7 @@ class TCPServer(object):
 		except socket.error as error:
 			if error.errno == 10048:
 				LOGGER.warning(
-				"{0} | Cannot start TCP Server, a connection is already opened on port '{2}'!".format(
+				"!> {0} | Cannot start TCP Server, a connection is already opened on port '{2}'!".format(
 				self.__class__.__name__, self, self.__port))
 			else:
 				raise error
