@@ -51,7 +51,7 @@ __all__ = ["LOGGER",
 			"extractLocals",
 			"getInnerMostFrame",
 			"formatException",
-			"defaultExceptionsHandler",
+			"defaultExceptionHandler",
 			"handleExceptions",
 			"AbstractError",
 			"BreakIteration",
@@ -134,24 +134,26 @@ def extractLocals(trcback):
 	:return: Frames locals. ( List )
 	"""
 
+	def toString(data):
+		try:
+			return repr(data)
+		except:
+			return Constants.nullObject
+
 	output = []
 	stack = extractStack(getInnerMostFrame(trcback))
 	for frame, fileName, lineNumber, name, context, index in stack:
 		argsNames, nameless, keyword = extractArguments(frame)
 		arguments, namelessArgs, keywordArgs, locals = OrderedDict(), [], {}, {}
 		for key, data in frame.f_locals.iteritems():
-			try:
-				value = repr(data)
-			except:
-				value = Constants.nullObject
 			if key == nameless:
-				namelessArgs = frame.f_locals.get(nameless, ())
+				namelessArgs = map(toString, frame.f_locals.get(nameless, ()))
 			elif key == keyword:
-				keywordArgs = frame.f_locals.get(keyword, {})
+				keywordArgs = dict((arg, toString(value)) for arg, value in frame.f_locals.get(keyword, {}).iteritems())
 			elif key in argsNames:
-				arguments[key] = value
+				arguments[key] = toString(data)
 			else:
-				locals[key] = value
+				locals[key] = toString(data)
 		output.append(((name, fileName, lineNumber), (arguments, namelessArgs, keywordArgs, locals)))
 	return output
 
@@ -188,7 +190,7 @@ def formatException(cls, instance, trcback, context=1):
 		output.append("{0}".format(line))
 	return output
 
-def defaultExceptionsHandler(exception, object, *args, **kwargs):
+def defaultExceptionHandler(exception, object=None, *args, **kwargs):
 	"""
 	This definition provides the default exception handler.
 	
@@ -207,8 +209,9 @@ def defaultExceptionsHandler(exception, object, *args, **kwargs):
 	:return: Definition success. ( Boolean )
 	"""
 
-	traceName = foundations.trace.getTraceName(object)
 	cls, instance, trcback = sys.exc_info()
+	traceName = foundations.trace.getTraceName(object) if object is not None \
+	else getInnerMostFrame(trcback).f_code.co_name
 
 	LOGGER.error("!> {0}".format(Constants.loggingSeparators))
 	LOGGER.error("!> Exception in '{0}'.".format(traceName))
@@ -243,7 +246,7 @@ def handleExceptions(*args):
 	"""
 	| This decorator is used for exceptions handling.
 	| It's possible to specify an user defined exception handler,
-		if not, :func:`defaultExceptionsHandler` handler will be used.
+		if not, :func:`defaultExceptionHandler` handler will be used.
 	| The decorator uses given exceptions objects
 		or the default Python `Exception <http://docs.python.org/library/exceptions.html#exceptions.Exception>`_ class.
 	
@@ -263,7 +266,7 @@ def handleExceptions(*args):
 	"""
 
 	exceptions = tuple(itertools.chain(filter(lambda x: isinstance(x, Exception), args), (Exception,)))
-	handlers = filter(lambda x: inspect.isfunction(x), args) or (defaultExceptionsHandler,)
+	handlers = filter(lambda x: inspect.isfunction(x), args) or (defaultExceptionHandler,)
 
 	def handleExceptionsDecorator(object):
 		"""
