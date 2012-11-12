@@ -164,7 +164,6 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 			if self.__geometry is not None and wasHidden:
 				self.restoreGeometry(self.__geometry)
 
-
 		def closeEvent(self, event):
 			"""
 			This method reimplements the :meth:`QWidget.closeEvent` method.
