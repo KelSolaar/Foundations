@@ -46,37 +46,41 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["LOGGER",
-			"extractStack",
-			"extractArguments",
-			"extractLocals",
-			"getInnerMostFrame",
-			"formatException",
-			"defaultExceptionHandler",
-			"handleExceptions",
-			"AbstractError",
-			"BreakIteration",
-			"AbstractParsingError",
-			"FileStructureParsingError",
-			"AttributeStructureParsingError",
-			"AbstractOsError",
-			"PathExistsError",
-			"DirectoryExistsError",
-			"FileExistsError",
-			"AbstractObjectError",
-			"ObjectTypeError",
-			"ObjectExistsError",
-			"AbstractUserError",
-			"ProgrammingError",
-			"UserError",
-			"AbstractNodeError",
-			"NodeAttributeTypeError",
-			"NodeAttributeExistsError",
-			"AbstractLibraryError",
-			"LibraryInstantiationError",
-			"LibraryInitializationError",
-			"LibraryExecutionError",
-			"AbstractServerError",
-			"ServerOperationError"]
+		"getInnerMostFrame",
+		"extractStack",
+		"extractArguments",
+		"extractLocals",
+		"extractException",
+		"formatException",
+		"formatReport",
+		"baseExceptionHandler",
+		"installExceptionHandler",
+		"uninstallExceptionHandler",
+		"handleExceptions",
+		"AbstractError",
+		"BreakIteration",
+		"AbstractParsingError",
+		"FileStructureParsingError",
+		"AttributeStructureParsingError",
+		"AbstractOsError",
+		"PathExistsError",
+		"DirectoryExistsError",
+		"FileExistsError",
+		"AbstractObjectError",
+		"ObjectTypeError",
+		"ObjectExistsError",
+		"AbstractUserError",
+		"ProgrammingError",
+		"UserError",
+		"AbstractNodeError",
+		"NodeAttributeTypeError",
+		"NodeAttributeExistsError",
+		"AbstractLibraryError",
+		"LibraryInstantiationError",
+		"LibraryInitializationError",
+		"LibraryExecutionError",
+		"AbstractServerError",
+		"ServerOperationError"]
 
 LOGGER = foundations.verbose.installLogger()
 
@@ -85,6 +89,17 @@ EXCEPTIONS_FRAME_SYMBOL = "_exceptions__frame__"
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
+def getInnerMostFrame(trcback):
+	"""
+	This definition returns the inner most frame of given traceback.
+	
+	:param trcback: Traceback. ( Traceback )
+	:return: Frame. ( List )
+	"""
+
+	frame = inspect.getinnerframes(trcback).pop()[0]
+	return frame
+
 def extractStack(frame, context=10, exceptionsFrameSymbol=EXCEPTIONS_FRAME_SYMBOL):
 	"""
 	This definition extracts the stack from given frame while excluded any symbolized frame.
@@ -134,12 +149,6 @@ def extractLocals(trcback):
 	:return: Frames locals. ( List )
 	"""
 
-	def toString(data):
-		try:
-			return repr(data)
-		except:
-			return Constants.nullObject
-
 	output = []
 	stack = extractStack(getInnerMostFrame(trcback))
 	for frame, fileName, lineNumber, name, context, index in stack:
@@ -147,26 +156,30 @@ def extractLocals(trcback):
 		arguments, namelessArgs, keywordArgs, locals = OrderedDict(), [], {}, {}
 		for key, data in frame.f_locals.iteritems():
 			if key == nameless:
-				namelessArgs = map(toString, frame.f_locals.get(nameless, ()))
+				namelessArgs = map(repr, frame.f_locals.get(nameless, ()))
 			elif key == keyword:
-				keywordArgs = dict((arg, toString(value)) for arg, value in frame.f_locals.get(keyword, {}).iteritems())
+				keywordArgs = dict((arg, repr(value)) for arg, value in frame.f_locals.get(keyword, {}).iteritems())
 			elif key in argsNames:
-				arguments[key] = toString(data)
+				arguments[key] = repr(data)
 			else:
-				locals[key] = toString(data)
+				locals[key] = repr(data)
 		output.append(((name, fileName, lineNumber), (arguments, namelessArgs, keywordArgs, locals)))
 	return output
 
-def getInnerMostFrame(trcback):
+def extractException(*args):
 	"""
-	This definition returns the inner most frame of given traceback.
+	This definition extracts the exception from given arguments or from :func:`sys.exc_info`.
 	
-	:param trcback: Traceback. ( Traceback )
-	:return: Frame. ( List )
+	:param \*args: Arguments. ( \* )
+	:return: Extracted exception. ( Tuple )
 	"""
 
-	frame = inspect.getinnerframes(trcback).pop()[0]
-	return frame
+	exceptions = filter(lambda x: issubclass(type(x), BaseException), args)
+	if not exceptions:
+		cls, instance = sys.exc_info()[:2]
+	else:
+		cls, instance = type(exceptions[0]), exceptions[0]
+	return cls, instance, sys.exc_info()[2]
 
 def formatException(cls, instance, trcback, context=1):
 	"""
@@ -177,6 +190,7 @@ def formatException(cls, instance, trcback, context=1):
 	:param cls: Exception class. ( Object )
 	:param instance: Exception instance. ( Object )
 	:param trcback: Traceback. ( Traceback )
+	:param context: Context being included. ( Integer )
 	:return: Formated exception. ( List )
 	"""
 
@@ -190,63 +204,96 @@ def formatException(cls, instance, trcback, context=1):
 		output.append("{0}".format(line))
 	return output
 
-def defaultExceptionHandler(exception, object=None, *args, **kwargs):
+def formatReport(cls, instance, trcback, context=1):
 	"""
-	This definition provides the default exception handler.
+	This definition formats a report using given exception.
 	
-	This handler verboses some informations about the handled exception:
+	:param cls: Exception class. ( Object )
+	:param instance: Exception instance. ( Object )
+	:param trcback: Traceback. ( Traceback )
+	:param context: Context being included. ( Integer )
+	:return: Formated report. ( Tuple )
+	"""
+
+	cls, instance, trcback = sys.exc_info()
+
+	header = []
+	header.append("Exception in '{0}'.".format(getInnerMostFrame(trcback).f_code.co_name))
+	header.append("Exception class: '{0}'.".format(cls.__name__))
+	header.append("Exception description: '{0}'.".format(instance.__doc__ and instance.__doc__.strip() or \
+															Constants.nullObject))
+	for i, line in enumerate(str(instance).split("\n")):
+		header.append("Exception message line no. '{0}' : '{1}'.".format(i + 1, line))
+
+	frames = []
+	for frame, locals in extractLocals(trcback):
+		frames.append("Frame '{0}' in '{1}' at line '{2}':".format(*frame))
+		arguments, namelessArgs, keywordArgs, locals = locals
+		any((arguments, namelessArgs, keywordArgs)) and frames.append("{0:>40}".format("Arguments:"))
+		for key, value in arguments.iteritems():
+			frames.append("{0:>40} = {1}".format(key, value))
+		for value in namelessArgs:
+			frames.append("{0:>40}".format(value))
+		for key, value in sorted(keywordArgs.iteritems()):
+			frames.append("{0:>40} = {1}".format(key, value))
+		locals and frames.append("{0:>40}".format("Locals:"))
+		for key, value in sorted(locals.iteritems()):
+			frames.append("{0:>40} = {1}".format(key, value))
+		frames.append(str())
+
+	trcback = formatException(cls, instance, trcback)
+
+	return header, frames, trcback
+
+def baseExceptionHandler(*args, **kwargs):
+	"""
+	This definition provides the base exception handler.
 	
-		- Exception traceName.
-		- Exception class.
-		- Exception description / documentation.
-		- Error instance.
-		- Exception traceback.
-		
-	:param exception: Exception. ( Exception )
-	:param object: Object raising the exception. ( Object )
 	:param \*args: Arguments. ( \* )
 	:param \*\*kwargs: Keywords arguments. ( \*\* )
 	:return: Definition success. ( Boolean )
 	"""
 
-	cls, instance, trcback = sys.exc_info()
-	traceName = foundations.trace.getTraceName(object) if object is not None \
-	else getInnerMostFrame(trcback).f_code.co_name
+	header, frames, trcback = formatReport(*extractException(*args))
 
 	LOGGER.error("!> {0}".format(Constants.loggingSeparators))
-	LOGGER.error("!> Exception in '{0}'.".format(traceName))
-	LOGGER.error("!> Exception class: '{0}'.".format(exception.__class__.__name__))
-	LOGGER.error("!> Exception description: '{0}'.".format(exception.__doc__ and exception.__doc__.strip() or \
-															Constants.nullObject))
-	for i, line in enumerate(str(exception).split("\n")):
-		LOGGER.error("!> Exception instance line no. '{0}' : '{1}'.".format(i + 1, line))
+	map(lambda x: LOGGER.error("!> {0}".format(x)), header)
 
 	LOGGER.error("!> {0}".format(Constants.loggingSeparators))
-	for frame, locals in extractLocals(trcback):
-		LOGGER.error("!> Frame '{0}' in '{1}' at line '{2}':".format(*frame))
-		arguments, namelessArgs, keywordArgs, locals = locals
-		any((arguments, namelessArgs, keywordArgs)) and LOGGER.error("!> {0:>40}".format("Arguments:"))
-		for key, value in arguments.iteritems():
-			LOGGER.error("!> {0:>40} = {1}".format(key, value))
-		for value in namelessArgs:
-			LOGGER.error("!> {0:>40}".format(value))
-		for key, value in sorted(keywordArgs.iteritems()):
-			LOGGER.error("!> {0:>40} = {1}".format(key, value))
-		locals and LOGGER.error("!> {0:>40}".format("Locals:"))
-		for key, value in sorted(locals.iteritems()):
-			LOGGER.error("!> {0:>40} = {1}".format(key, value))
-		LOGGER.error("!>")
-	LOGGER.error("!> {0}".format(Constants.loggingSeparators))
+	map(lambda x: LOGGER.error("!> {0}".format(x)), frames)
 
-	sys.stderr.write("\n".join(formatException(cls, instance, trcback)))
+	LOGGER.error("!> {0}".format(Constants.loggingSeparators))
+	sys.stderr.write("\n".join(trcback))
 
 	return True
+
+def installExceptionHandler(handler=None):
+	"""
+	This definition installs the given exceptions handler.
+	
+	:param handler: Exception handler. ( Object )
+	:return: Definition success. ( Boolean )
+	"""
+
+	sys.excepthook = handler if handler is not None else baseExceptionHandler
+	return True
+
+def uninstallExceptionHandler():
+	"""
+	This definition uninstalls the exceptions handler.
+	
+	:return: Definition success. ( Boolean )
+	"""
+
+	sys.excepthook = sys.__excepthook__
+	return True
+
 
 def handleExceptions(*args):
 	"""
 	| This decorator is used for exceptions handling.
 	| It's possible to specify an user defined exception handler,
-		if not, :func:`defaultExceptionHandler` handler will be used.
+		if not, :func:`baseExceptionHandler` handler will be used.
 	| The decorator uses given exceptions objects
 		or the default Python `Exception <http://docs.python.org/library/exceptions.html#exceptions.Exception>`_ class.
 	
@@ -266,7 +313,7 @@ def handleExceptions(*args):
 	"""
 
 	exceptions = tuple(itertools.chain(filter(lambda x: isinstance(x, Exception), args), (Exception,)))
-	handlers = filter(lambda x: inspect.isfunction(x), args) or (defaultExceptionHandler,)
+	handlers = filter(lambda x: inspect.isfunction(x), args) or (baseExceptionHandler,)
 
 	def handleExceptionsDecorator(object):
 		"""
@@ -293,7 +340,7 @@ def handleExceptions(*args):
 				return object(*args, **kwargs)
 			except exceptions as exception:
 				for handler in handlers:
-					handler(exception, object, *args, **kwargs)
+					handler(exception)
 
 		return handleExceptionsWrapper
 
