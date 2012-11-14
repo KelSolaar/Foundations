@@ -28,6 +28,7 @@ else:
 import textwrap
 import traceback
 import itertools
+import types
 
 #**********************************************************************************************************************
 #***	Internal imports.
@@ -94,11 +95,11 @@ def getInnerMostFrame(trcback):
 	This definition returns the inner most frame of given traceback.
 	
 	:param trcback: Traceback. ( Traceback )
-	:return: Frame. ( List )
+	:return: Frame. ( Frame )
 	"""
 
-	frame = inspect.getinnerframes(trcback).pop()[0]
-	return frame
+	frames = inspect.getinnerframes(trcback)
+	return frames.pop()[0] if frames else None
 
 def extractStack(frame, context=10, exceptionsFrameSymbol=EXCEPTIONS_FRAME_SYMBOL):
 	"""
@@ -174,12 +175,15 @@ def extractException(*args):
 	:return: Extracted exception. ( Tuple )
 	"""
 
+	cls, instance, trcback = sys.exc_info()
+
 	exceptions = filter(lambda x: issubclass(type(x), BaseException), args)
-	if not exceptions:
-		cls, instance = sys.exc_info()[:2]
-	else:
-		cls, instance = type(exceptions[0]), exceptions[0]
-	return cls, instance, sys.exc_info()[2]
+	trcbacks = filter(lambda x: issubclass(type(x), types.TracebackType), args)
+
+	cls, instance = (type(exceptions[0]), exceptions[0]) if exceptions else (cls, instance)
+	trcback = trcbacks[0] if trcbacks else trcback
+
+	return cls, instance, trcback
 
 def formatException(cls, instance, trcback, context=1):
 	"""
@@ -215,8 +219,6 @@ def formatReport(cls, instance, trcback, context=1):
 	:return: Formated report. ( Tuple )
 	"""
 
-	cls, instance, trcback = sys.exc_info()
-
 	header = []
 	header.append("Exception in '{0}'.".format(getInnerMostFrame(trcback).f_code.co_name))
 	header.append("Exception class: '{0}'.".format(cls.__name__))
@@ -245,12 +247,11 @@ def formatReport(cls, instance, trcback, context=1):
 
 	return header, frames, trcback
 
-def baseExceptionHandler(*args, **kwargs):
+def baseExceptionHandler(*args):
 	"""
 	This definition provides the base exception handler.
 	
 	:param \*args: Arguments. ( \* )
-	:param \*\*kwargs: Keywords arguments. ( \*\* )
 	:return: Definition success. ( Boolean )
 	"""
 
