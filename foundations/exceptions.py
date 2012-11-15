@@ -289,7 +289,6 @@ def uninstallExceptionHandler():
 	sys.excepthook = sys.__excepthook__
 	return True
 
-
 def handleExceptions(*args):
 	"""
 	| This decorator is used for exceptions handling.
