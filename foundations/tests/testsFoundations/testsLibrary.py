@@ -84,9 +84,9 @@ class LibraryTestCase(unittest.TestCase):
 		"""
 
 		requiredAttributes = ("callback",
-								"librariesInstances",
-								"libraryInstantiated",
-								"libraryPath",
+								"instances",
+								"initialized",
+								"path",
 								"functions",
 								"library")
 		for attribute in requiredAttributes:

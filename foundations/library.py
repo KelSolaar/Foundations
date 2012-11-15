@@ -75,11 +75,11 @@ class Library(object):
 	"""
 	| This class provides methods to bind a C / C++ Library.
 	| The class is a singleton and will bind only one time a given library.
-		Each unique library instance is stored in :attr:`Library.librariesInstances` attribute
+		Each unique library instance is stored in :attr:`Library.instances` attribute
 		and get returned if the library is requested again through a new instantiation.
 	"""
 
-	__librariesInstances = {}
+	__instances = {}
 	"""Libraries instances: Each library is instanced once and stored in this attribute. ( Dictionary )"""
 
 	callback = ctypes.CFUNCTYPE(ctypes.c_void_p, ctypes.c_int, ctypes.c_char_p)
@@ -95,17 +95,17 @@ class Library(object):
 		:return: Class instance. ( Library )
 		"""
 
-		libraryPath = foundations.common.getFirstItem(args)
-		if foundations.common.pathExists(libraryPath):
-			if not libraryPath in cls._Library__librariesInstances:
-				cls._Library__librariesInstances[libraryPath] = object.__new__(cls)
-			return cls._Library__librariesInstances[libraryPath]
+		path = foundations.common.getFirstItem(args)
+		if foundations.common.pathExists(path):
+			if not path in cls._Library__instances:
+				cls._Library__instances[path] = object.__new__(cls)
+			return cls._Library__instances[path]
 		else:
 			raise foundations.exceptions.LibraryInstantiationError(
-			"{0} | '{1}' library path doesn't exists!".format(cls.__class__.__name__, libraryPath))
+			"{0} | '{1}' library path doesn't exists!".format(cls.__class__.__name__, path))
 
 	@foundations.exceptions.handleExceptions(foundations.exceptions.LibraryInitializationError)
-	def __init__(self, libraryPath, functions=None, bindLibrary=True):
+	def __init__(self, path, functions=None, bindLibrary=True):
 		"""
 		This method initializes the class.
 		
@@ -117,21 +117,21 @@ class Library(object):
 			>>> library.FreeImage_GetVersion()
 			3.13.1
 
-		:param libraryPath: Library path. ( String )
+		:param path: Library path. ( String )
 		:param functions: Binding functions list. ( Tuple )
 		:param bindLibrary: Library will be binded on initialization. ( Boolean )
 		"""
 
-		if hasattr(self.librariesInstances[libraryPath], "_Library__libraryInstantiated"):
+		if hasattr(self.instances[path], "_Library__initialized"):
 			return
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
 		# --- Setting class attributes. ---
-		self.__libraryInstantiated = True
+		self.__initialized = True
 
-		self.__libraryPath = None
-		self.libraryPath = libraryPath
+		self.__path = None
+		self.path = path
 		self.__functions = None
 		self.functions = functions
 
@@ -142,11 +142,11 @@ class Library(object):
 		else:
 			loadingFunction = ctypes.cdll
 
-		if self.libraryPath:
-			self.__library = loadingFunction.LoadLibrary(libraryPath)
+		if self.path:
+			self.__library = loadingFunction.LoadLibrary(path)
 		else:
 			raise foundations.exceptions.LibraryInitializationError("{0} | '{1}' library not found!".format(
-			self.__class__.__name__, libraryPath))
+			self.__class__.__name__, path))
 
 		bindLibrary and self.bindLibrary()
 
@@ -154,103 +154,103 @@ class Library(object):
 	#***	Attributes properties.
 	#******************************************************************************************************************
 	@property
-	def librariesInstances(self):
+	def instances(self):
 		"""
-		This method is the property for **self.__librariesInstances** attribute.
+		This method is the property for **self.__instances** attribute.
 
-		:return: self.__librariesInstances. ( WeakValueDictionary )
+		:return: self.__instances. ( WeakValueDictionary )
 		"""
 
-		return self.__librariesInstances
+		return self.__instances
 
-	@librariesInstances.setter
+	@instances.setter
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
-	def librariesInstances(self, value):
+	def instances(self, value):
 		"""
-		This method is the setter method for **self.__librariesInstances** attribute.
+		This method is the setter method for **self.__instances** attribute.
 
 		:param value: Attribute value. ( WeakValueDictionary )
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "librariesInstances"))
+		"{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "instances"))
 
-	@librariesInstances.deleter
+	@instances.deleter
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
-	def librariesInstances(self):
+	def instances(self):
 		"""
-		This method is the deleter method for **self.__librariesInstances** attribute.
+		This method is the deleter method for **self.__instances** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "librariesInstances"))
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "instances"))
 
 	@property
-	def libraryInstantiated(self):
+	def initialized(self):
 		"""
-		This method is the property for **self.__libraryInstantiated** attribute.
+		This method is the property for **self.__initialized** attribute.
 
-		:return: self.__libraryInstantiated. ( String )
+		:return: self.__initialized. ( String )
 		"""
 
-		return self.__libraryInstantiated
+		return self.__initialized
 
-	@libraryInstantiated.setter
+	@initialized.setter
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
-	def libraryInstantiated(self, value):
+	def initialized(self, value):
 		"""
-		This method is the setter method for **self.__libraryInstantiated** attribute.
+		This method is the setter method for **self.__initialized** attribute.
 
 		:param value: Attribute value. ( String )
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "libraryInstantiated"))
+		"{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "initialized"))
 
-	@libraryInstantiated.deleter
+	@initialized.deleter
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
-	def libraryInstantiated(self):
+	def initialized(self):
 		"""
-		This method is the deleter method for **self.__libraryInstantiated** attribute.
+		This method is the deleter method for **self.__initialized** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "libraryInstantiated"))
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "initialized"))
 
 	@property
-	def libraryPath(self):
+	def path(self):
 		"""
-		This method is the property for **self.__libraryPath** attribute.
+		This method is the property for **self.__path** attribute.
 
-		:return: self.__libraryPath. ( String )
+		:return: self.__path. ( String )
 		"""
 
-		return self.__libraryPath
+		return self.__path
 
-	@libraryPath.setter
+	@path.setter
 	@foundations.exceptions.handleExceptions(AssertionError)
-	def libraryPath(self, value):
+	def path(self, value):
 		"""
-		This method is the setter method for **self.__libraryPath** attribute.
+		This method is the setter method for **self.__path** attribute.
 
 		:param value: Attribute value. ( String )
 		"""
 
 		if value is not None:
 			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
-			"libraryPath", value)
-			assert os.path.exists(value), "'{0}' attribute: '{1}' file doesn't exists!".format("libraryPath", value)
-		self.__libraryPath = value
+			"path", value)
+			assert os.path.exists(value), "'{0}' attribute: '{1}' file doesn't exists!".format("path", value)
+		self.__path = value
 
-	@libraryPath.deleter
+	@path.deleter
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
-	def libraryPath(self):
+	def path(self):
 		"""
-		This method is the deleter method for **self.__libraryPath** attribute.
+		This method is the deleter method for **self.__path** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "libraryPath"))
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "path"))
 
 	@property
 	def functions(self):
