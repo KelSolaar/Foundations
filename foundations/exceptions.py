@@ -571,21 +571,21 @@ class UserError(AbstractUserError):
 
 class AbstractNodeError(AbstractError):
 	"""
-	This class is the abstract base class for node related exceptions.
+	This class is the abstract base class for Node related exceptions.
 	"""
 
 	pass
 
 class NodeAttributeTypeError(AbstractNodeError, ObjectTypeError):
 	"""
-	This class is the abstract base class for node attributes type related exceptions.
+	This class is the abstract base class for Node attributes type related exceptions.
 	"""
 
 	pass
 
 class NodeAttributeExistsError(AbstractNodeError, ObjectExistsError):
 	"""
-	This class is used for non existing node attribute exceptions.
+	This class is used for non existing Node attribute exceptions.
 	"""
 
 	pass

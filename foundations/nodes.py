@@ -173,7 +173,7 @@ class Attribute(foundations.dataStructures.Structure):
 
 class AbstractNode(foundations.dataStructures.Structure):
 	"""
-	| This class defines the base node class.
+	| This class defines the base Node class.
 	| Although it can be instancied directly that class is meant to be subclassed.
 	
 	:note: This class doesn't provide compositing capabilities,
@@ -184,7 +184,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 	"""Node family. ( String )"""
 
 	__instanceId = 1
-	"""Node id: Defines the next node instance identity number. ( Integer )"""
+	"""Node id: Defines the next Node instance identity number. ( Integer )"""
 
 	__nodesInstances = weakref.WeakValueDictionary()
 	"""Nodes instances: Each node, once instanced is referenced in this attribute. ( Dictionary )"""
@@ -393,7 +393,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 
 	def __getDefaultNodeName(self):
 		"""
-		This method gets the default node name.
+		This method gets the default Node name.
 		
 		:return: Node name. ( String )
 		"""
@@ -403,7 +403,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 	@classmethod
 	def getNodeByIdentity(cls, identity):
 		"""
-		This method returns the node with given identity.
+		This method returns the Node with given identity.
 	
 		Usage::
 
@@ -421,7 +421,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 
 	def listAttributes(self):
 		"""
-		This method returns the node attributes names.
+		This method returns the Node attributes names.
 
 		Usage::
 
@@ -436,7 +436,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 
 	def getAttributes(self):
 		"""
-		This method returns the node attributes.
+		This method returns the Node attributes.
 
 		Usage::
 
@@ -523,7 +523,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 
 class AbstractCompositeNode(AbstractNode):
 	"""
-	| This class defines the base composite node class.
+	| This class defines the base composite Node class.
 	| It provides compositing capabilities allowing the assembly of graphs and various trees structures.
 	"""
 
@@ -694,7 +694,7 @@ class AbstractCompositeNode(AbstractNode):
 
 	def row(self):
 		"""
-		This method returns the node row.
+		This method returns the Node row.
 
 		Usage::
 
@@ -735,7 +735,7 @@ class AbstractCompositeNode(AbstractNode):
 
 	def removeChild(self, index):
 		"""
-		This method removes child at given index from the node children.
+		This method removes child at given index from the Node children.
 
 		Usage::
 
@@ -787,7 +787,7 @@ class AbstractCompositeNode(AbstractNode):
 
 	def hasChildren(self):
 		"""
-		This method returns if the node has children.
+		This method returns if the Node has children.
 
 		Usage::
 
@@ -819,7 +819,7 @@ class AbstractCompositeNode(AbstractNode):
 
 	def sortChildren(self, attribute=None, reverseOrder=False):
 		"""
-		This method sorts the children using either the given attribute or the node name.
+		This method sorts the children using either the given attribute or the Node name.
 
 		:param attribute: Attribute name used for sorting. ( String )
 		:param reverseOrder: Sort in reverse order. ( Boolean )
@@ -876,11 +876,11 @@ class AbstractCompositeNode(AbstractNode):
 
 	def findFamily(self, pattern=r".*", flags=0, node=None):
 		"""
-		This method returns the nodes from given family.
+		This method returns the Nodes from given family.
 		
 		:param pattern: Matching pattern. ( String )
 		:param flags: Matching regex flags. ( Integer )
-		:param node: Node to start walking from. (  AbstractNode / AbstractCompositeNode / Object )
+		:param node: Node to start walking from. ( AbstractNode / AbstractCompositeNode / Object )
 		:return: Family nodes. ( List )
 		"""
 
@@ -888,7 +888,7 @@ class AbstractCompositeNode(AbstractNode):
 
 	def listNode(self, tabLevel= -1):
 		"""
-		This method lists the current node and its children.
+		This method lists the current Node and its children.
 
 		Usage::
 

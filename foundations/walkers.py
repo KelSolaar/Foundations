@@ -148,7 +148,7 @@ def dictionariesWalker(dictionary, path=()):
 
 def nodesWalker(node, ascendants=False):
 	"""
-	This definition is a generator used to walk into nodes hierarchy.
+	This definition is a generator used to walk into Nodes hierarchy.
 	
 	Usage::
 		
