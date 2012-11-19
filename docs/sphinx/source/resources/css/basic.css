@@ -461,7 +461,6 @@ tt.descname {
     background-color: transparent;
     color: rgb(224, 224, 224);
     font-size: 1.75em;
-    letter-spacing: 1px;
 }
 
 tt.descclassname {
