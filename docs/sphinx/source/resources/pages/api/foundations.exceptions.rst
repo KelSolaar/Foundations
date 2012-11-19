@@ -13,17 +13,25 @@ Module Attributes
 Functions
 ---------
 
+.. autofunction:: getInnerMostFrame
+
 .. autofunction:: extractStack
 
 .. autofunction:: extractArguments
 
 .. autofunction:: extractLocals
 
-.. autofunction:: getInnerMostFrame
+.. autofunction:: extractException
 
 .. autofunction:: formatException
 
-.. autofunction:: defaultExceptionsHandler
+.. autofunction:: formatReport
+
+.. autofunction:: baseExceptionHandler
+
+.. autofunction:: installExceptionHandler
+
+.. autofunction:: uninstallExceptionHandler
 
 .. autofunction:: handleExceptions
 
