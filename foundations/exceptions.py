@@ -27,7 +27,6 @@ else:
 	from collections import OrderedDict
 import textwrap
 import traceback
-import itertools
 import types
 
 #**********************************************************************************************************************
@@ -111,8 +110,20 @@ def extractStack(frame, context=10, exceptionsFrameSymbol=EXCEPTIONS_FRAME_SYMBO
 	:return: Stack. ( List )
 	"""
 
-	return list(reversed(filter(lambda x: not x[0].f_locals.get(exceptionsFrameSymbol),
-								inspect.getouterframes(frame, context))))
+	stack = []
+
+	for frame, fileName, lineNumber, name, context, index in inspect.getouterframes(frame, context):
+		if frame.f_locals.get(exceptionsFrameSymbol):
+			continue
+
+		stack.append((frame,
+					fileName,
+					lineNumber,
+					name, context
+					if context is not None else [],
+					index if index is not None else -1))
+
+	return list(reversed(stack))
 
 def extractArguments(frame):
 	"""
@@ -203,7 +214,8 @@ def formatException(cls, instance, trcback, context=1):
 	output.append("Traceback (most recent call last):")
 	for frame, fileName, lineNumber, name, context, index in stack:
 		output.append("  File \"{0}\", line {1}, in {2}".format(fileName, lineNumber, name))
-		output.append("    {0}".format(context.pop().strip()))
+		for line in context:
+			output.append("    {0}".format(line.strip()))
 	for line in traceback.format_exception_only(cls, instance):
 		output.append("{0}".format(line))
 	return output
@@ -312,7 +324,7 @@ def handleExceptions(*args):
 	:return: Object. ( Object )
 	"""
 
-	exceptions = tuple(itertools.chain(filter(lambda x: isinstance(x, Exception), args), (Exception,)))
+	exceptions = tuple(filter(lambda x: isinstance(x, Exception), args))
 	handlers = filter(lambda x: inspect.isfunction(x), args) or (baseExceptionHandler,)
 
 	def handleExceptionsDecorator(object):
