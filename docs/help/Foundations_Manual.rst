@@ -53,6 +53,7 @@ or this alternative command::
 Alternatively, if you want to directly install from `Github <http://github.com/KelSolaar/Foundations>`_ source repository::
 
 	git clone git://github.com/KelSolaar/Foundations.git
+	cd Foundations
 	python setup.py install
 
 If you want to build the documentation you will also need:
