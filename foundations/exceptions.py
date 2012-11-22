@@ -324,7 +324,8 @@ def handleExceptions(*args):
 	:return: Object. ( Object )
 	"""
 
-	exceptions = tuple(filter(lambda x: isinstance(x, Exception), args))
+	exceptions = tuple(filter(lambda x: issubclass(x, Exception),
+								filter(lambda x: isinstance(x, (type, types.ClassType)), args)))
 	handlers = filter(lambda x: inspect.isfunction(x), args) or (baseExceptionHandler,)
 
 	def handleExceptionsDecorator(object):
@@ -346,13 +347,11 @@ def handleExceptions(*args):
 
 			_exceptions__frame__ = True
 
-			exception = None
-
 			try:
 				return object(*args, **kwargs)
-			except exceptions as exception:
+			except exceptions as error:
 				for handler in handlers:
-					handler(exception)
+					handler(error)
 
 		return handleExceptionsWrapper
 
@@ -474,7 +473,7 @@ class AttributeStructureParsingError(AbstractParsingError):
 		return self.__line
 
 	@line.setter
-	@handleExceptions(None, False, AssertionError)
+	@handleExceptions(AssertionError)
 	def line(self, value):
 		"""
 		This method is the setter method for **self.__line** attribute.
@@ -488,7 +487,7 @@ class AttributeStructureParsingError(AbstractParsingError):
 		self.__line = value
 
 	@line.deleter
-	@handleExceptions(None, False, Exception)
+	@handleExceptions(Exception)
 	def line(self):
 		"""
 		This method is the deleter method for **self.__line** attribute.
