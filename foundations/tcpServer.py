@@ -17,6 +17,7 @@
 #**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
+import errno
 import SocketServer
 import socket
 import threading
@@ -265,10 +266,10 @@ class TCPServer(object):
 			self.__class__.__name__, self.__address, self.__port, self.__handler.__name__))
 			return True
 		except socket.error as error:
-			if error.errno == 10048:
+			if error.errno == errno.EADDRINUSE:
 				LOGGER.warning(
-				"!> {0} | Cannot start TCP Server, a connection is already opened on port '{2}'!".format(
-				self.__class__.__name__, self, self.__port))
+				"!> {0} | Cannot start TCP Server, address is already in use on port '{1}'!".format(
+				self.__class__.__name__, self.__port))
 			else:
 				raise error
 
