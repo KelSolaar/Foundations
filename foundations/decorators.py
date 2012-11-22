@@ -18,7 +18,6 @@
 #***	External imports.
 #**********************************************************************************************************************
 import functools
-import inspect
 import sys
 import time
 
@@ -71,8 +70,9 @@ def executionTime(object):
 
 		endTime = time.time()
 
-		sys.stdout.write("{0} | '{1}' object processed during '{2:f}' ms!\n".format(
-		inspect.getmodulename(__file__), object.__name__, (endTime - startTime) * 1000.0))
+		sys.stdout.write("{0} | '{1}' object processed during '{2:f}' ms!\n".format(__name__,
+																				object.__name__,
+																				(endTime - startTime) * 1000.0))
 
 		return value
 

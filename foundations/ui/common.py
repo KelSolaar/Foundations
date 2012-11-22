@@ -77,8 +77,7 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 
 	file = uiFile or DEFAULT_UI_FILE
 	if not foundations.common.pathExists(file):
-		raise foundations.exceptions.FileExistsError("{0} | '{1}' ui file doesn't exists!".format(
-		inspect.getmodulename(__file__), file))
+		raise foundations.exceptions.FileExistsError("{0} | '{1}' ui file doesn't exists!".format(__name__, file))
 
 	Form, Base = uic.loadUiType(file)
 
