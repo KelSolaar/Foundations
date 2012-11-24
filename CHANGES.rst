@@ -9,6 +9,13 @@ Changes
 2.0.4 - Stable
 --------------
 
+| **Foundations** 2.0.4 - Stable - Milestone: https://github.com/KelSolaar/Foundations/issues?milestone=2&state=closed
+
+-  Refactored exceptions handling code in **foundations.exceptions** module.
+-  Refactored execution tracing code through new **foundations.trace** module.
+-  Refactored verbose logging code through new **foundations.verbose** module.
+-  Generic purpose decorators have been moved to dedicated **foundations.decorators** module.
+-  **foundations.io.File** class now supports online resources.
 -  Added **foundations.common.dependencyResolver** definition.
 
 2.0.3 - Stable
