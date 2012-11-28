@@ -266,7 +266,7 @@ class TCPServer(object):
 			self.__class__.__name__, self.__address, self.__port, self.__handler.__name__))
 			return True
 		except socket.error as error:
-			if error.errno == errno.EADDRINUSE:
+			if error.errno in (errno.EADDRINUSE, errno.EADDRNOTAVAIL):
 				LOGGER.warning(
 				"!> {0} | Cannot start TCP Server, address is already in use on port '{1}'!".format(
 				self.__class__.__name__, self.__port))
