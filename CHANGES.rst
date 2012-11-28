@@ -9,6 +9,10 @@ Changes
 2.0.5 - Stable
 --------------
 
+| **Foundations** 2.0.5 - Stable - Milestone: https://github.com/KelSolaar/Foundations/issues?milestone=3&state=closed
+
+-  Prevented exception in **foundations.tcpServer.TCPServer.start** method when the requested address is not available.
+
 2.0.4 - Stable
 --------------
 
