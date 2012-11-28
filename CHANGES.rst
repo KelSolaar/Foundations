@@ -27,6 +27,7 @@ Changes
 
 2.0.3 - Stable
 --------------
+| **Foundations** 2.0.3 - Stable - https://github.com/KelSolaar/Foundations/issues?milestone=1&state=closed
 
 -  Added support for **Python 2.6**.
 
