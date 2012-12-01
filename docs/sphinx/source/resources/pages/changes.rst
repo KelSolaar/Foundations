@@ -1,6 +1,13 @@
 Changes
 =======
 
+2.0.6 - Stable
+--------------
+
+| **Foundations** 2.0.6 - Stable - Milestone: https://github.com/KelSolaar/Foundations/issues?milestone=4&state=closed
+
+-  Implemented a better version rank calculation definition allowing to properly compare various version formats.
+
 2.0.5 - Stable
 --------------
 
