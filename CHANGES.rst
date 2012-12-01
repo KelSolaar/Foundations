@@ -1,10 +1,13 @@
-Foundations - 2.0.5 - Stable
+Foundations - 2.0.6 - Stable
 ============================
 
 .. .changes
 
 Changes
 =======
+
+2.0.6 - Stable
+--------------
 
 2.0.5 - Stable
 --------------
