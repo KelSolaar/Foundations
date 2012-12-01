@@ -116,7 +116,9 @@ def getVersionRank(version):
 	Usage::
 
 		>>> getVersionRank("4.2.8")
-		428
+		4002008000000
+		>>> getVersionRank("4.0")
+		4000000000000
 		>>> getVersionRank("4.2.8").__class__
 		<type 'int'>
 
@@ -124,8 +126,8 @@ def getVersionRank(version):
 	:return: Rank. ( Integer )
 	"""
 
-	tokens = version.split(".")
-	rank = sum((int(10 ** (i - 1)) * int(tokens[-i]) for i in range(len(tokens), 0, -1)))
+	tokens = list(foundations.common.unpackDefault(filter(any, re.split("\.|-|,", version)), length=4, default=0))
+	rank = sum((int(1000 ** i) * int(tokens[-i]) for i in range(len(tokens), 0, -1)))
 	LOGGER.debug("> Rank: '{0}'.".format(rank))
 	return rank
 

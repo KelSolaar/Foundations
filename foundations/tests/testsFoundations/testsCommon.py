@@ -98,6 +98,21 @@ class OrderedUniqifyTestCase(unittest.TestCase):
 		sequence = ((1, "A"), (2, "B"), (2, "B"), (3, "C"))
 		self.assertListEqual(foundations.common.orderedUniqify(sequence), [(1, "A"), (2, "B"), (3, "C")])
 
+class UnpackDefaultTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.common.unpackDefault` definition units tests methods.
+	"""
+
+	def testUnpackDefault(self):
+		"""
+		This method tests :func:`foundations.common.unpackDefault` definition.
+		"""
+
+		self.assertListEqual(list(foundations.common.unpackDefault((1,))), [1, None, None])
+		self.assertListEqual(list(foundations.common.unpackDefault((1, 2, 3, 4), length=3)), [1, 2, 3])
+		self.assertListEqual(list(foundations.common.unpackDefault((1, 2, 3, 4), length=5, default="Default")),
+							[1, 2, 3, 4, "Default"])
+
 class PathExistsTestCase(unittest.TestCase):
 	"""
 	This class defines :func:`foundations.common.pathExists` definition units tests methods.
