@@ -103,11 +103,13 @@ class GetVersionRankTestCase(unittest.TestCase):
 		This method tests :func:`foundations.strings.getVersionRank` definition.
 		"""
 
-		self.assertIsInstance(foundations.strings.getVersionRank("0.0.0"), int)
+		self.assertTrue(type(foundations.strings.getVersionRank("0.0.0")), (int, long))
 		self.assertEqual(foundations.strings.getVersionRank("0.0.0"), 0)
-		self.assertEqual(foundations.strings.getVersionRank("0.1.0"), 10)
-		self.assertEqual(foundations.strings.getVersionRank("1.1.0"), 110)
-		self.assertEqual(foundations.strings.getVersionRank("1.2.3.4.5"), 12345)
+		self.assertEqual(foundations.strings.getVersionRank("0.1.0"), 1000000000)
+		self.assertEqual(foundations.strings.getVersionRank("1.1.0"), 1001000000000)
+		self.assertEqual(foundations.strings.getVersionRank("1.2.3.4.5"), 1002003004000)
+		self.assertEqual(foundations.strings.getVersionRank("4.0"), 4000000000000)
+		self.assertEqual(foundations.strings.getVersionRank(str()), 0)
 
 class GetSplitextBasenameTestCase(unittest.TestCase):
 	"""

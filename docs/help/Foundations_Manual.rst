@@ -175,6 +175,8 @@ _`Api`
 _`Changes`
 ==========
 
+**Foundations** Changes file is available here: `Foundations - Changes <http://thomasmansencal.com/Sharing/Foundations/Changes/Changes.html>`_
+
 .. raw:: html
 
     <br/>
