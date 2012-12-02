@@ -656,7 +656,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 		checkingSectionsFileParser = SectionsFileParser(writeSectionsFileParser.path)
 		checkingSectionsFileParser.read() and checkingSectionsFileParser.parse()
-		os.remove(writeSectionsFileParser.path)
+		os.close(fileDescriptor)
 
 class PlistFileParserTestCase(unittest.TestCase):
 	"""

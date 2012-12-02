@@ -1,17 +1,24 @@
 Changes
 =======
 
+2.0.6 - Stable
+--------------
+
+**Foundations** 2.0.6 - Stable - Milestone: https://github.com/KelSolaar/Foundations/issues?milestone=4&state=closed
+
+-  Implemented a better version rank calculation definition allowing to properly compare various version formats.
+
 2.0.5 - Stable
 --------------
 
-| **Foundations** 2.0.5 - Stable - Milestone: https://github.com/KelSolaar/Foundations/issues?milestone=3&state=closed
+**Foundations** 2.0.5 - Stable - Milestone: https://github.com/KelSolaar/Foundations/issues?milestone=3&state=closed
 
 -  Prevented exception in **foundations.tcpServer.TCPServer.start** method when the requested address is not available.
 
 2.0.4 - Stable
 --------------
 
-| **Foundations** 2.0.4 - Stable - Milestone: https://github.com/KelSolaar/Foundations/issues?milestone=2&state=closed
+**Foundations** 2.0.4 - Stable - Milestone: https://github.com/KelSolaar/Foundations/issues?milestone=2&state=closed
 
 -  Refactored exceptions handling code in **foundations.exceptions** module.
 -  Refactored execution tracing code through new **foundations.trace** module.
@@ -22,7 +29,8 @@ Changes
 
 2.0.3 - Stable
 --------------
-| **Foundations** 2.0.3 - Stable - https://github.com/KelSolaar/Foundations/issues?milestone=1&state=closed
+
+**Foundations** 2.0.3 - Stable - https://github.com/KelSolaar/Foundations/issues?milestone=1&state=closed
 
 -  Added support for **Python 2.6**.
 

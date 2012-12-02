@@ -43,6 +43,7 @@ __all__ = ["LOGGER",
 		"CONNECTION_IP",
 		"wait",
 		"uniqify",
+		"unpackDefault",
 		"orderedUniqify",
 		"pathExists",
 		"getFirstItem",
@@ -81,6 +82,18 @@ def orderedUniqify(sequence):
 
 	items = set()
 	return [key for key in sequence if key not in items and not items.add(key)]
+
+def unpackDefault(iterable, length=3, default=None):
+	"""
+	This definition unpacks given iterable maintaining given length and filling missing entries with given default.
+
+	:param iterable: iterable. ( Object )
+	:param length: Iterable length. ( Integer )
+	:param default: Filling default object. ( Object )
+	:return: Unpacked iterable. ( Object )
+	"""
+
+	return itertools.islice(itertools.chain(iter(iterable), itertools.repeat(default)), length)
 
 def pathExists(path):
 	"""
