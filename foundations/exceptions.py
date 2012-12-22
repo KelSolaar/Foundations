@@ -58,6 +58,7 @@ __all__ = ["LOGGER",
 		"uninstallExceptionHandler",
 		"handleExceptions",
 		"AbstractError",
+		"ExecutionError",
 		"BreakIteration",
 		"AbstractParsingError",
 		"FileStructureParsingError",
@@ -416,6 +417,13 @@ class AbstractError(Exception):
 		"""
 
 		return str(self.__value)
+
+class ExecutionError(AbstractError):
+	"""
+	This class is used for execution exceptions.
+	"""
+
+	pass
 
 class BreakIteration(AbstractError):
 	"""
