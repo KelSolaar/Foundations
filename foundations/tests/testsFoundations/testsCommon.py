@@ -50,7 +50,8 @@ __all__ = ["RESOURCES_DIRECTORY",
 		"GetLastItemTestCase",
 		"IsBinaryFileTestCase",
 		"RepeatTestCase",
-		"DependencyResolverTestCase"]
+		"DependencyResolverTestCase",
+		"GetHostAddressTestCase"]
 
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
 LIBRARIES_DIRECTORY = os.path.join(RESOURCES_DIRECTORY, "libraries")
@@ -206,6 +207,19 @@ class DependencyResolverTestCase(unittest.TestCase):
 
 		self.assertEquals(foundations.common.dependencyResolver(dependencies),
 						[set(["a", "b"]), set(["c", "f"]), set(["d"])])
+
+class GetHostAddressTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.common.getHostAddress` definition units tests methods.
+	"""
+
+	def testGetHostAddress(self):
+		"""
+		This method tests :func:`foundations.common.getHostAddress` definition.
+		"""
+
+		self.assertIsInstance(foundations.common.getHostAddress(), str)
+		self.assertEqual(foundations.common.getHostAddress("Nemo, John Doe!"), foundations.common.DEFAULT_HOST_IP)
 
 if __name__ == "__main__":
 	import foundations.tests.utilities

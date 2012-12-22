@@ -22,6 +22,7 @@
 #**********************************************************************************************************************
 import itertools
 import os
+import socket
 import urllib2
 
 #**********************************************************************************************************************
@@ -41,6 +42,7 @@ __status__ = "Production"
 
 __all__ = ["LOGGER",
 		"CONNECTION_IP",
+		"DEFAULT_HOST_IP",
 		"wait",
 		"uniqify",
 		"unpackDefault",
@@ -51,11 +53,13 @@ __all__ = ["LOGGER",
 		"isBinaryFile",
 		"repeat",
 		"dependencyResolver",
-		"isInternetAvailable"]
+		"isInternetAvailable",
+		"getHostAddress"]
 
 LOGGER = foundations.verbose.installLogger()
 
 CONNECTION_IP = "74.125.113.99"
+DEFAULT_HOST_IP = "127.0.0.1"
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
@@ -200,3 +204,17 @@ def isInternetAvailable(ip=CONNECTION_IP, timeout=1):
 		return True
 	except urllib2.URLError as error:
 		return False
+
+def getHostAddress(host=None, defaultAddress=DEFAULT_HOST_IP):
+	"""
+	This definition returns the given host address.
+
+	:param host: Host to retrieve the address. ( String )
+	:param defaultAddress: Default address if the host is unreachable. ( String )
+	:return: Host address. ( String )
+	"""
+
+	try:
+		return socket.gethostbyname(host or socket.gethostname())
+	except Exception as error:
+		return defaultAddress
