@@ -112,13 +112,23 @@ class Pkzip(object):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
+	@foundations.exceptions.handleExceptions(foundations.exceptions.DirectoryExistsError,
+											foundations.exceptions.FileExistsError)
 	def extract(self, target):
 		"""
-		This method extracts archive file to given directory.
+		This method extracts the archive file to given directory.
 
 		:param target: Target extraction directory. ( String )
 		:return: Method success. ( Boolean )
 		"""
+
+		if not foundations.common.pathExists(self.__archive):
+			raise foundations.exceptions.FileExistsError("{0} | '{1}' file doesn't exists!".format(
+			self.__class__.__name__, self.__archive))
+
+		if not foundations.common.pathExists(target):
+			raise foundations.exceptions.DirectoryExistsError("{0} | '{1}' directory doesn't exists!".format(
+			self.__class__.__name__, target))
 
 		archive = zipfile.ZipFile(self.__archive)
 		content = archive.namelist()
