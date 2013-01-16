@@ -202,7 +202,7 @@ def isInternetAvailable(ip=CONNECTION_IP, timeout=1):
 	try:
 		urllib2.urlopen("http://{0}".format(ip), timeout=timeout)
 		return True
-	except urllib2.URLError as error:
+	except (urllib2.URLError, socket.error) as error:
 		return False
 
 def getHostAddress(host=None, defaultAddress=DEFAULT_HOST_IP):
