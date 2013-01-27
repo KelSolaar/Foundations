@@ -22,6 +22,7 @@
 #**********************************************************************************************************************
 import itertools
 import os
+import socket
 import urllib2
 
 #**********************************************************************************************************************
@@ -33,7 +34,7 @@ import foundations.verbose
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2012 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -41,6 +42,7 @@ __status__ = "Production"
 
 __all__ = ["LOGGER",
 		"CONNECTION_IP",
+		"DEFAULT_HOST_IP",
 		"wait",
 		"uniqify",
 		"unpackDefault",
@@ -51,11 +53,13 @@ __all__ = ["LOGGER",
 		"isBinaryFile",
 		"repeat",
 		"dependencyResolver",
-		"isInternetAvailable"]
+		"isInternetAvailable",
+		"getHostAddress"]
 
 LOGGER = foundations.verbose.installLogger()
 
-CONNECTION_IP = "74.125.113.99"
+CONNECTION_IP = "www.google.com"
+DEFAULT_HOST_IP = "127.0.0.1"
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
@@ -186,7 +190,7 @@ def dependencyResolver(dependencies):
 		items = dict(((key, value - batch) for key, value in items.items() if value))
 	return resolvedDependencies
 
-def isInternetAvailable(ip=CONNECTION_IP, timeout=1):
+def isInternetAvailable(ip=CONNECTION_IP, timeout=1.5):
 	"""
 	This definition returns if an internet connection is available.
 
@@ -198,5 +202,19 @@ def isInternetAvailable(ip=CONNECTION_IP, timeout=1):
 	try:
 		urllib2.urlopen("http://{0}".format(ip), timeout=timeout)
 		return True
-	except urllib2.URLError as error:
+	except (urllib2.URLError, socket.error) as error:
 		return False
+
+def getHostAddress(host=None, defaultAddress=DEFAULT_HOST_IP):
+	"""
+	This definition returns the given host address.
+
+	:param host: Host to retrieve the address. ( String )
+	:param defaultAddress: Default address if the host is unreachable. ( String )
+	:return: Host address. ( String )
+	"""
+
+	try:
+		return socket.gethostbyname(host or socket.gethostname())
+	except Exception as error:
+		return defaultAddress

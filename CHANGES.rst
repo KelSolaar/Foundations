@@ -1,10 +1,18 @@
-Foundations - 2.0.6 - Stable
+Foundations - 2.0.7 - Stable
 ============================
 
 .. .changes
 
 Changes
 =======
+
+2.0.7 - Stable
+--------------
+
+**Foundations** 2.0.7 - Stable - Milestone: https://github.com/KelSolaar/Foundations/issues?milestone=5&state=closed
+
+-  Fixed **socket** module related exceptions in **foundations.common.isInternetAvailable** definition.
+-  Handled non existing files and directories in **foundations.pkzip.Pkzip.extract** method.
 
 2.0.6 - Stable
 --------------
@@ -93,7 +101,7 @@ Changes
 About
 -----
 
-| **Foundations** by Thomas Mansencal – 2008 - 2012
-| Copyright© 2008 - 2012 – Thomas Mansencal – `thomas.mansencal@gmail.com <mailto:thomas.mansencal@gmail.com>`_
+| **Foundations** by Thomas Mansencal – 2008 - 2013
+| Copyright© 2008 - 2013 – Thomas Mansencal – `thomas.mansencal@gmail.com <mailto:thomas.mansencal@gmail.com>`_
 | This software is released under terms of GNU GPL V3 license: http://www.gnu.org/licenses/
 | `http://www.thomasmansencal.com/ <http://www.thomasmansencal.com/>`_
