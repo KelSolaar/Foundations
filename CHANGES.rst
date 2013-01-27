@@ -1,10 +1,18 @@
-Foundations - 2.0.6 - Stable
+Foundations - 2.0.7 - Stable
 ============================
 
 .. .changes
 
 Changes
 =======
+
+2.0.7 - Stable
+--------------
+
+**Foundations** 2.0.7 - Stable - Milestone: https://github.com/KelSolaar/Foundations/issues?milestone=5&state=closed
+
+-  Fixed **socket** module related exceptions in **foundations.common.isInternetAvailable** definition.
+-  Handled non existing files and directories in **foundations.pkzip.Pkzip.extract** method.
 
 2.0.6 - Stable
 --------------
