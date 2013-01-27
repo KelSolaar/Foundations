@@ -58,7 +58,7 @@ __all__ = ["LOGGER",
 
 LOGGER = foundations.verbose.installLogger()
 
-CONNECTION_IP = "74.125.113.99"
+CONNECTION_IP = "www.google.com"
 DEFAULT_HOST_IP = "127.0.0.1"
 
 #**********************************************************************************************************************
