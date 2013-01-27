@@ -39,7 +39,7 @@ from foundations.globals.constants import Constants
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2012 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -58,6 +58,7 @@ __all__ = ["LOGGER",
 		"uninstallExceptionHandler",
 		"handleExceptions",
 		"AbstractError",
+		"ExecutionError",
 		"BreakIteration",
 		"AbstractParsingError",
 		"FileStructureParsingError",
@@ -416,6 +417,13 @@ class AbstractError(Exception):
 		"""
 
 		return str(self.__value)
+
+class ExecutionError(AbstractError):
+	"""
+	This class is used for execution exceptions.
+	"""
+
+	pass
 
 class BreakIteration(AbstractError):
 	"""
