@@ -190,7 +190,7 @@ def dependencyResolver(dependencies):
 		items = dict(((key, value - batch) for key, value in items.items() if value))
 	return resolvedDependencies
 
-def isInternetAvailable(ip=CONNECTION_IP, timeout=1):
+def isInternetAvailable(ip=CONNECTION_IP, timeout=1.5):
 	"""
 	This definition returns if an internet connection is available.
 
