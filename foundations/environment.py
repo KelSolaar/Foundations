@@ -15,6 +15,11 @@
 """
 
 #**********************************************************************************************************************
+#***	Future imports.
+#**********************************************************************************************************************
+from __future__ import unicode_literals
+
+#**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
 import os
@@ -103,9 +108,9 @@ class Environment(object):
 		if value is not None:
 			assert type(value) is dict, "'{0}' attribute: '{1}' type is not 'dict'!".format("variables", value)
 			for key, element in value.iteritems():
-				assert type(key) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
+				assert type(key) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
 				"variables", key)
-				assert type(element) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
+				assert type(element) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
 				"variables", element)
 		self.__variables = value
 
@@ -157,7 +162,8 @@ class Environment(object):
 		LOGGER.debug("> Available system environment variables: '{0}'".format(os.environ.keys()))
 
 		for variable in self.__variables:
-			self.__variables[variable] = os.environ.get(variable, None)
+			value = os.environ.get(variable, None)
+			self.__variables[variable] = unicode(value) if value else None
 		return self.__variables
 
 	def setValues(self, **kwargs):
@@ -224,8 +230,8 @@ def getSystemApplicationDataDirectory():
 	
 	Examples directories::
 
-		- 'C:\Users\$USER\AppData\Roaming' on Windows 7.
-		- 'C:\Documents and Settings\$USER\Application Data' on Windows XP.
+		- 'C:\\Users\\$USER\\AppData\\Roaming' on Windows 7.
+		- 'C:\\Documents and Settings\\$USER\\Application Data' on Windows XP.
 		- '/Users/$USER/Library/Preferences' on Mac Os X.
 		- '/home/$USER' on Linux.
 
@@ -254,8 +260,8 @@ def getUserApplicationDataDirectory():
 
 	Examples directories::
 
-		- 'C:\Users\$USER\AppData\Roaming\Provider\Application' on Windows 7.
-		- 'C:\Documents and Settings\$USER\Application Data\Provider\Application' on Windows XP.
+		- 'C:\\Users\\$USER\\AppData\\Roaming\\Provider\\Application' on Windows 7.
+		- 'C:\\Documents and Settings\\$USER\\Application Data\\Provider\\Application' on Windows XP.
 		- '/Users/$USER/Library/Preferences/Provider/Application' on Mac Os X.
 		- '/home/$USER/.Provider/Application' on Linux.
 

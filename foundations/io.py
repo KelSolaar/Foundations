@@ -15,6 +15,11 @@
 """
 
 #**********************************************************************************************************************
+#***	Future imports.
+#**********************************************************************************************************************
+from __future__ import unicode_literals
+
+#**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
 import codecs
@@ -102,7 +107,7 @@ class File(object):
 		"""
 
 		if value is not None:
-			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("path", value)
+			assert type(value) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format("path", value)
 		self.__path = value
 
 	@path.deleter
@@ -197,7 +202,7 @@ class File(object):
 		:return: File content. ( String )
 		"""
 
-		return unicode().join(self.__content) if self.cache() else unicode()
+		return "".join(self.__content) if self.cache() else ""
 
 	def write(self, mode="w", encoding=Constants.encodingCodec, errors=Constants.encodingError):
 		"""

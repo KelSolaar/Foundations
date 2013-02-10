@@ -16,6 +16,11 @@
 """
 
 #**********************************************************************************************************************
+#***	Future imports.
+#**********************************************************************************************************************
+from __future__ import unicode_literals
+
+#**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
 import re
@@ -352,8 +357,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 		"""
 
 		if value is not None:
-			assert type(value) in (str, unicode), \
-			 "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format("name", value)
+			assert type(value) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format("name", value)
 		self.__name = value
 
 	@name.deleter

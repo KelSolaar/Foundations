@@ -15,6 +15,11 @@
 """
 
 #**********************************************************************************************************************
+#***	Future imports.
+#**********************************************************************************************************************
+from __future__ import unicode_literals
+
+#**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
 import os
@@ -92,7 +97,7 @@ class EnvironmentTestCase(unittest.TestCase):
 		self.assertIsInstance(environment.getValues(), dict)
 		self.assertIsInstance(environment.getValues(variable), dict)
 
-		self.assertIsInstance(environment.getValues().get(variable), str)
+		self.assertIsInstance(environment.getValues().get(variable), unicode)
 		self.assertEqual(environment.getValues()[variable], os.environ[variable])
 		environment.getValues("JOHNDOE_IS_FOR_SURE_A_NON_EXISTING_SYSTEM_ENVIRONMENT_VARIABLE")
 		self.assertFalse(environment.getValues()["JOHNDOE_IS_FOR_SURE_A_NON_EXISTING_SYSTEM_ENVIRONMENT_VARIABLE"])
@@ -121,7 +126,7 @@ class EnvironmentTestCase(unittest.TestCase):
 		elif platform.system() == "Linux":
 			environment = Environment("HOME")
 		self.assertTrue(environment.getValue())
-		self.assertIsInstance(environment.getValue(), str)
+		self.assertIsInstance(environment.getValue(), unicode)
 		environment.setValues(JOHN="DOE")
 		self.assertEqual(environment.getValue("JOHN"), "DOE")
 		self.assertFalse(environment.getValue("JOHNDOE_IS_FOR_SURE_A_NON_EXISTING_SYSTEM_ENVIRONMENT_VARIABLE"))
@@ -147,7 +152,7 @@ class GetSystemApplicationDataDirectoryTestCase(unittest.TestCase):
 		"""
 
 		path = foundations.environment.getSystemApplicationDataDirectory()
-		self.assertIsInstance(path, str)
+		self.assertIsInstance(path, unicode)
 		self.assertTrue(os.path.exists(path))
 
 class GetUserApplicationDataDirectoryTestCase(unittest.TestCase):
@@ -161,7 +166,7 @@ class GetUserApplicationDataDirectoryTestCase(unittest.TestCase):
 		"""
 
 		path = foundations.environment.getUserApplicationDataDirectory()
-		self.assertIsInstance(path, str)
+		self.assertIsInstance(path, unicode)
 
 if __name__ == "__main__":
 	import foundations.tests.utilities

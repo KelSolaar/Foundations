@@ -16,6 +16,11 @@
 """
 
 #**********************************************************************************************************************
+#***	Future imports.
+#**********************************************************************************************************************
+from __future__ import unicode_literals
+
+#**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
 import base64
@@ -194,7 +199,7 @@ class SectionsFileParser(foundations.io.File):
 			assert type(value) in (tuple, list), "'{0}' attribute: '{1}' type is not 'tuple' or 'list'!".format(
 			"splitters", value)
 			for element in value:
-				assert type(element) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
+				assert type(element) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
 				"splitters", element)
 				assert len(element) == 1, "'{0}' attribute: '{1}' has multiples characters!".format("splitter", element)
 				assert not re.search(r"\w", element), "'{0}' attribute: '{1}' is an alphanumeric character!".format(
@@ -231,7 +236,7 @@ class SectionsFileParser(foundations.io.File):
 		"""
 
 		if value is not None:
-			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
+			assert type(value) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
 			"namespaceSplitter", value)
 			assert len(value) == 1, "'{0}' attribute: '{1}' has multiples characters!".format("namespaceSplitter", value)
 			assert not re.search(r"\w", value), "'{0}' attribute: '{1}' is an alphanumeric character!".format(
@@ -271,7 +276,7 @@ class SectionsFileParser(foundations.io.File):
 			assert type(value) in (tuple, list), "'{0}' attribute: '{1}' type is not 'tuple' or 'list'!".format(
 			"commentLimiters", value)
 			for element in value:
-				assert type(element) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
+				assert type(element) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
 				"commentLimiters", element)
 		self.__commentLimiters = value
 
@@ -305,7 +310,7 @@ class SectionsFileParser(foundations.io.File):
 		"""
 
 		if value is not None:
-			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
+			assert type(value) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
 			"commentMarker", value)
 			assert not re.search(r"\w", value), "'{0}' attribute: '{1}' is an alphanumeric character!".format(
 			"commentMarker", value)
@@ -344,7 +349,7 @@ class SectionsFileParser(foundations.io.File):
 			assert type(value) in (tuple, list), "'{0}' attribute: '{1}' type is not 'tuple' or 'list'!".format(
 			"quotationMarkers", value)
 			for element in value:
-				assert type(element) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
+				assert type(element) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
 				"quotationMarkers", element)
 				assert len(element) == 1, "'{0}' attribute: '{1}' has multiples characters!".format("quotationMarkers",
 				 																					element)
@@ -382,7 +387,7 @@ class SectionsFileParser(foundations.io.File):
 		"""
 
 		if value is not None:
-			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
+			assert type(value) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
 			"rawSectionContentIdentifier", value)
 		self.__rawSectionContentIdentifier = value
 
@@ -416,7 +421,7 @@ class SectionsFileParser(foundations.io.File):
 		"""
 
 		if value is not None:
-			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
+			assert type(value) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
 			"defaultsSection", value)
 		self.__defaultsSection = value
 
@@ -453,7 +458,7 @@ class SectionsFileParser(foundations.io.File):
 			assert type(value) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not \
 			'OrderedDict' or 'dict'!".format("sections", value)
 			for key, element in value.iteritems():
-				assert type(key) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
+				assert type(key) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
 				"sections", key)
 				assert type(element) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not \
 				'OrderedDict' or 'dict'!".format("sections", key)
@@ -492,7 +497,7 @@ class SectionsFileParser(foundations.io.File):
 			assert type(value) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not \
 			'OrderedDict' or 'dict'!".format("comments", value)
 			for key, element in value.iteritems():
-				assert type(key) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
+				assert type(key) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
 				"comments", key)
 				assert type(element) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not \
 				'OrderedDict' or 'dict'!".format("comments", key)
@@ -806,7 +811,7 @@ class SectionsFileParser(foundations.io.File):
 				allAttributes[attribute] = value
 		return allAttributes
 
-	def getValue(self, attribute, section, default=unicode()):
+	def getValue(self, attribute, section, default=""):
 		"""
 		This method returns requested attribute value.
 
@@ -956,9 +961,9 @@ class PlistFileParser(foundations.io.File):
 
 		self.__unserializers = {"array": lambda x: [value.text for value in x],
 								"dict": lambda x: dict((x[i].text, x[i + 1].text) for i in range(0, len(x), 2)),
-								"key": lambda x: x.text or unicode(),
-								"string": lambda x: x.text or unicode(),
-								"data": lambda x: base64.decodestring(x.text or unicode()),
+								"key": lambda x: x.text or "",
+								"string": lambda x: x.text or "",
+								"data": lambda x: base64.decodestring(x.text or ""),
 								"date": lambda x: datetime.datetime(*map(int, re.findall("\d+", x.text))),
 								"true": lambda x: True,
 								"false": lambda x: False,
@@ -1225,7 +1230,7 @@ def getAttributeCompound(attribute, value=None, splitter="|", bindingIdentifier=
 
 	LOGGER.debug("> Attribute: '{0}', value: '{1}'.".format(attribute, value))
 
-	if type(value) in (str, unicode):
+	if type(value) is unicode:
 		if splitter in value:
 			valueTokens = value.split(splitter)
 			if len(valueTokens) >= 3 and re.search(r"{0}\w*".format(bindingIdentifier), valueTokens[0]):

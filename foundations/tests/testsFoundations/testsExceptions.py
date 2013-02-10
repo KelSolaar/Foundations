@@ -15,6 +15,11 @@
 """
 
 #**********************************************************************************************************************
+#***	Future imports.
+#**********************************************************************************************************************
+from __future__ import unicode_literals
+
+#**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
 import inspect
@@ -211,7 +216,7 @@ class FormatExceptionCase(unittest.TestCase):
 			output = foundations.exceptions.formatException(*sys.exc_info())
 			self.assertIsInstance(output, list)
 			for line in output:
-				self.assertIsInstance(line, str)
+				self.assertIsInstance(line, unicode)
 
 class FormatReportCase(unittest.TestCase):
 	"""
@@ -231,7 +236,7 @@ class FormatReportCase(unittest.TestCase):
 			self.assertIsInstance(frames, list)
 			self.assertIsInstance(trcback, list)
 			for line in itertools.chain(header, frames, trcback):
-				self.assertIsInstance(line, str)
+				self.assertIsInstance(line, unicode)
 
 class InstallExceptionHandlerCase(unittest.TestCase):
 	"""

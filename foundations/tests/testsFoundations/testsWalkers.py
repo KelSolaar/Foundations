@@ -14,6 +14,11 @@
 """
 
 #**********************************************************************************************************************
+#***	Future imports.
+#**********************************************************************************************************************
+from __future__ import unicode_literals
+
+#**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
 import os
@@ -142,8 +147,8 @@ class DictionariesWalkerTestCase(unittest.TestCase):
 			self.assertIn(value, yieldedValues)
 		for path, key, value in foundations.walkers.dictionariesWalker(nestedDictionary):
 			self.assertIsInstance(path, tuple)
-			self.assertIsInstance(key, str)
-			self.assertIsInstance(value, str)
+			self.assertIsInstance(key, unicode)
+			self.assertIsInstance(value, unicode)
 
 class NodesWalkerTestCase(unittest.TestCase):
 	"""

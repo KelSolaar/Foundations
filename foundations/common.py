@@ -18,6 +18,11 @@
 """
 
 #**********************************************************************************************************************
+#***	Future imports.
+#**********************************************************************************************************************
+from __future__ import unicode_literals
+
+#**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
 import itertools
@@ -154,7 +159,7 @@ def isBinaryFile(file):
 		chunkSize = 1024
 		while True:
 			chunk = fileHandle.read(chunkSize)
-			if "\0" in chunk:
+			if chr(0) in chunk:
 				return True
 			if len(chunk) < chunkSize:
 				break
@@ -215,6 +220,6 @@ def getHostAddress(host=None, defaultAddress=DEFAULT_HOST_IP):
 	"""
 
 	try:
-		return socket.gethostbyname(host or socket.gethostname())
+		return unicode(socket.gethostbyname(host or socket.gethostname()))
 	except Exception as error:
 		return defaultAddress

@@ -15,6 +15,11 @@
 """
 
 #**********************************************************************************************************************
+#***	Future imports.
+#**********************************************************************************************************************
+from __future__ import unicode_literals
+
+#**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
 import os
@@ -342,7 +347,7 @@ def getNormalizedPath(path):
 
 	Usage::
 
-		>>> getNormalizedPath("C:\Users\JohnDoe\Documents")
+		>>> getNormalizedPath("C:\\Users/johnDoe\\Documents")
 		'C:\\Users\\JohnDoe\\Documents'
 
 	:param path: Path to normalize. ( String )
@@ -371,7 +376,7 @@ def getRandomSequence(length=8):
 	:return: Random sequence. ( String )
 	"""
 
-	return str().join([random.choice(ASCII_CHARACTERS) for i in range(length)])
+	return "".join([random.choice(ASCII_CHARACTERS) for i in range(length)])
 
 def isEmail(data):
 	"""
