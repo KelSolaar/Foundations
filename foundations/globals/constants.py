@@ -62,8 +62,8 @@ class Constants():
 	loggingSeparators = "*" * 96
 	"""Logging separators: '*' * 96 ( String )"""
 
-	encodingFormat = "utf-8"
-	"""Default encoding format: '**utf-8**' ( String )"""
+	encodingCodec = "utf-8"
+	"""Default encoding codec: '**utf-8**' ( String )"""
 	encodingError = "ignore"
 	"""Default encoding error behavior: '**ignore**' ( String )"""
 
@@ -76,5 +76,5 @@ class Constants():
 		providerDirectory = ".HDRLabs"
 		"""Package provider directory: '**HDRLabs** on Windows / Darwin, **.HDRLabs** on Linux' ( String )"""
 
-	nullObject = str(None)
+	nullObject = unicode(None)
 	"""Default null object string: '**None**' ( String )"""

@@ -591,11 +591,6 @@ class SectionsFileParserTestCase(unittest.TestCase):
 			sectionsFileParser = SectionsFileParser(file)
 			sectionsFileParser.read() and sectionsFileParser.parse(False, rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			for attribute, value in RANDOM_ATTRIBUTES[type].iteritems():
-				self.assertIsInstance(sectionsFileParser.getValue(attribute, foundations.namespace.getNamespace(attribute,
-																									rootOnly=True)), str)
-				self.assertIsInstance(sectionsFileParser.getValue(attribute, foundations.namespace.getNamespace(attribute,
-																									rootOnly=True),
-																									encode=True), unicode)
 				self.assertEqual(sectionsFileParser.getValue(attribute, foundations.namespace.getNamespace(attribute,
 																								rootOnly=True)), value)
 			self.assertEqual(sectionsFileParser.getValue("attribute", "section", default=None), None)

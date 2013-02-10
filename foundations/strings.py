@@ -83,13 +83,12 @@ def encode(data):
 
 	encodedData = None
 	if isinstance(data, unicode):
-		encodedData = data
+		return data
 	else:
 		try:
-			encodedData = unicode(data, Constants.encodingFormat, Constants.encodingError)
+			return unicode(data, Constants.encodingCodec, Constants.encodingError)
 		except TypeError:
-			encodedData = unicode(data.__str__(), Constants.encodingFormat, Constants.encodingError)
-	return encodedData
+			return unicode(data.__str__(), Constants.encodingCodec, Constants.encodingError)
 
 def getNiceName(name):
 	"""

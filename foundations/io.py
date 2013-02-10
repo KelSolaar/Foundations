@@ -17,6 +17,7 @@
 #**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
+import codecs
 import os
 import shutil
 import urllib2
@@ -28,6 +29,7 @@ import foundations.common
 import foundations.verbose
 import foundations.exceptions
 import foundations.strings
+from foundations.globals.constants import Constants
 
 #**********************************************************************************************************************
 #***	Module attributes.
@@ -149,11 +151,13 @@ class File(object):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	def cache(self, mode="r"):
+	def cache(self, mode="r", encoding=Constants.encodingCodec, errors=Constants.encodingError):
 		"""
 		This method reads given file content and stores it in the content cache.
 
 		:param mode: File read mode. ( String )
+		:param encoding: File encoding codec. ( String )
+		:param errors: File encoding errors handling. ( String )
 		:return: Method success. ( Boolean )
 		"""
 
@@ -168,7 +172,7 @@ class File(object):
 				LOGGER.warning(
 				"!> {0} | Cannot read '{1}' online file: '{2}'.".format(self.__class__.__name__, self.__path, error))
 		elif foundations.common.pathExists(self.__path):
-			with open(self.__path, mode) as file:
+			with codecs.open(self.__path, mode, encoding, errors) as file:
 				LOGGER.debug("> Caching '{0}' file content.".format(self.__path))
 				self.__content = file.readlines()
 				return True
@@ -193,13 +197,15 @@ class File(object):
 		:return: File content. ( String )
 		"""
 
-		return str().join(self.__content) if self.cache() else str()
+		return unicode().join(self.__content) if self.cache() else unicode()
 
-	def write(self, mode="w"):
+	def write(self, mode="w", encoding=Constants.encodingCodec, errors=Constants.encodingError):
 		"""
 		This method writes content to defined file.
 
 		:param mode: File write mode. ( String )
+		:param encoding: File encoding codec. ( String )
+		:param errors: File encoding errors handling. ( String )
 		:return: Method success. ( Boolean )
 		"""
 
@@ -207,18 +213,20 @@ class File(object):
 			LOGGER.warning("!> {0} | Cannot write to '{1}' online file!".format(self.__class__.__name__, self.__path))
 			return False
 
-		with open(self.__path, mode) as file:
+		with codecs.open(self.__path, mode, encoding, errors) as file:
 			LOGGER.debug("> Writting '{0}' file content.".format(self.__path))
 			for line in self.__content:
 				file.write(line)
 			return True
 		return False
 
-	def append(self, mode="a"):
+	def append(self, mode="a", encoding=Constants.encodingCodec, errors=Constants.encodingError):
 		"""
 		This method appends content to defined file.
 
 		:param mode: File write mode. ( String )
+		:param encoding: File encoding codec. ( String )
+		:param errors: File encoding errors handling. ( String )
 		:return: Method success. ( Boolean )
 		"""
 
@@ -226,17 +234,18 @@ class File(object):
 			LOGGER.warning("!> {0} | Cannot append to '{1}' online file!".format(self.__class__.__name__, self.__path))
 			return False
 
-		with open(self.__path, mode) as file:
+		with codecs.open(self.__path, mode, encoding, errors) as file:
 			LOGGER.debug("> Appending to '{0}' file content.".format(self.__path))
 			for line in self.__content:
 				file.write(line)
 			return True
 		return False
 
-	def clear(self):
+	def clear(self, encoding=Constants.encodingCodec):
 		"""
 		This method clears the defined file content.
 
+		:param encoding: File encoding codec. ( String )
 		:return: Method success. ( Boolean )
 		"""
 
@@ -246,7 +255,7 @@ class File(object):
 
 		if self.uncache():
 			LOGGER.debug("> Clearing '{0}' file content.".format(self.__path))
-			return self.write()
+			return self.write(encoding=encoding)
 		else:
 			return False
 

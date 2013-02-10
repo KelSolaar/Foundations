@@ -806,7 +806,7 @@ class SectionsFileParser(foundations.io.File):
 				allAttributes[attribute] = value
 		return allAttributes
 
-	def getValue(self, attribute, section, encode=False, default=str()):
+	def getValue(self, attribute, section, default=unicode()):
 		"""
 		This method returns requested attribute value.
 
@@ -823,7 +823,6 @@ class SectionsFileParser(foundations.io.File):
 
 		:param attribute: Attribute name. ( String )
 		:param section: Section containing the searched attribute. ( String )
-		:param encode: Encode value to unicode. ( Boolean )
 		:param default: Default return value. ( Object )
 		:return: Attribute value. ( String )
 		"""
@@ -839,7 +838,6 @@ class SectionsFileParser(foundations.io.File):
 		elif foundations.namespace.setNamespace(section, attribute) in self.__sections[section]:
 			value = self.__sections[section][foundations.namespace.setNamespace(section, attribute)]
 		LOGGER.debug("> Attribute: '{0}', value: '{1}'.".format(attribute, value))
-		value = foundations.strings.encode(value) if encode else value
 		return value
 
 	def write(self,
