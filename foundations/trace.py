@@ -739,4 +739,3 @@ def evaluateTraceRequest(data, tracer=tracer):
 		flags = flags if flags is not None else re.IGNORECASE
 		traceModule(sys.modules[module], tracer, pattern, flags)
 	return True
-

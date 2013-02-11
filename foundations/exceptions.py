@@ -116,6 +116,8 @@ def extractStack(frame, context=10, exceptionsFrameSymbol=EXCEPTIONS_FRAME_SYMBO
 	:return: Stack. ( List )
 	"""
 
+	decode = lambda x: unicode(x, Constants.encodingCodec, Constants.encodingError)
+
 	stack = []
 
 	for frame, fileName, lineNumber, name, context, index in inspect.getouterframes(frame, context):
@@ -123,10 +125,10 @@ def extractStack(frame, context=10, exceptionsFrameSymbol=EXCEPTIONS_FRAME_SYMBO
 			continue
 
 		stack.append((frame,
-					fileName,
+					decode(fileName),
 					lineNumber,
-					name, context
-					if context is not None else [],
+					decode(name),
+					context	if context is not None else [],
 					index if index is not None else -1))
 
 	return list(reversed(stack))

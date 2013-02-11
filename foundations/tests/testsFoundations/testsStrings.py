@@ -68,18 +68,18 @@ __all__ = ["EncodeTestCase",
 #**********************************************************************************************************************
 class EncodeTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.encode` definition units tests methods.
+	This class defines :func:`foundations.strings.toUnicode` definition units tests methods.
 	"""
 
 	def testEncode(self):
 		"""
-		This method tests :func:`foundations.strings.encode` definition.
+		This method tests :func:`foundations.strings.toUnicode` definition.
 		"""
 
-		self.assertIsInstance(foundations.strings.encode("myData"), unicode)
-		self.assertIsInstance(foundations.strings.encode(0), unicode)
-		self.assertIsInstance(foundations.strings.encode(None), unicode)
-		self.assertIsInstance(foundations.strings.encode(True), unicode)
+		self.assertIsInstance(foundations.strings.toUnicode("myData"), unicode)
+		self.assertIsInstance(foundations.strings.toUnicode(0), unicode)
+		self.assertIsInstance(foundations.strings.toUnicode(None), unicode)
+		self.assertIsInstance(foundations.strings.toUnicode(True), unicode)
 
 class GetNiceNameTestCase(unittest.TestCase):
 	"""
