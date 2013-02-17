@@ -46,7 +46,7 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["EncodeTestCase",
+__all__ = ["ToStringTestCase",
 		"GetNiceNameTestCase",
 		"GetVersionRankTestCase",
 		"GetSplitextBasenameTestCase",
@@ -66,20 +66,21 @@ __all__ = ["EncodeTestCase",
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class EncodeTestCase(unittest.TestCase):
+class ToStringTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.toUnicode` definition units tests methods.
+	This class defines :func:`foundations.strings.toString` definition units tests methods.
 	"""
 
 	def testEncode(self):
 		"""
-		This method tests :func:`foundations.strings.toUnicode` definition.
+		This method tests :func:`foundations.strings.toString` definition.
 		"""
 
-		self.assertIsInstance(foundations.strings.toUnicode("myData"), unicode)
-		self.assertIsInstance(foundations.strings.toUnicode(0), unicode)
-		self.assertIsInstance(foundations.strings.toUnicode(None), unicode)
-		self.assertIsInstance(foundations.strings.toUnicode(True), unicode)
+		self.assertIsInstance(foundations.strings.toString(str("myData")), unicode)
+		self.assertIsInstance(foundations.strings.toString(u"myData"), unicode)
+		self.assertIsInstance(foundations.strings.toString(0), unicode)
+		self.assertIsInstance(foundations.strings.toString(None), unicode)
+		self.assertIsInstance(foundations.strings.toString(True), unicode)
 
 class GetNiceNameTestCase(unittest.TestCase):
 	"""

@@ -47,7 +47,7 @@ __status__ = "Production"
 
 __all__ = ["LOGGER",
 			"ASCII_CHARACTERS",
-			"toUnicode",
+			"toString",
 			"getNiceName",
 			"getVersionRank",
 			"getSplitextBasename",
@@ -71,25 +71,24 @@ ASCII_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-def toUnicode(data, encoding=Constants.encodingCodec, errors=Constants.encodingError):
+def toString(data, encoding=Constants.encodingCodec, errors=Constants.encodingError):
 	"""
-	This definition converts given data to unicode using package default settings.
+	This definition converts given data to unicode string using package default settings.
 
 	Usage::
 
-		>>> toUnicode("myData")
+		>>> toString("myData")
 		u'myData'
-		>>> toUnicode("汉字/漢字")
+		>>> toString("汉字/漢字")
 		u'\u6c49\u5b57/\u6f22\u5b57'
 
-	:param data: Data to convert. ( String )
+	:param data: Data to convert. ( Object )
 	:param encoding: File encoding codec. ( String )
 	:param errors: File encoding errors handling. ( String )
-	:return: Unicode data. ( Unicode )
+	:return: Unicode data. ( String )
 	"""
 
-	encodedData = None
-	if isinstance(data, unicode):
+	if isinstance(data, type("")):
 		return data
 	else:
 		try:
