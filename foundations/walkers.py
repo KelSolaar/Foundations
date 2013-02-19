@@ -27,7 +27,6 @@ import os
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
-import foundations.exceptions
 import foundations.strings
 import foundations.verbose
 
@@ -100,14 +99,14 @@ def depthWalker(directory, maximumDepth=1):
 		>>> for item in depthWalker("./foundations/tests/testsFoundations/resources/standard/level_0"):
 		...     print(item)
 		...
-		('./foundations/tests/testsFoundations/resources/standard/level_0', ['level_1'], ['standard.ibl'])
-		('./foundations/tests/testsFoundations/resources/standard/level_0/level_1', ['level_2'], ['loremIpsum.txt', 'standard.rc'])
+		(u'./foundations/tests/testsFoundations/resources/standard/level_0', [u'level_1'], [u'standard.ibl'])
+		(u'./foundations/tests/testsFoundations/resources/standard/level_0/level_1', [u'level_2'], [u'loremIpsum.txt', u'standard.rc'])
 		>>> for item in depthWalker("./foundations/tests/testsFoundations/resources/standard/level_0", 2):
 		...     print(item)
 		...
-		('./foundations/tests/testsFoundations/resources/standard/level_0', ['level_1'], ['standard.ibl'])
-		('./foundations/tests/testsFoundations/resources/standard/level_0/level_1', ['level_2'], ['loremIpsum.txt', 'standard.rc'])
-		('./foundations/tests/testsFoundations/resources/standard/level_0/level_1/level_2', [], ['standard.sIBLT'])
+		(u'./foundations/tests/testsFoundations/resources/standard/level_0', [u'level_1'], [u'standard.ibl'])
+		(u'./foundations/tests/testsFoundations/resources/standard/level_0/level_1', [u'level_2'], [u'loremIpsum.txt', u'standard.rc'])
+		(u'./foundations/tests/testsFoundations/resources/standard/level_0/level_1/level_2', [], [u'standard.sIBLT'])
 
 	:param directory: Directory to walk. ( String )
 	:param maximumDepth: Maximum depth. ( Integer )

@@ -64,13 +64,13 @@ class Attribute(foundations.dataStructures.Structure):
 
 			>>> attribute = Attribute(name="My Attribute", value="My Value")
 			>>> attribute.name
-			'My Attribute'
+			u'My Attribute'
 			>>> attribute["name"]
-			'My Attribute'
+			u'My Attribute'
 			>>> attribute.value
-			'My Value'
+			u'My Value'
 			>>> attribute["value"]
-			'My Value'
+			u'My Value'
 
 		:param name: Attribute name. ( String )
 		:param value: Attribute value. ( Object )
@@ -167,14 +167,14 @@ class Attribute(foundations.dataStructures.Structure):
 
 		return hash(id(self))
 
-	def __repr__(self):
-		"""
-		This method reimplements the :meth:`foundations.dataStructures.Structure.__repr__` method.
-		
-		:return: Object representation. ( String )
-		"""
+ 	def __repr__(self):
+ 		"""
+ 		This method reimplements the :meth:`foundations.dataStructures.Structure.__repr__` method.
 
-		return "<{0} object at {1}>".format(self.__class__.__name__, hex(id(self)))
+ 		:return: Object representation. ( String )
+ 		"""
+
+ 		return "<{0} object at {1}>".format(self.__class__.__name__, hex(id(self)))
 
 class AbstractNode(foundations.dataStructures.Structure):
 	"""
@@ -222,7 +222,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 			1
 			>>> nodeB = AbstractNode()
 			>>> nodeB.name
-			'Abstract2'
+			u'Abstract2'
 			>>> nodeB.identity
 			2
 
@@ -446,7 +446,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 
 			>>>	nodeA = AbstractNode("MyNodeA", attributeA=Attribute(value="A"), attributeB=Attribute(value="B"))
 			>>> nodeA.getAttributes()
-			[{'value': 'B'}, {'value': 'A'}]
+			[<Attribute object at 0x7fa471d3b5e0>, <Attribute object at 0x101e6c4a0>]
 
 		:return: Attributes. ( List )
 		"""
@@ -485,7 +485,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 			>>> nodeA.addAttribute("attributeA", Attribute())
 			True
 			>>> nodeA.listAttributes()
-			['attributeA']
+			[u'attributeA']
 	
 		:param name: Attribute name. ( String )
 		:param value: Attribute value. ( Attribute )
@@ -662,7 +662,7 @@ class AbstractCompositeNode(AbstractNode):
 			>>> nodeA.child(0)
 			<AbstractCompositeNode object at 0x10107b6f0>
 			>>> nodeA.child(0).name
-			'MyNodeB'
+			u'MyNodeB'
 
 		:param index: Child index. ( Integer )
 		:return: Child node. ( AbstractNode / AbstractCompositeNode / Object )
@@ -749,7 +749,7 @@ class AbstractCompositeNode(AbstractNode):
 			>>> nodeA.removeChild(1)
 			True
 			>>> [child.name for child in nodeA.children]
-			['MyNodeB']
+			[u'MyNodeB']
 
 		:param index: Node index. ( Integer )
 		:return: Removed child. ( AbstractNode / AbstractCompositeNode / Object )
@@ -775,7 +775,7 @@ class AbstractCompositeNode(AbstractNode):
 			>>> nodeA.insertChild(nodeD, 1)
 			True
 			>>> [child.name for child in nodeA.children]
-			['MyNodeB', 'MyNodeD', 'MyNodeC']
+			[u'MyNodeB', u'MyNodeD', u'MyNodeC']
 
 		:param child: Child node. ( AbstractNode / AbstractCompositeNode / Object )
 		:param index: Insertion index. ( Integer )

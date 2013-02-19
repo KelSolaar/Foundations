@@ -56,7 +56,7 @@ __all__ = ["REGISTERED_MODULES",
 			"isUntracable",
 			"setTraced",
 			"setUntraced",
-			"setUntracable"
+			"setUntracable",
 			"traceWalker",
 			"getObjectName",
 			"getTraceName",
@@ -66,9 +66,8 @@ __all__ = ["REGISTERED_MODULES",
 			"formatArgument",
 			"validateTracer",
 			"tracer",
-			"untracer"
+			"untracer",
 			"untracable",
-			"wrapped",
 			"traceFunction",
 			"untraceFunction",
 			"traceMethod",
@@ -326,7 +325,7 @@ def formatArgument(argumentValue):
 	Usage::
 	
 		>>> formatArgument(('x', (0, 1, 2)))
-		'x=(0, 1, 2)'
+		u'x=(0, 1, 2)'
 	
 	:param argumentValue: Argument / value pair. ( Tuple )
 	:return: Formatted .argument / value pair. ( String )

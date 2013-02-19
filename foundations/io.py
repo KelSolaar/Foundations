@@ -64,13 +64,12 @@ class File(object):
 		
 		Usage::
 		
-			>>> file = File("file.txt")
-			>>> file.content = ["Some file content ...\\n", "... ready to be saved!\\n"]
+			>>> file = File(u"file.txt")
+			>>> file.content = [u"Some file content ...\\n", u"... ready to be saved!\\n"]
 			>>> file.write()
 			True
 			>>> file.read()
-			>>> file.content
-			['Some file content ...\\n', '... ready to be saved!\\n']
+			u'Some file content ...\\n... ready to be saved!\\n'
 
 		:param path: File path. ( String )
 		:param content: Content. ( List )

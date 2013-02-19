@@ -69,9 +69,9 @@ class Environment(object):
 			True
 			>>> import os
 			>>> os.environ["JOHN"]
-			'DOE'
+			u'DOE'
 			>>> os.environ["DOE"]
-			'JOHN'
+			u'JOHN'
 		
 		:param \*args: Variables. ( \* )
 		:param \*\*kwargs: Variables : Values. ( \* )
@@ -147,9 +147,9 @@ class Environment(object):
 			
 			>>> environment = Environment("HOME")
 			>>> environment.getValues()
-			{'HOME': '/Users/JohnDoe'}
+			{'HOME': u'/Users/JohnDoe'}
 			>>> environment.getValues("USER")
-			{'HOME': '/Users/JohnDoe', 'USER': 'JohnDoe'}
+			{'HOME': u'/Users/JohnDoe', 'USER': u'JohnDoe'}
 
 		:param \*args: Additional variables names to retrieve values from. ( \* )
 		:return: Variables : Values. ( Dictionary )

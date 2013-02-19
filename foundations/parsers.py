@@ -135,9 +135,9 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser.parse(stripComments=False)
 			True
 			>>> sectionsFileParser.sections.keys()
-			['Section A', 'Section B']
+			[u'Section A', u'Section B']
 			>>> sectionsFileParser.comments 
-			OrderedDict([('Section A|#0', {'content': 'Comment.', 'id': 0})])
+			OrderedDict([(u'Section A|#0', {u'content': u'Comment.', u'id': 0})])
 
 		:param file: Current file path. ( String )
 		:param splitters: Splitter characters.  ( Tuple / List )
@@ -574,21 +574,23 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser.parse(stripComments=False)
 			True
 			>>> sectionsFileParser.sections.keys()
-			['_defaults']
+			[u'_defaults']
 			>>> sectionsFileParser.sections["_defaults"].values()
-			['Value A', 'Value B']
-			>>> sectionsFileParser.parse(stripQuotationMarkers=False)
+			[u'Value A', u'Value B']
+			>>> sectionsFileParser.parse(stripComments=False, stripQuotationMarkers=False)
 			True
 			>>> sectionsFileParser.sections["_defaults"].values()
-			['"Value A"', '"Value B"']
+			[u'"Value A"', u'"Value B"']
 			>>> sectionsFileParser.comments 
-			OrderedDict([('_defaults|#0', {'content': 'Comment.', 'id': 0})])
+			OrderedDict([(u'_defaults|#0', {u'content': u'Comment.', u'id': 0})])
 			>>> sectionsFileParser.parse()
 			True
 			>>> sectionsFileParser.sections["_defaults"]
-			OrderedDict([('_defaults|Attribute 1', 'Value A'), ('_defaults|Attribute 2', 'Value B')])
+			OrderedDict([(u'_defaults|Attribute 1', u'Value A'), (u'_defaults|Attribute 2', u'Value B')])
 			>>> sectionsFileParser.parse(namespaces=False)
-			OrderedDict([('Attribute 1', 'Value A'), ('Attribute 2', 'Value B')])
+			True
+			>>> sectionsFileParser.sections["_defaults"]
+			OrderedDict([(u'Attribute 1', u'Value A'), (u'Attribute 2', u'Value B')])
 
 		:param orderedDictionary: SectionsFileParser data is stored
 			in :class:`collections.OrderedDict` dictionaries. ( Boolean )
@@ -754,11 +756,11 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser.parse()
 			True
 			>>> sectionsFileParser.getAttributes("Section A")
-			OrderedDict([('Section A|Attribute 1', 'Value A')])
+			OrderedDict([(u'Section A|Attribute 1', u'Value A')])
 			>>> sectionsFileParser.getAttributes("Section A", orderedDictionary=False)
-			{'Section A|Attribute 1': 'Value A'}
+			{u'Section A|Attribute 1': u'Value A'}
 			>>> sectionsFileParser.getAttributes("Section A", stripNamespaces=True)
-			OrderedDict([('Attribute 1', 'Value A')])
+			OrderedDict([(u'Attribute 1', u'Value A')])
 
 		:param section: Section containing the requested attributes. ( String )
 		:param orderedDictionary: Use an :class:`collections.OrderedDict` dictionary to store the attributes. ( String )
@@ -793,9 +795,9 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser.parse()
 			True
 			>>> sectionsFileParser.getAllAttributes()
-			OrderedDict([('Section A|Attribute 1', 'Value A'), ('Section B|Attribute 2', 'Value B')])
+			OrderedDict([(u'Section A|Attribute 1', u'Value A'), (u'Section B|Attribute 2', u'Value B')])
 			>>> sectionsFileParser.getAllAttributes(orderedDictionary=False)
-			{'Section B|Attribute 2': 'Value B', 'Section A|Attribute 1': 'Value A'}
+			{u'Section B|Attribute 2': u'Value B', u'Section A|Attribute 1': u'Value A'}
 
 		:param orderedDictionary: Use an :class:`collections.OrderedDict` dictionary to store the attributes. ( String )
 		:return: All sections / files attributes. ( OrderedDict / Dictionary )
@@ -824,7 +826,7 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser.parse()
 			True
 			>>> sectionsFileParser.getValue("Attribute 1", "Section A")
-			Value A
+			u'Value A'
 
 		:param attribute: Attribute name. ( String )
 		:param section: Section containing the searched attribute. ( String )
@@ -864,9 +866,7 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser.write()
 			True
 			>>> sectionsFileParser.read()
-			True
-			>>> print sectionsFileParser.content[0:5]
-			['[Section A]\\n', 'Attribute 1 = Value A\\n', '\\n', '[Section B]\\n', 'Attribute 2 = Value B\\n', '\\n']
+			u'[Section A]\nAttribute 1 = Value A\n\n[Section B]\nAttribute 2 = Value B\n'
 
 		:param namespaces: Attributes are namespaced. ( Boolean )
 		:param splitter: Splitter character. ( String )
@@ -944,9 +944,9 @@ class PlistFileParser(foundations.io.File):
 			>>> plistFileParser.parse()
 			True
 			>>> plistFileParser.elements.keys()
-			['Dictionary A', 'Number A', 'Array A', 'String A', 'Date A', 'Boolean A', 'Data A']
+			[u'Dictionary A', u'Number A', u'Array A', u'String A', u'Date A', u'Boolean A', u'Data A']
 			>>> plistFileParser.elements["Dictionary A"]
-			{'String C': 'My Value C', 'String B': 'My Value B'}
+			{u'String C': u'My Value C', u'String B': u'My Value B'}
 
 		:param file: Current file path. ( String )
 		"""
@@ -961,8 +961,8 @@ class PlistFileParser(foundations.io.File):
 
 		self.__unserializers = {"array": lambda x: [value.text for value in x],
 								"dict": lambda x: dict((x[i].text, x[i + 1].text) for i in range(0, len(x), 2)),
-								"key": lambda x: x.text or "",
-								"string": lambda x: x.text or "",
+								"key": lambda x: foundations.strings.toString(x.text) or "",
+								"string": lambda x: foundations.strings.toString(x.text) or "",
 								"data": lambda x: base64.decodestring(x.text or ""),
 								"date": lambda x: datetime.datetime(*map(int, re.findall("\d+", x.text))),
 								"true": lambda x: True,
@@ -1089,7 +1089,7 @@ class PlistFileParser(foundations.io.File):
 			>>> plistFileParser.parse()
 			True
 			>>> plistFileParser.elements.keys()
-			['Dictionary A', 'Number A', 'Array A', 'String A', 'Date A', 'Boolean A', 'Data A']
+			[u'Dictionary A', u'Number A', u'Array A', u'String A', u'Date A', u'Boolean A', u'Data A']
 
 		:param raiseParsingErrors: Raise parsing errors. ( Boolean )
 		:return: Method success. ( Boolean )
@@ -1160,9 +1160,9 @@ class PlistFileParser(foundations.io.File):
 			>>> plistFileParser.parse()
 			True
 			>>> plistFileParser.filterValues(r"String A")
-			['My Value A']
+			[u'My Value A']
 			>>> plistFileParser.filterValues(r"String.*")
-			['My Value C', 'My Value B', 'My Value A']
+			[u'My Value C', u'My Value B', u'My Value A']
 
 		:param pattern: Regex filtering pattern. ( String )
 		:param flags: Regex flags. ( Integer )
@@ -1190,7 +1190,7 @@ class PlistFileParser(foundations.io.File):
 			>>> plistFileParser.parse()
 			True
 			>>> plistFileParser.getValue("String A")
-			'My Value A'
+			u'My Value A'
 
 		:param element: Element to get the value. ( String )
 		:return: Element value. ( Object )
@@ -1211,15 +1211,15 @@ def getAttributeCompound(attribute, value=None, splitter="|", bindingIdentifier=
 		>>> data = "@Link | Value | Boolean | Link Parameter"
 		>>> attributeCompound = foundations.parsers.getAttributeCompound("Attribute Compound", data)
 		>>> attributeCompound.name
-		Attribute Compound
+		u'Attribute Compound'
 		>>> attributeCompound.value
-		Value
+		u'Value'
 		>>> attributeCompound.link
-		@Link
+		u'@Link'
 		>>> attributeCompound.type
-		Boolean
+		u'Boolean'
 		>>> attributeCompound.alias
-		Link Parameter
+		u'Link Parameter'
 		
 	:param attribute: Attribute. ( String )
 	:param value: Attribute value. ( Object )

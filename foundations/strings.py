@@ -56,6 +56,7 @@ __all__ = ["LOGGER",
 			"getWords",
 			"filterWords",
 			"replace",
+			"removeStrip",
 			"toForwardSlashes",
 			"toBackwardSlashes",
 			"toPosixPath",
@@ -103,9 +104,9 @@ def getNiceName(name):
 	Usage::
 
 		>>> getNiceName("getMeANiceName")
-		'Get Me A Nice Name'
+		u'Get Me A Nice Name'
 		>>> getNiceName("__getMeANiceName")
-		'__Get Me A Nice Name'
+		u'__Get Me A Nice Name'
 
 	:param name: Current string to be nicified. ( String )
 	:return: Nicified string. ( String )
@@ -143,7 +144,7 @@ def getSplitextBasename(path):
 	Usage::
 
 		>>> getSplitextBasename("/Users/JohnDoe/Documents/Test.txt")
-		'Test'
+		u'Test'
 
 	:param path: Path to extract the basename without extension. ( String )
 	:return: Splitext basename. ( String )
@@ -160,9 +161,9 @@ def getCommonAncestor(*args):
 	Usage::
 
 		>>> getCommonAncestor(("1", "2", "3"), ("1", "2", "0"), ("1", "2", "3", "4"))
-		('1', '2')
+		(u'1', u'2')
 		>>> getCommonAncestor("azerty", "azetty", "azello")
-		'aze'
+		u'aze'
 
 	:param \*args: Iterables to retrieve common ancestor from. ( Iterables )
 	:return: Common ancestor. ( Iterable )
@@ -184,7 +185,7 @@ def getCommonPathsAncestor(*args):
 	Usage::
 
 		>>> getCommonPathsAncestor("/Users/JohnDoe/Documents", "/Users/JohnDoe/Documents/Test.txt")
-		'/Users/JohnDoe/Documents'
+		u'/Users/JohnDoe/Documents'
 
 	:param \*args: Paths to retrieve common ancestor from. ( Strings )
 	:return: Common path ancestor. ( String )
@@ -201,7 +202,7 @@ def getWords(data):
 	Usage::
 
 		>>> getWords("Users are: John Doe, Jane Doe, Z6PO.")
-		['Users', 'are', 'John', 'Doe', 'Jane', 'Doe', 'Z6PO']
+		[u'Users', u'are', u'John', u'Doe', u'Jane', u'Doe', u'Z6PO']
 
 	:param data: Data to extract words from. ( String )
 	:return: Words. ( List )
@@ -218,11 +219,11 @@ def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 	Usage::
 
 		>>> filterWords(["Users", "are", "John", "Doe", "Jane", "Doe", "Z6PO"], filtersIn=("John", "Doe"))
-		['John', 'Doe', 'Doe']
+		[u'John', u'Doe', u'Doe']
 		>>> filterWords(["Users", "are", "John", "Doe", "Jane", "Doe", "Z6PO"], filtersIn=("\w*r",))
-		['Users', 'are']
+		[u'Users', u'are']
 		>>> filterWords(["Users", "are", "John", "Doe", "Jane", "Doe", "Z6PO"], filtersOut=("\w*o",))
-		['Users', 'are', 'Jane', 'Z6PO']
+		[u'Users', u'are', u'Jane', u'Z6PO']
 
 	:param filtersIn: Regex filters in list. ( Tuple / List )
 	:param filtersIn: Regex filters out list. ( Tuple / List )
@@ -264,7 +265,7 @@ def replace(string, data):
 
 		>>> replace("Users are: John Doe, Jane Doe, Z6PO.", {"John" : "Luke", "Jane" : "Anakin", "Doe" : "Skywalker",
 		 "Z6PO" : "R2D2"})
-		'Users are: Luke Skywalker, Anakin Skywalker, R2D2.'
+		u'Users are: Luke Skywalker, Anakin Skywalker, R2D2.'
 
 	:param string: String to manipulate. ( String )
 	:param data: Replacement occurences. ( Dictionary )
@@ -281,8 +282,8 @@ def removeStrip(string, pattern):
 
 	Usage::
 
-		>>> replaceStrip("John Doe", "John")
-		'Doe'
+		>>> removeStrip("John Doe", "John")
+		u'Doe'
 
 	:param string: String to manipulate. ( String )
 	:param pattern: Replacement pattern. ( String )
@@ -298,7 +299,7 @@ def toForwardSlashes(data):
 	Usage::
 
 		>>> toForwardSlashes("To\Forward\Slashes")
-		'To/Forward/Slashes'
+		u'To/Forward/Slashes'
 
 	:param data: Data to convert. ( String )
 	:return: Converted path. ( String )
@@ -315,7 +316,7 @@ def toBackwardSlashes(data):
 	Usage::
 
 		>>> toBackwardSlashes("/Users/JohnDoe/Documents")
-		'\\Users\\JohnDoe\\Documents'
+		u'\\Users\\JohnDoe\\Documents'
 
 	:param data: Data to convert. ( String )
 	:return: Converted path. ( String )
@@ -332,7 +333,7 @@ def toPosixPath(path):
 	Usage::
 
 		>>> toPosixPath("c:\\Users\\JohnDoe\\Documents")
-		'/Users/JohnDoe/Documents'
+		u'/Users/JohnDoe/Documents'
 
 	:param path: Windows path. ( String )
 	:return: Path converted to Posix path. ( String )
@@ -349,7 +350,7 @@ def getNormalizedPath(path):
 	Usage::
 
 		>>> getNormalizedPath("C:\\Users/johnDoe\\Documents")
-		'C:\\Users\\JohnDoe\\Documents'
+		u'C:\\Users\\JohnDoe\\Documents'
 
 	:param path: Path to normalize. ( String )
 	:return: Normalized path. ( String )
@@ -371,7 +372,7 @@ def getRandomSequence(length=8):
 	Usage::
 
 		>>> getRandomSequence()
-		arGAqzf3
+		u'N_mYO7g5'
 
 	:param length: Length of the sequence. ( Integer )
 	:return: Random sequence. ( String )
