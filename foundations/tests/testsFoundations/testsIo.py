@@ -136,7 +136,7 @@ class FileTestCase(unittest.TestCase):
 		"""
 
 		fileDescriptor, path = tempfile.mkstemp()
-		ioFile = File(path)
+		ioFile = File(unicode(path))
 		self.assertIsInstance(ioFile.content, list)
 		ioFile.content = FILE_CONTENT
 		writeSuccess = ioFile.write()
@@ -151,7 +151,7 @@ class FileTestCase(unittest.TestCase):
 		"""
 
 		fileDescriptor, path = tempfile.mkstemp()
-		ioFile = File(path)
+		ioFile = File(unicode(path))
 		self.assertIsInstance(ioFile.content, list)
 		ioFile.content = FILE_CONTENT
 		ioFile.write()
@@ -167,7 +167,7 @@ class FileTestCase(unittest.TestCase):
 		"""
 
 		fileDescriptor, path = tempfile.mkstemp()
-		ioFile = File(path)
+		ioFile = File(unicode(path))
 		self.assertIsInstance(ioFile.content, list)
 		ioFile.content = FILE_CONTENT
 		ioFile.write()
