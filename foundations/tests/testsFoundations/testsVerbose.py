@@ -15,6 +15,11 @@
 """
 
 #**********************************************************************************************************************
+#***	Future imports.
+#**********************************************************************************************************************
+from __future__ import unicode_literals
+
+#**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
 import logging
@@ -119,7 +124,7 @@ class IndentMessageTestCase(unittest.TestCase):
 		This method tests :func:`foundations.verbose.indentMessage` definition.
 		"""
 
-		self.assertIsInstance(foundations.verbose.indentMessage("message"), str)
+		self.assertIsInstance(foundations.verbose.indentMessage("message"), unicode)
 
 class TracerTestCase(unittest.TestCase):
 	"""

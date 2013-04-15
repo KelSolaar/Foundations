@@ -15,6 +15,11 @@
 """
 
 #**********************************************************************************************************************
+#***	Future imports.
+#**********************************************************************************************************************
+from __future__ import unicode_literals
+
+#**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
 import pickle
@@ -447,7 +452,7 @@ class AbstractCompositeNodeTestCase(unittest.TestCase):
 		nodeA = AbstractCompositeNode("MyNodeA")
 		nodeB = AbstractCompositeNode("MyNodeB", nodeA)
 		nodeC = AbstractCompositeNode("MyNodeC", nodeA)
-		self.assertIsInstance(nodeA.listNode(), str)
+		self.assertIsInstance(nodeA.listNode(), unicode)
 
 	def testAbstractCompositeNodePickle(self):
 		"""

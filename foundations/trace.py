@@ -16,6 +16,11 @@
 """
 
 #**********************************************************************************************************************
+#***	Future imports.
+#**********************************************************************************************************************
+from __future__ import unicode_literals
+
+#**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
 import ast
@@ -51,7 +56,7 @@ __all__ = ["REGISTERED_MODULES",
 			"isUntracable",
 			"setTraced",
 			"setUntraced",
-			"setUntracable"
+			"setUntracable",
 			"traceWalker",
 			"getObjectName",
 			"getTraceName",
@@ -61,9 +66,8 @@ __all__ = ["REGISTERED_MODULES",
 			"formatArgument",
 			"validateTracer",
 			"tracer",
-			"untracer"
+			"untracer",
 			"untracable",
-			"wrapped",
 			"traceFunction",
 			"untraceFunction",
 			"traceMethod",
@@ -87,7 +91,7 @@ TRACER_HOOK = "_trace__hook__"
 
 UNTRACABLE_NAMES = ("__str__", "__repr__")
 
-NULL_OBJECT_NAME = str(None)
+NULL_OBJECT_NAME = "None"
 
 TRACE_NAMES_CACHE = {}
 TRACE_WALKER_CACHE = {}
@@ -321,7 +325,7 @@ def formatArgument(argumentValue):
 	Usage::
 	
 		>>> formatArgument(('x', (0, 1, 2)))
-		'x=(0, 1, 2)'
+		u'x=(0, 1, 2)'
 	
 	:param argumentValue: Argument / value pair. ( Tuple )
 	:return: Formatted .argument / value pair. ( String )
@@ -734,4 +738,3 @@ def evaluateTraceRequest(data, tracer=tracer):
 		flags = flags if flags is not None else re.IGNORECASE
 		traceModule(sys.modules[module], tracer, pattern, flags)
 	return True
-

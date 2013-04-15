@@ -15,10 +15,14 @@
 """
 
 #**********************************************************************************************************************
+#***	Future imports.
+#**********************************************************************************************************************
+from __future__ import unicode_literals
+
+#**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
 import foundations.common
-import foundations.exceptions
 import foundations.verbose
 from foundations.globals.constants import Constants
 
@@ -54,7 +58,7 @@ def setNamespace(namespace, attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 	Usage::
 		
 		>>> setNamespace("parent", "child")
-		'parent|child'
+		u'parent|child'
 		
 	:param namespace: Namespace. ( String )
 	:param attribute: Attribute. ( String )
@@ -73,9 +77,9 @@ def getNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False
 	Usage::
 		
 		>>> getNamespace("grandParent|parent|child")
-		'grandParent|parent'
+		u'grandParent|parent'
 		>>> getNamespace("grandParent|parent|child", rootOnly=True)
-		'grandParent'
+		u'grandParent'
 
 	:param attribute: Attribute. ( String )
 	:param namespaceSplitter: Namespace splitter character. ( String )
@@ -99,9 +103,9 @@ def removeNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=Fa
 	Usage::
 		
 		>>> removeNamespace("grandParent|parent|child")
-		'child'
+		u'child'
 		>>> removeNamespace("grandParent|parent|child", rootOnly=True)
-		'parent|child'
+		u'parent|child'
 
 	:param attribute: Attribute. ( String )
 	:param namespaceSplitter: Namespace splitter character. ( String )
@@ -121,10 +125,8 @@ def getRoot(attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 
 	Usage::
 		
-		>>> getNamespace("grandParent|parent|child")
-		'grandParent|parent'
-		>>> getNamespace("grandParent|parent|child", rootOnly=True)
-		'grandParent'
+		>>> getRoot("grandParent|parent|child")
+		u'grandParent'
 
 	:param attribute: Attribute. ( String )
 	:param namespaceSplitter: Namespace splitter character. ( String )
@@ -139,10 +141,8 @@ def getLeaf(attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 
 	Usage::
 		
-		>>> getNamespace("grandParent|parent|child")
-		'grandParent|parent'
-		>>> getNamespace("grandParent|parent|child", rootOnly=True)
-		'grandParent'
+		>>> getLeaf("grandParent|parent|child")
+		u'child'
 
 	:param attribute: Attribute. ( String )
 	:param namespaceSplitter: Namespace splitter character. ( String )

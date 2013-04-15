@@ -21,7 +21,7 @@ def getLongDescription():
 				continue
 
 			description.append(line)
-	return str().join(description)
+	return "".join(description)
 
 setup(name=foundations.globals.constants.Constants.applicationName,
 	version=foundations.globals.constants.Constants.releaseVersion,
