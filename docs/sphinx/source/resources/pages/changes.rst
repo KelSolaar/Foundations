@@ -1,6 +1,13 @@
 Changes
 =======
 
+2.0.8 - Stable
+--------------
+
+**Foundations** 2.0.8 - Stable - Milestone: https://github.com/KelSolaar/Foundations/issues?milestone=6&state=closed
+
+-  Implement unicode support.
+
 2.0.7 - Stable
 --------------
 

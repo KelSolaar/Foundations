@@ -866,7 +866,7 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser.write()
 			True
 			>>> sectionsFileParser.read()
-			u'[Section A]\nAttribute 1 = Value A\n\n[Section B]\nAttribute 2 = Value B\n'
+			u'[Section A]\\nAttribute 1 = Value A\\n\\n[Section B]\\nAttribute 2 = Value B\\n'
 
 		:param namespaces: Attributes are namespaced. ( Boolean )
 		:param splitter: Splitter character. ( String )
