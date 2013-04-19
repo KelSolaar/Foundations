@@ -636,7 +636,7 @@ class AbstractCompositeNode(AbstractNode):
 	#******************************************************************************************************************
 	def __eq__(self, object):
 		"""
-		This method reimplements the :meth:`AbstractNode.__repr__` method.
+		This method reimplements the :meth:`AbstractNode.__eq__` method.
 		
 		:param object: Comparing object. ( Object )
 		:return: Equality. ( Boolean )
