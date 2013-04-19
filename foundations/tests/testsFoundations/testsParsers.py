@@ -298,8 +298,8 @@ STANDARD_FILES_SECTIONS_AND_ATTRIBUTES = {"component" : OrderedDict([("Component
 																		"Remote Connection|DefaultAddress",
 																		"Remote Connection|DefaultPort"]}),
 														("Script",
-														{"stripped" : ["_rawSectionContent"],
-														"namespaced" : ["_rawSectionContent"]})])}
+														{"stripped" : ["__raw__"],
+														"namespaced" : ["__raw__"]})])}
 
 DEFAULTS_FILE_SECTIONS_AND_ATTRIBUTES = {"_defaults" : {"_defaults|Default A" : "Attribute 'Default A' value",
 														"_defaults|Default B" : "Attribute 'Default B' value"},
@@ -477,7 +477,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 		sectionsFileParser = SectionsFileParser(TEMPLATE_FILE)
 		sectionsFileParser.read() and sectionsFileParser.parse(rawSections=("Script",))
-		self.assertListEqual(sectionsFileParser.sections["Script"]["_rawSectionContent"][0:10], SCRIPT_RAW_SECTION)
+		self.assertListEqual(sectionsFileParser.sections["Script"]["__raw__"][0:10], SCRIPT_RAW_SECTION)
 
 	def testComments(self):
 		"""
