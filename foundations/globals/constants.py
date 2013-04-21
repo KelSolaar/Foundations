@@ -26,6 +26,11 @@ import os
 import platform
 
 #**********************************************************************************************************************
+#***	Internal imports.
+#**********************************************************************************************************************
+import foundations
+
+#**********************************************************************************************************************
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
@@ -67,7 +72,7 @@ class Constants():
 	loggingSeparators = "*" * 96
 	"""Logging separators: '*' * 96 ( String )"""
 
-	defaultCodec = "utf-8"
+	defaultCodec = foundations.DEFAULT_CODEC
 	"""Default codec: '**utf-8**' ( String )"""
 	codecError = "ignore"
 	"""Default codec error behavior: '**ignore**' ( String )"""
