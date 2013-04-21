@@ -53,6 +53,7 @@ __all__ = ["LOGGER",
 		"unpackDefault",
 		"orderedUniqify",
 		"pathExists",
+		"filterPath",
 		"getFirstItem",
 		"getLastItem",
 		"isBinaryFile",
@@ -116,6 +117,16 @@ def pathExists(path):
 		return False
 	else:
 		return os.path.exists(path)
+
+def filterPath(path):
+	"""
+	This definition filters given path.
+
+	:param path: Path. ( String )
+	:return: Filtered path. ( String )
+	"""
+
+	return path if pathExists(path) else ""
 
 def getFirstItem(iterable, default=None):
 	"""

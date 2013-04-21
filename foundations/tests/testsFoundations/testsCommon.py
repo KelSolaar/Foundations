@@ -133,6 +133,19 @@ class PathExistsTestCase(unittest.TestCase):
 		self.assertTrue(foundations.common.pathExists(__file__))
 		self.assertFalse(foundations.common.pathExists(""))
 
+class FilterPathTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.common.filterPath` definition units tests methods.
+	"""
+
+	def testFilterPath(self):
+		"""
+		This method tests :func:`foundations.common.filterPath` definition.
+		"""
+
+		self.assertEqual(foundations.common.filterPath(None), "")
+		self.assertEqual(foundations.common.filterPath(__file__), __file__)
+
 class GetFirstItemTestCase(unittest.TestCase):
 	"""
 	This class defines :func:`foundations.common.getFirstItem` definition units tests methods.
@@ -224,7 +237,7 @@ class GetHostAddressTestCase(unittest.TestCase):
 		"""
 
 		self.assertIsInstance(foundations.common.getHostAddress(), unicode)
-		self.assertEqual(foundations.common.getHostAddress("Nemo, John Doe!"), foundations.common.DEFAULT_HOST_IP)
+		self.assertEqual(foundations.common.getHostAddress(-1), foundations.common.DEFAULT_HOST_IP)
 
 if __name__ == "__main__":
 	import foundations.tests.utilities
