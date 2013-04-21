@@ -14,6 +14,11 @@
 """
 
 #**********************************************************************************************************************
+#***	Future imports.
+#**********************************************************************************************************************
+from __future__ import unicode_literals
+
+#**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
 import os
@@ -45,6 +50,9 @@ __all__ = ["RESOURCES_DIRECTORY",
 			"ROOT_DIRECTORY",
 			"FILES_TREE_HIERARCHY",
 			"TREE_HIERARCHY",
+			"CHINESE_ROOT_DIRECTORY",
+			"CHINESE_FILES_TREE_HIERARCHY",
+			"CHINESE_TREE_HIERARCHY",
 			"FilesWalkerTestCase",
 			"DepthWalkerTestCase",
 			"DictionariesWalkerTestCase",
@@ -60,6 +68,15 @@ TREE_HIERARCHY = ((["level_0"], ["loremIpsum.txt", "standard.ibl", "standard.rc"
 					(["level_1"], ["standard.ibl"]),
 					(["level_2"], ["loremIpsum.txt", "standard.rc"]),
 					([], ["standard.sIBLT"]))
+CHINESE_ROOT_DIRECTORY = "标准"
+CHINESE_FILES_TREE_HIERARCHY = ("内容.txt",
+							"0级/无效.txt",
+							"0级/1级/空虚.txt",
+							"0级/1级/2级/内容.txt", "0级/1级/2级/物.txt")
+CHINESE_TREE_HIERARCHY = ((["0级"], ["内容.txt"]),
+					(["1级"], ["无效.txt"]),
+					(["2级"], ["空虚.txt"]),
+					([], ["内容.txt", "物.txt"]))
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
@@ -74,40 +91,55 @@ class FilesWalkerTestCase(unittest.TestCase):
 		This method tests :func:`foundations.walkers.filesWalker` definition.
 		"""
 
-
 		rootDirectory = os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY)
 		for path in foundations.walkers.filesWalker(rootDirectory):
 			self.assertTrue(os.path.exists(path))
 
 		referencePaths = [foundations.strings.replace(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY, path),
-											{"/":"|", "\\":"|"}) for path in FILES_TREE_HIERARCHY]
+											{"/" : "|", "\\" : "|"}) for path in FILES_TREE_HIERARCHY]
 		walkerFiles = \
-		[foundations.strings.replace(path, {"/":"|", "\\":"|"}) for path in foundations.walkers.filesWalker(rootDirectory)]
+		[foundations.strings.replace(path, {"/" : "|", "\\" : "|"}) for path in foundations.walkers.filesWalker(rootDirectory)]
 		for item in referencePaths:
 			self.assertIn(item, walkerFiles)
 
 		walkerFiles = \
-		[foundations.strings.replace(path, {"/":"|", "\\":"|"}) \
+		[foundations.strings.replace(path, {"/" : "|", "\\" : "|"}) \
 		for path in foundations.walkers.filesWalker(rootDirectory, filtersOut=("\.rc$",))]
 		for item in walkerFiles:
 			self.assertTrue(not re.search(r"\.rc$", item))
 
-
 		walkerFiles = \
-		[foundations.strings.replace(path, {"/":"|", "\\":"|"}) \
+		[foundations.strings.replace(path, {"/" : "|", "\\" : "|"}) \
 		for path in foundations.walkers.filesWalker(rootDirectory, filtersOut=("\.ibl", "\.rc$", "\.sIBLT$", "\.txt$"))]
 		self.assertTrue(not walkerFiles)
 
-		return
-		referencePaths = [foundations.strings.replace(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY, path),
-										{"/":"|", "\\":"|"}) for path in FILES_TREE_HIERARCHY if re.search(r"\.rc$", path)]
+	def testFilesWalkerInternational(self):
+		"""
+		This method tests :func:`foundations.walkers.filesWalker` definition in international specific context.
+		"""
+
+		rootDirectory = os.path.join(RESOURCES_DIRECTORY, CHINESE_ROOT_DIRECTORY)
+		for path in foundations.walkers.filesWalker(rootDirectory):
+			self.assertTrue(os.path.exists(path))
+
+
+		referencePaths = [foundations.strings.replace(os.path.join(RESOURCES_DIRECTORY, CHINESE_ROOT_DIRECTORY, path),
+											{"/" : "|", "\\" : "|"}) for path in CHINESE_FILES_TREE_HIERARCHY]
 		walkerFiles = \
-		[foundations.strings.replace(path, {"/":"|", "\\":"|"}) \
-		for path in foundations.walkers.filesWalker(rootDirectory, filtersIn=("\.rc$",))]
+		[foundations.strings.replace(path, {"/" : "|", "\\" : "|"}) for path in foundations.walkers.filesWalker(rootDirectory)]
 		for item in referencePaths:
 			self.assertIn(item, walkerFiles)
+
+		walkerFiles = \
+		[foundations.strings.replace(path, {"/" : "|", "\\" : "|"}) \
+		for path in foundations.walkers.filesWalker(rootDirectory, filtersOut=("\.rc$",))]
 		for item in walkerFiles:
-			self.assertTrue(re.search(filter, item))
+			self.assertTrue(not re.search(r"\.rc$", item))
+
+		walkerFiles = \
+		[foundations.strings.replace(path, {"/" : "|", "\\" : "|"}) \
+		for path in foundations.walkers.filesWalker(rootDirectory, filtersOut=("\.ibl", "\.rc$", "\.sIBLT$", "\.txt$"))]
+		self.assertTrue(not walkerFiles)
 
 class DepthWalkerTestCase(unittest.TestCase):
 	"""
@@ -123,6 +155,16 @@ class DepthWalkerTestCase(unittest.TestCase):
 		enumerate(foundations.walkers.depthWalker(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY), maximumDepth=2)):
 			parentDirectory, directories, files = value
 			self.assertEqual((directories, sorted(files)), (TREE_HIERARCHY[i][0], sorted(TREE_HIERARCHY[i][1])))
+
+	def testDepthWalkerInternational(self):
+		"""
+		This method tests :func:`foundations.walkers.depthWalker` definition in international specific context.
+		"""
+
+		for i, value in \
+		enumerate(foundations.walkers.depthWalker(os.path.join(RESOURCES_DIRECTORY, CHINESE_ROOT_DIRECTORY), maximumDepth=2)):
+			parentDirectory, directories, files = value
+			self.assertEqual((directories, sorted(files)), (CHINESE_TREE_HIERARCHY[i][0], sorted(CHINESE_TREE_HIERARCHY[i][1])))
 
 class DictionariesWalkerTestCase(unittest.TestCase):
 	"""
@@ -142,8 +184,8 @@ class DictionariesWalkerTestCase(unittest.TestCase):
 			self.assertIn(value, yieldedValues)
 		for path, key, value in foundations.walkers.dictionariesWalker(nestedDictionary):
 			self.assertIsInstance(path, tuple)
-			self.assertIsInstance(key, str)
-			self.assertIsInstance(value, str)
+			self.assertIsInstance(key, unicode)
+			self.assertIsInstance(value, unicode)
 
 class NodesWalkerTestCase(unittest.TestCase):
 	"""

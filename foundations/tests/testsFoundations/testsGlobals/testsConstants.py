@@ -15,6 +15,11 @@
 """
 
 #**********************************************************************************************************************
+#***	Future imports.
+#**********************************************************************************************************************
+from __future__ import unicode_literals
+
+#**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
 import sys
@@ -63,7 +68,7 @@ class ConstantsTestCase(unittest.TestCase):
 								"verbosityLabels",
 								"loggingDefaultFormatter",
 								"loggingSeparators",
-								"encodingFormat",
+								"encodingCodec",
 								"encodingError",
 								"applicationDirectory",
 								"providerDirectory",
@@ -130,32 +135,32 @@ class ConstantsTestCase(unittest.TestCase):
 
 		self.assertIsInstance(Constants.verbosityLabels, tuple)
 		for label in Constants.verbosityLabels:
-			self.assertIsInstance(label, str)
+			self.assertIsInstance(label, unicode)
 
 	def testLoggingDefaultFormaterAttribute(self):
 		"""
 		This method tests :attr:`foundations.globals.constants.Constants.loggingDefaultFormatter` attribute.
 		"""
 
-		self.assertIsInstance(Constants.loggingDefaultFormatter, str)
+		self.assertIsInstance(Constants.loggingDefaultFormatter, unicode)
 
 	def testLoggingSeparatorsAttribute(self):
 		"""
 		This method tests :attr:`foundations.globals.constants.Constants.loggingSeparators` attribute.
 		"""
 
-		self.assertIsInstance(Constants.loggingSeparators, str)
+		self.assertIsInstance(Constants.loggingSeparators, unicode)
 
-	def testEncodingFormatAttribute(self):
+	def testEncodingCodecAttribute(self):
 		"""
-		This method tests :attr:`foundations.globals.constants.Constants.encodingFormat` attribute.
+		This method tests :attr:`foundations.globals.constants.Constants.encodingCodec` attribute.
 		"""
 
 		validEncodings = ("ascii",
 						"utf-8",
 						"cp1252")
 
-		self.assertIn(Constants.encodingFormat, validEncodings)
+		self.assertIn(Constants.encodingCodec, validEncodings)
 
 	def testEncodingErrorAttribute(self):
 		"""

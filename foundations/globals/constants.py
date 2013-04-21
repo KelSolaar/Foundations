@@ -15,6 +15,11 @@
 """
 
 #**********************************************************************************************************************
+#***	Future imports.
+#**********************************************************************************************************************
+from __future__ import unicode_literals
+
+#**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
 import os
@@ -46,10 +51,10 @@ class Constants():
 	"""Package major version: '**2**' ( String )"""
 	minorVersion = "0"
 	"""Package minor version: '**0**' ( String )"""
-	changeVersion = "7"
-	"""Package change version: '**7**' ( String )"""
+	changeVersion = "8"
+	"""Package change version: '**8**' ( String )"""
 	releaseVersion = ".".join((majorVersion, minorVersion, changeVersion))
-	"""Package release version: '**2.0.7**' ( String )"""
+	"""Package release version: '**2.0.8**' ( String )"""
 
 	logger = "Foundations_Logger"
 	"""Package logger name: '**Foundations_Logger**' ( String )"""
@@ -62,8 +67,8 @@ class Constants():
 	loggingSeparators = "*" * 96
 	"""Logging separators: '*' * 96 ( String )"""
 
-	encodingFormat = "utf-8"
-	"""Default encoding format: '**utf-8**' ( String )"""
+	encodingCodec = "utf-8"
+	"""Default encoding codec: '**utf-8**' ( String )"""
 	encodingError = "ignore"
 	"""Default encoding error behavior: '**ignore**' ( String )"""
 
@@ -76,5 +81,5 @@ class Constants():
 		providerDirectory = ".HDRLabs"
 		"""Package provider directory: '**HDRLabs** on Windows / Darwin, **.HDRLabs** on Linux' ( String )"""
 
-	nullObject = str(None)
+	nullObject = "None"
 	"""Default null object string: '**None**' ( String )"""

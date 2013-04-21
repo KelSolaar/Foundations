@@ -15,6 +15,11 @@
 """
 
 #**********************************************************************************************************************
+#***	Future imports.
+#**********************************************************************************************************************
+from __future__ import unicode_literals
+
+#**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
 import ast
@@ -111,6 +116,8 @@ def extractStack(frame, context=10, exceptionsFrameSymbol=EXCEPTIONS_FRAME_SYMBO
 	:return: Stack. ( List )
 	"""
 
+	decode = lambda x: unicode(x, Constants.encodingCodec, Constants.encodingError)
+
 	stack = []
 
 	for frame, fileName, lineNumber, name, context, index in inspect.getouterframes(frame, context):
@@ -118,10 +125,10 @@ def extractStack(frame, context=10, exceptionsFrameSymbol=EXCEPTIONS_FRAME_SYMBO
 			continue
 
 		stack.append((frame,
-					fileName,
+					decode(fileName),
 					lineNumber,
-					name, context
-					if context is not None else [],
+					decode(name),
+					context	if context is not None else [],
 					index if index is not None else -1))
 
 	return list(reversed(stack))
@@ -136,7 +143,7 @@ def extractArguments(frame):
 
 	arguments = ([], None, None)
 	try:
-		source = textwrap.dedent(str().join(inspect.getsourcelines(frame)[0]).replace("\\\n", str()))
+		source = textwrap.dedent("".join(inspect.getsourcelines(frame)[0]).replace("\\\n", ""))
 	except (IOError, TypeError) as error:
 		return arguments
 
@@ -237,7 +244,7 @@ def formatReport(cls, instance, trcback, context=1):
 	header.append("Exception class: '{0}'.".format(cls.__name__))
 	header.append("Exception description: '{0}'.".format(instance.__doc__ and instance.__doc__.strip() or \
 															Constants.nullObject))
-	for i, line in enumerate(str(instance).split("\n")):
+	for i, line in enumerate(unicode(instance).split("\n")):
 		header.append("Exception message line no. '{0}' : '{1}'.".format(i + 1, line))
 
 	frames = []
@@ -254,7 +261,7 @@ def formatReport(cls, instance, trcback, context=1):
 		locals and frames.append("{0:>40}".format("Locals:"))
 		for key, value in sorted(locals.iteritems()):
 			frames.append("{0:>40} = {1}".format(key, value))
-		frames.append(str())
+		frames.append("")
 
 	trcback = formatException(cls, instance, trcback)
 

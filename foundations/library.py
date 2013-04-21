@@ -15,6 +15,11 @@
 """
 
 #**********************************************************************************************************************
+#***	Future imports.
+#**********************************************************************************************************************
+from __future__ import unicode_literals
+
+#**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
 import ctypes
@@ -111,11 +116,12 @@ class Library(object):
 		
 		Usage::
 			
+			>>> import ctypes 
 			>>> path = "FreeImage.dll"
 			>>> functions = (LibraryHook(name="FreeImage_GetVersion", argumentsTypes=None, returnValue=ctypes.c_char_p),)
 			>>> library = Library(path, functions)
 			>>> library.FreeImage_GetVersion()
-			3.13.1
+			'3.15.1'
 
 		:param path: Library path. ( String )
 		:param functions: Binding functions list. ( Tuple )
@@ -237,7 +243,7 @@ class Library(object):
 		"""
 
 		if value is not None:
-			assert type(value) in (str, unicode), "'{0}' attribute: '{1}' type is not 'str' or 'unicode'!".format(
+			assert type(value) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
 			"path", value)
 			assert os.path.exists(value), "'{0}' attribute: '{1}' file doesn't exists!".format("path", value)
 		self.__path = value
@@ -328,13 +334,14 @@ class Library(object):
 
 		Usage::
 			
+			>>> import ctypes 
 			>>> path = "FreeImage.dll"
 			>>> function = LibraryHook(name="FreeImage_GetVersion", argumentsTypes=None, returnValue=ctypes.c_char_p)
 			>>> library = Library(path, bindLibrary=False)
 			>>> library.bindFunction(function)
 			True
 			>>> library.FreeImage_GetVersion()
-			3.13.1
+			'3.15.1'
 
 		:param function: Function to bind. ( LibraryHook )
 		:return: Method success. ( Boolean )
@@ -356,13 +363,14 @@ class Library(object):
 
 		Usage::
 			
+			>>> import ctypes 
 			>>> path = "FreeImage.dll"
 			>>> functions = (LibraryHook(name="FreeImage_GetVersion", argumentsTypes=None, returnValue=ctypes.c_char_p),)
 			>>> library = Library(path, functions, bindLibrary=False)
 			>>> library.bindLibrary()
 			True
 			>>> library.FreeImage_GetVersion()
-			3.13.1
+			'3.15.1'
 
 		:return: Method success. ( Boolean )
 		"""

@@ -15,6 +15,11 @@
 """
 
 #**********************************************************************************************************************
+#***	Future imports.
+#**********************************************************************************************************************
+from __future__ import unicode_literals
+
+#**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
 import os
@@ -126,7 +131,20 @@ class PathExistsTestCase(unittest.TestCase):
 
 		self.assertEqual(foundations.common.pathExists(None), False)
 		self.assertTrue(foundations.common.pathExists(__file__))
-		self.assertFalse(foundations.common.pathExists(unicode()))
+		self.assertFalse(foundations.common.pathExists(""))
+
+class FilterPathTestCase(unittest.TestCase):
+	"""
+	This class defines :func:`foundations.common.filterPath` definition units tests methods.
+	"""
+
+	def testFilterPath(self):
+		"""
+		This method tests :func:`foundations.common.filterPath` definition.
+		"""
+
+		self.assertEqual(foundations.common.filterPath(None), "")
+		self.assertEqual(foundations.common.filterPath(__file__), __file__)
 
 class GetFirstItemTestCase(unittest.TestCase):
 	"""
@@ -218,8 +236,8 @@ class GetHostAddressTestCase(unittest.TestCase):
 		This method tests :func:`foundations.common.getHostAddress` definition.
 		"""
 
-		self.assertIsInstance(foundations.common.getHostAddress(), str)
-		self.assertEqual(foundations.common.getHostAddress("Nemo, John Doe!"), foundations.common.DEFAULT_HOST_IP)
+		self.assertIsInstance(foundations.common.getHostAddress(), unicode)
+		self.assertEqual(foundations.common.getHostAddress(-1), foundations.common.DEFAULT_HOST_IP)
 
 if __name__ == "__main__":
 	import foundations.tests.utilities

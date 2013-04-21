@@ -15,6 +15,11 @@
 """
 
 #**********************************************************************************************************************
+#***	Future imports.
+#**********************************************************************************************************************
+from __future__ import unicode_literals
+
+#**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
 import sys
@@ -57,7 +62,7 @@ class SetNamespaceTestCase(unittest.TestCase):
 		This method tests :func:`foundations.namespace.setNamespace` definition.
 		"""
 
-		self.assertIsInstance(foundations.namespace.setNamespace("Namespace", "Attribute"), str)
+		self.assertIsInstance(foundations.namespace.setNamespace("Namespace", "Attribute"), unicode)
 		self.assertEqual(foundations.namespace.setNamespace("Namespace", "Attribute"), "Namespace|Attribute")
 		self.assertEqual(foundations.namespace.setNamespace("Namespace", "Attribute", ":"), "Namespace:Attribute")
 
@@ -71,7 +76,7 @@ class GetNamespaceTestCase(unittest.TestCase):
 		This method tests :func:`foundations.namespace.getNamespace` definition.
 		"""
 
-		self.assertIsInstance(foundations.namespace.getNamespace("Namespace:Attribute", ":"), str)
+		self.assertIsInstance(foundations.namespace.getNamespace("Namespace:Attribute", ":"), unicode)
 		self.assertEqual(foundations.namespace.getNamespace("Namespace|Attribute"), "Namespace")
 		self.assertEqual(foundations.namespace.getNamespace("Namespace:Attribute", ":"), "Namespace")
 		self.assertEqual(foundations.namespace.getNamespace("Namespace|Attribute|Value", rootOnly=True), "Namespace")
@@ -87,7 +92,7 @@ class RemoveNamespaceTestCase(unittest.TestCase):
 		This method tests :func:`foundations.namespace.removeNamespace` definition.
 		"""
 
-		self.assertIsInstance(foundations.namespace.removeNamespace("Namespace|Attribute"), str)
+		self.assertIsInstance(foundations.namespace.removeNamespace("Namespace|Attribute"), unicode)
 		self.assertEqual(foundations.namespace.removeNamespace("Namespace|Attribute"), "Attribute")
 		self.assertEqual(foundations.namespace.removeNamespace("Namespace:Attribute", ":"), "Attribute")
 		self.assertEqual(foundations.namespace.removeNamespace("Namespace|Attribute|Value"), "Value")

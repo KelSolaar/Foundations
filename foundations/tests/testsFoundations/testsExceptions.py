@@ -15,6 +15,11 @@
 """
 
 #**********************************************************************************************************************
+#***	Future imports.
+#**********************************************************************************************************************
+from __future__ import unicode_literals
+
+#**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
 import inspect
@@ -110,9 +115,9 @@ class ExtractStackCase(unittest.TestCase):
 			self.assertIsInstance(stack, list)
 			for frame, fileName, lineNumber, name, context, index in stack:
 				self.assertIsInstance(frame, types.FrameType)
-				self.assertIsInstance(fileName, str)
+				self.assertIsInstance(fileName, unicode)
 				self.assertIsInstance(lineNumber, int)
-				self.assertIsInstance(name, str)
+				self.assertIsInstance(name, unicode)
 				self.assertIsInstance(context, list)
 				self.assertIsInstance(index, int)
 
@@ -163,8 +168,8 @@ class ExtractLocalsCase(unittest.TestCase):
 			self.assertIsInstance(extractedLocals, list)
 			for frame, locals in extractedLocals:
 				self.assertIsInstance(frame, tuple)
-				self.assertIsInstance(frame[0], str)
-				self.assertIsInstance(frame[1], str)
+				self.assertIsInstance(frame[0], unicode)
+				self.assertIsInstance(frame[1], unicode)
 				self.assertIsInstance(frame[2], int)
 
 				arguments, namelessArgs, keywordArgs, locals = locals
@@ -211,7 +216,7 @@ class FormatExceptionCase(unittest.TestCase):
 			output = foundations.exceptions.formatException(*sys.exc_info())
 			self.assertIsInstance(output, list)
 			for line in output:
-				self.assertIsInstance(line, str)
+				self.assertIsInstance(line, unicode)
 
 class FormatReportCase(unittest.TestCase):
 	"""
@@ -231,7 +236,7 @@ class FormatReportCase(unittest.TestCase):
 			self.assertIsInstance(frames, list)
 			self.assertIsInstance(trcback, list)
 			for line in itertools.chain(header, frames, trcback):
-				self.assertIsInstance(line, str)
+				self.assertIsInstance(line, unicode)
 
 class InstallExceptionHandlerCase(unittest.TestCase):
 	"""

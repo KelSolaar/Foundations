@@ -15,6 +15,11 @@
 """
 
 #**********************************************************************************************************************
+#***	Future imports.
+#**********************************************************************************************************************
+from __future__ import unicode_literals
+
+#**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
 import datetime
@@ -64,7 +69,10 @@ __all__ = ["RESOURCES_DIRECTORY",
 			"RANDOM_ATTRIBUTES",
 			"RANDOM_COMMENTS",
 			"SCRIPT_RAW_SECTION",
+			"CHINESE_IBL_SET_FILE",
+			"CHINESE_IBL_SET_FILE_RANDOM_ATTRIBUTES",
 			"SectionsFileParserTestCase",
+			"PlistFileParserTestCase",
 			"GetAttributeCompoundTestCase"]
 
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
@@ -290,8 +298,8 @@ STANDARD_FILES_SECTIONS_AND_ATTRIBUTES = {"component" : OrderedDict([("Component
 																		"Remote Connection|DefaultAddress",
 																		"Remote Connection|DefaultPort"]}),
 														("Script",
-														{"stripped" : ["_rawSectionContent"],
-														"namespaced" : ["_rawSectionContent"]})])}
+														{"stripped" : ["__raw__"],
+														"namespaced" : ["__raw__"]})])}
 
 DEFAULTS_FILE_SECTIONS_AND_ATTRIBUTES = {"_defaults" : {"_defaults|Default A" : "Attribute 'Default A' value",
 														"_defaults|Default B" : "Attribute 'Default B' value"},
@@ -361,6 +369,12 @@ SCRIPT_RAW_SECTION = ["// @OutputScript - @Release for @Software @Version\n",
 						"string $backgroundFilePath = \"@BGfile\";\n",
 						"int $backgroundWidth = @BGheight*2;\n",
 						"string $lightingFilePath = \"@EVfile\";\n" ]
+
+CHINESE_IBL_SET_FILE = os.path.join(RESOURCES_DIRECTORY, "标准.ibl")
+CHINESE_IBL_SET_FILE_RANDOM_ATTRIBUTES = {"Header|Name" : "标准",
+								"Header|Comment" : "秎穾籺 飣偓啅 鋧鋓頠 踄 岪弨",
+								"Header|Date" : "2011:01:01",
+								"Light1|LIGHTv" : "0.85"}
 
 PLIST_FILE_CONTENT = {"Dictionary A": {"String C" : "My Value C", "String B" : "My Value B"},
 					"Number A" : 123456789,
@@ -432,6 +446,17 @@ class SectionsFileParserTestCase(unittest.TestCase):
 			self.assertIsInstance(sectionsFileParser.sections, dict)
 			self.assertIsInstance(sectionsFileParser.comments, dict)
 
+	def testParseInternational(self):
+		"""
+		This method tests :meth:`foundations.parsers.SectionsFileParser.parse` in international specific context.
+		"""
+
+		sectionsFileParser = SectionsFileParser(CHINESE_IBL_SET_FILE)
+		sectionsFileParser.read() and sectionsFileParser.parse()
+		for attribute, value in CHINESE_IBL_SET_FILE_RANDOM_ATTRIBUTES.iteritems():
+			self.assertEqual(value, sectionsFileParser.getValue(foundations.namespace.getLeaf(attribute),
+															foundations.namespace.getRoot(attribute)))
+
 	def testSections(self):
 		"""
 		This method tests :class:`foundations.parsers.SectionsFileParser` class sections consistencies.
@@ -452,7 +477,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 		sectionsFileParser = SectionsFileParser(TEMPLATE_FILE)
 		sectionsFileParser.read() and sectionsFileParser.parse(rawSections=("Script",))
-		self.assertListEqual(sectionsFileParser.sections["Script"]["_rawSectionContent"][0:10], SCRIPT_RAW_SECTION)
+		self.assertListEqual(sectionsFileParser.sections["Script"]["__raw__"][0:10], SCRIPT_RAW_SECTION)
 
 	def testComments(self):
 		"""
@@ -591,11 +616,6 @@ class SectionsFileParserTestCase(unittest.TestCase):
 			sectionsFileParser = SectionsFileParser(file)
 			sectionsFileParser.read() and sectionsFileParser.parse(False, rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 			for attribute, value in RANDOM_ATTRIBUTES[type].iteritems():
-				self.assertIsInstance(sectionsFileParser.getValue(attribute, foundations.namespace.getNamespace(attribute,
-																									rootOnly=True)), str)
-				self.assertIsInstance(sectionsFileParser.getValue(attribute, foundations.namespace.getNamespace(attribute,
-																									rootOnly=True),
-																									encode=True), unicode)
 				self.assertEqual(sectionsFileParser.getValue(attribute, foundations.namespace.getNamespace(attribute,
 																								rootOnly=True)), value)
 			self.assertEqual(sectionsFileParser.getValue("attribute", "section", default=None), None)
@@ -613,7 +633,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 			readSectionsFileParser.parse(stripComments=False, rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 
 			fileDescriptor, path = tempfile.mkstemp()
-			writeSectionsFileParser = SectionsFileParser(path)
+			writeSectionsFileParser = SectionsFileParser(unicode(path))
 			writeSectionsFileParser.sections = readSectionsFileParser.sections
 			writeSectionsFileParser.comments = readSectionsFileParser.comments
 			writeSectionsFileParser.write()
@@ -632,7 +652,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 																			rawSections=STANDARD_FILES_RAW_SECTIONS[type])
 
 			fileDescriptor, path = tempfile.mkstemp()
-			writeSectionsFileParser = SectionsFileParser(path)
+			writeSectionsFileParser = SectionsFileParser(unicode(path))
 			writeSectionsFileParser.sections = readSectionsFileParser.sections
 			writeSectionsFileParser.comments = readSectionsFileParser.comments
 			writeSectionsFileParser.write(namespaces=True)
@@ -649,7 +669,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 		readSectionsFileParser.read() and readSectionsFileParser.parse()
 
 		fileDescriptor, path = tempfile.mkstemp()
-		writeSectionsFileParser = SectionsFileParser(path)
+		writeSectionsFileParser = SectionsFileParser(unicode(path))
 		writeSectionsFileParser.sections = readSectionsFileParser.sections
 		writeSectionsFileParser.comments = readSectionsFileParser.comments
 		writeSectionsFileParser.write()

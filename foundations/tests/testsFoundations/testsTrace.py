@@ -15,6 +15,11 @@
 """
 
 #**********************************************************************************************************************
+#***	Future imports.
+#**********************************************************************************************************************
+from __future__ import unicode_literals
+
+#**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
 import inspect
@@ -102,8 +107,8 @@ class IsReadOnlyTestCase(unittest.TestCase):
 		This method tests :func:`foundations.trace.isReadOnly` definition.
 		"""
 
-		self.assertTrue(foundations.trace.isReadOnly(str))
-		self.assertTrue(foundations.trace.isReadOnly(str()))
+		self.assertTrue(foundations.trace.isReadOnly(unicode))
+		self.assertTrue(foundations.trace.isReadOnly(""))
 		self.assertTrue(foundations.trace.isReadOnly(dict))
 		self.assertTrue(foundations.trace.isReadOnly(dict()))
 
@@ -123,7 +128,7 @@ class SetTracerHookTestCase(unittest.TestCase):
 		This method tests :func:`foundations.trace.setTracerHook` definition.
 		"""
 
-		object, hook = lambda: None, str()
+		object, hook = lambda: None, ""
 		self.assertTrue(foundations.trace.setTracerHook(object, hook))
 		self.assertTrue(hasattr(object, foundations.trace.TRACER_HOOK))
 
@@ -137,7 +142,7 @@ class GetTracerHookTestCase(unittest.TestCase):
 		This method tests :func:`foundations.trace.getTracerHook` definition.
 		"""
 
-		object, hook = lambda: None, str()
+		object, hook = lambda: None, ""
 		foundations.trace.setTracerHook(object, hook),
 		self.assertEqual(foundations.trace.getTracerHook(object), hook)
 
