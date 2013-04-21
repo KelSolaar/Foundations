@@ -72,7 +72,7 @@ ASCII_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-def toString(data, encoding=Constants.encodingCodec, errors=Constants.encodingError):
+def toString(data, encoding=Constants.defaultCodec, errors=Constants.codecError):
 	"""
 	This definition converts given data to unicode string using package default settings.
 

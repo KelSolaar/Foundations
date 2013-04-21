@@ -155,7 +155,7 @@ class File(object):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	def cache(self, mode="r", encoding=Constants.encodingCodec, errors=Constants.encodingError):
+	def cache(self, mode="r", encoding=Constants.defaultCodec, errors=Constants.codecError):
 		"""
 		This method reads given file content and stores it in the content cache.
 
@@ -203,7 +203,7 @@ class File(object):
 
 		return "".join(self.__content) if self.cache() else ""
 
-	def write(self, mode="w", encoding=Constants.encodingCodec, errors=Constants.encodingError):
+	def write(self, mode="w", encoding=Constants.defaultCodec, errors=Constants.codecError):
 		"""
 		This method writes content to defined file.
 
@@ -224,7 +224,7 @@ class File(object):
 			return True
 		return False
 
-	def append(self, mode="a", encoding=Constants.encodingCodec, errors=Constants.encodingError):
+	def append(self, mode="a", encoding=Constants.defaultCodec, errors=Constants.codecError):
 		"""
 		This method appends content to defined file.
 
@@ -245,7 +245,7 @@ class File(object):
 			return True
 		return False
 
-	def clear(self, encoding=Constants.encodingCodec):
+	def clear(self, encoding=Constants.defaultCodec):
 		"""
 		This method clears the defined file content.
 

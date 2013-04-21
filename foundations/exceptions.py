@@ -116,7 +116,7 @@ def extractStack(frame, context=10, exceptionsFrameSymbol=EXCEPTIONS_FRAME_SYMBO
 	:return: Stack. ( List )
 	"""
 
-	decode = lambda x: unicode(x, Constants.encodingCodec, Constants.encodingError)
+	decode = lambda x: unicode(x, Constants.defaultCodec, Constants.codecError)
 
 	stack = []
 
@@ -244,7 +244,7 @@ def formatReport(cls, instance, trcback, context=1):
 	header.append("Exception class: '{0}'.".format(cls.__name__))
 	header.append("Exception description: '{0}'.".format(instance.__doc__ and instance.__doc__.strip() or \
 															Constants.nullObject))
-	for i, line in enumerate(unicode(instance).split("\n")):
+	for i, line in enumerate(str(instance).split("\n")):
 		header.append("Exception message line no. '{0}' : '{1}'.".format(i + 1, line))
 
 	frames = []

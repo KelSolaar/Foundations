@@ -30,6 +30,7 @@ import platform
 #**********************************************************************************************************************
 import foundations.common
 import foundations.exceptions
+import foundations.strings
 import foundations.verbose
 from foundations.globals.constants import Constants
 
@@ -163,7 +164,7 @@ class Environment(object):
 
 		for variable in self.__variables:
 			value = os.environ.get(variable, None)
-			self.__variables[variable] = unicode(value) if value else None
+			self.__variables[variable] = foundations.strings.toString(value) if value else None
 		return self.__variables
 
 	def setValues(self, **kwargs):

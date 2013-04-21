@@ -34,6 +34,7 @@ import urllib2
 #***	Internal imports.
 #**********************************************************************************************************************
 import foundations.verbose
+from foundations.globals.constants import Constants
 
 #**********************************************************************************************************************
 #***	Module attributes.
@@ -231,6 +232,8 @@ def getHostAddress(host=None, defaultAddress=DEFAULT_HOST_IP):
 	"""
 
 	try:
-		return unicode(socket.gethostbyname(host or socket.gethostname()))
+		return unicode(socket.gethostbyname(host or socket.gethostname()),
+					Constants.defaultCodec,
+					Constants.codecError)
 	except Exception as error:
 		return defaultAddress
