@@ -240,21 +240,19 @@ def getSystemApplicationDataDirectory():
 	"""
 
 	if platform.system() == "Windows" or platform.system() == "Microsoft":
-		environmentVariable = Environment("APPDATA")
-		return environmentVariable.getValue()
-
+		environment = Environment("APPDATA")
+		return environment.getValue()
 	elif platform.system() == "Darwin":
-		environmentVariable = Environment("HOME")
-		return os.path.join(environmentVariable.getValue(), "Library/Preferences")
-
+		environment = Environment("HOME")
+		return os.path.join(environment.getValue(), "Library/Preferences")
 	elif platform.system() == "Linux":
-		environmentVariable = Environment("HOME")
-		return environmentVariable.getValue()
+		environment = Environment("HOME")
+		return environment.getValue()
 
 def getUserApplicationDataDirectory():
 	"""
 	| This definition returns the user Application directory.
-	| The difference between :func:`getSystemApplicationDataDirectory`
+	| The difference between :func:`getUserApplicationDataDirectory`
 		and :func:`getSystemApplicationDataDirectory` definitions is that :func:`getUserApplicationDataDirectory` definition
 		will append :attr:`foundations.globals.constants.Constants.providerDirectory`
 		and :attr:`foundations.globals.constants.Constants.applicationDirectory` attributes values to the path returned.
@@ -269,5 +267,17 @@ def getUserApplicationDataDirectory():
 	:return: User Application directory. ( String )
 	"""
 
-	return os.path.join(getSystemApplicationDataDirectory(), Constants.providerDirectory, Constants.applicationDirectory)
+	systemApplicationDataDirectory = getSystemApplicationDataDirectory()
+	if systemApplicationDataDirectory is None or \
+	not foundations.common.pathExists(systemApplicationDataDirectory):
+		LOGGER.error("!> Undefined or non existing system application data directory, using 'HOME' as fallback!")
+		systemApplicationDataDirectory = Environment("HOME").getValue()
+
+	systemApplicationDataDirectory = "\toto"
+	if systemApplicationDataDirectory is None or \
+	not foundations.common.pathExists(systemApplicationDataDirectory):
+		LOGGER.error("!> Undefined or non existing 'HOME' directory, using current directory as fallback!")
+		systemApplicationDataDirectory = foundations.strings.toString(os.getcwd())
+
+	return os.path.join(systemApplicationDataDirectory, Constants.providerDirectory, Constants.applicationDirectory)
 
