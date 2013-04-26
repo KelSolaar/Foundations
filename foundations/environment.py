@@ -268,13 +268,11 @@ def getUserApplicationDataDirectory():
 	"""
 
 	systemApplicationDataDirectory = getSystemApplicationDataDirectory()
-	if systemApplicationDataDirectory is None or \
-	not foundations.common.pathExists(systemApplicationDataDirectory):
-		LOGGER.error("!> Undefined or non existing system application data directory, using 'HOME' as fallback!")
+	if not foundations.common.pathExists(systemApplicationDataDirectory):
+		LOGGER.error("!> Undefined or non existing system Application data directory, using 'HOME' as fallback!")
 		systemApplicationDataDirectory = Environment("HOME").getValue()
 
-	if systemApplicationDataDirectory is None or \
-	not foundations.common.pathExists(systemApplicationDataDirectory):
+	if not foundations.common.pathExists(systemApplicationDataDirectory):
 		LOGGER.error("!> Undefined or non existing 'HOME' directory, using current working directory as fallback!")
 		systemApplicationDataDirectory = foundations.strings.toString(os.getcwd())
 
