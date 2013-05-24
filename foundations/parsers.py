@@ -655,7 +655,7 @@ class SectionsFileParser(foundations.io.File):
 					continue
 
 				# Attributes matching.
-				search = re.search(r"^(?P<attribute>.+?)[{0}](?P<value>.+)$".format("".join(self.__splitters)), line)
+				search = re.search(r"^(?P<attribute>.+?)[{0}](?P<value>.*)$".format("".join(self.__splitters)), line)
 				if search:
 					attribute = stripWhitespaces and search.group("attribute").strip() or search.group("attribute")
 					attribute = namespaces and foundations.namespace.setNamespace(section,
@@ -880,8 +880,8 @@ class SectionsFileParser(foundations.io.File):
 			return False
 
 		LOGGER.debug("> Setting '{0}' file content.".format(self.path))
-		attributeTemplate = spacesAroundSplitter and "{{0}} {0} {{1}}\n".format(splitter) or \
-							"{{0}} {0} {{1}}\n".format(splitter)
+		attributeTemplate = "{{0}} {0} {{1}}\n".format(splitter) if spacesAroundSplitter else \
+							"{{0}}{0}{{1}}\n".format(splitter)
 		attributeTemplate = foundations.strings.replace(attributeTemplate, {"{{" : "{", "}}" : "}"})
 		commentTemplate = spaceAfterCommentLimiter and "{0} {{0}}\n".format(commentLimiter) or \
 							"{0}{{0}}\n".format(commentLimiter)
