@@ -879,6 +879,8 @@ class SectionsFileParser(foundations.io.File):
 		if not self.__sections:
 			return False
 
+		self.uncache()
+
 		LOGGER.debug("> Setting '{0}' file content.".format(self.path))
 		attributeTemplate = "{{0}} {0} {{1}}\n".format(splitter) if spacesAroundSplitter else \
 							"{{0}}{0}{{1}}\n".format(splitter)
