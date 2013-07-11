@@ -47,7 +47,7 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["LOGGER",
-		"CONNECTION_IP",
+		"CONNECTION_IPS",
 		"DEFAULT_HOST_IP",
 		"wait",
 		"uniqify",
@@ -65,7 +65,16 @@ __all__ = ["LOGGER",
 
 LOGGER = foundations.verbose.installLogger()
 
-CONNECTION_IP = "8.8.8.8"
+CONNECTION_IPS = ["173.194.34.36",  # http://www.google.com
+				"173.194.34.55",  # http://www.google.co.uk
+				"65.55.206.154",  # http://www.live.com
+				"173.252.110.27",  # http://www.facebook.com
+				"199.16.156.230",  # http://www.twitter.com
+				"98.139.183.24",  # http://www.yahoo.com
+				"77.238.178.122",  # http://www.yahoo.co.uk
+				"198.252.206.16",  # http://www.	stackoverflow.com
+				"82.94.164.162",  # http://www.python.org
+				"65.196.127.226"]  # http://www.nsa.gov :D
 DEFAULT_HOST_IP = "127.0.0.1"
 
 #**********************************************************************************************************************
@@ -207,20 +216,24 @@ def dependencyResolver(dependencies):
 		items = dict(((key, value - batch) for key, value in items.items() if value))
 	return resolvedDependencies
 
-def isInternetAvailable(ip=CONNECTION_IP, timeout=1.5):
+def isInternetAvailable(ips=CONNECTION_IPS, timeout=1.0):
 	"""
 	This definition returns if an internet connection is available.
 
-	:param ip: Alternative address ip to check against. ( String )
+	:param ips: Address ips to check against. ( List )
 	:param timeout: Timeout in seconds. ( Integer )
 	:return: Is internet available. ( Boolean )
 	"""
 
-	try:
-		urllib2.urlopen("http://{0}".format(ip), timeout=timeout)
-		return True
-	except (urllib2.URLError, socket.error) as error:
-		return False
+	while ips:
+		try:
+			urllib2.urlopen("http://{0}".format(ips.pop(0)), timeout=timeout)
+			return True
+		except IndexError as error:
+			continue
+		except (urllib2.URLError, socket.error) as error:
+			continue
+	return False
 
 def getHostAddress(host=None, defaultAddress=DEFAULT_HOST_IP):
 	"""
