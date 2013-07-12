@@ -72,9 +72,12 @@ CONNECTION_IPS = ["173.194.34.36",  # http://www.google.com
 				"199.16.156.230",  # http://www.twitter.com
 				"98.139.183.24",  # http://www.yahoo.com
 				"77.238.178.122",  # http://www.yahoo.co.uk
-				"198.252.206.16",  # http://www.	stackoverflow.com
+				"198.252.206.16",  # http://www.stackoverflow.com
 				"82.94.164.162",  # http://www.python.org
-				"65.196.127.226"]  # http://www.nsa.gov :D
+				"65.196.127.226",  # http://www.nsa.gov :D
+				"www.google.com",
+				"www.facebook.com",
+				"www.twitter.com"]
 DEFAULT_HOST_IP = "127.0.0.1"
 
 #**********************************************************************************************************************
