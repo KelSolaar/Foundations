@@ -80,6 +80,10 @@ def getLongDescription():
 			description.append(line)
 	return "".join(description)
 
+INSTALL_REQUIRES = ["sphinx>=1.1.3", "unittest2>=0.5.1"]
+if sys.version_info < (2, 7):
+    INSTALL_REQUIRES.append("ordereddict>=1.1")
+
 setup(name=foundations.globals.constants.Constants.applicationName,
 	version=foundations.globals.constants.Constants.releaseVersion,
 	author=foundations.globals.constants.__author__,
@@ -91,7 +95,7 @@ setup(name=foundations.globals.constants.Constants.applicationName,
 	license="GPLv3",
 	description="Foundations is the core package of Umbra, sIBL_GUI and sIBL_Reporter.",
 	long_description=getLongDescription(),
-	install_requires=["ordereddict>=1.1", "sphinx>=1.1.3", "unittest2>=0.5.1"],
+	install_requires=INSTALL_REQUIRES,
 	classifiers=["Development Status :: 5 - Production/Stable",
 				"Environment :: Console",
 				"Intended Audience :: Developers",
