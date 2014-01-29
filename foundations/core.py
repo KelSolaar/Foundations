@@ -49,7 +49,7 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-def exit(exitCode=1):
+def exit(exitCode=0):
 	"""
 	This definition shuts down current process logging, associated handlers and then exits to system.
 	
