@@ -52,7 +52,7 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 def executionTime(object):
 	"""
-	| This decorator is used for execution timing.
+	| Defines execution timing.
 	| Any method / definition decorated will have it's execution timed through information messages.
 	
 	:param object: Object to decorate. ( Object )
@@ -62,7 +62,7 @@ def executionTime(object):
 	@functools.wraps(object)
 	def executionTimeWrapper(*args, **kwargs):
 		"""
-		This decorator is used for execution timing.
+		Defines execution timing.
 
 		:param \*args: Arguments. ( \* )
 		:param \*\*kwargs: Keywords arguments. ( \*\* )
@@ -85,7 +85,7 @@ def executionTime(object):
 
 def memoize(cache=None):
 	"""
-	| This decorator is used for method / definition memoization.
+	| Implements definition / method memoization.
 	| Any method / definition decorated will get its return value cached and restored whenever called
 		with the same arguments.
 	
@@ -98,7 +98,7 @@ def memoize(cache=None):
 
 	def memoizeDecorator(object):
 		"""
-		This decorator is used for object memoization.
+		Implements object memoization.
 
 		:param object: Object to decorate. ( Object )
 		:return: Object. ( Object )
@@ -107,7 +107,7 @@ def memoize(cache=None):
 		@functools.wraps(object)
 		def memoizeWrapper(*args, **kwargs):
 			"""
-			This decorator is used for object memoization.
+			Implements object memoization.
 	
 			:param \*args: Arguments. ( \* )
 			:param \*\*kwargs: Keywords arguments. ( \*\* )

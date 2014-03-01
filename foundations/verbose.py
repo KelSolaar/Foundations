@@ -247,7 +247,7 @@ def indentMessage(message):
 
 def tracer(object):
 	"""
-	| This decorator is used for execution tracing.
+	| Traces execution.
 	| Any method / definition decorated will have it's execution traced through debug messages.
 	| Both object entry and exit are logged.
 	
@@ -267,7 +267,7 @@ def tracer(object):
 	@functools.partial(foundations.trace.validateTracer, object)
 	def tracerWrapper(*args, **kwargs):
 		"""
-		This decorator is used for execution tracing.
+		Traces execution.
 
 		:param \*args: Arguments. ( \* )
 		:param \*\*kwargs: Keywords arguments. ( \*\* )

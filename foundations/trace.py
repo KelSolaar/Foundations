@@ -352,7 +352,7 @@ def validateTracer(*args):
 
 def tracer(object):
 	"""
-	| This decorator object is used for execution tracing.
+	| Traces execution.
 	| Any method / definition decorated will have it's execution traced.
 	
 	:param object: Object to decorate. ( Object )
@@ -363,7 +363,7 @@ def tracer(object):
 	@functools.partial(validateTracer, object)
 	def tracerWrapper(*args, **kwargs):
 		"""
-		This decorator is used for execution tracing.
+		Traces execution.
 
 		:param \*args: Arguments. ( \* )
 		:param \*\*kwargs: Keywords arguments. ( \*\* )
@@ -403,7 +403,7 @@ def untracer(object):
 
 def untracable(object):
 	"""
-	This decorator object is used to mark decorated object as non tracable.
+	Marks decorated object as non tracable.
 	
 	:param object: Object to decorate. ( Object )
 	:return: Object. ( Object )
@@ -412,7 +412,7 @@ def untracable(object):
 	@functools.wraps(object)
 	def untracableWrapper(*args, **kwargs):
 		"""
-		This decorator object is used to mark decorated object as non tracable.
+		Marks decorated object as non tracable.
 
 		:param \*args: Arguments. ( \* )
 		:param \*\*kwargs: Keywords arguments. ( \*\* )

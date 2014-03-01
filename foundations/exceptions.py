@@ -311,7 +311,7 @@ def uninstallExceptionHandler():
 
 def handleExceptions(*args):
 	"""
-	| This decorator is used for exceptions handling.
+	| Handles exceptions.
 	| It's possible to specify an user defined exception handler,
 		if not, :func:`baseExceptionHandler` handler will be used.
 	| The decorator uses given exceptions objects
@@ -338,7 +338,7 @@ def handleExceptions(*args):
 
 	def handleExceptionsDecorator(object):
 		"""
-		This decorator is used for exceptions handling.
+		Handles exceptions.
 
 		:param object: Object to decorate. ( Object )
 		:return: Object. ( Object )
@@ -347,7 +347,7 @@ def handleExceptions(*args):
 		@functools.wraps(object)
 		def handleExceptionsWrapper(*args, **kwargs):
 			"""
-			This decorator is used for exceptions handling.
+			Handles exceptions.
 
 			:param \*args: Arguments. ( \* )
 			:param \*\*kwargs: Keywords arguments. ( \*\* )
