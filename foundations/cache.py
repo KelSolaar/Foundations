@@ -51,7 +51,7 @@ class Cache(dict):
 
 	def __init__(self, **kwargs):
 		"""
-		This method initializes the class.
+		Initializes the class.
 
 		:param \*\*kwargs: Key / Value pairs. ( Key / Value pairs )
 		"""
@@ -63,7 +63,7 @@ class Cache(dict):
 	#******************************************************************************************************************
 	def addContent(self, **content):
 		"""
-		This method adds given content to the cache.
+		Adds given content to the cache.
 
 		Usage::
 		
@@ -84,7 +84,7 @@ class Cache(dict):
 
 	def removeContent(self, *keys):
 		"""
-		This method removes given content from the cache.
+		Removes given content from the cache.
 
 		Usage::
 			
@@ -111,7 +111,7 @@ class Cache(dict):
 
 	def getContent(self, key):
 		"""
-		This method gets given content from the cache.
+		Gets given content from the cache.
 
 		Usage::
 
@@ -131,7 +131,7 @@ class Cache(dict):
 
 	def flushContent(self):
 		"""
-		This method flushes the cache content.
+		Flushes the cache content.
 
 		Usage::
 

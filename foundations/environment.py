@@ -61,7 +61,7 @@ class Environment(object):
 
 	def __init__(self, *args, **kwargs):
 		"""
-		This method initializes the class.
+		Initializes the class.
 		
 		Usage::
 			
@@ -90,7 +90,7 @@ class Environment(object):
 	@property
 	def variables(self):
 		"""
-		This method is the property for **self.__variables** attribute.
+		Property for **self.__variables** attribute.
 
 		:return: self.__variables. ( Dictionary )
 		"""
@@ -101,7 +101,7 @@ class Environment(object):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def variables(self, value):
 		"""
-		This method is the setter method for **self.__variables** attribute.
+		Setter for **self.__variables** attribute.
 
 		:param value: Attribute value. ( Dictionary )
 		"""
@@ -119,7 +119,7 @@ class Environment(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def variables(self):
 		"""
-		This method is the deleter method for **self.__variables** attribute.
+		Deleter for **self.__variables** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -130,7 +130,7 @@ class Environment(object):
 	#******************************************************************************************************************
 	def __addVariables(self, *args, **kwargs):
 		"""
-		This method adds given variables to __variables attribute.
+		Adds given variables to __variables attribute.
 
 		:param \*args: Variables. ( \* )
 		:param \*\*kwargs: Variables : Values. ( \* )
@@ -142,7 +142,7 @@ class Environment(object):
 
 	def getValues(self, *args):
 		"""
-		This method gets environment variables values.
+		Gets environment variables values.
 
 		Usage::
 			
@@ -169,7 +169,7 @@ class Environment(object):
 
 	def setValues(self, **kwargs):
 		"""
-		This method sets environment variables values.
+		Sets environment variables values.
 
 		Usage::
 			
@@ -199,7 +199,7 @@ class Environment(object):
 
 	def getValue(self, variable=None):
 		"""
-		This method gets given environment variable value.
+		Gets given environment variable value.
 
 		:param variable: Variable to retrieve value. ( String )
 		:return: Variable value. ( String )
@@ -216,7 +216,7 @@ class Environment(object):
 
 	def setValue(self, variable, value):
 		"""
-		This method sets given environment variable with given value.
+		Sets given environment variable with given value.
 
 		:param variable: Variable to set value. ( String )
 		:param value: Variable value. ( String )
@@ -227,7 +227,7 @@ class Environment(object):
 
 def getSystemApplicationDataDirectory():
 	"""
-	This definition returns the system Application data directory.
+	Returns the system Application data directory.
 	
 	Examples directories::
 
@@ -251,7 +251,7 @@ def getSystemApplicationDataDirectory():
 
 def getUserApplicationDataDirectory():
 	"""
-	| This definition returns the user Application directory.
+	| Returns the user Application directory.
 	| The difference between :func:`getUserApplicationDataDirectory`
 		and :func:`getSystemApplicationDataDirectory` definitions is that :func:`getUserApplicationDataDirectory` definition
 		will append :attr:`foundations.globals.constants.Constants.providerDirectory`

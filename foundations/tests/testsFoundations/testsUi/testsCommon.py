@@ -60,7 +60,7 @@ class QWidgetFactoryTestCase(unittest.TestCase):
 
 	def testQWidgetFactory(self):
 		"""
-		This method tests :func:`foundations.ui.common.QWidgetFactory` definition.
+		Tests :func:`foundations.ui.common.QWidgetFactory` definition.
 		"""
 
 		widget = foundations.ui.common.QWidgetFactory(UI_TESTS_FILE)

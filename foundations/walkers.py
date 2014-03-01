@@ -49,7 +49,7 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 def filesWalker(directory, filtersIn=None, filtersOut=None, flags=0):
 	"""
-	This definition is a generator used to walk files using given filters.
+	Defines a generator used to walk files using given filters.
 
 	Usage::
 		
@@ -92,7 +92,7 @@ def filesWalker(directory, filtersIn=None, filtersOut=None, flags=0):
 
 def depthWalker(directory, maximumDepth=1):
 	"""
-	This definition is a generator used to walk into directories using given maximum depth.
+	Defines a generator used to walk into directories using given maximum depth.
 
 	Usage::
 		
@@ -123,7 +123,7 @@ def depthWalker(directory, maximumDepth=1):
 
 def dictionariesWalker(dictionary, path=()):
 	"""
-	This definition is a generator used to walk into nested dictionaries.
+	Defines a generator used to walk into nested dictionaries.
 	
 	Usage::
 		
@@ -152,7 +152,7 @@ def dictionariesWalker(dictionary, path=()):
 
 def nodesWalker(node, ascendants=False):
 	"""
-	This definition is a generator used to walk into Nodes hierarchy.
+	Defines a generator used to walk into Nodes hierarchy.
 	
 	Usage::
 		

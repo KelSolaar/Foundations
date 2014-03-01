@@ -64,7 +64,7 @@ class PkzipTestCase(unittest.TestCase):
 
 	def testRequiredAttributes(self):
 		"""
-		This method tests presence of required attributes.
+		Tests presence of required attributes.
 		"""
 
 		requiredAttributes = ("archive",)
@@ -74,7 +74,7 @@ class PkzipTestCase(unittest.TestCase):
 
 	def testRequiredMethods(self):
 		"""
-		This method tests presence of required methods.
+		Tests presence of required methods.
 		"""
 
 		requiredMethods = ("extract",)
@@ -84,7 +84,7 @@ class PkzipTestCase(unittest.TestCase):
 
 	def testExtract(self):
 		"""
-		This method tests :meth:`foundations.pkzip.Pkzip.extract` method.
+		Tests :meth:`foundations.pkzip.Pkzip.extract` method.
 		"""
 
 		zipFile = Pkzip(TEST_FILE)

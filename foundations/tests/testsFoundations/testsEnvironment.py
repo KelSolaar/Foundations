@@ -60,7 +60,7 @@ class EnvironmentTestCase(unittest.TestCase):
 
 	def testRequiredAttributes(self):
 		"""
-		This method tests presence of required attributes.
+		Tests presence of required attributes.
 		"""
 
 		requiredAttributes = ("variables",)
@@ -70,7 +70,7 @@ class EnvironmentTestCase(unittest.TestCase):
 
 	def testRequiredMethods(self):
 		"""
-		This method tests presence of required methods.
+		Tests presence of required methods.
 		"""
 
 		requiredMethods = ("getValues",
@@ -83,7 +83,7 @@ class EnvironmentTestCase(unittest.TestCase):
 
 	def testGetValues(self):
 		"""
-		This method tests :meth:`foundations.environment.Environment.getValues` method.
+		Tests :meth:`foundations.environment.Environment.getValues` method.
 		"""
 
 		if platform.system() == "Windows" or platform.system() == "Microsoft":
@@ -104,7 +104,7 @@ class EnvironmentTestCase(unittest.TestCase):
 
 	def testSetValues(self):
 		"""
-		This method tests :meth:`foundations.environment.Environment.setValues` method.
+		Tests :meth:`foundations.environment.Environment.setValues` method.
 		"""
 
 		environment = Environment()
@@ -116,7 +116,7 @@ class EnvironmentTestCase(unittest.TestCase):
 
 	def testGetValue(self):
 		"""
-		This method tests :meth:`foundations.environment.Environment.getValue` method.
+		Tests :meth:`foundations.environment.Environment.getValue` method.
 		"""
 
 		if platform.system() == "Windows" or platform.system() == "Microsoft":
@@ -133,7 +133,7 @@ class EnvironmentTestCase(unittest.TestCase):
 
 	def testSetValue(self):
 		"""
-		This method tests :meth:`foundations.environment.Environment.setValue` method.
+		Tests :meth:`foundations.environment.Environment.setValue` method.
 		"""
 
 		environment = Environment()
@@ -148,7 +148,7 @@ class GetSystemApplicationDataDirectoryTestCase(unittest.TestCase):
 
 	def testGetSystemApplicationDataDirectory(self):
 		"""
-		This method tests :func:`foundations.common.getSystemApplicationDataDirectory` definition.
+		Tests :func:`foundations.common.getSystemApplicationDataDirectory` definition.
 		"""
 
 		path = foundations.environment.getSystemApplicationDataDirectory()
@@ -162,7 +162,7 @@ class GetUserApplicationDataDirectoryTestCase(unittest.TestCase):
 
 	def testGetUserApplicationDataDirectory(self):
 		"""
-		This method tests :func:`foundations.common.getUserApplicationDataDirectory` definition.
+		Tests :func:`foundations.common.getUserApplicationDataDirectory` definition.
 		"""
 
 		path = foundations.environment.getUserApplicationDataDirectory()

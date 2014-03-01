@@ -53,7 +53,7 @@ NAMESPACE_SPLITTER = "|"
 #**********************************************************************************************************************
 def setNamespace(namespace, attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 	"""
-	This definition sets given namespace to given attribute.
+	Sets given namespace to given attribute.
 
 	Usage::
 		
@@ -72,7 +72,7 @@ def setNamespace(namespace, attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 
 def getNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False):
 	"""
-	This definition returns given attribute foundations.namespace.
+	Returns given attribute foundations.namespace.
 
 	Usage::
 		
@@ -98,7 +98,7 @@ def getNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False
 
 def removeNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False):
 	"""
-	This definition returns attribute with stripped foundations.namespace.
+	Returns attribute with stripped foundations.namespace.
 
 	Usage::
 		
@@ -121,7 +121,7 @@ def removeNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=Fa
 
 def getRoot(attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 	"""
-	This definition returns given attribute root.
+	Returns given attribute root.
 
 	Usage::
 		
@@ -137,7 +137,7 @@ def getRoot(attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 
 def getLeaf(attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 	"""
-	This definition returns given attribute leaf.
+	Returns given attribute leaf.
 
 	Usage::
 		

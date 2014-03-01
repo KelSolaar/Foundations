@@ -58,7 +58,7 @@ class LibraryHook(foundations.dataStructures.Structure):
 
 	def __init__(self, **kwargs):
 		"""
-		This method initializes the class.
+		Initializes the class.
 		
 		Usage::
 			
@@ -93,7 +93,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.LibraryInstantiationError)
 	def __new__(cls, *args, **kwargs):
 		"""
-		This method is the constructor of the class.
+		Constructor of the class.
 		
 		:param \*args: Arguments. ( \* )
 		:param \*\*kwargs: Keywords arguments. ( \*\* )
@@ -112,7 +112,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.LibraryInitializationError)
 	def __init__(self, path, functions=None, bindLibrary=True):
 		"""
-		This method initializes the class.
+		Initializes the class.
 		
 		Usage::
 			
@@ -162,7 +162,7 @@ class Library(object):
 	@property
 	def instances(self):
 		"""
-		This method is the property for **self.__instances** attribute.
+		Property for **self.__instances** attribute.
 
 		:return: self.__instances. ( WeakValueDictionary )
 		"""
@@ -173,7 +173,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def instances(self, value):
 		"""
-		This method is the setter method for **self.__instances** attribute.
+		Setter for **self.__instances** attribute.
 
 		:param value: Attribute value. ( WeakValueDictionary )
 		"""
@@ -185,7 +185,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def instances(self):
 		"""
-		This method is the deleter method for **self.__instances** attribute.
+		Deleter for **self.__instances** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -194,7 +194,7 @@ class Library(object):
 	@property
 	def initialized(self):
 		"""
-		This method is the property for **self.__initialized** attribute.
+		Property for **self.__initialized** attribute.
 
 		:return: self.__initialized. ( String )
 		"""
@@ -205,7 +205,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def initialized(self, value):
 		"""
-		This method is the setter method for **self.__initialized** attribute.
+		Setter for **self.__initialized** attribute.
 
 		:param value: Attribute value. ( String )
 		"""
@@ -217,7 +217,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def initialized(self):
 		"""
-		This method is the deleter method for **self.__initialized** attribute.
+		Deleter for **self.__initialized** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -226,7 +226,7 @@ class Library(object):
 	@property
 	def path(self):
 		"""
-		This method is the property for **self.__path** attribute.
+		Property for **self.__path** attribute.
 
 		:return: self.__path. ( String )
 		"""
@@ -237,7 +237,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def path(self, value):
 		"""
-		This method is the setter method for **self.__path** attribute.
+		Setter for **self.__path** attribute.
 
 		:param value: Attribute value. ( String )
 		"""
@@ -252,7 +252,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def path(self):
 		"""
-		This method is the deleter method for **self.__path** attribute.
+		Deleter for **self.__path** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -261,7 +261,7 @@ class Library(object):
 	@property
 	def functions(self):
 		"""
-		This method is the property for **self.__functions** attribute.
+		Property for **self.__functions** attribute.
 
 		:return: self.__functions. ( Tuple )
 		"""
@@ -272,7 +272,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def functions(self, value):
 		"""
-		This method is the setter method for **self.__functions** attribute.
+		Setter for **self.__functions** attribute.
 
 		:param value: Attribute value. ( Tuple )
 		"""
@@ -288,7 +288,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def functions(self):
 		"""
-		This method is the deleter method for **self.__functions** attribute.
+		Deleter for **self.__functions** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -297,7 +297,7 @@ class Library(object):
 	@property
 	def library(self):
 		"""
-		This method is the property for **self.__library** attribute.
+		Property for **self.__library** attribute.
 
 		:return: self.__library. ( Object )
 		"""
@@ -308,7 +308,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def library(self, value):
 		"""
-		This method is the setter method for **self.__library** attribute.
+		Setter for **self.__library** attribute.
 
 		:param value: Attribute value. ( Object )
 		"""
@@ -319,7 +319,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def library(self):
 		"""
-		This method is the deleter method for **self.__library** attribute.
+		Deleter for **self.__library** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -330,7 +330,7 @@ class Library(object):
 	#******************************************************************************************************************
 	def bindFunction(self, function):
 		"""
-		This method binds given function to a class object attribute.
+		Binds given function to a class object attribute.
 
 		Usage::
 			
@@ -359,7 +359,7 @@ class Library(object):
 
 	def bindLibrary(self):
 		"""
-		This method binds the Library using functions registered in the **self.__functions** attribute.
+		Binds the Library using functions registered in the **self.__functions** attribute.
 
 		Usage::
 			

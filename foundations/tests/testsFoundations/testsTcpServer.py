@@ -57,7 +57,7 @@ class TCPServerTestCase(unittest.TestCase):
 
 	def testRequiredAttributes(self):
 		"""
-		This method tests presence of required attributes.
+		Tests presence of required attributes.
 		"""
 
 		requiredAttributes = ("address", "port", "handler", "online")
@@ -67,7 +67,7 @@ class TCPServerTestCase(unittest.TestCase):
 
 	def testRequiredMethods(self):
 		"""
-		This method tests presence of required methods.
+		Tests presence of required methods.
 		"""
 
 		requiredMethods = ("start", "stop")
@@ -77,7 +77,7 @@ class TCPServerTestCase(unittest.TestCase):
 
 	def testStart(self):
 		"""
-		This method tests :meth:`foundations.tcpServer.TCPServer.start` method.
+		Tests :meth:`foundations.tcpServer.TCPServer.start` method.
 		"""
 
 		tcpServer = TCPServer("127.0.0.1", 16384)
@@ -87,7 +87,7 @@ class TCPServerTestCase(unittest.TestCase):
 
 	def testStop(self):
 		"""
-		This method tests :meth:`foundations.tcpServer.TCPServer.stop` method.
+		Tests :meth:`foundations.tcpServer.TCPServer.stop` method.
 		"""
 
 		tcpServer = TCPServer("127.0.0.1", 16384)
@@ -102,7 +102,7 @@ class EchoRequestsHandlerTestCase(unittest.TestCase):
 
 	def testRequiredMethods(self):
 		"""
-		This method tests presence of required methods.
+		Tests presence of required methods.
 		"""
 
 		requiredMethods = ("handle",)
@@ -112,7 +112,7 @@ class EchoRequestsHandlerTestCase(unittest.TestCase):
 
 	def testHandle(self):
 		"""
-		This method tests :meth:`foundations.tcpServer.TCPServer.handle` method.
+		Tests :meth:`foundations.tcpServer.TCPServer.handle` method.
 		"""
 
 		tcpServer = TCPServer("127.0.0.1", 16384)

@@ -88,7 +88,7 @@ class FilesWalkerTestCase(unittest.TestCase):
 
 	def testFilesWalker(self):
 		"""
-		This method tests :func:`foundations.walkers.filesWalker` definition.
+		Tests :func:`foundations.walkers.filesWalker` definition.
 		"""
 
 		rootDirectory = os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY)
@@ -115,7 +115,7 @@ class FilesWalkerTestCase(unittest.TestCase):
 
 	def testFilesWalkerInternational(self):
 		"""
-		This method tests :func:`foundations.walkers.filesWalker` definition in international specific context.
+		Tests :func:`foundations.walkers.filesWalker` definition in international specific context.
 		"""
 
 		rootDirectory = os.path.join(RESOURCES_DIRECTORY, CHINESE_ROOT_DIRECTORY)
@@ -148,7 +148,7 @@ class DepthWalkerTestCase(unittest.TestCase):
 
 	def testDepthWalker(self):
 		"""
-		This method tests :func:`foundations.walkers.depthWalker` definition.
+		Tests :func:`foundations.walkers.depthWalker` definition.
 		"""
 
 		for i, value in \
@@ -158,7 +158,7 @@ class DepthWalkerTestCase(unittest.TestCase):
 
 	def testDepthWalkerInternational(self):
 		"""
-		This method tests :func:`foundations.walkers.depthWalker` definition in international specific context.
+		Tests :func:`foundations.walkers.depthWalker` definition in international specific context.
 		"""
 
 		for i, value in \
@@ -173,7 +173,7 @@ class DictionariesWalkerTestCase(unittest.TestCase):
 
 	def testDictionariesWalker(self):
 		"""
-		This method tests :func:`foundations.walkers.dictionariesWalker` definition.
+		Tests :func:`foundations.walkers.dictionariesWalker` definition.
 		"""
 
 		nestedDictionary = {"Level 1A":{"Level 2A": { "Level 3A" : "Higher Level"}},
@@ -194,7 +194,7 @@ class NodesWalkerTestCase(unittest.TestCase):
 
 	def testNodesWalker(self):
 		"""
-		This method tests :func:`foundations.walkers.nodesWalker` definition.
+		Tests :func:`foundations.walkers.nodesWalker` definition.
 		"""
 
 		nodeA = AbstractCompositeNode("MyNodeA")

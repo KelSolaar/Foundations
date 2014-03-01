@@ -57,7 +57,7 @@ class Pkzip(object):
 
 	def __init__(self, archive=None):
 		"""
-		This method initializes the class.
+		Initializes the class.
 
 		Usage::
 
@@ -82,7 +82,7 @@ class Pkzip(object):
 	@property
 	def archive(self):
 		"""
-		This method is the property for **self.__archive** attribute.
+		Property for **self.__archive** attribute.
 
 		:return: self.__archive. ( String )
 		"""
@@ -93,7 +93,7 @@ class Pkzip(object):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def archive(self, value):
 		"""
-		This method is the setter method for **self.__archive** attribute.
+		Setter for **self.__archive** attribute.
 
 		:param value: Attribute value. ( String )
 		"""
@@ -108,7 +108,7 @@ class Pkzip(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def archive(self):
 		"""
-		This method is the deleter method for **self.__archive** attribute.
+		Deleter for **self.__archive** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -121,7 +121,7 @@ class Pkzip(object):
 											foundations.exceptions.FileExistsError)
 	def extract(self, target):
 		"""
-		This method extracts the archive file to given directory.
+		Extracts the archive file to given directory.
 
 		:param target: Target extraction directory. ( String )
 		:return: Method success. ( Boolean )

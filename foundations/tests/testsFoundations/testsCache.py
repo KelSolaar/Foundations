@@ -55,7 +55,7 @@ class CacheTestCase(unittest.TestCase):
 
 	def testRequiredMethods(self):
 		"""
-		This method tests presence of required methods.
+		Tests presence of required methods.
 		"""
 
 		requiredMethods = ("addContent",
@@ -68,7 +68,7 @@ class CacheTestCase(unittest.TestCase):
 
 	def testAddContent(self):
 		"""
-		This method tests :meth:`foundations.cache.Cache.addContent` method.
+		Tests :meth:`foundations.cache.Cache.addContent` method.
 		"""
 
 		cache = Cache()
@@ -77,7 +77,7 @@ class CacheTestCase(unittest.TestCase):
 
 	def testRemoveContent(self):
 		"""
-		This method tests :meth:`foundations.cache.Cache.removeContent` method.
+		Tests :meth:`foundations.cache.Cache.removeContent` method.
 		"""
 
 		cache = Cache()
@@ -87,7 +87,7 @@ class CacheTestCase(unittest.TestCase):
 
 	def testGetContent(self):
 		"""
-		This method tests :meth:`foundations.cache.Cache.getContent` method.
+		Tests :meth:`foundations.cache.Cache.getContent` method.
 		"""
 
 		cache = Cache()
@@ -98,7 +98,7 @@ class CacheTestCase(unittest.TestCase):
 
 	def testFlushContent(self):
 		"""
-		This method tests :meth:`foundations.cache.Cache.flushContent` method.
+		Tests :meth:`foundations.cache.Cache.flushContent` method.
 		"""
 
 		cache = Cache()

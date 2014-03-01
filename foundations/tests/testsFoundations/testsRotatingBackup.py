@@ -62,7 +62,7 @@ class RotatingBackupTestCase(unittest.TestCase):
 
 	def testRequiredAttributes(self):
 		"""
-		This method tests presence of required attributes.
+		Tests presence of required attributes.
 		"""
 
 		requiredAttributes = ("source",
@@ -74,7 +74,7 @@ class RotatingBackupTestCase(unittest.TestCase):
 
 	def testRequiredMethods(self):
 		"""
-		This method tests presence of required methods.
+		Tests presence of required methods.
 		"""
 
 		requiredMethods = ("backup",)
@@ -84,7 +84,7 @@ class RotatingBackupTestCase(unittest.TestCase):
 
 	def testBackup(self):
 		"""
-		This method tests :meth:`foundations.rotatingBackup.RotatingBackup.backup` method.
+		Tests :meth:`foundations.rotatingBackup.RotatingBackup.backup` method.
 		"""
 
 		tempDirectory = tempfile.mkdtemp()

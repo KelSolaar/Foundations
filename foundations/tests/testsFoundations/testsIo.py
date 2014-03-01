@@ -72,7 +72,7 @@ class FileTestCase(unittest.TestCase):
 
 	def testRequiredAttributes(self):
 		"""
-		This method tests presence of required attributes.
+		Tests presence of required attributes.
 		"""
 
 		requiredAttributes = ("path",
@@ -83,7 +83,7 @@ class FileTestCase(unittest.TestCase):
 
 	def testRequiredMethods(self):
 		"""
-		This method tests presence of required methods.
+		Tests presence of required methods.
 		"""
 
 		requiredMethods = ("cache",
@@ -98,7 +98,7 @@ class FileTestCase(unittest.TestCase):
 
 	def testCache(self):
 		"""
-		This method tests :meth:`foundations.io.File.cache` method.
+		Tests :meth:`foundations.io.File.cache` method.
 		"""
 
 		ioFile = File(TEST_FILE)
@@ -110,7 +110,7 @@ class FileTestCase(unittest.TestCase):
 
 	def testUncache(self):
 		"""
-		This method tests :meth:`foundations.io.File.uncache` method.
+		Tests :meth:`foundations.io.File.uncache` method.
 		"""
 
 		ioFile = File(TEST_FILE)
@@ -121,7 +121,7 @@ class FileTestCase(unittest.TestCase):
 
 	def testRead(self):
 		"""
-		This method tests :meth:`foundations.io.File.read` method.
+		Tests :meth:`foundations.io.File.read` method.
 		"""
 
 		ioFile = File(TEST_FILE)
@@ -132,7 +132,7 @@ class FileTestCase(unittest.TestCase):
 
 	def testWrite(self):
 		"""
-		This method tests :meth:`foundations.io.File.write` method.
+		Tests :meth:`foundations.io.File.write` method.
 		"""
 
 		fileDescriptor, path = tempfile.mkstemp()
@@ -147,7 +147,7 @@ class FileTestCase(unittest.TestCase):
 
 	def testAppend(self):
 		"""
-		This method tests :meth:`foundations.io.File.append` method.
+		Tests :meth:`foundations.io.File.append` method.
 		"""
 
 		fileDescriptor, path = tempfile.mkstemp()
@@ -163,7 +163,7 @@ class FileTestCase(unittest.TestCase):
 
 	def testClear(self):
 		"""
-		This method tests :meth:`foundations.io.File.clear` method.
+		Tests :meth:`foundations.io.File.clear` method.
 		"""
 
 		fileDescriptor, path = tempfile.mkstemp()
@@ -183,7 +183,7 @@ class SetDirectoryTestCase(unittest.TestCase):
 
 	def testSetDirectory(self):
 		"""
-		This method tests :func:`foundations.io.setDirectory` definition.
+		Tests :func:`foundations.io.setDirectory` definition.
 		"""
 
 		tempDirectory = tempfile.mkdtemp()
@@ -200,7 +200,7 @@ class CopyTestCase(unittest.TestCase):
 
 	def testCopy(self):
 		"""
-		This method tests :func:`foundations.io.copy` definition.
+		Tests :func:`foundations.io.copy` definition.
 		"""
 
 		tempDirectory = tempfile.mkdtemp()
@@ -216,7 +216,7 @@ class RemoveTestCase(unittest.TestCase):
 
 	def testRemove(self):
 		"""
-		This method tests :func:`foundations.io.remove` definition.
+		Tests :func:`foundations.io.remove` definition.
 		"""
 
 		tempDirectory = tempfile.mkdtemp()

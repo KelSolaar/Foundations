@@ -57,7 +57,7 @@ class EchoRequestsHandler(SocketServer.BaseRequestHandler):
 
 	def handle(self):
 		"""
-		This method reimplements the :meth:`SocketServer.BaseRequestHandler.handle` method.
+		Reimplements the :meth:`SocketServer.BaseRequestHandler.handle` method.
 	
 		:return: Method success. ( Boolean )
 		"""
@@ -77,7 +77,7 @@ class TCPServer(object):
 
 	def __init__(self, address, port, handler=EchoRequestsHandler):
 		"""
-		This method initializes the class.
+		Initializes the class.
 		
 		Usage::
 			
@@ -111,7 +111,7 @@ class TCPServer(object):
 	@property
 	def address(self):
 		"""
-		This method is the property for **self.__address** attribute.
+		Property for **self.__address** attribute.
 
 		:return: self.__address. ( String )
 		"""
@@ -122,7 +122,7 @@ class TCPServer(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def address(self, value):
 		"""
-		This method is the setter method for **self.__address** attribute.
+		Setter for **self.__address** attribute.
 
 		:param value: Attribute value. ( String )
 		"""
@@ -136,7 +136,7 @@ class TCPServer(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def address(self):
 		"""
-		This method is the deleter method for **self.__address** attribute.
+		Deleter for **self.__address** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -145,7 +145,7 @@ class TCPServer(object):
 	@property
 	def port(self):
 		"""
-		This method is the property for **self.__port** attribute.
+		Property for **self.__port** attribute.
 
 		:return: self.__port. ( Integer )
 		"""
@@ -156,7 +156,7 @@ class TCPServer(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def port(self, value):
 		"""
-		This method is the setter method for **self.__port** attribute.
+		Setter for **self.__port** attribute.
 
 		:param value: Attribute value. ( Integer )
 		"""
@@ -172,7 +172,7 @@ class TCPServer(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def port(self):
 		"""
-		This method is the deleter method for **self.__port** attribute.
+		Deleter for **self.__port** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -181,7 +181,7 @@ class TCPServer(object):
 	@property
 	def handler(self):
 		"""
-		This method is the property for **self.__handler** attribute.
+		Property for **self.__handler** attribute.
 
 		:return: self.__handler. ( String )
 		"""
@@ -192,7 +192,7 @@ class TCPServer(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def handler(self, value):
 		"""
-		This method is the setter method for **self.__handler** attribute.
+		Setter for **self.__handler** attribute.
 
 		:param value: Attribute value. ( SocketServer.BaseRequestHandler )
 		"""
@@ -207,7 +207,7 @@ class TCPServer(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def handler(self):
 		"""
-		This method is the deleter method for **self.__handler** attribute.
+		Deleter for **self.__handler** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -216,7 +216,7 @@ class TCPServer(object):
 	@property
 	def online(self):
 		"""
-		This method is the property for **self.__online** attribute.
+		Property for **self.__online** attribute.
 
 		:return: self.__online. ( String )
 		"""
@@ -227,7 +227,7 @@ class TCPServer(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def online(self, value):
 		"""
-		This method is the setter method for **self.__online** attribute.
+		Setter for **self.__online** attribute.
 
 		:param value: Attribute value. ( Boolean )
 		"""
@@ -239,7 +239,7 @@ class TCPServer(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def online(self):
 		"""
-		This method is the deleter method for **self.__online** attribute.
+		Deleter for **self.__online** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -251,7 +251,7 @@ class TCPServer(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ServerOperationError)
 	def start(self):
 		"""
-		This method  starts the TCP server.
+		Starts the TCP server.
 
 		:return: Method success. ( Boolean )
 		"""
@@ -281,7 +281,7 @@ class TCPServer(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ServerOperationError)
 	def stop(self, terminate=False):
 		"""
-		This method stops the TCP server.
+		Stops the TCP server.
 
 		:return: Method success. ( Boolean )
 		"""

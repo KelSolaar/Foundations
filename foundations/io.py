@@ -60,7 +60,7 @@ class File(object):
 
 	def __init__(self, path=None, content=None):
 		"""
-		This method initializes the class.
+		Initializes the class.
 		
 		Usage::
 		
@@ -89,7 +89,7 @@ class File(object):
 	@property
 	def path(self):
 		"""
-		This method is the property for **self.__path** attribute.
+		Property for **self.__path** attribute.
 
 		:return: self.__path. ( String )
 		"""
@@ -100,7 +100,7 @@ class File(object):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def path(self, value):
 		"""
-		This method is the setter method for **self.__path** attribute.
+		Setter for **self.__path** attribute.
 
 		:param value: Attribute value. ( String )
 		"""
@@ -113,7 +113,7 @@ class File(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def path(self):
 		"""
-		This method is the deleter method for **self.__path** attribute.
+		Deleter for **self.__path** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -122,7 +122,7 @@ class File(object):
 	@property
 	def content(self):
 		"""
-		This method is the property for **self.__content** attribute.
+		Property for **self.__content** attribute.
 
 		:return: self.__content. ( List )
 		"""
@@ -133,7 +133,7 @@ class File(object):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def content(self, value):
 		"""
-		This method is the setter method for **self.__content** attribute.
+		Setter for **self.__content** attribute.
 
 		:param value: Attribute value. ( List )
 		"""
@@ -146,7 +146,7 @@ class File(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def content(self):
 		"""
-		This method is the deleter method for **self.__content** attribute.
+		Deleter for **self.__content** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -157,7 +157,7 @@ class File(object):
 	#******************************************************************************************************************
 	def cache(self, mode="r", encoding=Constants.defaultCodec, errors=Constants.codecError):
 		"""
-		This method reads given file content and stores it in the content cache.
+		Reads given file content and stores it in the content cache.
 
 		:param mode: File read mode. ( String )
 		:param encoding: File encoding codec. ( String )
@@ -184,7 +184,7 @@ class File(object):
 
 	def uncache(self):
 		"""
-		This method uncaches the cached content.
+		Uncaches the cached content.
 
 		:return: Method success. ( Boolean )
 		"""
@@ -196,7 +196,7 @@ class File(object):
 
 	def read(self):
 		"""
-		This method returns defined file content.
+		Returns defined file content.
 
 		:return: File content. ( String )
 		"""
@@ -205,7 +205,7 @@ class File(object):
 
 	def write(self, mode="w", encoding=Constants.defaultCodec, errors=Constants.codecError):
 		"""
-		This method writes content to defined file.
+		Writes content to defined file.
 
 		:param mode: File write mode. ( String )
 		:param encoding: File encoding codec. ( String )
@@ -226,7 +226,7 @@ class File(object):
 
 	def append(self, mode="a", encoding=Constants.defaultCodec, errors=Constants.codecError):
 		"""
-		This method appends content to defined file.
+		Appends content to defined file.
 
 		:param mode: File write mode. ( String )
 		:param encoding: File encoding codec. ( String )
@@ -247,7 +247,7 @@ class File(object):
 
 	def clear(self, encoding=Constants.defaultCodec):
 		"""
-		This method clears the defined file content.
+		Clears the defined file content.
 
 		:param encoding: File encoding codec. ( String )
 		:return: Method success. ( Boolean )
@@ -265,7 +265,7 @@ class File(object):
 
 def setDirectory(path):
 	"""
-	| This definition creates a directory with given path.
+	| Creates a directory with given path.
 	| The directory creation is delegated to
 		Python :func:`os.makedirs` definition so that directories hierarchy is recursively created. 
 	
@@ -283,7 +283,7 @@ def setDirectory(path):
 
 def copy(source, destination):
 	"""
-	This definition copies the given file or directory to destination.
+	Copies the given file or directory to destination.
 
 	:param source: Source to copy from. ( String )
 	:param destination: Destination to copy to. ( String )
@@ -300,7 +300,7 @@ def copy(source, destination):
 
 def remove(path):
 	"""
-	This definiton removes the given file or directory.
+	Removes the given file or directory.
 
 	:param path: Resource to remove. ( String )
 	:return: Method success. ( Boolean )

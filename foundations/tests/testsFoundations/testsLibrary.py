@@ -85,7 +85,7 @@ class LibraryTestCase(unittest.TestCase):
 
 	def testRequiredAttributes(self):
 		"""
-		This method tests presence of required attributes.
+		Tests presence of required attributes.
 		"""
 
 		requiredAttributes = ("callback",
@@ -99,7 +99,7 @@ class LibraryTestCase(unittest.TestCase):
 
 	def testRequiredMethods(self):
 		"""
-		This method tests presence of required methods.
+		Tests presence of required methods.
 		"""
 
 		requiredMethods = ("bindLibrary",
@@ -110,7 +110,7 @@ class LibraryTestCase(unittest.TestCase):
 
 	def testBindFunction(self):
 		"""
-		This method tests :meth:`foundations.library.Library.bindFunction` method.
+		Tests :meth:`foundations.library.Library.bindFunction` method.
 		"""
 
 		for name, path in LIBRARIES.iteritems():
@@ -123,7 +123,7 @@ class LibraryTestCase(unittest.TestCase):
 
 	def testBindLibrary(self):
 		"""
-		This method tests :meth:`foundations.library.Library.bindLibrary` method.
+		Tests :meth:`foundations.library.Library.bindLibrary` method.
 		"""
 
 		for name, path in LIBRARIES.iteritems():
@@ -135,7 +135,7 @@ class LibraryTestCase(unittest.TestCase):
 
 	def testLibrary(self):
 		"""
-		This method tests :class:`foundations.library.Library` class binding.
+		Tests :class:`foundations.library.Library` class binding.
 		"""
 
 		for name, path in LIBRARIES.iteritems():

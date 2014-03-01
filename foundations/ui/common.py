@@ -56,7 +56,7 @@ DEFAULT_UI_FILE = os.path.join(RESOURCES_DIRECTORY, "QWidget.ui")
 #**********************************************************************************************************************
 def centerWidgetOnScreen(widget, screen=None):
 	"""
-	This definition centers the given Widget on the screen.
+	Centers the given Widget on the screen.
 
 	:param widget: Current Widget. ( QWidget )
 	:param screen: Screen used for centering. ( Integer )
@@ -71,7 +71,7 @@ def centerWidgetOnScreen(widget, screen=None):
 
 def QWidgetFactory(uiFile=None, *args, **kwargs):
 	"""
-	This definition is a class factory creating `QWidget <http://doc.qt.nokia.com/qwidget.html>`_ classes
+	Defines a class factory creating `QWidget <http://doc.qt.nokia.com/qwidget.html>`_ classes
 	using given ui file.
 
 	:param uiFile: Ui file. ( String )
@@ -93,7 +93,7 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 
 		def __init__(self, *args, **kwargs):
 			"""
-			This method initializes the class.
+			Initializes the class.
 
 			:param \*args: Arguments. ( \* )
 			:param \*\*kwargs: Keywords arguments. ( \*\* )
@@ -115,7 +115,7 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 		@property
 		def uiFile(self):
 			"""
-			This method is the property for **self.__uiFile** attribute.
+			Property for **self.__uiFile** attribute.
 
 			:return: self.__uiFile. ( String )
 			"""
@@ -126,7 +126,7 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 		@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 		def uiFile(self, value):
 			"""
-			This method is the setter method for **self.__uiFile** attribute.
+			Setter for **self.__uiFile** attribute.
 
 			:param value: Attribute value. ( String )
 			"""
@@ -138,7 +138,7 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 		@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 		def uiFile(self):
 			"""
-			This method is the deleter method for **self.__uiFile** attribute.
+			Deleter for **self.__uiFile** attribute.
 			"""
 
 			raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(
@@ -149,7 +149,7 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 		#******************************************************************************************************************
 		def show(self, setGeometry=True):
 			"""
-			This method reimplements the :meth:`QWidget.show` method.
+			Reimplements the :meth:`QWidget.show` method.
 
 			:param setGeometry: Set geometry. ( Boolean )
 			"""
@@ -170,7 +170,7 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 
 		def closeEvent(self, event):
 			"""
-			This method reimplements the :meth:`QWidget.closeEvent` method.
+			Reimplements the :meth:`QWidget.closeEvent` method.
 
 			:param event: QEvent. ( QEvent )
 			"""

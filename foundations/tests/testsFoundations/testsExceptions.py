@@ -65,7 +65,7 @@ EXCEPTIONS = []
 
 def _gatherExceptions():
 	"""
-	This definition gathers the exceptions.
+	Gathers the exceptions.
 	"""
 
 	for attribute in dir(foundations.exceptions):
@@ -87,7 +87,7 @@ class GetInnerMostFrameCase(unittest.TestCase):
 
 	def testGetInnerMostFrame(self):
 		"""
-		This method tests :func:`foundations.exceptions.getInnerMostFrame` definition.
+		Tests :func:`foundations.exceptions.getInnerMostFrame` definition.
 		"""
 
 		try:
@@ -104,7 +104,7 @@ class ExtractStackCase(unittest.TestCase):
 
 	def testExtractStack(self):
 		"""
-		This method tests :func:`foundations.exceptions.extractStack` definition.
+		Tests :func:`foundations.exceptions.extractStack` definition.
 		"""
 
 		try:
@@ -128,7 +128,7 @@ class ExtractArgumentsCase(unittest.TestCase):
 
 	def testExtractArguments(self, testArgument="My Value!", *args, **kwargs):
 		"""
-		This method tests :func:`foundations.exceptions.extractArguments` definition.
+		Tests :func:`foundations.exceptions.extractArguments` definition.
 
 		:param testArgument: Test argument. ( String )
 		:param \*args: Arguments. ( \* )
@@ -153,7 +153,7 @@ class ExtractLocalsCase(unittest.TestCase):
 
 	def testExtractLocals(self, testArgument="My Value!", *args, **kwargs):
 		"""
-		This method tests :func:`foundations.exceptions.extractLocals` definition.
+		Tests :func:`foundations.exceptions.extractLocals` definition.
 
 		:param testArgument: Test argument. ( String )
 		:param \*args: Arguments. ( \* )
@@ -185,7 +185,7 @@ class ExtractExceptionCase(unittest.TestCase):
 
 	def testExtractException(self):
 		"""
-		This method tests :func:`foundations.exceptions.extractException` definition.
+		Tests :func:`foundations.exceptions.extractException` definition.
 		"""
 
 		try:
@@ -207,7 +207,7 @@ class FormatExceptionCase(unittest.TestCase):
 
 	def testFormatException(self):
 		"""
-		This method tests :func:`foundations.exceptions.formatException` definition.
+		Tests :func:`foundations.exceptions.formatException` definition.
 		"""
 
 		try:
@@ -225,7 +225,7 @@ class FormatReportCase(unittest.TestCase):
 
 	def testFormatReport(self):
 		"""
-		This method tests :func:`foundations.exceptions.formatReport` definition.
+		Tests :func:`foundations.exceptions.formatReport` definition.
 		"""
 
 		try:
@@ -245,7 +245,7 @@ class InstallExceptionHandlerCase(unittest.TestCase):
 
 	def testInstallExceptionHandler(self):
 		"""
-		This method tests :func:`foundations.exceptions.installExceptionHandler` definition.
+		Tests :func:`foundations.exceptions.installExceptionHandler` definition.
 		"""
 
 		exceptHook = sys.excepthook
@@ -260,7 +260,7 @@ class UninstallExceptionHandlerCase(unittest.TestCase):
 
 	def testUninstallExceptionHandler(self):
 		"""
-		This method tests :func:`foundations.exceptions.uninstallExceptionHandler` definition.
+		Tests :func:`foundations.exceptions.uninstallExceptionHandler` definition.
 		"""
 
 		exceptHook = sys.excepthook
@@ -275,7 +275,7 @@ class ExceptionsTestCase(unittest.TestCase):
 
 	def testRequiredAttributes(self):
 		"""
-		This method tests presence of required attributes.
+		Tests presence of required attributes.
 		"""
 
 		requiredAttributes = ("value",)
@@ -286,7 +286,7 @@ class ExceptionsTestCase(unittest.TestCase):
 
 	def test__str__(self):
 		"""
-		This method tests exceptions classes **__str__** method.
+		Tests exceptions classes **__str__** method.
 		"""
 
 		for exception in EXCEPTIONS:
@@ -304,7 +304,7 @@ class AttributeStructureParsingErrorTestCase(unittest.TestCase):
 
 	def testRequiredAttributes(self):
 		"""
-		This method tests presence of required attributes.
+		Tests presence of required attributes.
 		"""
 
 		requiredAttributes = ("value", "line")

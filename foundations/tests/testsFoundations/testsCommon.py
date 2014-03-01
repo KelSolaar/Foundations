@@ -78,7 +78,7 @@ class UniqifyTestCase(unittest.TestCase):
 
 	def testUniqify(self):
 		"""
-		This method tests :func:`foundations.common.uniqify` definition.
+		Tests :func:`foundations.common.uniqify` definition.
 		"""
 
 		sequence = ("A", "B", "B", "C")
@@ -96,7 +96,7 @@ class OrderedUniqifyTestCase(unittest.TestCase):
 
 	def testOrderedUniqify(self):
 		"""
-		This method tests :func:`foundations.common.orderedUniqify` definition.
+		Tests :func:`foundations.common.orderedUniqify` definition.
 		"""
 
 		sequence = ("A", "B", "B", "C")
@@ -111,7 +111,7 @@ class UnpackDefaultTestCase(unittest.TestCase):
 
 	def testUnpackDefault(self):
 		"""
-		This method tests :func:`foundations.common.unpackDefault` definition.
+		Tests :func:`foundations.common.unpackDefault` definition.
 		"""
 
 		self.assertListEqual(list(foundations.common.unpackDefault((1,))), [1, None, None])
@@ -126,7 +126,7 @@ class PathExistsTestCase(unittest.TestCase):
 
 	def testPathExists(self):
 		"""
-		This method tests :func:`foundations.common.pathExists` definition.
+		Tests :func:`foundations.common.pathExists` definition.
 		"""
 
 		self.assertEqual(foundations.common.pathExists(None), False)
@@ -140,7 +140,7 @@ class FilterPathTestCase(unittest.TestCase):
 
 	def testFilterPath(self):
 		"""
-		This method tests :func:`foundations.common.filterPath` definition.
+		Tests :func:`foundations.common.filterPath` definition.
 		"""
 
 		self.assertEqual(foundations.common.filterPath(None), "")
@@ -153,7 +153,7 @@ class GetFirstItemTestCase(unittest.TestCase):
 
 	def testGetFirstItem(self):
 		"""
-		This method tests :func:`foundations.common.getFirstItem` definition.
+		Tests :func:`foundations.common.getFirstItem` definition.
 		"""
 
 		self.assertEqual(foundations.common.getFirstItem(None), None)
@@ -170,7 +170,7 @@ class GetLastItemTestCase(unittest.TestCase):
 
 	def testGetLastItem(self):
 		"""
-		This method tests :func:`foundations.common.getLastItem` definition.
+		Tests :func:`foundations.common.getLastItem` definition.
 		"""
 
 		self.assertEqual(foundations.common.getLastItem(None), None)
@@ -187,7 +187,7 @@ class IsBinaryFileTestCase(unittest.TestCase):
 
 	def testPathExists(self):
 		"""
-		This method tests :func:`foundations.common.isBinaryFile` definition.
+		Tests :func:`foundations.common.isBinaryFile` definition.
 		"""
 
 		self.assertTrue(foundations.common.isBinaryFile(LIBRARY))
@@ -200,7 +200,7 @@ class RepeatTestCase(unittest.TestCase):
 
 	def testRepeat(self):
 		"""
-		This method tests :func:`foundations.common.repeat` definition.
+		Tests :func:`foundations.common.repeat` definition.
 		"""
 
 		def foo(bar):
@@ -216,7 +216,7 @@ class DependencyResolverTestCase(unittest.TestCase):
 
 	def testDependencyResolver(self):
 		"""
-		This method tests :func:`foundations.common.dependencyResolver` definition.
+		Tests :func:`foundations.common.dependencyResolver` definition.
 		"""
 
 		dependencies = {"c" : ("a", "b"),
@@ -233,7 +233,7 @@ class GetHostAddressTestCase(unittest.TestCase):
 
 	def testGetHostAddress(self):
 		"""
-		This method tests :func:`foundations.common.getHostAddress` definition.
+		Tests :func:`foundations.common.getHostAddress` definition.
 		"""
 
 		self.assertIsInstance(foundations.common.getHostAddress(), unicode)

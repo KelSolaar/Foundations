@@ -97,7 +97,7 @@ EXCEPTIONS_FRAME_SYMBOL = "_exceptions__frame__"
 #**********************************************************************************************************************
 def getInnerMostFrame(trcback):
 	"""
-	This definition returns the inner most frame of given traceback.
+	Returns the inner most frame of given traceback.
 	
 	:param trcback: Traceback. ( Traceback )
 	:return: Frame. ( Frame )
@@ -108,7 +108,7 @@ def getInnerMostFrame(trcback):
 
 def extractStack(frame, context=10, exceptionsFrameSymbol=EXCEPTIONS_FRAME_SYMBOL):
 	"""
-	This definition extracts the stack from given frame while excluded any symbolized frame.
+	Extracts the stack from given frame while excluded any symbolized frame.
 	
 	:param frame: Frame. ( Frame )
 	:param context: Context to extract. ( Integer )
@@ -135,7 +135,7 @@ def extractStack(frame, context=10, exceptionsFrameSymbol=EXCEPTIONS_FRAME_SYMBO
 
 def extractArguments(frame):
 	"""
-	This definition extracts the arguments from given frame.
+	Extracts the arguments from given frame.
 	
 	:param frame: Frame. ( Object )
 	:return: Arguments. ( Tuple )
@@ -163,7 +163,7 @@ def extractArguments(frame):
 
 def extractLocals(trcback):
 	"""
-	This definition extracts the frames locals of given traceback.
+	Extracts the frames locals of given traceback.
 	
 	:param trcback: Traceback. ( Traceback )
 	:return: Frames locals. ( List )
@@ -188,7 +188,7 @@ def extractLocals(trcback):
 
 def extractException(*args):
 	"""
-	This definition extracts the exception from given arguments or from :func:`sys.exc_info`.
+	Extracts the exception from given arguments or from :func:`sys.exc_info`.
 	
 	:param \*args: Arguments. ( \* )
 	:return: Extracted exception. ( Tuple )
@@ -206,7 +206,7 @@ def extractException(*args):
 
 def formatException(cls, instance, trcback, context=1):
 	"""
-	| This definition formats given exception.
+	| Formats given exception.
 	| The code produce a similar output to :func:`traceback.format_exception` except that it allows frames to be excluded
 		from the stack if the given stack trace frame tag is found in the frame locals and set **True**.
 	
@@ -230,7 +230,7 @@ def formatException(cls, instance, trcback, context=1):
 
 def formatReport(cls, instance, trcback, context=1):
 	"""
-	This definition formats a report using given exception.
+	Formats a report using given exception.
 	
 	:param cls: Exception class. ( Object )
 	:param instance: Exception instance. ( Object )
@@ -269,7 +269,7 @@ def formatReport(cls, instance, trcback, context=1):
 
 def baseExceptionHandler(*args):
 	"""
-	This definition provides the base exception handler.
+	Provides the base exception handler.
 	
 	:param \*args: Arguments. ( \* )
 	:return: Definition success. ( Boolean )
@@ -290,7 +290,7 @@ def baseExceptionHandler(*args):
 
 def installExceptionHandler(handler=None):
 	"""
-	This definition installs the given exceptions handler.
+	Installs the given exceptions handler.
 	
 	:param handler: Exception handler. ( Object )
 	:return: Definition success. ( Boolean )
@@ -301,7 +301,7 @@ def installExceptionHandler(handler=None):
 
 def uninstallExceptionHandler():
 	"""
-	This definition uninstalls the exceptions handler.
+	Uninstalls the exceptions handler.
 	
 	:return: Definition success. ( Boolean )
 	"""
@@ -372,7 +372,7 @@ class AbstractError(Exception):
 
 	def __init__(self, value):
 		"""
-		This method initializes the class.
+		Initializes the class.
 
 		:param value: Error value or message. ( String )
 		"""
@@ -388,7 +388,7 @@ class AbstractError(Exception):
 	@property
 	def value(self):
 		"""
-		This method is the property for **self.__value** attribute.
+		Property for **self.__value** attribute.
 
 		:return: self.__value. ( Object )
 		"""
@@ -398,7 +398,7 @@ class AbstractError(Exception):
 	@value.setter
 	def value(self, value):
 		"""
-		This method is the setter method for **self.__value** attribute.
+		Setter for **self.__value** attribute.
 
 		:param value: Attribute value. ( Object )
 		"""
@@ -408,7 +408,7 @@ class AbstractError(Exception):
 	@value.deleter
 	def value(self):
 		"""
-		This method is the deleter method for **self.__value** attribute.
+		Deleter for **self.__value** attribute.
 		"""
 
 		raise Exception("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "value"))
@@ -418,7 +418,7 @@ class AbstractError(Exception):
 	#******************************************************************************************************************
 	def __str__(self):
 		"""
-		This method returns the exception representation.
+		Returns the exception representation.
 
 		:return: Exception representation. ( String )
 		"""
@@ -460,7 +460,7 @@ class AttributeStructureParsingError(AbstractParsingError):
 
 	def __init__(self, value, line=None):
 		"""
-		This method initializes the class.
+		Initializes the class.
 
 		:param value: Error value or message. ( String )
 		:param line: Line number where exception occured. ( Integer )
@@ -480,7 +480,7 @@ class AttributeStructureParsingError(AbstractParsingError):
 	@property
 	def line(self):
 		"""
-		This method is the property for **self.__line** attribute.
+		Property for **self.__line** attribute.
 
 		:return: self.__line. ( Integer )
 		"""
@@ -491,7 +491,7 @@ class AttributeStructureParsingError(AbstractParsingError):
 	@handleExceptions(AssertionError)
 	def line(self, value):
 		"""
-		This method is the setter method for **self.__line** attribute.
+		Setter for **self.__line** attribute.
 
 		:param value: Attribute value. ( Integer )
 		"""
@@ -505,7 +505,7 @@ class AttributeStructureParsingError(AbstractParsingError):
 	@handleExceptions(Exception)
 	def line(self):
 		"""
-		This method is the deleter method for **self.__line** attribute.
+		Deleter for **self.__line** attribute.
 		"""
 
 		raise Exception("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "line"))
@@ -515,7 +515,7 @@ class AttributeStructureParsingError(AbstractParsingError):
 	#******************************************************************************************************************
 	def __str__(self):
 		"""
-		This method returns the exception representation.
+		Returns the exception representation.
 
 		:return: Exception representation. ( String )
 		"""

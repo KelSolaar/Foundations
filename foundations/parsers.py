@@ -77,7 +77,7 @@ class AttributeCompound(foundations.dataStructures.Structure):
 
 	def __init__(self, **kwargs):
 		"""
-		This method initializes the class.
+		Initializes the class.
 
 		Usage::
 
@@ -124,7 +124,7 @@ class SectionsFileParser(foundations.io.File):
 				rawSectionContentIdentifier="__raw__",
 				defaultsSection="_defaults"):
 		"""
-		This method initializes the class.
+		Initializes the class.
 		
 		Usage::
 		
@@ -179,7 +179,7 @@ class SectionsFileParser(foundations.io.File):
 	@property
 	def splitters(self):
 		"""
-		This method is the property for **self.__splitters** attribute.
+		Property for **self.__splitters** attribute.
 
 		:return: self.__splitters. ( Tuple / List )
 		"""
@@ -190,7 +190,7 @@ class SectionsFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def splitters(self, value):
 		"""
-		This method is the setter method for **self.__splitters** attribute.
+		Setter for **self.__splitters** attribute.
 
 		:param value: Attribute value. ( Tuple / List )
 		"""
@@ -210,7 +210,7 @@ class SectionsFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def splitters(self):
 		"""
-		This method is the deleter method for **self.__splitters** attribute.
+		Deleter for **self.__splitters** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -219,7 +219,7 @@ class SectionsFileParser(foundations.io.File):
 	@property
 	def namespaceSplitter(self):
 		"""
-		This method is the property for **self.__namespaceSplitter** attribute.
+		Property for **self.__namespaceSplitter** attribute.
 
 		:return: self.__namespaceSplitter. ( String )
 		"""
@@ -230,7 +230,7 @@ class SectionsFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def namespaceSplitter(self, value):
 		"""
-		This method is the setter method for **self.__namespaceSplitter** attribute.
+		Setter for **self.__namespaceSplitter** attribute.
 
 		:param value: Attribute value. ( String )
 		"""
@@ -247,7 +247,7 @@ class SectionsFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def namespaceSplitter(self):
 		"""
-		This method is the deleter method for **self.__namespaceSplitter** attribute.
+		Deleter for **self.__namespaceSplitter** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -256,7 +256,7 @@ class SectionsFileParser(foundations.io.File):
 	@property
 	def commentLimiters(self):
 		"""
-		This method is the property for **self.__commentLimiters** attribute.
+		Property for **self.__commentLimiters** attribute.
 
 		:return: self.__commentLimiters. ( Tuple / List )
 		"""
@@ -267,7 +267,7 @@ class SectionsFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def commentLimiters(self, value):
 		"""
-		This method is the setter method for **self.__commentLimiters** attribute.
+		Setter for **self.__commentLimiters** attribute.
 
 		:param value: Attribute value. ( Tuple / List )
 		"""
@@ -284,7 +284,7 @@ class SectionsFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def commentLimiters(self):
 		"""
-		This method is the deleter method for **self.__commentLimiters** attribute.
+		Deleter for **self.__commentLimiters** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -293,7 +293,7 @@ class SectionsFileParser(foundations.io.File):
 	@property
 	def commentMarker(self):
 		"""
-		This method is the property for **self.__commentMarker** attribute.
+		Property for **self.__commentMarker** attribute.
 
 		:return: self.__commentMarker. ( String )
 		"""
@@ -304,7 +304,7 @@ class SectionsFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def commentMarker(self, value):
 		"""
-		This method is the setter method for **self.__commentMarker** attribute.
+		Setter for **self.__commentMarker** attribute.
 
 		:param value: Attribute value. ( String )
 		"""
@@ -320,7 +320,7 @@ class SectionsFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def commentMarker(self):
 		"""
-		This method is the deleter method for **self.__commentMarker** attribute.
+		Deleter for **self.__commentMarker** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -329,7 +329,7 @@ class SectionsFileParser(foundations.io.File):
 	@property
 	def quotationMarkers(self):
 		"""
-		This method is the property for **self.__quotationMarkers** attribute.
+		Property for **self.__quotationMarkers** attribute.
 
 		:return: self.__quotationMarkers. ( Tuple / List )
 		"""
@@ -340,7 +340,7 @@ class SectionsFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def quotationMarkers(self, value):
 		"""
-		This method is the setter method for **self.__quotationMarkers** attribute.
+		Setter for **self.__quotationMarkers** attribute.
 
 		:param value: Attribute value. ( Tuple / List )
 		"""
@@ -361,7 +361,7 @@ class SectionsFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def quotationMarkers(self):
 		"""
-		This method is the deleter method for **self.__quotationMarkers** attribute.
+		Deleter for **self.__quotationMarkers** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -370,7 +370,7 @@ class SectionsFileParser(foundations.io.File):
 	@property
 	def rawSectionContentIdentifier(self):
 		"""
-		This method is the property for **self.___raw__Identifier** attribute.
+		Property for **self.___raw__Identifier** attribute.
 
 		:return: self.___raw__Identifier. ( String )
 		"""
@@ -381,7 +381,7 @@ class SectionsFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def rawSectionContentIdentifier(self, value):
 		"""
-		This method is the setter method for **self.___raw__Identifier** attribute.
+		Setter for **self.___raw__Identifier** attribute.
 
 		:param value: Attribute value. ( String )
 		"""
@@ -395,7 +395,7 @@ class SectionsFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def rawSectionContentIdentifier(self):
 		"""
-		This method is the deleter method for **self.___raw__Identifier** attribute.
+		Deleter for **self.___raw__Identifier** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -404,7 +404,7 @@ class SectionsFileParser(foundations.io.File):
 	@property
 	def defaultsSection(self):
 		"""
-		This method is the property for **self.__defaultsSection** attribute.
+		Property for **self.__defaultsSection** attribute.
 
 		:return: self.__defaultsSection. ( String )
 		"""
@@ -415,7 +415,7 @@ class SectionsFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def defaultsSection(self, value):
 		"""
-		This method is the setter method for **self.__defaultsSection** attribute.
+		Setter for **self.__defaultsSection** attribute.
 
 		:param value: Attribute value. ( String )
 		"""
@@ -429,7 +429,7 @@ class SectionsFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def defaultsSection(self):
 		"""
-		This method is the deleter method for **self.__defaultsSection** attribute.
+		Deleter for **self.__defaultsSection** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -438,7 +438,7 @@ class SectionsFileParser(foundations.io.File):
 	@property
 	def sections(self):
 		"""
-		This method is the property for **self.__sections** attribute.
+		Property for **self.__sections** attribute.
 
 		:return: self.__sections. ( OrderedDict / Dictionary )
 		"""
@@ -449,7 +449,7 @@ class SectionsFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def sections(self, value):
 		"""
-		This method is the setter method for **self.__sections** attribute.
+		Setter for **self.__sections** attribute.
 
 		:param value: Attribute value. ( OrderedDict / Dictionary )
 		"""
@@ -468,7 +468,7 @@ class SectionsFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def sections(self):
 		"""
-		This method is the deleter method for **self.__sections** attribute.
+		Deleter for **self.__sections** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -477,7 +477,7 @@ class SectionsFileParser(foundations.io.File):
 	@property
 	def comments(self):
 		"""
-		This method is the property for **self.__comments** attribute.
+		Property for **self.__comments** attribute.
 
 		:return: self.__comments. ( OrderedDict / Dictionary )
 		"""
@@ -488,7 +488,7 @@ class SectionsFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def comments(self, value):
 		"""
-		This method is the setter method for **self.__comments** attribute.
+		Setter for **self.__comments** attribute.
 
 		:param value: Attribute value. ( OrderedDict / Dictionary )
 		"""
@@ -507,7 +507,7 @@ class SectionsFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def comments(self):
 		"""
-		This method is the deleter method for **self.__comments** attribute.
+		Deleter for **self.__comments** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -516,7 +516,7 @@ class SectionsFileParser(foundations.io.File):
 	@property
 	def parsingErrors(self):
 		"""
-		This method is the property for **self.__parsingErrors** attribute.
+		Property for **self.__parsingErrors** attribute.
 
 		:return: self.__parsingErrors. ( List )
 		"""
@@ -527,7 +527,7 @@ class SectionsFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def parsingErrors(self, value):
 		"""
-		This method is the setter method for **self.__parsingErrors** attribute.
+		Setter for **self.__parsingErrors** attribute.
 
 		:param value: Attribute value. ( List )
 		"""
@@ -544,7 +544,7 @@ class SectionsFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def parsingErrors(self):
 		"""
-		This method is the deleter method for **self.__parsingErrors** attribute.
+		Deleter for **self.__parsingErrors** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -563,7 +563,7 @@ class SectionsFileParser(foundations.io.File):
 			stripQuotationMarkers=True,
 			raiseParsingErrors=True):
 		"""
-		This method process the file content and extract the sections / attributes
+		Process the file content and extract the sections / attributes
 			as nested :class:`collections.OrderedDict` dictionaries or dictionaries.
 
 		Usage::
@@ -680,7 +680,7 @@ class SectionsFileParser(foundations.io.File):
 
 	def sectionExists(self, section):
 		"""
-		This method checks if given section exists.
+		Checks if given section exists.
 		
 		Usage::
 
@@ -711,7 +711,7 @@ class SectionsFileParser(foundations.io.File):
 
 	def attributeExists(self, attribute, section):
 		"""
-		This method checks if given attribute exists.
+		Checks if given attribute exists.
 
 		Usage::
 
@@ -745,7 +745,7 @@ class SectionsFileParser(foundations.io.File):
 
 	def getAttributes(self, section, orderedDictionary=True, stripNamespaces=False):
 		"""
-		This method returns given section attributes.
+		Returns given section attributes.
 
 		Usage::
 
@@ -784,7 +784,7 @@ class SectionsFileParser(foundations.io.File):
 
 	def getAllAttributes(self, orderedDictionary=True):
 		"""
-		This method returns all sections attributes.
+		Returns all sections attributes.
 
 		Usage::
 
@@ -815,7 +815,7 @@ class SectionsFileParser(foundations.io.File):
 
 	def getValue(self, attribute, section, default=""):
 		"""
-		This method returns requested attribute value.
+		Returns requested attribute value.
 
 		Usage::
 
@@ -854,7 +854,7 @@ class SectionsFileParser(foundations.io.File):
 			spacesAroundSplitter=True,
 			spaceAfterCommentLimiter=True):
 		"""
-		This method writes defined file using :obj:`SectionsFileParser.sections` and
+		Writes defined file using :obj:`SectionsFileParser.sections` and
 			:obj:`SectionsFileParser.comments` class properties content.
 
 		Usage::
@@ -938,7 +938,7 @@ class PlistFileParser(foundations.io.File):
 
 	def __init__(self, file=None):
 		"""
-		This method initializes the class.
+		Initializes the class.
 		
 		Usage::
 
@@ -978,7 +978,7 @@ class PlistFileParser(foundations.io.File):
 	@property
 	def elements(self):
 		"""
-		This method is the property for **self.__elements** attribute.
+		Property for **self.__elements** attribute.
 
 		:return: self.__elements. ( OrderedDict / Dictionary )
 		"""
@@ -989,7 +989,7 @@ class PlistFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def elements(self, value):
 		"""
-		This method is the setter method for **self.__elements** attribute.
+		Setter for **self.__elements** attribute.
 
 		:param value: Attribute value. ( OrderedDict / Dictionary )
 		"""
@@ -1002,7 +1002,7 @@ class PlistFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def elements(self):
 		"""
-		This method is the deleter method for **self.__elements** attribute.
+		Deleter for **self.__elements** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -1011,7 +1011,7 @@ class PlistFileParser(foundations.io.File):
 	@property
 	def parsingErrors(self):
 		"""
-		This method is the property for **self.__parsingErrors** attribute.
+		Property for **self.__parsingErrors** attribute.
 
 		:return: self.__parsingErrors. ( List )
 		"""
@@ -1022,7 +1022,7 @@ class PlistFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def parsingErrors(self, value):
 		"""
-		This method is the setter method for **self.__parsingErrors** attribute.
+		Setter for **self.__parsingErrors** attribute.
 
 		:param value: Attribute value. ( List )
 		"""
@@ -1039,7 +1039,7 @@ class PlistFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def parsingErrors(self):
 		"""
-		This method is the deleter method for **self.__parsingErrors** attribute.
+		Deleter for **self.__parsingErrors** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -1048,7 +1048,7 @@ class PlistFileParser(foundations.io.File):
 	@property
 	def unserializers(self):
 		"""
-		This method is the property for **self.__unserializers** attribute.
+		Property for **self.__unserializers** attribute.
 
 		:return: self.__unserializers. ( Dictionary )
 		"""
@@ -1059,7 +1059,7 @@ class PlistFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def unserializers(self, value):
 		"""
-		This method is the setter method for **self.__unserializers** attribute.
+		Setter for **self.__unserializers** attribute.
 
 		:param value: Attribute value. ( Dictionary )
 		"""
@@ -1071,7 +1071,7 @@ class PlistFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def unserializers(self):
 		"""
-		This method is the deleter method for **self.__unserializers** attribute.
+		Deleter for **self.__unserializers** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -1083,7 +1083,7 @@ class PlistFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.FileStructureParsingError)
 	def parse(self, raiseParsingErrors=True):
 		"""
-		This method process the file content.
+		Process the file content.
 
 		Usage::
 
@@ -1122,7 +1122,7 @@ class PlistFileParser(foundations.io.File):
 
 	def elementExists(self, element):
 		"""
-		This method checks if given element exists.
+		Checks if given element exists.
 
 		Usage::
 			
@@ -1152,8 +1152,8 @@ class PlistFileParser(foundations.io.File):
 
 	def filterValues(self, pattern, flags=0):
 		"""
-		| This method filters the :meth:`PlistFileParser.elements` class property elements using given pattern.
-		| This method will return a list of matching elements values, if you want to get only one element value, use
+		| Filters the :meth:`PlistFileParser.elements` class property elements using given pattern.
+		| Will return a list of matching elements values, if you want to get only one element value, use
 			the :meth:`PlistFileParser.getValue` method instead.
 
 		Usage::
@@ -1183,7 +1183,7 @@ class PlistFileParser(foundations.io.File):
 
 	def getValue(self, element):
 		"""
-		| This method returns the given element value.
+		| Returns the given element value.
 		| If multiple elements with the same name exists, only the first encountered will be returned.
 
 		Usage::
@@ -1206,7 +1206,7 @@ class PlistFileParser(foundations.io.File):
 
 def getAttributeCompound(attribute, value=None, splitter="|", bindingIdentifier="@"):
 	"""
-	This definition returns an attribute compound.
+	Returns an attribute compound.
 	
 	Usage::
 	

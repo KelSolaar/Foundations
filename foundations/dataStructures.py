@@ -71,7 +71,7 @@ class NestedAttribute(object):
 
 	def __getattr__(self, attribute):
 		"""
-		This method returns requested attribute.
+		Returns requested attribute.
 	
 		:param attribute: Attribute name. ( String )
 		:return: Attribute. ( Object )
@@ -82,7 +82,7 @@ class NestedAttribute(object):
 
 	def __setattr__(self, attribute, value):
 		"""
-		This method sets given attribute with given value.
+		Sets given attribute with given value.
 	
 		:param attribute: Attribute name. ( String )
 		:param name: Attribute value. ( Object )
@@ -93,7 +93,7 @@ class NestedAttribute(object):
 
 	def __delattr__(self, attribute):
 		"""
-		This method deletes given attribute with.
+		Deletes given attribute with.
 	
 		:param attribute: Attribute name. ( String )
 		"""
@@ -127,7 +127,7 @@ class Structure(dict):
 
 	def __init__(self, *args, **kwargs):
 		"""
-		This method initializes the class.
+		Initializes the class.
 
 		:param \*args: Arguments. ( \* )
 		:param \*\*kwargs: Key / Value pairs. ( Key / Value pairs )
@@ -138,7 +138,7 @@ class Structure(dict):
 
 	def __getattr__(self, attribute):
 		"""
-		This method returns given attribute value.
+		Returns given attribute value.
 
 		:return: Attribute value. ( Object )
 		"""
@@ -150,7 +150,7 @@ class Structure(dict):
 
 	def __setattr__(self, attribute, value):
 		"""
-		This method sets both key and sibling attribute with given value.
+		Sets both key and sibling attribute with given value.
 
 		:param attribute: Attribute. ( Object )
 		:param value: Value. ( Object )
@@ -163,7 +163,7 @@ class Structure(dict):
 
 	def __delattr__(self, attribute):
 		"""
-		This method deletes both key and sibling attribute.
+		Deletes both key and sibling attribute.
 
 		:param attribute: Attribute. ( Object )
 		"""
@@ -175,7 +175,7 @@ class Structure(dict):
 
 	def update(self, *args, **kwargs):
 		"""
-		This method reimplements the :meth:`Dict.update` method.
+		Reimplements the :meth:`Dict.update` method.
 		
 		:param \*args: Arguments. ( \* )
 		:param \*\*kwargs: Keywords arguments. ( \*\* )
@@ -217,7 +217,7 @@ class OrderedStructure(OrderedDict):
 
 	def __init__(self, *args, **kwargs):
 		"""
-		This method initializes the class.
+		Initializes the class.
 
 		:param \*args: Arguments. ( \* )
 		:param \*\*kwargs: Key / Value pairs. ( Key / Value pairs )
@@ -227,7 +227,7 @@ class OrderedStructure(OrderedDict):
 
 	def __setitem__(self, key, value, *args, **kwargs):
 		"""
-		This method sets a key and sibling attribute with given value.
+		Sets a key and sibling attribute with given value.
 
 		:param key: Key. ( Object )
 		:param value: Value. ( Object )
@@ -240,7 +240,7 @@ class OrderedStructure(OrderedDict):
 
 	def __delitem__(self, key, *args, **kwargs):
 		"""
-		This method deletes both key and sibling attribute.
+		Deletes both key and sibling attribute.
 
 		:param key: Key. ( Object )
 		:param \*args: Arguments. ( \* )
@@ -252,7 +252,7 @@ class OrderedStructure(OrderedDict):
 
 	def __setattr__(self, attribute, value):
 		"""
-		This method sets both key and sibling attribute with given value.
+		Sets both key and sibling attribute with given value.
 
 		:param attribute: Attribute. ( Object )
 		:param value: Value. ( Object )
@@ -269,7 +269,7 @@ class OrderedStructure(OrderedDict):
 
 	def __delattr__(self, attribute):
 		"""
-		This method deletes both key and sibling attribute.
+		Deletes both key and sibling attribute.
 
 		:param attribute: Attribute. ( Object )
 		"""
@@ -299,7 +299,7 @@ class Lookup(dict):
 
 	def getFirstKeyFromValue(self, value):
 		"""
-		This method gets the first key from given value.
+		Gets the first key from given value.
 
 		:param value: Value. ( Object )
 		:return: Key. ( Object )
@@ -311,7 +311,7 @@ class Lookup(dict):
 
 	def getKeysFromValue(self, value):
 		"""
-		This method gets the keys from given value.
+		Gets the keys from given value.
 
 		:param value: Value. ( Object )
 		:return: Keys. ( Object )

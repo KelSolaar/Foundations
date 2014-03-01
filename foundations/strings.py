@@ -74,7 +74,7 @@ ASCII_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567
 #**********************************************************************************************************************
 def toString(data, encoding=Constants.defaultCodec, errors=Constants.codecError):
 	"""
-	This definition converts given data to unicode string using package default settings.
+	Converts given data to unicode string using package default settings.
 
 	Usage::
 
@@ -99,7 +99,7 @@ def toString(data, encoding=Constants.defaultCodec, errors=Constants.codecError)
 
 def getNiceName(name):
 	"""
-	This definition converts a string to nice string: **currentLogText** -> **Current Log Text**.
+	Converts a string to nice string: **currentLogText** -> **Current Log Text**.
 
 	Usage::
 
@@ -117,7 +117,7 @@ def getNiceName(name):
 
 def getVersionRank(version):
 	"""
-	This definition converts a version string to it's rank.
+	Converts a version string to it's rank.
 
 	Usage::
 
@@ -139,7 +139,7 @@ def getVersionRank(version):
 
 def getSplitextBasename(path):
 	"""
-	This definition gets the basename of a path without its extension.
+	Gets the basename of a path without its extension.
 
 	Usage::
 
@@ -156,7 +156,7 @@ def getSplitextBasename(path):
 
 def getCommonAncestor(*args):
 	"""
-	This definition gets common ancestor of given iterables.
+	Gets common ancestor of given iterables.
 
 	Usage::
 
@@ -180,7 +180,7 @@ def getCommonAncestor(*args):
 
 def getCommonPathsAncestor(*args):
 	"""
-	This definition gets common paths ancestor of given paths.
+	Gets common paths ancestor of given paths.
 
 	Usage::
 
@@ -197,7 +197,7 @@ def getCommonPathsAncestor(*args):
 
 def getWords(data):
 	"""
-	This method extracts the words from given string.
+	Extracts the words from given string.
 
 	Usage::
 
@@ -214,7 +214,7 @@ def getWords(data):
 
 def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 	"""
-	This method filters the words using the given filters.
+	Filters the words using the given filters.
 
 	Usage::
 
@@ -259,7 +259,7 @@ def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 
 def replace(string, data):
 	"""
-	This definition replaces the data occurences in the string.
+	Replaces the data occurences in the string.
 
 	Usage::
 
@@ -278,7 +278,7 @@ def replace(string, data):
 
 def removeStrip(string, pattern):
 	"""
-	This definition removes the pattern occurences in the string and strip the result.
+	Removes the pattern occurences in the string and strip the result.
 
 	Usage::
 
@@ -294,7 +294,7 @@ def removeStrip(string, pattern):
 
 def toForwardSlashes(data):
 	"""
-	This definition converts backward slashes to forward slashes.
+	Converts backward slashes to forward slashes.
 
 	Usage::
 
@@ -311,7 +311,7 @@ def toForwardSlashes(data):
 
 def toBackwardSlashes(data):
 	"""
-	This definition converts forward slashes to backward slashes.
+	Converts forward slashes to backward slashes.
 
 	Usage::
 
@@ -328,7 +328,7 @@ def toBackwardSlashes(data):
 
 def toPosixPath(path):
 	"""
-	This definition converts Windows path to Posix path while stripping drives letters and network server slashes.
+	Converts Windows path to Posix path while stripping drives letters and network server slashes.
 
 	Usage::
 
@@ -345,7 +345,7 @@ def toPosixPath(path):
 
 def getNormalizedPath(path):
 	"""
-	This definition normalizes a path, escaping slashes if needed on Windows.
+	Normalizes a path, escaping slashes if needed on Windows.
 
 	Usage::
 
@@ -367,7 +367,7 @@ def getNormalizedPath(path):
 
 def getRandomSequence(length=8):
 	"""
-	This definition returns a random sequence.
+	Returns a random sequence.
 	
 	Usage::
 
@@ -382,7 +382,7 @@ def getRandomSequence(length=8):
 
 def isEmail(data):
 	"""
-	This definition check if given data string is an email.
+	Check if given data string is an email.
 
 	Usage::
 
@@ -404,7 +404,7 @@ def isEmail(data):
 
 def isWebsite(data):
 	"""
-	This definition check if given data string is a website.
+	Check if given data string is a website.
 	
 	Usage::
 

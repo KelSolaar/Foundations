@@ -51,7 +51,7 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 def exit(exitCode=0):
 	"""
-	This definition shuts down current process logging, associated handlers and then exits to system.
+	Shuts down current process logging, associated handlers and then exits to system.
 	
 	:param exitCode: System exit code. ( Integer / String / Object )
 
@@ -68,7 +68,7 @@ def exit(exitCode=0):
 
 def wait(waitTime):
 	"""
-	This definition halts current process exection for an user defined time.
+	Halts current process exection for an user defined time.
 
 	:param waitTime: Current sleep time in seconds. ( Float )
 	:return: Definition success. ( Boolean )

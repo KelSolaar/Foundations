@@ -73,7 +73,7 @@ class ToStringTestCase(unittest.TestCase):
 
 	def testEncode(self):
 		"""
-		This method tests :func:`foundations.strings.toString` definition.
+		Tests :func:`foundations.strings.toString` definition.
 		"""
 
 		self.assertIsInstance(foundations.strings.toString(str("myData")), unicode)
@@ -89,7 +89,7 @@ class GetNiceNameTestCase(unittest.TestCase):
 
 	def testGetNiceName(self):
 		"""
-		This method tests :func:`foundations.strings.getNiceName` definition.
+		Tests :func:`foundations.strings.getNiceName` definition.
 		"""
 
 		self.assertIsInstance(foundations.strings.getNiceName("testGetNiceName"), unicode)
@@ -106,7 +106,7 @@ class GetVersionRankTestCase(unittest.TestCase):
 
 	def testGetVersionRank(self):
 		"""
-		This method tests :func:`foundations.strings.getVersionRank` definition.
+		Tests :func:`foundations.strings.getVersionRank` definition.
 		"""
 
 		self.assertTrue(type(foundations.strings.getVersionRank("0.0.0")), (int, long))
@@ -124,7 +124,7 @@ class GetSplitextBasenameTestCase(unittest.TestCase):
 
 	def testGetSplitextBasename(self):
 		"""
-		This method tests :func:`foundations.strings.getSplitextBasename` definition.
+		Tests :func:`foundations.strings.getSplitextBasename` definition.
 		"""
 
 		self.assertIsInstance(foundations.strings.getSplitextBasename("/Users/JohnDoe/Documents"), unicode)
@@ -139,7 +139,7 @@ class GetCommonAncestorTestCase(unittest.TestCase):
 
 	def testGetCommonAncestor(self):
 		"""
-		This method tests :func:`foundations.strings.getCommonAncestor` definition.
+		Tests :func:`foundations.strings.getCommonAncestor` definition.
 		"""
 
 		self.assertTupleEqual(foundations.strings.getCommonAncestor(("1", "2", "3"), ("1", "2", "0"), ("1", "2", "3", "4")),
@@ -157,7 +157,7 @@ class GetCommonPathsAncestorTestCase(unittest.TestCase):
 
 	def testGetCommonPathsAncestor(self):
 		"""
-		This method tests :func:`foundations.strings.getCommonPathsAncestor` definition.
+		Tests :func:`foundations.strings.getCommonPathsAncestor` definition.
 		"""
 
 		self.assertEqual(foundations.strings.getCommonPathsAncestor("{0}{1}".format(os.sep,
@@ -179,7 +179,7 @@ class GetWordsTestCase(unittest.TestCase):
 
 	def testGetWords(self):
 		"""
-		This method tests :func:`foundations.strings.getWords` definition.
+		Tests :func:`foundations.strings.getWords` definition.
 		"""
 
 		self.assertIsInstance(foundations.strings.getWords("Users are John Doe and Jane Doe."), list)
@@ -195,7 +195,7 @@ class FilterWordsTestCase(unittest.TestCase):
 
 	def testFilterWords(self):
 		"""
-		This method tests :func:`foundations.strings.filterWords` definition.
+		Tests :func:`foundations.strings.filterWords` definition.
 		"""
 
 		self.assertIsInstance(foundations.strings.filterWords("Users are John Doe and Jane Doe".split()), list)
@@ -227,7 +227,7 @@ class ReplaceTestCase(unittest.TestCase):
 
 	def testReplace(self):
 		"""
-		This method tests :func:`foundations.strings.replace` definition.
+		Tests :func:`foundations.strings.replace` definition.
 		"""
 
 		self.assertIsInstance(foundations.strings.replace("To@Forward|Slashes@Test|Case", {}), unicode)
@@ -243,7 +243,7 @@ class RemoveStripTestCase(unittest.TestCase):
 
 	def testRemoveStrip(self):
 		"""
-		This method tests :func:`foundations.strings.removeStrip` definition.
+		Tests :func:`foundations.strings.removeStrip` definition.
 		"""
 
 		self.assertIsInstance(foundations.strings.removeStrip("John Doe", "John"), unicode)
@@ -257,7 +257,7 @@ class ToForwardSlashesTestCase(unittest.TestCase):
 
 	def testToForwardSlashes(self):
 		"""
-		This method tests :func:`foundations.strings.toForwardSlashes` definition.
+		Tests :func:`foundations.strings.toForwardSlashes` definition.
 		"""
 
 		self.assertIsInstance(foundations.strings.toForwardSlashes("To\\Forward\\Slashes\\Test\\Case"), unicode)
@@ -272,7 +272,7 @@ class ToBackwardSlashesTestCase(unittest.TestCase):
 
 	def testToBackwardSlashes(self):
 		"""
-		This method tests :func:`foundations.strings.toBackwardSlashes` definition.
+		Tests :func:`foundations.strings.toBackwardSlashes` definition.
 		"""
 
 		self.assertIsInstance(foundations.strings.toBackwardSlashes("\\Users\\JohnDoe\\Documents"), unicode)
@@ -287,7 +287,7 @@ class ToPosixPathTestCase(unittest.TestCase):
 
 	def testToPosixPath(self):
 		"""
-		This method tests :func:`foundations.strings.toPosixPath` definition.
+		Tests :func:`foundations.strings.toPosixPath` definition.
 		"""
 
 		self.assertIsInstance(foundations.strings.toPosixPath("c:\\Users\\JohnDoe\\Documents"), unicode)
@@ -302,7 +302,7 @@ class GetNormalizedPathTestCase(unittest.TestCase):
 
 	def testGetNormalizedPath(self):
 		"""
-		This method tests :func:`foundations.strings.getNormalizedPath` definition.
+		Tests :func:`foundations.strings.getNormalizedPath` definition.
 		"""
 
 		self.assertIsInstance(foundations.strings.getNormalizedPath("/Users/JohnDoe/Documents"), unicode)
@@ -324,7 +324,7 @@ class IsEmailTestCase(unittest.TestCase):
 
 	def testIsEmail(self):
 		"""
-		This method tests :func:`foundations.strings.isEmail` definition.
+		Tests :func:`foundations.strings.isEmail` definition.
 		"""
 
 		self.assertIsInstance(foundations.strings.isEmail("john.doe@domain.com"), bool)
@@ -340,7 +340,7 @@ class IsWebsiteTestCase(unittest.TestCase):
 
 	def testIsWebsite(self):
 		"""
-		This method tests :func:`foundations.strings.isWebsite` definition.
+		Tests :func:`foundations.strings.isWebsite` definition.
 		"""
 
 		self.assertIsInstance(foundations.strings.isWebsite("http://domain.com"), bool)
@@ -359,7 +359,7 @@ class GetRandomSequenceTestCase(unittest.TestCase):
 
 	def testGetRandomSequence(self):
 		"""
-		This method tests :func:`foundations.strings.getRandomSequence` definition.
+		Tests :func:`foundations.strings.getRandomSequence` definition.
 		"""
 
 		self.assertIsInstance(foundations.strings.getRandomSequence(), unicode)

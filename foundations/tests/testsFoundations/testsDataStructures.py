@@ -59,7 +59,7 @@ class NestedAttributeTestCase(unittest.TestCase):
 
 	def testNestedAttribute(self):
 		"""
-		This method tests :class:`foundations.dataStructures.NestedAttribute` class.
+		Tests :class:`foundations.dataStructures.NestedAttribute` class.
 		"""
 
 		nest = foundations.dataStructures.NestedAttribute()
@@ -74,7 +74,7 @@ class StructureTestCase(unittest.TestCase):
 
 	def testStructure(self):
 		"""
-		This method tests :class:`foundations.dataStructures.Structure` class.
+		Tests :class:`foundations.dataStructures.Structure` class.
 		"""
 
 		structure = foundations.dataStructures.Structure(John="Doe", Jane="Doe")
@@ -102,7 +102,7 @@ class StructureTestCase(unittest.TestCase):
 
 	def testStructurePickle(self):
 		"""
-		This method tests :class:`foundations.dataStructures.Structure` class pickling.
+		Tests :class:`foundations.dataStructures.Structure` class pickling.
 		"""
 
 		structure = foundations.dataStructures.Structure(John="Doe", Jane="Doe")
@@ -122,7 +122,7 @@ class OrderedStructureTestCase(unittest.TestCase):
 
 	def testOrderedStructure(self):
 		"""
-		This method tests :class:`foundations.dataStructures.OrderedStructure` class.
+		Tests :class:`foundations.dataStructures.OrderedStructure` class.
 		"""
 
 		structure = foundations.dataStructures.OrderedStructure([("personA", "John"),
@@ -147,7 +147,7 @@ class LookupTestCase(unittest.TestCase):
 
 	def testGetFirstKeyFromValue(self):
 		"""
-		This method tests :meth:`foundations.dataStructures.Lookup.getFirstKeyFromValue` method.
+		Tests :meth:`foundations.dataStructures.Lookup.getFirstKeyFromValue` method.
 		"""
 
 		lookup = foundations.dataStructures.Lookup(firstName="Doe", lastName="John", gender="male")
@@ -155,7 +155,7 @@ class LookupTestCase(unittest.TestCase):
 
 	def testGetKeysFromValue(self):
 		"""
-		This method tests :meth:`foundations.dataStructures.Lookup.getKeysFromValue` method.
+		Tests :meth:`foundations.dataStructures.Lookup.getKeysFromValue` method.
 		"""
 
 		lookup = foundations.dataStructures.Lookup(John="Doe", Jane="Doe", Luke="Skywalker")

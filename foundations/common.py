@@ -85,7 +85,7 @@ DEFAULT_HOST_IP = "127.0.0.1"
 #**********************************************************************************************************************
 def uniqify(sequence):
 	"""
-	This definition uniqifies the given sequence even if unhashable.
+	Uniqifies the given sequence even if unhashable.
 
 	:param sequence: Sequence. ( Object )
 	:return: Uniqified sequence. ( List )
@@ -97,7 +97,7 @@ def uniqify(sequence):
 
 def orderedUniqify(sequence):
 	"""
-	This definition uniqifies the given hashable sequence while preserving its order.
+	Uniqifies the given hashable sequence while preserving its order.
 
 	:param sequence: Sequence. ( Object )
 	:return: Uniqified sequence. ( List )
@@ -108,7 +108,7 @@ def orderedUniqify(sequence):
 
 def unpackDefault(iterable, length=3, default=None):
 	"""
-	This definition unpacks given iterable maintaining given length and filling missing entries with given default.
+	Unpacks given iterable maintaining given length and filling missing entries with given default.
 
 	:param iterable: iterable. ( Object )
 	:param length: Iterable length. ( Integer )
@@ -120,7 +120,7 @@ def unpackDefault(iterable, length=3, default=None):
 
 def pathExists(path):
 	"""
-	This definition returns if given path exists.
+	Returns if given path exists.
 
 	:param path: Path. ( String )
 	:return: Path existence. ( Boolean )
@@ -133,7 +133,7 @@ def pathExists(path):
 
 def filterPath(path):
 	"""
-	This definition filters given path.
+	Filters given path.
 
 	:param path: Path. ( String )
 	:return: Filtered path. ( String )
@@ -143,7 +143,7 @@ def filterPath(path):
 
 def getFirstItem(iterable, default=None):
 	"""
-	This definition returns the first item of given iterable.
+	Returns the first item of given iterable.
 
 	:param iterable: Iterable. ( Object )
 	:param default: Default value. ( Object )
@@ -158,7 +158,7 @@ def getFirstItem(iterable, default=None):
 
 def getLastItem(iterable, default=None):
 	"""
-	This definition returns the last item of given iterable.
+	Returns the last item of given iterable.
 
 	:param iterable: Iterable. ( Object )
 	:param default: Default value. ( Object )
@@ -172,7 +172,7 @@ def getLastItem(iterable, default=None):
 
 def isBinaryFile(file):
 	"""
-	This definition returns if given file is a binary file.
+	Returns if given file is a binary file.
 
 	:param file: File path. ( String )
 	:return: Is file binary. ( Boolean )
@@ -193,7 +193,7 @@ def isBinaryFile(file):
 
 def repeat(object, iterations=1):
 	"""
-	This definition repeats given object iterations times.
+	Repeats given object iterations times.
 
 	:param object: Object to repeat. ( Object )
 	:param iterations: Repetitions number. ( Integer )
@@ -204,7 +204,7 @@ def repeat(object, iterations=1):
 
 def dependencyResolver(dependencies):
 	"""
-	This definition resolves given dependencies.
+	Resolves given dependencies.
 
 	:param dependencies: Dependencies to resolve. ( Dictionary )
 	:return: Resolved dependencies. ( List )
@@ -221,7 +221,7 @@ def dependencyResolver(dependencies):
 
 def isInternetAvailable(ips=CONNECTION_IPS, timeout=1.0):
 	"""
-	This definition returns if an internet connection is available.
+	Returns if an internet connection is available.
 
 	:param ips: Address ips to check against. ( List )
 	:param timeout: Timeout in seconds. ( Integer )
@@ -240,7 +240,7 @@ def isInternetAvailable(ips=CONNECTION_IPS, timeout=1.0):
 
 def getHostAddress(host=None, defaultAddress=DEFAULT_HOST_IP):
 	"""
-	This definition returns the given host address.
+	Returns the given host address.
 
 	:param host: Host to retrieve the address. ( String )
 	:param defaultAddress: Default address if the host is unreachable. ( String )
