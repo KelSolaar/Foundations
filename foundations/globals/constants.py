@@ -47,7 +47,7 @@ __all__ = ["Constants"]
 #**********************************************************************************************************************
 class Constants():
 	"""
-	This class provides **Foundations** package default constants.
+	Defines **Foundations** package default constants.
 	"""
 
 	applicationName = "Foundations"

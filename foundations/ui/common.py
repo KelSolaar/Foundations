@@ -88,7 +88,7 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 
 	class QWidget(Form, Base):
 		"""
-		This class is built by the :def:`QWidgetFactory` definition.
+		Derives from :def:`QWidgetFactory` class factory definition.
 		"""
 
 		def __init__(self, *args, **kwargs):

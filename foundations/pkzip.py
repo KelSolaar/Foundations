@@ -52,7 +52,7 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 class Pkzip(object):
 	"""
-	This class provides methods to manipulate zip files.
+	Defines methods to manipulate zip files.
 	"""
 
 	def __init__(self, archive=None):

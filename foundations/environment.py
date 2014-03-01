@@ -56,7 +56,7 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 class Environment(object):
 	"""
-	This class provides methods to manipulate environment variables.
+	Defines methods to manipulate environment variables.
 	"""
 
 	def __init__(self, *args, **kwargs):

@@ -65,7 +65,7 @@ __all__ = ["StreamerTestCase",
 #**********************************************************************************************************************
 class StreamerTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.verbose.Streamer` class units tests methods.
+	Defines :class:`foundations.verbose.Streamer` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
@@ -91,7 +91,7 @@ class StreamerTestCase(unittest.TestCase):
 
 class StandardOutputStreamerTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.core.StandardOutputStreamer` class units tests methods.
+	Defines :class:`foundations.core.StandardOutputStreamer` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
@@ -116,7 +116,7 @@ class StandardOutputStreamerTestCase(unittest.TestCase):
 
 class IndentMessageTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.verbose.indentMessage` definition units tests methods.
+	Defines :func:`foundations.verbose.indentMessage` definition units tests methods.
 	"""
 
 	def testIndentMessage(self):
@@ -128,7 +128,7 @@ class IndentMessageTestCase(unittest.TestCase):
 
 class TracerTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.trace.tracer` definition units tests methods.
+	Defines :func:`foundations.trace.tracer` definition units tests methods.
 	"""
 
 	def testTracer(self):
@@ -142,7 +142,7 @@ class TracerTestCase(unittest.TestCase):
 
 class InstallLoggerTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.verbose.installLogger` definition units tests methods.
+	Defines :func:`foundations.verbose.installLogger` definition units tests methods.
 	"""
 
 	def testInstallLogger(self):
@@ -158,7 +158,7 @@ class InstallLoggerTestCase(unittest.TestCase):
 
 class UninstallLoggerTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.verbose.uninstallLogger` definition units tests methods.
+	Defines :func:`foundations.verbose.uninstallLogger` definition units tests methods.
 	"""
 
 	def testUninstallLogger(self):
@@ -173,7 +173,7 @@ class UninstallLoggerTestCase(unittest.TestCase):
 
 class GetLoggingConsoleHandlerTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.verbose.getLoggingConsoleHandler` definition units tests methods.
+	Defines :func:`foundations.verbose.getLoggingConsoleHandler` definition units tests methods.
 	"""
 
 	def testGetLoggingConsoleHandler(self):
@@ -190,7 +190,7 @@ class GetLoggingConsoleHandlerTestCase(unittest.TestCase):
 
 class GetLoggingFileHandlerTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.verbose.getLoggingFileHandler` definition units tests methods.
+	Defines :func:`foundations.verbose.getLoggingFileHandler` definition units tests methods.
 	"""
 
 	def testGetLoggingFileHandler(self):
@@ -215,7 +215,7 @@ class GetLoggingFileHandlerTestCase(unittest.TestCase):
 
 class GetLoggingStreamHandlerTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.verbose.getLoggingStreamHandler` definition units tests methods.
+	Defines :func:`foundations.verbose.getLoggingStreamHandler` definition units tests methods.
 	"""
 
 	def testGetLoggingStreamHandler(self):
@@ -235,7 +235,7 @@ class GetLoggingStreamHandlerTestCase(unittest.TestCase):
 
 class RemoveLoggingHandlerTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.verbose.removeLoggingHandler` definition units tests methods.
+	Defines :func:`foundations.verbose.removeLoggingHandler` definition units tests methods.
 	"""
 
 	def testRemoveLoggingHandler(self):
@@ -251,7 +251,7 @@ class RemoveLoggingHandlerTestCase(unittest.TestCase):
 
 class SetVerbosityLevelTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.verbose.setVerbosityLevel` definition units tests methods.
+	Defines :func:`foundations.verbose.setVerbosityLevel` definition units tests methods.
 	"""
 
 	def testSetVerbosityLevel(self):

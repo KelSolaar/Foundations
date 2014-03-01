@@ -55,7 +55,7 @@ UI_TESTS_FILE = os.path.join(RESOURCES_DIRECTORY, "Tests_Widget.ui")
 #**********************************************************************************************************************
 class QWidgetFactoryTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.ui.common.QWidgetFactory` definition units tests methods.
+	Defines :func:`foundations.ui.common.QWidgetFactory` definition units tests methods.
 	"""
 
 	def testQWidgetFactory(self):

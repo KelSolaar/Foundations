@@ -47,7 +47,7 @@ GLOBAL_RETURN_VALUE = range(10)
 #**********************************************************************************************************************
 class Dummy(object):
 	"""
-	This class is a dummy class mainly used to test :mod:`foundations.trace` module.
+	Defines a dummy class mainly used to test :mod:`foundations.trace` module.
 	"""
 
 	def __init__(self):

@@ -55,7 +55,7 @@ __all__ = ["EnvironmentTestCase",
 #**********************************************************************************************************************
 class EnvironmentTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.environment.Environment` class units tests methods.
+	Defines :class:`foundations.environment.Environment` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
@@ -143,7 +143,7 @@ class EnvironmentTestCase(unittest.TestCase):
 
 class GetSystemApplicationDataDirectoryTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.getSystemApplicationDataDirectory` definition units tests methods.
+	Defines :func:`foundations.common.getSystemApplicationDataDirectory` definition units tests methods.
 	"""
 
 	def testGetSystemApplicationDataDirectory(self):
@@ -157,7 +157,7 @@ class GetSystemApplicationDataDirectoryTestCase(unittest.TestCase):
 
 class GetUserApplicationDataDirectoryTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.getUserApplicationDataDirectory` definition units tests methods.
+	Defines :func:`foundations.common.getUserApplicationDataDirectory` definition units tests methods.
 	"""
 
 	def testGetUserApplicationDataDirectory(self):

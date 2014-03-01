@@ -57,7 +57,7 @@ TEST_DIRECTORY = os.path.join(RESOURCES_DIRECTORY, "standard")
 #**********************************************************************************************************************
 class RotatingBackupTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.rotatingBackup.RotatingBackup` class units tests methods.
+	Defines :class:`foundations.rotatingBackup.RotatingBackup` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):

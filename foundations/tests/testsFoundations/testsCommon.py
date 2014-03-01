@@ -73,7 +73,7 @@ TEXT_FILE = os.path.join(RESOURCES_DIRECTORY, "loremIpsum.txt")
 #**********************************************************************************************************************
 class UniqifyTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.uniqify` definition units tests methods.
+	Defines :func:`foundations.common.uniqify` definition units tests methods.
 	"""
 
 	def testUniqify(self):
@@ -91,7 +91,7 @@ class UniqifyTestCase(unittest.TestCase):
 
 class OrderedUniqifyTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.orderedUniqify` definition units tests methods.
+	Defines :func:`foundations.common.orderedUniqify` definition units tests methods.
 	"""
 
 	def testOrderedUniqify(self):
@@ -106,7 +106,7 @@ class OrderedUniqifyTestCase(unittest.TestCase):
 
 class UnpackDefaultTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.unpackDefault` definition units tests methods.
+	Defines :func:`foundations.common.unpackDefault` definition units tests methods.
 	"""
 
 	def testUnpackDefault(self):
@@ -121,7 +121,7 @@ class UnpackDefaultTestCase(unittest.TestCase):
 
 class PathExistsTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.pathExists` definition units tests methods.
+	Defines :func:`foundations.common.pathExists` definition units tests methods.
 	"""
 
 	def testPathExists(self):
@@ -135,7 +135,7 @@ class PathExistsTestCase(unittest.TestCase):
 
 class FilterPathTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.filterPath` definition units tests methods.
+	Defines :func:`foundations.common.filterPath` definition units tests methods.
 	"""
 
 	def testFilterPath(self):
@@ -148,7 +148,7 @@ class FilterPathTestCase(unittest.TestCase):
 
 class GetFirstItemTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.getFirstItem` definition units tests methods.
+	Defines :func:`foundations.common.getFirstItem` definition units tests methods.
 	"""
 
 	def testGetFirstItem(self):
@@ -165,7 +165,7 @@ class GetFirstItemTestCase(unittest.TestCase):
 
 class GetLastItemTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.getLastItem` definition units tests methods.
+	Defines :func:`foundations.common.getLastItem` definition units tests methods.
 	"""
 
 	def testGetLastItem(self):
@@ -182,7 +182,7 @@ class GetLastItemTestCase(unittest.TestCase):
 
 class IsBinaryFileTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.isBinaryFile` definition units tests methods.
+	Defines :func:`foundations.common.isBinaryFile` definition units tests methods.
 	"""
 
 	def testPathExists(self):
@@ -195,7 +195,7 @@ class IsBinaryFileTestCase(unittest.TestCase):
 
 class RepeatTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.isBinaryFile` definition units tests methods.
+	Defines :func:`foundations.common.isBinaryFile` definition units tests methods.
 	"""
 
 	def testRepeat(self):
@@ -211,7 +211,7 @@ class RepeatTestCase(unittest.TestCase):
 
 class DependencyResolverTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.dependencyResolver` definition units tests methods.
+	Defines :func:`foundations.common.dependencyResolver` definition units tests methods.
 	"""
 
 	def testDependencyResolver(self):
@@ -228,7 +228,7 @@ class DependencyResolverTestCase(unittest.TestCase):
 
 class GetHostAddressTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.getHostAddress` definition units tests methods.
+	Defines :func:`foundations.common.getHostAddress` definition units tests methods.
 	"""
 
 	def testGetHostAddress(self):

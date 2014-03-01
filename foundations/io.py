@@ -55,7 +55,7 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 class File(object):
 	"""
-	This class provides methods to read / write and append to files or retrieve online file content.
+	Defines methods to read / write and append to files or retrieve online file content.
 	"""
 
 	def __init__(self, path=None, content=None):

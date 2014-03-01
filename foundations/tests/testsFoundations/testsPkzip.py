@@ -59,7 +59,7 @@ TREE_HIERARCHY = ("level_0", "loremIpsum.txt", "standard.ibl", "standard.rc", "s
 #**********************************************************************************************************************
 class PkzipTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.pkzip.Pkzip` class units tests methods.
+	Defines :class:`foundations.pkzip.Pkzip` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):

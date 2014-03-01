@@ -82,7 +82,7 @@ _gatherExceptions()
 #**********************************************************************************************************************
 class GetInnerMostFrameCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.exceptions.getInnerMostFrame` definition units tests methods.
+	Defines :func:`foundations.exceptions.getInnerMostFrame` definition units tests methods.
 	"""
 
 	def testGetInnerMostFrame(self):
@@ -99,7 +99,7 @@ class GetInnerMostFrameCase(unittest.TestCase):
 
 class ExtractStackCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.exceptions.extractStack` definition units tests methods.
+	Defines :func:`foundations.exceptions.extractStack` definition units tests methods.
 	"""
 
 	def testExtractStack(self):
@@ -123,7 +123,7 @@ class ExtractStackCase(unittest.TestCase):
 
 class ExtractArgumentsCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.exceptions.extractArguments` definition units tests methods.
+	Defines :func:`foundations.exceptions.extractArguments` definition units tests methods.
 	"""
 
 	def testExtractArguments(self, testArgument="My Value!", *args, **kwargs):
@@ -148,7 +148,7 @@ class ExtractArgumentsCase(unittest.TestCase):
 
 class ExtractLocalsCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.exceptions.extractLocals` definition units tests methods.
+	Defines :func:`foundations.exceptions.extractLocals` definition units tests methods.
 	"""
 
 	def testExtractLocals(self, testArgument="My Value!", *args, **kwargs):
@@ -180,7 +180,7 @@ class ExtractLocalsCase(unittest.TestCase):
 
 class ExtractExceptionCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.exceptions.extractException` definition units tests methods.
+	Defines :func:`foundations.exceptions.extractException` definition units tests methods.
 	"""
 
 	def testExtractException(self):
@@ -202,7 +202,7 @@ class ExtractExceptionCase(unittest.TestCase):
 
 class FormatExceptionCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.exceptions.formatException` definition units tests methods.
+	Defines :func:`foundations.exceptions.formatException` definition units tests methods.
 	"""
 
 	def testFormatException(self):
@@ -220,7 +220,7 @@ class FormatExceptionCase(unittest.TestCase):
 
 class FormatReportCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.exceptions.formatReport` definition units tests methods.
+	Defines :func:`foundations.exceptions.formatReport` definition units tests methods.
 	"""
 
 	def testFormatReport(self):
@@ -240,7 +240,7 @@ class FormatReportCase(unittest.TestCase):
 
 class InstallExceptionHandlerCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.exceptions.installExceptionHandler` definition units tests methods.
+	Defines :func:`foundations.exceptions.installExceptionHandler` definition units tests methods.
 	"""
 
 	def testInstallExceptionHandler(self):
@@ -255,7 +255,7 @@ class InstallExceptionHandlerCase(unittest.TestCase):
 
 class UninstallExceptionHandlerCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.exceptions.uninstallExceptionHandler` definition units tests methods.
+	Defines :func:`foundations.exceptions.uninstallExceptionHandler` definition units tests methods.
 	"""
 
 	def testUninstallExceptionHandler(self):
@@ -270,7 +270,7 @@ class UninstallExceptionHandlerCase(unittest.TestCase):
 
 class ExceptionsTestCase(unittest.TestCase):
 	"""
-	This class defines :mod:`foundations.exceptions` module exceptions classes units tests methods.
+	Defines :mod:`foundations.exceptions` module exceptions classes units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
@@ -299,7 +299,7 @@ class ExceptionsTestCase(unittest.TestCase):
 
 class AttributeStructureParsingErrorTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.exceptions.AttributeStructureParsingError` class units tests methods.
+	Defines :class:`foundations.exceptions.AttributeStructureParsingError` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):

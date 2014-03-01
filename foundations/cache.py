@@ -43,7 +43,7 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 class Cache(dict):
 	"""
-	This class defines the cache object and provides various methods to interact with its content.
+	Defines the cache object and provides various methods to interact with its content.
 	
 	Usage:
 		

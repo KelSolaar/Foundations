@@ -83,7 +83,7 @@ CHINESE_TREE_HIERARCHY = ((["0级"], ["内容.txt"]),
 #**********************************************************************************************************************
 class FilesWalkerTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.walkers.filesWalker` definition units tests methods.
+	Defines :func:`foundations.walkers.filesWalker` definition units tests methods.
 	"""
 
 	def testFilesWalker(self):
@@ -143,7 +143,7 @@ class FilesWalkerTestCase(unittest.TestCase):
 
 class DepthWalkerTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.walkers.depthWalker` definition units tests methods.
+	Defines :func:`foundations.walkers.depthWalker` definition units tests methods.
 	"""
 
 	def testDepthWalker(self):
@@ -168,7 +168,7 @@ class DepthWalkerTestCase(unittest.TestCase):
 
 class DictionariesWalkerTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.walkers.dictionariesWalker` definition units tests methods.
+	Defines :func:`foundations.walkers.dictionariesWalker` definition units tests methods.
 	"""
 
 	def testDictionariesWalker(self):
@@ -189,7 +189,7 @@ class DictionariesWalkerTestCase(unittest.TestCase):
 
 class NodesWalkerTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.walkers.nodesWalker` definition units tests methods.
+	Defines :func:`foundations.walkers.nodesWalker` definition units tests methods.
 	"""
 
 	def testNodesWalker(self):

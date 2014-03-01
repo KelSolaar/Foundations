@@ -52,7 +52,7 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 class EchoRequestsHandler(SocketServer.BaseRequestHandler):
 	"""
-	This class is the default echo requests handler.
+	Defines the default echo requests handler.
 	"""
 
 	def handle(self):
@@ -72,7 +72,7 @@ class EchoRequestsHandler(SocketServer.BaseRequestHandler):
 
 class TCPServer(object):
 	"""
-	This class defines a TCP server.
+	Defines a TCP server.
 	"""
 
 	def __init__(self, address, port, handler=EchoRequestsHandler):

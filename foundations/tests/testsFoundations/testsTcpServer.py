@@ -52,7 +52,7 @@ __all__ = ["TCPServerTestCase", "EchoRequestsHandlerTestCase"]
 #**********************************************************************************************************************
 class TCPServerTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.tcpServer.TCPServer` class units tests methods.
+	Defines :class:`foundations.tcpServer.TCPServer` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
@@ -97,7 +97,7 @@ class TCPServerTestCase(unittest.TestCase):
 
 class EchoRequestsHandlerTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.tcpServer.EchoRequestsHandler` class units tests methods.
+	Defines :class:`foundations.tcpServer.EchoRequestsHandler` class units tests methods.
 	"""
 
 	def testRequiredMethods(self):

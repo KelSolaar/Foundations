@@ -389,7 +389,7 @@ PLIST_FILE_CONTENT = {"Dictionary A": {"String C" : "My Value C", "String B" : "
 #**********************************************************************************************************************
 class SectionsFileParserTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.parsers.SectionsFileParser` class units tests methods.
+	Defines :class:`foundations.parsers.SectionsFileParser` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
@@ -680,7 +680,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 class PlistFileParserTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.parsers.PlistFileParser` class units tests methods.
+	Defines :class:`foundations.parsers.PlistFileParser` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
@@ -755,7 +755,7 @@ class PlistFileParserTestCase(unittest.TestCase):
 
 class GetAttributeCompoundTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.parsers.getAttributeCompound` definition units tests methods.
+	Defines :func:`foundations.parsers.getAttributeCompound` definition units tests methods.
 	"""
 
 	def testGetAttributeCompound(self):

@@ -54,7 +54,7 @@ __all__ = ["AttributeTestCase", "AbstractNodeTestCase", "AbstractCompositeNode"]
 #**********************************************************************************************************************
 class AttributeTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.nodes.Attribute` class units tests methods.
+	Defines :class:`foundations.nodes.Attribute` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
@@ -70,7 +70,7 @@ class AttributeTestCase(unittest.TestCase):
 
 class AbstractNodeTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.nodes.AbstractNode` class units tests methods.
+	Defines :class:`foundations.nodes.AbstractNode` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
@@ -206,7 +206,7 @@ class AbstractNodeTestCase(unittest.TestCase):
 
 class AbstractCompositeNodeTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.nodes.AbstractCompositeNode` class units tests methods.
+	Defines :class:`foundations.nodes.AbstractCompositeNode` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):

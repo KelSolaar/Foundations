@@ -64,7 +64,7 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 class AttributeCompound(foundations.dataStructures.Structure):
 	"""
-	This class represents a storage object for attributes compounds usually encountered in
+	Defines a storage object for attributes compounds usually encountered in
 	`sIBL_GUI <https://github.com/KelSolaar/sIBL_GUI>`_ Templates files.
 
 	Some attributes compounds:
@@ -96,7 +96,7 @@ class AttributeCompound(foundations.dataStructures.Structure):
 
 class SectionsFileParser(foundations.io.File):
 	"""
-	This class provides methods to parse sections file format files,
+	Defines methods to parse sections file format files,
 	an alternative configuration file parser is available directly with Python: :class:`ConfigParser.ConfigParser`.
 
 	The parser given by this class has some major differences with Python :class:`ConfigParser.ConfigParser`:
@@ -933,7 +933,7 @@ class SectionsFileParser(foundations.io.File):
 
 class PlistFileParser(foundations.io.File):
 	"""
-	This class provides methods to parse plist files.
+	Defines methods to parse plist files.
 	"""
 
 	def __init__(self, file=None):

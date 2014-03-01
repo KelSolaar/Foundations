@@ -50,7 +50,7 @@ __all__ = ["RESOURCES_DIRECTORY",
 #**********************************************************************************************************************
 class CacheTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.cache.Cache` class units tests methods.
+	Defines :class:`foundations.cache.Cache` class units tests methods.
 	"""
 
 	def testRequiredMethods(self):

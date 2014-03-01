@@ -51,7 +51,7 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 class RotatingBackup(object):
 	"""
-	This class provides a rotating backup system.
+	Defines a rotating backup system.
 	"""
 
 	def __init__(self, source=None, destination=None, count=3):

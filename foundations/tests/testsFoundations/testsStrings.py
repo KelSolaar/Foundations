@@ -68,7 +68,7 @@ __all__ = ["ToStringTestCase",
 #**********************************************************************************************************************
 class ToStringTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.toString` definition units tests methods.
+	Defines :func:`foundations.strings.toString` definition units tests methods.
 	"""
 
 	def testEncode(self):
@@ -84,7 +84,7 @@ class ToStringTestCase(unittest.TestCase):
 
 class GetNiceNameTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.getNiceName` definition units tests methods.
+	Defines :func:`foundations.strings.getNiceName` definition units tests methods.
 	"""
 
 	def testGetNiceName(self):
@@ -101,7 +101,7 @@ class GetNiceNameTestCase(unittest.TestCase):
 
 class GetVersionRankTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.getVersionRank` definition units tests methods.
+	Defines :func:`foundations.strings.getVersionRank` definition units tests methods.
 	"""
 
 	def testGetVersionRank(self):
@@ -119,7 +119,7 @@ class GetVersionRankTestCase(unittest.TestCase):
 
 class GetSplitextBasenameTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.getSplitextBasename` definition units tests methods.
+	Defines :func:`foundations.strings.getSplitextBasename` definition units tests methods.
 	"""
 
 	def testGetSplitextBasename(self):
@@ -134,7 +134,7 @@ class GetSplitextBasenameTestCase(unittest.TestCase):
 
 class GetCommonAncestorTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.getCommonAncestor` definition units tests methods.
+	Defines :func:`foundations.strings.getCommonAncestor` definition units tests methods.
 	"""
 
 	def testGetCommonAncestor(self):
@@ -152,7 +152,7 @@ class GetCommonAncestorTestCase(unittest.TestCase):
 
 class GetCommonPathsAncestorTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.getCommonPathsAncestor` definition units tests methods.
+	Defines :func:`foundations.strings.getCommonPathsAncestor` definition units tests methods.
 	"""
 
 	def testGetCommonPathsAncestor(self):
@@ -174,7 +174,7 @@ class GetCommonPathsAncestorTestCase(unittest.TestCase):
 
 class GetWordsTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.getWords` definition units tests methods.
+	Defines :func:`foundations.strings.getWords` definition units tests methods.
 	"""
 
 	def testGetWords(self):
@@ -190,7 +190,7 @@ class GetWordsTestCase(unittest.TestCase):
 
 class FilterWordsTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.filterWords` definition units tests methods.
+	Defines :func:`foundations.strings.filterWords` definition units tests methods.
 	"""
 
 	def testFilterWords(self):
@@ -222,7 +222,7 @@ class FilterWordsTestCase(unittest.TestCase):
 
 class ReplaceTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.replace` definition units tests methods.
+	Defines :func:`foundations.strings.replace` definition units tests methods.
 	"""
 
 	def testReplace(self):
@@ -238,7 +238,7 @@ class ReplaceTestCase(unittest.TestCase):
 
 class RemoveStripTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.removeStrip` definition units tests methods.
+	Defines :func:`foundations.strings.removeStrip` definition units tests methods.
 	"""
 
 	def testRemoveStrip(self):
@@ -252,7 +252,7 @@ class RemoveStripTestCase(unittest.TestCase):
 
 class ToForwardSlashesTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.toForwardSlashes` definition units tests methods.
+	Defines :func:`foundations.strings.toForwardSlashes` definition units tests methods.
 	"""
 
 	def testToForwardSlashes(self):
@@ -267,7 +267,7 @@ class ToForwardSlashesTestCase(unittest.TestCase):
 
 class ToBackwardSlashesTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.toBackwardSlashes` definition units tests methods.
+	Defines :func:`foundations.strings.toBackwardSlashes` definition units tests methods.
 	"""
 
 	def testToBackwardSlashes(self):
@@ -282,7 +282,7 @@ class ToBackwardSlashesTestCase(unittest.TestCase):
 
 class ToPosixPathTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.toPosixPath` definition units tests methods.
+	Defines :func:`foundations.strings.toPosixPath` definition units tests methods.
 	"""
 
 	def testToPosixPath(self):
@@ -297,7 +297,7 @@ class ToPosixPathTestCase(unittest.TestCase):
 
 class GetNormalizedPathTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.getNormalizedPath` definition units tests methods.
+	Defines :func:`foundations.strings.getNormalizedPath` definition units tests methods.
 	"""
 
 	def testGetNormalizedPath(self):
@@ -319,7 +319,7 @@ class GetNormalizedPathTestCase(unittest.TestCase):
 
 class IsEmailTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.isEmail` definition units tests methods.
+	Defines :func:`foundations.strings.isEmail` definition units tests methods.
 	"""
 
 	def testIsEmail(self):
@@ -335,7 +335,7 @@ class IsEmailTestCase(unittest.TestCase):
 
 class IsWebsiteTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.isWebsite` definition units tests methods.
+	Defines :func:`foundations.strings.isWebsite` definition units tests methods.
 	"""
 
 	def testIsWebsite(self):
@@ -354,7 +354,7 @@ class IsWebsiteTestCase(unittest.TestCase):
 
 class GetRandomSequenceTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.getRandomSequence` definition units tests methods.
+	Defines :func:`foundations.strings.getRandomSequence` definition units tests methods.
 	"""
 
 	def testGetRandomSequence(self):

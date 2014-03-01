@@ -56,7 +56,7 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 class NestedAttribute(object):
 	"""
-	This class is an helper object providing methods to manipulate nested attributes.
+	Defines an helper object providing methods to manipulate nested attributes.
 	
 	Usage:
 		
@@ -103,7 +103,7 @@ class NestedAttribute(object):
 
 class Structure(dict):
 	"""
-	This class creates an object similar to C/C++ structured type.
+	Defines an object similar to C/C++ structured type.
 	
 	Usage:
 		
@@ -186,7 +186,7 @@ class Structure(dict):
 
 class OrderedStructure(OrderedDict):
 	"""
-	| This class creates an object similar to C/C++ structured type.
+	| Defines an object similar to C/C++ structured type.
 	| Contrary to the :class:`Structure` since this class inherits from :class:`collections.OrderedDict`,
 		its content is ordered.
 
@@ -285,7 +285,7 @@ class OrderedStructure(OrderedDict):
 
 class Lookup(dict):
 	"""
-	This class extend dict type to provide a lookup by value(s).
+	Extends dict type to provide a lookup by value(s).
 
 	Usage:
 

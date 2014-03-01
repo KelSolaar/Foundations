@@ -54,7 +54,7 @@ __all__ = ["SetNamespaceTestCase",
 #**********************************************************************************************************************
 class SetNamespaceTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.namespace.setNamespace` definition units tests methods.
+	Defines :func:`foundations.namespace.setNamespace` definition units tests methods.
 	"""
 
 	def testSetNamespace(self):
@@ -68,7 +68,7 @@ class SetNamespaceTestCase(unittest.TestCase):
 
 class GetNamespaceTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.namespace.getNamespace` definition units tests methods.
+	Defines :func:`foundations.namespace.getNamespace` definition units tests methods.
 	"""
 
 	def testGetNamespace(self):
@@ -84,7 +84,7 @@ class GetNamespaceTestCase(unittest.TestCase):
 
 class RemoveNamespaceTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.namespace.removeNamespace` definition units tests methods.
+	Defines :func:`foundations.namespace.removeNamespace` definition units tests methods.
 	"""
 
 	def testRemoveNamespace(self):
@@ -100,7 +100,7 @@ class RemoveNamespaceTestCase(unittest.TestCase):
 
 class GetRootTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.namespace.getRoot` definition units tests methods.
+	Defines :func:`foundations.namespace.getRoot` definition units tests methods.
 	"""
 
 	def testGetRoot(self):
@@ -114,7 +114,7 @@ class GetRootTestCase(unittest.TestCase):
 
 class GetLeafTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.namespace.getLeaf` definition units tests methods.
+	Defines :func:`foundations.namespace.getLeaf` definition units tests methods.
 	"""
 
 	def testGetLeaf(self):

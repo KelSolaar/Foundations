@@ -53,7 +53,7 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 class Attribute(foundations.dataStructures.Structure):
 	"""
-	This class represents a storage object for the :class:`AbstractNode` class attributes.
+	Defines a storage object for the :class:`AbstractNode` class attributes.
 	"""
 
 	def __init__(self, name=None, value=None, **kwargs):
@@ -178,7 +178,7 @@ class Attribute(foundations.dataStructures.Structure):
 
 class AbstractNode(foundations.dataStructures.Structure):
 	"""
-	| This class defines the base Node class.
+	| Defines the base Node class.
 	| Although it can be instancied directly that class is meant to be subclassed.
 	
 	:note: This class doesn't provide compositing capabilities,
@@ -527,7 +527,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 
 class AbstractCompositeNode(AbstractNode):
 	"""
-	| This class defines the base composite Node class.
+	| Defines the base composite Node class.
 	| It provides compositing capabilities allowing the assembly of graphs and various trees structures.
 	"""
 

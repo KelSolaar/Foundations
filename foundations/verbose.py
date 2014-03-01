@@ -110,7 +110,7 @@ TRACER_LOGGING_FUNCTION = LOGGER.info
 #**********************************************************************************************************************
 class Streamer(object):
 	"""
-	This class is intented to be used as a stream object for :class:`logging.StreamHandler` logging handler. 
+	Defines a stream object for :class:`logging.StreamHandler` logging handler. 
 	"""
 
 	def __init__(self, stream=None):
@@ -176,7 +176,7 @@ class Streamer(object):
 
 class StandardOutputStreamer(object):
 	"""
-	| This class is a redirection object intented to be used for :data:`sys.stdout` and :data:`sys.stderr` streams.
+	| Defines a redirection object intented to be used for :data:`sys.stdout` and :data:`sys.stderr` streams.
 	| Logging messages will be written to given logger handlers.
 	"""
 

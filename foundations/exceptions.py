@@ -367,7 +367,7 @@ def handleExceptions(*args):
 
 class AbstractError(Exception):
 	"""
-	This class is the abstract base class for all **Foundations** package exceptions.
+	Defines the abstract base class for all **Foundations** package exceptions.
 	"""
 
 	def __init__(self, value):
@@ -427,35 +427,35 @@ class AbstractError(Exception):
 
 class ExecutionError(AbstractError):
 	"""
-	This class is used for execution exceptions.
+	Defines execution exceptions.
 	"""
 
 	pass
 
 class BreakIteration(AbstractError):
 	"""
-	This class is used to break nested loop iterations.
+	Breaks nested loop iterations.
 	"""
 
 	pass
 
 class AbstractParsingError(AbstractError):
 	"""
-	This class is the abstract base class for parsing related exceptions.
+	Defines the abstract base class for parsing related exceptions.
 	"""
 
 	pass
 
 class FileStructureParsingError(AbstractParsingError):
 	"""
-	This class is used for exceptions raised while parsing file structure.
+	Defines exceptions raised while parsing file structure.
 	"""
 
 	pass
 
 class AttributeStructureParsingError(AbstractParsingError):
 	"""
-	This class is used for exceptions raised while parsing attribute structure.
+	Defines exceptions raised while parsing attribute structure.
 	"""
 
 	def __init__(self, value, line=None):
@@ -527,133 +527,133 @@ class AttributeStructureParsingError(AbstractParsingError):
 
 class AbstractOsError(AbstractError):
 	"""
-	This class is the abstract base class for os related exceptions.
+	Defines the abstract base class for os related exceptions.
 	"""
 
 	pass
 
 class PathExistsError(AbstractOsError):
 	"""
-	This class is used for non existing path exceptions.
+	Defines non existing path exceptions.
 	"""
 
 	pass
 
 class DirectoryExistsError(PathExistsError):
 	"""
-	This class is used for non existing directory exceptions.
+	Defines non existing directory exceptions.
 	"""
 
 	pass
 
 class FileExistsError(PathExistsError):
 	"""
-	This class is used for non existing file exceptions.
+	Defines non existing file exceptions.
 	"""
 
 	pass
 
 class AbstractObjectError(AbstractError):
 	"""
-	This class is the abstract base class for object related exceptions.
+	Defines the abstract base class for object related exceptions.
 	"""
 
 	pass
 
 class ObjectTypeError(AbstractObjectError):
 	"""
-	This class is used for invalid object type exceptions.
+	Defines invalid object type exceptions.
 	"""
 
 	pass
 
 class ObjectExistsError(AbstractObjectError):
 	"""
-	This class is used for non existing object exceptions.
+	Defines non existing object exceptions.
 	"""
 
 	pass
 
 class AbstractUserError(AbstractError):
 	"""
-	This class is the abstract base class for user related exceptions.
+	Defines the abstract base class for user related exceptions.
 	"""
 
 	pass
 
 class ProgrammingError(AbstractUserError):
 	"""
-	This class is used for programming exceptions.
+	Defines programming exceptions.
 	"""
 
 	pass
 
 class UserError(AbstractUserError):
 	"""
-	This class is used for user exceptions.
+	Defines user exceptions.
 	"""
 
 	pass
 
 class AbstractNodeError(AbstractError):
 	"""
-	This class is the abstract base class for Node related exceptions.
+	Defines the abstract base class for Node related exceptions.
 	"""
 
 	pass
 
 class NodeAttributeTypeError(AbstractNodeError, ObjectTypeError):
 	"""
-	This class is the abstract base class for Node attributes type related exceptions.
+	Defines the abstract base class for Node attributes type related exceptions.
 	"""
 
 	pass
 
 class NodeAttributeExistsError(AbstractNodeError, ObjectExistsError):
 	"""
-	This class is used for non existing Node attribute exceptions.
+	Defines non existing Node attribute exceptions.
 	"""
 
 	pass
 
 class AbstractLibraryError(AbstractError):
 	"""
-	This class is the abstract base class for :mod:`library` module exceptions.
+	Defines the abstract base class for :mod:`library` module exceptions.
 	"""
 
 	pass
 
 class LibraryInstantiationError(AbstractLibraryError):
 	"""
-	This class is used for :mod:`library` module :class:`library.Library` class instantiation exceptions.
+	Defines :mod:`library` module :class:`library.Library` class instantiation exceptions.
 	"""
 
 	pass
 
 class LibraryInitializationError(AbstractLibraryError):
 	"""
-	This class is used for :mod:`library` module :class:`library.Library` class initialization exceptions.
+	Defines :mod:`library` module :class:`library.Library` class initialization exceptions.
 	"""
 
 	pass
 
 class LibraryExecutionError(AbstractLibraryError):
 	"""
-	This class is used for :mod:`library` module :class:`library.Library` class execution exceptions.
+	Defines :mod:`library` module :class:`library.Library` class execution exceptions.
 	"""
 
 	pass
 
 class AbstractServerError(AbstractError):
 	"""
-	This class is the abstract base class for :mod:`tcpServer` module exceptions.
+	Defines the abstract base class for :mod:`tcpServer` module exceptions.
 	"""
 
 	pass
 
 class ServerOperationError(AbstractServerError):
 	"""
-	This class is used for :mod:`tcpServer` module :class:`tcpServer.TCPServer` class operations exceptions.
+	Defines :mod:`tcpServer` module :class:`tcpServer.TCPServer` class operations exceptions.
 	"""
 
 	pass

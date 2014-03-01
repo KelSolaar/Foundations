@@ -54,7 +54,7 @@ __all__ = ["NestedAttributeTestCase",
 #**********************************************************************************************************************
 class NestedAttributeTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.dataStructures.NestedAttribute` class units tests methods.
+	Defines :class:`foundations.dataStructures.NestedAttribute` class units tests methods.
 	"""
 
 	def testNestedAttribute(self):
@@ -69,7 +69,7 @@ class NestedAttributeTestCase(unittest.TestCase):
 
 class StructureTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.dataStructures.Structure` class units tests methods.
+	Defines :class:`foundations.dataStructures.Structure` class units tests methods.
 	"""
 
 	def testStructure(self):
@@ -117,7 +117,7 @@ class StructureTestCase(unittest.TestCase):
 
 class OrderedStructureTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.dataStructures.OrderedStructure` class units tests methods.
+	Defines :class:`foundations.dataStructures.OrderedStructure` class units tests methods.
 	"""
 
 	def testOrderedStructure(self):
@@ -142,7 +142,7 @@ class OrderedStructureTestCase(unittest.TestCase):
 
 class LookupTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.dataStructures.Lookup` class units tests methods.
+	Defines :class:`foundations.dataStructures.Lookup` class units tests methods.
 	"""
 
 	def testGetFirstKeyFromValue(self):

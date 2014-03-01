@@ -53,7 +53,7 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 class LibraryHook(foundations.dataStructures.Structure):
 	"""
-	This class represents a library hook used by the :class:`Library` class to bind target library functions.
+	Defines a library hook used by the :class:`Library` class to bind target library functions.
 	"""
 
 	def __init__(self, **kwargs):
@@ -78,7 +78,7 @@ class LibraryHook(foundations.dataStructures.Structure):
 
 class Library(object):
 	"""
-	| This class provides methods to bind a C / C++ Library.
+	| Defines methods to bind a C / C++ Library.
 	| The class is a singleton and will bind only one time a given library.
 		Each unique library instance is stored in :attr:`Library.instances` attribute
 		and get returned if the library is requested again through a new instantiation.
