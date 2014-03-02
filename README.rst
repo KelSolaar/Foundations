@@ -2,6 +2,7 @@ Foundations
 ===========
 
 ..  image:: https://secure.travis-ci.org/KelSolaar/Foundations.png?branch=master
+..  image:: https://gemnasium.com/KelSolaar/Foundations.png  
 
 Introduction
 ------------
