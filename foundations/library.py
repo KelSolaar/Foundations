@@ -64,7 +64,8 @@ class LibraryHook(foundations.dataStructures.Structure):
 			
 			LibraryHook(name="FreeImage_GetVersion", argumentsTypes=None, returnValue=ctypes.c_char_p)
 
-		:param name: Name of the target library function to bind. ( String )
+		:param name: Name of the target library function to bind.
+		:type name: unicode
 		:param argumentsTypes: Required function arguments type (Refer to Python `ctypes - 15.17.1.7
 			<http://docs.python.org/library/ctypes.html#specifying-the-required-argument-types-function-prototypes>`_
 			module for more informations). ( List )
@@ -95,9 +96,12 @@ class Library(object):
 		"""
 		This method is the constructor of the class.
 		
-		:param \*args: Arguments. ( \* )
-		:param \*\*kwargs: Keywords arguments. ( \*\* )
-		:return: Class instance. ( Library )
+		:param \*args: Arguments.
+		:type \*args: \*
+		:param \*\*kwargs: Keywords arguments.
+		:type \*\*kwargs: \*\*
+		:return: Class instance.
+		:rtype: Library
 		"""
 
 		path = foundations.common.getFirstItem(args)
@@ -123,9 +127,12 @@ class Library(object):
 			>>> library.FreeImage_GetVersion()
 			'3.15.1'
 
-		:param path: Library path. ( String )
-		:param functions: Binding functions list. ( Tuple )
-		:param bindLibrary: Library will be binded on initialization. ( Boolean )
+		:param path: Library path.
+		:type path: unicode
+		:param functions: Binding functions list.
+		:type functions: tuple
+		:param bindLibrary: Library will be binded on initialization.
+		:type bindLibrary: bool
 		"""
 
 		if hasattr(self.instances[path], "_Library__initialized"):
@@ -164,7 +171,8 @@ class Library(object):
 		"""
 		This method is the property for **self.__instances** attribute.
 
-		:return: self.__instances. ( WeakValueDictionary )
+		:return: self.__instances.
+		:rtype: WeakValueDictionary
 		"""
 
 		return self.__instances
@@ -175,7 +183,8 @@ class Library(object):
 		"""
 		This method is the setter method for **self.__instances** attribute.
 
-		:param value: Attribute value. ( WeakValueDictionary )
+		:param value: Attribute value.
+		:type value: WeakValueDictionary
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -196,7 +205,8 @@ class Library(object):
 		"""
 		This method is the property for **self.__initialized** attribute.
 
-		:return: self.__initialized. ( String )
+		:return: self.__initialized.
+		:rtype: unicode
 		"""
 
 		return self.__initialized
@@ -207,7 +217,8 @@ class Library(object):
 		"""
 		This method is the setter method for **self.__initialized** attribute.
 
-		:param value: Attribute value. ( String )
+		:param value: Attribute value.
+		:type value: unicode
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -228,7 +239,8 @@ class Library(object):
 		"""
 		This method is the property for **self.__path** attribute.
 
-		:return: self.__path. ( String )
+		:return: self.__path.
+		:rtype: unicode
 		"""
 
 		return self.__path
@@ -239,7 +251,8 @@ class Library(object):
 		"""
 		This method is the setter method for **self.__path** attribute.
 
-		:param value: Attribute value. ( String )
+		:param value: Attribute value.
+		:type value: unicode
 		"""
 
 		if value is not None:
@@ -263,7 +276,8 @@ class Library(object):
 		"""
 		This method is the property for **self.__functions** attribute.
 
-		:return: self.__functions. ( Tuple )
+		:return: self.__functions.
+		:rtype: tuple
 		"""
 
 		return self.__functions
@@ -274,7 +288,8 @@ class Library(object):
 		"""
 		This method is the setter method for **self.__functions** attribute.
 
-		:param value: Attribute value. ( Tuple )
+		:param value: Attribute value.
+		:type value: tuple
 		"""
 
 		if value is not None:
@@ -299,7 +314,8 @@ class Library(object):
 		"""
 		This method is the property for **self.__library** attribute.
 
-		:return: self.__library. ( Object )
+		:return: self.__library.
+		:rtype: object
 		"""
 
 		return self.__library
@@ -310,7 +326,8 @@ class Library(object):
 		"""
 		This method is the setter method for **self.__library** attribute.
 
-		:param value: Attribute value. ( Object )
+		:param value: Attribute value.
+		:type value: object
 		"""
 
 		self.__library = value
@@ -343,8 +360,10 @@ class Library(object):
 			>>> library.FreeImage_GetVersion()
 			'3.15.1'
 
-		:param function: Function to bind. ( LibraryHook )
-		:return: Method success. ( Boolean )
+		:param function: Function to bind.
+		:type function: LibraryHook
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		LOGGER.debug("> Binding '{0}' library '{1}' function.".format(self.__class__.__name__, function.name))
@@ -372,7 +391,8 @@ class Library(object):
 			>>> library.FreeImage_GetVersion()
 			'3.15.1'
 
-		:return: Method success. ( Boolean )
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		if self.__functions:

@@ -71,8 +71,10 @@ class File(object):
 			>>> file.read()
 			u'Some file content ...\\n... ready to be saved!\\n'
 
-		:param path: File path. ( String )
-		:param content: Content. ( List )
+		:param path: File path.
+		:type path: unicode
+		:param content: Content.
+		:type content: list
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -91,7 +93,8 @@ class File(object):
 		"""
 		This method is the property for **self.__path** attribute.
 
-		:return: self.__path. ( String )
+		:return: self.__path.
+		:rtype: unicode
 		"""
 
 		return self.__path
@@ -102,7 +105,8 @@ class File(object):
 		"""
 		This method is the setter method for **self.__path** attribute.
 
-		:param value: Attribute value. ( String )
+		:param value: Attribute value.
+		:type value: unicode
 		"""
 
 		if value is not None:
@@ -124,7 +128,8 @@ class File(object):
 		"""
 		This method is the property for **self.__content** attribute.
 
-		:return: self.__content. ( List )
+		:return: self.__content.
+		:rtype: list
 		"""
 
 		return self.__content
@@ -135,7 +140,8 @@ class File(object):
 		"""
 		This method is the setter method for **self.__content** attribute.
 
-		:param value: Attribute value. ( List )
+		:param value: Attribute value.
+		:type value: list
 		"""
 
 		if value is not None:
@@ -159,10 +165,14 @@ class File(object):
 		"""
 		This method reads given file content and stores it in the content cache.
 
-		:param mode: File read mode. ( String )
-		:param encoding: File encoding codec. ( String )
-		:param errors: File encoding errors handling. ( String )
-		:return: Method success. ( Boolean )
+		:param mode: File read mode.
+		:type mode: unicode
+		:param encoding: File encoding codec.
+		:type encoding: unicode
+		:param errors: File encoding errors handling.
+		:type errors: unicode
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		self.uncache()
@@ -186,7 +196,8 @@ class File(object):
 		"""
 		This method uncaches the cached content.
 
-		:return: Method success. ( Boolean )
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		LOGGER.debug("> Uncaching '{0}' file content.".format(self.__path))
@@ -198,7 +209,8 @@ class File(object):
 		"""
 		This method returns defined file content.
 
-		:return: File content. ( String )
+		:return: File content.
+		:rtype: unicode
 		"""
 
 		return "".join(self.__content) if self.cache() else ""
@@ -207,10 +219,14 @@ class File(object):
 		"""
 		This method writes content to defined file.
 
-		:param mode: File write mode. ( String )
-		:param encoding: File encoding codec. ( String )
-		:param errors: File encoding errors handling. ( String )
-		:return: Method success. ( Boolean )
+		:param mode: File write mode.
+		:type mode: unicode
+		:param encoding: File encoding codec.
+		:type encoding: unicode
+		:param errors: File encoding errors handling.
+		:type errors: unicode
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		if foundations.strings.isWebsite(self.__path):
@@ -228,10 +244,14 @@ class File(object):
 		"""
 		This method appends content to defined file.
 
-		:param mode: File write mode. ( String )
-		:param encoding: File encoding codec. ( String )
-		:param errors: File encoding errors handling. ( String )
-		:return: Method success. ( Boolean )
+		:param mode: File write mode.
+		:type mode: unicode
+		:param encoding: File encoding codec.
+		:type encoding: unicode
+		:param errors: File encoding errors handling.
+		:type errors: unicode
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		if foundations.strings.isWebsite(self.__path):
@@ -249,8 +269,10 @@ class File(object):
 		"""
 		This method clears the defined file content.
 
-		:param encoding: File encoding codec. ( String )
-		:return: Method success. ( Boolean )
+		:param encoding: File encoding codec.
+		:type encoding: unicode
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		if foundations.strings.isWebsite(self.__path):
@@ -269,8 +291,10 @@ def setDirectory(path):
 	| The directory creation is delegated to
 		Python :func:`os.makedirs` definition so that directories hierarchy is recursively created. 
 	
-	:param path: Directory path. ( String )
-	:return: Definition success. ( Boolean )
+	:param path: Directory path.
+	:type path: unicode
+	:return: Definition success.
+	:rtype: bool
 	"""
 
 	if not foundations.common.pathExists(path):
@@ -285,9 +309,12 @@ def copy(source, destination):
 	"""
 	This definition copies the given file or directory to destination.
 
-	:param source: Source to copy from. ( String )
-	:param destination: Destination to copy to. ( String )
-	:return: Method success. ( Boolean )
+	:param source: Source to copy from.
+	:type source: unicode
+	:param destination: Destination to copy to.
+	:type destination: unicode
+	:return: Method success.
+	:rtype: bool
 	"""
 
 	if os.path.isfile(source):
@@ -302,8 +329,10 @@ def remove(path):
 	"""
 	This definiton removes the given file or directory.
 
-	:param path: Resource to remove. ( String )
-	:return: Method success. ( Boolean )
+	:param path: Resource to remove.
+	:type path: unicode
+	:return: Method success.
+	:rtype: bool
 	"""
 
 	if os.path.isfile(path):

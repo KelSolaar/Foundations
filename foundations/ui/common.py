@@ -58,9 +58,12 @@ def centerWidgetOnScreen(widget, screen=None):
 	"""
 	This definition centers the given Widget on the screen.
 
-	:param widget: Current Widget. ( QWidget )
-	:param screen: Screen used for centering. ( Integer )
-	:return: Definition success. ( Boolean )
+	:param widget: Current Widget.
+	:type widget: QWidget
+	:param screen: Screen used for centering.
+	:type screen: int
+	:return: Definition success.
+	:rtype: bool
 	"""
 
 	screen = screen and screen or QApplication.desktop().primaryScreen()
@@ -74,10 +77,14 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 	This definition is a class factory creating `QWidget <http://doc.qt.nokia.com/qwidget.html>`_ classes
 	using given ui file.
 
-	:param uiFile: Ui file. ( String )
-	:param \*args: Arguments. ( \* )
-	:param \*\*kwargs: Keywords arguments. ( \*\* )
-	:return: QWidget class. ( QWidget )
+	:param uiFile: Ui file.
+	:type uiFile: unicode
+	:param \*args: Arguments.
+	:type \*args: \*
+	:param \*\*kwargs: Keywords arguments.
+	:type \*\*kwargs: \*\*
+	:return: QWidget class.
+	:rtype: QWidget
 	"""
 
 	file = uiFile or DEFAULT_UI_FILE
@@ -95,8 +102,10 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 			"""
 			This method initializes the class.
 
-			:param \*args: Arguments. ( \* )
-			:param \*\*kwargs: Keywords arguments. ( \*\* )
+			:param \*args: Arguments.
+			:type \*args: \*
+			:param \*\*kwargs: Keywords arguments.
+			:type \*\*kwargs: \*\*
 			"""
 
 			LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -117,7 +126,8 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 			"""
 			This method is the property for **self.__uiFile** attribute.
 
-			:return: self.__uiFile. ( String )
+			:return: self.__uiFile.
+			:rtype: unicode
 			"""
 
 			return self.__uiFile
@@ -128,7 +138,8 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 			"""
 			This method is the setter method for **self.__uiFile** attribute.
 
-			:param value: Attribute value. ( String )
+			:param value: Attribute value.
+			:type value: unicode
 			"""
 
 			raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is read only!".format(
@@ -151,7 +162,8 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 			"""
 			This method reimplements the :meth:`QWidget.show` method.
 
-			:param setGeometry: Set geometry. ( Boolean )
+			:param setGeometry: Set geometry.
+			:type setGeometry: bool
 			"""
 
 			if not setGeometry:
@@ -172,7 +184,8 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 			"""
 			This method reimplements the :meth:`QWidget.closeEvent` method.
 
-			:param event: QEvent. ( QEvent )
+			:param event: QEvent.
+			:type event: QEvent
 			"""
 
 			self.__geometry = self.saveGeometry()

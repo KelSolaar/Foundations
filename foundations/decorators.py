@@ -55,8 +55,10 @@ def executionTime(object):
 	| This decorator is used for execution timing.
 	| Any method / definition decorated will have it's execution timed through information messages.
 	
-	:param object: Object to decorate. ( Object )
-	:return: Object. ( Object )
+	:param object: Object to decorate.
+	:type object: object
+	:return: Object.
+	:rtype: object
 	"""
 
 	@functools.wraps(object)
@@ -64,9 +66,12 @@ def executionTime(object):
 		"""
 		This decorator is used for execution timing.
 
-		:param \*args: Arguments. ( \* )
-		:param \*\*kwargs: Keywords arguments. ( \*\* )
-		:return: Object. ( Object )
+		:param \*args: Arguments.
+		:type \*args: \*
+		:param \*\*kwargs: Keywords arguments.
+		:type \*\*kwargs: \*\*
+		:return: Object.
+		:rtype: object
 		"""
 
 		startTime = time.time()
@@ -89,8 +94,10 @@ def memoize(cache=None):
 	| Any method / definition decorated will get its return value cached and restored whenever called
 		with the same arguments.
 	
-	:param cache: Alternate cache. ( Dictionary )
-	:return: Object. ( Object )
+	:param cache: Alternate cache.
+	:type cache: dict
+	:return: Object.
+	:rtype: object
 	"""
 
 	if cache is None:
@@ -100,8 +107,10 @@ def memoize(cache=None):
 		"""
 		This decorator is used for object memoization.
 
-		:param object: Object to decorate. ( Object )
-		:return: Object. ( Object )
+		:param object: Object to decorate.
+		:type object: object
+		:return: Object.
+		:rtype: object
 		"""
 
 		@functools.wraps(object)
@@ -109,9 +118,12 @@ def memoize(cache=None):
 			"""
 			This decorator is used for object memoization.
 	
-			:param \*args: Arguments. ( \* )
-			:param \*\*kwargs: Keywords arguments. ( \*\* )
-			:return: Object. ( Object )
+			:param \*args: Arguments.
+			:type \*args: \*
+			:param \*\*kwargs: Keywords arguments.
+			:type \*\*kwargs: \*\*
+			:return: Object.
+			:rtype: object
 			"""
 
 			if kwargs:

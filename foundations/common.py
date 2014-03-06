@@ -74,8 +74,10 @@ def uniqify(sequence):
 	"""
 	This definition uniqifies the given sequence even if unhashable.
 
-	:param sequence: Sequence. ( Object )
-	:return: Uniqified sequence. ( List )
+	:param sequence: Sequence.
+	:type sequence: object
+	:return: Uniqified sequence.
+	:rtype: list
 	
 	:note: The sequence order is not maintained by this definition.
 	"""
@@ -86,8 +88,10 @@ def orderedUniqify(sequence):
 	"""
 	This definition uniqifies the given hashable sequence while preserving its order.
 
-	:param sequence: Sequence. ( Object )
-	:return: Uniqified sequence. ( List )
+	:param sequence: Sequence.
+	:type sequence: object
+	:return: Uniqified sequence.
+	:rtype: list
 	"""
 
 	items = set()
@@ -97,10 +101,14 @@ def unpackDefault(iterable, length=3, default=None):
 	"""
 	This definition unpacks given iterable maintaining given length and filling missing entries with given default.
 
-	:param iterable: iterable. ( Object )
-	:param length: Iterable length. ( Integer )
-	:param default: Filling default object. ( Object )
-	:return: Unpacked iterable. ( Object )
+	:param iterable: iterable.
+	:type iterable: object
+	:param length: Iterable length.
+	:type length: int
+	:param default: Filling default object.
+	:type default: object
+	:return: Unpacked iterable.
+	:rtype: object
 	"""
 
 	return itertools.islice(itertools.chain(iter(iterable), itertools.repeat(default)), length)
@@ -109,8 +117,10 @@ def pathExists(path):
 	"""
 	This definition returns if given path exists.
 
-	:param path: Path. ( String )
-	:return: Path existence. ( Boolean )
+	:param path: Path.
+	:type path: unicode
+	:return: Path existence.
+	:rtype: bool
 	"""
 
 	if not path:
@@ -122,8 +132,10 @@ def filterPath(path):
 	"""
 	This definition filters given path.
 
-	:param path: Path. ( String )
-	:return: Filtered path. ( String )
+	:param path: Path.
+	:type path: unicode
+	:return: Filtered path.
+	:rtype: unicode
 	"""
 
 	return path if pathExists(path) else ""
@@ -132,9 +144,12 @@ def getFirstItem(iterable, default=None):
 	"""
 	This definition returns the first item of given iterable.
 
-	:param iterable: Iterable. ( Object )
-	:param default: Default value. ( Object )
-	:return: First iterable item. ( Object )
+	:param iterable: Iterable.
+	:type iterable: object
+	:param default: Default value.
+	:type default: object
+	:return: First iterable item.
+	:rtype: object
 	"""
 
 	if not iterable:
@@ -147,9 +162,12 @@ def getLastItem(iterable, default=None):
 	"""
 	This definition returns the last item of given iterable.
 
-	:param iterable: Iterable. ( Object )
-	:param default: Default value. ( Object )
-	:return: Last iterable item. ( Object )
+	:param iterable: Iterable.
+	:type iterable: object
+	:param default: Default value.
+	:type default: object
+	:return: Last iterable item.
+	:rtype: object
 	"""
 
 	if not iterable:
@@ -161,8 +179,10 @@ def isBinaryFile(file):
 	"""
 	This definition returns if given file is a binary file.
 
-	:param file: File path. ( String )
-	:return: Is file binary. ( Boolean )
+	:param file: File path.
+	:type file: unicode
+	:return: Is file binary.
+	:rtype: bool
 	"""
 
 	fileHandle = open(file, "rb")
@@ -182,9 +202,12 @@ def repeat(object, iterations=1):
 	"""
 	This definition repeats given object iterations times.
 
-	:param object: Object to repeat. ( Object )
-	:param iterations: Repetitions number. ( Integer )
-	:return: Object return values. ( List )
+	:param object: Object to repeat.
+	:type object: object
+	:param iterations: Repetitions number.
+	:type iterations: int
+	:return: Object return values.
+	:rtype: list
 	"""
 
 	return [object() for i in range(iterations)]
@@ -193,8 +216,10 @@ def dependencyResolver(dependencies):
 	"""
 	This definition resolves given dependencies.
 
-	:param dependencies: Dependencies to resolve. ( Dictionary )
-	:return: Resolved dependencies. ( List )
+	:param dependencies: Dependencies to resolve.
+	:type dependencies: dict
+	:return: Resolved dependencies.
+	:rtype: list
 	"""
 
 	items = dict((key, set(dependencies[key])) for key in dependencies)
@@ -210,9 +235,12 @@ def isInternetAvailable(ip=CONNECTION_IP, timeout=1.5):
 	"""
 	This definition returns if an internet connection is available.
 
-	:param ip: Alternative address ip to check against. ( String )
-	:param timeout: Timeout in seconds. ( Integer )
-	:return: Is internet available. ( Boolean )
+	:param ip: Alternative address ip to check against.
+	:type ip: unicode
+	:param timeout: Timeout in seconds.
+	:type timeout: int
+	:return: Is internet available.
+	:rtype: bool
 	"""
 
 	try:
@@ -225,9 +253,12 @@ def getHostAddress(host=None, defaultAddress=DEFAULT_HOST_IP):
 	"""
 	This definition returns the given host address.
 
-	:param host: Host to retrieve the address. ( String )
-	:param defaultAddress: Default address if the host is unreachable. ( String )
-	:return: Host address. ( String )
+	:param host: Host to retrieve the address.
+	:type host: unicode
+	:param defaultAddress: Default address if the host is unreachable.
+	:type defaultAddress: unicode
+	:return: Host address.
+	:rtype: unicode
 	"""
 
 	try:

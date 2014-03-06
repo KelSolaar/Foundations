@@ -87,7 +87,8 @@ class AttributeCompound(foundations.dataStructures.Structure):
 							type="Boolean", 
 							alias="Cameras Selection Dialog")
 
-		:param \*\*kwargs: name, value, link, type, alias. ( Key / Value pairs )
+		:param \*\*kwargs: name, value, link, type, alias.
+		:type \*\*kwargs: dict
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -139,14 +140,22 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser.comments 
 			OrderedDict([(u'Section A|#0', {u'content': u'Comment.', u'id': 0})])
 
-		:param file: Current file path. ( String )
-		:param splitters: Splitter characters.  ( Tuple / List )
-		:param namespaceSplitter: Namespace splitters character. ( String )
-		:param commentLimiters: Comment limiters characters. ( Tuple / List )
-		:param commentMarker: Character use to prefix extracted comments idientifiers. ( String )
-		:param quotationMarkers: Quotation markers characters. ( Tuple / List )
-		:param rawSectionContentIdentifier: Raw section content identifier. ( String )
-		:param defaultsSection: Default section name. ( String )
+		:param file: Current file path.
+		:type file: unicode
+		:param splitters: Splitter characters.
+		:type splitters: tuple or list
+		:param namespaceSplitter: Namespace splitters character.
+		:type namespaceSplitter: unicode
+		:param commentLimiters: Comment limiters characters.
+		:type commentLimiters: tuple or list
+		:param commentMarker: Character use to prefix extracted comments idientifiers.
+		:type commentMarker: unicode
+		:param quotationMarkers: Quotation markers characters.
+		:type quotationMarkers: tuple or list
+		:param rawSectionContentIdentifier: Raw section content identifier.
+		:type rawSectionContentIdentifier: unicode
+		:param defaultsSection: Default section name.
+		:type defaultsSection: unicode
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -181,7 +190,8 @@ class SectionsFileParser(foundations.io.File):
 		"""
 		This method is the property for **self.__splitters** attribute.
 
-		:return: self.__splitters. ( Tuple / List )
+		:return: self.__splitters.
+		:rtype: tuple or list
 		"""
 
 		return self.__splitters
@@ -192,7 +202,8 @@ class SectionsFileParser(foundations.io.File):
 		"""
 		This method is the setter method for **self.__splitters** attribute.
 
-		:param value: Attribute value. ( Tuple / List )
+		:param value: Attribute value.
+		:type value: tuple or list
 		"""
 
 		if value is not None:
@@ -221,7 +232,8 @@ class SectionsFileParser(foundations.io.File):
 		"""
 		This method is the property for **self.__namespaceSplitter** attribute.
 
-		:return: self.__namespaceSplitter. ( String )
+		:return: self.__namespaceSplitter.
+		:rtype: unicode
 		"""
 
 		return self.__namespaceSplitter
@@ -232,7 +244,8 @@ class SectionsFileParser(foundations.io.File):
 		"""
 		This method is the setter method for **self.__namespaceSplitter** attribute.
 
-		:param value: Attribute value. ( String )
+		:param value: Attribute value.
+		:type value: unicode
 		"""
 
 		if value is not None:
@@ -258,7 +271,8 @@ class SectionsFileParser(foundations.io.File):
 		"""
 		This method is the property for **self.__commentLimiters** attribute.
 
-		:return: self.__commentLimiters. ( Tuple / List )
+		:return: self.__commentLimiters.
+		:rtype: tuple or list
 		"""
 
 		return self.__commentLimiters
@@ -269,7 +283,8 @@ class SectionsFileParser(foundations.io.File):
 		"""
 		This method is the setter method for **self.__commentLimiters** attribute.
 
-		:param value: Attribute value. ( Tuple / List )
+		:param value: Attribute value.
+		:type value: tuple or list
 		"""
 
 		if value is not None:
@@ -295,7 +310,8 @@ class SectionsFileParser(foundations.io.File):
 		"""
 		This method is the property for **self.__commentMarker** attribute.
 
-		:return: self.__commentMarker. ( String )
+		:return: self.__commentMarker.
+		:rtype: unicode
 		"""
 
 		return self.__commentMarker
@@ -306,7 +322,8 @@ class SectionsFileParser(foundations.io.File):
 		"""
 		This method is the setter method for **self.__commentMarker** attribute.
 
-		:param value: Attribute value. ( String )
+		:param value: Attribute value.
+		:type value: unicode
 		"""
 
 		if value is not None:
@@ -331,7 +348,8 @@ class SectionsFileParser(foundations.io.File):
 		"""
 		This method is the property for **self.__quotationMarkers** attribute.
 
-		:return: self.__quotationMarkers. ( Tuple / List )
+		:return: self.__quotationMarkers.
+		:rtype: tuple or list
 		"""
 
 		return self.__quotationMarkers
@@ -342,7 +360,8 @@ class SectionsFileParser(foundations.io.File):
 		"""
 		This method is the setter method for **self.__quotationMarkers** attribute.
 
-		:param value: Attribute value. ( Tuple / List )
+		:param value: Attribute value.
+		:type value: tuple or list
 		"""
 
 		if value is not None:
@@ -372,7 +391,8 @@ class SectionsFileParser(foundations.io.File):
 		"""
 		This method is the property for **self.___raw__Identifier** attribute.
 
-		:return: self.___raw__Identifier. ( String )
+		:return: self.___raw__Identifier.
+		:rtype: unicode
 		"""
 
 		return self.___raw__Identifier
@@ -383,7 +403,8 @@ class SectionsFileParser(foundations.io.File):
 		"""
 		This method is the setter method for **self.___raw__Identifier** attribute.
 
-		:param value: Attribute value. ( String )
+		:param value: Attribute value.
+		:type value: unicode
 		"""
 
 		if value is not None:
@@ -406,7 +427,8 @@ class SectionsFileParser(foundations.io.File):
 		"""
 		This method is the property for **self.__defaultsSection** attribute.
 
-		:return: self.__defaultsSection. ( String )
+		:return: self.__defaultsSection.
+		:rtype: unicode
 		"""
 
 		return self.__defaultsSection
@@ -417,7 +439,8 @@ class SectionsFileParser(foundations.io.File):
 		"""
 		This method is the setter method for **self.__defaultsSection** attribute.
 
-		:param value: Attribute value. ( String )
+		:param value: Attribute value.
+		:type value: unicode
 		"""
 
 		if value is not None:
@@ -440,7 +463,8 @@ class SectionsFileParser(foundations.io.File):
 		"""
 		This method is the property for **self.__sections** attribute.
 
-		:return: self.__sections. ( OrderedDict / Dictionary )
+		:return: self.__sections.
+		:rtype: OrderedDict or dict
 		"""
 
 		return self.__sections
@@ -451,7 +475,8 @@ class SectionsFileParser(foundations.io.File):
 		"""
 		This method is the setter method for **self.__sections** attribute.
 
-		:param value: Attribute value. ( OrderedDict / Dictionary )
+		:param value: Attribute value.
+		:type value: OrderedDict or dict
 		"""
 
 		if value is not None:
@@ -479,7 +504,8 @@ class SectionsFileParser(foundations.io.File):
 		"""
 		This method is the property for **self.__comments** attribute.
 
-		:return: self.__comments. ( OrderedDict / Dictionary )
+		:return: self.__comments.
+		:rtype: OrderedDict or dict
 		"""
 
 		return self.__comments
@@ -490,7 +516,8 @@ class SectionsFileParser(foundations.io.File):
 		"""
 		This method is the setter method for **self.__comments** attribute.
 
-		:param value: Attribute value. ( OrderedDict / Dictionary )
+		:param value: Attribute value.
+		:type value: OrderedDict or dict
 		"""
 
 		if value is not None:
@@ -518,7 +545,8 @@ class SectionsFileParser(foundations.io.File):
 		"""
 		This method is the property for **self.__parsingErrors** attribute.
 
-		:return: self.__parsingErrors. ( List )
+		:return: self.__parsingErrors.
+		:rtype: list
 		"""
 
 		return self.__parsingErrors
@@ -529,7 +557,8 @@ class SectionsFileParser(foundations.io.File):
 		"""
 		This method is the setter method for **self.__parsingErrors** attribute.
 
-		:param value: Attribute value. ( List )
+		:param value: Attribute value.
+		:type value: list
 		"""
 
 		if value is not None:
@@ -594,13 +623,20 @@ class SectionsFileParser(foundations.io.File):
 
 		:param orderedDictionary: SectionsFileParser data is stored
 			in :class:`collections.OrderedDict` dictionaries. ( Boolean )
-		:param rawSections: Ignored raw sections. ( Tuple / List )
-		:param namespaces: Attributes and comments are namespaced. ( Boolean )
-		:param stripComments: Comments are stripped. ( Boolean )
-		:param stripWhitespaces: Whitespaces are stripped. ( Boolean )
-		:param stripQuotationMarkers: Attributes values quotation markers are stripped. ( Boolean )
-		:param raiseParsingErrors: Raise parsing errors. ( Boolean )
-		:return: Method success. ( Boolean )
+		:param rawSections: Ignored raw sections.
+		:type rawSections: tuple or list
+		:param namespaces: Attributes and comments are namespaced.
+		:type namespaces: bool
+		:param stripComments: Comments are stripped.
+		:type stripComments: bool
+		:param stripWhitespaces: Whitespaces are stripped.
+		:type stripWhitespaces: bool
+		:param stripQuotationMarkers: Attributes values quotation markers are stripped.
+		:type stripQuotationMarkers: bool
+		:param raiseParsingErrors: Raise parsing errors.
+		:type raiseParsingErrors: bool
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		LOGGER.debug("> Reading sections from: '{0}'.".format(self.path))
@@ -695,8 +731,10 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser.sectionExists("Section C")
 			False
 
-		:param section: Section to check existence. ( String )
-		:return: Section existence. ( Boolean )
+		:param section: Section to check existence.
+		:type section: unicode
+		:return: Section existence.
+		:rtype: bool
 		"""
 
 		if not self.__sections:
@@ -726,9 +764,12 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser.attributeExists("Attribute 2", "Section A")
 			False
 
-		:param attribute: Attribute to check existence. ( String )
-		:param section: Section to search attribute into. ( String )
-		:return: Attribute existence. ( Boolean )
+		:param attribute: Attribute to check existence.
+		:type attribute: unicode
+		:param section: Section to search attribute into.
+		:type section: unicode
+		:return: Attribute existence.
+		:rtype: bool
 		"""
 
 		if not self.__sections:
@@ -762,10 +803,14 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser.getAttributes("Section A", stripNamespaces=True)
 			OrderedDict([(u'Attribute 1', u'Value A')])
 
-		:param section: Section containing the requested attributes. ( String )
-		:param orderedDictionary: Use an :class:`collections.OrderedDict` dictionary to store the attributes. ( String )
-		:param stripNamespaces: Strip namespaces while retrieving attributes. ( Boolean )
-		:return: Attributes. ( OrderedDict / Dictionary )
+		:param section: Section containing the requested attributes.
+		:type section: unicode
+		:param orderedDictionary: Use an :class:`collections.OrderedDict` dictionary to store the attributes.
+		:type orderedDictionary: unicode
+		:param stripNamespaces: Strip namespaces while retrieving attributes.
+		:type stripNamespaces: bool
+		:return: Attributes.
+		:rtype: OrderedDict or dict
 		"""
 
 		LOGGER.debug("> Getting section '{0}' attributes.".format(section))
@@ -799,8 +844,10 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser.getAllAttributes(orderedDictionary=False)
 			{u'Section B|Attribute 2': u'Value B', u'Section A|Attribute 1': u'Value A'}
 
-		:param orderedDictionary: Use an :class:`collections.OrderedDict` dictionary to store the attributes. ( String )
-		:return: All sections / files attributes. ( OrderedDict / Dictionary )
+		:param orderedDictionary: Use an :class:`collections.OrderedDict` dictionary to store the attributes.
+		:type orderedDictionary: unicode
+		:return: All sections / files attributes.
+		:rtype: OrderedDict or dict
 		"""
 
 		dictionary = orderedDictionary and OrderedDict or dict
@@ -828,10 +875,14 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser.getValue("Attribute 1", "Section A")
 			u'Value A'
 
-		:param attribute: Attribute name. ( String )
-		:param section: Section containing the searched attribute. ( String )
-		:param default: Default return value. ( Object )
-		:return: Attribute value. ( String )
+		:param attribute: Attribute name.
+		:type attribute: unicode
+		:param section: Section containing the searched attribute.
+		:type section: unicode
+		:param default: Default return value.
+		:type default: object
+		:return: Attribute value.
+		:rtype: unicode
 		"""
 
 		if not self.__sections:
@@ -868,12 +919,18 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser.read()
 			u'[Section A]\\nAttribute 1 = Value A\\n\\n[Section B]\\nAttribute 2 = Value B\\n'
 
-		:param namespaces: Attributes are namespaced. ( Boolean )
-		:param splitter: Splitter character. ( String )
-		:param commentLimiter: Comment limiter character. ( String )
-		:param spacesAroundSplitter: Spaces around attributes and value splitters. ( Boolean )
-		:param spaceAfterCommentLimiter: Space after comments limiter. ( Boolean )
-		:return: Method success. ( Boolean )
+		:param namespaces: Attributes are namespaced.
+		:type namespaces: bool
+		:param splitter: Splitter character.
+		:type splitter: unicode
+		:param commentLimiter: Comment limiter character.
+		:type commentLimiter: unicode
+		:param spacesAroundSplitter: Spaces around attributes and value splitters.
+		:type spacesAroundSplitter: bool
+		:param spaceAfterCommentLimiter: Space after comments limiter.
+		:type spaceAfterCommentLimiter: bool
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		if not self.__sections:
@@ -948,7 +1005,8 @@ class PlistFileParser(foundations.io.File):
 			>>> plistFileParser.elements["Dictionary A"]
 			{u'String C': u'My Value C', u'String B': u'My Value B'}
 
-		:param file: Current file path. ( String )
+		:param file: Current file path.
+		:type file: unicode
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -978,7 +1036,8 @@ class PlistFileParser(foundations.io.File):
 		"""
 		This method is the property for **self.__elements** attribute.
 
-		:return: self.__elements. ( OrderedDict / Dictionary )
+		:return: self.__elements.
+		:rtype: OrderedDict or dict
 		"""
 
 		return self.__elements
@@ -989,7 +1048,8 @@ class PlistFileParser(foundations.io.File):
 		"""
 		This method is the setter method for **self.__elements** attribute.
 
-		:param value: Attribute value. ( OrderedDict / Dictionary )
+		:param value: Attribute value.
+		:type value: OrderedDict or dict
 		"""
 
 		if value is not None:
@@ -1011,7 +1071,8 @@ class PlistFileParser(foundations.io.File):
 		"""
 		This method is the property for **self.__parsingErrors** attribute.
 
-		:return: self.__parsingErrors. ( List )
+		:return: self.__parsingErrors.
+		:rtype: list
 		"""
 
 		return self.__parsingErrors
@@ -1022,7 +1083,8 @@ class PlistFileParser(foundations.io.File):
 		"""
 		This method is the setter method for **self.__parsingErrors** attribute.
 
-		:param value: Attribute value. ( List )
+		:param value: Attribute value.
+		:type value: list
 		"""
 
 		if value is not None:
@@ -1048,7 +1110,8 @@ class PlistFileParser(foundations.io.File):
 		"""
 		This method is the property for **self.__unserializers** attribute.
 
-		:return: self.__unserializers. ( Dictionary )
+		:return: self.__unserializers.
+		:rtype: dict
 		"""
 
 		return self.__unserializers
@@ -1059,7 +1122,8 @@ class PlistFileParser(foundations.io.File):
 		"""
 		This method is the setter method for **self.__unserializers** attribute.
 
-		:param value: Attribute value. ( Dictionary )
+		:param value: Attribute value.
+		:type value: dict
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -1091,8 +1155,10 @@ class PlistFileParser(foundations.io.File):
 			>>> plistFileParser.elements.keys()
 			[u'Dictionary A', u'Number A', u'Array A', u'String A', u'Date A', u'Boolean A', u'Data A']
 
-		:param raiseParsingErrors: Raise parsing errors. ( Boolean )
-		:return: Method success. ( Boolean )
+		:param raiseParsingErrors: Raise parsing errors.
+		:type raiseParsingErrors: bool
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		LOGGER.debug("> Reading elements from: '{0}'.".format(self.path))
@@ -1132,8 +1198,10 @@ class PlistFileParser(foundations.io.File):
 			>>> plistFileParser.elementExists("String Nemo")
 			False
 
-		:param element: Element to check existence. ( String )
-		:return: Element existence. ( Boolean )
+		:param element: Element to check existence.
+		:type element: unicode
+		:return: Element existence.
+		:rtype: bool
 		"""
 
 		if not self.__elements:
@@ -1164,9 +1232,12 @@ class PlistFileParser(foundations.io.File):
 			>>> plistFileParser.filterValues(r"String.*")
 			[u'My Value C', u'My Value B', u'My Value A']
 
-		:param pattern: Regex filtering pattern. ( String )
-		:param flags: Regex flags. ( Integer )
-		:return: Values. ( List )
+		:param pattern: Regex filtering pattern.
+		:type pattern: unicode
+		:param flags: Regex flags.
+		:type flags: int
+		:return: Values.
+		:rtype: list
 		"""
 
 		values = []
@@ -1192,8 +1263,10 @@ class PlistFileParser(foundations.io.File):
 			>>> plistFileParser.getValue("String A")
 			u'My Value A'
 
-		:param element: Element to get the value. ( String )
-		:return: Element value. ( Object )
+		:param element: Element to get the value.
+		:type element: unicode
+		:return: Element value.
+		:rtype: object
 		"""
 
 		if not self.__elements:
@@ -1221,11 +1294,16 @@ def getAttributeCompound(attribute, value=None, splitter="|", bindingIdentifier=
 		>>> attributeCompound.alias
 		u'Link Parameter'
 		
-	:param attribute: Attribute. ( String )
-	:param value: Attribute value. ( Object )
-	:param splitter: Splitter. ( String )
-	:param bindingIdentifier: Binding identifier. ( String )
-	:return: Attribute compound. ( AttributeCompound )
+	:param attribute: Attribute.
+	:type attribute: unicode
+	:param value: Attribute value.
+	:type value: object
+	:param splitter: Splitter.
+	:type splitter: unicode
+	:param bindingIdentifier: Binding identifier.
+	:type bindingIdentifier: unicode
+	:return: Attribute compound.
+	:rtype: AttributeCompound
 	"""
 
 	LOGGER.debug("> Attribute: '{0}', value: '{1}'.".format(attribute, value))

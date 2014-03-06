@@ -73,8 +73,10 @@ class NestedAttribute(object):
 		"""
 		This method returns requested attribute.
 	
-		:param attribute: Attribute name. ( String )
-		:return: Attribute. ( Object )
+		:param attribute: Attribute name.
+		:type attribute: unicode
+		:return: Attribute.
+		:rtype: object
 		"""
 
 		self.__dict__[attribute] = NestedAttribute()
@@ -84,8 +86,10 @@ class NestedAttribute(object):
 		"""
 		This method sets given attribute with given value.
 	
-		:param attribute: Attribute name. ( String )
-		:param name: Attribute value. ( Object )
+		:param attribute: Attribute name.
+		:type attribute: unicode
+		:param name: Attribute value.
+		:type name: object
 		"""
 
 		namespaces = attribute.split(".")
@@ -95,7 +99,8 @@ class NestedAttribute(object):
 		"""
 		This method deletes given attribute with.
 	
-		:param attribute: Attribute name. ( String )
+		:param attribute: Attribute name.
+		:type attribute: unicode
 		"""
 
 		namespaces = attribute.split(".")
@@ -129,8 +134,10 @@ class Structure(dict):
 		"""
 		This method initializes the class.
 
-		:param \*args: Arguments. ( \* )
-		:param \*\*kwargs: Key / Value pairs. ( Key / Value pairs )
+		:param \*args: Arguments.
+		:type \*args: \*
+		:param \*\*kwargs: Key / Value pairs.
+		:type \*\*kwargs: dict
 		"""
 
 		dict.__init__(self, **kwargs)
@@ -140,7 +147,8 @@ class Structure(dict):
 		"""
 		This method returns given attribute value.
 
-		:return: Attribute value. ( Object )
+		:return: Attribute value.
+		:rtype: object
 		"""
 
 		try:
@@ -152,8 +160,10 @@ class Structure(dict):
 		"""
 		This method sets both key and sibling attribute with given value.
 
-		:param attribute: Attribute. ( Object )
-		:param value: Value. ( Object )
+		:param attribute: Attribute.
+		:type attribute: object
+		:param value: Value.
+		:type value: object
 		"""
 
 		dict.__setitem__(self, attribute, value)
@@ -165,7 +175,8 @@ class Structure(dict):
 		"""
 		This method deletes both key and sibling attribute.
 
-		:param attribute: Attribute. ( Object )
+		:param attribute: Attribute.
+		:type attribute: object
 		"""
 
 		dict.__delitem__(self, attribute)
@@ -177,8 +188,10 @@ class Structure(dict):
 		"""
 		This method reimplements the :meth:`Dict.update` method.
 		
-		:param \*args: Arguments. ( \* )
-		:param \*\*kwargs: Keywords arguments. ( \*\* )
+		:param \*args: Arguments.
+		:type \*args: \*
+		:param \*\*kwargs: Keywords arguments.
+		:type \*\*kwargs: \*\*
 		"""
 
 		dict.update(self, *args, **kwargs)
@@ -219,8 +232,10 @@ class OrderedStructure(OrderedDict):
 		"""
 		This method initializes the class.
 
-		:param \*args: Arguments. ( \* )
-		:param \*\*kwargs: Key / Value pairs. ( Key / Value pairs )
+		:param \*args: Arguments.
+		:type \*args: \*
+		:param \*\*kwargs: Key / Value pairs.
+		:type \*\*kwargs: dict
 		"""
 
 		OrderedDict.__init__(self, *args, **kwargs)
@@ -229,10 +244,14 @@ class OrderedStructure(OrderedDict):
 		"""
 		This method sets a key and sibling attribute with given value.
 
-		:param key: Key. ( Object )
-		:param value: Value. ( Object )
-		:param \*args: Arguments. ( \* )
-		:param \*\*kwargs: Key / Value pairs. ( Key / Value pairs )
+		:param key: Key.
+		:type key: object
+		:param value: Value.
+		:type value: object
+		:param \*args: Arguments.
+		:type \*args: \*
+		:param \*\*kwargs: Key / Value pairs.
+		:type \*\*kwargs: dict
 		"""
 
 		OrderedDict.__setitem__(self, key, value, *args, **kwargs)
@@ -242,9 +261,12 @@ class OrderedStructure(OrderedDict):
 		"""
 		This method deletes both key and sibling attribute.
 
-		:param key: Key. ( Object )
-		:param \*args: Arguments. ( \* )
-		:param \*\*kwargs: Key / Value pairs. ( Key / Value pairs )
+		:param key: Key.
+		:type key: object
+		:param \*args: Arguments.
+		:type \*args: \*
+		:param \*\*kwargs: Key / Value pairs.
+		:type \*\*kwargs: dict
 		"""
 
 		OrderedDict.__delitem__(self, key, *args, **kwargs)
@@ -254,8 +276,10 @@ class OrderedStructure(OrderedDict):
 		"""
 		This method sets both key and sibling attribute with given value.
 
-		:param attribute: Attribute. ( Object )
-		:param value: Value. ( Object )
+		:param attribute: Attribute.
+		:type attribute: object
+		:param value: Value.
+		:type value: object
 		"""
 
 		if sys.version_info[:2] <= (2, 6):
@@ -271,7 +295,8 @@ class OrderedStructure(OrderedDict):
 		"""
 		This method deletes both key and sibling attribute.
 
-		:param attribute: Attribute. ( Object )
+		:param attribute: Attribute.
+		:type attribute: object
 		"""
 
 		if sys.version_info[:2] <= (2, 6):
@@ -301,8 +326,10 @@ class Lookup(dict):
 		"""
 		This method gets the first key from given value.
 
-		:param value: Value. ( Object )
-		:return: Key. ( Object )
+		:param value: Value.
+		:type value: object
+		:return: Key.
+		:rtype: object
 		"""
 
 		for key, data in self.iteritems():
@@ -313,8 +340,10 @@ class Lookup(dict):
 		"""
 		This method gets the keys from given value.
 
-		:param value: Value. ( Object )
-		:return: Keys. ( Object )
+		:param value: Value.
+		:type value: object
+		:return: Keys.
+		:rtype: object
 		"""
 
 		return [key for key, data in self.iteritems() if data == value]

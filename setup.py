@@ -65,7 +65,8 @@ def getLongDescription():
 	"""
 	This definition returns the Package long description.
 
-	:return: Package long description. ( String )
+	:return: Package long description.
+	:rtype: unicode
 	"""
 
 	description = []

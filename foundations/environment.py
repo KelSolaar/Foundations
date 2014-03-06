@@ -73,8 +73,10 @@ class Environment(object):
 			>>> os.environ["DOE"]
 			u'JOHN'
 		
-		:param \*args: Variables. ( \* )
-		:param \*\*kwargs: Variables : Values. ( \* )
+		:param \*args: Variables.
+		:type \*args: \*
+		:param \*\*kwargs: Variables : Values.
+		:type \*\*kwargs: \*
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -91,7 +93,8 @@ class Environment(object):
 		"""
 		This method is the property for **self.__variables** attribute.
 
-		:return: self.__variables. ( Dictionary )
+		:return: self.__variables.
+		:rtype: dict
 		"""
 
 		return self.__variables
@@ -102,7 +105,8 @@ class Environment(object):
 		"""
 		This method is the setter method for **self.__variables** attribute.
 
-		:param value: Attribute value. ( Dictionary )
+		:param value: Attribute value.
+		:type value: dict
 		"""
 
 		if value is not None:
@@ -131,8 +135,10 @@ class Environment(object):
 		"""
 		This method adds given variables to __variables attribute.
 
-		:param \*args: Variables. ( \* )
-		:param \*\*kwargs: Variables : Values. ( \* )
+		:param \*args: Variables.
+		:type \*args: \*
+		:param \*\*kwargs: Variables : Values.
+		:type \*\*kwargs: \*
 		"""
 
 		for variable in args:
@@ -151,8 +157,10 @@ class Environment(object):
 			>>> environment.getValues("USER")
 			{'HOME': u'/Users/JohnDoe', 'USER': u'JohnDoe'}
 
-		:param \*args: Additional variables names to retrieve values from. ( \* )
-		:return: Variables : Values. ( Dictionary )
+		:param \*args: Additional variables names to retrieve values from.
+		:type \*args: \*
+		:return: Variables : Values.
+		:rtype: dict
 		"""
 
 		args and self.__addVariables(*args)
@@ -181,8 +189,10 @@ class Environment(object):
 			>>> os.environ["DOE"]
 			'JOHN'
 
-		:param \*\*kwargs: Variables : Values. ( \* )
-		:return: Method success. ( String )
+		:param \*\*kwargs: Variables : Values.
+		:type \*\*kwargs: \*
+		:return: Method success.
+		:rtype: unicode
 		
 		:note: Any variable with a **None** value will be skipped.
 		"""
@@ -200,8 +210,10 @@ class Environment(object):
 		"""
 		This method gets given environment variable value.
 
-		:param variable: Variable to retrieve value. ( String )
-		:return: Variable value. ( String )
+		:param variable: Variable to retrieve value.
+		:type variable: unicode
+		:return: Variable value.
+		:rtype: unicode
 		
 		:note: If the **variable** argument is not given the first **self.__variables** attribute value will be returned.
 		"""
@@ -217,9 +229,12 @@ class Environment(object):
 		"""
 		This method sets given environment variable with given value.
 
-		:param variable: Variable to set value. ( String )
-		:param value: Variable value. ( String )
-		:return: Method success. ( Boolean )
+		:param variable: Variable to set value.
+		:type variable: unicode
+		:param value: Variable value.
+		:type value: unicode
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		return self.setValues(**{variable : value})
@@ -235,7 +250,8 @@ def getSystemApplicationDataDirectory():
 		- '/Users/$USER/Library/Preferences' on Mac Os X.
 		- '/home/$USER' on Linux.
 
-	:return: User Application data directory. ( String )
+	:return: User Application data directory.
+	:rtype: unicode
 	"""
 
 	if platform.system() == "Windows" or platform.system() == "Microsoft":
@@ -265,7 +281,8 @@ def getUserApplicationDataDirectory():
 		- '/Users/$USER/Library/Preferences/Provider/Application' on Mac Os X.
 		- '/home/$USER/.Provider/Application' on Linux.
 
-	:return: User Application directory. ( String )
+	:return: User Application directory.
+	:rtype: unicode
 	"""
 
 	return os.path.join(getSystemApplicationDataDirectory(), Constants.providerDirectory, Constants.applicationDirectory)

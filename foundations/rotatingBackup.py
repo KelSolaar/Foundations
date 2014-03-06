@@ -79,9 +79,12 @@ class RotatingBackup(object):
 			>>> os.listdir(destination)
 			['File.txt', 'File.txt.1', 'File.txt.2', 'File.txt.3']
 
-		:param source: Backup source. ( String )
-		:param destination: Backup destination. ( String )
-		:param count: Backups count. ( Integer )
+		:param source: Backup source.
+		:type source: unicode
+		:param destination: Backup destination.
+		:type destination: unicode
+		:param count: Backups count.
+		:type count: int
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -102,7 +105,8 @@ class RotatingBackup(object):
 		"""
 		This method is the property for **self.__source** attribute.
 
-		:return: self.__source. ( String )
+		:return: self.__source.
+		:rtype: unicode
 		"""
 
 		return self.__source
@@ -113,7 +117,8 @@ class RotatingBackup(object):
 		"""
 		This method is the setter method for **self.__source** attribute.
 
-		:param value: Attribute value. ( String )
+		:param value: Attribute value.
+		:type value: unicode
 		"""
 
 		if value is not None:
@@ -137,7 +142,8 @@ class RotatingBackup(object):
 		"""
 		This method is the property for **self.__destination** attribute.
 
-		:return: self.__destination. ( String )
+		:return: self.__destination.
+		:rtype: unicode
 		"""
 
 		return self.__destination
@@ -148,7 +154,8 @@ class RotatingBackup(object):
 		"""
 		This method is the setter method for **self.__destination** attribute.
 
-		:param value: Attribute value. ( String )
+		:param value: Attribute value.
+		:type value: unicode
 		"""
 
 		if value is not None:
@@ -171,7 +178,8 @@ class RotatingBackup(object):
 		"""
 		This method is the property for **self.__count** attribute.
 
-		:return: self.__count. ( Integer )
+		:return: self.__count.
+		:rtype: int
 		"""
 
 		return self.__count
@@ -182,7 +190,8 @@ class RotatingBackup(object):
 		"""
 		This method is the setter method for **self.__count** attribute.
 
-		:param value: Attribute value. ( Integer )
+		:param value: Attribute value.
+		:type value: int
 		"""
 
 		if value is not None:
@@ -208,7 +217,8 @@ class RotatingBackup(object):
 		"""
 		This method does the rotating backup.
 
-		:return: Method success. ( Boolean )
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		LOGGER.debug("> Storing '{0}' file backup.".format(self.__source))

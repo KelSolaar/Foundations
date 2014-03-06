@@ -53,7 +53,8 @@ def exit(exitCode=1):
 	"""
 	This definition shuts down current process logging, associated handlers and then exits to system.
 	
-	:param exitCode: System exit code. ( Integer / String / Object )
+	:param exitCode: System exit code.
+	:type exitCode: Integer or String or Object
 
 	:note: **exitCode** argument is passed to Python :func:`sys.exit` definition.
 	"""
@@ -70,8 +71,10 @@ def wait(waitTime):
 	"""
 	This definition halts current process exection for an user defined time.
 
-	:param waitTime: Current sleep time in seconds. ( Float )
-	:return: Definition success. ( Boolean )
+	:param waitTime: Current sleep time in seconds.
+	:type waitTime: float
+	:return: Definition success.
+	:rtype: bool
 	"""
 
 	LOGGER.debug("> Waiting '{0}' seconds!".format(waitTime))
