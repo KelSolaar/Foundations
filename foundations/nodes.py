@@ -212,7 +212,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 		:param \*\*kwargs: Keywords arguments.
 		:type \*\*kwargs: \*\*
 		:return: Class instance.
-		:rtype: AbunicodeactNode
+		:rtype: AbstractNode
 		"""
 
 		instance = super(AbstractNode, cls).__new__(cls)
@@ -443,7 +443,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 		:param identity: Node identity.
 		:type identity: int
 		:return: Node.
-		:rtype: AbunicodeactNode
+		:rtype: AbstractNode
 
 		:note: Nodes identities are starting from '1' to nodes instances count.
 		"""
@@ -577,7 +577,7 @@ class AbstractCompositeNode(AbstractNode):
 		:param name: Node name.
 		:type name: unicode
 		:param parent: Node parent.
-		:type parent: AbunicodeactNode or AbunicodeactCompositeNode
+		:type parent: AbstractNode or AbstractCompositeNode
 		:param children: Children.
 		:type children: list
 		:param \*\*kwargs: Keywords arguments.
@@ -607,7 +607,7 @@ class AbstractCompositeNode(AbstractNode):
 		This method is the property for **self.__parent** attribute.
 
 		:return: self.__parent.
-		:rtype: AbunicodeactNode or AbunicodeactCompositeNode
+		:rtype: AbstractNode or AbstractCompositeNode
 		"""
 
 		return self.__parent
@@ -619,7 +619,7 @@ class AbstractCompositeNode(AbstractNode):
 		This method is the setter method for **self.__parent** attribute.
 
 		:param value: Attribute value.
-		:type value: AbunicodeactNode or AbunicodeactCompositeNode
+		:type value: AbstractNode or AbstractCompositeNode
 		"""
 
 		if value is not None:
@@ -713,7 +713,7 @@ class AbstractCompositeNode(AbstractNode):
 		:param index: Child index.
 		:type index: int
 		:return: Child node.
-		:rtype: AbunicodeactNode or AbunicodeactCompositeNode or Object
+		:rtype: AbstractNode or AbstractCompositeNode or Object
 		"""
 
 		if not self.__children:
@@ -737,7 +737,7 @@ class AbstractCompositeNode(AbstractNode):
 			1
 	
 		:param child: Child node.
-		:type child: AbunicodeactNode or AbunicodeactCompositeNode or Object
+		:type child: AbstractNode or AbstractCompositeNode or Object
 		:return: Child index.
 		:rtype: int
 		"""
@@ -781,7 +781,7 @@ class AbstractCompositeNode(AbstractNode):
 			[<AbstractCompositeNode object at 0x10107afe0>]
 
 		:param child: Child node.
-		:type child: AbunicodeactNode or AbunicodeactCompositeNode or Object
+		:type child: AbstractNode or AbstractCompositeNode or Object
 		:return: Method success.
 		:rtype: bool
 		"""
@@ -807,7 +807,7 @@ class AbstractCompositeNode(AbstractNode):
 		:param index: Node index.
 		:type index: int
 		:return: Removed child.
-		:rtype: AbunicodeactNode or AbunicodeactCompositeNode or Object
+		:rtype: AbstractNode or AbstractCompositeNode or Object
 		"""
 
 		if index < 0 or index > len(self.__children):
@@ -833,7 +833,7 @@ class AbstractCompositeNode(AbstractNode):
 			[u'MyNodeB', u'MyNodeD', u'MyNodeC']
 
 		:param child: Child node.
-		:type child: AbunicodeactNode or AbunicodeactCompositeNode or Object
+		:type child: AbstractNode or AbstractCompositeNode or Object
 		:param index: Insertion index.
 		:type index: int
 		:return: Method success.
@@ -954,7 +954,7 @@ class AbstractCompositeNode(AbstractNode):
 		:param flags: Matching regex flags.
 		:type flags: int
 		:param node: Node to start walking from.
-		:type node: AbunicodeactNode or AbunicodeactCompositeNode or Object
+		:type node: AbstractNode or AbstractCompositeNode or Object
 		:return: Family nodes.
 		:rtype: list
 		"""

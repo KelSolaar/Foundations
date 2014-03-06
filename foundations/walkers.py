@@ -186,11 +186,11 @@ def nodesWalker(node, ascendants=False):
 		MyNodeC
 
 	:param node: Node to walk.
-	:type node: AbunicodeactCompositeNode
+	:type node: AbstractCompositeNode
 	:param ascendants: Ascendants instead of descendants will be yielded.
 	:type ascendants: bool
 	:return: Node.
-	:rtype: AbunicodeactNode or AbunicodeactCompositeNode
+	:rtype: AbstractNode or AbstractCompositeNode
 	"""
 
 	attribute = "children" if not ascendants else "parent"
