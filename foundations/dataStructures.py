@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines **Foundations** package data structures objects.
+	Defines **Foundations** package data structures objects.
 
 **Others:**
 

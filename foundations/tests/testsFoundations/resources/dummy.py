@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines helpers objects for **Foundations** package units tests.
+	Defines helpers objects for **Foundations** package units tests.
 
 **Others:**
 

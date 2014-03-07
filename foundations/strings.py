@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines various strings manipulation objects.
+	Defines various strings manipulation objects.
 
 **Others:**
 

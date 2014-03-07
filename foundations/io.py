@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module provides file input / output objects and resources manipulation objects.
+	Provides file input / output objects and resources manipulation objects.
 
 **Others:**
 

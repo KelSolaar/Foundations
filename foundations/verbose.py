@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines **Foundations** package verbose and logging objects.
+	Defines **Foundations** package verbose and logging objects.
 
 **Others:**
 

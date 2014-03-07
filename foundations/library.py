@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module provides objects for C / C++ libraries binding.
+	Provides objects for C / C++ libraries binding.
 
 **Others:**
 

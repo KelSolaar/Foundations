@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines the :class:`SectionsFileParser` class, :class:`PlistFileParser` class
+	Defines the :class:`SectionsFileParser` class, :class:`PlistFileParser` class
 	and others parsing related objects.
 
 **Others:**

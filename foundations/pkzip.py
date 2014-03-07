@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module provides archives files manipulation objects.
+	Provides archives files manipulation objects.
 
 **Others:**
 

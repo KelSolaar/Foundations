@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines **Foundations** package common utilities objects that don't fall in any specific category.
+	Defines **Foundations** package common utilities objects that don't fall in any specific category.
 
 **Others:**
 	:func:`isBinaryFile` from Jorge Orpinel:

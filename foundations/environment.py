@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module provides environment variables manipulation objects.
+	Provides environment variables manipulation objects.
 
 **Others:**
 

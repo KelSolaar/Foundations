@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines **Foundations** package ui common utilities objects.
+	Defines **Foundations** package ui common utilities objects.
 
 **Others:**
 

@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines **Foundations** package exceptions and others exception handling related objects. 
+	Defines **Foundations** package exceptions and others exception handling related objects. 
 
 **Others:**
 

@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines various nodes and dag related classes.
+	Defines various nodes and dag related classes.
 
 **Others:**
 	Portions of the code from DAG by Simon Wittber: http://pypi.python.org/pypi/DAG/ and

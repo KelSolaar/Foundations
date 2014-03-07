@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines **Foundations** package generic decorators objects.
+	Defines **Foundations** package generic decorators objects.
 
 **Others:**
 

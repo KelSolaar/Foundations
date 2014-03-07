@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module provides simple strings namespace manipulation objects.
+	Provides simple strings namespace manipulation objects.
 
 **Others:**
 

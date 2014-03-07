@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines the :class:`TCPServer` class and other helpers objects needed to run a **Python** socket server.
+	Defines the :class:`TCPServer` class and other helpers objects needed to run a **Python** socket server.
 
 **Others:**
 

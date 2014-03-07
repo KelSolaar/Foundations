@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines various walking related objects.
+	Defines various walking related objects.
 
 **Others:**
 

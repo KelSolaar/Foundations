@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines **Foundations** package core objects.
+	Defines **Foundations** package core objects.
 
 **Others:**
 
