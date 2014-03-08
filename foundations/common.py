@@ -13,7 +13,7 @@
 **Others:**
 	:func:`isBinaryFile` from Jorge Orpinel:
 	http://stackoverflow.com/questions/898669/how-can-i-detect-if-a-file-is-binary-non-text-in-python
-	:func:`dependencyResolver` from Louis RIVIERE: http://code.activestate.com/recipes/576570-dependency-resolver/
+	:func:`dependencyResolver` from Louis Riviere: http://code.activestate.com/recipes/576570-dependency-resolver/
 
 """
 
