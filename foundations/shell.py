@@ -23,6 +23,7 @@ from __future__ import unicode_literals
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
+import foundations.dataStructures
 import foundations.exceptions
 import inspect
 import foundations.verbose
@@ -102,33 +103,27 @@ FOREGROUND_ANSI_ESCAPE_CODES = (("black", "30m"),
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class AnsiEscapeCodes():
-	"""
-	Defines *ANSI* escape codes.
-	"""
-
-	reset = "\033[0m"
+AnsiEscapeCodes = foundations.dataStructures.OrderedStructure()
 
 def _setAnsiEscapeCodes():
 	"""
 	Injects *ANSI* escape codes into :class:`AnsiEscapeCodes` class.
 	"""
 
-	setColorAttribute = lambda x, y: setattr(AnsiEscapeCodes, x, y)
+	AnsiEscapeCodes["reset"] = "\033[0m"
 
 	for foregroundCodeName, foregroundCode in FOREGROUND_ANSI_ESCAPE_CODES:
-		setColorAttribute(foregroundCodeName,
-						  "\033[{0}".format(foregroundCode))
+		AnsiEscapeCodes[foregroundCodeName] = "\033[{0}".format(foregroundCode)
 
 	for backgroundCodeName, backgroundCode in BACKGROUND_ANSI_ESCAPE_CODES:
-		setColorAttribute(backgroundCodeName,
-						  "\033[{0}".format(backgroundCode))
+		AnsiEscapeCodes[backgroundCodeName] = "\033[{0}".format(backgroundCode)
 
 	for backgroundCodeName, backgroundCode in BACKGROUND_ANSI_ESCAPE_CODES:
 		for foregroundCodeName, foregroundCode in FOREGROUND_ANSI_ESCAPE_CODES:
-			setColorAttribute("{0}{1}".format(foregroundCodeName,
-											  "{0}{1}".format(backgroundCodeName[0].upper(), backgroundCodeName[1:])),
-							  "\033[{0}\033[{1}".format(foregroundCode, backgroundCode))
+			AnsiEscapeCodes["{0}{1}".format(foregroundCodeName,
+											"{0}{1}".format(backgroundCodeName[0].upper(),
+															backgroundCodeName[1:]))] = "\033[{0}\033[{1}".format(
+				foregroundCode, backgroundCode)
 
 _setAnsiEscapeCodes()
 
@@ -146,7 +141,8 @@ def colorize(text, color):
 
 	escapeCode = getattr(AnsiEscapeCodes, color, None)
 	if escapeCode is None:
-		raise foundations.exceptions.AnsiEscapeCodeExistsError("'{0}' | '{1}' 'ANSI' escape code name doesn't exists!".format(
-			inspect.getmodulename(__file__), color))
+		raise foundations.exceptions.AnsiEscapeCodeExistsError(
+			"'{0}' | '{1}' 'ANSI' escape code name doesn't exists!".format(
+				inspect.getmodulename(__file__), color))
 
 	return "{0}{1}{2}".format(escapeCode, text, AnsiEscapeCodes.reset)
