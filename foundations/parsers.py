@@ -28,6 +28,7 @@ import datetime
 import re
 import sys
 from xml.etree import ElementTree
+
 if sys.version_info[:2] <= (2, 6):
 	from ordereddict import OrderedDict
 else:
@@ -116,15 +117,15 @@ class SectionsFileParser(foundations.io.File):
 	"""
 
 	def __init__(self,
-				file=None,
-				splitters=("=", ":"),
-				namespaceSplitter="|",
-				commentLimiters=(";", "#"),
-				commentMarker="#",
-				quotationMarkers=("\"", "'", "`"),
-				rawSectionContentIdentifier="__raw__",
-				defaultsSection="_defaults",
-				preserveOrder=True):
+				 file=None,
+				 splitters=("=", ":"),
+				 namespaceSplitter="|",
+				 commentLimiters=(";", "#"),
+				 commentMarker="#",
+				 quotationMarkers=("\"", "'", "`"),
+				 rawSectionContentIdentifier="__raw__",
+				 defaultsSection="_defaults",
+				 preserveOrder=True):
 		"""
 		This method initializes the class.
 
@@ -217,13 +218,13 @@ class SectionsFileParser(foundations.io.File):
 
 		if value is not None:
 			assert type(value) in (tuple, list), "'{0}' attribute: '{1}' type is not 'tuple' or 'list'!".format(
-			"splitters", value)
+				"splitters", value)
 			for element in value:
 				assert type(element) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
-				"splitters", element)
+					"splitters", element)
 				assert len(element) == 1, "'{0}' attribute: '{1}' has multiples characters!".format("splitter", element)
 				assert not re.search(r"\w", element), "'{0}' attribute: '{1}' is an alphanumeric character!".format(
-				"splitter", element)
+					"splitter", element)
 		self.__splitters = value
 
 	@splitters.deleter
@@ -234,7 +235,7 @@ class SectionsFileParser(foundations.io.File):
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "splitters"))
+			"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "splitters"))
 
 	@property
 	def namespaceSplitter(self):
@@ -259,10 +260,11 @@ class SectionsFileParser(foundations.io.File):
 
 		if value is not None:
 			assert type(value) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
-			"namespaceSplitter", value)
-			assert len(value) == 1, "'{0}' attribute: '{1}' has multiples characters!".format("namespaceSplitter", value)
+				"namespaceSplitter", value)
+			assert len(value) == 1, "'{0}' attribute: '{1}' has multiples characters!".format("namespaceSplitter",
+																							  value)
 			assert not re.search(r"\w", value), "'{0}' attribute: '{1}' is an alphanumeric character!".format(
-			"namespaceSplitter", value)
+				"namespaceSplitter", value)
 		self.__namespaceSplitter = value
 
 	@namespaceSplitter.deleter
@@ -273,7 +275,7 @@ class SectionsFileParser(foundations.io.File):
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "namespaceSplitter"))
+			"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "namespaceSplitter"))
 
 	@property
 	def commentLimiters(self):
@@ -298,10 +300,10 @@ class SectionsFileParser(foundations.io.File):
 
 		if value is not None:
 			assert type(value) in (tuple, list), "'{0}' attribute: '{1}' type is not 'tuple' or 'list'!".format(
-			"commentLimiters", value)
+				"commentLimiters", value)
 			for element in value:
 				assert type(element) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
-				"commentLimiters", element)
+					"commentLimiters", element)
 		self.__commentLimiters = value
 
 	@commentLimiters.deleter
@@ -312,7 +314,7 @@ class SectionsFileParser(foundations.io.File):
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "commentLimiters"))
+			"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "commentLimiters"))
 
 	@property
 	def commentMarker(self):
@@ -337,9 +339,9 @@ class SectionsFileParser(foundations.io.File):
 
 		if value is not None:
 			assert type(value) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
-			"commentMarker", value)
+				"commentMarker", value)
 			assert not re.search(r"\w", value), "'{0}' attribute: '{1}' is an alphanumeric character!".format(
-			"commentMarker", value)
+				"commentMarker", value)
 		self.__commentMarker = value
 
 	@commentMarker.deleter
@@ -350,7 +352,7 @@ class SectionsFileParser(foundations.io.File):
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "commentMarker"))
+			"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "commentMarker"))
 
 	@property
 	def quotationMarkers(self):
@@ -375,14 +377,14 @@ class SectionsFileParser(foundations.io.File):
 
 		if value is not None:
 			assert type(value) in (tuple, list), "'{0}' attribute: '{1}' type is not 'tuple' or 'list'!".format(
-			"quotationMarkers", value)
+				"quotationMarkers", value)
 			for element in value:
 				assert type(element) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
-				"quotationMarkers", element)
+					"quotationMarkers", element)
 				assert len(element) == 1, "'{0}' attribute: '{1}' has multiples characters!".format("quotationMarkers",
-				 																					element)
+																									element)
 				assert not re.search(r"\w", element), "'{0}' attribute: '{1}' is an alphanumeric character!".format(
-				"quotationMarkers", element)
+					"quotationMarkers", element)
 		self.__quotationMarkers = value
 
 	@quotationMarkers.deleter
@@ -393,7 +395,7 @@ class SectionsFileParser(foundations.io.File):
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "quotationMarkers"))
+			"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "quotationMarkers"))
 
 	@property
 	def rawSectionContentIdentifier(self):
@@ -418,7 +420,7 @@ class SectionsFileParser(foundations.io.File):
 
 		if value is not None:
 			assert type(value) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
-			"rawSectionContentIdentifier", value)
+				"rawSectionContentIdentifier", value)
 		self.___raw__Identifier = value
 
 	@rawSectionContentIdentifier.deleter
@@ -429,7 +431,7 @@ class SectionsFileParser(foundations.io.File):
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "rawSectionContentIdentifier"))
+			"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "rawSectionContentIdentifier"))
 
 	@property
 	def defaultsSection(self):
@@ -454,7 +456,7 @@ class SectionsFileParser(foundations.io.File):
 
 		if value is not None:
 			assert type(value) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
-			"defaultsSection", value)
+				"defaultsSection", value)
 		self.__defaultsSection = value
 
 	@defaultsSection.deleter
@@ -465,7 +467,7 @@ class SectionsFileParser(foundations.io.File):
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "defaultsSection"))
+			"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "defaultsSection"))
 
 	@property
 	def sections(self):
@@ -493,7 +495,7 @@ class SectionsFileParser(foundations.io.File):
 			'OrderedDict' or 'dict'!".format("sections", value)
 			for key, element in value.iteritems():
 				assert type(key) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
-				"sections", key)
+					"sections", key)
 				assert type(element) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not \
 				'OrderedDict' or 'dict'!".format("sections", key)
 		self.__sections = value
@@ -506,7 +508,7 @@ class SectionsFileParser(foundations.io.File):
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "sections"))
+			"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "sections"))
 
 	@property
 	def comments(self):
@@ -534,7 +536,7 @@ class SectionsFileParser(foundations.io.File):
 			'OrderedDict' or 'dict'!".format("comments", value)
 			for key, element in value.iteritems():
 				assert type(key) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
-				"comments", key)
+					"comments", key)
 				assert type(element) in (OrderedDict, dict), "'{0}' attribute: '{1}' type is not \
 				'OrderedDict' or 'dict'!".format("comments", key)
 		self.__comments = value
@@ -547,7 +549,7 @@ class SectionsFileParser(foundations.io.File):
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "comments"))
+			"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "comments"))
 
 	@property
 	def parsingErrors(self):
@@ -574,8 +576,8 @@ class SectionsFileParser(foundations.io.File):
 			assert type(value) is list, "'{0}' attribute: '{1}' type is not 'list'!".format("parsingErrors", value)
 			for element in value:
 				assert issubclass(element.__class__, foundations.exceptions.AbstractParsingError), \
-				"'{0}' attribute: '{1}' is not a '{2}' subclass!".format(
-				"parsingErrors", element, foundations.exceptions.AbstractParsingError.__class__.__name__)
+					"'{0}' attribute: '{1}' is not a '{2}' subclass!".format(
+						"parsingErrors", element, foundations.exceptions.AbstractParsingError.__class__.__name__)
 		self.__parsingErrors = value
 
 	@parsingErrors.deleter
@@ -586,7 +588,7 @@ class SectionsFileParser(foundations.io.File):
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "parsingErrors"))
+			"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "parsingErrors"))
 
 	@property
 	def preserveOrder(self):
@@ -621,7 +623,7 @@ class SectionsFileParser(foundations.io.File):
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "preserveOrder"))
+			"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "preserveOrder"))
 
 	#******************************************************************************************************************
 	#***	Class methods.
@@ -686,12 +688,12 @@ class SectionsFileParser(foundations.io.File):
 
 	@foundations.exceptions.handleExceptions(foundations.exceptions.FileStructureParsingError)
 	def parse(self,
-			rawSections=None,
-			namespaces=True,
-			stripComments=True,
-			stripWhitespaces=True,
-			stripQuotationMarkers=True,
-			raiseParsingErrors=True):
+			  rawSections=None,
+			  namespaces=True,
+			  stripComments=True,
+			  stripWhitespaces=True,
+			  stripQuotationMarkers=True,
+			  raiseParsingErrors=True):
 		"""
 		This method process the file content and extract the sections / attributes
 			as nested :class:`collections.OrderedDict` dictionaries or dictionaries.
@@ -754,10 +756,12 @@ class SectionsFileParser(foundations.io.File):
 			if search:
 				if not stripComments:
 					comment = namespaces and foundations.namespace.setNamespace(section, "{0}{1}".format(
-							self.__commentMarker, commentId), self.__namespaceSplitter) or \
-							"{0}{1}".format(self.__commentMarker, commentId)
-					self.__comments[comment] = {"id" : commentId, "content" : stripWhitespaces and \
-												search.group("comment").strip() or search.group("comment")}
+						self.__commentMarker, commentId), self.__namespaceSplitter) or \
+							  "{0}{1}".format(self.__commentMarker, commentId)
+					self.__comments[comment] = {"id": commentId, "content": stripWhitespaces and \
+																			search.group(
+																				"comment").strip() or search.group(
+						"comment")}
 					commentId += 1
 				continue
 
@@ -782,17 +786,22 @@ class SectionsFileParser(foundations.io.File):
 					continue
 
 				# Attributes matching.
-				search = re.search(r"^(?P<attribute>.+?)[{0}](?P<value>.+)$".format("".join(self.__splitters)), line)
+				search = re.search(r"^(?P<attribute>.+?)[{0}](?P<value>.+)$".format("".join(self.__splitters)), line) \
+					or re.search(r"^(?P<attribute>.+?)[{0}]\s*$".format("".join(self.__splitters)), line)
 				if search:
-					attribute = stripWhitespaces and search.group("attribute").strip() or search.group("attribute")
-					attribute = namespaces and foundations.namespace.setNamespace(section,
-																				attribute,
-																				self.__namespaceSplitter) or attribute
-					value = stripWhitespaces and search.group("value").strip() or search.group("value")
-					attributes[attribute] = stripQuotationMarkers and value.strip("".join(self.__quotationMarkers)) or value
+					attribute = search.group("attribute").strip() if stripWhitespaces else search.group("attribute")
+					attribute = foundations.namespace.setNamespace(section, attribute, self.__namespaceSplitter) \
+						if namespaces else attribute
+
+					if len(search.groups()) == 2:
+						value = search.group("value").strip() if stripWhitespaces else search.group("value")
+						attributes[attribute] = value.strip("".join(self.__quotationMarkers)) \
+							if stripQuotationMarkers else value
+					else:
+						attributes[attribute]= None
 				else:
 					self.__parsingErrors.append(foundations.exceptions.AttributeStructureParsingError(
-					"Attribute structure is invalid: {0}".format(line), i + 1))
+						"Attribute structure is invalid: {0}".format(line), i + 1))
 
 			self.__sections[section] = attributes
 
@@ -801,7 +810,8 @@ class SectionsFileParser(foundations.io.File):
 
 		if self.__parsingErrors and raiseParsingErrors:
 			raise foundations.exceptions.FileStructureParsingError(
-			"{0} | '{1}' structure is invalid, parsing exceptions occured!".format(self.__class__.__name__, self.path))
+				"{0} | '{1}' structure is invalid, parsing exceptions occured!".format(self.__class__.__name__,
+																					   self.path))
 
 		return True
 
@@ -861,7 +871,7 @@ class SectionsFileParser(foundations.io.File):
 		"""
 
 		if foundations.namespace.removeNamespace(attribute, rootOnly=True) in self.getAttributes(section,
-																					stripNamespaces=True):
+																								 stripNamespaces=True):
 			LOGGER.debug("> '{0}' attribute exists in '{1}' section.".format(attribute, section))
 			return True
 		else:
@@ -1003,18 +1013,18 @@ class SectionsFileParser(foundations.io.File):
 
 		if not self.sectionExists(section):
 			LOGGER.debug("> Adding '{0}' section.".format(section))
-			self.__sections[section] = {}
+			self.__sections[section] = OrderedDict() if self.__preserveOrder else dict()
 
 		self.__sections[section][attribute] = value
 
 		return True
 
 	def write(self,
-			namespaces=False,
-			splitter="=",
-			commentLimiter=(";"),
-			spacesAroundSplitter=True,
-			spaceAfterCommentLimiter=True):
+			  namespaces=False,
+			  splitter="=",
+			  commentLimiter=(";"),
+			  spacesAroundSplitter=True,
+			  spaceAfterCommentLimiter=True):
 		"""
 		This method writes defined file using :obj:`SectionsFileParser.sections` and
 			:obj:`SectionsFileParser.comments` class properties content.
@@ -1044,12 +1054,14 @@ class SectionsFileParser(foundations.io.File):
 		:rtype: bool
 		"""
 
+		self.uncache()
+
 		LOGGER.debug("> Setting '{0}' file content.".format(self.path))
 		attributeTemplate = spacesAroundSplitter and "{{0}} {0} {{1}}\n".format(splitter) or \
 							"{{0}} {0} {{1}}\n".format(splitter)
-		attributeTemplate = foundations.strings.replace(attributeTemplate, {"{{" : "{", "}}" : "}"})
+		attributeTemplate = foundations.strings.replace(attributeTemplate, {"{{": "{", "}}": "}"})
 		commentTemplate = spaceAfterCommentLimiter and "{0} {{0}}\n".format(commentLimiter) or \
-							"{0}{{0}}\n".format(commentLimiter)
+						  "{0}{{0}}\n".format(commentLimiter)
 		if self.__defaultsSection in self.__sections:
 			LOGGER.debug("> Appending '{0}' default section.".format(self.__defaultsSection))
 			if self.__comments:
@@ -1060,8 +1072,8 @@ class SectionsFileParser(foundations.io.File):
 						self.content.append(commentTemplate.format(value))
 			for attribute, value in self.__sections[self.__defaultsSection].iteritems():
 				attribute = namespaces and attribute or foundations.namespace.removeNamespace(attribute,
-																							self.__namespaceSplitter,
-																							rootOnly=True)
+																							  self.__namespaceSplitter,
+																							  rootOnly=True)
 				value = value or ""
 				LOGGER.debug("> Appending '{0}' attribute with '{1}' value.".format(attribute, value))
 				self.content.append(attributeTemplate.format(attribute, value))
@@ -1084,8 +1096,8 @@ class SectionsFileParser(foundations.io.File):
 				else:
 					LOGGER.debug("> Appending '{0}' section.".format(section))
 					attribute = namespaces and attribute or foundations.namespace.removeNamespace(attribute,
-																								self.__namespaceSplitter,
-																								rootOnly=True)
+																								  self.__namespaceSplitter,
+																								  rootOnly=True)
 					value = value or ""
 					LOGGER.debug("> Appending '{0}' attribute with '{1}' value.".format(attribute, value))
 					self.content.append(attributeTemplate.format(attribute, value))
@@ -1172,7 +1184,7 @@ class PlistFileParser(foundations.io.File):
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "elements"))
+			"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "elements"))
 
 	@property
 	def parsingErrors(self):
@@ -1199,8 +1211,8 @@ class PlistFileParser(foundations.io.File):
 			assert type(value) is list, "'{0}' attribute: '{1}' type is not 'list'!".format("parsingErrors", value)
 			for element in value:
 				assert issubclass(element.__class__, foundations.exceptions.AbstractParsingError), \
-				"'{0}' attribute: '{1}' is not a '{2}' subclass!".format(
-				"parsingErrors", element, foundations.exceptions.AbstractParsingError.__class__.__name__)
+					"'{0}' attribute: '{1}' is not a '{2}' subclass!".format(
+						"parsingErrors", element, foundations.exceptions.AbstractParsingError.__class__.__name__)
 		self.__parsingErrors = value
 
 	@parsingErrors.deleter
@@ -1211,7 +1223,7 @@ class PlistFileParser(foundations.io.File):
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "parsingErrors"))
+			"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "parsingErrors"))
 
 	@property
 	def unserializers(self):
@@ -1235,7 +1247,7 @@ class PlistFileParser(foundations.io.File):
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "unserializers"))
+			"{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "unserializers"))
 
 	@unserializers.deleter
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
@@ -1245,7 +1257,7 @@ class PlistFileParser(foundations.io.File):
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "unserializers"))
+			"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "unserializers"))
 
 	#******************************************************************************************************************
 	#***	Class methods.
@@ -1282,12 +1294,13 @@ class PlistFileParser(foundations.io.File):
 				element.text = data
 			elif element.tag != "plist":
 				self.__parsingErrors.append(foundations.exceptions.FileStructureParsingError(
-				"Unknown element: {0}".format(element.tag)))
+					"Unknown element: {0}".format(element.tag)))
 
 		if self.__parsingErrors:
 			if raiseParsingErrors:
 				raise foundations.exceptions.FileStructureParsingError(
-				"{0} | '{1}' structure is invalid, parsing exceptions occured!".format(self.__class__.__name__, self.path))
+					"{0} | '{1}' structure is invalid, parsing exceptions occured!".format(self.__class__.__name__,
+																						   self.path))
 		else:
 			self.__elements = foundations.common.getFirstItem(elementTreeParser.root).text
 			return True
@@ -1421,10 +1434,10 @@ def getAttributeCompound(attribute, value=None, splitter="|", bindingIdentifier=
 			valueTokens = value.split(splitter)
 			if len(valueTokens) >= 3 and re.search(r"{0}\w*".format(bindingIdentifier), valueTokens[0]):
 				return AttributeCompound(name=attribute,
-										value=valueTokens[1].strip(),
-										link=valueTokens[0].strip(),
-										type=valueTokens[2].strip(),
-										alias=len(valueTokens) == 4 and valueTokens[3].strip() or None)
+										 value=valueTokens[1].strip(),
+										 link=valueTokens[0].strip(),
+										 type=valueTokens[2].strip(),
+										 alias=len(valueTokens) == 4 and valueTokens[3].strip() or None)
 		else:
 			if re.search(r"{0}\w*".format(bindingIdentifier), value):
 				return AttributeCompound(name=attribute, value=None, link=value, type=None, alias=None)
