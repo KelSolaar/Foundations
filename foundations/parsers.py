@@ -966,9 +966,6 @@ class SectionsFileParser(foundations.io.File):
 		:rtype: unicode
 		"""
 
-		if not self.__sections:
-			return default
-
 		if not self.attributeExists(attribute, section):
 			return default
 
@@ -1046,9 +1043,6 @@ class SectionsFileParser(foundations.io.File):
 		:return: Method success.
 		:rtype: bool
 		"""
-
-		if not self.__sections:
-			return False
 
 		LOGGER.debug("> Setting '{0}' file content.".format(self.path))
 		attributeTemplate = spacesAroundSplitter and "{{0}} {0} {{1}}\n".format(splitter) or \
