@@ -61,9 +61,9 @@ class File(object):
 	def __init__(self, path=None, content=None):
 		"""
 		This method initializes the class.
-		
+
 		Usage::
-		
+
 			>>> file = File(u"file.txt")
 			>>> file.content = [u"Some file content ...\\n", u"... ready to be saved!\\n"]
 			>>> file.write()
@@ -289,8 +289,8 @@ def setDirectory(path):
 	"""
 	| This definition creates a directory with given path.
 	| The directory creation is delegated to
-		Python :func:`os.makedirs` definition so that directories hierarchy is recursively created. 
-	
+		Python :func:`os.makedirs` definition so that directories hierarchy is recursively created.
+
 	:param path: Directory path.
 	:type path: unicode
 	:return: Definition success.
@@ -327,7 +327,7 @@ def copy(source, destination):
 
 def remove(path):
 	"""
-	This definiton removes the given file or directory.
+	Removes the given file or directory.
 
 	:param path: Resource to remove.
 	:type path: unicode

@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Defines **Foundations** package exceptions and others exception handling related objects. 
+	Defines **Foundations** package exceptions and others exception handling related objects.
 
 **Others:**
 
@@ -86,7 +86,8 @@ __all__ = ["LOGGER",
 		"LibraryInitializationError",
 		"LibraryExecutionError",
 		"AbstractServerError",
-		"ServerOperationError"]
+		"ServerOperationError",
+		"AnsiEscapeCodeExistsError"]
 
 LOGGER = foundations.verbose.installLogger()
 
@@ -98,7 +99,7 @@ EXCEPTIONS_FRAME_SYMBOL = "_exceptions__frame__"
 def getInnerMostFrame(trcback):
 	"""
 	This definition returns the inner most frame of given traceback.
-	
+
 	:param trcback: Traceback.
 	:type trcback: Traceback
 	:return: Frame.
@@ -111,7 +112,7 @@ def getInnerMostFrame(trcback):
 def extractStack(frame, context=10, exceptionsFrameSymbol=EXCEPTIONS_FRAME_SYMBOL):
 	"""
 	This definition extracts the stack from given frame while excluded any symbolized frame.
-	
+
 	:param frame: Frame.
 	:type frame: Frame
 	:param context: Context to extract.
@@ -142,7 +143,7 @@ def extractStack(frame, context=10, exceptionsFrameSymbol=EXCEPTIONS_FRAME_SYMBO
 def extractArguments(frame):
 	"""
 	This definition extracts the arguments from given frame.
-	
+
 	:param frame: Frame.
 	:type frame: object
 	:return: Arguments.
@@ -172,7 +173,7 @@ def extractArguments(frame):
 def extractLocals(trcback):
 	"""
 	This definition extracts the frames locals of given traceback.
-	
+
 	:param trcback: Traceback.
 	:type trcback: Traceback
 	:return: Frames locals.
@@ -199,7 +200,7 @@ def extractLocals(trcback):
 def extractException(*args):
 	"""
 	This definition extracts the exception from given arguments or from :func:`sys.exc_info`.
-	
+
 	:param \*args: Arguments.
 	:type \*args: \*
 	:return: Extracted exception.
@@ -221,7 +222,7 @@ def formatException(cls, instance, trcback, context=1):
 	| This definition formats given exception.
 	| The code produce a similar output to :func:`traceback.format_exception` except that it allows frames to be excluded
 		from the stack if the given stack trace frame tag is found in the frame locals and set **True**.
-	
+
 	:param cls: Exception class.
 	:type cls: object
 	:param instance: Exception instance.
@@ -248,7 +249,7 @@ def formatException(cls, instance, trcback, context=1):
 def formatReport(cls, instance, trcback, context=1):
 	"""
 	This definition formats a report using given exception.
-	
+
 	:param cls: Exception class.
 	:type cls: object
 	:param instance: Exception instance.
@@ -292,7 +293,7 @@ def formatReport(cls, instance, trcback, context=1):
 def baseExceptionHandler(*args):
 	"""
 	This definition provides the base exception handler.
-	
+
 	:param \*args: Arguments.
 	:type \*args: \*
 	:return: Definition success.
@@ -315,7 +316,7 @@ def baseExceptionHandler(*args):
 def installExceptionHandler(handler=None):
 	"""
 	This definition installs the given exceptions handler.
-	
+
 	:param handler: Exception handler.
 	:type handler: object
 	:return: Definition success.
@@ -328,7 +329,7 @@ def installExceptionHandler(handler=None):
 def uninstallExceptionHandler():
 	"""
 	This definition uninstalls the exceptions handler.
-	
+
 	:return: Definition success.
 	:rtype: bool
 	"""
@@ -343,7 +344,7 @@ def handleExceptions(*args):
 		if not, :func:`baseExceptionHandler` handler will be used.
 	| The decorator uses given exceptions objects
 		or the default Python `Exception <http://docs.python.org/library/exceptions.html#exceptions.Exception>`_ class.
-	
+
 	Usage::
 
 		@handleExceptions(ZeroDivisionError)
@@ -696,6 +697,13 @@ class AbstractServerError(AbstractError):
 class ServerOperationError(AbstractServerError):
 	"""
 	This class is used for :mod:`tcpServer` module :class:`tcpServer.TCPServer` class operations exceptions.
+	"""
+
+	pass
+
+class AnsiEscapeCodeExistsError(AbstractError):
+	"""
+	Defines exception used for non existing *ANSI* escape codes.
 	"""
 
 	pass
