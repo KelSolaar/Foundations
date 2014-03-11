@@ -1,0 +1,4 @@
+[submodule "utilities/Oncilla"]
+	path = utilities/Oncilla
+	url = git@github.com:KelSolaar/Oncilla.git
+	branch = master
