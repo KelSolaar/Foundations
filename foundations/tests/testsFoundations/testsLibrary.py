@@ -7,7 +7,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines units tests for :mod:`foundations.library` module.
+	Defines units tests for :mod:`foundations.library` module.
 
 **Others:**
 

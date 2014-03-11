@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module runs the tests suite.
+	Runs the tests suite.
 
 **Others:**
 """
@@ -47,7 +47,8 @@ def _setPackageDirectory():
 	"""
 	This definition sets the package directory in the path.
 
-	:return: Definition success. ( Boolean )
+	:return: Definition success.
+	:rtype: bool
 	"""
 
 	packageDirectory = os.path.normpath(os.path.join(os.path.dirname(__file__), "../"))
@@ -60,7 +61,8 @@ def testsSuite():
 	"""
 	This definitions runs the tests suite.
 	
-	:return: Tests suite. ( TestSuite )
+	:return: Tests suite.
+	:rtype: TestSuite
 	"""
 
 	testsLoader = unittest.TestLoader()

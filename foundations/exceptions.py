@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines **Foundations** package exceptions and others exception handling related objects. 
+	Defines **Foundations** package exceptions and others exception handling related objects.
 
 **Others:**
 
@@ -86,7 +86,8 @@ __all__ = ["LOGGER",
 		"LibraryInitializationError",
 		"LibraryExecutionError",
 		"AbstractServerError",
-		"ServerOperationError"]
+		"ServerOperationError",
+		"AnsiEscapeCodeExistsError"]
 
 LOGGER = foundations.verbose.installLogger()
 
@@ -98,9 +99,11 @@ EXCEPTIONS_FRAME_SYMBOL = "_exceptions__frame__"
 def getInnerMostFrame(trcback):
 	"""
 	This definition returns the inner most frame of given traceback.
-	
-	:param trcback: Traceback. ( Traceback )
-	:return: Frame. ( Frame )
+
+	:param trcback: Traceback.
+	:type trcback: Traceback
+	:return: Frame.
+	:rtype: Frame
 	"""
 
 	frames = inspect.getinnerframes(trcback)
@@ -109,11 +112,15 @@ def getInnerMostFrame(trcback):
 def extractStack(frame, context=10, exceptionsFrameSymbol=EXCEPTIONS_FRAME_SYMBOL):
 	"""
 	This definition extracts the stack from given frame while excluded any symbolized frame.
-	
-	:param frame: Frame. ( Frame )
-	:param context: Context to extract. ( Integer )
-	:param exceptionsFrameSymbol: Stack trace frame tag. ( String )
-	:return: Stack. ( List )
+
+	:param frame: Frame.
+	:type frame: Frame
+	:param context: Context to extract.
+	:type context: int
+	:param exceptionsFrameSymbol: Stack trace frame tag.
+	:type exceptionsFrameSymbol: unicode
+	:return: Stack.
+	:rtype: list
 	"""
 
 	decode = lambda x: unicode(x, Constants.encodingCodec, Constants.encodingError)
@@ -136,9 +143,11 @@ def extractStack(frame, context=10, exceptionsFrameSymbol=EXCEPTIONS_FRAME_SYMBO
 def extractArguments(frame):
 	"""
 	This definition extracts the arguments from given frame.
-	
-	:param frame: Frame. ( Object )
-	:return: Arguments. ( Tuple )
+
+	:param frame: Frame.
+	:type frame: object
+	:return: Arguments.
+	:rtype: tuple
 	"""
 
 	arguments = ([], None, None)
@@ -164,9 +173,11 @@ def extractArguments(frame):
 def extractLocals(trcback):
 	"""
 	This definition extracts the frames locals of given traceback.
-	
-	:param trcback: Traceback. ( Traceback )
-	:return: Frames locals. ( List )
+
+	:param trcback: Traceback.
+	:type trcback: Traceback
+	:return: Frames locals.
+	:rtype: list
 	"""
 
 	output = []
@@ -189,9 +200,11 @@ def extractLocals(trcback):
 def extractException(*args):
 	"""
 	This definition extracts the exception from given arguments or from :func:`sys.exc_info`.
-	
-	:param \*args: Arguments. ( \* )
-	:return: Extracted exception. ( Tuple )
+
+	:param \*args: Arguments.
+	:type \*args: \*
+	:return: Extracted exception.
+	:rtype: tuple
 	"""
 
 	cls, instance, trcback = sys.exc_info()
@@ -209,12 +222,17 @@ def formatException(cls, instance, trcback, context=1):
 	| This definition formats given exception.
 	| The code produce a similar output to :func:`traceback.format_exception` except that it allows frames to be excluded
 		from the stack if the given stack trace frame tag is found in the frame locals and set **True**.
-	
-	:param cls: Exception class. ( Object )
-	:param instance: Exception instance. ( Object )
-	:param trcback: Traceback. ( Traceback )
-	:param context: Context being included. ( Integer )
-	:return: Formated exception. ( List )
+
+	:param cls: Exception class.
+	:type cls: object
+	:param instance: Exception instance.
+	:type instance: object
+	:param trcback: Traceback.
+	:type trcback: Traceback
+	:param context: Context being included.
+	:type context: int
+	:return: Formated exception.
+	:rtype: list
 	"""
 
 	stack = extractStack(getInnerMostFrame(trcback), context=context)
@@ -231,12 +249,17 @@ def formatException(cls, instance, trcback, context=1):
 def formatReport(cls, instance, trcback, context=1):
 	"""
 	This definition formats a report using given exception.
-	
-	:param cls: Exception class. ( Object )
-	:param instance: Exception instance. ( Object )
-	:param trcback: Traceback. ( Traceback )
-	:param context: Context being included. ( Integer )
-	:return: Formated report. ( Tuple )
+
+	:param cls: Exception class.
+	:type cls: object
+	:param instance: Exception instance.
+	:type instance: object
+	:param trcback: Traceback.
+	:type trcback: Traceback
+	:param context: Context being included.
+	:type context: int
+	:return: Formated report.
+	:rtype: tuple
 	"""
 
 	header = []
@@ -270,9 +293,11 @@ def formatReport(cls, instance, trcback, context=1):
 def baseExceptionHandler(*args):
 	"""
 	This definition provides the base exception handler.
-	
-	:param \*args: Arguments. ( \* )
-	:return: Definition success. ( Boolean )
+
+	:param \*args: Arguments.
+	:type \*args: \*
+	:return: Definition success.
+	:rtype: bool
 	"""
 
 	header, frames, trcback = formatReport(*extractException(*args))
@@ -291,9 +316,11 @@ def baseExceptionHandler(*args):
 def installExceptionHandler(handler=None):
 	"""
 	This definition installs the given exceptions handler.
-	
-	:param handler: Exception handler. ( Object )
-	:return: Definition success. ( Boolean )
+
+	:param handler: Exception handler.
+	:type handler: object
+	:return: Definition success.
+	:rtype: bool
 	"""
 
 	sys.excepthook = handler if handler is not None else baseExceptionHandler
@@ -302,8 +329,9 @@ def installExceptionHandler(handler=None):
 def uninstallExceptionHandler():
 	"""
 	This definition uninstalls the exceptions handler.
-	
-	:return: Definition success. ( Boolean )
+
+	:return: Definition success.
+	:rtype: bool
 	"""
 
 	sys.excepthook = sys.__excepthook__
@@ -316,7 +344,7 @@ def handleExceptions(*args):
 		if not, :func:`baseExceptionHandler` handler will be used.
 	| The decorator uses given exceptions objects
 		or the default Python `Exception <http://docs.python.org/library/exceptions.html#exceptions.Exception>`_ class.
-	
+
 	Usage::
 
 		@handleExceptions(ZeroDivisionError)
@@ -327,9 +355,11 @@ def handleExceptions(*args):
 
 			return value / 0
 
-			:param \*args: Arguments. ( \* )
+			:param \*args: Arguments.
+			:type \*args: \*
 
-	:return: Object. ( Object )
+	:return: Object.
+	:rtype: object
 	"""
 
 	exceptions = tuple(filter(lambda x: issubclass(x, Exception),
@@ -340,8 +370,10 @@ def handleExceptions(*args):
 		"""
 		This decorator is used for exceptions handling.
 
-		:param object: Object to decorate. ( Object )
-		:return: Object. ( Object )
+		:param object: Object to decorate.
+		:type object: object
+		:return: Object.
+		:rtype: object
 		"""
 
 		@functools.wraps(object)
@@ -349,8 +381,10 @@ def handleExceptions(*args):
 			"""
 			This decorator is used for exceptions handling.
 
-			:param \*args: Arguments. ( \* )
-			:param \*\*kwargs: Keywords arguments. ( \*\* )
+			:param \*args: Arguments.
+			:type \*args: \*
+			:param \*\*kwargs: Keywords arguments.
+			:type \*\*kwargs: \*\*
 			"""
 
 			_exceptions__frame__ = True
@@ -374,7 +408,8 @@ class AbstractError(Exception):
 		"""
 		This method initializes the class.
 
-		:param value: Error value or message. ( String )
+		:param value: Error value or message.
+		:type value: unicode
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -390,7 +425,8 @@ class AbstractError(Exception):
 		"""
 		This method is the property for **self.__value** attribute.
 
-		:return: self.__value. ( Object )
+		:return: self.__value.
+		:rtype: object
 		"""
 
 		return self.__value
@@ -400,7 +436,8 @@ class AbstractError(Exception):
 		"""
 		This method is the setter method for **self.__value** attribute.
 
-		:param value: Attribute value. ( Object )
+		:param value: Attribute value.
+		:type value: object
 		"""
 
 		self.__value = value
@@ -420,7 +457,8 @@ class AbstractError(Exception):
 		"""
 		This method returns the exception representation.
 
-		:return: Exception representation. ( String )
+		:return: Exception representation.
+		:rtype: unicode
 		"""
 
 		return str(self.__value)
@@ -462,8 +500,10 @@ class AttributeStructureParsingError(AbstractParsingError):
 		"""
 		This method initializes the class.
 
-		:param value: Error value or message. ( String )
-		:param line: Line number where exception occured. ( Integer )
+		:param value: Error value or message.
+		:type value: unicode
+		:param line: Line number where exception occured.
+		:type line: int
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -482,7 +522,8 @@ class AttributeStructureParsingError(AbstractParsingError):
 		"""
 		This method is the property for **self.__line** attribute.
 
-		:return: self.__line. ( Integer )
+		:return: self.__line.
+		:rtype: int
 		"""
 
 		return self.__line
@@ -493,7 +534,8 @@ class AttributeStructureParsingError(AbstractParsingError):
 		"""
 		This method is the setter method for **self.__line** attribute.
 
-		:param value: Attribute value. ( Integer )
+		:param value: Attribute value.
+		:type value: int
 		"""
 
 		if value is not None:
@@ -517,7 +559,8 @@ class AttributeStructureParsingError(AbstractParsingError):
 		"""
 		This method returns the exception representation.
 
-		:return: Exception representation. ( String )
+		:return: Exception representation.
+		:rtype: unicode
 		"""
 
 		if self.__line:
@@ -654,6 +697,13 @@ class AbstractServerError(AbstractError):
 class ServerOperationError(AbstractServerError):
 	"""
 	This class is used for :mod:`tcpServer` module :class:`tcpServer.TCPServer` class operations exceptions.
+	"""
+
+	pass
+
+class AnsiEscapeCodeExistsError(AbstractError):
+	"""
+	Defines exception used for non existing *ANSI* escape codes.
 	"""
 
 	pass

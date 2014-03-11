@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines the :class:`TCPServer` class and other helpers objects needed to run a **Python** socket server.
+	Defines the :class:`TCPServer` class and other helpers objects needed to run a **Python** socket server.
 
 **Others:**
 
@@ -59,7 +59,8 @@ class EchoRequestsHandler(SocketServer.BaseRequestHandler):
 		"""
 		This method reimplements the :meth:`SocketServer.BaseRequestHandler.handle` method.
 	
-		:return: Method success. ( Boolean )
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		while True:
@@ -87,8 +88,10 @@ class TCPServer(object):
 			>>> tcpServer.stop()
 			True
 
-		:param address: Server address. ( String )
-		:param port: Server port list. ( Integer )
+		:param address: Server address.
+		:type address: unicode
+		:param port: Server port list.
+		:type port: int
 		:param handler: Request handler. ( SocketServer.BaseRequestHandler )
 		"""
 
@@ -113,7 +116,8 @@ class TCPServer(object):
 		"""
 		This method is the property for **self.__address** attribute.
 
-		:return: self.__address. ( String )
+		:return: self.__address.
+		:rtype: unicode
 		"""
 
 		return self.__address
@@ -124,7 +128,8 @@ class TCPServer(object):
 		"""
 		This method is the setter method for **self.__address** attribute.
 
-		:param value: Attribute value. ( String )
+		:param value: Attribute value.
+		:type value: unicode
 		"""
 
 		if value is not None:
@@ -147,7 +152,8 @@ class TCPServer(object):
 		"""
 		This method is the property for **self.__port** attribute.
 
-		:return: self.__port. ( Integer )
+		:return: self.__port.
+		:rtype: int
 		"""
 
 		return self.__port
@@ -158,7 +164,8 @@ class TCPServer(object):
 		"""
 		This method is the setter method for **self.__port** attribute.
 
-		:param value: Attribute value. ( Integer )
+		:param value: Attribute value.
+		:type value: int
 		"""
 
 		if value is not None:
@@ -183,7 +190,8 @@ class TCPServer(object):
 		"""
 		This method is the property for **self.__handler** attribute.
 
-		:return: self.__handler. ( String )
+		:return: self.__handler.
+		:rtype: unicode
 		"""
 
 		return self.__handler
@@ -218,7 +226,8 @@ class TCPServer(object):
 		"""
 		This method is the property for **self.__online** attribute.
 
-		:return: self.__online. ( String )
+		:return: self.__online.
+		:rtype: unicode
 		"""
 
 		return self.__online
@@ -229,7 +238,8 @@ class TCPServer(object):
 		"""
 		This method is the setter method for **self.__online** attribute.
 
-		:param value: Attribute value. ( Boolean )
+		:param value: Attribute value.
+		:type value: bool
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -253,7 +263,8 @@ class TCPServer(object):
 		"""
 		This method  starts the TCP server.
 
-		:return: Method success. ( Boolean )
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		if self.__online:
@@ -283,7 +294,8 @@ class TCPServer(object):
 		"""
 		This method stops the TCP server.
 
-		:return: Method success. ( Boolean )
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		if not self.__online:

@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines various strings manipulation objects.
+	Defines various strings manipulation objects.
 
 **Others:**
 
@@ -83,10 +83,14 @@ def toString(data, encoding=Constants.encodingCodec, errors=Constants.encodingEr
 		>>> toString("汉字/漢字")
 		u'\u6c49\u5b57/\u6f22\u5b57'
 
-	:param data: Data to convert. ( Object )
-	:param encoding: File encoding codec. ( String )
-	:param errors: File encoding errors handling. ( String )
-	:return: Unicode data. ( String )
+	:param data: Data to convert.
+	:type data: object
+	:param encoding: File encoding codec.
+	:type encoding: unicode
+	:param errors: File encoding errors handling.
+	:type errors: unicode
+	:return: Unicode data.
+	:rtype: unicode
 	"""
 
 	if isinstance(data, type("")):
@@ -108,8 +112,10 @@ def getNiceName(name):
 		>>> getNiceName("__getMeANiceName")
 		u'__Get Me A Nice Name'
 
-	:param name: Current string to be nicified. ( String )
-	:return: Nicified string. ( String )
+	:param name: Current string to be nicified.
+	:type name: unicode
+	:return: Nicified string.
+	:rtype: unicode
 	"""
 
 	chunks = re.sub(r"(.)([A-Z][a-z]+)", r"\1 \2", name)
@@ -128,8 +134,10 @@ def getVersionRank(version):
 		>>> getVersionRank("4.2.8").__class__
 		<type 'int'>
 
-	:param version: Current version to calculate rank. ( String )
-	:return: Rank. ( Integer )
+	:param version: Current version to calculate rank.
+	:type version: unicode
+	:return: Rank.
+	:rtype: int
 	"""
 
 	tokens = list(foundations.common.unpackDefault(filter(any, re.split("\.|-|,", version)), length=4, default=0))
@@ -146,8 +154,10 @@ def getSplitextBasename(path):
 		>>> getSplitextBasename("/Users/JohnDoe/Documents/Test.txt")
 		u'Test'
 
-	:param path: Path to extract the basename without extension. ( String )
-	:return: Splitext basename. ( String )
+	:param path: Path to extract the basename without extension.
+	:type path: unicode
+	:return: Splitext basename.
+	:rtype: unicode
 	"""
 
 	basename = foundations.common.getFirstItem(os.path.splitext(os.path.basename(os.path.normpath(path))))
@@ -165,8 +175,10 @@ def getCommonAncestor(*args):
 		>>> getCommonAncestor("azerty", "azetty", "azello")
 		u'aze'
 
-	:param \*args: Iterables to retrieve common ancestor from. ( Iterables )
-	:return: Common ancestor. ( Iterable )
+	:param \*args: Iterables to retrieve common ancestor from.
+	:type \*args: [iterable]
+	:return: Common ancestor.
+	:rtype: iterable
 	"""
 
 	array = map(set, zip(*args))
@@ -187,8 +199,10 @@ def getCommonPathsAncestor(*args):
 		>>> getCommonPathsAncestor("/Users/JohnDoe/Documents", "/Users/JohnDoe/Documents/Test.txt")
 		u'/Users/JohnDoe/Documents'
 
-	:param \*args: Paths to retrieve common ancestor from. ( Strings )
-	:return: Common path ancestor. ( String )
+	:param \*args: Paths to retrieve common ancestor from.
+	:type \*args: [unicode]
+	:return: Common path ancestor.
+	:rtype: unicode
 	"""
 
 	pathAncestor = os.sep.join(getCommonAncestor(*[path.split(os.sep) for path in args]))
@@ -204,8 +218,10 @@ def getWords(data):
 		>>> getWords("Users are: John Doe, Jane Doe, Z6PO.")
 		[u'Users', u'are', u'John', u'Doe', u'Jane', u'Doe', u'Z6PO']
 
-	:param data: Data to extract words from. ( String )
-	:return: Words. ( List )
+	:param data: Data to extract words from.
+	:type data: unicode
+	:return: Words.
+	:rtype: list
 	"""
 
 	words = re.findall(r"\w+", data)
@@ -225,10 +241,14 @@ def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 		>>> filterWords(["Users", "are", "John", "Doe", "Jane", "Doe", "Z6PO"], filtersOut=("\w*o",))
 		[u'Users', u'are', u'Jane', u'Z6PO']
 
-	:param filtersIn: Regex filters in list. ( Tuple / List )
-	:param filtersIn: Regex filters out list. ( Tuple / List )
-	:param flags: Regex flags. ( Integer )
-	:return: Filtered words. ( List )
+	:param filtersIn: Regex filters in list.
+	:type filtersIn: tuple or list
+	:param filtersIn: Regex filters out list.
+	:type filtersIn: tuple or list
+	:param flags: Regex flags.
+	:type flags: int
+	:return: Filtered words.
+	:rtype: list
 	"""
 
 	filteredWords = []
@@ -267,9 +287,12 @@ def replace(string, data):
 		 "Z6PO" : "R2D2"})
 		u'Users are: Luke Skywalker, Anakin Skywalker, R2D2.'
 
-	:param string: String to manipulate. ( String )
-	:param data: Replacement occurences. ( Dictionary )
-	:return: Manipulated string. ( String )
+	:param string: String to manipulate.
+	:type string: unicode
+	:param data: Replacement occurences.
+	:type data: dict
+	:return: Manipulated string.
+	:rtype: unicode
 	"""
 
 	for old, new in data.iteritems():
@@ -285,9 +308,12 @@ def removeStrip(string, pattern):
 		>>> removeStrip("John Doe", "John")
 		u'Doe'
 
-	:param string: String to manipulate. ( String )
-	:param pattern: Replacement pattern. ( String )
-	:return: Manipulated string. ( String )
+	:param string: String to manipulate.
+	:type string: unicode
+	:param pattern: Replacement pattern.
+	:type pattern: unicode
+	:return: Manipulated string.
+	:rtype: unicode
 	"""
 
 	return string.replace(pattern, "").strip()
@@ -301,8 +327,10 @@ def toForwardSlashes(data):
 		>>> toForwardSlashes("To\Forward\Slashes")
 		u'To/Forward/Slashes'
 
-	:param data: Data to convert. ( String )
-	:return: Converted path. ( String )
+	:param data: Data to convert.
+	:type data: unicode
+	:return: Converted path.
+	:rtype: unicode
 	"""
 
 	data = data.replace("\\", "/")
@@ -318,8 +346,10 @@ def toBackwardSlashes(data):
 		>>> toBackwardSlashes("/Users/JohnDoe/Documents")
 		u'\\Users\\JohnDoe\\Documents'
 
-	:param data: Data to convert. ( String )
-	:return: Converted path. ( String )
+	:param data: Data to convert.
+	:type data: unicode
+	:return: Converted path.
+	:rtype: unicode
 	"""
 
 	data = data.replace("/", "\\")
@@ -335,8 +365,10 @@ def toPosixPath(path):
 		>>> toPosixPath("c:\\Users\\JohnDoe\\Documents")
 		u'/Users/JohnDoe/Documents'
 
-	:param path: Windows path. ( String )
-	:return: Path converted to Posix path. ( String )
+	:param path: Windows path.
+	:type path: unicode
+	:return: Path converted to Posix path.
+	:rtype: unicode
 	"""
 
 	posixPath = posixpath.normpath(toForwardSlashes(re.sub(r"[a-zA-Z]:\\|\\\\", "/", os.path.normpath(path))))
@@ -352,8 +384,10 @@ def getNormalizedPath(path):
 		>>> getNormalizedPath("C:\\Users/johnDoe\\Documents")
 		u'C:\\Users\\JohnDoe\\Documents'
 
-	:param path: Path to normalize. ( String )
-	:return: Normalized path. ( String )
+	:param path: Path to normalize.
+	:type path: unicode
+	:return: Normalized path.
+	:rtype: unicode
 	"""
 
 	if platform.system() == "Windows" or platform.system() == "Microsoft":
@@ -374,8 +408,10 @@ def getRandomSequence(length=8):
 		>>> getRandomSequence()
 		u'N_mYO7g5'
 
-	:param length: Length of the sequence. ( Integer )
-	:return: Random sequence. ( String )
+	:param length: Length of the sequence.
+	:type length: int
+	:return: Random sequence.
+	:rtype: unicode
 	"""
 
 	return "".join([random.choice(ASCII_CHARACTERS) for i in range(length)])
@@ -391,8 +427,10 @@ def isEmail(data):
 		>>> isEmail("john.doe:domain.com")
 		False
 
-	:param data: Data to check. ( String )
-	:return: Is email. ( Boolean )
+	:param data: Data to check.
+	:type data: unicode
+	:return: Is email.
+	:rtype: bool
 	"""
 
 	if re.match(r"[\w.%+-]+@[\w.]+\.[a-zA-Z]{2,4}", data):
@@ -413,8 +451,10 @@ def isWebsite(data):
 		>>> isWebsite("domain.com")
 		False
 
-	:param data: Data to check. ( String )
-	:return: Is website. ( Boolean )
+	:param data: Data to check.
+	:type data: unicode
+	:return: Is website.
+	:rtype: bool
 	"""
 
 	if re.match(r"(http|ftp|https)://([\w\-\.]+)/?", data):

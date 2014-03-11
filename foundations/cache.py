@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines caching related classes.
+	Defines caching related classes.
 
 **Others:**
 
@@ -53,7 +53,8 @@ class Cache(dict):
 		"""
 		This method initializes the class.
 
-		:param \*\*kwargs: Key / Value pairs. ( Key / Value pairs )
+		:param \*\*kwargs: Key / Value pairs.
+		:type \*\*kwargs: dict
 		"""
 
 		dict.__init__(self, **kwargs)
@@ -73,8 +74,10 @@ class Cache(dict):
 			>>> cache
 			{'Luke': 'Skywalker', 'John': 'Doe'}
 
-		:param \*\*content: Content to add. ( \*\* )
-		:return: Method success. ( Boolean )
+		:param \*\*content: Content to add.
+		:type \*\*content: \*\*
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		LOGGER.debug("> Adding '{0}' content to the cache.".format(self.__class__.__name__, content))
@@ -96,8 +99,10 @@ class Cache(dict):
 			>>> cache
 			{}			
 			
-		:param \*keys: Content to remove. ( \* )
-		:return: Method success. ( Boolean )
+		:param \*keys: Content to remove.
+		:type \*keys: \*
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		LOGGER.debug("> Removing '{0}' content from the cache.".format(self.__class__.__name__, keys))
@@ -121,8 +126,10 @@ class Cache(dict):
 			>>> cache.getContent("Luke")
 			'Skywalker'
 			
-		:param key: Content to retrieve. ( Object )
-		:return: Content. ( Object )
+		:param key: Content to retrieve.
+		:type key: object
+		:return: Content.
+		:rtype: object
 		"""
 
 		LOGGER.debug("> Retrieving '{0}' content from the cache.".format(self.__class__.__name__, key))
@@ -143,7 +150,8 @@ class Cache(dict):
 			>>> cache
 			{}
 			
-		:return: Method success. ( Boolean )
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		LOGGER.debug("> Flushing cache content.".format(self.__class__.__name__))

@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines units tests for :mod:`foundations.exceptions` module.
+	Defines units tests for :mod:`foundations.exceptions` module.
 
 **Others:**
 
@@ -130,9 +130,12 @@ class ExtractArgumentsCase(unittest.TestCase):
 		"""
 		This method tests :func:`foundations.exceptions.extractArguments` definition.
 
-		:param testArgument: Test argument. ( String )
-		:param \*args: Arguments. ( \* )
-		:param \*\*kwargs: Keywords arguments. ( \*\* )
+		:param testArgument: Test argument.
+		:type testArgument: unicode
+		:param \*args: Arguments.
+		:type \*args: \*
+		:param \*\*kwargs: Keywords arguments.
+		:type \*\*kwargs: \*\*
 		"""
 
 		try:
@@ -155,9 +158,12 @@ class ExtractLocalsCase(unittest.TestCase):
 		"""
 		This method tests :func:`foundations.exceptions.extractLocals` definition.
 
-		:param testArgument: Test argument. ( String )
-		:param \*args: Arguments. ( \* )
-		:param \*\*kwargs: Keywords arguments. ( \*\* )
+		:param testArgument: Test argument.
+		:type testArgument: unicode
+		:param \*args: Arguments.
+		:type \*args: \*
+		:param \*\*kwargs: Keywords arguments.
+		:type \*\*kwargs: \*\*
 		"""
 
 		try:

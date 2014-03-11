@@ -7,7 +7,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines units tests for :mod:`foundations.walkers` module.
+	Defines units tests for :mod:`foundations.walkers` module.
 
 **Others:**
 

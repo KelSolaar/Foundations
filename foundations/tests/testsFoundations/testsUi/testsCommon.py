@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines units tests for :mod:`foundations.ui.common` module.
+	Defines units tests for :mod:`foundations.ui.common` module.
 
 **Others:**
 

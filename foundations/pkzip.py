@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module provides archives files manipulation objects.
+	Provides archives files manipulation objects.
 
 **Others:**
 
@@ -67,7 +67,8 @@ class Pkzip(object):
 			>>> zipFile.extract(tempDirectory)
 			True
 
-		:param archive: Archive to manipulate. ( String )
+		:param archive: Archive to manipulate.
+		:type archive: unicode
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -84,7 +85,8 @@ class Pkzip(object):
 		"""
 		This method is the property for **self.__archive** attribute.
 
-		:return: self.__archive. ( String )
+		:return: self.__archive.
+		:rtype: unicode
 		"""
 
 		return self.__archive
@@ -95,7 +97,8 @@ class Pkzip(object):
 		"""
 		This method is the setter method for **self.__archive** attribute.
 
-		:param value: Attribute value. ( String )
+		:param value: Attribute value.
+		:type value: unicode
 		"""
 
 		if value is not None:
@@ -123,8 +126,10 @@ class Pkzip(object):
 		"""
 		This method extracts the archive file to given directory.
 
-		:param target: Target extraction directory. ( String )
-		:return: Method success. ( Boolean )
+		:param target: Target extraction directory.
+		:type target: unicode
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		if not foundations.common.pathExists(self.__archive):

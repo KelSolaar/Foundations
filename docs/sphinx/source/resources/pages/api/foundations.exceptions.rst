@@ -138,3 +138,7 @@ Classes
 	:show-inheritance:
 	:members:
 
+.. autoclass:: AnsiEscapeCodeExistsError
+	:show-inheritance:
+	:members:
+

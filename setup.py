@@ -65,7 +65,8 @@ def getLongDescription():
 	"""
 	This definition returns the Package long description.
 
-	:return: Package long description. ( String )
+	:return: Package long description.
+	:rtype: unicode
 	"""
 
 	description = []
@@ -80,10 +81,6 @@ def getLongDescription():
 			description.append(line)
 	return "".join(description)
 
-INSTALL_REQUIRES = ["sphinx>=1.1.3", "unittest2>=0.5.1"]
-if sys.version_info < (2, 7):
-    INSTALL_REQUIRES.append("ordereddict>=1.1")
-
 setup(name=foundations.globals.constants.Constants.applicationName,
 	version=foundations.globals.constants.Constants.releaseVersion,
 	author=foundations.globals.constants.__author__,
@@ -95,7 +92,9 @@ setup(name=foundations.globals.constants.Constants.applicationName,
 	license="GPLv3",
 	description="Foundations is the core package of Umbra, sIBL_GUI and sIBL_Reporter.",
 	long_description=getLongDescription(),
-	install_requires=INSTALL_REQUIRES,
+	install_requires=["ordereddict>=1.1", "sphinx>=1.2.1", "sphinx-rtd-theme>=0.1.5", "unittest2>=0.5.1"] \
+					if sys.version_info[:2] <= (2, 6) else \
+					["sphinx>=1.1.3", "sphinx-rtd-theme>=0.1.5", "unittest2>=0.5.1"],
 	classifiers=["Development Status :: 5 - Production/Stable",
 				"Environment :: Console",
 				"Intended Audience :: Developers",

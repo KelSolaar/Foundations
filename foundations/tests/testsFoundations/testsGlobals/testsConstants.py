@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines units tests for :mod:`foundations.globals.constants` module.
+	Defines units tests for :mod:`foundations.globals.constants` module.
 
 **Others:**
 
@@ -137,7 +137,7 @@ class ConstantsTestCase(unittest.TestCase):
 		for label in Constants.verbosityLabels:
 			self.assertIsInstance(label, unicode)
 
-	def testLoggingDefaultFormaterAttribute(self):
+	def testLoggingDefaultFormatterAttribute(self):
 		"""
 		This method tests :attr:`foundations.globals.constants.Constants.loggingDefaultFormatter` attribute.
 		"""

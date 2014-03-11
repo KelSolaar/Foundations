@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines various walking related objects.
+	Defines various walking related objects.
 
 **Others:**
 
@@ -65,11 +65,16 @@ def filesWalker(directory, filtersIn=None, filtersOut=None, flags=0):
 		...
 		./foundations/tests/testsFoundations/resources/standard/level_0/level_1/level_2/standard.sIBLT
 
-	:param directory: Directory to recursively walk. ( String )
-	:param filtersIn: Regex filters in list. ( Tuple / List )
-	:param filtersIn: Regex filters out list. ( Tuple / List )
-	:param flags: Regex flags. ( Integer )
-	:return: File. ( String )
+	:param directory: Directory to recursively walk.
+	:type directory: unicode
+	:param filtersIn: Regex filters in list.
+	:type filtersIn: tuple or list
+	:param filtersIn: Regex filters out list.
+	:type filtersIn: tuple or list
+	:param flags: Regex flags.
+	:type flags: int
+	:return: File.
+	:rtype: unicode
 	"""
 
 	if filtersIn:
@@ -108,9 +113,12 @@ def depthWalker(directory, maximumDepth=1):
 		(u'./foundations/tests/testsFoundations/resources/standard/level_0/level_1', [u'level_2'], [u'loremIpsum.txt', u'standard.rc'])
 		(u'./foundations/tests/testsFoundations/resources/standard/level_0/level_1/level_2', [], [u'standard.sIBLT'])
 
-	:param directory: Directory to walk. ( String )
-	:param maximumDepth: Maximum depth. ( Integer )
-	:return: Parent directory, directories, files. ( Tuple )
+	:param directory: Directory to walk.
+	:type directory: unicode
+	:param maximumDepth: Maximum depth.
+	:type maximumDepth: int
+	:return: Parent directory, directories, files.
+	:rtype: tuple
 	"""
 
 	separator = os.path.sep
@@ -135,9 +143,12 @@ def dictionariesWalker(dictionary, path=()):
 		(('Level 1A', 'Level 2A'), 'Level 3A', 'Higher Level')
 		((), 'Level 1B', 'Lower level')
 
-	:param dictionary: Dictionary to walk. ( Dictionary )
-	:param path: Walked paths. ( Tuple )
-	:return: Path, key, value. ( Tuple )
+	:param dictionary: Dictionary to walk.
+	:type dictionary: dict
+	:param path: Walked paths.
+	:type path: tuple
+	:return: Path, key, value.
+	:rtype: tuple
 	
 	:note: This generator won't / can't yield any dictionaries, if you want to be able to retrieve dictionaries anyway,
 		you will have to either encapsulate them in another object, or mutate their base class.
@@ -174,9 +185,12 @@ def nodesWalker(node, ascendants=False):
 		MyNodeE
 		MyNodeC
 
-	:param node: Node to walk. ( AbstractCompositeNode )
-	:param ascendants: Ascendants instead of descendants will be yielded. ( Boolean )
-	:return: Node. ( AbstractNode / AbstractCompositeNode )
+	:param node: Node to walk.
+	:type node: AbstractCompositeNode
+	:param ascendants: Ascendants instead of descendants will be yielded.
+	:type ascendants: bool
+	:return: Node.
+	:rtype: AbstractNode or AbstractCompositeNode
 	"""
 
 	attribute = "children" if not ascendants else "parent"

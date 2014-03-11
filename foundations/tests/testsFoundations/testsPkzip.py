@@ -7,7 +7,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines units tests for :mod:`foundations.pkzip` module.
+	Defines units tests for :mod:`foundations.pkzip` module.
 
 **Others:**
 

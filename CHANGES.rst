@@ -1,10 +1,17 @@
-Foundations - 2.0.8 - Stable
+Foundations - 2.0.9 - Stable
 ============================
 
 .. .changes
 
 Changes
 =======
+
+2.0.9 - Stable
+--------------
+
+**Foundations** 2.0.9 - Stable - Milestone: https://github.com/KelSolaar/Foundations/issues?milestone=7&state=closed
+
+-  Added **foundations.shell.** module.
 
 2.0.8 - Stable
 --------------
@@ -101,7 +108,7 @@ Changes
 1.0.0 - Stable
 --------------
 
--  Initial release of Foundations.
+-  Initial release of **Foundations**.
 
 .. .about
 
