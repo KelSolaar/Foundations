@@ -177,7 +177,7 @@ class SectionsFileParser(foundations.io.File):
 		self.commentMarker = commentMarker
 		self.__quotationMarkers = None
 		self.quotationMarkers = quotationMarkers
-		self.___raw__Identifier = None
+		self.__rawSectionContentIdentifier = None
 		self.rawSectionContentIdentifier = rawSectionContentIdentifier
 		self.__defaultsSection = None
 		self.defaultsSection = defaultsSection
@@ -400,19 +400,19 @@ class SectionsFileParser(foundations.io.File):
 	@property
 	def rawSectionContentIdentifier(self):
 		"""
-		This method is the property for **self.___raw__Identifier** attribute.
+		This method is the property for **self.__rawSectionContentIdentifier** attribute.
 
-		:return: self.___raw__Identifier.
+		:return: self.__rawSectionContentIdentifier.
 		:rtype: unicode
 		"""
 
-		return self.___raw__Identifier
+		return self.__rawSectionContentIdentifier
 
 	@rawSectionContentIdentifier.setter
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def rawSectionContentIdentifier(self, value):
 		"""
-		This method is the setter method for **self.___raw__Identifier** attribute.
+		This method is the setter method for **self.__rawSectionContentIdentifier** attribute.
 
 		:param value: Attribute value.
 		:type value: unicode
@@ -421,13 +421,13 @@ class SectionsFileParser(foundations.io.File):
 		if value is not None:
 			assert type(value) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
 				"rawSectionContentIdentifier", value)
-		self.___raw__Identifier = value
+		self.__rawSectionContentIdentifier = value
 
 	@rawSectionContentIdentifier.deleter
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def rawSectionContentIdentifier(self):
 		"""
-		This method is the deleter method for **self.___raw__Identifier** attribute.
+		This method is the deleter method for **self.__rawSectionContentIdentifier** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -778,7 +778,7 @@ class SectionsFileParser(foundations.io.File):
 
 			if section in rawSections:
 				rawContent.append(line)
-				attributes[self.___raw__Identifier] = rawContent
+				attributes[self.__rawSectionContentIdentifier] = rawContent
 			else:
 				# Empty line matching.
 				search = re.search(r"^\s*$", line)
@@ -1089,7 +1089,7 @@ class SectionsFileParser(foundations.io.File):
 						LOGGER.debug("> Appending '{0}' comment with '{1}' value.".format(comment, value))
 						self.content.append(commentTemplate.format(value))
 			for attribute, value in self.__sections[section].iteritems():
-				if foundations.namespace.removeNamespace(attribute) == self.___raw__Identifier:
+				if foundations.namespace.removeNamespace(attribute) == self.__rawSectionContentIdentifier:
 					LOGGER.debug("> Appending '{0}' raw section content.".format(section))
 					for line in value:
 						self.content.append(line)

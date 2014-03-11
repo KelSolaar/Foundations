@@ -636,7 +636,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 	def testSetValue(self):
 		"""
-		This method tests :meth:`foundations.parsers.SectionsFileParser.setValue` method.
+		Tests :meth:`foundations.parsers.SectionsFileParser.setValue` method.
 		"""
 
 		sectionsFileParser = SectionsFileParser()
