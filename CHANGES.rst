@@ -108,7 +108,7 @@ Changes
 1.0.0 - Stable
 --------------
 
--  Initial release of Foundations.
+-  Initial release of **Foundations**.
 
 .. .about
 
