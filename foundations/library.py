@@ -38,7 +38,7 @@ import foundations.verbose
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -53,12 +53,12 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 class LibraryHook(foundations.dataStructures.Structure):
 	"""
-	This class represents a library hook used by the :class:`Library` class to bind target library functions.
+	Defines a library hook used by the :class:`Library` class to bind target library functions.
 	"""
 
 	def __init__(self, **kwargs):
 		"""
-		This method initializes the class.
+		Initializes the class.
 		
 		Usage::
 			
@@ -79,7 +79,7 @@ class LibraryHook(foundations.dataStructures.Structure):
 
 class Library(object):
 	"""
-	| This class provides methods to bind a C / C++ Library.
+	| Defines methods to bind a C / C++ Library.
 	| The class is a singleton and will bind only one time a given library.
 		Each unique library instance is stored in :attr:`Library.instances` attribute
 		and get returned if the library is requested again through a new instantiation.
@@ -94,7 +94,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.LibraryInstantiationError)
 	def __new__(cls, *args, **kwargs):
 		"""
-		This method is the constructor of the class.
+		Constructor of the class.
 		
 		:param \*args: Arguments.
 		:type \*args: \*
@@ -116,7 +116,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.LibraryInitializationError)
 	def __init__(self, path, functions=None, bindLibrary=True):
 		"""
-		This method initializes the class.
+		Initializes the class.
 		
 		Usage::
 			
@@ -169,7 +169,7 @@ class Library(object):
 	@property
 	def instances(self):
 		"""
-		This method is the property for **self.__instances** attribute.
+		Property for **self.__instances** attribute.
 
 		:return: self.__instances.
 		:rtype: WeakValueDictionary
@@ -181,7 +181,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def instances(self, value):
 		"""
-		This method is the setter method for **self.__instances** attribute.
+		Setter for **self.__instances** attribute.
 
 		:param value: Attribute value.
 		:type value: WeakValueDictionary
@@ -194,7 +194,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def instances(self):
 		"""
-		This method is the deleter method for **self.__instances** attribute.
+		Deleter for **self.__instances** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -203,7 +203,7 @@ class Library(object):
 	@property
 	def initialized(self):
 		"""
-		This method is the property for **self.__initialized** attribute.
+		Property for **self.__initialized** attribute.
 
 		:return: self.__initialized.
 		:rtype: unicode
@@ -215,7 +215,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def initialized(self, value):
 		"""
-		This method is the setter method for **self.__initialized** attribute.
+		Setter for **self.__initialized** attribute.
 
 		:param value: Attribute value.
 		:type value: unicode
@@ -228,7 +228,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def initialized(self):
 		"""
-		This method is the deleter method for **self.__initialized** attribute.
+		Deleter for **self.__initialized** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -237,7 +237,7 @@ class Library(object):
 	@property
 	def path(self):
 		"""
-		This method is the property for **self.__path** attribute.
+		Property for **self.__path** attribute.
 
 		:return: self.__path.
 		:rtype: unicode
@@ -249,7 +249,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def path(self, value):
 		"""
-		This method is the setter method for **self.__path** attribute.
+		Setter for **self.__path** attribute.
 
 		:param value: Attribute value.
 		:type value: unicode
@@ -265,7 +265,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def path(self):
 		"""
-		This method is the deleter method for **self.__path** attribute.
+		Deleter for **self.__path** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -274,7 +274,7 @@ class Library(object):
 	@property
 	def functions(self):
 		"""
-		This method is the property for **self.__functions** attribute.
+		Property for **self.__functions** attribute.
 
 		:return: self.__functions.
 		:rtype: tuple
@@ -286,7 +286,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def functions(self, value):
 		"""
-		This method is the setter method for **self.__functions** attribute.
+		Setter for **self.__functions** attribute.
 
 		:param value: Attribute value.
 		:type value: tuple
@@ -303,7 +303,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def functions(self):
 		"""
-		This method is the deleter method for **self.__functions** attribute.
+		Deleter for **self.__functions** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -312,7 +312,7 @@ class Library(object):
 	@property
 	def library(self):
 		"""
-		This method is the property for **self.__library** attribute.
+		Property for **self.__library** attribute.
 
 		:return: self.__library.
 		:rtype: object
@@ -324,7 +324,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def library(self, value):
 		"""
-		This method is the setter method for **self.__library** attribute.
+		Setter for **self.__library** attribute.
 
 		:param value: Attribute value.
 		:type value: object
@@ -336,7 +336,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def library(self):
 		"""
-		This method is the deleter method for **self.__library** attribute.
+		Deleter for **self.__library** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -347,7 +347,7 @@ class Library(object):
 	#******************************************************************************************************************
 	def bindFunction(self, function):
 		"""
-		This method binds given function to a class object attribute.
+		Binds given function to a class object attribute.
 
 		Usage::
 			
@@ -378,7 +378,7 @@ class Library(object):
 
 	def bindLibrary(self):
 		"""
-		This method binds the Library using functions registered in the **self.__functions** attribute.
+		Binds the Library using functions registered in the **self.__functions** attribute.
 
 		Usage::
 			

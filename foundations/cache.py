@@ -28,7 +28,7 @@ import foundations.verbose
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -43,7 +43,7 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 class Cache(dict):
 	"""
-	This class defines the cache object and provides various methods to interact with its content.
+	Defines the cache object and provides various methods to interact with its content.
 	
 	Usage:
 		
@@ -51,7 +51,7 @@ class Cache(dict):
 
 	def __init__(self, **kwargs):
 		"""
-		This method initializes the class.
+		Initializes the class.
 
 		:param \*\*kwargs: Key / Value pairs.
 		:type \*\*kwargs: dict
@@ -64,7 +64,7 @@ class Cache(dict):
 	#******************************************************************************************************************
 	def addContent(self, **content):
 		"""
-		This method adds given content to the cache.
+		Adds given content to the cache.
 
 		Usage::
 		
@@ -87,7 +87,7 @@ class Cache(dict):
 
 	def removeContent(self, *keys):
 		"""
-		This method removes given content from the cache.
+		Removes given content from the cache.
 
 		Usage::
 			
@@ -116,7 +116,7 @@ class Cache(dict):
 
 	def getContent(self, key):
 		"""
-		This method gets given content from the cache.
+		Gets given content from the cache.
 
 		Usage::
 
@@ -138,7 +138,7 @@ class Cache(dict):
 
 	def flushContent(self):
 		"""
-		This method flushes the cache content.
+		Flushes the cache content.
 
 		Usage::
 

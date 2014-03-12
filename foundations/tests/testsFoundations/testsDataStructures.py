@@ -38,7 +38,7 @@ import foundations.dataStructures
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -54,12 +54,12 @@ __all__ = ["NestedAttributeTestCase",
 #**********************************************************************************************************************
 class NestedAttributeTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.dataStructures.NestedAttribute` class units tests methods.
+	Defines :class:`foundations.dataStructures.NestedAttribute` class units tests methods.
 	"""
 
 	def testNestedAttribute(self):
 		"""
-		This method tests :class:`foundations.dataStructures.NestedAttribute` class.
+		Tests :class:`foundations.dataStructures.NestedAttribute` class.
 		"""
 
 		nest = foundations.dataStructures.NestedAttribute()
@@ -69,12 +69,12 @@ class NestedAttributeTestCase(unittest.TestCase):
 
 class StructureTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.dataStructures.Structure` class units tests methods.
+	Defines :class:`foundations.dataStructures.Structure` class units tests methods.
 	"""
 
 	def testStructure(self):
 		"""
-		This method tests :class:`foundations.dataStructures.Structure` class.
+		Tests :class:`foundations.dataStructures.Structure` class.
 		"""
 
 		structure = foundations.dataStructures.Structure(John="Doe", Jane="Doe")
@@ -102,7 +102,7 @@ class StructureTestCase(unittest.TestCase):
 
 	def testStructurePickle(self):
 		"""
-		This method tests :class:`foundations.dataStructures.Structure` class pickling.
+		Tests :class:`foundations.dataStructures.Structure` class pickling.
 		"""
 
 		structure = foundations.dataStructures.Structure(John="Doe", Jane="Doe")
@@ -117,12 +117,12 @@ class StructureTestCase(unittest.TestCase):
 
 class OrderedStructureTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.dataStructures.OrderedStructure` class units tests methods.
+	Defines :class:`foundations.dataStructures.OrderedStructure` class units tests methods.
 	"""
 
 	def testOrderedStructure(self):
 		"""
-		This method tests :class:`foundations.dataStructures.OrderedStructure` class.
+		Tests :class:`foundations.dataStructures.OrderedStructure` class.
 		"""
 
 		structure = foundations.dataStructures.OrderedStructure([("personA", "John"),
@@ -142,12 +142,12 @@ class OrderedStructureTestCase(unittest.TestCase):
 
 class LookupTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.dataStructures.Lookup` class units tests methods.
+	Defines :class:`foundations.dataStructures.Lookup` class units tests methods.
 	"""
 
 	def testGetFirstKeyFromValue(self):
 		"""
-		This method tests :meth:`foundations.dataStructures.Lookup.getFirstKeyFromValue` method.
+		Tests :meth:`foundations.dataStructures.Lookup.getFirstKeyFromValue` method.
 		"""
 
 		lookup = foundations.dataStructures.Lookup(firstName="Doe", lastName="John", gender="male")
@@ -155,7 +155,7 @@ class LookupTestCase(unittest.TestCase):
 
 	def testGetKeysFromValue(self):
 		"""
-		This method tests :meth:`foundations.dataStructures.Lookup.getKeysFromValue` method.
+		Tests :meth:`foundations.dataStructures.Lookup.getKeysFromValue` method.
 		"""
 
 		lookup = foundations.dataStructures.Lookup(John="Doe", Jane="Doe", Luke="Skywalker")

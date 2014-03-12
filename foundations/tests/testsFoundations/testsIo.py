@@ -40,7 +40,7 @@ from foundations.io import File
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -67,12 +67,12 @@ FILE_CONTENT = [
 #**********************************************************************************************************************
 class FileTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.io.File` class units tests methods.
+	Defines :class:`foundations.io.File` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
 		"""
-		This method tests presence of required attributes.
+		Tests presence of required attributes.
 		"""
 
 		requiredAttributes = ("path",
@@ -83,7 +83,7 @@ class FileTestCase(unittest.TestCase):
 
 	def testRequiredMethods(self):
 		"""
-		This method tests presence of required methods.
+		Tests presence of required methods.
 		"""
 
 		requiredMethods = ("cache",
@@ -98,7 +98,7 @@ class FileTestCase(unittest.TestCase):
 
 	def testCache(self):
 		"""
-		This method tests :meth:`foundations.io.File.cache` method.
+		Tests :meth:`foundations.io.File.cache` method.
 		"""
 
 		ioFile = File(TEST_FILE)
@@ -110,7 +110,7 @@ class FileTestCase(unittest.TestCase):
 
 	def testUncache(self):
 		"""
-		This method tests :meth:`foundations.io.File.uncache` method.
+		Tests :meth:`foundations.io.File.uncache` method.
 		"""
 
 		ioFile = File(TEST_FILE)
@@ -121,7 +121,7 @@ class FileTestCase(unittest.TestCase):
 
 	def testRead(self):
 		"""
-		This method tests :meth:`foundations.io.File.read` method.
+		Tests :meth:`foundations.io.File.read` method.
 		"""
 
 		ioFile = File(TEST_FILE)
@@ -132,7 +132,7 @@ class FileTestCase(unittest.TestCase):
 
 	def testWrite(self):
 		"""
-		This method tests :meth:`foundations.io.File.write` method.
+		Tests :meth:`foundations.io.File.write` method.
 		"""
 
 		fileDescriptor, path = tempfile.mkstemp()
@@ -147,7 +147,7 @@ class FileTestCase(unittest.TestCase):
 
 	def testAppend(self):
 		"""
-		This method tests :meth:`foundations.io.File.append` method.
+		Tests :meth:`foundations.io.File.append` method.
 		"""
 
 		fileDescriptor, path = tempfile.mkstemp()
@@ -163,7 +163,7 @@ class FileTestCase(unittest.TestCase):
 
 	def testClear(self):
 		"""
-		This method tests :meth:`foundations.io.File.clear` method.
+		Tests :meth:`foundations.io.File.clear` method.
 		"""
 
 		fileDescriptor, path = tempfile.mkstemp()
@@ -178,12 +178,12 @@ class FileTestCase(unittest.TestCase):
 
 class SetDirectoryTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.io.setDirectory` definition units tests methods.
+	Defines :func:`foundations.io.setDirectory` definition units tests methods.
 	"""
 
 	def testSetDirectory(self):
 		"""
-		This method tests :func:`foundations.io.setDirectory` definition.
+		Tests :func:`foundations.io.setDirectory` definition.
 		"""
 
 		tempDirectory = tempfile.mkdtemp()
@@ -195,12 +195,12 @@ class SetDirectoryTestCase(unittest.TestCase):
 
 class CopyTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.io.copy` definition units tests methods.
+	Defines :func:`foundations.io.copy` definition units tests methods.
 	"""
 
 	def testCopy(self):
 		"""
-		This method tests :func:`foundations.io.copy` definition.
+		Tests :func:`foundations.io.copy` definition.
 		"""
 
 		tempDirectory = tempfile.mkdtemp()
@@ -211,12 +211,12 @@ class CopyTestCase(unittest.TestCase):
 
 class RemoveTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.io.remove` definition units tests methods.
+	Defines :func:`foundations.io.remove` definition units tests methods.
 	"""
 
 	def testRemove(self):
 		"""
-		This method tests :func:`foundations.io.remove` definition.
+		Tests :func:`foundations.io.remove` definition.
 		"""
 
 		tempDirectory = tempfile.mkdtemp()

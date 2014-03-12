@@ -41,7 +41,7 @@ from foundations.globals.constants import Constants
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -75,7 +75,7 @@ INDENT_LEVEL = 0
 #**********************************************************************************************************************
 def _LogRecord_getAttribute(self, attribute):
 	"""
-	This definition overrides logging.LogRecord.__getattribute__ method
+	Overrides logging.LogRecord.__getattribute__ method
 	in order to manipulate requested attributes values.
 
 	:param attribute: Attribute name.
@@ -112,12 +112,12 @@ TRACER_LOGGING_FUNCTION = LOGGER.info
 #**********************************************************************************************************************
 class Streamer(object):
 	"""
-	This class is intented to be used as a stream object for :class:`logging.StreamHandler` logging handler. 
+	Defines a stream object for :class:`logging.StreamHandler` logging handler. 
 	"""
 
 	def __init__(self, stream=None):
 		"""
-		This method initializes the class.
+		Initializes the class.
 
 		:param stream: Stream object.
 		:type stream: object
@@ -131,7 +131,7 @@ class Streamer(object):
 	@property
 	def stream(self):
 		"""
-		This method is the property for **self.__stream** attribute.
+		Property for **self.__stream** attribute.
 
 		:return: self.__stream.
 		:rtype: list
@@ -142,7 +142,7 @@ class Streamer(object):
 	@stream.setter
 	def stream(self, value):
 		"""
-		This method is the setter method for **self.__stream** attribute.
+		Setter for **self.__stream** attribute.
 
 		:param value: Attribute value.
 		:type value: list
@@ -155,7 +155,7 @@ class Streamer(object):
 	@stream.deleter
 	def stream(self):
 		"""
-		This method is the deleter method for **self.__stream** attribute.
+		Deleter for **self.__stream** attribute.
 		"""
 
 		raise Exception("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "stream"))
@@ -165,7 +165,7 @@ class Streamer(object):
 	#******************************************************************************************************************
 	def write(self, message):
 		"""
-		This method provides write ability to the class.
+		Provides write ability to the class.
 
 		:param message: Current message.
 		:type message: unicode
@@ -175,20 +175,20 @@ class Streamer(object):
 
 	def flush(self):
 		"""
-		This method flushes the current stream.
+		Flushes the current stream.
 		"""
 
 		pass
 
 class StandardOutputStreamer(object):
 	"""
-	| This class is a redirection object intented to be used for :data:`sys.stdout` and :data:`sys.stderr` streams.
+	| Defines a redirection object intented to be used for :data:`sys.stdout` and :data:`sys.stderr` streams.
 	| Logging messages will be written to given logger handlers.
 	"""
 
 	def __init__(self, logger):
 		"""
-		This method initializes the class.
+		Initializes the class.
 
 		:param logger: Logger.
 		:type logger: object
@@ -202,7 +202,7 @@ class StandardOutputStreamer(object):
 	@property
 	def logger(self):
 		"""
-		This method is the property for **self.__logger** attribute.
+		Property for **self.__logger** attribute.
 
 		:return: self.__logger.
 		:rtype: Logger
@@ -213,7 +213,7 @@ class StandardOutputStreamer(object):
 	@logger.setter
 	def logger(self, value):
 		"""
-		This method is the setter method for **self.__logger** attribute.
+		Setter for **self.__logger** attribute.
 
 		:param value: Attribute value.
 		:type value: Logger
@@ -224,7 +224,7 @@ class StandardOutputStreamer(object):
 	@logger.deleter
 	def logger(self):
 		"""
-		This method is the deleter method for **self.__logger** attribute.
+		Deleter for **self.__logger** attribute.
 		"""
 
 		raise Exception("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "logger"))
@@ -234,7 +234,7 @@ class StandardOutputStreamer(object):
 	#******************************************************************************************************************
 	def write(self, message):
 		"""
-		This method writes given message to logger handlers.
+		Writes given message to logger handlers.
 
 		:param message: Message.
 		:type message: unicode
@@ -248,7 +248,7 @@ class StandardOutputStreamer(object):
 
 def indentMessage(message):
 	"""
-	This definition idents given message using the attr`INDENT_LEVEL` attribute value.
+	Idents given message using the attr`INDENT_LEVEL` attribute value.
 
 	:param message: Message to indent.
 	:type message: unicode
@@ -260,7 +260,7 @@ def indentMessage(message):
 
 def tracer(object):
 	"""
-	| This decorator is used for execution tracing.
+	| Traces execution.
 	| Any method / definition decorated will have it's execution traced through debug messages.
 	| Both object entry and exit are logged.
 	
@@ -282,7 +282,7 @@ def tracer(object):
 	@functools.partial(foundations.trace.validateTracer, object)
 	def tracerWrapper(*args, **kwargs):
 		"""
-		This decorator is used for execution tracing.
+		Traces execution.
 
 		:param \*args: Arguments.
 		:type \*args: \*
@@ -325,7 +325,7 @@ def tracer(object):
 
 def installLogger(logger=None, module=None):
 	"""
-	This definition installs given logger in given module or default logger in caller introspected module.
+	Installs given logger in given module or default logger in caller introspected module.
 
 	:param logger: Logger to install.
 	:type logger: Logger
@@ -347,7 +347,7 @@ def installLogger(logger=None, module=None):
 
 def uninstallLogger(logger=None, module=None):
 	"""
-	This definition uninstalls given logger in given module or default logger in caller introspected module.
+	Uninstalls given logger in given module or default logger in caller introspected module.
 
 	:param logger: Logger to uninstall.
 	:type logger: Logger
@@ -366,7 +366,7 @@ def uninstallLogger(logger=None, module=None):
 
 def getLoggingConsoleHandler(logger=None, formatter=LOGGING_DEFAULT_FORMATTER):
 	"""
-	This definition adds a logging console handler to given logger or default logger.
+	Adds a logging console handler to given logger or default logger.
 
 	:param logger: Logger to add the handler to.
 	:type logger: Logger
@@ -384,7 +384,7 @@ def getLoggingConsoleHandler(logger=None, formatter=LOGGING_DEFAULT_FORMATTER):
 
 def getLoggingFileHandler(logger=None, file=None, formatter=LOGGING_DEFAULT_FORMATTER):
 	"""
-	This definition adds a logging file handler to given logger or default logger using given file.
+	Adds a logging file handler to given logger or default logger using given file.
 
 	:param logger: Logger to add the handler to.
 	:type logger: Logger
@@ -405,7 +405,7 @@ def getLoggingFileHandler(logger=None, file=None, formatter=LOGGING_DEFAULT_FORM
 
 def getLoggingStreamHandler(logger=None, formatter=LOGGING_DEFAULT_FORMATTER):
 	"""
-	This definition adds a logging stream handler to given logger or default logger using given file.
+	Adds a logging stream handler to given logger or default logger using given file.
 
 	:param logger: Logger to add the handler to.
 	:type logger: Logger
@@ -425,7 +425,7 @@ def getLoggingStreamHandler(logger=None, formatter=LOGGING_DEFAULT_FORMATTER):
 
 def removeLoggingHandler(handler, logger=None):
 	"""
-	This definition removes given logging handler from given logger.
+	Removes given logging handler from given logger.
 
 	:param handler: Handler.
 	:type handler: Handler
@@ -442,7 +442,7 @@ def removeLoggingHandler(handler, logger=None):
 
 def setVerbosityLevel(verbosityLevel=3, logger=None):
 	"""
-	This definition defines logging verbosity level.
+	Defines logging verbosity level.
 
 	Available verbosity levels::
 

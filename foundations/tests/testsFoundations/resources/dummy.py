@@ -28,7 +28,7 @@ import foundations.trace
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -47,7 +47,7 @@ GLOBAL_RETURN_VALUE = range(10)
 #**********************************************************************************************************************
 class Dummy(object):
 	"""
-	This class is a dummy class mainly used to test :mod:`foundations.trace` module.
+	Defines a dummy class mainly used to test :mod:`foundations.trace` module.
 	"""
 
 	def __init__(self):

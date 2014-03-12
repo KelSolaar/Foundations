@@ -36,7 +36,7 @@ from foundations.cache import Cache
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -50,12 +50,12 @@ __all__ = ["RESOURCES_DIRECTORY",
 #**********************************************************************************************************************
 class CacheTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.cache.Cache` class units tests methods.
+	Defines :class:`foundations.cache.Cache` class units tests methods.
 	"""
 
 	def testRequiredMethods(self):
 		"""
-		This method tests presence of required methods.
+		Tests presence of required methods.
 		"""
 
 		requiredMethods = ("addContent",
@@ -68,7 +68,7 @@ class CacheTestCase(unittest.TestCase):
 
 	def testAddContent(self):
 		"""
-		This method tests :meth:`foundations.cache.Cache.addContent` method.
+		Tests :meth:`foundations.cache.Cache.addContent` method.
 		"""
 
 		cache = Cache()
@@ -77,7 +77,7 @@ class CacheTestCase(unittest.TestCase):
 
 	def testRemoveContent(self):
 		"""
-		This method tests :meth:`foundations.cache.Cache.removeContent` method.
+		Tests :meth:`foundations.cache.Cache.removeContent` method.
 		"""
 
 		cache = Cache()
@@ -87,7 +87,7 @@ class CacheTestCase(unittest.TestCase):
 
 	def testGetContent(self):
 		"""
-		This method tests :meth:`foundations.cache.Cache.getContent` method.
+		Tests :meth:`foundations.cache.Cache.getContent` method.
 		"""
 
 		cache = Cache()
@@ -98,7 +98,7 @@ class CacheTestCase(unittest.TestCase):
 
 	def testFlushContent(self):
 		"""
-		This method tests :meth:`foundations.cache.Cache.flushContent` method.
+		Tests :meth:`foundations.cache.Cache.flushContent` method.
 		"""
 
 		cache = Cache()

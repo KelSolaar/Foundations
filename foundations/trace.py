@@ -34,7 +34,7 @@ import itertools
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -101,7 +101,7 @@ TRACE_WALKER_CACHE = {}
 #**********************************************************************************************************************
 def isReadOnly(object):
 	"""
-	This definition returns if given object is read only ( built-in or extension ).
+	Returns if given object is read only ( built-in or extension ).
 
 	:param object: Object.
 	:type object: object
@@ -119,7 +119,7 @@ def isReadOnly(object):
 
 def setTracerHook(object, hook):
 	"""
-	This definition sets given object tracer hook on given object.
+	Sets given object tracer hook on given object.
 
 	:param hook: Tracer hook.
 	:type hook: object
@@ -134,7 +134,7 @@ def setTracerHook(object, hook):
 
 def getTracerHook(object):
 	"""
-	This definition returns given object tracer hook.
+	Returns given object tracer hook.
 
 	:param object: Object.
 	:type object: object
@@ -147,7 +147,7 @@ def getTracerHook(object):
 
 def isTraced(object):
 	"""
-	This definition returns if given object is traced.
+	Returns if given object is traced.
 
 	:param object: Object.
 	:type object: object
@@ -159,7 +159,7 @@ def isTraced(object):
 
 def isBaseTraced(cls):
 	"""
-	This definition returns if given class has a traced base.
+	Returns if given class has a traced base.
 
 	:param cls: Class.
 	:type cls: object
@@ -174,7 +174,7 @@ def isBaseTraced(cls):
 
 def isUntracable(object):
 	"""
-	This definition returns if given object is untracable.
+	Returns if given object is untracable.
 
 	:param object: Object.
 	:type object: object
@@ -186,7 +186,7 @@ def isUntracable(object):
 
 def setTraced(object):
 	"""
-	This definition sets given object as traced.
+	Sets given object as traced.
 
 	:param object: Object.
 	:type object: object
@@ -199,7 +199,7 @@ def setTraced(object):
 
 def setUntraced(object):
 	"""
-	This definition sets given object as untraced.
+	Sets given object as untraced.
 
 	:param object: Object.
 	:type object: object
@@ -213,7 +213,7 @@ def setUntraced(object):
 
 def setUntracable(object):
 	"""
-	This definition sets given object as untraced.
+	Sets given object as untraced.
 
 	:param object: Object.
 	:type object: object
@@ -226,7 +226,7 @@ def setUntracable(object):
 
 def traceWalker(module):
 	"""
-	This definition is a generator used to walk into modules.
+	Defines a generator used to walk into modules.
 	
 	:param module: Module to walk.
 	:type module: ModuleType
@@ -253,7 +253,7 @@ def traceWalker(module):
 
 def getObjectName(object):
 	"""
-	This definition returns given object name.
+	Returns given object name.
 
 	:param object: Object to retrieve the name.
 	:type object: object
@@ -272,7 +272,7 @@ def getObjectName(object):
 
 def getTraceName(object):
 	"""
-	This definition returns given object trace name.
+	Returns given object trace name.
 	
 	:param object: Object.
 	:type object: object
@@ -309,7 +309,7 @@ def getTraceName(object):
 
 def getMethodName(method):
 	"""
-	This definition returns given method name.
+	Returns given method name.
 
 	:param method: Method to retrieve the name.
 	:type method: object
@@ -324,7 +324,7 @@ def getMethodName(method):
 
 def isStaticMethod(method):
 	"""
-	This definition returns if given method is a static method.
+	Returns if given method is a static method.
 
 	:param method: Method.
 	:type method: object
@@ -336,7 +336,7 @@ def isStaticMethod(method):
 
 def isClassMethod(method):
 	"""
-	This definition returns if given method is a class method.
+	Returns if given method is a class method.
 
 	:param method: Method.
 	:type method: object
@@ -351,7 +351,7 @@ def isClassMethod(method):
 
 def formatArgument(argumentValue):
 	"""
-	This definition returns a string representing an argument / value pair.
+	Returns a string representing an argument / value pair.
 
 	Usage::
 	
@@ -368,7 +368,7 @@ def formatArgument(argumentValue):
 
 def validateTracer(*args):
 	"""
-	This definition is used to validate and finish a tracer by adding mandatory extra attributes.
+	Validate and finishes a tracer by adding mandatory extra attributes.
 
 	:param \*args: Arguments.
 	:type \*args: \*
@@ -387,7 +387,7 @@ def validateTracer(*args):
 
 def tracer(object):
 	"""
-	| This decorator object is used for execution tracing.
+	| Traces execution.
 	| Any method / definition decorated will have it's execution traced.
 	
 	:param object: Object to decorate.
@@ -400,7 +400,7 @@ def tracer(object):
 	@functools.partial(validateTracer, object)
 	def tracerWrapper(*args, **kwargs):
 		"""
-		This decorator is used for execution tracing.
+		Traces execution.
 
 		:param \*args: Arguments.
 		:type \*args: \*
@@ -431,7 +431,7 @@ def tracer(object):
 
 def untracer(object):
 	"""
-	This definition object is used to untrace given object.
+	Object is used to untrace given object.
 	
 	:param object: Object to untrace.
 	:type object: object
@@ -445,7 +445,7 @@ def untracer(object):
 
 def untracable(object):
 	"""
-	This decorator object is used to mark decorated object as non tracable.
+	Marks decorated object as non tracable.
 	
 	:param object: Object to decorate.
 	:type object: object
@@ -456,7 +456,7 @@ def untracable(object):
 	@functools.wraps(object)
 	def untracableWrapper(*args, **kwargs):
 		"""
-		This decorator object is used to mark decorated object as non tracable.
+		Marks decorated object as non tracable.
 
 		:param \*args: Arguments.
 		:type \*args: \*
@@ -474,7 +474,7 @@ def untracable(object):
 
 def traceFunction(module, function, tracer=tracer):
 	"""
-	This definition traces given module function using given tracer.
+	Traces given module function using given tracer.
 
 	:param module: Module of the function.
 	:type module: object
@@ -498,7 +498,7 @@ def traceFunction(module, function, tracer=tracer):
 
 def untraceFunction(module, function):
 	"""
-	This definition untraces given module function.
+	Untraces given module function.
 
 	:param module: Module of the function.
 	:type module: object
@@ -517,7 +517,7 @@ def untraceFunction(module, function):
 
 def traceMethod(cls, method, tracer=tracer):
 	"""
-	This definition traces given class method using given tracer.
+	Traces given class method using given tracer.
 
 	:param cls: Class of the method.
 	:type cls: object
@@ -546,7 +546,7 @@ def traceMethod(cls, method, tracer=tracer):
 
 def untraceMethod(cls, method):
 	"""
-	This definition untraces given class method.
+	Untraces given class method.
 
 	:param cls: Class of the method.
 	:type cls: object
@@ -570,7 +570,7 @@ def untraceMethod(cls, method):
 
 def traceProperty(cls, accessor, tracer=tracer):
 	"""
-	This definition traces given class property using given tracer.
+	Traces given class property using given tracer.
 
 	:param cls: Class of the property.
 	:type cls: object
@@ -593,7 +593,7 @@ def traceProperty(cls, accessor, tracer=tracer):
 
 def untraceProperty(cls, accessor):
 	"""
-	This definition untraces given class property.
+	Untraces given class property.
 
 	:param cls: Class of the property.
 	:type cls: object
@@ -614,7 +614,7 @@ def untraceProperty(cls, accessor):
 
 def traceClass(cls, tracer=tracer, pattern=r".*", flags=0):
 	"""
-	This definition traces given class using given tracer.
+	Traces given class using given tracer.
 
 	:param cls: Class to trace.
 	:type cls: object
@@ -655,7 +655,7 @@ def traceClass(cls, tracer=tracer, pattern=r".*", flags=0):
 
 def untraceClass(cls):
 	"""
-	This definition untraces given class.
+	Untraces given class.
 
 	:param cls: Class to untrace.
 	:type cls: object
@@ -678,7 +678,7 @@ def untraceClass(cls):
 
 def traceModule(module, tracer=tracer, pattern=r".*", flags=0):
 	"""
-	This definition traces given module members using given tracer.
+	Traces given module members using given tracer.
 
 	:param module: Module to trace.
 	:type module: ModuleType
@@ -719,7 +719,7 @@ def traceModule(module, tracer=tracer, pattern=r".*", flags=0):
 
 def untraceModule(module):
 	"""
-	This definition untraces given module members.
+	Untraces given module members.
 
 	:param module: Module to untrace.
 	:type module: ModuleType
@@ -739,7 +739,7 @@ def untraceModule(module):
 
 def registerModule(module=None):
 	"""
-	This definition registers given module or caller introspected module in the candidates modules for tracing.
+	Registers given module or caller introspected module in the candidates modules for tracing.
 
 	:param module: Module to register.
 	:type module: ModuleType
@@ -758,7 +758,7 @@ def registerModule(module=None):
 
 def installTracer(tracer=tracer, pattern=r".*", flags=0):
 	"""
-	This definition installs given tracer in the candidates modules for tracing matching given pattern.
+	Installs given tracer in the candidates modules for tracing matching given pattern.
 
 	:param tracer: Tracer.
 	:type tracer: object
@@ -779,7 +779,7 @@ def installTracer(tracer=tracer, pattern=r".*", flags=0):
 
 def uninstallTracer(pattern=r".*", flags=0):
 	"""
-	This definition installs the tracer in the candidates modules for tracing matching given pattern.
+	Installs the tracer in the candidates modules for tracing matching given pattern.
 
 	:param pattern: Matching pattern.
 	:type pattern: unicode
@@ -801,7 +801,7 @@ def uninstallTracer(pattern=r".*", flags=0):
 
 def evaluateTraceRequest(data, tracer=tracer):
 	"""
-	This definition evaluate given string trace request.
+	Evaluate given string trace request.
 
 	Usage::
 

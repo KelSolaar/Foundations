@@ -34,19 +34,20 @@ import urllib2
 #***	Internal imports.
 #**********************************************************************************************************************
 import foundations.verbose
+from foundations.globals.constants import Constants
 
 #**********************************************************************************************************************
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["LOGGER",
-		"CONNECTION_IP",
+		"CONNECTION_IPS",
 		"DEFAULT_HOST_IP",
 		"wait",
 		"uniqify",
@@ -64,7 +65,19 @@ __all__ = ["LOGGER",
 
 LOGGER = foundations.verbose.installLogger()
 
-CONNECTION_IP = "www.google.com"
+CONNECTION_IPS = ["173.194.34.36",  # http://www.google.com
+				"173.194.34.55",  # http://www.google.co.uk
+				"65.55.206.154",  # http://www.live.com
+				"173.252.110.27",  # http://www.facebook.com
+				"199.16.156.230",  # http://www.twitter.com
+				"98.139.183.24",  # http://www.yahoo.com
+				"77.238.178.122",  # http://www.yahoo.co.uk
+				"198.252.206.16",  # http://www.stackoverflow.com
+				"82.94.164.162",  # http://www.python.org
+				"65.196.127.226",  # http://www.nsa.gov :D
+				"www.google.com",
+				"www.facebook.com",
+				"www.twitter.com"]
 DEFAULT_HOST_IP = "127.0.0.1"
 
 #**********************************************************************************************************************
@@ -72,7 +85,7 @@ DEFAULT_HOST_IP = "127.0.0.1"
 #**********************************************************************************************************************
 def uniqify(sequence):
 	"""
-	This definition uniqifies the given sequence even if unhashable.
+	Uniqifies the given sequence even if unhashable.
 
 	:param sequence: Sequence.
 	:type sequence: object
@@ -86,7 +99,7 @@ def uniqify(sequence):
 
 def orderedUniqify(sequence):
 	"""
-	This definition uniqifies the given hashable sequence while preserving its order.
+	Uniqifies the given hashable sequence while preserving its order.
 
 	:param sequence: Sequence.
 	:type sequence: object
@@ -99,7 +112,7 @@ def orderedUniqify(sequence):
 
 def unpackDefault(iterable, length=3, default=None):
 	"""
-	This definition unpacks given iterable maintaining given length and filling missing entries with given default.
+	Unpacks given iterable maintaining given length and filling missing entries with given default.
 
 	:param iterable: iterable.
 	:type iterable: object
@@ -115,7 +128,7 @@ def unpackDefault(iterable, length=3, default=None):
 
 def pathExists(path):
 	"""
-	This definition returns if given path exists.
+	Returns if given path exists.
 
 	:param path: Path.
 	:type path: unicode
@@ -130,7 +143,7 @@ def pathExists(path):
 
 def filterPath(path):
 	"""
-	This definition filters given path.
+	Filters given path.
 
 	:param path: Path.
 	:type path: unicode
@@ -142,7 +155,7 @@ def filterPath(path):
 
 def getFirstItem(iterable, default=None):
 	"""
-	This definition returns the first item of given iterable.
+	Returns the first item of given iterable.
 
 	:param iterable: Iterable.
 	:type iterable: object
@@ -160,7 +173,7 @@ def getFirstItem(iterable, default=None):
 
 def getLastItem(iterable, default=None):
 	"""
-	This definition returns the last item of given iterable.
+	Returns the last item of given iterable.
 
 	:param iterable: Iterable.
 	:type iterable: object
@@ -177,7 +190,7 @@ def getLastItem(iterable, default=None):
 
 def isBinaryFile(file):
 	"""
-	This definition returns if given file is a binary file.
+	Returns if given file is a binary file.
 
 	:param file: File path.
 	:type file: unicode
@@ -200,7 +213,7 @@ def isBinaryFile(file):
 
 def repeat(object, iterations=1):
 	"""
-	This definition repeats given object iterations times.
+	Repeats given object iterations times.
 
 	:param object: Object to repeat.
 	:type object: object
@@ -214,7 +227,7 @@ def repeat(object, iterations=1):
 
 def dependencyResolver(dependencies):
 	"""
-	This definition resolves given dependencies.
+	Resolves given dependencies.
 
 	:param dependencies: Dependencies to resolve.
 	:type dependencies: dict
@@ -231,27 +244,31 @@ def dependencyResolver(dependencies):
 		items = dict(((key, value - batch) for key, value in items.items() if value))
 	return resolvedDependencies
 
-def isInternetAvailable(ip=CONNECTION_IP, timeout=1.5):
+def isInternetAvailable(ips=CONNECTION_IPS, timeout=1.0):
 	"""
-	This definition returns if an internet connection is available.
+	Returns if an internet connection is available.
 
-	:param ip: Alternative address ip to check against.
-	:type ip: unicode
+	:param ips: Address ips to check against.
+	:type ips: list
 	:param timeout: Timeout in seconds.
 	:type timeout: int
 	:return: Is internet available.
 	:rtype: bool
 	"""
 
-	try:
-		urllib2.urlopen("http://{0}".format(ip), timeout=timeout)
-		return True
-	except (urllib2.URLError, socket.error) as error:
-		return False
+	while ips:
+		try:
+			urllib2.urlopen("http://{0}".format(ips.pop(0)), timeout=timeout)
+			return True
+		except IndexError as error:
+			continue
+		except (urllib2.URLError, socket.error) as error:
+			continue
+	return False
 
 def getHostAddress(host=None, defaultAddress=DEFAULT_HOST_IP):
 	"""
-	This definition returns the given host address.
+	Returns the given host address.
 
 	:param host: Host to retrieve the address.
 	:type host: unicode
@@ -262,6 +279,8 @@ def getHostAddress(host=None, defaultAddress=DEFAULT_HOST_IP):
 	"""
 
 	try:
-		return unicode(socket.gethostbyname(host or socket.gethostname()))
+		return unicode(socket.gethostbyname(host or socket.gethostname()),
+					Constants.defaultCodec,
+					Constants.codecError)
 	except Exception as error:
 		return defaultAddress

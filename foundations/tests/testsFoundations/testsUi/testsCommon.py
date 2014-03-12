@@ -39,7 +39,7 @@ import foundations.ui.common
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -55,12 +55,12 @@ UI_TESTS_FILE = os.path.join(RESOURCES_DIRECTORY, "Tests_Widget.ui")
 #**********************************************************************************************************************
 class QWidgetFactoryTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.ui.common.QWidgetFactory` definition units tests methods.
+	Defines :func:`foundations.ui.common.QWidgetFactory` definition units tests methods.
 	"""
 
 	def testQWidgetFactory(self):
 		"""
-		This method tests :func:`foundations.ui.common.QWidgetFactory` definition.
+		Tests :func:`foundations.ui.common.QWidgetFactory` definition.
 		"""
 
 		widget = foundations.ui.common.QWidgetFactory(UI_TESTS_FILE)

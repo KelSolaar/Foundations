@@ -36,7 +36,7 @@ import foundations.verbose
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -93,8 +93,7 @@ def executionTime(object):
 def memoize(cache=None):
 	"""
 	| Implements method / definition memoization.
-	| Any method / definition decorated will get its return value cached and restored whenever called
-		with the same arguments.
+	| Any method / definition decorated will get its return value cached and restored whenever called with the same arguments.
 
 	:param cache: Alternate cache.
 	:type cache: dict

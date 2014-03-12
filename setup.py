@@ -22,15 +22,15 @@ from __future__ import unicode_literals
 #**********************************************************************************************************************
 #***	Encoding manipulations.
 #**********************************************************************************************************************
-import sys
-
 def _setEncoding():
 	"""
-	This definition sets the Application encoding.
+	Sets the Package encoding.
 	"""
 
+	import sys
 	reload(sys)
-	sys.setdefaultencoding("utf-8")
+
+	sys.setdefaultencoding(DEFAULT_CODEC)
 
 _setEncoding()
 
@@ -50,7 +50,7 @@ import foundations.globals.constants
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -63,7 +63,7 @@ __all__ = ["getLongDescription"]
 #**********************************************************************************************************************
 def getLongDescription():
 	"""
-	This definition returns the Package long description.
+	Returns the Package long description.
 
 	:return: Package long description.
 	:rtype: unicode

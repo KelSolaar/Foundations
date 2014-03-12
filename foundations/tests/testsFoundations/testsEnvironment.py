@@ -40,7 +40,7 @@ from foundations.environment import Environment
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -55,12 +55,12 @@ __all__ = ["EnvironmentTestCase",
 #**********************************************************************************************************************
 class EnvironmentTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.environment.Environment` class units tests methods.
+	Defines :class:`foundations.environment.Environment` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
 		"""
-		This method tests presence of required attributes.
+		Tests presence of required attributes.
 		"""
 
 		requiredAttributes = ("variables",)
@@ -70,7 +70,7 @@ class EnvironmentTestCase(unittest.TestCase):
 
 	def testRequiredMethods(self):
 		"""
-		This method tests presence of required methods.
+		Tests presence of required methods.
 		"""
 
 		requiredMethods = ("getValues",
@@ -83,7 +83,7 @@ class EnvironmentTestCase(unittest.TestCase):
 
 	def testGetValues(self):
 		"""
-		This method tests :meth:`foundations.environment.Environment.getValues` method.
+		Tests :meth:`foundations.environment.Environment.getValues` method.
 		"""
 
 		if platform.system() == "Windows" or platform.system() == "Microsoft":
@@ -104,7 +104,7 @@ class EnvironmentTestCase(unittest.TestCase):
 
 	def testSetValues(self):
 		"""
-		This method tests :meth:`foundations.environment.Environment.setValues` method.
+		Tests :meth:`foundations.environment.Environment.setValues` method.
 		"""
 
 		environment = Environment()
@@ -116,7 +116,7 @@ class EnvironmentTestCase(unittest.TestCase):
 
 	def testGetValue(self):
 		"""
-		This method tests :meth:`foundations.environment.Environment.getValue` method.
+		Tests :meth:`foundations.environment.Environment.getValue` method.
 		"""
 
 		if platform.system() == "Windows" or platform.system() == "Microsoft":
@@ -133,7 +133,7 @@ class EnvironmentTestCase(unittest.TestCase):
 
 	def testSetValue(self):
 		"""
-		This method tests :meth:`foundations.environment.Environment.setValue` method.
+		Tests :meth:`foundations.environment.Environment.setValue` method.
 		"""
 
 		environment = Environment()
@@ -143,12 +143,12 @@ class EnvironmentTestCase(unittest.TestCase):
 
 class GetSystemApplicationDataDirectoryTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.getSystemApplicationDataDirectory` definition units tests methods.
+	Defines :func:`foundations.common.getSystemApplicationDataDirectory` definition units tests methods.
 	"""
 
 	def testGetSystemApplicationDataDirectory(self):
 		"""
-		This method tests :func:`foundations.common.getSystemApplicationDataDirectory` definition.
+		Tests :func:`foundations.common.getSystemApplicationDataDirectory` definition.
 		"""
 
 		path = foundations.environment.getSystemApplicationDataDirectory()
@@ -157,12 +157,12 @@ class GetSystemApplicationDataDirectoryTestCase(unittest.TestCase):
 
 class GetUserApplicationDataDirectoryTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.getUserApplicationDataDirectory` definition units tests methods.
+	Defines :func:`foundations.common.getUserApplicationDataDirectory` definition units tests methods.
 	"""
 
 	def testGetUserApplicationDataDirectory(self):
 		"""
-		This method tests :func:`foundations.common.getUserApplicationDataDirectory` definition.
+		Tests :func:`foundations.common.getUserApplicationDataDirectory` definition.
 		"""
 
 		path = foundations.environment.getUserApplicationDataDirectory()

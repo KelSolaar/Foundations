@@ -32,7 +32,7 @@ else:
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -45,7 +45,7 @@ __all__ = ["testsSuite"]
 #**********************************************************************************************************************
 def _setPackageDirectory():
 	"""
-	This definition sets the package directory in the path.
+	Sets the package directory in the path.
 
 	:return: Definition success.
 	:rtype: bool
@@ -59,7 +59,7 @@ _setPackageDirectory()
 
 def testsSuite():
 	"""
-	This definitions runs the tests suite.
+	Runs the tests suite.
 	
 	:return: Tests suite.
 	:rtype: TestSuite

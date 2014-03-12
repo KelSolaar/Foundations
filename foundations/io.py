@@ -40,7 +40,7 @@ from foundations.globals.constants import Constants
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -55,13 +55,13 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 class File(object):
 	"""
-	This class provides methods to read / write and append to files or retrieve online file content.
+	Defines methods to read / write and append to files or retrieve online file content.
 	"""
 
 	def __init__(self, path=None, content=None):
 		"""
-		This method initializes the class.
-
+		Initializes the class.
+		
 		Usage::
 
 			>>> file = File(u"file.txt")
@@ -91,7 +91,7 @@ class File(object):
 	@property
 	def path(self):
 		"""
-		This method is the property for **self.__path** attribute.
+		Property for **self.__path** attribute.
 
 		:return: self.__path.
 		:rtype: unicode
@@ -103,7 +103,7 @@ class File(object):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def path(self, value):
 		"""
-		This method is the setter method for **self.__path** attribute.
+		Setter for **self.__path** attribute.
 
 		:param value: Attribute value.
 		:type value: unicode
@@ -117,7 +117,7 @@ class File(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def path(self):
 		"""
-		This method is the deleter method for **self.__path** attribute.
+		Deleter for **self.__path** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -126,7 +126,7 @@ class File(object):
 	@property
 	def content(self):
 		"""
-		This method is the property for **self.__content** attribute.
+		Property for **self.__content** attribute.
 
 		:return: self.__content.
 		:rtype: list
@@ -138,7 +138,7 @@ class File(object):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def content(self, value):
 		"""
-		This method is the setter method for **self.__content** attribute.
+		Setter for **self.__content** attribute.
 
 		:param value: Attribute value.
 		:type value: list
@@ -152,7 +152,7 @@ class File(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def content(self):
 		"""
-		This method is the deleter method for **self.__content** attribute.
+		Deleter for **self.__content** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -161,9 +161,9 @@ class File(object):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	def cache(self, mode="r", encoding=Constants.encodingCodec, errors=Constants.encodingError):
+	def cache(self, mode="r", encoding=Constants.defaultCodec, errors=Constants.codecError):
 		"""
-		This method reads given file content and stores it in the content cache.
+		Reads given file content and stores it in the content cache.
 
 		:param mode: File read mode.
 		:type mode: unicode
@@ -194,7 +194,7 @@ class File(object):
 
 	def uncache(self):
 		"""
-		This method uncaches the cached content.
+		Uncaches the cached content.
 
 		:return: Method success.
 		:rtype: bool
@@ -207,7 +207,7 @@ class File(object):
 
 	def read(self):
 		"""
-		This method returns defined file content.
+		Returns defined file content.
 
 		:return: File content.
 		:rtype: unicode
@@ -215,9 +215,9 @@ class File(object):
 
 		return "".join(self.__content) if self.cache() else ""
 
-	def write(self, mode="w", encoding=Constants.encodingCodec, errors=Constants.encodingError):
+	def write(self, mode="w", encoding=Constants.defaultCodec, errors=Constants.codecError):
 		"""
-		This method writes content to defined file.
+		Writes content to defined file.
 
 		:param mode: File write mode.
 		:type mode: unicode
@@ -240,9 +240,9 @@ class File(object):
 			return True
 		return False
 
-	def append(self, mode="a", encoding=Constants.encodingCodec, errors=Constants.encodingError):
+	def append(self, mode="a", encoding=Constants.defaultCodec, errors=Constants.codecError):
 		"""
-		This method appends content to defined file.
+		Appends content to defined file.
 
 		:param mode: File write mode.
 		:type mode: unicode
@@ -265,9 +265,9 @@ class File(object):
 			return True
 		return False
 
-	def clear(self, encoding=Constants.encodingCodec):
+	def clear(self, encoding=Constants.defaultCodec):
 		"""
-		This method clears the defined file content.
+		Clears the defined file content.
 
 		:param encoding: File encoding codec.
 		:type encoding: unicode
@@ -287,7 +287,7 @@ class File(object):
 
 def setDirectory(path):
 	"""
-	| This definition creates a directory with given path.
+	| Creates a directory with given path.
 	| The directory creation is delegated to
 		Python :func:`os.makedirs` definition so that directories hierarchy is recursively created.
 
@@ -307,7 +307,7 @@ def setDirectory(path):
 
 def copy(source, destination):
 	"""
-	This definition copies the given file or directory to destination.
+	Copies the given file or directory to destination.
 
 	:param source: Source to copy from.
 	:type source: unicode

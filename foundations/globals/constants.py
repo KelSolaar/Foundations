@@ -26,10 +26,15 @@ import os
 import platform
 
 #**********************************************************************************************************************
+#***	Internal imports.
+#**********************************************************************************************************************
+import foundations
+
+#**********************************************************************************************************************
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -42,7 +47,7 @@ __all__ = ["Constants"]
 #**********************************************************************************************************************
 class Constants():
 	"""
-	This class provides **Foundations** package default constants.
+	Defines **Foundations** package default constants.
 	"""
 
 	applicationName = "Foundations"
@@ -67,10 +72,10 @@ class Constants():
 	loggingSeparators = "*" * 96
 	"""Logging separators: '*' * 96 ( String )"""
 
-	encodingCodec = "utf-8"
-	"""Default encoding codec: '**utf-8**' ( String )"""
-	encodingError = "ignore"
-	"""Default encoding error behavior: '**ignore**' ( String )"""
+	defaultCodec = foundations.DEFAULT_CODEC
+	"""Default codec: '**utf-8**' ( String )"""
+	codecError = "ignore"
+	"""Default codec error behavior: '**ignore**' ( String )"""
 
 	applicationDirectory = os.sep.join(("Foundations", ".".join((majorVersion, minorVersion))))
 	"""Package Application directory: '**Foundations**' ( String )"""

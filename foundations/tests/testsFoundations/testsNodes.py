@@ -41,7 +41,7 @@ from foundations.nodes import Attribute
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -54,12 +54,12 @@ __all__ = ["AttributeTestCase", "AbstractNodeTestCase", "AbstractCompositeNode"]
 #**********************************************************************************************************************
 class AttributeTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.nodes.Attribute` class units tests methods.
+	Defines :class:`foundations.nodes.Attribute` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
 		"""
-		This method tests presence of required attributes.
+		Tests presence of required attributes.
 		"""
 
 		requiredAttributes = ("name",
@@ -70,12 +70,12 @@ class AttributeTestCase(unittest.TestCase):
 
 class AbstractNodeTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.nodes.AbstractNode` class units tests methods.
+	Defines :class:`foundations.nodes.AbstractNode` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
 		"""
-		This method tests presence of required attributes.
+		Tests presence of required attributes.
 		"""
 
 		requiredAttributes = ("family",
@@ -88,7 +88,7 @@ class AbstractNodeTestCase(unittest.TestCase):
 
 	def testRequiredMethods(self):
 		"""
-		This method tests presence of required methods.
+		Tests presence of required methods.
 		"""
 
 		requiredMethods = ("getNodeByIdentity",
@@ -103,7 +103,7 @@ class AbstractNodeTestCase(unittest.TestCase):
 
 	def testFamily(self):
 		"""
-		This method tests :class:`foundations.nodes.AbstractNode` class family property.
+		Tests :class:`foundations.nodes.AbstractNode` class family property.
 		"""
 
 		nodeA = AbstractNode("MyNode")
@@ -111,7 +111,7 @@ class AbstractNodeTestCase(unittest.TestCase):
 
 	def testName(self):
 		"""
-		This method tests :class:`foundations.nodes.AbstractNode` class name resolving consistency.
+		Tests :class:`foundations.nodes.AbstractNode` class name resolving consistency.
 		"""
 
 		nodeA = AbstractNode("MyNodeA")
@@ -121,7 +121,7 @@ class AbstractNodeTestCase(unittest.TestCase):
 
 	def testGetNodeByIdentity(self):
 		"""
-		This method tests :meth:`foundations.nodes.AbstractNode.getNodeByIdentity` method.
+		Tests :meth:`foundations.nodes.AbstractNode.getNodeByIdentity` method.
 		"""
 
 		nodeA = AbstractNode()
@@ -132,7 +132,7 @@ class AbstractNodeTestCase(unittest.TestCase):
 
 	def testListAttributes(self):
 		"""
-		This method tests :meth:`foundations.nodes.AbstractNode.listAttributes` method.
+		Tests :meth:`foundations.nodes.AbstractNode.listAttributes` method.
 		"""
 
 		nodeA = AbstractNode("MyNodeA")
@@ -142,7 +142,7 @@ class AbstractNodeTestCase(unittest.TestCase):
 
 	def testGetAttributes(self):
 		"""
-		This method tests :meth:`foundations.nodes.AbstractNode.getAttributes` method.
+		Tests :meth:`foundations.nodes.AbstractNode.getAttributes` method.
 		"""
 
 		attributes = {"attributeA" : Attribute(), "attributeB" : Attribute()}
@@ -153,7 +153,7 @@ class AbstractNodeTestCase(unittest.TestCase):
 
 	def testHasAttribute(self):
 		"""
-		This method tests :meth:`foundations.nodes.AbstractNode.attributeExists` method.
+		Tests :meth:`foundations.nodes.AbstractNode.attributeExists` method.
 		"""
 
 		attributes = {"attributeA" : Attribute(), "attributeB" : Attribute()}
@@ -166,7 +166,7 @@ class AbstractNodeTestCase(unittest.TestCase):
 
 	def testAddAttribute(self):
 		"""
-		This method tests :meth:`foundations.nodes.AbstractNode.addAttribute` method.
+		Tests :meth:`foundations.nodes.AbstractNode.addAttribute` method.
 		"""
 
 		attributes = {"attributeA" : Attribute(), "attributeB" : Attribute()}
@@ -178,7 +178,7 @@ class AbstractNodeTestCase(unittest.TestCase):
 
 	def testRemoveAttribute(self):
 		"""
-		This method tests :meth:`foundations.nodes.AbstractNode.removeAttribute` method.
+		Tests :meth:`foundations.nodes.AbstractNode.removeAttribute` method.
 		"""
 
 		attributes = {"attributeA" : Attribute(), "attributeB" : Attribute()}
@@ -191,7 +191,7 @@ class AbstractNodeTestCase(unittest.TestCase):
 
 	def testAbstractNodePickle(self):
 		"""
-		This method tests :class:`foundations.nodes.AbstractNode` class pickling.
+		Tests :class:`foundations.nodes.AbstractNode` class pickling.
 		"""
 
 		nodeA = AbstractNode("MyNodeA", attributeA=Attribute(), attributeB=Attribute())
@@ -206,12 +206,12 @@ class AbstractNodeTestCase(unittest.TestCase):
 
 class AbstractCompositeNodeTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.nodes.AbstractCompositeNode` class units tests methods.
+	Defines :class:`foundations.nodes.AbstractCompositeNode` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
 		"""
-		This method tests presence of required attributes.
+		Tests presence of required attributes.
 		"""
 
 		requiredAttributes = ("family",
@@ -226,7 +226,7 @@ class AbstractCompositeNodeTestCase(unittest.TestCase):
 
 	def testRequiredMethods(self):
 		"""
-		This method tests presence of required methods.
+		Tests presence of required methods.
 		"""
 
 		requiredMethods = ("getNodeByIdentity",
@@ -253,7 +253,7 @@ class AbstractCompositeNodeTestCase(unittest.TestCase):
 
 	def testChild(self):
 		"""
-		This method tests :meth:`foundations.nodes.AbstractCompositeNode.child` method.
+		Tests :meth:`foundations.nodes.AbstractCompositeNode.child` method.
 		"""
 
 		nodeA = AbstractCompositeNode("MyNodeA")
@@ -265,7 +265,7 @@ class AbstractCompositeNodeTestCase(unittest.TestCase):
 
 	def testIndexOf(self):
 		"""
-		This method tests :meth:`foundations.nodes.AbstractCompositeNode.indexOf` method.
+		Tests :meth:`foundations.nodes.AbstractCompositeNode.indexOf` method.
 		"""
 
 		nodeA = AbstractCompositeNode("MyNodeA")
@@ -274,7 +274,7 @@ class AbstractCompositeNodeTestCase(unittest.TestCase):
 
 	def testRow(self):
 		"""
-		This method tests :meth:`foundations.nodes.AbstractCompositeNode.row` method.
+		Tests :meth:`foundations.nodes.AbstractCompositeNode.row` method.
 		"""
 
 		nodeA = AbstractCompositeNode("MyNodeA")
@@ -286,7 +286,7 @@ class AbstractCompositeNodeTestCase(unittest.TestCase):
 
 	def testAddChild(self):
 		"""
-		This method tests :meth:`foundations.nodes.AbstractCompositeNode.addChild` method.
+		Tests :meth:`foundations.nodes.AbstractCompositeNode.addChild` method.
 		"""
 
 		nodeA = AbstractCompositeNode("MyNodeA")
@@ -298,7 +298,7 @@ class AbstractCompositeNodeTestCase(unittest.TestCase):
 
 	def testRemoveChild(self):
 		"""
-		This method tests :meth:`foundations.nodes.AbstractCompositeNode.removeChild` method.
+		Tests :meth:`foundations.nodes.AbstractCompositeNode.removeChild` method.
 		"""
 
 		nodeA = AbstractCompositeNode("MyNodeA")
@@ -309,7 +309,7 @@ class AbstractCompositeNodeTestCase(unittest.TestCase):
 
 	def testInsertChild(self):
 		"""
-		This method tests :meth:`foundations.nodes.AbstractCompositeNode.insertChild` method.
+		Tests :meth:`foundations.nodes.AbstractCompositeNode.insertChild` method.
 		"""
 
 		nodeA = AbstractCompositeNode("MyNodeA")
@@ -322,7 +322,7 @@ class AbstractCompositeNodeTestCase(unittest.TestCase):
 
 	def testHasChildren(self):
 		"""
-		This method tests :meth:`foundations.nodes.AbstractCompositeNode.hasChildren` method.
+		Tests :meth:`foundations.nodes.AbstractCompositeNode.hasChildren` method.
 		"""
 
 		nodeA = AbstractCompositeNode("MyNodeA")
@@ -332,7 +332,7 @@ class AbstractCompositeNodeTestCase(unittest.TestCase):
 
 	def testChildrenCount(self):
 		"""
-		This method tests :meth:`foundations.nodes.AbstractCompositeNode.childrenCount` method.
+		Tests :meth:`foundations.nodes.AbstractCompositeNode.childrenCount` method.
 		"""
 
 		nodeA = AbstractCompositeNode("MyNodeA")
@@ -343,7 +343,7 @@ class AbstractCompositeNodeTestCase(unittest.TestCase):
 
 	def testFindChildren(self):
 		"""
-		This method tests :meth:`foundations.nodes.AbstractCompositeNode.findChildren` method.
+		Tests :meth:`foundations.nodes.AbstractCompositeNode.findChildren` method.
 		"""
 
 		nodeA = AbstractCompositeNode("MyNodeA")
@@ -357,7 +357,7 @@ class AbstractCompositeNodeTestCase(unittest.TestCase):
 
 	def testSortChildrenNode(self):
 		"""
-		This method tests :meth:`foundations.nodes.AbstractCompositeNode.sortChildren` method.
+		Tests :meth:`foundations.nodes.AbstractCompositeNode.sortChildren` method.
 		"""
 
 		nodeA = AbstractCompositeNode("MyNodeA", attributeA=Attribute(value="A"), attributeB=Attribute(value="1"))
@@ -416,7 +416,7 @@ class AbstractCompositeNodeTestCase(unittest.TestCase):
 
 	def testListFamily(self):
 		"""
-		This method tests :meth:`foundations.nodes.AbstractCompositeNode.listFamily` method.
+		Tests :meth:`foundations.nodes.AbstractCompositeNode.listFamily` method.
 		"""
 
 		class FamilyB(AbstractCompositeNode):
@@ -446,7 +446,7 @@ class AbstractCompositeNodeTestCase(unittest.TestCase):
 
 	def testListNode(self):
 		"""
-		This method tests :meth:`foundations.nodes.AbstractCompositeNode.listNode` method.
+		Tests :meth:`foundations.nodes.AbstractCompositeNode.listNode` method.
 		"""
 
 		nodeA = AbstractCompositeNode("MyNodeA")
@@ -456,7 +456,7 @@ class AbstractCompositeNodeTestCase(unittest.TestCase):
 
 	def testAbstractCompositeNodePickle(self):
 		"""
-		This method tests :class:`foundations.nodes.AbstractCompositeNode` class pickling.
+		Tests :class:`foundations.nodes.AbstractCompositeNode` class pickling.
 		
 		:note: :data:`pickle.HIGHEST_PROTOCOL` must be used to pickle :class:`foundations.nodes.AbstractCompositeNode` class.
 		"""

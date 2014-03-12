@@ -39,7 +39,7 @@ import foundations.common
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -73,12 +73,12 @@ TEXT_FILE = os.path.join(RESOURCES_DIRECTORY, "loremIpsum.txt")
 #**********************************************************************************************************************
 class UniqifyTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.uniqify` definition units tests methods.
+	Defines :func:`foundations.common.uniqify` definition units tests methods.
 	"""
 
 	def testUniqify(self):
 		"""
-		This method tests :func:`foundations.common.uniqify` definition.
+		Tests :func:`foundations.common.uniqify` definition.
 		"""
 
 		sequence = ("A", "B", "B", "C")
@@ -91,12 +91,12 @@ class UniqifyTestCase(unittest.TestCase):
 
 class OrderedUniqifyTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.orderedUniqify` definition units tests methods.
+	Defines :func:`foundations.common.orderedUniqify` definition units tests methods.
 	"""
 
 	def testOrderedUniqify(self):
 		"""
-		This method tests :func:`foundations.common.orderedUniqify` definition.
+		Tests :func:`foundations.common.orderedUniqify` definition.
 		"""
 
 		sequence = ("A", "B", "B", "C")
@@ -106,12 +106,12 @@ class OrderedUniqifyTestCase(unittest.TestCase):
 
 class UnpackDefaultTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.unpackDefault` definition units tests methods.
+	Defines :func:`foundations.common.unpackDefault` definition units tests methods.
 	"""
 
 	def testUnpackDefault(self):
 		"""
-		This method tests :func:`foundations.common.unpackDefault` definition.
+		Tests :func:`foundations.common.unpackDefault` definition.
 		"""
 
 		self.assertListEqual(list(foundations.common.unpackDefault((1,))), [1, None, None])
@@ -121,12 +121,12 @@ class UnpackDefaultTestCase(unittest.TestCase):
 
 class PathExistsTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.pathExists` definition units tests methods.
+	Defines :func:`foundations.common.pathExists` definition units tests methods.
 	"""
 
 	def testPathExists(self):
 		"""
-		This method tests :func:`foundations.common.pathExists` definition.
+		Tests :func:`foundations.common.pathExists` definition.
 		"""
 
 		self.assertEqual(foundations.common.pathExists(None), False)
@@ -135,12 +135,12 @@ class PathExistsTestCase(unittest.TestCase):
 
 class FilterPathTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.filterPath` definition units tests methods.
+	Defines :func:`foundations.common.filterPath` definition units tests methods.
 	"""
 
 	def testFilterPath(self):
 		"""
-		This method tests :func:`foundations.common.filterPath` definition.
+		Tests :func:`foundations.common.filterPath` definition.
 		"""
 
 		self.assertEqual(foundations.common.filterPath(None), "")
@@ -148,12 +148,12 @@ class FilterPathTestCase(unittest.TestCase):
 
 class GetFirstItemTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.getFirstItem` definition units tests methods.
+	Defines :func:`foundations.common.getFirstItem` definition units tests methods.
 	"""
 
 	def testGetFirstItem(self):
 		"""
-		This method tests :func:`foundations.common.getFirstItem` definition.
+		Tests :func:`foundations.common.getFirstItem` definition.
 		"""
 
 		self.assertEqual(foundations.common.getFirstItem(None), None)
@@ -165,12 +165,12 @@ class GetFirstItemTestCase(unittest.TestCase):
 
 class GetLastItemTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.getLastItem` definition units tests methods.
+	Defines :func:`foundations.common.getLastItem` definition units tests methods.
 	"""
 
 	def testGetLastItem(self):
 		"""
-		This method tests :func:`foundations.common.getLastItem` definition.
+		Tests :func:`foundations.common.getLastItem` definition.
 		"""
 
 		self.assertEqual(foundations.common.getLastItem(None), None)
@@ -182,12 +182,12 @@ class GetLastItemTestCase(unittest.TestCase):
 
 class IsBinaryFileTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.isBinaryFile` definition units tests methods.
+	Defines :func:`foundations.common.isBinaryFile` definition units tests methods.
 	"""
 
 	def testPathExists(self):
 		"""
-		This method tests :func:`foundations.common.isBinaryFile` definition.
+		Tests :func:`foundations.common.isBinaryFile` definition.
 		"""
 
 		self.assertTrue(foundations.common.isBinaryFile(LIBRARY))
@@ -195,12 +195,12 @@ class IsBinaryFileTestCase(unittest.TestCase):
 
 class RepeatTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.isBinaryFile` definition units tests methods.
+	Defines :func:`foundations.common.isBinaryFile` definition units tests methods.
 	"""
 
 	def testRepeat(self):
 		"""
-		This method tests :func:`foundations.common.repeat` definition.
+		Tests :func:`foundations.common.repeat` definition.
 		"""
 
 		def foo(bar):
@@ -211,12 +211,12 @@ class RepeatTestCase(unittest.TestCase):
 
 class DependencyResolverTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.dependencyResolver` definition units tests methods.
+	Defines :func:`foundations.common.dependencyResolver` definition units tests methods.
 	"""
 
 	def testDependencyResolver(self):
 		"""
-		This method tests :func:`foundations.common.dependencyResolver` definition.
+		Tests :func:`foundations.common.dependencyResolver` definition.
 		"""
 
 		dependencies = {"c" : ("a", "b"),
@@ -228,12 +228,12 @@ class DependencyResolverTestCase(unittest.TestCase):
 
 class GetHostAddressTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.common.getHostAddress` definition units tests methods.
+	Defines :func:`foundations.common.getHostAddress` definition units tests methods.
 	"""
 
 	def testGetHostAddress(self):
 		"""
-		This method tests :func:`foundations.common.getHostAddress` definition.
+		Tests :func:`foundations.common.getHostAddress` definition.
 		"""
 
 		self.assertIsInstance(foundations.common.getHostAddress(), unicode)

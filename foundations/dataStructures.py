@@ -37,7 +37,7 @@ import foundations.verbose
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -56,7 +56,7 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 class NestedAttribute(object):
 	"""
-	This class is an helper object providing methods to manipulate nested attributes.
+	Defines an helper object providing methods to manipulate nested attributes.
 	
 	Usage:
 		
@@ -71,7 +71,7 @@ class NestedAttribute(object):
 
 	def __getattr__(self, attribute):
 		"""
-		This method returns requested attribute.
+		Returns requested attribute.
 	
 		:param attribute: Attribute name.
 		:type attribute: unicode
@@ -84,7 +84,7 @@ class NestedAttribute(object):
 
 	def __setattr__(self, attribute, value):
 		"""
-		This method sets given attribute with given value.
+		Sets given attribute with given value.
 	
 		:param attribute: Attribute name.
 		:type attribute: unicode
@@ -97,7 +97,7 @@ class NestedAttribute(object):
 
 	def __delattr__(self, attribute):
 		"""
-		This method deletes given attribute with.
+		Deletes given attribute with.
 	
 		:param attribute: Attribute name.
 		:type attribute: unicode
@@ -108,7 +108,7 @@ class NestedAttribute(object):
 
 class Structure(dict):
 	"""
-	This class creates an object similar to C/C++ structured type.
+	Defines an object similar to C/C++ structured type.
 	
 	Usage:
 		
@@ -132,7 +132,7 @@ class Structure(dict):
 
 	def __init__(self, *args, **kwargs):
 		"""
-		This method initializes the class.
+		Initializes the class.
 
 		:param \*args: Arguments.
 		:type \*args: \*
@@ -145,7 +145,7 @@ class Structure(dict):
 
 	def __getattr__(self, attribute):
 		"""
-		This method returns given attribute value.
+		Returns given attribute value.
 
 		:return: Attribute value.
 		:rtype: object
@@ -158,7 +158,7 @@ class Structure(dict):
 
 	def __setattr__(self, attribute, value):
 		"""
-		This method sets both key and sibling attribute with given value.
+		Sets both key and sibling attribute with given value.
 
 		:param attribute: Attribute.
 		:type attribute: object
@@ -173,7 +173,7 @@ class Structure(dict):
 
 	def __delattr__(self, attribute):
 		"""
-		This method deletes both key and sibling attribute.
+		Deletes both key and sibling attribute.
 
 		:param attribute: Attribute.
 		:type attribute: object
@@ -186,7 +186,7 @@ class Structure(dict):
 
 	def update(self, *args, **kwargs):
 		"""
-		This method reimplements the :meth:`Dict.update` method.
+		Reimplements the :meth:`Dict.update` method.
 		
 		:param \*args: Arguments.
 		:type \*args: \*
@@ -199,7 +199,7 @@ class Structure(dict):
 
 class OrderedStructure(OrderedDict):
 	"""
-	| This class creates an object similar to C/C++ structured type.
+	| Defines an object similar to C/C++ structured type.
 	| Contrary to the :class:`Structure` since this class inherits from :class:`collections.OrderedDict`,
 		its content is ordered.
 
@@ -230,7 +230,7 @@ class OrderedStructure(OrderedDict):
 
 	def __init__(self, *args, **kwargs):
 		"""
-		This method initializes the class.
+		Initializes the class.
 
 		:param \*args: Arguments.
 		:type \*args: \*
@@ -242,7 +242,7 @@ class OrderedStructure(OrderedDict):
 
 	def __setitem__(self, key, value, *args, **kwargs):
 		"""
-		This method sets a key and sibling attribute with given value.
+		Sets a key and sibling attribute with given value.
 
 		:param key: Key.
 		:type key: object
@@ -259,7 +259,7 @@ class OrderedStructure(OrderedDict):
 
 	def __delitem__(self, key, *args, **kwargs):
 		"""
-		This method deletes both key and sibling attribute.
+		Deletes both key and sibling attribute.
 
 		:param key: Key.
 		:type key: object
@@ -274,7 +274,7 @@ class OrderedStructure(OrderedDict):
 
 	def __setattr__(self, attribute, value):
 		"""
-		This method sets both key and sibling attribute with given value.
+		Sets both key and sibling attribute with given value.
 
 		:param attribute: Attribute.
 		:type attribute: object
@@ -293,7 +293,7 @@ class OrderedStructure(OrderedDict):
 
 	def __delattr__(self, attribute):
 		"""
-		This method deletes both key and sibling attribute.
+		Deletes both key and sibling attribute.
 
 		:param attribute: Attribute.
 		:type attribute: object
@@ -310,7 +310,7 @@ class OrderedStructure(OrderedDict):
 
 class Lookup(dict):
 	"""
-	This class extend dict type to provide a lookup by value(s).
+	Extends dict type to provide a lookup by value(s).
 
 	Usage:
 
@@ -324,7 +324,7 @@ class Lookup(dict):
 
 	def getFirstKeyFromValue(self, value):
 		"""
-		This method gets the first key from given value.
+		Gets the first key from given value.
 
 		:param value: Value.
 		:type value: object
@@ -338,7 +338,7 @@ class Lookup(dict):
 
 	def getKeysFromValue(self, value):
 		"""
-		This method gets the keys from given value.
+		Gets the keys from given value.
 
 		:param value: Value.
 		:type value: object

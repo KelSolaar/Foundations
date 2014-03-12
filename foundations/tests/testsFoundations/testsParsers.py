@@ -47,7 +47,7 @@ from foundations.parsers import SectionsFileParser
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -394,12 +394,12 @@ PLIST_FILE_CONTENT = {"Dictionary A": {"String C": "My Value C", "String B": "My
 #**********************************************************************************************************************
 class SectionsFileParserTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.parsers.SectionsFileParser` class units tests methods.
+	Defines :class:`foundations.parsers.SectionsFileParser` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
 		"""
-		This method tests presence of required attributes.
+		Tests presence of required attributes.
 		"""
 
 		requiredAttributes = ("path",
@@ -421,7 +421,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 	def testRequiredMethods(self):
 		"""
-		This method tests presence of required methods.
+		Tests presence of required methods.
 		"""
 
 		requiredMethods = ("parse",
@@ -438,7 +438,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 	def testParse(self):
 		"""
-		This method tests :meth:`foundations.parsers.SectionsFileParser.parse` method.
+		Tests :meth:`foundations.parsers.SectionsFileParser.parse` method.
 		"""
 
 		for type, file in STANDARD_FILES.iteritems():
@@ -456,7 +456,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 	def testParseInternational(self):
 		"""
-		This method tests :meth:`foundations.parsers.SectionsFileParser.parse` in international specific context.
+		Tests :meth:`foundations.parsers.SectionsFileParser.parse` in international specific context.
 		"""
 
 		sectionsFileParser = SectionsFileParser(CHINESE_IBL_SET_FILE)
@@ -467,7 +467,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 	def testSections(self):
 		"""
-		This method tests :class:`foundations.parsers.SectionsFileParser` class sections consistencies.
+		Tests :class:`foundations.parsers.SectionsFileParser` class sections consistencies.
 		"""
 
 		for type, file in STANDARD_FILES.iteritems():
@@ -482,7 +482,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 	def testRawSections(self):
 		"""
-		This method tests :class:`foundations.parsers.SectionsFileParser` class raw sections consistencies.
+		Tests :class:`foundations.parsers.SectionsFileParser` class raw sections consistencies.
 		"""
 
 		sectionsFileParser = SectionsFileParser(TEMPLATE_FILE)
@@ -491,7 +491,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 	def testComments(self):
 		"""
-		This method tests :class:`foundations.parsers.SectionsFileParser` class comments consistencies.
+		Tests :class:`foundations.parsers.SectionsFileParser` class comments consistencies.
 		"""
 
 		for type, file in STANDARD_FILES.iteritems():
@@ -505,7 +505,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 	def testDefaultsSection(self):
 		"""
-		This method tests :class:`foundations.parsers.SectionsFileParser` class default section consistency.
+		Tests :class:`foundations.parsers.SectionsFileParser` class default section consistency.
 		"""
 
 		sectionsFileParser = SectionsFileParser(DEFAULTS_FILE)
@@ -515,7 +515,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 	def testNamespaces(self):
 		"""
-		This method tests :class:`foundations.parsers.SectionsFileParser` class namespaces consistencies.
+		Tests :class:`foundations.parsers.SectionsFileParser` class namespaces consistencies.
 		"""
 
 		for type, file in STANDARD_FILES.iteritems():
@@ -528,7 +528,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 	def testStripWhitespaces(self):
 		"""
-		This method tests :class:`foundations.parsers.SectionsFileParser` class whitespaces consistencies.
+		Tests :class:`foundations.parsers.SectionsFileParser` class whitespaces consistencies.
 		"""
 
 		sectionsFileParser = SectionsFileParser(STRIPPING_FILE)
@@ -541,7 +541,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 	def testStripQuotationMarkers(self):
 		"""
-		This method tests :class:`foundations.parsers.SectionsFileParser` class quotation markers consistencies.
+		Tests :class:`foundations.parsers.SectionsFileParser` class quotation markers consistencies.
 		"""
 
 		sectionsFileParser = SectionsFileParser(STRIPPING_FILE)
@@ -554,7 +554,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 	def testParsingErrors(self):
 		"""
-		This method tests :class:`foundations.parsers.SectionsFileParser` class parsing errors consistencies.
+		Tests :class:`foundations.parsers.SectionsFileParser` class parsing errors consistencies.
 		"""
 
 		sectionsFileParser = SectionsFileParser(PARSING_ERRORS_FILE)
@@ -565,7 +565,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 	def testSectionExists(self):
 		"""
-		This method tests :meth:`foundations.parsers.SectionsFileParser.sectionExists` method.
+		Tests :meth:`foundations.parsers.SectionsFileParser.sectionExists` method.
 		"""
 
 		for type, file in STANDARD_FILES.iteritems():
@@ -576,7 +576,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 	def testAttributeExists(self):
 		"""
-		This method tests :meth:`foundations.parsers.SectionsFileParser.attributeExists` method.
+		Tests :meth:`foundations.parsers.SectionsFileParser.attributeExists` method.
 		"""
 
 		for type, file in STANDARD_FILES.iteritems():
@@ -592,7 +592,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 	def testGetAttributes(self):
 		"""
-		This method tests :meth:`foundations.parsers.SectionsFileParser.getAttributes` method.
+		Tests :meth:`foundations.parsers.SectionsFileParser.getAttributes` method.
 		"""
 
 		for type, file in STANDARD_FILES.iteritems():
@@ -607,7 +607,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 	def testGetAllAttributes(self):
 		"""
-		This method tests :meth:`foundations.parsers.SectionsFileParser.getAllAttributes` method.
+		Tests :meth:`foundations.parsers.SectionsFileParser.getAllAttributes` method.
 		"""
 
 		for type, file in STANDARD_FILES.iteritems():
@@ -621,7 +621,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 	def testGetValue(self):
 		"""
-		This method tests :meth:`foundations.parsers.SectionsFileParser.getValue` method.
+		Tests :meth:`foundations.parsers.SectionsFileParser.getValue` method.
 		"""
 
 		for type, file in STANDARD_FILES.iteritems():
@@ -649,7 +649,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 	def testWrite(self):
 		"""
-		This method tests :meth:`foundations.parsers.SectionsFileParser.write` method.
+		Tests :meth:`foundations.parsers.SectionsFileParser.write` method.
 		"""
 
 		# Standard sections files.
@@ -709,12 +709,12 @@ class SectionsFileParserTestCase(unittest.TestCase):
 
 class PlistFileParserTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.parsers.PlistFileParser` class units tests methods.
+	Defines :class:`foundations.parsers.PlistFileParser` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
 		"""
-		This method tests presence of required attributes.
+		Tests presence of required attributes.
 		"""
 
 		requiredAttributes = ("path",
@@ -728,7 +728,7 @@ class PlistFileParserTestCase(unittest.TestCase):
 
 	def testRequiredMethods(self):
 		"""
-		This method tests presence of required methods.
+		Tests presence of required methods.
 		"""
 
 		requiredMethods = ("parse",
@@ -741,7 +741,7 @@ class PlistFileParserTestCase(unittest.TestCase):
 
 	def testParse(self):
 		"""
-		This method tests :meth:`foundations.parsers.PlistFileParser.parse` method.
+		Tests :meth:`foundations.parsers.PlistFileParser.parse` method.
 		"""
 
 		plistFileParser = PlistFileParser(PLIST_FILE)
@@ -750,7 +750,7 @@ class PlistFileParserTestCase(unittest.TestCase):
 
 	def testElementExists(self):
 		"""
-		This method tests :meth:`foundations.parsers.PlistFileParser.elementExists` method.
+		Tests :meth:`foundations.parsers.PlistFileParser.elementExists` method.
 		"""
 
 		plistFileParser = PlistFileParser(PLIST_FILE)
@@ -760,7 +760,7 @@ class PlistFileParserTestCase(unittest.TestCase):
 
 	def testFilterValues(self):
 		"""
-		This method tests :meth:`foundations.parsers.PlistFileParser.filterValues` method.
+		Tests :meth:`foundations.parsers.PlistFileParser.filterValues` method.
 		"""
 
 		plistFileParser = PlistFileParser(PLIST_FILE)
@@ -775,7 +775,7 @@ class PlistFileParserTestCase(unittest.TestCase):
 
 	def testGetValue(self):
 		"""
-		This method tests :meth:`foundations.parsers.PlistFileParser.getValue` method.
+		Tests :meth:`foundations.parsers.PlistFileParser.getValue` method.
 		"""
 
 		plistFileParser = PlistFileParser(PLIST_FILE)
@@ -786,12 +786,12 @@ class PlistFileParserTestCase(unittest.TestCase):
 
 class GetAttributeCompoundTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.parsers.getAttributeCompound` definition units tests methods.
+	Defines :func:`foundations.parsers.getAttributeCompound` definition units tests methods.
 	"""
 
 	def testGetAttributeCompound(self):
 		"""
-		This method tests :func:`foundations.parsers.getAttributeCompound` definition.
+		Tests :func:`foundations.parsers.getAttributeCompound` definition.
 		"""
 
 		self.assertIsInstance(foundations.parsers.getAttributeCompound("Attribute", "Value"),

@@ -40,7 +40,7 @@ import foundations.strings
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -68,12 +68,12 @@ __all__ = ["ToStringTestCase",
 #**********************************************************************************************************************
 class ToStringTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.toString` definition units tests methods.
+	Defines :func:`foundations.strings.toString` definition units tests methods.
 	"""
 
 	def testEncode(self):
 		"""
-		This method tests :func:`foundations.strings.toString` definition.
+		Tests :func:`foundations.strings.toString` definition.
 		"""
 
 		self.assertIsInstance(foundations.strings.toString(str("myData")), unicode)
@@ -84,12 +84,12 @@ class ToStringTestCase(unittest.TestCase):
 
 class GetNiceNameTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.getNiceName` definition units tests methods.
+	Defines :func:`foundations.strings.getNiceName` definition units tests methods.
 	"""
 
 	def testGetNiceName(self):
 		"""
-		This method tests :func:`foundations.strings.getNiceName` definition.
+		Tests :func:`foundations.strings.getNiceName` definition.
 		"""
 
 		self.assertIsInstance(foundations.strings.getNiceName("testGetNiceName"), unicode)
@@ -101,12 +101,12 @@ class GetNiceNameTestCase(unittest.TestCase):
 
 class GetVersionRankTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.getVersionRank` definition units tests methods.
+	Defines :func:`foundations.strings.getVersionRank` definition units tests methods.
 	"""
 
 	def testGetVersionRank(self):
 		"""
-		This method tests :func:`foundations.strings.getVersionRank` definition.
+		Tests :func:`foundations.strings.getVersionRank` definition.
 		"""
 
 		self.assertTrue(type(foundations.strings.getVersionRank("0.0.0")), (int, long))
@@ -119,12 +119,12 @@ class GetVersionRankTestCase(unittest.TestCase):
 
 class GetSplitextBasenameTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.getSplitextBasename` definition units tests methods.
+	Defines :func:`foundations.strings.getSplitextBasename` definition units tests methods.
 	"""
 
 	def testGetSplitextBasename(self):
 		"""
-		This method tests :func:`foundations.strings.getSplitextBasename` definition.
+		Tests :func:`foundations.strings.getSplitextBasename` definition.
 		"""
 
 		self.assertIsInstance(foundations.strings.getSplitextBasename("/Users/JohnDoe/Documents"), unicode)
@@ -134,12 +134,12 @@ class GetSplitextBasenameTestCase(unittest.TestCase):
 
 class GetCommonAncestorTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.getCommonAncestor` definition units tests methods.
+	Defines :func:`foundations.strings.getCommonAncestor` definition units tests methods.
 	"""
 
 	def testGetCommonAncestor(self):
 		"""
-		This method tests :func:`foundations.strings.getCommonAncestor` definition.
+		Tests :func:`foundations.strings.getCommonAncestor` definition.
 		"""
 
 		self.assertTupleEqual(foundations.strings.getCommonAncestor(("1", "2", "3"), ("1", "2", "0"), ("1", "2", "3", "4")),
@@ -152,12 +152,12 @@ class GetCommonAncestorTestCase(unittest.TestCase):
 
 class GetCommonPathsAncestorTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.getCommonPathsAncestor` definition units tests methods.
+	Defines :func:`foundations.strings.getCommonPathsAncestor` definition units tests methods.
 	"""
 
 	def testGetCommonPathsAncestor(self):
 		"""
-		This method tests :func:`foundations.strings.getCommonPathsAncestor` definition.
+		Tests :func:`foundations.strings.getCommonPathsAncestor` definition.
 		"""
 
 		self.assertEqual(foundations.strings.getCommonPathsAncestor("{0}{1}".format(os.sep,
@@ -174,12 +174,12 @@ class GetCommonPathsAncestorTestCase(unittest.TestCase):
 
 class GetWordsTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.getWords` definition units tests methods.
+	Defines :func:`foundations.strings.getWords` definition units tests methods.
 	"""
 
 	def testGetWords(self):
 		"""
-		This method tests :func:`foundations.strings.getWords` definition.
+		Tests :func:`foundations.strings.getWords` definition.
 		"""
 
 		self.assertIsInstance(foundations.strings.getWords("Users are John Doe and Jane Doe."), list)
@@ -190,12 +190,12 @@ class GetWordsTestCase(unittest.TestCase):
 
 class FilterWordsTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.filterWords` definition units tests methods.
+	Defines :func:`foundations.strings.filterWords` definition units tests methods.
 	"""
 
 	def testFilterWords(self):
 		"""
-		This method tests :func:`foundations.strings.filterWords` definition.
+		Tests :func:`foundations.strings.filterWords` definition.
 		"""
 
 		self.assertIsInstance(foundations.strings.filterWords("Users are John Doe and Jane Doe".split()), list)
@@ -222,12 +222,12 @@ class FilterWordsTestCase(unittest.TestCase):
 
 class ReplaceTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.replace` definition units tests methods.
+	Defines :func:`foundations.strings.replace` definition units tests methods.
 	"""
 
 	def testReplace(self):
 		"""
-		This method tests :func:`foundations.strings.replace` definition.
+		Tests :func:`foundations.strings.replace` definition.
 		"""
 
 		self.assertIsInstance(foundations.strings.replace("To@Forward|Slashes@Test|Case", {}), unicode)
@@ -238,12 +238,12 @@ class ReplaceTestCase(unittest.TestCase):
 
 class RemoveStripTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.removeStrip` definition units tests methods.
+	Defines :func:`foundations.strings.removeStrip` definition units tests methods.
 	"""
 
 	def testRemoveStrip(self):
 		"""
-		This method tests :func:`foundations.strings.removeStrip` definition.
+		Tests :func:`foundations.strings.removeStrip` definition.
 		"""
 
 		self.assertIsInstance(foundations.strings.removeStrip("John Doe", "John"), unicode)
@@ -252,12 +252,12 @@ class RemoveStripTestCase(unittest.TestCase):
 
 class ToForwardSlashesTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.toForwardSlashes` definition units tests methods.
+	Defines :func:`foundations.strings.toForwardSlashes` definition units tests methods.
 	"""
 
 	def testToForwardSlashes(self):
 		"""
-		This method tests :func:`foundations.strings.toForwardSlashes` definition.
+		Tests :func:`foundations.strings.toForwardSlashes` definition.
 		"""
 
 		self.assertIsInstance(foundations.strings.toForwardSlashes("To\\Forward\\Slashes\\Test\\Case"), unicode)
@@ -267,12 +267,12 @@ class ToForwardSlashesTestCase(unittest.TestCase):
 
 class ToBackwardSlashesTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.toBackwardSlashes` definition units tests methods.
+	Defines :func:`foundations.strings.toBackwardSlashes` definition units tests methods.
 	"""
 
 	def testToBackwardSlashes(self):
 		"""
-		This method tests :func:`foundations.strings.toBackwardSlashes` definition.
+		Tests :func:`foundations.strings.toBackwardSlashes` definition.
 		"""
 
 		self.assertIsInstance(foundations.strings.toBackwardSlashes("\\Users\\JohnDoe\\Documents"), unicode)
@@ -282,12 +282,12 @@ class ToBackwardSlashesTestCase(unittest.TestCase):
 
 class ToPosixPathTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.toPosixPath` definition units tests methods.
+	Defines :func:`foundations.strings.toPosixPath` definition units tests methods.
 	"""
 
 	def testToPosixPath(self):
 		"""
-		This method tests :func:`foundations.strings.toPosixPath` definition.
+		Tests :func:`foundations.strings.toPosixPath` definition.
 		"""
 
 		self.assertIsInstance(foundations.strings.toPosixPath("c:\\Users\\JohnDoe\\Documents"), unicode)
@@ -297,12 +297,12 @@ class ToPosixPathTestCase(unittest.TestCase):
 
 class GetNormalizedPathTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.getNormalizedPath` definition units tests methods.
+	Defines :func:`foundations.strings.getNormalizedPath` definition units tests methods.
 	"""
 
 	def testGetNormalizedPath(self):
 		"""
-		This method tests :func:`foundations.strings.getNormalizedPath` definition.
+		Tests :func:`foundations.strings.getNormalizedPath` definition.
 		"""
 
 		self.assertIsInstance(foundations.strings.getNormalizedPath("/Users/JohnDoe/Documents"), unicode)
@@ -319,12 +319,12 @@ class GetNormalizedPathTestCase(unittest.TestCase):
 
 class IsEmailTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.isEmail` definition units tests methods.
+	Defines :func:`foundations.strings.isEmail` definition units tests methods.
 	"""
 
 	def testIsEmail(self):
 		"""
-		This method tests :func:`foundations.strings.isEmail` definition.
+		Tests :func:`foundations.strings.isEmail` definition.
 		"""
 
 		self.assertIsInstance(foundations.strings.isEmail("john.doe@domain.com"), bool)
@@ -335,12 +335,12 @@ class IsEmailTestCase(unittest.TestCase):
 
 class IsWebsiteTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.isWebsite` definition units tests methods.
+	Defines :func:`foundations.strings.isWebsite` definition units tests methods.
 	"""
 
 	def testIsWebsite(self):
 		"""
-		This method tests :func:`foundations.strings.isWebsite` definition.
+		Tests :func:`foundations.strings.isWebsite` definition.
 		"""
 
 		self.assertIsInstance(foundations.strings.isWebsite("http://domain.com"), bool)
@@ -354,12 +354,12 @@ class IsWebsiteTestCase(unittest.TestCase):
 
 class GetRandomSequenceTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.strings.getRandomSequence` definition units tests methods.
+	Defines :func:`foundations.strings.getRandomSequence` definition units tests methods.
 	"""
 
 	def testGetRandomSequence(self):
 		"""
-		This method tests :func:`foundations.strings.getRandomSequence` definition.
+		Tests :func:`foundations.strings.getRandomSequence` definition.
 		"""
 
 		self.assertIsInstance(foundations.strings.getRandomSequence(), unicode)

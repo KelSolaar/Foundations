@@ -37,7 +37,7 @@ import foundations.verbose
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -52,12 +52,12 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 class Pkzip(object):
 	"""
-	This class provides methods to manipulate zip files.
+	Defines methods to manipulate zip files.
 	"""
 
 	def __init__(self, archive=None):
 		"""
-		This method initializes the class.
+		Initializes the class.
 
 		Usage::
 
@@ -83,7 +83,7 @@ class Pkzip(object):
 	@property
 	def archive(self):
 		"""
-		This method is the property for **self.__archive** attribute.
+		Property for **self.__archive** attribute.
 
 		:return: self.__archive.
 		:rtype: unicode
@@ -95,7 +95,7 @@ class Pkzip(object):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def archive(self, value):
 		"""
-		This method is the setter method for **self.__archive** attribute.
+		Setter for **self.__archive** attribute.
 
 		:param value: Attribute value.
 		:type value: unicode
@@ -111,7 +111,7 @@ class Pkzip(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def archive(self):
 		"""
-		This method is the deleter method for **self.__archive** attribute.
+		Deleter for **self.__archive** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -124,7 +124,7 @@ class Pkzip(object):
 											foundations.exceptions.FileExistsError)
 	def extract(self, target):
 		"""
-		This method extracts the archive file to given directory.
+		Extracts the archive file to given directory.
 
 		:param target: Target extraction directory.
 		:type target: unicode

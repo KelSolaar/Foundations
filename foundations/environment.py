@@ -30,6 +30,7 @@ import platform
 #**********************************************************************************************************************
 import foundations.common
 import foundations.exceptions
+import foundations.strings
 import foundations.verbose
 from foundations.globals.constants import Constants
 
@@ -37,7 +38,7 @@ from foundations.globals.constants import Constants
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -55,12 +56,12 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 class Environment(object):
 	"""
-	This class provides methods to manipulate environment variables.
+	Defines methods to manipulate environment variables.
 	"""
 
 	def __init__(self, *args, **kwargs):
 		"""
-		This method initializes the class.
+		Initializes the class.
 		
 		Usage::
 			
@@ -91,7 +92,7 @@ class Environment(object):
 	@property
 	def variables(self):
 		"""
-		This method is the property for **self.__variables** attribute.
+		Property for **self.__variables** attribute.
 
 		:return: self.__variables.
 		:rtype: dict
@@ -103,7 +104,7 @@ class Environment(object):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def variables(self, value):
 		"""
-		This method is the setter method for **self.__variables** attribute.
+		Setter for **self.__variables** attribute.
 
 		:param value: Attribute value.
 		:type value: dict
@@ -122,7 +123,7 @@ class Environment(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def variables(self):
 		"""
-		This method is the deleter method for **self.__variables** attribute.
+		Deleter for **self.__variables** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -133,7 +134,7 @@ class Environment(object):
 	#******************************************************************************************************************
 	def __addVariables(self, *args, **kwargs):
 		"""
-		This method adds given variables to __variables attribute.
+		Adds given variables to __variables attribute.
 
 		:param \*args: Variables.
 		:type \*args: \*
@@ -147,7 +148,7 @@ class Environment(object):
 
 	def getValues(self, *args):
 		"""
-		This method gets environment variables values.
+		Gets environment variables values.
 
 		Usage::
 			
@@ -171,12 +172,12 @@ class Environment(object):
 
 		for variable in self.__variables:
 			value = os.environ.get(variable, None)
-			self.__variables[variable] = unicode(value) if value else None
+			self.__variables[variable] = foundations.strings.toString(value) if value else None
 		return self.__variables
 
 	def setValues(self, **kwargs):
 		"""
-		This method sets environment variables values.
+		Sets environment variables values.
 
 		Usage::
 			
@@ -208,7 +209,7 @@ class Environment(object):
 
 	def getValue(self, variable=None):
 		"""
-		This method gets given environment variable value.
+		Gets given environment variable value.
 
 		:param variable: Variable to retrieve value.
 		:type variable: unicode
@@ -227,7 +228,7 @@ class Environment(object):
 
 	def setValue(self, variable, value):
 		"""
-		This method sets given environment variable with given value.
+		Sets given environment variable with given value.
 
 		:param variable: Variable to set value.
 		:type variable: unicode
@@ -241,7 +242,7 @@ class Environment(object):
 
 def getSystemApplicationDataDirectory():
 	"""
-	This definition returns the system Application data directory.
+	Returns the system Application data directory.
 	
 	Examples directories::
 
@@ -255,21 +256,19 @@ def getSystemApplicationDataDirectory():
 	"""
 
 	if platform.system() == "Windows" or platform.system() == "Microsoft":
-		environmentVariable = Environment("APPDATA")
-		return environmentVariable.getValue()
-
+		environment = Environment("APPDATA")
+		return environment.getValue()
 	elif platform.system() == "Darwin":
-		environmentVariable = Environment("HOME")
-		return os.path.join(environmentVariable.getValue(), "Library/Preferences")
-
+		environment = Environment("HOME")
+		return os.path.join(environment.getValue(), "Library/Preferences")
 	elif platform.system() == "Linux":
-		environmentVariable = Environment("HOME")
-		return environmentVariable.getValue()
+		environment = Environment("HOME")
+		return environment.getValue()
 
 def getUserApplicationDataDirectory():
 	"""
-	| This definition returns the user Application directory.
-	| The difference between :func:`getSystemApplicationDataDirectory`
+	| Returns the user Application directory.
+	| The difference between :func:`getUserApplicationDataDirectory`
 		and :func:`getSystemApplicationDataDirectory` definitions is that :func:`getUserApplicationDataDirectory` definition
 		will append :attr:`foundations.globals.constants.Constants.providerDirectory`
 		and :attr:`foundations.globals.constants.Constants.applicationDirectory` attributes values to the path returned.
@@ -285,5 +284,14 @@ def getUserApplicationDataDirectory():
 	:rtype: unicode
 	"""
 
-	return os.path.join(getSystemApplicationDataDirectory(), Constants.providerDirectory, Constants.applicationDirectory)
+	systemApplicationDataDirectory = getSystemApplicationDataDirectory()
+	if not foundations.common.pathExists(systemApplicationDataDirectory):
+		LOGGER.error("!> Undefined or non existing system Application data directory, using 'HOME' as fallback!")
+		systemApplicationDataDirectory = Environment("HOME").getValue()
+
+	if not foundations.common.pathExists(systemApplicationDataDirectory):
+		LOGGER.error("!> Undefined or non existing 'HOME' directory, using current working directory as fallback!")
+		systemApplicationDataDirectory = foundations.strings.toString(os.getcwd())
+
+	return os.path.join(systemApplicationDataDirectory, Constants.providerDirectory, Constants.applicationDirectory)
 
