@@ -29,6 +29,7 @@ import time
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
+import foundations.core
 import foundations.verbose
 
 #**********************************************************************************************************************
@@ -43,7 +44,8 @@ __status__ = "Production"
 
 __all__ = ["LOGGER",
 		"executionTime",
-		"memoize"]
+		"memoize",
+		"systemExit"]
 
 LOGGER = foundations.verbose.installLogger()
 
@@ -52,9 +54,9 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 def executionTime(object):
 	"""
-	| This decorator is used for execution timing.
+	| Implements execution timing.
 	| Any method / definition decorated will have it's execution timed through information messages.
-	
+
 	:param object: Object to decorate.
 	:type object: object
 	:return: Object.
@@ -64,7 +66,7 @@ def executionTime(object):
 	@functools.wraps(object)
 	def executionTimeWrapper(*args, **kwargs):
 		"""
-		This decorator is used for execution timing.
+		Implements execution timing.
 
 		:param \*args: Arguments.
 		:type \*args: \*
@@ -90,10 +92,10 @@ def executionTime(object):
 
 def memoize(cache=None):
 	"""
-	| This decorator is used for method / definition memoization.
+	| Implements method / definition memoization.
 	| Any method / definition decorated will get its return value cached and restored whenever called
 		with the same arguments.
-	
+
 	:param cache: Alternate cache.
 	:type cache: dict
 	:return: Object.
@@ -105,7 +107,7 @@ def memoize(cache=None):
 
 	def memoizeDecorator(object):
 		"""
-		This decorator is used for object memoization.
+		Implements method / definition memoization.
 
 		:param object: Object to decorate.
 		:type object: object
@@ -116,8 +118,8 @@ def memoize(cache=None):
 		@functools.wraps(object)
 		def memoizeWrapper(*args, **kwargs):
 			"""
-			This decorator is used for object memoization.
-	
+			Implements method / definition memoization.
+
 			:param \*args: Arguments.
 			:type \*args: \*
 			:param \*\*kwargs: Keywords arguments.
@@ -139,3 +141,33 @@ def memoize(cache=None):
 		return memoizeWrapper
 
 	return memoizeDecorator
+
+def systemExit(object):
+	"""
+	Handles proper system exit in case of critical exception.
+
+	:param object: Object to decorate.
+	:type object: object
+	:return: Object.
+	:rtype: object
+	"""
+
+	@functools.wraps(object)
+	def systemExitWrapper(*args, **kwargs):
+		"""
+		Handles proper system exit in case of critical exception.
+
+		:param \*args: Arguments.
+		:type \*args: \*
+		:param \*\*kwargs: Keywords arguments.
+		:type \*\*kwargs: \*\*
+		"""
+
+		try:
+			if object(*args, **kwargs):
+				foundations.core.exit(0)
+		except Exception as error:
+			sys.stderr.write("\n".join(foundations.exceptions.formatException(*sys.exc_info())))
+			foundations.core.exit(1)
+
+	return systemExitWrapper
