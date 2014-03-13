@@ -190,8 +190,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 	| Defines the base Node class.
 	| Although it can be instancied directly that class is meant to be subclassed.
 	
-	:note: This class doesn't provide compositing capabilities,
-		:class:`AbstractCompositeNode` class must be used for that purpose.
+	:note: Doesn't provide compositing capabilities, :class:`AbstractCompositeNode` class must be used for that purpose.
 	"""
 
 	__family = "Abstract"

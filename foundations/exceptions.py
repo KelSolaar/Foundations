@@ -350,7 +350,7 @@ def handleExceptions(*args):
 		@handleExceptions(ZeroDivisionError)
 		def raiseAnException(value):
 			'''
-			This definition raises a 'ZeroDivisionError' exception.
+			Raises a 'ZeroDivisionError' exception.
 			'''
 
 			return value / 0

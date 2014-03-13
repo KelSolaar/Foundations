@@ -750,12 +750,12 @@ ANSI_ESCAPE_CODES = {"bBlack": "\033[40m",
 #**********************************************************************************************************************
 class AnsiEscapeCodesTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.shell.AnsiEscapeCodes` class units tests methods.
+	Defines :class:`foundations.shell.AnsiEscapeCodes` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
 		"""
-		This method tests presence of required attributes.
+		Tests presence of required attributes.
 		"""
 
 		requiredAttributes = ["reset"]
@@ -769,12 +769,12 @@ class AnsiEscapeCodesTestCase(unittest.TestCase):
 
 class ColorizeTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.shell.colorize` definition units tests methods.
+	Defines :func:`foundations.shell.colorize` definition units tests methods.
 	"""
 
 	def testColorize(self):
 		"""
-		This method tests :func:`foundations.shell.colorize` definition.
+		Tests :func:`foundations.shell.colorize` definition.
 		"""
 
 		self.assertEqual(foundations.shell.colorize("Hello", "red"), "\x1b[31mHello\x1b[0m")

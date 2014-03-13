@@ -593,7 +593,7 @@ class SectionsFileParser(foundations.io.File):
 	@property
 	def preserveOrder(self):
 		"""
-		This method is the property for **self.__preserveOrder** attribute.
+		Property for **self.__preserveOrder** attribute.
 
 		:return: self.__preserveOrder.
 		:rtype: bool
@@ -605,7 +605,7 @@ class SectionsFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def preserveOrder(self, value):
 		"""
-		This method is the setter method for **self.__preserveOrder** attribute.
+		Setter method for **self.__preserveOrder** attribute.
 
 		:param value: Attribute value.
 		:type value: bool
@@ -619,7 +619,7 @@ class SectionsFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def preserveOrder(self):
 		"""
-		This method is the deleter method for **self.__preserveOrder** attribute.
+		Deleter method for **self.__preserveOrder** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -798,7 +798,7 @@ class SectionsFileParser(foundations.io.File):
 						attributes[attribute] = value.strip("".join(self.__quotationMarkers)) \
 							if stripQuotationMarkers else value
 					else:
-						attributes[attribute]= None
+						attributes[attribute] = None
 				else:
 					self.__parsingErrors.append(foundations.exceptions.AttributeStructureParsingError(
 						"Attribute structure is invalid: {0}".format(line), i + 1))
