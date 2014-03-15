@@ -128,7 +128,7 @@ class SectionsFileParser(foundations.io.File):
 				 preserveOrder=True):
 		"""
 		Initializes the class.
-		
+
 		Usage::
 
 			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", \
@@ -695,7 +695,7 @@ class SectionsFileParser(foundations.io.File):
 			  stripQuotationMarkers=True,
 			  raiseParsingErrors=True):
 		"""
-		Process the file content and extract the sections / attributes
+		Process the file content and extracts the sections / attributes
 			as nested :class:`collections.OrderedDict` dictionaries or dictionaries.
 
 		Usage::
@@ -818,7 +818,7 @@ class SectionsFileParser(foundations.io.File):
 	def sectionExists(self, section):
 		"""
 		Checks if given section exists.
-		
+
 		Usage::
 
 			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", \
@@ -1114,7 +1114,7 @@ class PlistFileParser(foundations.io.File):
 	def __init__(self, file=None):
 		"""
 		Initializes the class.
-		
+
 		Usage::
 
 			>>> plistFileParser = PlistFileParser("standard.plist")
@@ -1399,7 +1399,7 @@ class PlistFileParser(foundations.io.File):
 def getAttributeCompound(attribute, value=None, splitter="|", bindingIdentifier="@"):
 	"""
 	Returns an attribute compound.
-	
+
 	Usage::
 
 		>>> data = "@Link | Value | Boolean | Link Parameter"
