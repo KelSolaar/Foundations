@@ -30,7 +30,7 @@ def _setEncoding():
 	import sys
 	reload(sys)
 
-	sys.setdefaultencoding(DEFAULT_CODEC)
+	sys.setdefaultencoding("utf-8")
 
 _setEncoding()
 

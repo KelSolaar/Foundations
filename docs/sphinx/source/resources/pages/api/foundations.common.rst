@@ -8,7 +8,7 @@ Module Attributes
 
 .. attribute:: foundations.common.LOGGER
 
-.. attribute:: foundations.common.CONNECTION_IP
+.. attribute:: foundations.common.CONNECTION_IPS
 
 .. attribute:: foundations.common.DEFAULT_HOST_IP
 
