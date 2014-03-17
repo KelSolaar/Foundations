@@ -43,7 +43,7 @@ __status__ = "Production"
 __all__ = ["LOGGER",
 		   "STATEMENT_UPDATE_MESSAGE",
 		   "STATEMENTS_SUBSTITUTE",
-		   "STATEMENTS_IGNORE",
+		   "STATEMENT_IGNORE",
 		   "bleach"]
 
 LOGGER = foundations.verbose.installLogger()
@@ -53,10 +53,7 @@ STATEMENT_UPDATE_MESSAGE = "# Oncilla: Statement commented by auto-documentation
 STATEMENTS_SUBSTITUTE = ("(\n)(?P<bleach>\s*if\s+__name__\s+==\s+[\"']__main__[\"']\s*:.*)",
 						 "(\n)(?P<bleach>\s*@(?!property|\w+\.setter|\w+\.deleter).*?)(\n+\s*def\s+)")
 
-STATEMENTS_IGNORE = ("@handleExceptions(ZeroDivisionError)",)
-
-foundations.verbose.getLoggingConsoleHandler()
-foundations.verbose.setVerbosityLevel(3)
+STATEMENT_IGNORE = ("@handleExceptions(ZeroDivisionError)",)
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
@@ -80,7 +77,7 @@ def bleach(file):
 
 		offset = 0
 		for match in matches:
-			if any(map(lambda x: x in match.group("bleach"), STATEMENTS_IGNORE)):
+			if any(map(lambda x: x in match.group("bleach"), STATEMENT_IGNORE)):
 				continue
 
 			start, end = match.start("bleach"), match.end("bleach")
