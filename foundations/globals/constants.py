@@ -54,12 +54,12 @@ class Constants():
 	"""Package Application name: '**Foundations**' ( String )"""
 	majorVersion = "2"
 	"""Package major version: '**2**' ( String )"""
-	minorVersion = "0"
-	"""Package minor version: '**0**' ( String )"""
-	changeVersion = "9"
-	"""Package change version: '**9**' ( String )"""
+	minorVersion = "1"
+	"""Package minor version: '**1**' ( String )"""
+	changeVersion = "0"
+	"""Package change version: '**0**' ( String )"""
 	releaseVersion = ".".join((majorVersion, minorVersion, changeVersion))
-	"""Package release version: '**2.0.9**' ( String )"""
+	"""Package release version: '**2.1.0**' ( String )"""
 
 	logger = "Foundations_Logger"
 	"""Package logger name: '**Foundations_Logger**' ( String )"""
