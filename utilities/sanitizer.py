@@ -41,14 +41,14 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["LOGGER",
-		   "STATEMENTS_UPDATE_MESSAGE",
+		   "STATEMENT_UPDATE_MESSAGE",
 		   "STATEMENTS_SUBSTITUTE",
 		   "STATEMENTS_IGNORE",
 		   "bleach"]
 
 LOGGER = foundations.verbose.installLogger()
 
-STATEMENTS_UPDATE_MESSAGE = "# Oncilla: Statement commented by auto-documentation process: "
+STATEMENT_UPDATE_MESSAGE = "# Oncilla: Statement commented by auto-documentation process: "
 
 STATEMENTS_SUBSTITUTE = ("(\n)(?P<bleach>\s*if\s+__name__\s+==\s+[\"']__main__[\"']\s*:.*)",
 						 "(\n)(?P<bleach>\s*@(?!property|\w+\.setter|\w+\.deleter).*?)(\n+\s*def\s+)")
@@ -84,8 +84,8 @@ def bleach(file):
 				continue
 
 			start, end = match.start("bleach"), match.end("bleach")
-			substitution = "{0}{1}".format(STATEMENTS_UPDATE_MESSAGE,
-										   re.sub("\n", "\n{0}".format(STATEMENTS_UPDATE_MESSAGE),
+			substitution = "{0}{1}".format(STATEMENT_UPDATE_MESSAGE,
+										   re.sub("\n", "\n{0}".format(STATEMENT_UPDATE_MESSAGE),
 												  match.group("bleach")))
 			content = "".join((content[0: start + offset],
 							   substitution,

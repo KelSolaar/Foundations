@@ -402,7 +402,7 @@ def getNormalizedPath(path):
 def getRandomSequence(length=8):
 	"""
 	Returns a random sequence.
-	
+
 	Usage::
 
 		>>> getRandomSequence()
@@ -440,10 +440,10 @@ def isEmail(data):
 		LOGGER.debug("> {0}' is not matched as email.".format(data))
 		return False
 
-def isWebsite(data):
+def isWebsite(url):
 	"""
-	Check if given data string is a website.
-	
+	Check if given url string is a website.
+
 	Usage::
 
 		>>> isWebsite("http://www.domain.com")
@@ -457,9 +457,9 @@ def isWebsite(data):
 	:rtype: bool
 	"""
 
-	if re.match(r"(http|ftp|https)://([\w\-\.]+)/?", data):
-		LOGGER.debug("> {0}' is matched as website.".format(data))
+	if re.match(r"(http|ftp|https)://([\w\-\.]+)/?", url):
+		LOGGER.debug("> {0}' is matched as website.".format(url))
 		return True
 	else:
-		LOGGER.debug("> {0}' is not matched as website.".format(data))
+		LOGGER.debug("> {0}' is not matched as website.".format(url))
 		return False
