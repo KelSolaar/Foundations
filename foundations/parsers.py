@@ -136,7 +136,7 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser = SectionsFileParser()
 			>>> sectionsFileParser.content = content
 			>>> sectionsFileParser.parse(stripComments=False)
-			True
+			<foundations.parsers.SectionsFileParser object at 0x293892011>
 			>>> sectionsFileParser.sections.keys()
 			[u'Section A', u'Section B']
 			>>> sectionsFileParser.comments
@@ -704,23 +704,23 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser = SectionsFileParser()
 			>>> sectionsFileParser.content = content
 			>>> sectionsFileParser.parse(stripComments=False)
-			True
+			<foundations.parsers.SectionsFileParser object at 0x860323123>
 			>>> sectionsFileParser.sections.keys()
 			[u'_defaults']
 			>>> sectionsFileParser.sections["_defaults"].values()
 			[u'Value A', u'Value B']
 			>>> sectionsFileParser.parse(stripComments=False, stripQuotationMarkers=False)
-			True
+			<foundations.parsers.SectionsFileParser object at 0x860323123>
 			>>> sectionsFileParser.sections["_defaults"].values()
 			[u'"Value A"', u'"Value B"']
 			>>> sectionsFileParser.comments
 			OrderedDict([(u'_defaults|#0', {u'content': u'Comment.', u'id': 0})])
 			>>> sectionsFileParser.parse()
-			True
+			<foundations.parsers.SectionsFileParser object at 0x860323123>
 			>>> sectionsFileParser.sections["_defaults"]
 			OrderedDict([(u'_defaults|Attribute 1', u'Value A'), (u'_defaults|Attribute 2', u'Value B')])
 			>>> sectionsFileParser.parse(namespaces=False)
-			True
+			<foundations.parsers.SectionsFileParser object at 0x860323123>
 			>>> sectionsFileParser.sections["_defaults"]
 			OrderedDict([(u'Attribute 1', u'Value A'), (u'Attribute 2', u'Value B')])
 
@@ -813,7 +813,7 @@ class SectionsFileParser(foundations.io.File):
 				"{0} | '{1}' structure is invalid, parsing exceptions occured!".format(self.__class__.__name__,
 																					   self.path))
 
-		return True
+		return self
 
 	def sectionExists(self, section):
 		"""
@@ -826,7 +826,7 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser = SectionsFileParser()
 			>>> sectionsFileParser.content = content
 			>>> sectionsFileParser.parse()
-			True
+			<foundations.parsers.SectionsFileParser object at 0x845683844>
 			>>> sectionsFileParser.sectionExists("Section A")
 			True
 			>>> sectionsFileParser.sectionExists("Section C")
@@ -856,7 +856,7 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser = SectionsFileParser()
 			>>> sectionsFileParser.content = content
 			>>> sectionsFileParser.parse()
-			True
+			<foundations.parsers.SectionsFileParser object at 0x234564563>
 			>>> sectionsFileParser.attributeExists("Attribute 1", "Section A")
 			True
 			>>> sectionsFileParser.attributeExists("Attribute 2", "Section A")
@@ -889,7 +889,7 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser = SectionsFileParser()
 			>>> sectionsFileParser.content = content
 			>>> sectionsFileParser.parse()
-			True
+			<foundations.parsers.SectionsFileParser object at 0x125698322>
 			>>> sectionsFileParser.getAttributes("Section A")
 			OrderedDict([(u'Section A|Attribute 1', u'Value A')])
 			>>> sectionsFileParser.preserveOrder=False
@@ -932,7 +932,7 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser = SectionsFileParser()
 			>>> sectionsFileParser.content = content
 			>>> sectionsFileParser.parse()
-			True
+			<foundations.parsers.SectionsFileParser object at 0x845683844>
 			>>> sectionsFileParser.getAllAttributes()
 			OrderedDict([(u'Section A|Attribute 1', u'Value A'), (u'Section B|Attribute 2', u'Value B')])
 			>>> sectionsFileParser.preserveOrder=False
@@ -962,7 +962,7 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser = SectionsFileParser()
 			>>> sectionsFileParser.content = content
 			>>> sectionsFileParser.parse()
-			True
+			<foundations.parsers.SectionsFileParser object at 0x679302423>
 			>>> sectionsFileParser.getValue("Attribute 1", "Section A")
 			u'Value A'
 
@@ -997,7 +997,7 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser = SectionsFileParser()
 			>>> sectionsFileParser.content = content
 			>>> sectionsFileParser.parse()
-			True
+			<foundations.parsers.SectionsFileParser object at 0x109304209>
 			>>> sectionsFileParser.setValue("Attribute 3", "Section C", "Value C")
 			True
 
