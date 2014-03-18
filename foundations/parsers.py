@@ -736,14 +736,14 @@ class SectionsFileParser(foundations.io.File):
 		:type stripQuotationMarkers: bool
 		:param raiseParsingErrors: Raise parsing errors.
 		:type raiseParsingErrors: bool
-		:return: Method success.
-		:rtype: bool
+		:return: SectionFileParser instance.
+		:rtype: SectionFileParser
 		"""
 
 		LOGGER.debug("> Reading sections from: '{0}'.".format(self.path))
 
 		if not self.content:
-			return False
+			self.read()
 
 		attributes = {} if not self.__preserveOrder else OrderedDict()
 		section = self.__defaultsSection
