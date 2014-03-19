@@ -62,9 +62,9 @@ class Environment(object):
 	def __init__(self, *args, **kwargs):
 		"""
 		Initializes the class.
-		
+
 		Usage::
-			
+
 			>>> environment = Environment(JOHN="DOE", DOE="JOHN")
 			>>> environment.setValues()
 			True
@@ -73,7 +73,7 @@ class Environment(object):
 			u'DOE'
 			>>> os.environ["DOE"]
 			u'JOHN'
-		
+
 		:param \*args: Variables.
 		:type \*args: \*
 		:param \*\*kwargs: Variables : Values.
@@ -151,7 +151,7 @@ class Environment(object):
 		Gets environment variables values.
 
 		Usage::
-			
+
 			>>> environment = Environment("HOME")
 			>>> environment.getValues()
 			{'HOME': u'/Users/JohnDoe'}
@@ -180,7 +180,7 @@ class Environment(object):
 		Sets environment variables values.
 
 		Usage::
-			
+
 			>>> environment = Environment()
 			>>> environment.setValues(JOHN="DOE", DOE="JOHN")
 			True
@@ -194,7 +194,7 @@ class Environment(object):
 		:type \*\*kwargs: \*
 		:return: Method success.
 		:rtype: unicode
-		
+
 		:note: Any variable with a **None** value will be skipped.
 		"""
 
@@ -215,7 +215,7 @@ class Environment(object):
 		:type variable: unicode
 		:return: Variable value.
 		:rtype: unicode
-		
+
 		:note: If the **variable** argument is not given the first **self.__variables** attribute value will be returned.
 		"""
 
@@ -243,7 +243,7 @@ class Environment(object):
 def getSystemApplicationDataDirectory():
 	"""
 	Returns the system Application data directory.
-	
+
 	Examples directories::
 
 		- 'C:\\Users\\$USER\\AppData\\Roaming' on Windows 7.
@@ -260,7 +260,7 @@ def getSystemApplicationDataDirectory():
 		return environment.getValue()
 	elif platform.system() == "Darwin":
 		environment = Environment("HOME")
-		return os.path.join(environment.getValue(), "Library/Preferences")
+		return os.path.join(environment.getValue(), "Library", "Preferences")
 	elif platform.system() == "Linux":
 		environment = Environment("HOME")
 		return environment.getValue()
