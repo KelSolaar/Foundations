@@ -33,7 +33,6 @@ import re
 #**********************************************************************************************************************
 import foundations.common
 import foundations.verbose
-from foundations.globals.constants import Constants
 
 #**********************************************************************************************************************
 #***	Module attributes.
@@ -72,34 +71,7 @@ ASCII_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-def toString(data, encoding=Constants.defaultCodec, errors=Constants.codecError):
-	"""
-	Converts given data to unicode string using package default settings.
-
-	Usage::
-
-		>>> toString("myData")
-		u'myData'
-		>>> toString("汉字/漢字")
-		u'\u6c49\u5b57/\u6f22\u5b57'
-
-	:param data: Data to convert.
-	:type data: object
-	:param encoding: File encoding codec.
-	:type encoding: unicode
-	:param errors: File encoding errors handling.
-	:type errors: unicode
-	:return: Unicode data.
-	:rtype: unicode
-	"""
-
-	if isinstance(data, type("")):
-		return data
-	else:
-		try:
-			return unicode(data, encoding, errors)
-		except TypeError:
-			return unicode(str(data), encoding, errors)
+toString = foundations.verbose.toUnicode
 
 def getNiceName(name):
 	"""
