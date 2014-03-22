@@ -251,7 +251,7 @@ def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 
 def replace(string, data):
 	"""
-	Replaces the data occurences in the string.
+	Replaces the data occurrences in the string.
 
 	Usage::
 
@@ -261,7 +261,7 @@ def replace(string, data):
 
 	:param string: String to manipulate.
 	:type string: unicode
-	:param data: Replacement occurences.
+	:param data: Replacement occurrences.
 	:type data: dict
 	:return: Manipulated string.
 	:rtype: unicode
@@ -273,7 +273,7 @@ def replace(string, data):
 
 def removeStrip(string, pattern):
 	"""
-	Removes the pattern occurences in the string and strip the result.
+	Removes the pattern occurrences in the string and strip the result.
 
 	Usage::
 
