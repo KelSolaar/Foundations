@@ -103,7 +103,7 @@ class Pkzip(object):
 
 		if value is not None:
 			assert type(value) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
-			"archive", value)
+				"archive", value)
 			assert os.path.exists(value), "'{0}' attribute: '{1}' file doesn't exists!".format("archive", value)
 		self.__archive = value
 
@@ -115,13 +115,14 @@ class Pkzip(object):
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "archive"))
+			"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "archive"))
 
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
 	@foundations.exceptions.handleExceptions(foundations.exceptions.DirectoryExistsError,
-											foundations.exceptions.FileExistsError)
+											 foundations.exceptions.FileExistsError,
+											 zipfile.BadZipfile)
 	def extract(self, target):
 		"""
 		Extracts the archive file to given directory.
@@ -134,11 +135,11 @@ class Pkzip(object):
 
 		if not foundations.common.pathExists(self.__archive):
 			raise foundations.exceptions.FileExistsError("{0} | '{1}' file doesn't exists!".format(
-			self.__class__.__name__, self.__archive))
+				self.__class__.__name__, self.__archive))
 
 		if not foundations.common.pathExists(target):
 			raise foundations.exceptions.DirectoryExistsError("{0} | '{1}' directory doesn't exists!".format(
-			self.__class__.__name__, target))
+				self.__class__.__name__, target))
 
 		archive = zipfile.ZipFile(self.__archive)
 		content = archive.namelist()
@@ -150,7 +151,8 @@ class Pkzip(object):
 		directories.reverse()
 
 		for directory in directories:
-			not os.path.isdir(os.path.join(target, directory)) and foundations.io.setDirectory(os.path.join(target, directory))
+			not os.path.isdir(os.path.join(target, directory)) and foundations.io.setDirectory(
+				os.path.join(target, directory))
 
 		for file in files:
 			LOGGER.info("{0} | Extracting '{1}' file!".format(self.__class__.__name__, file))
