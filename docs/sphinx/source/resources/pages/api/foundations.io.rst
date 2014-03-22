@@ -19,6 +19,8 @@ Functions
 
 .. autofunction:: isWritable
 
+.. autofunction:: isBinaryFile
+
 Classes
 -------
 

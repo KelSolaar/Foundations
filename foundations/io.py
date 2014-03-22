@@ -46,7 +46,7 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["LOGGER", "File", "setDirectory", "copy", "remove", "isWritable"]
+__all__ = ["LOGGER", "File", "setDirectory", "copy", "remove", "isWritable", "isBinaryFile"]
 
 LOGGER = foundations.verbose.installLogger()
 
@@ -359,3 +359,26 @@ def isWritable(path):
 	else:
 		LOGGER.debug("> '{0}' path is not writable.".format(path))
 		return False
+
+def isBinaryFile(file):
+	"""
+	Returns if given file is a binary file.
+
+	:param file: File path.
+	:type file: unicode
+	:return: Is file binary.
+	:rtype: bool
+	"""
+
+	fileHandle = open(file, "rb")
+	try:
+		chunkSize = 1024
+		while True:
+			chunk = fileHandle.read(chunkSize)
+			if chr(0) in chunk:
+				return True
+			if len(chunk) < chunkSize:
+				break
+	finally:
+		fileHandle.close()
+	return False
