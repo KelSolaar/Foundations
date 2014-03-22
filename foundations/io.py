@@ -46,7 +46,7 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["LOGGER", "File", "setDirectory", "copy", "remove"]
+__all__ = ["LOGGER", "File", "setDirectory", "copy", "remove", "isWritable"]
 
 LOGGER = foundations.verbose.installLogger()
 
@@ -61,7 +61,7 @@ class File(object):
 	def __init__(self, path=None, content=None):
 		"""
 		Initializes the class.
-		
+
 		Usage::
 
 			>>> file = File(u"file.txt")
@@ -307,7 +307,7 @@ def setDirectory(path):
 
 def copy(source, destination):
 	"""
-	Copies the given file or directory to destination.
+	Copies given file or directory to destination.
 
 	:param source: Source to copy from.
 	:type source: unicode
@@ -327,9 +327,9 @@ def copy(source, destination):
 
 def remove(path):
 	"""
-	Removes the given file or directory.
+	Removes given path.
 
-	:param path: Resource to remove.
+	:param path: Path to remove.
 	:type path: unicode
 	:return: Method success.
 	:rtype: bool
@@ -342,3 +342,20 @@ def remove(path):
 		LOGGER.debug("> Removing '{0}' directory.".format(path))
 		shutil.rmtree(path)
 	return True
+
+def isWritable(path):
+	"""
+	Returns if given path is writable.
+
+	:param path: Path to check access.
+	:type path: unicode
+	:return: Is path writable.
+	:rtype: bool
+	"""
+
+	if os.access(path, os.W_OK):
+		LOGGER.debug("> '{0}' path is writable.".format(path))
+		return True
+	else:
+		LOGGER.debug("> '{0}' path is not writable.".format(path))
+		return False

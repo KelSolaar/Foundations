@@ -17,6 +17,8 @@ Functions
 
 .. autofunction:: remove
 
+.. autofunction:: isWritable
+
 Classes
 -------
 

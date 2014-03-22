@@ -23,8 +23,9 @@ from __future__ import unicode_literals
 #**********************************************************************************************************************
 import os
 import shutil
-import tempfile
+import stat
 import sys
+import tempfile
 if sys.version_info[:2] <= (2, 6):
 	import unittest2 as unittest
 else:
@@ -224,6 +225,22 @@ class RemoveTestCase(unittest.TestCase):
 		foundations.io.copy(TEST_FILE, destination)
 		foundations.io.remove(destination)
 		self.assertTrue(not os.path.exists(destination))
+		shutil.rmtree(tempDirectory)
+
+class IsWritableTestCase(unittest.TestCase):
+	"""
+	Defines :func:`foundations.io.isWritable` definition units tests methods.
+	"""
+
+	def testIsWritable(self):
+		"""
+		Tests :func:`foundations.io.isWritable` definition.
+		"""
+
+		tempDirectory = tempfile.mkdtemp()
+		self.assertTrue(foundations.io.isWritable(tempDirectory))
+		os.chmod(tempDirectory, stat.S_IREAD)
+		self.assertFalse(foundations.io.isWritable(tempDirectory))
 		shutil.rmtree(tempDirectory)
 
 if __name__ == "__main__":
