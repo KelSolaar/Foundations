@@ -58,6 +58,8 @@ __all__ = ["RESOURCES_DIRECTORY",
 		   "SetDirectoryTestCase",
 		   "CopyTestCase",
 		   "RemoveTestCase",
+		   "IsReadableTestCase",
+		   "IsWritableTestCase",
 		   "IsBinaryFileTestCase"]
 
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
@@ -237,6 +239,23 @@ class RemoveTestCase(unittest.TestCase):
 		foundations.io.copy(TEXT_FILE, destination)
 		foundations.io.remove(destination)
 		self.assertTrue(not os.path.exists(destination))
+		shutil.rmtree(tempDirectory)
+
+class IsReadableTestCase(unittest.TestCase):
+	"""
+	Defines :func:`foundations.io.isReadable` definition units tests methods.
+	"""
+
+	def testIsReadable(self):
+		"""
+		Tests :func:`foundations.io.isReadable` definition.
+		"""
+
+		tempDirectory = tempfile.mkdtemp()
+		self.assertTrue(foundations.io.isReadable(tempDirectory))
+		os.chmod(tempDirectory, stat.S_IROTH)
+		self.assertFalse(foundations.io.isReadable(tempDirectory))
+		os.chmod(tempDirectory, stat.S_IREAD)
 		shutil.rmtree(tempDirectory)
 
 class IsWritableTestCase(unittest.TestCase):

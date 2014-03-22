@@ -46,7 +46,7 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["LOGGER", "File", "setDirectory", "copy", "remove", "isWritable", "isBinaryFile"]
+__all__ = ["LOGGER", "File", "setDirectory", "copy", "remove", "isWritable", "isReadable", "isBinaryFile"]
 
 LOGGER = foundations.verbose.installLogger()
 
@@ -342,6 +342,23 @@ def remove(path):
 		LOGGER.debug("> Removing '{0}' directory.".format(path))
 		shutil.rmtree(path)
 	return True
+
+def isReadable(path):
+	"""
+	Returns if given path is readable.
+
+	:param path: Path to check access.
+	:type path: unicode
+	:return: Is path writable.
+	:rtype: bool
+	"""
+
+	if os.access(path, os.R_OK):
+		LOGGER.debug("> '{0}' path is readable.".format(path))
+		return True
+	else:
+		LOGGER.debug("> '{0}' path is not readable.".format(path))
+		return False
 
 def isWritable(path):
 	"""
