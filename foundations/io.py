@@ -121,7 +121,7 @@ class File(object):
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "path"))
+			"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "path"))
 
 	@property
 	def content(self):
@@ -156,11 +156,14 @@ class File(object):
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "content"))
+			"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "content"))
 
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
+	@foundations.exceptions.handleExceptions(foundations.exceptions.UrlReadError,
+											 foundations.exceptions.FileReadError,
+											 IOError)
 	def cache(self, mode="r", encoding=Constants.defaultCodec, errors=Constants.codecError):
 		"""
 		Reads given file content and stores it in the content cache.
@@ -183,9 +186,13 @@ class File(object):
 				self.__content = urllib2.urlopen(self.__path).readlines()
 				return True
 			except urllib2.URLError as error:
-				LOGGER.warning(
-				"!> {0} | Cannot read '{1}' online file: '{2}'.".format(self.__class__.__name__, self.__path, error))
+				raise foundations.exceptions.UrlReadError(
+					"!> {0} | '{1}' url is not readable: '{2}'.".format(self.__class__.__name__, self.__path, error))
 		elif foundations.common.pathExists(self.__path):
+			if not isReadable(self.__path):
+				raise foundations.exceptions.FileReadError(
+					"!> {0} | '{1}' file is not readable!".format(self.__class__.__name__, self.__path))
+
 			with codecs.open(self.__path, mode, encoding, errors) as file:
 				LOGGER.debug("> Caching '{0}' file content.".format(self.__path))
 				self.__content = file.readlines()
@@ -215,6 +222,9 @@ class File(object):
 
 		return "".join(self.__content) if self.cache() else ""
 
+	@foundations.exceptions.handleExceptions(foundations.exceptions.UrlWriteError,
+											 foundations.exceptions.FileWriteError,
+											 IOError)
 	def write(self, mode="w", encoding=Constants.defaultCodec, errors=Constants.codecError):
 		"""
 		Writes content to defined file.
@@ -230,16 +240,24 @@ class File(object):
 		"""
 
 		if foundations.strings.isWebsite(self.__path):
-			LOGGER.warning("!> {0} | Cannot write to '{1}' online file!".format(self.__class__.__name__, self.__path))
-			return False
+			raise foundations.exceptions.UrlWriteError(
+					"!> {0} | '{1}' url is not writable!".format(self.__class__.__name__, self.__path))
+
+		if foundations.common.pathExists(self.__path):
+			if not isWritable(self.__path):
+				raise foundations.exceptions.FileWriteError(
+					"!> {0} | '{1}' file is not writable!".format(self.__class__.__name__, self.__path))
 
 		with codecs.open(self.__path, mode, encoding, errors) as file:
-			LOGGER.debug("> Writting '{0}' file content.".format(self.__path))
+			LOGGER.debug("> Writing '{0}' file content.".format(self.__path))
 			for line in self.__content:
 				file.write(line)
 			return True
 		return False
 
+	@foundations.exceptions.handleExceptions(foundations.exceptions.UrlWriteError,
+											 foundations.exceptions.FileWriteError,
+											 IOError)
 	def append(self, mode="a", encoding=Constants.defaultCodec, errors=Constants.codecError):
 		"""
 		Appends content to defined file.
@@ -255,8 +273,13 @@ class File(object):
 		"""
 
 		if foundations.strings.isWebsite(self.__path):
-			LOGGER.warning("!> {0} | Cannot append to '{1}' online file!".format(self.__class__.__name__, self.__path))
-			return False
+			raise foundations.exceptions.UrlWriteError(
+					"!> {0} | '{1}' url is not writable!".format(self.__class__.__name__, self.__path))
+
+		if foundations.common.pathExists(self.__path):
+			if not isWritable(self.__path):
+				raise foundations.exceptions.FileWriteError(
+					"!> {0} | '{1}' file is not writable!".format(self.__class__.__name__, self.__path))
 
 		with codecs.open(self.__path, mode, encoding, errors) as file:
 			LOGGER.debug("> Appending to '{0}' file content.".format(self.__path))
@@ -265,6 +288,7 @@ class File(object):
 			return True
 		return False
 
+	@foundations.exceptions.handleExceptions(foundations.exceptions.UrlWriteError)
 	def clear(self, encoding=Constants.defaultCodec):
 		"""
 		Clears the defined file content.
@@ -276,8 +300,8 @@ class File(object):
 		"""
 
 		if foundations.strings.isWebsite(self.__path):
-			LOGGER.warning("!> {0} | Cannot clear '{1}' online file!".format(self.__class__.__name__, self.__path))
-			return False
+			raise foundations.exceptions.UrlWriteError(
+					"!> {0} | '{1}' url is not writable!".format(self.__class__.__name__, self.__path))
 
 		if self.uncache():
 			LOGGER.debug("> Clearing '{0}' file content.".format(self.__path))
