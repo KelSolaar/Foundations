@@ -474,35 +474,35 @@ class AbstractError(Exception):
 
 class ExecutionError(AbstractError):
 	"""
-	Defines execution exceptions.
+	Defines execution exception.
 	"""
 
 	pass
 
 class BreakIteration(AbstractError):
 	"""
-	Breaks nested loop iterations.
+	Breaks nested loop iteration.
 	"""
 
 	pass
 
 class AbstractParsingError(AbstractError):
 	"""
-	Defines the abstract base class for parsing related exceptions.
+	Defines the abstract base class for parsing related exception.
 	"""
 
 	pass
 
 class FileStructureParsingError(AbstractParsingError):
 	"""
-	Defines exceptions raised while parsing file structure.
+	Defines exception raised while parsing file structure.
 	"""
 
 	pass
 
 class AttributeStructureParsingError(AbstractParsingError):
 	"""
-	Defines exceptions raised while parsing attribute structure.
+	Defines exception raised while parsing attribute structure.
 	"""
 
 	def __init__(self, value, line=None):
@@ -579,189 +579,189 @@ class AttributeStructureParsingError(AbstractParsingError):
 
 class AbstractIOError(AbstractError):
 	"""
-	Defines the abstract base class for io related exceptions.
+	Defines the abstract base class for io related exception.
 	"""
 
 	pass
 
 class FileReadError(AbstractIOError):
 	"""
-	Defines file read exceptions.
+	Defines file read exception.
 	"""
 
 	pass
 
 class FileWriteError(AbstractIOError):
 	"""
-	Defines file write exceptions.
+	Defines file write exception.
 	"""
 
 	pass
 
 class UrlReadError(AbstractIOError):
 	"""
-	Defines url read exceptions.
+	Defines url read exception.
 	"""
 
 	pass
 
 class UrlWriteError(AbstractIOError):
 	"""
-	Defines file write exceptions.
+	Defines file write exception.
 	"""
 
 	pass
 
 class DirectoryCreationError(AbstractIOError):
 	"""
-	Defines directory creation exceptions.
+	Defines directory creation exception.
 	"""
 
 	pass
 
 class PathCopyError(AbstractIOError):
 	"""
-	Defines path copy exceptions.
+	Defines path copy exception.
 	"""
 
 	pass
 
 class PathRemoveError(AbstractIOError):
 	"""
-	Defines path remove exceptions.
+	Defines path remove exception.
 	"""
 
 	pass
 
 class AbstractOsError(AbstractError):
 	"""
-	Defines the abstract base class for os related exceptions.
+	Defines the abstract base class for os related exception.
 	"""
 
 	pass
 
 class PathExistsError(AbstractOsError):
 	"""
-	Defines non existing path exceptions.
+	Defines non existing path exception.
 	"""
 
 	pass
 
 class DirectoryExistsError(PathExistsError):
 	"""
-	Defines non existing directory exceptions.
+	Defines non existing directory exception.
 	"""
 
 	pass
 
 class FileExistsError(PathExistsError):
 	"""
-	Defines non existing file exceptions.
+	Defines non existing file exception.
 	"""
 
 	pass
 
 class AbstractObjectError(AbstractError):
 	"""
-	Defines the abstract base class for object related exceptions.
+	Defines the abstract base class for object related exception.
 	"""
 
 	pass
 
 class ObjectTypeError(AbstractObjectError):
 	"""
-	Defines invalid object type exceptions.
+	Defines invalid object type exception.
 	"""
 
 	pass
 
 class ObjectExistsError(AbstractObjectError):
 	"""
-	Defines non existing object exceptions.
+	Defines non existing object exception.
 	"""
 
 	pass
 
 class AbstractUserError(AbstractError):
 	"""
-	Defines the abstract base class for user related exceptions.
+	Defines the abstract base class for user related exception.
 	"""
 
 	pass
 
 class ProgrammingError(AbstractUserError):
 	"""
-	Defines programming exceptions.
+	Defines programming exception.
 	"""
 
 	pass
 
 class UserError(AbstractUserError):
 	"""
-	Defines user exceptions.
+	Defines user exception.
 	"""
 
 	pass
 
 class AbstractNodeError(AbstractError):
 	"""
-	Defines the abstract base class for Node related exceptions.
+	Defines the abstract base class for Node related exception.
 	"""
 
 	pass
 
 class NodeAttributeTypeError(AbstractNodeError, ObjectTypeError):
 	"""
-	Defines the abstract base class for Node attributes type related exceptions.
+	Defines the abstract base class for Node attributes type related exception.
 	"""
 
 	pass
 
 class NodeAttributeExistsError(AbstractNodeError, ObjectExistsError):
 	"""
-	Defines non existing Node attribute exceptions.
+	Defines non existing Node attribute exception.
 	"""
 
 	pass
 
 class AbstractLibraryError(AbstractError):
 	"""
-	Defines the abstract base class for :mod:`library` module exceptions.
+	Defines the abstract base class for :mod:`library` module exception.
 	"""
 
 	pass
 
 class LibraryInstantiationError(AbstractLibraryError):
 	"""
-	Defines :mod:`library` module :class:`library.Library` class instantiation exceptions.
+	Defines :mod:`library` module :class:`library.Library` class instantiation exception.
 	"""
 
 	pass
 
 class LibraryInitializationError(AbstractLibraryError):
 	"""
-	Defines :mod:`library` module :class:`library.Library` class initialization exceptions.
+	Defines :mod:`library` module :class:`library.Library` class initialization exception.
 	"""
 
 	pass
 
 class LibraryExecutionError(AbstractLibraryError):
 	"""
-	Defines :mod:`library` module :class:`library.Library` class execution exceptions.
+	Defines :mod:`library` module :class:`library.Library` class execution exception.
 	"""
 
 	pass
 
 class AbstractServerError(AbstractError):
 	"""
-	Defines the abstract base class for :mod:`tcpServer` module exceptions.
+	Defines the abstract base class for :mod:`tcpServer` module exception.
 	"""
 
 	pass
 
 class ServerOperationError(AbstractServerError):
 	"""
-	Defines :mod:`tcpServer` module :class:`tcpServer.TCPServer` class operations exceptions.
+	Defines :mod:`tcpServer` module :class:`tcpServer.TCPServer` class operations exception.
 	"""
 
 	pass
