@@ -82,6 +82,18 @@ Classes
 	:show-inheritance:
 	:members:
 
+.. autoclass:: DirectoryCreationError
+	:show-inheritance:
+	:members:
+
+.. autoclass:: PathCopyError
+	:show-inheritance:
+	:members:
+
+.. autoclass:: PathRemoveError
+	:show-inheritance:
+	:members:
+
 .. autoclass:: AbstractOsError
 	:show-inheritance:
 	:members:

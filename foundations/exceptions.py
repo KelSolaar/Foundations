@@ -74,6 +74,9 @@ __all__ = ["LOGGER",
 		   "FileWriteError",
 		   "UrlReadError",
 		   "UrlWriteError",
+		   "DirectoryCreationError",
+		   "PathCopyError",
+		   "PathRemoveError",
 		   "AbstractOsError",
 		   "PathExistsError",
 		   "DirectoryExistsError",
@@ -605,6 +608,27 @@ class UrlReadError(AbstractIOError):
 class UrlWriteError(AbstractIOError):
 	"""
 	Defines file write exceptions.
+	"""
+
+	pass
+
+class DirectoryCreationError(AbstractIOError):
+	"""
+	Defines directory creation exceptions.
+	"""
+
+	pass
+
+class PathCopyError(AbstractIOError):
+	"""
+	Defines path copy exceptions.
+	"""
+
+	pass
+
+class PathRemoveError(AbstractIOError):
+	"""
+	Defines path remove exceptions.
 	"""
 
 	pass

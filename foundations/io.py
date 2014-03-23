@@ -222,9 +222,7 @@ class File(object):
 
 		return "".join(self.__content) if self.cache() else ""
 
-	@foundations.exceptions.handleExceptions(foundations.exceptions.UrlWriteError,
-											 foundations.exceptions.FileWriteError,
-											 IOError)
+	@foundations.exceptions.handleExceptions(foundations.exceptions.UrlWriteError, foundations.exceptions.FileWriteError)
 	def write(self, mode="w", encoding=Constants.defaultCodec, errors=Constants.codecError):
 		"""
 		Writes content to defined file.
@@ -255,9 +253,7 @@ class File(object):
 			return True
 		return False
 
-	@foundations.exceptions.handleExceptions(foundations.exceptions.UrlWriteError,
-											 foundations.exceptions.FileWriteError,
-											 IOError)
+	@foundations.exceptions.handleExceptions(foundations.exceptions.UrlWriteError, foundations.exceptions.FileWriteError)
 	def append(self, mode="a", encoding=Constants.defaultCodec, errors=Constants.codecError):
 		"""
 		Appends content to defined file.
@@ -309,6 +305,7 @@ class File(object):
 		else:
 			return False
 
+@foundations.exceptions.handleExceptions(foundations.exceptions.DirectoryCreationError)
 def setDirectory(path):
 	"""
 	| Creates a directory with given path.
@@ -321,14 +318,18 @@ def setDirectory(path):
 	:rtype: bool
 	"""
 
-	if not foundations.common.pathExists(path):
-		LOGGER.debug("> Creating directory: '{0}'.".format(path))
-		os.makedirs(path)
-		return True
-	else:
-		LOGGER.debug("> '{0}' directory already exist, skipping creation!".format(path))
-		return True
+	try:
+		if not foundations.common.pathExists(path):
+			LOGGER.debug("> Creating directory: '{0}'.".format(path))
+			os.makedirs(path)
+			return True
+		else:
+			LOGGER.debug("> '{0}' directory already exist, skipping creation!".format(path))
+			return True
+	except Exception as error:
+		raise foundations.exceptions.DirectoryCreationError("!> {0} | Cannot create '{1}' directory: '{2}'".format(__name__, path, error))
 
+@foundations.exceptions.handleExceptions(foundations.exceptions.PathCopyError)
 def copy(source, destination):
 	"""
 	Copies given file or directory to destination.
@@ -341,14 +342,18 @@ def copy(source, destination):
 	:rtype: bool
 	"""
 
-	if os.path.isfile(source):
-		LOGGER.debug("> Copying '{0}' file to '{1}'.".format(source, destination))
-		shutil.copyfile(source, destination)
-	else:
-		LOGGER.debug("> Copying '{0}' directory to '{1}'.".format(source, destination))
-		shutil.copytree(source, destination)
-	return True
+	try:
+		if os.path.isfile(source):
+			LOGGER.debug("> Copying '{0}' file to '{1}'.".format(source, destination))
+			shutil.copyfile(source, destination)
+		else:
+			LOGGER.debug("> Copying '{0}' directory to '{1}'.".format(source, destination))
+			shutil.copytree(source, destination)
+		return True
+	except Exception as error:
+		raise foundations.exceptions.PathCopyError("!> {0} | Cannot copy '{1}' path: '{2}'".format(__name__, source, error))
 
+@foundations.exceptions.handleExceptions(foundations.exceptions.PathRemoveError)
 def remove(path):
 	"""
 	Removes given path.
@@ -359,13 +364,16 @@ def remove(path):
 	:rtype: bool
 	"""
 
-	if os.path.isfile(path):
-		LOGGER.debug("> Removing '{0}' file.".format(path))
-		os.remove(path)
-	elif os.path.isdir(path):
-		LOGGER.debug("> Removing '{0}' directory.".format(path))
-		shutil.rmtree(path)
-	return True
+	try:
+		if os.path.isfile(path):
+			LOGGER.debug("> Removing '{0}' file.".format(path))
+			os.remove(path)
+		elif os.path.isdir(path):
+			LOGGER.debug("> Removing '{0}' directory.".format(path))
+			shutil.rmtree(path)
+		return True
+	except Exception as error:
+		raise foundations.exceptions.PathRemoveError("!> {0} | Cannot remove '{1}' path: '{2}'".format(__name__, path, error))
 
 def isReadable(path):
 	"""
