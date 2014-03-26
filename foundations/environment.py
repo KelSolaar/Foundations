@@ -24,6 +24,7 @@ from __future__ import unicode_literals
 #**********************************************************************************************************************
 import os
 import platform
+import tempfile
 
 #**********************************************************************************************************************
 #***	Internal imports.
@@ -45,9 +46,10 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["LOGGER",
-			"getSystemApplicationDataDirectory",
-			"getUserApplicationDataDirectory",
-			"Environment"]
+		"Environment"
+		"getTemporaryDirectory",
+		"getSystemApplicationDataDirectory",
+		"getUserApplicationDataDirectory"]
 
 LOGGER = foundations.verbose.installLogger()
 
@@ -240,6 +242,16 @@ class Environment(object):
 
 		return self.setValues(**{variable : value})
 
+def getTemporaryDirectory():
+	"""
+	Returns the system temporary directory.
+
+	:return: System temporary directory.
+	:rtype: unicode
+	"""
+
+	return foundations.strings.toString(tempfile.gettempdir())
+
 def getSystemApplicationDataDirectory():
 	"""
 	Returns the system Application data directory.
@@ -272,7 +284,8 @@ def getUserApplicationDataDirectory():
 		and :func:`getSystemApplicationDataDirectory` definitions is that :func:`getUserApplicationDataDirectory` definition
 		will append :attr:`foundations.globals.constants.Constants.providerDirectory`
 		and :attr:`foundations.globals.constants.Constants.applicationDirectory` attributes values to the path returned.
-
+	| If the user Application directory is not available, the function will fallback to system temporary directory.
+ 
 	Examples directories::
 
 		- 'C:\\Users\\$USER\\AppData\\Roaming\\Provider\\Application' on Windows 7.
@@ -286,12 +299,13 @@ def getUserApplicationDataDirectory():
 
 	systemApplicationDataDirectory = getSystemApplicationDataDirectory()
 	if not foundations.common.pathExists(systemApplicationDataDirectory):
-		LOGGER.error("!> Undefined or non existing system Application data directory, using 'HOME' as fallback!")
+		LOGGER.error("!> Undefined or non existing system Application data directory, using 'HOME' directory as fallback!")
 		systemApplicationDataDirectory = Environment("HOME").getValue()
 
 	if not foundations.common.pathExists(systemApplicationDataDirectory):
-		LOGGER.error("!> Undefined or non existing 'HOME' directory, using current working directory as fallback!")
-		systemApplicationDataDirectory = foundations.strings.toString(os.getcwd())
+		temporaryDirectory = getTemporaryDirectory()
+		LOGGER.error("!> Undefined or non existing 'HOME' directory, using system temporary directory as fallback!")
+		systemApplicationDataDirectory = temporaryDirectory
 
 	return os.path.join(systemApplicationDataDirectory, Constants.providerDirectory, Constants.applicationDirectory)
 

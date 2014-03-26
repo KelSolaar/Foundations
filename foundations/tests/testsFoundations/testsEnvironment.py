@@ -25,10 +25,12 @@ from __future__ import unicode_literals
 import os
 import platform
 import sys
+
 if sys.version_info[:2] <= (2, 6):
 	import unittest2 as unittest
 else:
 	import unittest
+import tempfile
 
 #**********************************************************************************************************************
 #***	Internal imports.
@@ -47,6 +49,7 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["EnvironmentTestCase",
+		"GetTemporaryDirectoryTestCase",
 		"GetSystemApplicationDataDirectoryTestCase",
 		"GetUserApplicationDataDirectoryTestCase", ]
 
@@ -140,6 +143,21 @@ class EnvironmentTestCase(unittest.TestCase):
 		self.assertTrue(environment.setValue("JANE", "DOE"))
 		self.assertIn("JANE", os.environ)
 		self.assertEqual(environment.getValue("JANE"), "DOE")
+
+class GetTemporaryDirectoryTestCase(unittest.TestCase):
+	"""
+	Defines :func:`foundations.common.getTemporaryDirectory` definition units tests methods.
+	"""
+
+	def testGetSystemApplicationDataDirectory(self):
+		"""
+		Tests :func:`foundations.common.getTemporaryDirectory` definition.
+		"""
+
+		path = foundations.environment.getTemporaryDirectory()
+		self.assertIsInstance(path, unicode)
+		self.assertTrue(os.path.exists(path))
+		self.assertEqual(path, tempfile.gettempdir())
 
 class GetSystemApplicationDataDirectoryTestCase(unittest.TestCase):
 	"""
