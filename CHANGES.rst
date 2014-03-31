@@ -11,7 +11,18 @@ Changes
 
 **Foundations** 2.1.0 - Stable - Milestone: https://github.com/KelSolaar/Foundations/issues?milestone=8&state=closed
 
+-  Fixed caching issue in **foundations.parsers.SectionsFileParser.write** method.
+-  Moved **foundations.common.isBinaryFile** definition into **foundations.io** module.
+-  Handled **BadZipfile** exception in **foundations.pkzip.Pkzip.extractZipFile** method.
+-  Ensured **foundations.parsers.SectionsFileParser.parse** method reads current file content if no content has been previously set.
+-  Ensured that loggers and their formatters receive unicode data. 
+-  Removed dependency on **ordereddict** for Python versions that already include it.
 -  Added **foundations.shell.** module.
+-  Extracted documentation utilities to their own repository.
+-  Implemented magic methods tests for **foundations.parsers.SectionsFileParser** class.
+-  Implemented **foundations.parsers.SectionsFileParser.setValue** method.
+-  Implemented support for **ANSI** escape codes.
+-  Implemented new documentation theme. 
 
 2.0.8 - Stable
 --------------
