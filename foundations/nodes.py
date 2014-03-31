@@ -194,13 +194,22 @@ class AbstractNode(foundations.dataStructures.Structure):
 	"""
 
 	__family = "Abstract"
-	"""Node family. ( String )"""
+	"""
+	:param __family: Node family.
+	:type __family: unicode
+	"""
 
 	__instanceId = 1
-	"""Node id: Defines the next Node instance identity number. ( Integer )"""
+	"""
+	:param __instanceId: Node id.
+	:type __instanceId: int
+	"""
 
 	__nodesInstances = weakref.WeakValueDictionary()
-	"""Nodes instances: Each node, once instanced is referenced in this attribute. ( Dictionary )"""
+	"""
+	:param __nodesInstances: Nodes instances.
+	:type __nodesInstances: dict
+	"""
 
 	def __new__(cls, *args, **kwargs):
 		"""
@@ -567,7 +576,10 @@ class AbstractCompositeNode(AbstractNode):
 	"""
 
 	__family = "AbstractComposite"
-	"""Node family. ( String )"""
+	"""
+	:param __family: Node family.
+	:type __family: unicode
+	"""
 
 	def __init__(self, name=None, parent=None, children=None, **kwargs):
 		"""
