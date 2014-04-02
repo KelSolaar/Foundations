@@ -22,7 +22,8 @@ Changes
 -  Implemented magic methods tests for **foundations.parsers.SectionsFileParser** class.
 -  Implemented **foundations.parsers.SectionsFileParser.setValue** method.
 -  Implemented support for **ANSI** escape codes.
--  Implemented new documentation theme. 
+-  Implemented new documentation theme.
+-  Reformatted package docstrings.
 
 2.0.8 - Stable
 --------------
