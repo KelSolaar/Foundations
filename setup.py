@@ -93,9 +93,9 @@ setup(name=foundations.globals.constants.Constants.applicationName,
 	license="GPLv3",
 	description="Foundations is the core package of Oncilla, Manager, Umbra, sIBL_GUI and sIBL_Reporter.",
 	long_description=getLongDescription(),
-	install_requires=["ordereddict>=1.1", "sphinx>=1.2.1", "sphinx-rtd-theme>=0.1.5", "unittest2>=0.5.1", "Oncilla>=0.1.0"] \
+	install_requires=["ordereddict>=1.1", "unittest2>=0.5.1", "Oncilla>=0.1.0"] \
 					if sys.version_info[:2] <= (2, 6) else \
-					["sphinx>=1.1.3", "sphinx-rtd-theme>=0.1.5", "unittest2>=0.5.1", "Oncilla>=0.1.0"],
+					["unittest2>=0.5.1", "Oncilla>=0.1.0"],
 	classifiers=["Development Status :: 5 - Production/Stable",
 				"Environment :: Console",
 				"Intended Audience :: Developers",
