@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module provides environment variables manipulation objects.
+	Provides environment variables manipulation objects.
 
 **Others:**
 
@@ -24,12 +24,14 @@ from __future__ import unicode_literals
 #**********************************************************************************************************************
 import os
 import platform
+import tempfile
 
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
 import foundations.common
 import foundations.exceptions
+import foundations.strings
 import foundations.verbose
 from foundations.globals.constants import Constants
 
@@ -37,16 +39,17 @@ from foundations.globals.constants import Constants
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["LOGGER",
-			"getSystemApplicationDataDirectory",
-			"getUserApplicationDataDirectory",
-			"Environment"]
+		"Environment"
+		"getTemporaryDirectory",
+		"getSystemApplicationDataDirectory",
+		"getUserApplicationDataDirectory"]
 
 LOGGER = foundations.verbose.installLogger()
 
@@ -55,15 +58,15 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 class Environment(object):
 	"""
-	This class provides methods to manipulate environment variables.
+	Defines methods to manipulate environment variables.
 	"""
 
 	def __init__(self, *args, **kwargs):
 		"""
-		This method initializes the class.
-		
+		Initializes the class.
+
 		Usage::
-			
+
 			>>> environment = Environment(JOHN="DOE", DOE="JOHN")
 			>>> environment.setValues()
 			True
@@ -72,9 +75,11 @@ class Environment(object):
 			u'DOE'
 			>>> os.environ["DOE"]
 			u'JOHN'
-		
-		:param \*args: Variables. ( \* )
-		:param \*\*kwargs: Variables : Values. ( \* )
+
+		:param \*args: Variables.
+		:type \*args: \*
+		:param \*\*kwargs: Variables : Values.
+		:type \*\*kwargs: \*
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -89,9 +94,10 @@ class Environment(object):
 	@property
 	def variables(self):
 		"""
-		This method is the property for **self.__variables** attribute.
+		Property for **self.__variables** attribute.
 
-		:return: self.__variables. ( Dictionary )
+		:return: self.__variables.
+		:rtype: dict
 		"""
 
 		return self.__variables
@@ -100,9 +106,10 @@ class Environment(object):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def variables(self, value):
 		"""
-		This method is the setter method for **self.__variables** attribute.
+		Setter for **self.__variables** attribute.
 
-		:param value: Attribute value. ( Dictionary )
+		:param value: Attribute value.
+		:type value: dict
 		"""
 
 		if value is not None:
@@ -118,7 +125,7 @@ class Environment(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def variables(self):
 		"""
-		This method is the deleter method for **self.__variables** attribute.
+		Deleter for **self.__variables** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -129,10 +136,12 @@ class Environment(object):
 	#******************************************************************************************************************
 	def __addVariables(self, *args, **kwargs):
 		"""
-		This method adds given variables to __variables attribute.
+		Adds given variables to __variables attribute.
 
-		:param \*args: Variables. ( \* )
-		:param \*\*kwargs: Variables : Values. ( \* )
+		:param \*args: Variables.
+		:type \*args: \*
+		:param \*\*kwargs: Variables : Values.
+		:type \*\*kwargs: \*
 		"""
 
 		for variable in args:
@@ -141,18 +150,20 @@ class Environment(object):
 
 	def getValues(self, *args):
 		"""
-		This method gets environment variables values.
+		Gets environment variables values.
 
 		Usage::
-			
+
 			>>> environment = Environment("HOME")
 			>>> environment.getValues()
 			{'HOME': u'/Users/JohnDoe'}
 			>>> environment.getValues("USER")
 			{'HOME': u'/Users/JohnDoe', 'USER': u'JohnDoe'}
 
-		:param \*args: Additional variables names to retrieve values from. ( \* )
-		:return: Variables : Values. ( Dictionary )
+		:param \*args: Additional variables names to retrieve values from.
+		:type \*args: \*
+		:return: Variables : Values.
+		:rtype: dict
 		"""
 
 		args and self.__addVariables(*args)
@@ -163,15 +174,15 @@ class Environment(object):
 
 		for variable in self.__variables:
 			value = os.environ.get(variable, None)
-			self.__variables[variable] = unicode(value) if value else None
+			self.__variables[variable] = foundations.strings.toString(value) if value else None
 		return self.__variables
 
 	def setValues(self, **kwargs):
 		"""
-		This method sets environment variables values.
+		Sets environment variables values.
 
 		Usage::
-			
+
 			>>> environment = Environment()
 			>>> environment.setValues(JOHN="DOE", DOE="JOHN")
 			True
@@ -181,9 +192,11 @@ class Environment(object):
 			>>> os.environ["DOE"]
 			'JOHN'
 
-		:param \*\*kwargs: Variables : Values. ( \* )
-		:return: Method success. ( String )
-		
+		:param \*\*kwargs: Variables : Values.
+		:type \*\*kwargs: \*
+		:return: Method success.
+		:rtype: unicode
+
 		:note: Any variable with a **None** value will be skipped.
 		"""
 
@@ -198,11 +211,13 @@ class Environment(object):
 
 	def getValue(self, variable=None):
 		"""
-		This method gets given environment variable value.
+		Gets given environment variable value.
 
-		:param variable: Variable to retrieve value. ( String )
-		:return: Variable value. ( String )
-		
+		:param variable: Variable to retrieve value.
+		:type variable: unicode
+		:return: Variable value.
+		:rtype: unicode
+
 		:note: If the **variable** argument is not given the first **self.__variables** attribute value will be returned.
 		"""
 
@@ -215,19 +230,32 @@ class Environment(object):
 
 	def setValue(self, variable, value):
 		"""
-		This method sets given environment variable with given value.
+		Sets given environment variable with given value.
 
-		:param variable: Variable to set value. ( String )
-		:param value: Variable value. ( String )
-		:return: Method success. ( Boolean )
+		:param variable: Variable to set value.
+		:type variable: unicode
+		:param value: Variable value.
+		:type value: unicode
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		return self.setValues(**{variable : value})
 
+def getTemporaryDirectory():
+	"""
+	Returns the system temporary directory.
+
+	:return: System temporary directory.
+	:rtype: unicode
+	"""
+
+	return foundations.strings.toString(tempfile.gettempdir())
+
 def getSystemApplicationDataDirectory():
 	"""
-	This definition returns the system Application data directory.
-	
+	Returns the system Application data directory.
+
 	Examples directories::
 
 		- 'C:\\Users\\$USER\\AppData\\Roaming' on Windows 7.
@@ -235,29 +263,29 @@ def getSystemApplicationDataDirectory():
 		- '/Users/$USER/Library/Preferences' on Mac Os X.
 		- '/home/$USER' on Linux.
 
-	:return: User Application data directory. ( String )
+	:return: User Application data directory.
+	:rtype: unicode
 	"""
 
 	if platform.system() == "Windows" or platform.system() == "Microsoft":
-		environmentVariable = Environment("APPDATA")
-		return environmentVariable.getValue()
-
+		environment = Environment("APPDATA")
+		return environment.getValue()
 	elif platform.system() == "Darwin":
-		environmentVariable = Environment("HOME")
-		return os.path.join(environmentVariable.getValue(), "Library/Preferences")
-
+		environment = Environment("HOME")
+		return os.path.join(environment.getValue(), "Library", "Preferences")
 	elif platform.system() == "Linux":
-		environmentVariable = Environment("HOME")
-		return environmentVariable.getValue()
+		environment = Environment("HOME")
+		return environment.getValue()
 
 def getUserApplicationDataDirectory():
 	"""
-	| This definition returns the user Application directory.
-	| The difference between :func:`getSystemApplicationDataDirectory`
+	| Returns the user Application directory.
+	| The difference between :func:`getUserApplicationDataDirectory`
 		and :func:`getSystemApplicationDataDirectory` definitions is that :func:`getUserApplicationDataDirectory` definition
 		will append :attr:`foundations.globals.constants.Constants.providerDirectory`
 		and :attr:`foundations.globals.constants.Constants.applicationDirectory` attributes values to the path returned.
-
+	| If the user Application directory is not available, the function will fallback to system temporary directory.
+ 
 	Examples directories::
 
 		- 'C:\\Users\\$USER\\AppData\\Roaming\\Provider\\Application' on Windows 7.
@@ -265,8 +293,19 @@ def getUserApplicationDataDirectory():
 		- '/Users/$USER/Library/Preferences/Provider/Application' on Mac Os X.
 		- '/home/$USER/.Provider/Application' on Linux.
 
-	:return: User Application directory. ( String )
+	:return: User Application directory.
+	:rtype: unicode
 	"""
 
-	return os.path.join(getSystemApplicationDataDirectory(), Constants.providerDirectory, Constants.applicationDirectory)
+	systemApplicationDataDirectory = getSystemApplicationDataDirectory()
+	if not foundations.common.pathExists(systemApplicationDataDirectory):
+		LOGGER.error("!> Undefined or non existing system Application data directory, using 'HOME' directory as fallback!")
+		systemApplicationDataDirectory = Environment("HOME").getValue()
+
+	if not foundations.common.pathExists(systemApplicationDataDirectory):
+		temporaryDirectory = getTemporaryDirectory()
+		LOGGER.error("!> Undefined or non existing 'HOME' directory, using system temporary directory as fallback!")
+		systemApplicationDataDirectory = temporaryDirectory
+
+	return os.path.join(systemApplicationDataDirectory, Constants.providerDirectory, Constants.applicationDirectory)
 

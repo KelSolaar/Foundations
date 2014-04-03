@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines the :class:`RotatingBackup` class.
+	Defines the :class:`RotatingBackup` class.
 
 **Others:**
 	Code extracted from rotatingbackup.py written by leo.ss.pku@gmail.com
@@ -36,7 +36,7 @@ import foundations.verbose
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -51,12 +51,12 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 class RotatingBackup(object):
 	"""
-	This class provides a rotating backup system.
+	Defines a rotating backup system.
 	"""
 
 	def __init__(self, source=None, destination=None, count=3):
 		"""
-		This method initializes the class.
+		Initializes the class.
 
 		.. warning::
 
@@ -79,9 +79,12 @@ class RotatingBackup(object):
 			>>> os.listdir(destination)
 			['File.txt', 'File.txt.1', 'File.txt.2', 'File.txt.3']
 
-		:param source: Backup source. ( String )
-		:param destination: Backup destination. ( String )
-		:param count: Backups count. ( Integer )
+		:param source: Backup source.
+		:type source: unicode
+		:param destination: Backup destination.
+		:type destination: unicode
+		:param count: Backups count.
+		:type count: int
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -100,9 +103,10 @@ class RotatingBackup(object):
 	@property
 	def source(self):
 		"""
-		This method is the property for **self.__source** attribute.
+		Property for **self.__source** attribute.
 
-		:return: self.__source. ( String )
+		:return: self.__source.
+		:rtype: unicode
 		"""
 
 		return self.__source
@@ -111,9 +115,10 @@ class RotatingBackup(object):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def source(self, value):
 		"""
-		This method is the setter method for **self.__source** attribute.
+		Setter for **self.__source** attribute.
 
-		:param value: Attribute value. ( String )
+		:param value: Attribute value.
+		:type value: unicode
 		"""
 
 		if value is not None:
@@ -126,7 +131,7 @@ class RotatingBackup(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def source(self):
 		"""
-		This method is the deleter method for **self.__source** attribute.
+		Deleter for **self.__source** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -135,9 +140,10 @@ class RotatingBackup(object):
 	@property
 	def destination(self):
 		"""
-		This method is the property for **self.__destination** attribute.
+		Property for **self.__destination** attribute.
 
-		:return: self.__destination. ( String )
+		:return: self.__destination.
+		:rtype: unicode
 		"""
 
 		return self.__destination
@@ -146,9 +152,10 @@ class RotatingBackup(object):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def destination(self, value):
 		"""
-		This method is the setter method for **self.__destination** attribute.
+		Setter for **self.__destination** attribute.
 
-		:param value: Attribute value. ( String )
+		:param value: Attribute value.
+		:type value: unicode
 		"""
 
 		if value is not None:
@@ -160,7 +167,7 @@ class RotatingBackup(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def destination(self):
 		"""
-		This method is the deleter method for **self.__destination** attribute.
+		Deleter for **self.__destination** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -169,9 +176,10 @@ class RotatingBackup(object):
 	@property
 	def count(self):
 		"""
-		This method is the property for **self.__count** attribute.
+		Property for **self.__count** attribute.
 
-		:return: self.__count. ( Integer )
+		:return: self.__count.
+		:rtype: int
 		"""
 
 		return self.__count
@@ -180,9 +188,10 @@ class RotatingBackup(object):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def count(self, value):
 		"""
-		This method is the setter method for **self.__count** attribute.
+		Setter for **self.__count** attribute.
 
-		:param value: Attribute value. ( Integer )
+		:param value: Attribute value.
+		:type value: int
 		"""
 
 		if value is not None:
@@ -195,7 +204,7 @@ class RotatingBackup(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def count(self):
 		"""
-		This method is the deleter method for **self.__count** attribute.
+		Deleter for **self.__count** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -206,9 +215,10 @@ class RotatingBackup(object):
 	#******************************************************************************************************************
 	def backup(self):
 		"""
-		This method does the rotating backup.
+		Does the rotating backup.
 
-		:return: Method success. ( Boolean )
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		LOGGER.debug("> Storing '{0}' file backup.".format(self.__source))

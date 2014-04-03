@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines various nodes and dag related classes.
+	Defines various nodes and dag related classes.
 
 **Others:**
 	Portions of the code from DAG by Simon Wittber: http://pypi.python.org/pypi/DAG/ and
@@ -38,7 +38,7 @@ import foundations.walkers
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -53,12 +53,12 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 class Attribute(foundations.dataStructures.Structure):
 	"""
-	This class represents a storage object for the :class:`AbstractNode` class attributes.
+	Defines a storage object for the :class:`AbstractNode` class attributes.
 	"""
 
 	def __init__(self, name=None, value=None, **kwargs):
 		"""
-		This method initializes the class.
+		Initializes the class.
 
 		Usage::
 
@@ -72,9 +72,12 @@ class Attribute(foundations.dataStructures.Structure):
 			>>> attribute["value"]
 			u'My Value'
 
-		:param name: Attribute name. ( String )
-		:param value: Attribute value. ( Object )
-		:param \*\*kwargs: Keywords arguments. ( \*\* )
+		:param name: Attribute name.
+		:type name: unicode
+		:param value: Attribute value.
+		:type value: object
+		:param \*\*kwargs: Keywords arguments.
+		:type \*\*kwargs: \*\*
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -93,9 +96,10 @@ class Attribute(foundations.dataStructures.Structure):
 	@property
 	def name(self):
 		"""
-		This method is the property for **self.__name** attribute.
+		Property for **self.__name** attribute.
 
-		:return: Value. ( String )
+		:return: Value.
+		:rtype: unicode
 		"""
 
 		return self.__name
@@ -104,9 +108,10 @@ class Attribute(foundations.dataStructures.Structure):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def name(self, value):
 		"""
-		This method is the setter method for **self.__name** attribute.
+		Setter for **self.__name** attribute.
 
-		:param name: Attribute name. ( String )
+		:param name: Attribute name.
+		:type name: unicode
 		"""
 
 		self.__name = value
@@ -115,7 +120,7 @@ class Attribute(foundations.dataStructures.Structure):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def name(self):
 		"""
-		This method is the deleter method for **name** attribute.
+		Deleter for **name** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -124,9 +129,10 @@ class Attribute(foundations.dataStructures.Structure):
 	@property
 	def value(self):
 		"""
-		This method is the property for **self.__value** attribute.
+		Property for **self.__value** attribute.
 
-		:return: Value. ( Object )
+		:return: Value.
+		:rtype: object
 		"""
 
 		return self.__value
@@ -134,9 +140,10 @@ class Attribute(foundations.dataStructures.Structure):
 	@value.setter
 	def value(self, value):
 		"""
-		This method is the setter method for **self.__value** attribute.
+		Setter for **self.__value** attribute.
 
-		:param value: Attribute value. ( Object )
+		:param value: Attribute value.
+		:type value: object
 		"""
 
 		self.__value = value
@@ -145,7 +152,7 @@ class Attribute(foundations.dataStructures.Structure):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def value(self):
 		"""
-		This method is the deleter method for **value** attribute.
+		Deleter for **value** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -156,9 +163,10 @@ class Attribute(foundations.dataStructures.Structure):
 	#******************************************************************************************************************
 	def __hash__(self):
 		"""
-		This method reimplements the :meth:`foundations.dataStructures.Structure.__hash__` method.
+		Reimplements the :meth:`foundations.dataStructures.Structure.__hash__` method.
 		
-		:return: Object hash. ( Integer )
+		:return: Object hash.
+		:rtype: int
 		
 		:note: :class:`foundations.dataStructures.Structure` inherits from **dict** and
 		should not be made hashable because of its mutability, however considering the fact the id
@@ -169,38 +177,50 @@ class Attribute(foundations.dataStructures.Structure):
 
  	def __repr__(self):
  		"""
- 		This method reimplements the :meth:`foundations.dataStructures.Structure.__repr__` method.
+ 		Reimplements the :meth:`foundations.dataStructures.Structure.__repr__` method.
 
- 		:return: Object representation. ( String )
+ 		:return: Object representation.
+ 		:rtype: unicode
  		"""
 
  		return "<{0} object at {1}>".format(self.__class__.__name__, hex(id(self)))
 
 class AbstractNode(foundations.dataStructures.Structure):
 	"""
-	| This class defines the base Node class.
+	| Defines the base Node class.
 	| Although it can be instancied directly that class is meant to be subclassed.
 	
-	:note: This class doesn't provide compositing capabilities,
-		:class:`AbstractCompositeNode` class must be used for that purpose.
+	:note: Doesn't provide compositing capabilities, :class:`AbstractCompositeNode` class must be used for that purpose.
 	"""
 
 	__family = "Abstract"
-	"""Node family. ( String )"""
+	"""
+	:param __family: Node family.
+	:type __family: unicode
+	"""
 
 	__instanceId = 1
-	"""Node id: Defines the next Node instance identity number. ( Integer )"""
+	"""
+	:param __instanceId: Node id.
+	:type __instanceId: int
+	"""
 
 	__nodesInstances = weakref.WeakValueDictionary()
-	"""Nodes instances: Each node, once instanced is referenced in this attribute. ( Dictionary )"""
+	"""
+	:param __nodesInstances: Nodes instances.
+	:type __nodesInstances: dict
+	"""
 
 	def __new__(cls, *args, **kwargs):
 		"""
-		This method is the constructor of the class.
+		Constructor of the class.
 		
-		:param \*args: Arguments. ( \* )
-		:param \*\*kwargs: Keywords arguments. ( \*\* )
-		:return: Class instance. ( AbstractNode )
+		:param \*args: Arguments.
+		:type \*args: \*
+		:param \*\*kwargs: Keywords arguments.
+		:type \*\*kwargs: \*\*
+		:return: Class instance.
+		:rtype: AbstractNode
 		"""
 
 		instance = super(AbstractNode, cls).__new__(cls)
@@ -213,7 +233,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 
 	def __init__(self, name=None, **kwargs):
 		"""
-		This method initializes the class.
+		Initializes the class.
 
 		Usage::
 
@@ -226,8 +246,10 @@ class AbstractNode(foundations.dataStructures.Structure):
 			>>> nodeB.identity
 			2
 
-		:param name: Node name.  ( String )
-		:param \*\*kwargs: Keywords arguments. ( \*\* )
+		:param name: Node name.
+		:type name: unicode
+		:param \*\*kwargs: Keywords arguments.
+		:type \*\*kwargs: \*\*
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -244,9 +266,10 @@ class AbstractNode(foundations.dataStructures.Structure):
 	@property
 	def family(self):
 		"""
-		This method is the property for **self.__family** attribute.
+		Property for **self.__family** attribute.
 
-		:return: self.__family. ( String )
+		:return: self.__family.
+		:rtype: unicode
 		"""
 
 		return getattr(self, "_{0}__{1}".format(self.__class__.__name__, "family"))
@@ -255,9 +278,10 @@ class AbstractNode(foundations.dataStructures.Structure):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def family(self, value):
 		"""
-		This method is the setter method for **self.__family** attribute.
+		Setter for **self.__family** attribute.
 
-		:param value: Attribute value. ( String )
+		:param value: Attribute value.
+		:type value: unicode
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -267,7 +291,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def family(self):
 		"""
-		This method is the deleter method for **self.__family** attribute.
+		Deleter for **self.__family** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -276,9 +300,10 @@ class AbstractNode(foundations.dataStructures.Structure):
 	@property
 	def nodesInstances(self):
 		"""
-		This method is the property for **self.__nodesInstances** attribute.
+		Property for **self.__nodesInstances** attribute.
 
-		:return: self.__nodesInstances. ( WeakValueDictionary )
+		:return: self.__nodesInstances.
+		:rtype: WeakValueDictionary
 		"""
 
 		return self.__nodesInstances
@@ -287,9 +312,10 @@ class AbstractNode(foundations.dataStructures.Structure):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def nodesInstances(self, value):
 		"""
-		This method is the setter method for **self.__nodesInstances** attribute.
+		Setter for **self.__nodesInstances** attribute.
 
-		:param value: Attribute value. ( WeakValueDictionary )
+		:param value: Attribute value.
+		:type value: WeakValueDictionary
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -299,7 +325,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def nodesInstances(self):
 		"""
-		This method is the deleter method for **self.__nodesInstances** attribute.
+		Deleter for **self.__nodesInstances** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -308,9 +334,10 @@ class AbstractNode(foundations.dataStructures.Structure):
 	@property
 	def identity(self):
 		"""
-		This method is the property for **self.__identity** attribute.
+		Property for **self.__identity** attribute.
 
-		:return: self.__identity. ( String )
+		:return: self.__identity.
+		:rtype: unicode
 		"""
 
 		return self.__identity
@@ -319,9 +346,10 @@ class AbstractNode(foundations.dataStructures.Structure):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def identity(self, value):
 		"""
-		This method is the setter method for **self.__identity** attribute.
+		Setter for **self.__identity** attribute.
 
-		:param value: Attribute value. ( String )
+		:param value: Attribute value.
+		:type value: unicode
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -331,7 +359,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def identity(self):
 		"""
-		This method is the deleter method for **self.__identity** attribute.
+		Deleter for **self.__identity** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -340,9 +368,10 @@ class AbstractNode(foundations.dataStructures.Structure):
 	@property
 	def name(self):
 		"""
-		This method is the property for **self.__name** attribute.
+		Property for **self.__name** attribute.
 
-		:return: self.__name. ( String )
+		:return: self.__name.
+		:rtype: unicode
 		"""
 
 		return self.__name
@@ -351,9 +380,10 @@ class AbstractNode(foundations.dataStructures.Structure):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def name(self, value):
 		"""
-		This method is the setter method for **self.__name** attribute.
+		Setter for **self.__name** attribute.
 
-		:param value: Attribute value. ( String )
+		:param value: Attribute value.
+		:type value: unicode
 		"""
 
 		if value is not None:
@@ -364,7 +394,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def name(self):
 		"""
-		This method is the deleter method for **self.__name** attribute.
+		Deleter for **self.__name** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -375,18 +405,20 @@ class AbstractNode(foundations.dataStructures.Structure):
 	#******************************************************************************************************************
 	def __repr__(self):
 		"""
-		This method reimplements the :meth:`foundations.dataStructures.Structure.__repr__` method.
+		Reimplements the :meth:`foundations.dataStructures.Structure.__repr__` method.
 		
-		:return: Object representation. ( String )
+		:return: Object representation.
+		:rtype: unicode
 		"""
 
 		return "<{0} object at {1}>".format(self.__class__.__name__, hex(id(self)))
 
 	def __hash__(self):
 		"""
-		This method reimplements the :meth:`foundations.dataStructures.Structure.__hash__` method.
+		Reimplements the :meth:`foundations.dataStructures.Structure.__hash__` method.
 		
-		:return: Object hash. ( Integer )
+		:return: Object hash.
+		:rtype: int
 		
 		:note: :class:`foundations.dataStructures.Structure` inherits from **dict** and
 		should not be made hashable because of its mutability, however considering the fact the id
@@ -397,9 +429,10 @@ class AbstractNode(foundations.dataStructures.Structure):
 
 	def __getDefaultNodeName(self):
 		"""
-		This method gets the default Node name.
+		Gets the default Node name.
 		
-		:return: Node name. ( String )
+		:return: Node name.
+		:rtype: unicode
 		"""
 
 		return "{0}{1}".format(self.family, self.__identity)
@@ -407,7 +440,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 	@classmethod
 	def getNodeByIdentity(cls, identity):
 		"""
-		This method returns the Node with given identity.
+		Returns the Node with given identity.
 	
 		Usage::
 
@@ -415,8 +448,10 @@ class AbstractNode(foundations.dataStructures.Structure):
 			>>> AbstractNode.getNodeByIdentity(1)
 			<AbstractNode object at 0x101043a80>
 
-		:param identity: Node identity. ( Integer )
-		:return: Node. ( AbstractNode )
+		:param identity: Node identity.
+		:type identity: int
+		:return: Node.
+		:rtype: AbstractNode
 
 		:note: Nodes identities are starting from '1' to nodes instances count.
 		"""
@@ -425,7 +460,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 
 	def listAttributes(self):
 		"""
-		This method returns the Node attributes names.
+		Returns the Node attributes names.
 
 		Usage::
 
@@ -433,14 +468,15 @@ class AbstractNode(foundations.dataStructures.Structure):
 			>>> nodeA.listAttributes()
 			['attributeB', 'attributeA']
 			
-		:return: Attributes names. ( List )
+		:return: Attributes names.
+		:rtype: list
 		"""
 
 		return [attribute for attribute, value in self.iteritems() if issubclass(value.__class__, Attribute)]
 
 	def getAttributes(self):
 		"""
-		This method returns the Node attributes.
+		Returns the Node attributes.
 
 		Usage::
 
@@ -448,14 +484,15 @@ class AbstractNode(foundations.dataStructures.Structure):
 			>>> nodeA.getAttributes()
 			[<Attribute object at 0x7fa471d3b5e0>, <Attribute object at 0x101e6c4a0>]
 
-		:return: Attributes. ( List )
+		:return: Attributes.
+		:rtype: list
 		"""
 
 		return [attribute for attribute in self.itervalues() if issubclass(attribute.__class__, Attribute)]
 
 	def attributeExists(self, name):
 		"""
-		This method returns if given attribute exists in the node.
+		Returns if given attribute exists in the node.
 
 		Usage::
 
@@ -465,8 +502,10 @@ class AbstractNode(foundations.dataStructures.Structure):
 			>>> nodeA.attributeExists("attributeC")
 			False
 
-		:param name: Attribute name. ( String )
-		:return: Attribute exists. ( Boolean )
+		:param name: Attribute name.
+		:type name: unicode
+		:return: Attribute exists.
+		:rtype: bool
 		"""
 
 		if name in self:
@@ -477,7 +516,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.NodeAttributeTypeError)
 	def addAttribute(self, name, value):
 		"""
-		This method adds given attribute to the node.
+		Adds given attribute to the node.
 
 		Usage::
 
@@ -487,9 +526,12 @@ class AbstractNode(foundations.dataStructures.Structure):
 			>>> nodeA.listAttributes()
 			[u'attributeA']
 	
-		:param name: Attribute name. ( String )
-		:param value: Attribute value. ( Attribute )
-		:return: Method success. ( Boolean )
+		:param name: Attribute name.
+		:type name: unicode
+		:param value: Attribute value.
+		:type value: Attribute
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		if not issubclass(value.__class__, Attribute):
@@ -505,7 +547,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.NodeAttributeExistsError)
 	def removeAttribute(self, name):
 		"""
-		This method removes given attribute from the node.
+		Removes given attribute from the node.
 
 		Usage::
 
@@ -515,8 +557,10 @@ class AbstractNode(foundations.dataStructures.Structure):
 			>>> nodeA.listAttributes()
 			['attributeB']
 
-		:param name: Attribute name. ( String )
-		:return: Method success. ( Boolean )
+		:param name: Attribute name.
+		:type name: unicode
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		if not self.attributeExists(name):
@@ -527,21 +571,28 @@ class AbstractNode(foundations.dataStructures.Structure):
 
 class AbstractCompositeNode(AbstractNode):
 	"""
-	| This class defines the base composite Node class.
+	| Defines the base composite Node class.
 	| It provides compositing capabilities allowing the assembly of graphs and various trees structures.
 	"""
 
 	__family = "AbstractComposite"
-	"""Node family. ( String )"""
+	"""
+	:param __family: Node family.
+	:type __family: unicode
+	"""
 
 	def __init__(self, name=None, parent=None, children=None, **kwargs):
 		"""
-		This method initializes the class.
+		Initializes the class.
 
-		:param name: Node name.  ( String )
-		:param parent: Node parent. ( AbstractNode / AbstractCompositeNode )
-		:param children: Children. ( List )
-		:param \*\*kwargs: Keywords arguments. ( \*\* )
+		:param name: Node name.
+		:type name: unicode
+		:param parent: Node parent.
+		:type parent: AbstractNode or AbstractCompositeNode
+		:param children: Children.
+		:type children: list
+		:param \*\*kwargs: Keywords arguments.
+		:type \*\*kwargs: \*\*
 		
 		:note: :data:`pickle.HIGHEST_PROTOCOL` must be used to pickle :class:`foundations.nodes.AbstractCompositeNode` class.
 		"""
@@ -564,9 +615,10 @@ class AbstractCompositeNode(AbstractNode):
 	@property
 	def parent(self):
 		"""
-		This method is the property for **self.__parent** attribute.
+		Property for **self.__parent** attribute.
 
-		:return: self.__parent. ( AbstractNode / AbstractCompositeNode )
+		:return: self.__parent.
+		:rtype: AbstractNode or AbstractCompositeNode
 		"""
 
 		return self.__parent
@@ -575,9 +627,10 @@ class AbstractCompositeNode(AbstractNode):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def parent(self, value):
 		"""
-		This method is the setter method for **self.__parent** attribute.
+		Setter for **self.__parent** attribute.
 
-		:param value: Attribute value. ( AbstractNode / AbstractCompositeNode )
+		:param value: Attribute value.
+		:type value: AbstractNode or AbstractCompositeNode
 		"""
 
 		if value is not None:
@@ -589,7 +642,7 @@ class AbstractCompositeNode(AbstractNode):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def parent(self):
 		"""
-		This method is the deleter method for **self.__parent** attribute.
+		Deleter for **self.__parent** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -598,9 +651,10 @@ class AbstractCompositeNode(AbstractNode):
 	@property
 	def children(self):
 		"""
-		This method is the property for **self.__children** attribute.
+		Property for **self.__children** attribute.
 
-		:return: self.__children. ( List )
+		:return: self.__children.
+		:rtype: list
 		"""
 
 		return self.__children
@@ -609,9 +663,10 @@ class AbstractCompositeNode(AbstractNode):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def children(self, value):
 		"""
-		This method is the setter method for **self.__children** attribute.
+		Setter for **self.__children** attribute.
 
-		:param value: Attribute value. ( List )
+		:param value: Attribute value.
+		:type value: list
 		"""
 
 		if value is not None:
@@ -625,7 +680,7 @@ class AbstractCompositeNode(AbstractNode):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def children(self):
 		"""
-		This method is the deleter method for **self.__children** attribute.
+		Deleter for **self.__children** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -636,10 +691,12 @@ class AbstractCompositeNode(AbstractNode):
 	#******************************************************************************************************************
 	def __eq__(self, object):
 		"""
-		This method reimplements the :meth:`AbstractNode.__eq__` method.
+		Reimplements the :meth:`AbstractNode.__eq__` method.
 		
-		:param object: Comparing object. ( Object )
-		:return: Equality. ( Boolean )
+		:param object: Comparing object.
+		:type object: object
+		:return: Equality.
+		:rtype: bool
 		"""
 
 		if self is object:
@@ -652,7 +709,7 @@ class AbstractCompositeNode(AbstractNode):
 
 	def child(self, index):
 		"""
-		This method returns the child associated with given index.
+		Returns the child associated with given index.
 
 		Usage::
 
@@ -664,8 +721,10 @@ class AbstractCompositeNode(AbstractNode):
 			>>> nodeA.child(0).name
 			u'MyNodeB'
 
-		:param index: Child index. ( Integer )
-		:return: Child node. ( AbstractNode / AbstractCompositeNode / Object )
+		:param index: Child index.
+		:type index: int
+		:return: Child node.
+		:rtype: AbstractNode or AbstractCompositeNode or Object
 		"""
 
 		if not self.__children:
@@ -676,7 +735,7 @@ class AbstractCompositeNode(AbstractNode):
 
 	def indexOf(self, child):
 		"""
-		This method returns the given child index.
+		Returns the given child index.
 
 		Usage::
 
@@ -688,8 +747,10 @@ class AbstractCompositeNode(AbstractNode):
 			>>> nodeA.indexOf(nodeC)
 			1
 	
-		:param child: Child node. ( AbstractNode / AbstractCompositeNode / Object )
-		:return: Child index. ( Integer )
+		:param child: Child node.
+		:type child: AbstractNode or AbstractCompositeNode or Object
+		:return: Child index.
+		:rtype: int
 		"""
 
 		for i, item in enumerate(self.__children):
@@ -698,7 +759,7 @@ class AbstractCompositeNode(AbstractNode):
 
 	def row(self):
 		"""
-		This method returns the Node row.
+		Returns the Node row.
 
 		Usage::
 
@@ -710,7 +771,8 @@ class AbstractCompositeNode(AbstractNode):
 			>>> nodeC.row()
 			1	
 
-		:return: Node row. ( Integer )
+		:return: Node row.
+		:rtype: int
 		"""
 
 		if self.__parent:
@@ -718,7 +780,7 @@ class AbstractCompositeNode(AbstractNode):
 
 	def addChild(self, child):
 		"""
-		This method adds given child to the node.
+		Adds given child to the node.
 
 		Usage::
 
@@ -729,8 +791,10 @@ class AbstractCompositeNode(AbstractNode):
 			>>> nodeA.children
 			[<AbstractCompositeNode object at 0x10107afe0>]
 
-		:param child: Child node. ( AbstractNode / AbstractCompositeNode / Object )
-		:return: Method success. ( Boolean )
+		:param child: Child node.
+		:type child: AbstractNode or AbstractCompositeNode or Object
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		self.__children.append(child)
@@ -739,7 +803,7 @@ class AbstractCompositeNode(AbstractNode):
 
 	def removeChild(self, index):
 		"""
-		This method removes child at given index from the Node children.
+		Removes child at given index from the Node children.
 
 		Usage::
 
@@ -751,8 +815,10 @@ class AbstractCompositeNode(AbstractNode):
 			>>> [child.name for child in nodeA.children]
 			[u'MyNodeB']
 
-		:param index: Node index. ( Integer )
-		:return: Removed child. ( AbstractNode / AbstractCompositeNode / Object )
+		:param index: Node index.
+		:type index: int
+		:return: Removed child.
+		:rtype: AbstractNode or AbstractCompositeNode or Object
 		"""
 
 		if index < 0 or index > len(self.__children):
@@ -764,7 +830,7 @@ class AbstractCompositeNode(AbstractNode):
 
 	def insertChild(self, child, index):
 		"""
-		This method inserts given child at given index.
+		Inserts given child at given index.
 
 		Usage::
 
@@ -777,9 +843,12 @@ class AbstractCompositeNode(AbstractNode):
 			>>> [child.name for child in nodeA.children]
 			[u'MyNodeB', u'MyNodeD', u'MyNodeC']
 
-		:param child: Child node. ( AbstractNode / AbstractCompositeNode / Object )
-		:param index: Insertion index. ( Integer )
-		:return: Method success. ( Boolean )
+		:param child: Child node.
+		:type child: AbstractNode or AbstractCompositeNode or Object
+		:param index: Insertion index.
+		:type index: int
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		if index < 0 or index > len(self.__children):
@@ -791,7 +860,7 @@ class AbstractCompositeNode(AbstractNode):
 
 	def hasChildren(self):
 		"""
-		This method returns if the Node has children.
+		Returns if the Node has children.
 
 		Usage::
 
@@ -799,14 +868,15 @@ class AbstractCompositeNode(AbstractNode):
 			>>> nodeA.hasChildren()
 			False
 
-		:return: Children count. ( Integer )
+		:return: Children count.
+		:rtype: int
 		"""
 
 		return True if self.childrenCount() > 0 else False
 
 	def childrenCount(self):
 		"""
-		This method returns the children count.
+		Returns the children count.
 
 		Usage::
 
@@ -816,18 +886,22 @@ class AbstractCompositeNode(AbstractNode):
 			>>> nodeA.childrenCount()
 			2
 
-		:return: Children count. ( Integer )
+		:return: Children count.
+		:rtype: int
 		"""
 
 		return len(self.__children)
 
 	def sortChildren(self, attribute=None, reverseOrder=False):
 		"""
-		This method sorts the children using either the given attribute or the Node name.
+		Sorts the children using either the given attribute or the Node name.
 
-		:param attribute: Attribute name used for sorting. ( String )
-		:param reverseOrder: Sort in reverse order. ( Boolean )
-		:return: Method success. ( Boolean )
+		:param attribute: Attribute name used for sorting.
+		:type attribute: unicode
+		:param reverseOrder: Sort in reverse order.
+		:type reverseOrder: bool
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		sortedChildren = []
@@ -853,7 +927,7 @@ class AbstractCompositeNode(AbstractNode):
 
 	def findChildren(self, pattern=r".*", flags=0, candidates=None):
 		"""
-		This method finds the children matching the given patten.
+		Finds the children matching the given patten.
 
 		Usage::
 
@@ -863,10 +937,14 @@ class AbstractCompositeNode(AbstractNode):
 			>>> nodeA.findChildren("c", re.IGNORECASE)
 			[<AbstractCompositeNode object at 0x101078040>]
 
-		:param pattern: Matching pattern. ( String )
-		:param flags: Matching regex flags. ( Integer )
-		:param candidates: Matching candidates. ( List )
-		:return: Matching children. ( List )
+		:param pattern: Matching pattern.
+		:type pattern: unicode
+		:param flags: Matching regex flags.
+		:type flags: int
+		:param candidates: Matching candidates.
+		:type candidates: list
+		:return: Matching children.
+		:rtype: list
 		"""
 
 		if candidates is None:
@@ -880,19 +958,23 @@ class AbstractCompositeNode(AbstractNode):
 
 	def findFamily(self, pattern=r".*", flags=0, node=None):
 		"""
-		This method returns the Nodes from given family.
+		Returns the Nodes from given family.
 		
-		:param pattern: Matching pattern. ( String )
-		:param flags: Matching regex flags. ( Integer )
-		:param node: Node to start walking from. ( AbstractNode / AbstractCompositeNode / Object )
-		:return: Family nodes. ( List )
+		:param pattern: Matching pattern.
+		:type pattern: unicode
+		:param flags: Matching regex flags.
+		:type flags: int
+		:param node: Node to start walking from.
+		:type node: AbstractNode or AbstractCompositeNode or Object
+		:return: Family nodes.
+		:rtype: list
 		"""
 
 		return [node for node in foundations.walkers.nodesWalker(node or self) if re.search(pattern, node.family, flags)]
 
 	def listNode(self, tabLevel= -1):
 		"""
-		This method lists the current Node and its children.
+		Lists the current Node and its children.
 
 		Usage::
 
@@ -904,8 +986,10 @@ class AbstractCompositeNode(AbstractNode):
 					|----'MyNodeB'
 					|----'MyNodeC'
 
-		:param tabLevel: Tab level. ( Integer )
-		:return: Node listing. ( String )
+		:param tabLevel: Tab level.
+		:type tabLevel: int
+		:return: Node listing.
+		:rtype: unicode
 		"""
 
 		output = ""

@@ -7,7 +7,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines units tests for :mod:`foundations.tcpServer` module.
+	Defines units tests for :mod:`foundations.tcpServer` module.
 
 **Others:**
 
@@ -38,7 +38,7 @@ from foundations.tcpServer import EchoRequestsHandler
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -52,12 +52,12 @@ __all__ = ["TCPServerTestCase", "EchoRequestsHandlerTestCase"]
 #**********************************************************************************************************************
 class TCPServerTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.tcpServer.TCPServer` class units tests methods.
+	Defines :class:`foundations.tcpServer.TCPServer` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
 		"""
-		This method tests presence of required attributes.
+		Tests presence of required attributes.
 		"""
 
 		requiredAttributes = ("address", "port", "handler", "online")
@@ -67,7 +67,7 @@ class TCPServerTestCase(unittest.TestCase):
 
 	def testRequiredMethods(self):
 		"""
-		This method tests presence of required methods.
+		Tests presence of required methods.
 		"""
 
 		requiredMethods = ("start", "stop")
@@ -77,7 +77,7 @@ class TCPServerTestCase(unittest.TestCase):
 
 	def testStart(self):
 		"""
-		This method tests :meth:`foundations.tcpServer.TCPServer.start` method.
+		Tests :meth:`foundations.tcpServer.TCPServer.start` method.
 		"""
 
 		tcpServer = TCPServer("127.0.0.1", 16384)
@@ -87,7 +87,7 @@ class TCPServerTestCase(unittest.TestCase):
 
 	def testStop(self):
 		"""
-		This method tests :meth:`foundations.tcpServer.TCPServer.stop` method.
+		Tests :meth:`foundations.tcpServer.TCPServer.stop` method.
 		"""
 
 		tcpServer = TCPServer("127.0.0.1", 16384)
@@ -97,12 +97,12 @@ class TCPServerTestCase(unittest.TestCase):
 
 class EchoRequestsHandlerTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.tcpServer.EchoRequestsHandler` class units tests methods.
+	Defines :class:`foundations.tcpServer.EchoRequestsHandler` class units tests methods.
 	"""
 
 	def testRequiredMethods(self):
 		"""
-		This method tests presence of required methods.
+		Tests presence of required methods.
 		"""
 
 		requiredMethods = ("handle",)
@@ -112,7 +112,7 @@ class EchoRequestsHandlerTestCase(unittest.TestCase):
 
 	def testHandle(self):
 		"""
-		This method tests :meth:`foundations.tcpServer.TCPServer.handle` method.
+		Tests :meth:`foundations.tcpServer.TCPServer.handle` method.
 		"""
 
 		tcpServer = TCPServer("127.0.0.1", 16384)

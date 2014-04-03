@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines **Foundations** package data structures objects.
+	Defines **Foundations** package data structures objects.
 
 **Others:**
 
@@ -37,7 +37,7 @@ import foundations.verbose
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -56,7 +56,7 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 class NestedAttribute(object):
 	"""
-	This class is an helper object providing methods to manipulate nested attributes.
+	Defines an helper object providing methods to manipulate nested attributes.
 	
 	Usage:
 		
@@ -71,10 +71,12 @@ class NestedAttribute(object):
 
 	def __getattr__(self, attribute):
 		"""
-		This method returns requested attribute.
+		Returns requested attribute.
 	
-		:param attribute: Attribute name. ( String )
-		:return: Attribute. ( Object )
+		:param attribute: Attribute name.
+		:type attribute: unicode
+		:return: Attribute.
+		:rtype: object
 		"""
 
 		self.__dict__[attribute] = NestedAttribute()
@@ -82,10 +84,12 @@ class NestedAttribute(object):
 
 	def __setattr__(self, attribute, value):
 		"""
-		This method sets given attribute with given value.
+		Sets given attribute with given value.
 	
-		:param attribute: Attribute name. ( String )
-		:param name: Attribute value. ( Object )
+		:param attribute: Attribute name.
+		:type attribute: unicode
+		:param name: Attribute value.
+		:type name: object
 		"""
 
 		namespaces = attribute.split(".")
@@ -93,9 +97,10 @@ class NestedAttribute(object):
 
 	def __delattr__(self, attribute):
 		"""
-		This method deletes given attribute with.
+		Deletes given attribute with.
 	
-		:param attribute: Attribute name. ( String )
+		:param attribute: Attribute name.
+		:type attribute: unicode
 		"""
 
 		namespaces = attribute.split(".")
@@ -103,7 +108,7 @@ class NestedAttribute(object):
 
 class Structure(dict):
 	"""
-	This class creates an object similar to C/C++ structured type.
+	Defines an object similar to C/C++ structured type.
 	
 	Usage:
 		
@@ -127,10 +132,12 @@ class Structure(dict):
 
 	def __init__(self, *args, **kwargs):
 		"""
-		This method initializes the class.
+		Initializes the class.
 
-		:param \*args: Arguments. ( \* )
-		:param \*\*kwargs: Key / Value pairs. ( Key / Value pairs )
+		:param \*args: Arguments.
+		:type \*args: \*
+		:param \*\*kwargs: Key / Value pairs.
+		:type \*\*kwargs: dict
 		"""
 
 		dict.__init__(self, **kwargs)
@@ -138,9 +145,10 @@ class Structure(dict):
 
 	def __getattr__(self, attribute):
 		"""
-		This method returns given attribute value.
+		Returns given attribute value.
 
-		:return: Attribute value. ( Object )
+		:return: Attribute value.
+		:rtype: object
 		"""
 
 		try:
@@ -150,10 +158,12 @@ class Structure(dict):
 
 	def __setattr__(self, attribute, value):
 		"""
-		This method sets both key and sibling attribute with given value.
+		Sets both key and sibling attribute with given value.
 
-		:param attribute: Attribute. ( Object )
-		:param value: Value. ( Object )
+		:param attribute: Attribute.
+		:type attribute: object
+		:param value: Value.
+		:type value: object
 		"""
 
 		dict.__setitem__(self, attribute, value)
@@ -163,9 +173,10 @@ class Structure(dict):
 
 	def __delattr__(self, attribute):
 		"""
-		This method deletes both key and sibling attribute.
+		Deletes both key and sibling attribute.
 
-		:param attribute: Attribute. ( Object )
+		:param attribute: Attribute.
+		:type attribute: object
 		"""
 
 		dict.__delitem__(self, attribute)
@@ -175,10 +186,12 @@ class Structure(dict):
 
 	def update(self, *args, **kwargs):
 		"""
-		This method reimplements the :meth:`Dict.update` method.
+		Reimplements the :meth:`Dict.update` method.
 		
-		:param \*args: Arguments. ( \* )
-		:param \*\*kwargs: Keywords arguments. ( \*\* )
+		:param \*args: Arguments.
+		:type \*args: \*
+		:param \*\*kwargs: Keywords arguments.
+		:type \*\*kwargs: \*\*
 		"""
 
 		dict.update(self, *args, **kwargs)
@@ -186,7 +199,7 @@ class Structure(dict):
 
 class OrderedStructure(OrderedDict):
 	"""
-	| This class creates an object similar to C/C++ structured type.
+	| Defines an object similar to C/C++ structured type.
 	| Contrary to the :class:`Structure` since this class inherits from :class:`collections.OrderedDict`,
 		its content is ordered.
 
@@ -217,22 +230,28 @@ class OrderedStructure(OrderedDict):
 
 	def __init__(self, *args, **kwargs):
 		"""
-		This method initializes the class.
+		Initializes the class.
 
-		:param \*args: Arguments. ( \* )
-		:param \*\*kwargs: Key / Value pairs. ( Key / Value pairs )
+		:param \*args: Arguments.
+		:type \*args: \*
+		:param \*\*kwargs: Key / Value pairs.
+		:type \*\*kwargs: dict
 		"""
 
 		OrderedDict.__init__(self, *args, **kwargs)
 
 	def __setitem__(self, key, value, *args, **kwargs):
 		"""
-		This method sets a key and sibling attribute with given value.
+		Sets a key and sibling attribute with given value.
 
-		:param key: Key. ( Object )
-		:param value: Value. ( Object )
-		:param \*args: Arguments. ( \* )
-		:param \*\*kwargs: Key / Value pairs. ( Key / Value pairs )
+		:param key: Key.
+		:type key: object
+		:param value: Value.
+		:type value: object
+		:param \*args: Arguments.
+		:type \*args: \*
+		:param \*\*kwargs: Key / Value pairs.
+		:type \*\*kwargs: dict
 		"""
 
 		OrderedDict.__setitem__(self, key, value, *args, **kwargs)
@@ -240,11 +259,14 @@ class OrderedStructure(OrderedDict):
 
 	def __delitem__(self, key, *args, **kwargs):
 		"""
-		This method deletes both key and sibling attribute.
+		Deletes both key and sibling attribute.
 
-		:param key: Key. ( Object )
-		:param \*args: Arguments. ( \* )
-		:param \*\*kwargs: Key / Value pairs. ( Key / Value pairs )
+		:param key: Key.
+		:type key: object
+		:param \*args: Arguments.
+		:type \*args: \*
+		:param \*\*kwargs: Key / Value pairs.
+		:type \*\*kwargs: dict
 		"""
 
 		OrderedDict.__delitem__(self, key, *args, **kwargs)
@@ -252,10 +274,12 @@ class OrderedStructure(OrderedDict):
 
 	def __setattr__(self, attribute, value):
 		"""
-		This method sets both key and sibling attribute with given value.
+		Sets both key and sibling attribute with given value.
 
-		:param attribute: Attribute. ( Object )
-		:param value: Value. ( Object )
+		:param attribute: Attribute.
+		:type attribute: object
+		:param value: Value.
+		:type value: object
 		"""
 
 		if sys.version_info[:2] <= (2, 6):
@@ -269,9 +293,10 @@ class OrderedStructure(OrderedDict):
 
 	def __delattr__(self, attribute):
 		"""
-		This method deletes both key and sibling attribute.
+		Deletes both key and sibling attribute.
 
-		:param attribute: Attribute. ( Object )
+		:param attribute: Attribute.
+		:type attribute: object
 		"""
 
 		if sys.version_info[:2] <= (2, 6):
@@ -285,7 +310,7 @@ class OrderedStructure(OrderedDict):
 
 class Lookup(dict):
 	"""
-	This class extend dict type to provide a lookup by value(s).
+	Extends dict type to provide a lookup by value(s).
 
 	Usage:
 
@@ -299,10 +324,12 @@ class Lookup(dict):
 
 	def getFirstKeyFromValue(self, value):
 		"""
-		This method gets the first key from given value.
+		Gets the first key from given value.
 
-		:param value: Value. ( Object )
-		:return: Key. ( Object )
+		:param value: Value.
+		:type value: object
+		:return: Key.
+		:rtype: object
 		"""
 
 		for key, data in self.iteritems():
@@ -311,10 +338,12 @@ class Lookup(dict):
 
 	def getKeysFromValue(self, value):
 		"""
-		This method gets the keys from given value.
+		Gets the keys from given value.
 
-		:param value: Value. ( Object )
-		:return: Keys. ( Object )
+		:param value: Value.
+		:type value: object
+		:return: Keys.
+		:rtype: object
 		"""
 
 		return [key for key, data in self.iteritems() if data == value]

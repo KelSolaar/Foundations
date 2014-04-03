@@ -22,14 +22,14 @@ from __future__ import unicode_literals
 #**********************************************************************************************************************
 #***	Encoding manipulations.
 #**********************************************************************************************************************
-import sys
-
 def _setEncoding():
 	"""
-	This definition sets the Application encoding.
+	Sets the Package encoding.
 	"""
 
+	import sys
 	reload(sys)
+
 	sys.setdefaultencoding("utf-8")
 
 _setEncoding()
@@ -38,6 +38,7 @@ _setEncoding()
 #***	External imports.
 #**********************************************************************************************************************
 import re
+import sys
 from setuptools import setup
 from setuptools import find_packages
 
@@ -50,7 +51,7 @@ import foundations.globals.constants
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -63,9 +64,10 @@ __all__ = ["getLongDescription"]
 #**********************************************************************************************************************
 def getLongDescription():
 	"""
-	This definition returns the Package long description.
+	Returns the Package long description.
 
-	:return: Package long description. ( String )
+	:return: Package long description.
+	:rtype: unicode
 	"""
 
 	description = []
@@ -80,12 +82,8 @@ def getLongDescription():
 			description.append(line)
 	return "".join(description)
 
-INSTALL_REQUIRES = ["sphinx>=1.1.3", "unittest2>=0.5.1"]
-if sys.version_info < (2, 7):
-    INSTALL_REQUIRES.append("ordereddict>=1.1")
-
 setup(name=foundations.globals.constants.Constants.applicationName,
-	version=foundations.globals.constants.Constants.releaseVersion,
+	version=foundations.globals.constants.Constants.version,
 	author=foundations.globals.constants.__author__,
 	author_email=foundations.globals.constants.__email__,
 	include_package_data=True,
@@ -93,9 +91,11 @@ setup(name=foundations.globals.constants.Constants.applicationName,
 	scripts=[],
 	url="https://github.com/KelSolaar/Foundations",
 	license="GPLv3",
-	description="Foundations is the core package of Umbra, sIBL_GUI and sIBL_Reporter.",
+	description="Foundations is the core package of Oncilla, Manager, Umbra, sIBL_GUI and sIBL_Reporter.",
 	long_description=getLongDescription(),
-	install_requires=INSTALL_REQUIRES,
+	install_requires=["ordereddict>=1.1", "unittest2>=0.5.1", "Oncilla>=0.1.0"] \
+					if sys.version_info[:2] <= (2, 6) else \
+					["unittest2>=0.5.1", "Oncilla>=0.1.0"],
 	classifiers=["Development Status :: 5 - Production/Stable",
 				"Environment :: Console",
 				"Intended Audience :: Developers",

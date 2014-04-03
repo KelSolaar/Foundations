@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines **Foundations** package default constants through the :class:`Constants` class.
+	Defines **Foundations** package default constants through the :class:`Constants` class.
 
 **Others:**
 
@@ -26,10 +26,15 @@ import os
 import platform
 
 #**********************************************************************************************************************
+#***	Internal imports.
+#**********************************************************************************************************************
+import foundations
+
+#**********************************************************************************************************************
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -42,44 +47,92 @@ __all__ = ["Constants"]
 #**********************************************************************************************************************
 class Constants():
 	"""
-	This class provides **Foundations** package default constants.
+	Defines **Foundations** package default constants.
 	"""
 
 	applicationName = "Foundations"
-	"""Package Application name: '**Foundations**' ( String )"""
+	"""
+	:param applicationName: Package Application name.
+	:type applicationName: unicode
+	"""
 	majorVersion = "2"
-	"""Package major version: '**2**' ( String )"""
-	minorVersion = "0"
-	"""Package minor version: '**0**' ( String )"""
-	changeVersion = "8"
-	"""Package change version: '**8**' ( String )"""
-	releaseVersion = ".".join((majorVersion, minorVersion, changeVersion))
-	"""Package release version: '**2.0.8**' ( String )"""
+	"""
+	:param majorVersion: Package major version.
+	:type majorVersion: unicode
+	"""
+	minorVersion = "1"
+	"""
+	:param minorVersion: Package minor version.
+	:type minorVersion: unicode
+	"""
+	changeVersion = "0"
+	"""
+	:param changeVersion: Package change version.
+	:type changeVersion: unicode
+	"""
+	version = ".".join((majorVersion, minorVersion, changeVersion))
+	"""
+	:param version: Package version.
+	:type version: unicode
+	"""
 
 	logger = "Foundations_Logger"
-	"""Package logger name: '**Foundations_Logger**' ( String )"""
+	"""
+	:param logger: Package logger name.
+	:type logger: unicode
+	"""
 	verbosityLevel = 3
-	"""Default logging verbosity level: '**3**' ( Integer )"""
+	"""
+	:param verbosityLevel: Default logging verbosity level.
+	:type verbosityLevel: int
+	"""
 	verbosityLabels = ("Critical", "Error", "Warning", "Info", "Debug")
-	"""Logging verbosity labels: ('**Critical**', '**Error**', '**Warning**', '**Info**', '**Debug**') ( Tuple )"""
+	"""
+	:param verbosityLabels: Logging verbosity labels.
+	:type verbosityLabels: tuple
+	"""
 	loggingDefaultFormatter = "Default"
-	"""Default logging formatter name: '**Default**' ( String )"""
+	"""
+	:param loggingDefaultFormatter: Default logging formatter name.
+	:type loggingDefaultFormatter: unicode
+	"""
 	loggingSeparators = "*" * 96
-	"""Logging separators: '*' * 96 ( String )"""
+	"""
+	:param loggingSeparators: Logging separators.
+	:type loggingSeparators: unicode
+	"""
 
-	encodingCodec = "utf-8"
-	"""Default encoding codec: '**utf-8**' ( String )"""
-	encodingError = "ignore"
-	"""Default encoding error behavior: '**ignore**' ( String )"""
+	defaultCodec = foundations.DEFAULT_CODEC
+	"""
+	:param defaultCodec: Default codec.
+	:type defaultCodec: unicode
+	"""
+	codecError = foundations.CODEC_ERROR
+	"""
+	:param codecError: Default codec error behavior.
+	:type codecError: unicode
+	"""
 
 	applicationDirectory = os.sep.join(("Foundations", ".".join((majorVersion, minorVersion))))
-	"""Package Application directory: '**Foundations**' ( String )"""
+	"""
+	:param applicationDirectory: Package Application directory.
+	:type applicationDirectory: unicode
+	"""
 	if platform.system() == "Windows" or platform.system() == "Microsoft" or platform.system() == "Darwin":
 		providerDirectory = "HDRLabs"
-		"""Package provider directory: '**HDRLabs** on Windows / Darwin, **.HDRLabs** on Linux' ( String )"""
+		"""
+		:param providerDirectory: Package provider directory.
+		:type providerDirectory: unicode
+		"""
 	elif platform.system() == "Linux":
 		providerDirectory = ".HDRLabs"
-		"""Package provider directory: '**HDRLabs** on Windows / Darwin, **.HDRLabs** on Linux' ( String )"""
+		"""
+		:param providerDirectory: Package provider directory.
+		:type providerDirectory: unicode
+		"""
 
 	nullObject = "None"
-	"""Default null object string: '**None**' ( String )"""
+	"""
+	:param nullObject: Default null object string.
+	:type nullObject: unicode
+	"""

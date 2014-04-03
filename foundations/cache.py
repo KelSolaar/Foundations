@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines caching related classes.
+	Defines caching related classes.
 
 **Others:**
 
@@ -28,7 +28,7 @@ import foundations.verbose
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -43,7 +43,7 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 class Cache(dict):
 	"""
-	This class defines the cache object and provides various methods to interact with its content.
+	Defines the cache object and provides various methods to interact with its content.
 	
 	Usage:
 		
@@ -51,9 +51,10 @@ class Cache(dict):
 
 	def __init__(self, **kwargs):
 		"""
-		This method initializes the class.
+		Initializes the class.
 
-		:param \*\*kwargs: Key / Value pairs. ( Key / Value pairs )
+		:param \*\*kwargs: Key / Value pairs.
+		:type \*\*kwargs: dict
 		"""
 
 		dict.__init__(self, **kwargs)
@@ -63,7 +64,7 @@ class Cache(dict):
 	#******************************************************************************************************************
 	def addContent(self, **content):
 		"""
-		This method adds given content to the cache.
+		Adds given content to the cache.
 
 		Usage::
 		
@@ -73,8 +74,10 @@ class Cache(dict):
 			>>> cache
 			{'Luke': 'Skywalker', 'John': 'Doe'}
 
-		:param \*\*content: Content to add. ( \*\* )
-		:return: Method success. ( Boolean )
+		:param \*\*content: Content to add.
+		:type \*\*content: \*\*
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		LOGGER.debug("> Adding '{0}' content to the cache.".format(self.__class__.__name__, content))
@@ -84,7 +87,7 @@ class Cache(dict):
 
 	def removeContent(self, *keys):
 		"""
-		This method removes given content from the cache.
+		Removes given content from the cache.
 
 		Usage::
 			
@@ -96,8 +99,10 @@ class Cache(dict):
 			>>> cache
 			{}			
 			
-		:param \*keys: Content to remove. ( \* )
-		:return: Method success. ( Boolean )
+		:param \*keys: Content to remove.
+		:type \*keys: \*
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		LOGGER.debug("> Removing '{0}' content from the cache.".format(self.__class__.__name__, keys))
@@ -111,7 +116,7 @@ class Cache(dict):
 
 	def getContent(self, key):
 		"""
-		This method gets given content from the cache.
+		Gets given content from the cache.
 
 		Usage::
 
@@ -121,8 +126,10 @@ class Cache(dict):
 			>>> cache.getContent("Luke")
 			'Skywalker'
 			
-		:param key: Content to retrieve. ( Object )
-		:return: Content. ( Object )
+		:param key: Content to retrieve.
+		:type key: object
+		:return: Content.
+		:rtype: object
 		"""
 
 		LOGGER.debug("> Retrieving '{0}' content from the cache.".format(self.__class__.__name__, key))
@@ -131,7 +138,7 @@ class Cache(dict):
 
 	def flushContent(self):
 		"""
-		This method flushes the cache content.
+		Flushes the cache content.
 
 		Usage::
 
@@ -143,7 +150,8 @@ class Cache(dict):
 			>>> cache
 			{}
 			
-		:return: Method success. ( Boolean )
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		LOGGER.debug("> Flushing cache content.".format(self.__class__.__name__))

@@ -7,7 +7,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines units tests for :mod:`foundations.library` module.
+	Defines units tests for :mod:`foundations.library` module.
 
 **Others:**
 
@@ -40,7 +40,7 @@ from foundations.library import LibraryHook
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -80,12 +80,12 @@ LIBRARIES_TESTS_CASES = {"freeImage" : {"FreeImage_GetVersion" : "3.15.1",
 #**********************************************************************************************************************
 class LibraryTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.library.Library` class units tests methods.
+	Defines :class:`foundations.library.Library` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
 		"""
-		This method tests presence of required attributes.
+		Tests presence of required attributes.
 		"""
 
 		requiredAttributes = ("callback",
@@ -99,7 +99,7 @@ class LibraryTestCase(unittest.TestCase):
 
 	def testRequiredMethods(self):
 		"""
-		This method tests presence of required methods.
+		Tests presence of required methods.
 		"""
 
 		requiredMethods = ("bindLibrary",
@@ -110,7 +110,7 @@ class LibraryTestCase(unittest.TestCase):
 
 	def testBindFunction(self):
 		"""
-		This method tests :meth:`foundations.library.Library.bindFunction` method.
+		Tests :meth:`foundations.library.Library.bindFunction` method.
 		"""
 
 		for name, path in LIBRARIES.iteritems():
@@ -123,7 +123,7 @@ class LibraryTestCase(unittest.TestCase):
 
 	def testBindLibrary(self):
 		"""
-		This method tests :meth:`foundations.library.Library.bindLibrary` method.
+		Tests :meth:`foundations.library.Library.bindLibrary` method.
 		"""
 
 		for name, path in LIBRARIES.iteritems():
@@ -135,7 +135,7 @@ class LibraryTestCase(unittest.TestCase):
 
 	def testLibrary(self):
 		"""
-		This method tests :class:`foundations.library.Library` class binding.
+		Tests :class:`foundations.library.Library` class binding.
 		"""
 
 		for name, path in LIBRARIES.iteritems():

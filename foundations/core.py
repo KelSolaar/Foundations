@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines **Foundations** package core objects.
+	Defines **Foundations** package core objects.
 
 **Others:**
 
@@ -34,7 +34,7 @@ import foundations.verbose
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -49,11 +49,12 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-def exit(exitCode=1):
+def exit(exitCode=0):
 	"""
-	This definition shuts down current process logging, associated handlers and then exits to system.
+	Shuts down current process logging, associated handlers and then exits to system.
 	
-	:param exitCode: System exit code. ( Integer / String / Object )
+	:param exitCode: System exit code.
+	:type exitCode: Integer or String or Object
 
 	:note: **exitCode** argument is passed to Python :func:`sys.exit` definition.
 	"""
@@ -68,10 +69,12 @@ def exit(exitCode=1):
 
 def wait(waitTime):
 	"""
-	This definition halts current process exection for an user defined time.
+	Halts current process exection for an user defined time.
 
-	:param waitTime: Current sleep time in seconds. ( Float )
-	:return: Definition success. ( Boolean )
+	:param waitTime: Current sleep time in seconds.
+	:type waitTime: float
+	:return: Definition success.
+	:rtype: bool
 	"""
 
 	LOGGER.debug("> Waiting '{0}' seconds!".format(waitTime))

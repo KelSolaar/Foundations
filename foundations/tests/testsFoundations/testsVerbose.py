@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines units tests for :mod:`foundations.verbose` module.
+	Defines units tests for :mod:`foundations.verbose` module.
 
 **Others:**
 
@@ -42,7 +42,7 @@ from foundations.tests.testsFoundations.resources.dummy import dummy1
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -65,12 +65,12 @@ __all__ = ["StreamerTestCase",
 #**********************************************************************************************************************
 class StreamerTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.verbose.Streamer` class units tests methods.
+	Defines :class:`foundations.verbose.Streamer` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
 		"""
-		This method tests presence of required attributes.
+		Tests presence of required attributes.
 		"""
 
 		requiredAttributes = ("stream",)
@@ -80,7 +80,7 @@ class StreamerTestCase(unittest.TestCase):
 
 	def testRequiredMethods(self):
 		"""
-		This method tests presence of required methods.
+		Tests presence of required methods.
 		"""
 
 		requiredMethods = ("write",
@@ -91,12 +91,12 @@ class StreamerTestCase(unittest.TestCase):
 
 class StandardOutputStreamerTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.core.StandardOutputStreamer` class units tests methods.
+	Defines :class:`foundations.core.StandardOutputStreamer` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
 		"""
-		This method tests presence of required attributes.
+		Tests presence of required attributes.
 		"""
 
 		requiredAttributes = ("logger",)
@@ -106,7 +106,7 @@ class StandardOutputStreamerTestCase(unittest.TestCase):
 
 	def testRequiredMethods(self):
 		"""
-		This method tests presence of required methods.
+		Tests presence of required methods.
 		"""
 
 		requiredMethods = ("write",)
@@ -116,24 +116,24 @@ class StandardOutputStreamerTestCase(unittest.TestCase):
 
 class IndentMessageTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.verbose.indentMessage` definition units tests methods.
+	Defines :func:`foundations.verbose.indentMessage` definition units tests methods.
 	"""
 
 	def testIndentMessage(self):
 		"""
-		This method tests :func:`foundations.verbose.indentMessage` definition.
+		Tests :func:`foundations.verbose.indentMessage` definition.
 		"""
 
 		self.assertIsInstance(foundations.verbose.indentMessage("message"), unicode)
 
 class TracerTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.trace.tracer` definition units tests methods.
+	Defines :func:`foundations.trace.tracer` definition units tests methods.
 	"""
 
 	def testTracer(self):
 		"""
-		This method tests :func:`foundations.trace.tracer` definition.
+		Tests :func:`foundations.trace.tracer` definition.
 		"""
 
 		object = foundations.verbose.tracer(dummy1)
@@ -142,12 +142,12 @@ class TracerTestCase(unittest.TestCase):
 
 class InstallLoggerTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.verbose.installLogger` definition units tests methods.
+	Defines :func:`foundations.verbose.installLogger` definition units tests methods.
 	"""
 
 	def testInstallLogger(self):
 		"""
-		This method tests :func:`foundations.verbose.installLogger` definition.
+		Tests :func:`foundations.verbose.installLogger` definition.
 		"""
 
 		self.assertTrue(not hasattr(sys.modules.get(__name__), "LOGGER"))
@@ -158,12 +158,12 @@ class InstallLoggerTestCase(unittest.TestCase):
 
 class UninstallLoggerTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.verbose.uninstallLogger` definition units tests methods.
+	Defines :func:`foundations.verbose.uninstallLogger` definition units tests methods.
 	"""
 
 	def testUninstallLogger(self):
 		"""
-		This method tests :func:`foundations.verbose.uninstallLogger` definition.
+		Tests :func:`foundations.verbose.uninstallLogger` definition.
 		"""
 
 		foundations.verbose.installLogger()
@@ -173,12 +173,12 @@ class UninstallLoggerTestCase(unittest.TestCase):
 
 class GetLoggingConsoleHandlerTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.verbose.getLoggingConsoleHandler` definition units tests methods.
+	Defines :func:`foundations.verbose.getLoggingConsoleHandler` definition units tests methods.
 	"""
 
 	def testGetLoggingConsoleHandler(self):
 		"""
-		This method tests :func:`foundations.verbose.getLoggingConsoleHandler` definition.
+		Tests :func:`foundations.verbose.getLoggingConsoleHandler` definition.
 		"""
 
 		foundations.verbose.installLogger()
@@ -190,12 +190,12 @@ class GetLoggingConsoleHandlerTestCase(unittest.TestCase):
 
 class GetLoggingFileHandlerTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.verbose.getLoggingFileHandler` definition units tests methods.
+	Defines :func:`foundations.verbose.getLoggingFileHandler` definition units tests methods.
 	"""
 
 	def testGetLoggingFileHandler(self):
 		"""
-		This method tests :func:`foundations.verbose.getLoggingFileHandler` definition.
+		Tests :func:`foundations.verbose.getLoggingFileHandler` definition.
 		"""
 
 		foundations.verbose.installLogger()
@@ -215,12 +215,12 @@ class GetLoggingFileHandlerTestCase(unittest.TestCase):
 
 class GetLoggingStreamHandlerTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.verbose.getLoggingStreamHandler` definition units tests methods.
+	Defines :func:`foundations.verbose.getLoggingStreamHandler` definition units tests methods.
 	"""
 
 	def testGetLoggingStreamHandler(self):
 		"""
-		This method tests :func:`foundations.verbose.getLoggingStreamHandler` definition.
+		Tests :func:`foundations.verbose.getLoggingStreamHandler` definition.
 		"""
 
 		foundations.verbose.installLogger()
@@ -235,12 +235,12 @@ class GetLoggingStreamHandlerTestCase(unittest.TestCase):
 
 class RemoveLoggingHandlerTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.verbose.removeLoggingHandler` definition units tests methods.
+	Defines :func:`foundations.verbose.removeLoggingHandler` definition units tests methods.
 	"""
 
 	def testRemoveLoggingHandler(self):
 		"""
-		This method tests :func:`foundations.verbose.removeLoggingHandler` definition.
+		Tests :func:`foundations.verbose.removeLoggingHandler` definition.
 		"""
 
 		foundations.verbose.installLogger()
@@ -251,12 +251,12 @@ class RemoveLoggingHandlerTestCase(unittest.TestCase):
 
 class SetVerbosityLevelTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.verbose.setVerbosityLevel` definition units tests methods.
+	Defines :func:`foundations.verbose.setVerbosityLevel` definition units tests methods.
 	"""
 
 	def testSetVerbosityLevel(self):
 		"""
-		This method tests :func:`foundations.verbose.setVerbosityLevel` definition.
+		Tests :func:`foundations.verbose.setVerbosityLevel` definition.
 		"""
 
 		foundations.verbose.installLogger()

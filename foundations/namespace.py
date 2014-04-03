@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module provides simple strings namespace manipulation objects.
+	Provides simple strings namespace manipulation objects.
 
 **Others:**
 
@@ -30,7 +30,7 @@ from foundations.globals.constants import Constants
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -53,17 +53,21 @@ NAMESPACE_SPLITTER = "|"
 #**********************************************************************************************************************
 def setNamespace(namespace, attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 	"""
-	This definition sets given namespace to given attribute.
+	Sets given namespace to given attribute.
 
 	Usage::
 		
 		>>> setNamespace("parent", "child")
 		u'parent|child'
 		
-	:param namespace: Namespace. ( String )
-	:param attribute: Attribute. ( String )
-	:param namespaceSplitter: Namespace splitter character. ( String )
-	:return: Namespaced attribute. ( String )
+	:param namespace: Namespace.
+	:type namespace: unicode
+	:param attribute: Attribute.
+	:type attribute: unicode
+	:param namespaceSplitter: Namespace splitter character.
+	:type namespaceSplitter: unicode
+	:return: Namespaced attribute.
+	:rtype: unicode
 	"""
 
 	longName = "{0}{1}{2}".format(namespace, namespaceSplitter, attribute)
@@ -72,7 +76,7 @@ def setNamespace(namespace, attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 
 def getNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False):
 	"""
-	This definition returns given attribute foundations.namespace.
+	Returns given attribute foundations.namespace.
 
 	Usage::
 		
@@ -81,10 +85,14 @@ def getNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False
 		>>> getNamespace("grandParent|parent|child", rootOnly=True)
 		u'grandParent'
 
-	:param attribute: Attribute. ( String )
-	:param namespaceSplitter: Namespace splitter character. ( String )
-	:param rootOnly: Return only root foundations.namespace. ( Boolean )
-	:return: Attribute foundations.namespace. ( String )
+	:param attribute: Attribute.
+	:type attribute: unicode
+	:param namespaceSplitter: Namespace splitter character.
+	:type namespaceSplitter: unicode
+	:param rootOnly: Return only root foundations.namespace.
+	:type rootOnly: bool
+	:return: Attribute foundations.namespace.
+	:rtype: unicode
 	"""
 
 	attributeTokens = attribute.split(namespaceSplitter)
@@ -98,7 +106,7 @@ def getNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False
 
 def removeNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=False):
 	"""
-	This definition returns attribute with stripped foundations.namespace.
+	Returns attribute with stripped foundations.namespace.
 
 	Usage::
 		
@@ -107,10 +115,14 @@ def removeNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=Fa
 		>>> removeNamespace("grandParent|parent|child", rootOnly=True)
 		u'parent|child'
 
-	:param attribute: Attribute. ( String )
-	:param namespaceSplitter: Namespace splitter character. ( String )
-	:param rootOnly: Remove only root foundations.namespace. ( Boolean )
-	:return: Attribute without foundations.namespace. ( String )
+	:param attribute: Attribute.
+	:type attribute: unicode
+	:param namespaceSplitter: Namespace splitter character.
+	:type namespaceSplitter: unicode
+	:param rootOnly: Remove only root foundations.namespace.
+	:type rootOnly: bool
+	:return: Attribute without foundations.namespace.
+	:rtype: unicode
 	"""
 
 	attributeTokens = attribute.split(namespaceSplitter)
@@ -121,32 +133,38 @@ def removeNamespace(attribute, namespaceSplitter=NAMESPACE_SPLITTER, rootOnly=Fa
 
 def getRoot(attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 	"""
-	This definition returns given attribute root.
+	Returns given attribute root.
 
 	Usage::
 		
 		>>> getRoot("grandParent|parent|child")
 		u'grandParent'
 
-	:param attribute: Attribute. ( String )
-	:param namespaceSplitter: Namespace splitter character. ( String )
-	:return: Attribute foundations.namespace. ( String )
+	:param attribute: Attribute.
+	:type attribute: unicode
+	:param namespaceSplitter: Namespace splitter character.
+	:type namespaceSplitter: unicode
+	:return: Attribute foundations.namespace.
+	:rtype: unicode
 	"""
 
 	return getNamespace(attribute, namespaceSplitter, rootOnly=True)
 
 def getLeaf(attribute, namespaceSplitter=NAMESPACE_SPLITTER):
 	"""
-	This definition returns given attribute leaf.
+	Returns given attribute leaf.
 
 	Usage::
 		
 		>>> getLeaf("grandParent|parent|child")
 		u'child'
 
-	:param attribute: Attribute. ( String )
-	:param namespaceSplitter: Namespace splitter character. ( String )
-	:return: Attribute foundations.namespace. ( String )
+	:param attribute: Attribute.
+	:type attribute: unicode
+	:param namespaceSplitter: Namespace splitter character.
+	:type namespaceSplitter: unicode
+	:return: Attribute foundations.namespace.
+	:rtype: unicode
 	"""
 
 	return foundations.common.getLastItem(attribute.split(namespaceSplitter))

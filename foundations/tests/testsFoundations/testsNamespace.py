@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines units tests for :mod:`foundations.namespace` module.
+	Defines units tests for :mod:`foundations.namespace` module.
 
 **Others:**
 
@@ -37,7 +37,7 @@ import foundations.namespace
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -54,12 +54,12 @@ __all__ = ["SetNamespaceTestCase",
 #**********************************************************************************************************************
 class SetNamespaceTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.namespace.setNamespace` definition units tests methods.
+	Defines :func:`foundations.namespace.setNamespace` definition units tests methods.
 	"""
 
 	def testSetNamespace(self):
 		"""
-		This method tests :func:`foundations.namespace.setNamespace` definition.
+		Tests :func:`foundations.namespace.setNamespace` definition.
 		"""
 
 		self.assertIsInstance(foundations.namespace.setNamespace("Namespace", "Attribute"), unicode)
@@ -68,12 +68,12 @@ class SetNamespaceTestCase(unittest.TestCase):
 
 class GetNamespaceTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.namespace.getNamespace` definition units tests methods.
+	Defines :func:`foundations.namespace.getNamespace` definition units tests methods.
 	"""
 
 	def testGetNamespace(self):
 		"""
-		This method tests :func:`foundations.namespace.getNamespace` definition.
+		Tests :func:`foundations.namespace.getNamespace` definition.
 		"""
 
 		self.assertIsInstance(foundations.namespace.getNamespace("Namespace:Attribute", ":"), unicode)
@@ -84,12 +84,12 @@ class GetNamespaceTestCase(unittest.TestCase):
 
 class RemoveNamespaceTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.namespace.removeNamespace` definition units tests methods.
+	Defines :func:`foundations.namespace.removeNamespace` definition units tests methods.
 	"""
 
 	def testRemoveNamespace(self):
 		"""
-		This method tests :func:`foundations.namespace.removeNamespace` definition.
+		Tests :func:`foundations.namespace.removeNamespace` definition.
 		"""
 
 		self.assertIsInstance(foundations.namespace.removeNamespace("Namespace|Attribute"), unicode)
@@ -100,12 +100,12 @@ class RemoveNamespaceTestCase(unittest.TestCase):
 
 class GetRootTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.namespace.getRoot` definition units tests methods.
+	Defines :func:`foundations.namespace.getRoot` definition units tests methods.
 	"""
 
 	def testGetRoot(self):
 		"""
-		This method tests :func:`foundations.namespace.getRoot` definition.
+		Tests :func:`foundations.namespace.getRoot` definition.
 		"""
 
 		self.assertEqual(foundations.namespace.getRoot("Attribute"), None)
@@ -114,12 +114,12 @@ class GetRootTestCase(unittest.TestCase):
 
 class GetLeafTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.namespace.getLeaf` definition units tests methods.
+	Defines :func:`foundations.namespace.getLeaf` definition units tests methods.
 	"""
 
 	def testGetLeaf(self):
 		"""
-		This method tests :func:`foundations.namespace.getLeaf` definition.
+		Tests :func:`foundations.namespace.getLeaf` definition.
 		"""
 
 		self.assertEqual(foundations.namespace.getLeaf("Attribute"), "Attribute")

@@ -14,6 +14,7 @@ Modules Summary:
    foundations.environment <api/foundations.environment>
    foundations.exceptions <api/foundations.exceptions>
    foundations.globals.constants <api/foundations.globals.constants>
+   foundations.guerilla <api/foundations.guerilla>
    foundations.io <api/foundations.io>
    foundations.library <api/foundations.library>
    foundations.namespace <api/foundations.namespace>
@@ -21,6 +22,7 @@ Modules Summary:
    foundations.parsers <api/foundations.parsers>
    foundations.pkzip <api/foundations.pkzip>
    foundations.rotatingBackup <api/foundations.rotatingBackup>
+   foundations.shell <api/foundations.shell>
    foundations.strings <api/foundations.strings>
    foundations.tcpServer <api/foundations.tcpServer>
    foundations.trace <api/foundations.trace>

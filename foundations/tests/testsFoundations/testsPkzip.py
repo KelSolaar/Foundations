@@ -7,7 +7,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines units tests for :mod:`foundations.pkzip` module.
+	Defines units tests for :mod:`foundations.pkzip` module.
 
 **Others:**
 
@@ -39,7 +39,7 @@ from foundations.pkzip import Pkzip
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -59,12 +59,12 @@ TREE_HIERARCHY = ("level_0", "loremIpsum.txt", "standard.ibl", "standard.rc", "s
 #**********************************************************************************************************************
 class PkzipTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.pkzip.Pkzip` class units tests methods.
+	Defines :class:`foundations.pkzip.Pkzip` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
 		"""
-		This method tests presence of required attributes.
+		Tests presence of required attributes.
 		"""
 
 		requiredAttributes = ("archive",)
@@ -74,7 +74,7 @@ class PkzipTestCase(unittest.TestCase):
 
 	def testRequiredMethods(self):
 		"""
-		This method tests presence of required methods.
+		Tests presence of required methods.
 		"""
 
 		requiredMethods = ("extract",)
@@ -84,7 +84,7 @@ class PkzipTestCase(unittest.TestCase):
 
 	def testExtract(self):
 		"""
-		This method tests :meth:`foundations.pkzip.Pkzip.extract` method.
+		Tests :meth:`foundations.pkzip.Pkzip.extract` method.
 		"""
 
 		zipFile = Pkzip(TEST_FILE)

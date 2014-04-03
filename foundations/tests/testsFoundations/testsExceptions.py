@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines units tests for :mod:`foundations.exceptions` module.
+	Defines units tests for :mod:`foundations.exceptions` module.
 
 **Others:**
 
@@ -42,7 +42,7 @@ import foundations.exceptions
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -65,7 +65,7 @@ EXCEPTIONS = []
 
 def _gatherExceptions():
 	"""
-	This definition gathers the exceptions.
+	Gathers the exceptions.
 	"""
 
 	for attribute in dir(foundations.exceptions):
@@ -82,12 +82,12 @@ _gatherExceptions()
 #**********************************************************************************************************************
 class GetInnerMostFrameCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.exceptions.getInnerMostFrame` definition units tests methods.
+	Defines :func:`foundations.exceptions.getInnerMostFrame` definition units tests methods.
 	"""
 
 	def testGetInnerMostFrame(self):
 		"""
-		This method tests :func:`foundations.exceptions.getInnerMostFrame` definition.
+		Tests :func:`foundations.exceptions.getInnerMostFrame` definition.
 		"""
 
 		try:
@@ -99,12 +99,12 @@ class GetInnerMostFrameCase(unittest.TestCase):
 
 class ExtractStackCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.exceptions.extractStack` definition units tests methods.
+	Defines :func:`foundations.exceptions.extractStack` definition units tests methods.
 	"""
 
 	def testExtractStack(self):
 		"""
-		This method tests :func:`foundations.exceptions.extractStack` definition.
+		Tests :func:`foundations.exceptions.extractStack` definition.
 		"""
 
 		try:
@@ -123,16 +123,19 @@ class ExtractStackCase(unittest.TestCase):
 
 class ExtractArgumentsCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.exceptions.extractArguments` definition units tests methods.
+	Defines :func:`foundations.exceptions.extractArguments` definition units tests methods.
 	"""
 
 	def testExtractArguments(self, testArgument="My Value!", *args, **kwargs):
 		"""
-		This method tests :func:`foundations.exceptions.extractArguments` definition.
+		Tests :func:`foundations.exceptions.extractArguments` definition.
 
-		:param testArgument: Test argument. ( String )
-		:param \*args: Arguments. ( \* )
-		:param \*\*kwargs: Keywords arguments. ( \*\* )
+		:param testArgument: Test argument.
+		:type testArgument: unicode
+		:param \*args: Arguments.
+		:type \*args: \*
+		:param \*\*kwargs: Keywords arguments.
+		:type \*\*kwargs: \*\*
 		"""
 
 		try:
@@ -148,16 +151,19 @@ class ExtractArgumentsCase(unittest.TestCase):
 
 class ExtractLocalsCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.exceptions.extractLocals` definition units tests methods.
+	Defines :func:`foundations.exceptions.extractLocals` definition units tests methods.
 	"""
 
 	def testExtractLocals(self, testArgument="My Value!", *args, **kwargs):
 		"""
-		This method tests :func:`foundations.exceptions.extractLocals` definition.
+		Tests :func:`foundations.exceptions.extractLocals` definition.
 
-		:param testArgument: Test argument. ( String )
-		:param \*args: Arguments. ( \* )
-		:param \*\*kwargs: Keywords arguments. ( \*\* )
+		:param testArgument: Test argument.
+		:type testArgument: unicode
+		:param \*args: Arguments.
+		:type \*args: \*
+		:param \*\*kwargs: Keywords arguments.
+		:type \*\*kwargs: \*\*
 		"""
 
 		try:
@@ -180,12 +186,12 @@ class ExtractLocalsCase(unittest.TestCase):
 
 class ExtractExceptionCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.exceptions.extractException` definition units tests methods.
+	Defines :func:`foundations.exceptions.extractException` definition units tests methods.
 	"""
 
 	def testExtractException(self):
 		"""
-		This method tests :func:`foundations.exceptions.extractException` definition.
+		Tests :func:`foundations.exceptions.extractException` definition.
 		"""
 
 		try:
@@ -202,12 +208,12 @@ class ExtractExceptionCase(unittest.TestCase):
 
 class FormatExceptionCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.exceptions.formatException` definition units tests methods.
+	Defines :func:`foundations.exceptions.formatException` definition units tests methods.
 	"""
 
 	def testFormatException(self):
 		"""
-		This method tests :func:`foundations.exceptions.formatException` definition.
+		Tests :func:`foundations.exceptions.formatException` definition.
 		"""
 
 		try:
@@ -220,12 +226,12 @@ class FormatExceptionCase(unittest.TestCase):
 
 class FormatReportCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.exceptions.formatReport` definition units tests methods.
+	Defines :func:`foundations.exceptions.formatReport` definition units tests methods.
 	"""
 
 	def testFormatReport(self):
 		"""
-		This method tests :func:`foundations.exceptions.formatReport` definition.
+		Tests :func:`foundations.exceptions.formatReport` definition.
 		"""
 
 		try:
@@ -240,12 +246,12 @@ class FormatReportCase(unittest.TestCase):
 
 class InstallExceptionHandlerCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.exceptions.installExceptionHandler` definition units tests methods.
+	Defines :func:`foundations.exceptions.installExceptionHandler` definition units tests methods.
 	"""
 
 	def testInstallExceptionHandler(self):
 		"""
-		This method tests :func:`foundations.exceptions.installExceptionHandler` definition.
+		Tests :func:`foundations.exceptions.installExceptionHandler` definition.
 		"""
 
 		exceptHook = sys.excepthook
@@ -255,12 +261,12 @@ class InstallExceptionHandlerCase(unittest.TestCase):
 
 class UninstallExceptionHandlerCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.exceptions.uninstallExceptionHandler` definition units tests methods.
+	Defines :func:`foundations.exceptions.uninstallExceptionHandler` definition units tests methods.
 	"""
 
 	def testUninstallExceptionHandler(self):
 		"""
-		This method tests :func:`foundations.exceptions.uninstallExceptionHandler` definition.
+		Tests :func:`foundations.exceptions.uninstallExceptionHandler` definition.
 		"""
 
 		exceptHook = sys.excepthook
@@ -270,12 +276,12 @@ class UninstallExceptionHandlerCase(unittest.TestCase):
 
 class ExceptionsTestCase(unittest.TestCase):
 	"""
-	This class defines :mod:`foundations.exceptions` module exceptions classes units tests methods.
+	Defines :mod:`foundations.exceptions` module exceptions classes units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
 		"""
-		This method tests presence of required attributes.
+		Tests presence of required attributes.
 		"""
 
 		requiredAttributes = ("value",)
@@ -286,7 +292,7 @@ class ExceptionsTestCase(unittest.TestCase):
 
 	def test__str__(self):
 		"""
-		This method tests exceptions classes **__str__** method.
+		Tests exceptions classes **__str__** method.
 		"""
 
 		for exception in EXCEPTIONS:
@@ -299,12 +305,12 @@ class ExceptionsTestCase(unittest.TestCase):
 
 class AttributeStructureParsingErrorTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.exceptions.AttributeStructureParsingError` class units tests methods.
+	Defines :class:`foundations.exceptions.AttributeStructureParsingError` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
 		"""
-		This method tests presence of required attributes.
+		Tests presence of required attributes.
 		"""
 
 		requiredAttributes = ("value", "line")

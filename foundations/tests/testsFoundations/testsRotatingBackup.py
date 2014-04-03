@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines units tests for :mod:`foundations.rotatingBackup` module.
+	Defines units tests for :mod:`foundations.rotatingBackup` module.
 
 **Others:**
 
@@ -40,7 +40,7 @@ from foundations.rotatingBackup import RotatingBackup
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -57,12 +57,12 @@ TEST_DIRECTORY = os.path.join(RESOURCES_DIRECTORY, "standard")
 #**********************************************************************************************************************
 class RotatingBackupTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.rotatingBackup.RotatingBackup` class units tests methods.
+	Defines :class:`foundations.rotatingBackup.RotatingBackup` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
 		"""
-		This method tests presence of required attributes.
+		Tests presence of required attributes.
 		"""
 
 		requiredAttributes = ("source",
@@ -74,7 +74,7 @@ class RotatingBackupTestCase(unittest.TestCase):
 
 	def testRequiredMethods(self):
 		"""
-		This method tests presence of required methods.
+		Tests presence of required methods.
 		"""
 
 		requiredMethods = ("backup",)
@@ -84,7 +84,7 @@ class RotatingBackupTestCase(unittest.TestCase):
 
 	def testBackup(self):
 		"""
-		This method tests :meth:`foundations.rotatingBackup.RotatingBackup.backup` method.
+		Tests :meth:`foundations.rotatingBackup.RotatingBackup.backup` method.
 		"""
 
 		tempDirectory = tempfile.mkdtemp()

@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines **Foundations** package verbose and logging objects.
+	Defines **Foundations** package verbose and logging objects.
 
 **Others:**
 
@@ -41,45 +41,80 @@ from foundations.globals.constants import Constants
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["THREADS_IDENTIFIERS",
-			"INDENT_LEVEL",
-			"LOGGER",
-			"LOGGING_DEFAULT_FORMATTER",
-			"LOGGING_EXTENDED_FORMATTER",
-			"LOGGING_STANDARD_FORMATTER",
-			"TRACER_LOGGING_FUNCTION",
-			"Streamer"
-			"StandardOutputStreamer",
-			"indentMessage",
-			"tracer",
-			"installLogger",
-			"uninstallLogger",
-			"getLoggingConsoleHandler",
-			"getLoggingFileHandler",
-			"getLoggingStreamHandler",
-			"removeLoggingHandler",
-			"setVerbosityLevel"]
+		   "INDENT_LEVEL",
+		   "toString",
+		   "LOGGER",
+		   "LOGGING_DEFAULT_FORMATTER",
+		   "LOGGING_EXTENDED_FORMATTER",
+		   "LOGGING_STANDARD_FORMATTER",
+		   "TRACER_LOGGING_FUNCTION",
+		   "Streamer"
+		   "StandardOutputStreamer",
+		   "indentMessage",
+		   "tracer",
+		   "installLogger",
+		   "uninstallLogger",
+		   "getLoggingConsoleHandler",
+		   "getLoggingFileHandler",
+		   "getLoggingStreamHandler",
+		   "removeLoggingHandler",
+		   "setVerbosityLevel"]
 
 THREADS_IDENTIFIERS = {}
 
 INDENT_LEVEL = 0
 
 #**********************************************************************************************************************
-#***	Logging classes and definitions.
+#***	Module attributes.
+#**********************************************************************************************************************
+def toUnicode(data, encoding=Constants.defaultCodec, errors=Constants.codecError):
+	"""
+	Converts given data to unicode string using package default settings, fighting **The Hell**!
+
+	Usage::
+
+		>>> toUnicode("myData")
+		u'myData'
+		>>> toUnicode("汉字/漢字")
+		u'\u6c49\u5b57/\u6f22\u5b57'
+
+	:param data: Data to convert.
+	:type data: object
+	:param encoding: File encoding codec.
+	:type encoding: unicode
+	:param errors: File encoding errors handling.
+	:type errors: unicode
+	:return: Unicode data.
+	:rtype: unicode
+	"""
+
+	if isinstance(data, type("")):
+		return data
+	else:
+		try:
+			return unicode(data, encoding, errors)
+		except TypeError:
+			return unicode(str(data), encoding, errors)
+
+#**********************************************************************************************************************
+#***	Logging classes and definitions monkey patching.
 #**********************************************************************************************************************
 def _LogRecord_getAttribute(self, attribute):
 	"""
-	This definition overrides logging.LogRecord.__getattribute__ method
+	Overrides logging.LogRecord.__getattribute__ method
 	in order to manipulate requested attributes values.
 
-	:param attribute: Attribute name. ( String )
-	:return: Modified method. ( Object )
+	:param attribute: Attribute name.
+	:type attribute: unicode
+	:return: Modified method.
+	:rtype: object
 	"""
 
 	if attribute == "__dict__":
@@ -93,6 +128,21 @@ def _LogRecord_getAttribute(self, attribute):
 		return object.__getattribute__(self, attribute)
 
 logging.LogRecord.__getattribute__ = _LogRecord_getAttribute
+
+def _LogRecord_msg():
+	"""
+	Overrides logging.LogRecord.msg attribute to ensure variable content is stored as unicode.
+	"""
+
+	def _LogRecord_msgProperty(self):
+		return self.__msg
+
+	def _LogRecord_msgSetter(self, value):
+		self.__msg = toUnicode(value)
+
+	logging.LogRecord.msg = property(_LogRecord_msgProperty, _LogRecord_msgSetter)
+
+_LogRecord_msg()
 
 #**********************************************************************************************************************
 #***	Module attributes.
@@ -110,14 +160,15 @@ TRACER_LOGGING_FUNCTION = LOGGER.info
 #**********************************************************************************************************************
 class Streamer(object):
 	"""
-	This class is intented to be used as a stream object for :class:`logging.StreamHandler` logging handler. 
+	Defines a stream object for :class:`logging.StreamHandler` logging handler.
 	"""
 
 	def __init__(self, stream=None):
 		"""
-		This method initializes the class.
+		Initializes the class.
 
-		:param stream: Stream object. ( Object )
+		:param stream: Stream object.
+		:type stream: object
 		"""
 
 		self.__stream = []
@@ -128,9 +179,10 @@ class Streamer(object):
 	@property
 	def stream(self):
 		"""
-		This method is the property for **self.__stream** attribute.
+		Property for **self.__stream** attribute.
 
-		:return: self.__stream. ( List )
+		:return: self.__stream.
+		:rtype: list
 		"""
 
 		return self.__stream
@@ -138,9 +190,10 @@ class Streamer(object):
 	@stream.setter
 	def stream(self, value):
 		"""
-		This method is the setter method for **self.__stream** attribute.
+		Setter for **self.__stream** attribute.
 
-		:param value: Attribute value. ( List )
+		:param value: Attribute value.
+		:type value: list
 		"""
 
 		if value is not None:
@@ -150,7 +203,7 @@ class Streamer(object):
 	@stream.deleter
 	def stream(self):
 		"""
-		This method is the deleter method for **self.__stream** attribute.
+		Deleter for **self.__stream** attribute.
 		"""
 
 		raise Exception("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "stream"))
@@ -160,31 +213,33 @@ class Streamer(object):
 	#******************************************************************************************************************
 	def write(self, message):
 		"""
-		This method provides write ability to the class.
+		Provides write ability to the class.
 
-		:param message: Current message. ( String )
+		:param message: Current message.
+		:type message: unicode
 		"""
 
 		self.__stream.append(message)
 
 	def flush(self):
 		"""
-		This method flushes the current stream.
+		Flushes the current stream.
 		"""
 
 		pass
 
 class StandardOutputStreamer(object):
 	"""
-	| This class is a redirection object intented to be used for :data:`sys.stdout` and :data:`sys.stderr` streams.
+	| Defines a redirection object intented to be used for :data:`sys.stdout` and :data:`sys.stderr` streams.
 	| Logging messages will be written to given logger handlers.
 	"""
 
 	def __init__(self, logger):
 		"""
-		This method initializes the class.
+		Initializes the class.
 
-		:param logger: Logger. ( Object )
+		:param logger: Logger.
+		:type logger: object
 		"""
 
 		self.__logger = logger
@@ -195,9 +250,10 @@ class StandardOutputStreamer(object):
 	@property
 	def logger(self):
 		"""
-		This method is the property for **self.__logger** attribute.
+		Property for **self.__logger** attribute.
 
-		:return: self.__logger. ( Logger )
+		:return: self.__logger.
+		:rtype: Logger
 		"""
 
 		return self.__logger
@@ -205,9 +261,10 @@ class StandardOutputStreamer(object):
 	@logger.setter
 	def logger(self, value):
 		"""
-		This method is the setter method for **self.__logger** attribute.
+		Setter for **self.__logger** attribute.
 
-		:param value: Attribute value. ( Logger )
+		:param value: Attribute value.
+		:type value: Logger
 		"""
 
 		raise Exception("{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "logger"))
@@ -215,7 +272,7 @@ class StandardOutputStreamer(object):
 	@logger.deleter
 	def logger(self):
 		"""
-		This method is the deleter method for **self.__logger** attribute.
+		Deleter for **self.__logger** attribute.
 		"""
 
 		raise Exception("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "logger"))
@@ -225,10 +282,12 @@ class StandardOutputStreamer(object):
 	#******************************************************************************************************************
 	def write(self, message):
 		"""
-		This method writes given message to logger handlers.
+		Writes given message to logger handlers.
 
-		:param message: Message. ( String )
-		:return: Method success. ( Boolean )
+		:param message: Message.
+		:type message: unicode
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		for handler in self.__logger.__dict__["handlers"]:
@@ -237,41 +296,48 @@ class StandardOutputStreamer(object):
 
 def indentMessage(message):
 	"""
-	This definition idents given message using the attr`INDENT_LEVEL` attribute value.
+	Idents given message using the attr`INDENT_LEVEL` attribute value.
 
-	:param message: Message to indent. ( String )
-	:return: indented message. ( String )
+	:param message: Message to indent.
+	:type message: unicode
+	:return: indented message.
+	:rtype: unicode
 	"""
 
 	return "{0}{1}".format(" " * 4 * INDENT_LEVEL, message)
 
 def tracer(object):
 	"""
-	| This decorator is used for execution tracing.
+	| Traces execution.
 	| Any method / definition decorated will have it's execution traced through debug messages.
 	| Both object entry and exit are logged.
-	
+
 	Entering in an object::
-		
+
 		INFO    : ---> foundations.environment.getUserApplicationDataDirectory() <<<---
-		
+
 	Exiting from an object::
-		
+
 		INFO   : <--- foundations.environment.getSystemApplicationDataDirectory() ^ '...' --->
-	
-	:param object: Object to decorate. ( Object )
-	:return: Object. ( Object )
+
+	:param object: Object to decorate.
+	:type object: object
+	:return: Object.
+	:rtype: object
 	"""
 
 	@functools.wraps(object)
 	@functools.partial(foundations.trace.validateTracer, object)
 	def tracerWrapper(*args, **kwargs):
 		"""
-		This decorator is used for execution tracing.
+		Traces execution.
 
-		:param \*args: Arguments. ( \* )
-		:param \*\*kwargs: Keywords arguments. ( \*\* )
-		:return: Object. ( Object )
+		:param \*args: Arguments.
+		:type \*args: \*
+		:param \*\*kwargs: Keywords arguments.
+		:type \*\*kwargs: \*\*
+		:return: Object.
+		:rtype: object
 		"""
 
 		global INDENT_LEVEL
@@ -286,14 +352,14 @@ def tracer(object):
 
 		positionalArgs = map(foundations.trace.formatArgument, zip(argsNames, args))
 		defaultedArgs = [foundations.trace.formatArgument((name, argsDefaults[name])) \
-						for name in argsNames[len(args):] if name not in kwargs]
+						 for name in argsNames[len(args):] if name not in kwargs]
 		namelessArgs = map(repr, args[argsCount:])
 		keywordArgs = map(foundations.trace.formatArgument, kwargs.items())
 		TRACER_LOGGING_FUNCTION(indentMessage("---> {0}({1}) <---".format(traceName,
-																", ".join(itertools.chain(positionalArgs,
-																						defaultedArgs,
-																						namelessArgs,
-																						keywordArgs)))))
+																		  ", ".join(itertools.chain(positionalArgs,
+																									defaultedArgs,
+																									namelessArgs,
+																									keywordArgs)))))
 
 		INDENT_LEVEL += 1
 		value = object(*args, **kwargs)
@@ -307,11 +373,14 @@ def tracer(object):
 
 def installLogger(logger=None, module=None):
 	"""
-	This definition installs given logger in given module or default logger in caller introspected module.
+	Installs given logger in given module or default logger in caller introspected module.
 
-	:param logger: Logger to install. ( Logger )
-	:param module: Module. ( Module )
-	:return: Logger. ( Logger )
+	:param logger: Logger to install.
+	:type logger: Logger
+	:param module: Module.
+	:type module: ModuleType
+	:return: Logger.
+	:rtype: Logger
 	"""
 
 	logger = logging.getLogger(Constants.logger) if logger is None else logger
@@ -326,11 +395,14 @@ def installLogger(logger=None, module=None):
 
 def uninstallLogger(logger=None, module=None):
 	"""
-	This definition uninstalls given logger in given module or default logger in caller introspected module.
+	Uninstalls given logger in given module or default logger in caller introspected module.
 
-	:param logger: Logger to uninstall. ( Logger )
-	:param module: Module. ( Module )
-	:return: Definition success. ( Boolean )
+	:param logger: Logger to uninstall.
+	:type logger: Logger
+	:param module: Module.
+	:type module: ModuleType
+	:return: Definition success.
+	:rtype: bool
 	"""
 
 	logger = logging.getLogger(Constants.logger) if logger is None else logger
@@ -342,11 +414,14 @@ def uninstallLogger(logger=None, module=None):
 
 def getLoggingConsoleHandler(logger=None, formatter=LOGGING_DEFAULT_FORMATTER):
 	"""
-	This definition adds a logging console handler to given logger or default logger.
+	Adds a logging console handler to given logger or default logger.
 
-	:param logger: Logger to add the handler to. ( Logger )
-	:param formatter: Handler formatter. ( F )
-	:return: Added handler. ( Handler )
+	:param logger: Logger to add the handler to.
+	:type logger: Logger
+	:param formatter: Handler formatter.
+	:type formatter: Formatter
+	:return: Added handler.
+	:rtype: Handler
 	"""
 
 	logger = LOGGER if logger is None else logger
@@ -357,12 +432,16 @@ def getLoggingConsoleHandler(logger=None, formatter=LOGGING_DEFAULT_FORMATTER):
 
 def getLoggingFileHandler(logger=None, file=None, formatter=LOGGING_DEFAULT_FORMATTER):
 	"""
-	This definition adds a logging file handler to given logger or default logger using given file.
+	Adds a logging file handler to given logger or default logger using given file.
 
-	:param logger: Logger to add the handler to. ( Logger )
-	:param file: File to verbose into. ( String )
-	:param formatter: Handler formatter. ( Formatter )
-	:return: Added handler. ( Handler )
+	:param logger: Logger to add the handler to.
+	:type logger: Logger
+	:param file: File to verbose into.
+	:type file: unicode
+	:param formatter: Handler formatter.
+	:type formatter: Formatter
+	:return: Added handler.
+	:rtype: Handler
 	"""
 
 	logger = LOGGER if logger is None else logger
@@ -374,12 +453,16 @@ def getLoggingFileHandler(logger=None, file=None, formatter=LOGGING_DEFAULT_FORM
 
 def getLoggingStreamHandler(logger=None, formatter=LOGGING_DEFAULT_FORMATTER):
 	"""
-	This definition adds a logging stream handler to given logger or default logger using given file.
+	Adds a logging stream handler to given logger or default logger using given file.
 
-	:param logger: Logger to add the handler to. ( Logger )
-	:param file: File to verbose into. ( String )
-	:param formatter: Handler formatter. ( Formatter )
-	:return: Added handler. ( Handler )
+	:param logger: Logger to add the handler to.
+	:type logger: Logger
+	:param file: File to verbose into.
+	:type file: unicode
+	:param formatter: Handler formatter.
+	:type formatter: Formatter
+	:return: Added handler.
+	:rtype: Handler
 	"""
 
 	logger = LOGGER if logger is None else logger
@@ -390,11 +473,14 @@ def getLoggingStreamHandler(logger=None, formatter=LOGGING_DEFAULT_FORMATTER):
 
 def removeLoggingHandler(handler, logger=None):
 	"""
-	This definition removes given logging handler from given logger.
+	Removes given logging handler from given logger.
 
-	:param handler: Handler. ( Handler )
-	:param logger: Handler logger. ( Logger )
-	:return: Definition success. ( Boolean )
+	:param handler: Handler.
+	:type handler: Handler
+	:param logger: Handler logger.
+	:type logger: Logger
+	:return: Definition success.
+	:rtype: bool
 	"""
 
 	logger = LOGGER if logger is None else logger
@@ -404,7 +490,7 @@ def removeLoggingHandler(handler, logger=None):
 
 def setVerbosityLevel(verbosityLevel=3, logger=None):
 	"""
-	This definition defines logging verbosity level.
+	Defines logging verbosity level.
 
 	Available verbosity levels::
 
@@ -414,9 +500,12 @@ def setVerbosityLevel(verbosityLevel=3, logger=None):
 		3: Info.
 		4: Debug.
 
-	:param verbosityLevel: Verbosity level. ( Integer )
-	:param logger: Logger to set the verbosity level to. ( Logger )
-	:return: Definition success. ( Boolean )
+	:param verbosityLevel: Verbosity level.
+	:type verbosityLevel: int
+	:param logger: Logger to set the verbosity level to.
+	:type logger: Logger
+	:return: Definition success.
+	:rtype: bool
 	"""
 
 	logger = LOGGER if logger is None else logger

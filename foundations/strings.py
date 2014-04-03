@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines various strings manipulation objects.
+	Defines various strings manipulation objects.
 
 **Others:**
 
@@ -33,13 +33,12 @@ import re
 #**********************************************************************************************************************
 import foundations.common
 import foundations.verbose
-from foundations.globals.constants import Constants
 
 #**********************************************************************************************************************
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -72,34 +71,11 @@ ASCII_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-def toString(data, encoding=Constants.encodingCodec, errors=Constants.encodingError):
-	"""
-	This definition converts given data to unicode string using package default settings.
-
-	Usage::
-
-		>>> toString("myData")
-		u'myData'
-		>>> toString("汉字/漢字")
-		u'\u6c49\u5b57/\u6f22\u5b57'
-
-	:param data: Data to convert. ( Object )
-	:param encoding: File encoding codec. ( String )
-	:param errors: File encoding errors handling. ( String )
-	:return: Unicode data. ( String )
-	"""
-
-	if isinstance(data, type("")):
-		return data
-	else:
-		try:
-			return unicode(data, encoding, errors)
-		except TypeError:
-			return unicode(str(data), encoding, errors)
+toString = foundations.verbose.toUnicode
 
 def getNiceName(name):
 	"""
-	This definition converts a string to nice string: **currentLogText** -> **Current Log Text**.
+	Converts a string to nice string: **currentLogText** -> **Current Log Text**.
 
 	Usage::
 
@@ -108,8 +84,10 @@ def getNiceName(name):
 		>>> getNiceName("__getMeANiceName")
 		u'__Get Me A Nice Name'
 
-	:param name: Current string to be nicified. ( String )
-	:return: Nicified string. ( String )
+	:param name: Current string to be nicified.
+	:type name: unicode
+	:return: Nicified string.
+	:rtype: unicode
 	"""
 
 	chunks = re.sub(r"(.)([A-Z][a-z]+)", r"\1 \2", name)
@@ -117,7 +95,7 @@ def getNiceName(name):
 
 def getVersionRank(version):
 	"""
-	This definition converts a version string to it's rank.
+	Converts a version string to it's rank.
 
 	Usage::
 
@@ -128,8 +106,10 @@ def getVersionRank(version):
 		>>> getVersionRank("4.2.8").__class__
 		<type 'int'>
 
-	:param version: Current version to calculate rank. ( String )
-	:return: Rank. ( Integer )
+	:param version: Current version to calculate rank.
+	:type version: unicode
+	:return: Rank.
+	:rtype: int
 	"""
 
 	tokens = list(foundations.common.unpackDefault(filter(any, re.split("\.|-|,", version)), length=4, default=0))
@@ -139,15 +119,17 @@ def getVersionRank(version):
 
 def getSplitextBasename(path):
 	"""
-	This definition gets the basename of a path without its extension.
+	Gets the basename of a path without its extension.
 
 	Usage::
 
 		>>> getSplitextBasename("/Users/JohnDoe/Documents/Test.txt")
 		u'Test'
 
-	:param path: Path to extract the basename without extension. ( String )
-	:return: Splitext basename. ( String )
+	:param path: Path to extract the basename without extension.
+	:type path: unicode
+	:return: Splitext basename.
+	:rtype: unicode
 	"""
 
 	basename = foundations.common.getFirstItem(os.path.splitext(os.path.basename(os.path.normpath(path))))
@@ -156,7 +138,7 @@ def getSplitextBasename(path):
 
 def getCommonAncestor(*args):
 	"""
-	This definition gets common ancestor of given iterables.
+	Gets common ancestor of given iterables.
 
 	Usage::
 
@@ -165,8 +147,10 @@ def getCommonAncestor(*args):
 		>>> getCommonAncestor("azerty", "azetty", "azello")
 		u'aze'
 
-	:param \*args: Iterables to retrieve common ancestor from. ( Iterables )
-	:return: Common ancestor. ( Iterable )
+	:param \*args: Iterables to retrieve common ancestor from.
+	:type \*args: [iterable]
+	:return: Common ancestor.
+	:rtype: iterable
 	"""
 
 	array = map(set, zip(*args))
@@ -180,15 +164,17 @@ def getCommonAncestor(*args):
 
 def getCommonPathsAncestor(*args):
 	"""
-	This definition gets common paths ancestor of given paths.
+	Gets common paths ancestor of given paths.
 
 	Usage::
 
 		>>> getCommonPathsAncestor("/Users/JohnDoe/Documents", "/Users/JohnDoe/Documents/Test.txt")
 		u'/Users/JohnDoe/Documents'
 
-	:param \*args: Paths to retrieve common ancestor from. ( Strings )
-	:return: Common path ancestor. ( String )
+	:param \*args: Paths to retrieve common ancestor from.
+	:type \*args: [unicode]
+	:return: Common path ancestor.
+	:rtype: unicode
 	"""
 
 	pathAncestor = os.sep.join(getCommonAncestor(*[path.split(os.sep) for path in args]))
@@ -197,15 +183,17 @@ def getCommonPathsAncestor(*args):
 
 def getWords(data):
 	"""
-	This method extracts the words from given string.
+	Extracts the words from given string.
 
 	Usage::
 
 		>>> getWords("Users are: John Doe, Jane Doe, Z6PO.")
 		[u'Users', u'are', u'John', u'Doe', u'Jane', u'Doe', u'Z6PO']
 
-	:param data: Data to extract words from. ( String )
-	:return: Words. ( List )
+	:param data: Data to extract words from.
+	:type data: unicode
+	:return: Words.
+	:rtype: list
 	"""
 
 	words = re.findall(r"\w+", data)
@@ -214,7 +202,7 @@ def getWords(data):
 
 def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 	"""
-	This method filters the words using the given filters.
+	Filters the words using the given filters.
 
 	Usage::
 
@@ -225,10 +213,14 @@ def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 		>>> filterWords(["Users", "are", "John", "Doe", "Jane", "Doe", "Z6PO"], filtersOut=("\w*o",))
 		[u'Users', u'are', u'Jane', u'Z6PO']
 
-	:param filtersIn: Regex filters in list. ( Tuple / List )
-	:param filtersIn: Regex filters out list. ( Tuple / List )
-	:param flags: Regex flags. ( Integer )
-	:return: Filtered words. ( List )
+	:param filtersIn: Regex filters in list.
+	:type filtersIn: tuple or list
+	:param filtersIn: Regex filters out list.
+	:type filtersIn: tuple or list
+	:param flags: Regex flags.
+	:type flags: int
+	:return: Filtered words.
+	:rtype: list
 	"""
 
 	filteredWords = []
@@ -259,7 +251,7 @@ def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 
 def replace(string, data):
 	"""
-	This definition replaces the data occurences in the string.
+	Replaces the data occurrences in the string.
 
 	Usage::
 
@@ -267,9 +259,12 @@ def replace(string, data):
 		 "Z6PO" : "R2D2"})
 		u'Users are: Luke Skywalker, Anakin Skywalker, R2D2.'
 
-	:param string: String to manipulate. ( String )
-	:param data: Replacement occurences. ( Dictionary )
-	:return: Manipulated string. ( String )
+	:param string: String to manipulate.
+	:type string: unicode
+	:param data: Replacement occurrences.
+	:type data: dict
+	:return: Manipulated string.
+	:rtype: unicode
 	"""
 
 	for old, new in data.iteritems():
@@ -278,31 +273,36 @@ def replace(string, data):
 
 def removeStrip(string, pattern):
 	"""
-	This definition removes the pattern occurences in the string and strip the result.
+	Removes the pattern occurrences in the string and strip the result.
 
 	Usage::
 
 		>>> removeStrip("John Doe", "John")
 		u'Doe'
 
-	:param string: String to manipulate. ( String )
-	:param pattern: Replacement pattern. ( String )
-	:return: Manipulated string. ( String )
+	:param string: String to manipulate.
+	:type string: unicode
+	:param pattern: Replacement pattern.
+	:type pattern: unicode
+	:return: Manipulated string.
+	:rtype: unicode
 	"""
 
 	return string.replace(pattern, "").strip()
 
 def toForwardSlashes(data):
 	"""
-	This definition converts backward slashes to forward slashes.
+	Converts backward slashes to forward slashes.
 
 	Usage::
 
 		>>> toForwardSlashes("To\Forward\Slashes")
 		u'To/Forward/Slashes'
 
-	:param data: Data to convert. ( String )
-	:return: Converted path. ( String )
+	:param data: Data to convert.
+	:type data: unicode
+	:return: Converted path.
+	:rtype: unicode
 	"""
 
 	data = data.replace("\\", "/")
@@ -311,15 +311,17 @@ def toForwardSlashes(data):
 
 def toBackwardSlashes(data):
 	"""
-	This definition converts forward slashes to backward slashes.
+	Converts forward slashes to backward slashes.
 
 	Usage::
 
 		>>> toBackwardSlashes("/Users/JohnDoe/Documents")
 		u'\\Users\\JohnDoe\\Documents'
 
-	:param data: Data to convert. ( String )
-	:return: Converted path. ( String )
+	:param data: Data to convert.
+	:type data: unicode
+	:return: Converted path.
+	:rtype: unicode
 	"""
 
 	data = data.replace("/", "\\")
@@ -328,15 +330,17 @@ def toBackwardSlashes(data):
 
 def toPosixPath(path):
 	"""
-	This definition converts Windows path to Posix path while stripping drives letters and network server slashes.
+	Converts Windows path to Posix path while stripping drives letters and network server slashes.
 
 	Usage::
 
 		>>> toPosixPath("c:\\Users\\JohnDoe\\Documents")
 		u'/Users/JohnDoe/Documents'
 
-	:param path: Windows path. ( String )
-	:return: Path converted to Posix path. ( String )
+	:param path: Windows path.
+	:type path: unicode
+	:return: Path converted to Posix path.
+	:rtype: unicode
 	"""
 
 	posixPath = posixpath.normpath(toForwardSlashes(re.sub(r"[a-zA-Z]:\\|\\\\", "/", os.path.normpath(path))))
@@ -345,15 +349,17 @@ def toPosixPath(path):
 
 def getNormalizedPath(path):
 	"""
-	This definition normalizes a path, escaping slashes if needed on Windows.
+	Normalizes a path, escaping slashes if needed on Windows.
 
 	Usage::
 
 		>>> getNormalizedPath("C:\\Users/johnDoe\\Documents")
 		u'C:\\Users\\JohnDoe\\Documents'
 
-	:param path: Path to normalize. ( String )
-	:return: Normalized path. ( String )
+	:param path: Path to normalize.
+	:type path: unicode
+	:return: Normalized path.
+	:rtype: unicode
 	"""
 
 	if platform.system() == "Windows" or platform.system() == "Microsoft":
@@ -367,22 +373,24 @@ def getNormalizedPath(path):
 
 def getRandomSequence(length=8):
 	"""
-	This definition returns a random sequence.
-	
+	Returns a random sequence.
+
 	Usage::
 
 		>>> getRandomSequence()
 		u'N_mYO7g5'
 
-	:param length: Length of the sequence. ( Integer )
-	:return: Random sequence. ( String )
+	:param length: Length of the sequence.
+	:type length: int
+	:return: Random sequence.
+	:rtype: unicode
 	"""
 
 	return "".join([random.choice(ASCII_CHARACTERS) for i in range(length)])
 
 def isEmail(data):
 	"""
-	This definition check if given data string is an email.
+	Check if given data string is an email.
 
 	Usage::
 
@@ -391,8 +399,10 @@ def isEmail(data):
 		>>> isEmail("john.doe:domain.com")
 		False
 
-	:param data: Data to check. ( String )
-	:return: Is email. ( Boolean )
+	:param data: Data to check.
+	:type data: unicode
+	:return: Is email.
+	:rtype: bool
 	"""
 
 	if re.match(r"[\w.%+-]+@[\w.]+\.[a-zA-Z]{2,4}", data):
@@ -402,10 +412,10 @@ def isEmail(data):
 		LOGGER.debug("> {0}' is not matched as email.".format(data))
 		return False
 
-def isWebsite(data):
+def isWebsite(url):
 	"""
-	This definition check if given data string is a website.
-	
+	Check if given url string is a website.
+
 	Usage::
 
 		>>> isWebsite("http://www.domain.com")
@@ -413,13 +423,15 @@ def isWebsite(data):
 		>>> isWebsite("domain.com")
 		False
 
-	:param data: Data to check. ( String )
-	:return: Is website. ( Boolean )
+	:param data: Data to check.
+	:type data: unicode
+	:return: Is website.
+	:rtype: bool
 	"""
 
-	if re.match(r"(http|ftp|https)://([\w\-\.]+)/?", data):
-		LOGGER.debug("> {0}' is matched as website.".format(data))
+	if re.match(r"(http|ftp|https)://([\w\-\.]+)/?", url):
+		LOGGER.debug("> {0}' is matched as website.".format(url))
 		return True
 	else:
-		LOGGER.debug("> {0}' is not matched as website.".format(data))
+		LOGGER.debug("> {0}' is not matched as website.".format(url))
 		return False

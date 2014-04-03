@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines units tests for :mod:`foundations.globals.constants` module.
+	Defines units tests for :mod:`foundations.globals.constants` module.
 
 **Others:**
 
@@ -37,7 +37,7 @@ from foundations.globals.constants import Constants
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -50,26 +50,26 @@ __all__ = ["ConstantsTestCase"]
 #**********************************************************************************************************************
 class ConstantsTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.globals.constants.Constants` class units tests methods.
+	Defines :class:`foundations.globals.constants.Constants` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
 		"""
-		This method tests presence of required attributes.
+		Tests presence of required attributes.
 		"""
 
 		requiredAttributes = ("applicationName",
 								"majorVersion",
 								"minorVersion",
 								"changeVersion",
-								"releaseVersion",
+								"version",
 								"logger",
 								"verbosityLevel",
 								"verbosityLabels",
 								"loggingDefaultFormatter",
 								"loggingSeparators",
-								"encodingCodec",
-								"encodingError",
+								"defaultCodec",
+								"codecError",
 								"applicationDirectory",
 								"providerDirectory",
 								"nullObject")
@@ -79,49 +79,49 @@ class ConstantsTestCase(unittest.TestCase):
 
 	def testApplicationNameAttribute(self):
 		"""
-		This method tests :attr:`foundations.globals.constants.Constants.applicationName` attribute.
+		Tests :attr:`foundations.globals.constants.Constants.applicationName` attribute.
 		"""
 
 		self.assertRegexpMatches(Constants.applicationName, "\w+")
 
 	def testMajorVersionAttribute(self):
 		"""
-		This method tests :attr:`foundations.globals.constants.Constants.majorVersion` attribute.
+		Tests :attr:`foundations.globals.constants.Constants.majorVersion` attribute.
 		"""
 
-		self.assertRegexpMatches(Constants.releaseVersion, "\d")
+		self.assertRegexpMatches(Constants.version, "\d")
 
 	def testMinorVersionAttribute(self):
 		"""
-		This method tests :attr:`foundations.globals.constants.Constants.minorVersion` attribute.
+		Tests :attr:`foundations.globals.constants.Constants.minorVersion` attribute.
 		"""
 
-		self.assertRegexpMatches(Constants.releaseVersion, "\d")
+		self.assertRegexpMatches(Constants.version, "\d")
 
 	def testChangeVersionAttribute(self):
 		"""
-		This method tests :attr:`foundations.globals.constants.Constants.changeVersion` attribute.
+		Tests :attr:`foundations.globals.constants.Constants.changeVersion` attribute.
 		"""
 
-		self.assertRegexpMatches(Constants.releaseVersion, "\d")
+		self.assertRegexpMatches(Constants.version, "\d")
 
-	def testReleaseVersionAttribute(self):
+	def testversionAttribute(self):
 		"""
-		This method tests :attr:`foundations.globals.constants.Constants.releaseVersion` attribute.
+		Tests :attr:`foundations.globals.constants.Constants.version` attribute.
 		"""
 
-		self.assertRegexpMatches(Constants.releaseVersion, "\d\.\d\.\d")
+		self.assertRegexpMatches(Constants.version, "\d\.\d\.\d")
 
 	def testLoggerAttribute(self):
 		"""
-		This method tests :attr:`foundations.globals.constants.Constants.logger` attribute.
+		Tests :attr:`foundations.globals.constants.Constants.logger` attribute.
 		"""
 
 		self.assertRegexpMatches(Constants.logger, "\w+")
 
 	def testVerbosityLevelAttribute(self):
 		"""
-		This method tests :attr:`foundations.globals.constants.Constants.verbosityLevel` attribute.
+		Tests :attr:`foundations.globals.constants.Constants.verbosityLevel` attribute.
 		"""
 
 		self.assertIsInstance(Constants.verbosityLevel, int)
@@ -130,67 +130,66 @@ class ConstantsTestCase(unittest.TestCase):
 
 	def testVerbosityLabelsAttribute(self):
 		"""
-		This method tests :attr:`foundations.globals.constants.Constants.verbosityLabels` attribute.
+		Tests :attr:`foundations.globals.constants.Constants.verbosityLabels` attribute.
 		"""
 
 		self.assertIsInstance(Constants.verbosityLabels, tuple)
 		for label in Constants.verbosityLabels:
 			self.assertIsInstance(label, unicode)
 
-	def testLoggingDefaultFormaterAttribute(self):
+	def testLoggingDefaultFormatterAttribute(self):
 		"""
-		This method tests :attr:`foundations.globals.constants.Constants.loggingDefaultFormatter` attribute.
+		Tests :attr:`foundations.globals.constants.Constants.loggingDefaultFormatter` attribute.
 		"""
 
 		self.assertIsInstance(Constants.loggingDefaultFormatter, unicode)
 
 	def testLoggingSeparatorsAttribute(self):
 		"""
-		This method tests :attr:`foundations.globals.constants.Constants.loggingSeparators` attribute.
+		Tests :attr:`foundations.globals.constants.Constants.loggingSeparators` attribute.
 		"""
 
 		self.assertIsInstance(Constants.loggingSeparators, unicode)
 
 	def testEncodingCodecAttribute(self):
 		"""
-		This method tests :attr:`foundations.globals.constants.Constants.encodingCodec` attribute.
+		Tests :attr:`foundations.globals.constants.Constants.defaultCodec` attribute.
 		"""
 
-		validEncodings = ("ascii",
-						"utf-8",
+		validEncodings = ("utf-8",
 						"cp1252")
 
-		self.assertIn(Constants.encodingCodec, validEncodings)
+		self.assertIn(Constants.defaultCodec, validEncodings)
 
-	def testEncodingErrorAttribute(self):
+	def testCodecErrorAttribute(self):
 		"""
-		This method tests :attr:`foundations.globals.constants.Constants.encodingError` attribute.
+		Tests :attr:`foundations.globals.constants.Constants.codecError` attribute.
 		"""
 
-		validEncodings = ("strict",
-						"ignore",
-						"replace",
-						"xmlcharrefreplace")
+		validEncodingsErrors = ("strict",
+							"ignore",
+							"replace",
+							"xmlcharrefreplace")
 
-		self.assertIn(Constants.encodingError, validEncodings)
+		self.assertIn(Constants.codecError, validEncodingsErrors)
 
 	def testApplicationDirectoryAttribute(self):
 		"""
-		This method tests :attr:`foundations.globals.constants.Constants.applicationDirectory` attribute.
+		Tests :attr:`foundations.globals.constants.Constants.applicationDirectory` attribute.
 		"""
 
 		self.assertRegexpMatches(Constants.applicationDirectory, "\w+")
 
 	def testProviderDirectoryAttribute(self):
 		"""
-		This method tests :attr:`foundations.globals.constants.Constants.providerDirectory` attribute.
+		Tests :attr:`foundations.globals.constants.Constants.providerDirectory` attribute.
 		"""
 
 		self.assertRegexpMatches(Constants.providerDirectory, "\.*\w")
 
 	def testNullObjectAttribute(self):
 		"""
-		This method tests :attr:`foundations.globals.constants.Constants.nullObject` attribute.
+		Tests :attr:`foundations.globals.constants.Constants.nullObject` attribute.
 		"""
 
 		self.assertRegexpMatches(Constants.nullObject, "\w+")

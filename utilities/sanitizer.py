@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 
 """
-**testsCache.py**
+**sanitizer.py**
 
 **Platform:**
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Defines units tests for :mod:`foundations.cache` module.
+	Sanitizes python module file. :func:`bleach` definition is called by **Oncilla** package.
 
 **Others:**
 
@@ -22,16 +22,13 @@ from __future__ import unicode_literals
 #**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
-import sys
-if sys.version_info[:2] <= (2, 6):
-	import unittest2 as unittest
-else:
-	import unittest
+import re
 
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
-from foundations.cache import Cache
+import foundations.verbose
+from foundations.io import File
 
 #**********************************************************************************************************************
 #***	Module attributes.
@@ -43,70 +40,56 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["RESOURCES_DIRECTORY",
-			"CacheTestCase"]
+__all__ = ["LOGGER",
+		   "STATEMENT_UPDATE_MESSAGE",
+		   "STATEMENTS_SUBSTITUTE",
+		   "STATEMENT_IGNORE",
+		   "bleach"]
+
+LOGGER = foundations.verbose.installLogger()
+
+STATEMENT_UPDATE_MESSAGE = "# Oncilla: Statement commented by auto-documentation process: "
+
+STATEMENTS_SUBSTITUTE = ("(\n)(?P<bleach>\s*if\s+__name__\s+==\s+[\"']__main__[\"']\s*:.*)",
+						 "(\n)(?P<bleach>\s*@(?!property|\w+\.setter|\w+\.deleter).*?)(\n+\s*def\s+)")
+
+STATEMENT_IGNORE = ("@handleExceptions(ZeroDivisionError)",)
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class CacheTestCase(unittest.TestCase):
+def bleach(file):
 	"""
-	Defines :class:`foundations.cache.Cache` class units tests methods.
+	Sanitizes given python module.
+
+	:param file: Python module file.
+	:type file: unicode
+	:return: Definition success.
+	:rtype: bool
 	"""
 
-	def testRequiredMethods(self):
-		"""
-		Tests presence of required methods.
-		"""
+	LOGGER.info("{0} | Sanitizing '{1}' python module!".format(__name__, file))
 
-		requiredMethods = ("addContent",
-							"removeContent",
-							"getContent",
-							"flushContent")
+	sourceFile = File(file)
+	content = sourceFile.read()
+	for pattern in STATEMENTS_SUBSTITUTE:
+		matches = [match for match in re.finditer(pattern, content, re.DOTALL)]
 
-		for method in requiredMethods:
-			self.assertIn(method, dir(Cache))
+		offset = 0
+		for match in matches:
+			if any(map(lambda x: x in match.group("bleach"), STATEMENT_IGNORE)):
+				continue
 
-	def testAddContent(self):
-		"""
-		Tests :meth:`foundations.cache.Cache.addContent` method.
-		"""
+			start, end = match.start("bleach"), match.end("bleach")
+			substitution = "{0}{1}".format(STATEMENT_UPDATE_MESSAGE,
+										   re.sub("\n", "\n{0}".format(STATEMENT_UPDATE_MESSAGE),
+												  match.group("bleach")))
+			content = "".join((content[0: start + offset],
+							   substitution,
+							   content[end + offset:]))
+			offset += len(substitution) - len(match.group("bleach"))
 
-		cache = Cache()
-		self.assertTrue(cache.addContent(John="Doe", Luke="Skywalker"))
-		self.assertDictEqual(cache, {"John" : "Doe", "Luke" : "Skywalker"})
+	sourceFile.content = [content]
+	sourceFile.write()
 
-	def testRemoveContent(self):
-		"""
-		Tests :meth:`foundations.cache.Cache.removeContent` method.
-		"""
-
-		cache = Cache()
-		cache.addContent(John="Doe", Luke="Skywalker")
-		self.assertTrue(cache.removeContent("John", "Luke"))
-		self.assertDictEqual(cache, {})
-
-	def testGetContent(self):
-		"""
-		Tests :meth:`foundations.cache.Cache.getContent` method.
-		"""
-
-		cache = Cache()
-		content = {"John" : "Doe", "Luke" : "Skywalker"}
-		cache.addContent(**content)
-		for key, value in content.iteritems():
-			self.assertEqual(cache.getContent(key), value)
-
-	def testFlushContent(self):
-		"""
-		Tests :meth:`foundations.cache.Cache.flushContent` method.
-		"""
-
-		cache = Cache()
-		cache.addContent(John="Doe", Luke="Skywalker")
-		self.assertTrue(cache.flushContent())
-		self.assertDictEqual(cache, {})
-
-if __name__ == "__main__":
-	import foundations.tests.utilities
-	unittest.main()
+	return True

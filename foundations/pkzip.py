@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module provides archives files manipulation objects.
+	Provides archives files manipulation objects.
 
 **Others:**
 
@@ -37,7 +37,7 @@ import foundations.verbose
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -52,12 +52,12 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 class Pkzip(object):
 	"""
-	This class provides methods to manipulate zip files.
+	Defines methods to manipulate zip files.
 	"""
 
 	def __init__(self, archive=None):
 		"""
-		This method initializes the class.
+		Initializes the class.
 
 		Usage::
 
@@ -67,7 +67,8 @@ class Pkzip(object):
 			>>> zipFile.extract(tempDirectory)
 			True
 
-		:param archive: Archive to manipulate. ( String )
+		:param archive: Archive to manipulate.
+		:type archive: unicode
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
@@ -82,9 +83,10 @@ class Pkzip(object):
 	@property
 	def archive(self):
 		"""
-		This method is the property for **self.__archive** attribute.
+		Property for **self.__archive** attribute.
 
-		:return: self.__archive. ( String )
+		:return: self.__archive.
+		:rtype: unicode
 		"""
 
 		return self.__archive
@@ -93,14 +95,15 @@ class Pkzip(object):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def archive(self, value):
 		"""
-		This method is the setter method for **self.__archive** attribute.
+		Setter for **self.__archive** attribute.
 
-		:param value: Attribute value. ( String )
+		:param value: Attribute value.
+		:type value: unicode
 		"""
 
 		if value is not None:
 			assert type(value) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
-			"archive", value)
+				"archive", value)
 			assert os.path.exists(value), "'{0}' attribute: '{1}' file doesn't exists!".format("archive", value)
 		self.__archive = value
 
@@ -108,32 +111,35 @@ class Pkzip(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def archive(self):
 		"""
-		This method is the deleter method for **self.__archive** attribute.
+		Deleter for **self.__archive** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "archive"))
+			"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "archive"))
 
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
 	@foundations.exceptions.handleExceptions(foundations.exceptions.DirectoryExistsError,
-											foundations.exceptions.FileExistsError)
+											 foundations.exceptions.FileExistsError,
+											 zipfile.BadZipfile)
 	def extract(self, target):
 		"""
-		This method extracts the archive file to given directory.
+		Extracts the archive file to given directory.
 
-		:param target: Target extraction directory. ( String )
-		:return: Method success. ( Boolean )
+		:param target: Target extraction directory.
+		:type target: unicode
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		if not foundations.common.pathExists(self.__archive):
 			raise foundations.exceptions.FileExistsError("{0} | '{1}' file doesn't exists!".format(
-			self.__class__.__name__, self.__archive))
+				self.__class__.__name__, self.__archive))
 
 		if not foundations.common.pathExists(target):
 			raise foundations.exceptions.DirectoryExistsError("{0} | '{1}' directory doesn't exists!".format(
-			self.__class__.__name__, target))
+				self.__class__.__name__, target))
 
 		archive = zipfile.ZipFile(self.__archive)
 		content = archive.namelist()
@@ -145,7 +151,8 @@ class Pkzip(object):
 		directories.reverse()
 
 		for directory in directories:
-			not os.path.isdir(os.path.join(target, directory)) and foundations.io.setDirectory(os.path.join(target, directory))
+			not os.path.isdir(os.path.join(target, directory)) and foundations.io.setDirectory(
+				os.path.join(target, directory))
 
 		for file in files:
 			LOGGER.info("{0} | Extracting '{1}' file!".format(self.__class__.__name__, file))

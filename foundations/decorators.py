@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines **Foundations** package generic decorators objects.
+	Defines **Foundations** package generic decorators objects.
 
 **Others:**
 
@@ -29,13 +29,14 @@ import time
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
+import foundations.core
 import foundations.verbose
 
 #**********************************************************************************************************************
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -43,7 +44,8 @@ __status__ = "Production"
 
 __all__ = ["LOGGER",
 		"executionTime",
-		"memoize"]
+		"memoize",
+		"systemExit"]
 
 LOGGER = foundations.verbose.installLogger()
 
@@ -52,21 +54,26 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 def executionTime(object):
 	"""
-	| This decorator is used for execution timing.
+	| Implements execution timing.
 	| Any method / definition decorated will have it's execution timed through information messages.
-	
-	:param object: Object to decorate. ( Object )
-	:return: Object. ( Object )
+
+	:param object: Object to decorate.
+	:type object: object
+	:return: Object.
+	:rtype: object
 	"""
 
 	@functools.wraps(object)
 	def executionTimeWrapper(*args, **kwargs):
 		"""
-		This decorator is used for execution timing.
+		Implements execution timing.
 
-		:param \*args: Arguments. ( \* )
-		:param \*\*kwargs: Keywords arguments. ( \*\* )
-		:return: Object. ( Object )
+		:param \*args: Arguments.
+		:type \*args: \*
+		:param \*\*kwargs: Keywords arguments.
+		:type \*\*kwargs: \*\*
+		:return: Object.
+		:rtype: object
 		"""
 
 		startTime = time.time()
@@ -85,12 +92,13 @@ def executionTime(object):
 
 def memoize(cache=None):
 	"""
-	| This decorator is used for method / definition memoization.
-	| Any method / definition decorated will get its return value cached and restored whenever called
-		with the same arguments.
-	
-	:param cache: Alternate cache. ( Dictionary )
-	:return: Object. ( Object )
+	| Implements method / definition memoization.
+	| Any method / definition decorated will get its return value cached and restored whenever called with the same arguments.
+
+	:param cache: Alternate cache.
+	:type cache: dict
+	:return: Object.
+	:rtype: object
 	"""
 
 	if cache is None:
@@ -98,20 +106,25 @@ def memoize(cache=None):
 
 	def memoizeDecorator(object):
 		"""
-		This decorator is used for object memoization.
+		Implements method / definition memoization.
 
-		:param object: Object to decorate. ( Object )
-		:return: Object. ( Object )
+		:param object: Object to decorate.
+		:type object: object
+		:return: Object.
+		:rtype: object
 		"""
 
 		@functools.wraps(object)
 		def memoizeWrapper(*args, **kwargs):
 			"""
-			This decorator is used for object memoization.
-	
-			:param \*args: Arguments. ( \* )
-			:param \*\*kwargs: Keywords arguments. ( \*\* )
-			:return: Object. ( Object )
+			Implements method / definition memoization.
+
+			:param \*args: Arguments.
+			:type \*args: \*
+			:param \*\*kwargs: Keywords arguments.
+			:type \*\*kwargs: \*\*
+			:return: Object.
+			:rtype: object
 			"""
 
 			if kwargs:
@@ -127,3 +140,33 @@ def memoize(cache=None):
 		return memoizeWrapper
 
 	return memoizeDecorator
+
+def systemExit(object):
+	"""
+	Handles proper system exit in case of critical exception.
+
+	:param object: Object to decorate.
+	:type object: object
+	:return: Object.
+	:rtype: object
+	"""
+
+	@functools.wraps(object)
+	def systemExitWrapper(*args, **kwargs):
+		"""
+		Handles proper system exit in case of critical exception.
+
+		:param \*args: Arguments.
+		:type \*args: \*
+		:param \*\*kwargs: Keywords arguments.
+		:type \*\*kwargs: \*\*
+		"""
+
+		try:
+			if object(*args, **kwargs):
+				foundations.core.exit(0)
+		except Exception as error:
+			sys.stderr.write("\n".join(foundations.exceptions.formatException(*sys.exc_info())))
+			foundations.core.exit(1)
+
+	return systemExitWrapper

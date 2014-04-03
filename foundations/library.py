@@ -8,7 +8,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module provides objects for C / C++ libraries binding.
+	Provides objects for C / C++ libraries binding.
 
 **Others:**
 
@@ -38,7 +38,7 @@ import foundations.verbose
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
@@ -53,18 +53,19 @@ LOGGER = foundations.verbose.installLogger()
 #**********************************************************************************************************************
 class LibraryHook(foundations.dataStructures.Structure):
 	"""
-	This class represents a library hook used by the :class:`Library` class to bind target library functions.
+	Defines a library hook used by the :class:`Library` class to bind target library functions.
 	"""
 
 	def __init__(self, **kwargs):
 		"""
-		This method initializes the class.
+		Initializes the class.
 		
 		Usage::
 			
 			LibraryHook(name="FreeImage_GetVersion", argumentsTypes=None, returnValue=ctypes.c_char_p)
 
-		:param name: Name of the target library function to bind. ( String )
+		:param name: Name of the target library function to bind.
+		:type name: unicode
 		:param argumentsTypes: Required function arguments type (Refer to Python `ctypes - 15.17.1.7
 			<http://docs.python.org/library/ctypes.html#specifying-the-required-argument-types-function-prototypes>`_
 			module for more informations). ( List )
@@ -78,26 +79,35 @@ class LibraryHook(foundations.dataStructures.Structure):
 
 class Library(object):
 	"""
-	| This class provides methods to bind a C / C++ Library.
+	| Defines methods to bind a C / C++ Library.
 	| The class is a singleton and will bind only one time a given library.
 		Each unique library instance is stored in :attr:`Library.instances` attribute
 		and get returned if the library is requested again through a new instantiation.
 	"""
 
 	__instances = {}
-	"""Libraries instances: Each library is instanced once and stored in this attribute. ( Dictionary )"""
+	"""
+	:param __instances: Libraries instances.
+	:type __instances: dict
+	"""
 
 	callback = ctypes.CFUNCTYPE(ctypes.c_void_p, ctypes.c_int, ctypes.c_char_p)
-	"""callback: Defines library callback default function.	( ctypes.CFUNCTYPE )"""
+	"""
+	:param callback: callback.
+	:type callback: ctypes.CFUNCTYPE
+	"""
 
 	@foundations.exceptions.handleExceptions(foundations.exceptions.LibraryInstantiationError)
 	def __new__(cls, *args, **kwargs):
 		"""
-		This method is the constructor of the class.
+		Constructor of the class.
 		
-		:param \*args: Arguments. ( \* )
-		:param \*\*kwargs: Keywords arguments. ( \*\* )
-		:return: Class instance. ( Library )
+		:param \*args: Arguments.
+		:type \*args: \*
+		:param \*\*kwargs: Keywords arguments.
+		:type \*\*kwargs: \*\*
+		:return: Class instance.
+		:rtype: Library
 		"""
 
 		path = foundations.common.getFirstItem(args)
@@ -112,7 +122,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.LibraryInitializationError)
 	def __init__(self, path, functions=None, bindLibrary=True):
 		"""
-		This method initializes the class.
+		Initializes the class.
 		
 		Usage::
 			
@@ -123,9 +133,12 @@ class Library(object):
 			>>> library.FreeImage_GetVersion()
 			'3.15.1'
 
-		:param path: Library path. ( String )
-		:param functions: Binding functions list. ( Tuple )
-		:param bindLibrary: Library will be binded on initialization. ( Boolean )
+		:param path: Library path.
+		:type path: unicode
+		:param functions: Binding functions list.
+		:type functions: tuple
+		:param bindLibrary: Library will be binded on initialization.
+		:type bindLibrary: bool
 		"""
 
 		if hasattr(self.instances[path], "_Library__initialized"):
@@ -162,9 +175,10 @@ class Library(object):
 	@property
 	def instances(self):
 		"""
-		This method is the property for **self.__instances** attribute.
+		Property for **self.__instances** attribute.
 
-		:return: self.__instances. ( WeakValueDictionary )
+		:return: self.__instances.
+		:rtype: WeakValueDictionary
 		"""
 
 		return self.__instances
@@ -173,9 +187,10 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def instances(self, value):
 		"""
-		This method is the setter method for **self.__instances** attribute.
+		Setter for **self.__instances** attribute.
 
-		:param value: Attribute value. ( WeakValueDictionary )
+		:param value: Attribute value.
+		:type value: WeakValueDictionary
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -185,7 +200,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def instances(self):
 		"""
-		This method is the deleter method for **self.__instances** attribute.
+		Deleter for **self.__instances** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -194,9 +209,10 @@ class Library(object):
 	@property
 	def initialized(self):
 		"""
-		This method is the property for **self.__initialized** attribute.
+		Property for **self.__initialized** attribute.
 
-		:return: self.__initialized. ( String )
+		:return: self.__initialized.
+		:rtype: unicode
 		"""
 
 		return self.__initialized
@@ -205,9 +221,10 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def initialized(self, value):
 		"""
-		This method is the setter method for **self.__initialized** attribute.
+		Setter for **self.__initialized** attribute.
 
-		:param value: Attribute value. ( String )
+		:param value: Attribute value.
+		:type value: unicode
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -217,7 +234,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def initialized(self):
 		"""
-		This method is the deleter method for **self.__initialized** attribute.
+		Deleter for **self.__initialized** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -226,9 +243,10 @@ class Library(object):
 	@property
 	def path(self):
 		"""
-		This method is the property for **self.__path** attribute.
+		Property for **self.__path** attribute.
 
-		:return: self.__path. ( String )
+		:return: self.__path.
+		:rtype: unicode
 		"""
 
 		return self.__path
@@ -237,9 +255,10 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def path(self, value):
 		"""
-		This method is the setter method for **self.__path** attribute.
+		Setter for **self.__path** attribute.
 
-		:param value: Attribute value. ( String )
+		:param value: Attribute value.
+		:type value: unicode
 		"""
 
 		if value is not None:
@@ -252,7 +271,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def path(self):
 		"""
-		This method is the deleter method for **self.__path** attribute.
+		Deleter for **self.__path** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -261,9 +280,10 @@ class Library(object):
 	@property
 	def functions(self):
 		"""
-		This method is the property for **self.__functions** attribute.
+		Property for **self.__functions** attribute.
 
-		:return: self.__functions. ( Tuple )
+		:return: self.__functions.
+		:rtype: tuple
 		"""
 
 		return self.__functions
@@ -272,9 +292,10 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def functions(self, value):
 		"""
-		This method is the setter method for **self.__functions** attribute.
+		Setter for **self.__functions** attribute.
 
-		:param value: Attribute value. ( Tuple )
+		:param value: Attribute value.
+		:type value: tuple
 		"""
 
 		if value is not None:
@@ -288,7 +309,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def functions(self):
 		"""
-		This method is the deleter method for **self.__functions** attribute.
+		Deleter for **self.__functions** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -297,9 +318,10 @@ class Library(object):
 	@property
 	def library(self):
 		"""
-		This method is the property for **self.__library** attribute.
+		Property for **self.__library** attribute.
 
-		:return: self.__library. ( Object )
+		:return: self.__library.
+		:rtype: object
 		"""
 
 		return self.__library
@@ -308,9 +330,10 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def library(self, value):
 		"""
-		This method is the setter method for **self.__library** attribute.
+		Setter for **self.__library** attribute.
 
-		:param value: Attribute value. ( Object )
+		:param value: Attribute value.
+		:type value: object
 		"""
 
 		self.__library = value
@@ -319,7 +342,7 @@ class Library(object):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def library(self):
 		"""
-		This method is the deleter method for **self.__library** attribute.
+		Deleter for **self.__library** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -330,7 +353,7 @@ class Library(object):
 	#******************************************************************************************************************
 	def bindFunction(self, function):
 		"""
-		This method binds given function to a class object attribute.
+		Binds given function to a class object attribute.
 
 		Usage::
 			
@@ -343,8 +366,10 @@ class Library(object):
 			>>> library.FreeImage_GetVersion()
 			'3.15.1'
 
-		:param function: Function to bind. ( LibraryHook )
-		:return: Method success. ( Boolean )
+		:param function: Function to bind.
+		:type function: LibraryHook
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		LOGGER.debug("> Binding '{0}' library '{1}' function.".format(self.__class__.__name__, function.name))
@@ -359,7 +384,7 @@ class Library(object):
 
 	def bindLibrary(self):
 		"""
-		This method binds the Library using functions registered in the **self.__functions** attribute.
+		Binds the Library using functions registered in the **self.__functions** attribute.
 
 		Usage::
 			
@@ -372,7 +397,8 @@ class Library(object):
 			>>> library.FreeImage_GetVersion()
 			'3.15.1'
 
-		:return: Method success. ( Boolean )
+		:return: Method success.
+		:rtype: bool
 		"""
 
 		if self.__functions:

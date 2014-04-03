@@ -7,7 +7,7 @@
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	This module defines units tests for :mod:`foundations.io` module.
+	Defines units tests for :mod:`foundations.io` module.
 
 **Others:**
 
@@ -22,9 +22,12 @@ from __future__ import unicode_literals
 #***	External imports.
 #**********************************************************************************************************************
 import os
+import platform
 import shutil
-import tempfile
+import stat
 import sys
+import tempfile
+
 if sys.version_info[:2] <= (2, 6):
 	import unittest2 as unittest
 else:
@@ -40,68 +43,80 @@ from foundations.io import File
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
-__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["RESOURCES_DIRECTORY",
-		"TEST_FILE",
-		"FILE_CONTENT",
-		"FileTestCase",
-		"SetDirectoryTestCase",
-		"CopyTestCase",
-		"RemoveTestCase"]
+		   "LIBRARIES_DIRECTORY",
+		   "LIBRARY",
+		   "TEXT_FILE",
+		   "FILE_CONTENT",
+		   "FileTestCase",
+		   "SetDirectoryTestCase",
+		   "CopyTestCase",
+		   "RemoveTestCase",
+		   "IsReadableTestCase",
+		   "IsWritableTestCase",
+		   "IsBinaryFileTestCase"]
 
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
-TEST_FILE = os.path.join(RESOURCES_DIRECTORY, "loremIpsum.txt")
+LIBRARIES_DIRECTORY = os.path.join(RESOURCES_DIRECTORY, "libraries")
+if platform.system() == "Windows" or platform.system() == "Microsoft":
+	LIBRARY = os.path.join(LIBRARIES_DIRECTORY, "freeImage/FreeImage.dll")
+elif platform.system() == "Darwin":
+	LIBRARY = os.path.join(LIBRARIES_DIRECTORY, "freeImage/libfreeimage.dylib")
+elif platform.system() == "Linux":
+	LIBRARY = os.path.join(LIBRARIES_DIRECTORY, "freeImage/libfreeimage.so")
+TEXT_FILE = os.path.join(RESOURCES_DIRECTORY, "loremIpsum.txt")
 FILE_CONTENT = [
-"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n",
-"Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n",
-"Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\n",
-"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n"]
+	"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n",
+	"Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n",
+	"Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\n",
+	"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n"]
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
 class FileTestCase(unittest.TestCase):
 	"""
-	This class defines :class:`foundations.io.File` class units tests methods.
+	Defines :class:`foundations.io.File` class units tests methods.
 	"""
 
 	def testRequiredAttributes(self):
 		"""
-		This method tests presence of required attributes.
+		Tests presence of required attributes.
 		"""
 
 		requiredAttributes = ("path",
-							"content")
+							  "content")
 
 		for attribute in requiredAttributes:
 			self.assertIn(attribute, dir(File))
 
 	def testRequiredMethods(self):
 		"""
-		This method tests presence of required methods.
+		Tests presence of required methods.
 		"""
 
 		requiredMethods = ("cache",
-						"uncache",
-						"read",
-						"write",
-						"append",
-						"clear")
+						   "uncache",
+						   "read",
+						   "write",
+						   "append",
+						   "clear")
 
 		for method in requiredMethods:
 			self.assertIn(method, dir(File))
 
 	def testCache(self):
 		"""
-		This method tests :meth:`foundations.io.File.cache` method.
+		Tests :meth:`foundations.io.File.cache` method.
 		"""
 
-		ioFile = File(TEST_FILE)
+		ioFile = File(TEXT_FILE)
 		self.assertIsInstance(ioFile.content, list)
 		cacheSuccess = ioFile.cache()
 		self.assertTrue(cacheSuccess)
@@ -110,10 +125,10 @@ class FileTestCase(unittest.TestCase):
 
 	def testUncache(self):
 		"""
-		This method tests :meth:`foundations.io.File.uncache` method.
+		Tests :meth:`foundations.io.File.uncache` method.
 		"""
 
-		ioFile = File(TEST_FILE)
+		ioFile = File(TEXT_FILE)
 		ioFile.cache()
 		self.assertListEqual(ioFile.content, FILE_CONTENT)
 		ioFile.uncache()
@@ -121,10 +136,10 @@ class FileTestCase(unittest.TestCase):
 
 	def testRead(self):
 		"""
-		This method tests :meth:`foundations.io.File.read` method.
+		Tests :meth:`foundations.io.File.read` method.
 		"""
 
-		ioFile = File(TEST_FILE)
+		ioFile = File(TEXT_FILE)
 		self.assertIsInstance(ioFile.content, list)
 		content = ioFile.read()
 		self.assertIsInstance(ioFile.content, list)
@@ -132,7 +147,7 @@ class FileTestCase(unittest.TestCase):
 
 	def testWrite(self):
 		"""
-		This method tests :meth:`foundations.io.File.write` method.
+		Tests :meth:`foundations.io.File.write` method.
 		"""
 
 		fileDescriptor, path = tempfile.mkstemp()
@@ -147,7 +162,7 @@ class FileTestCase(unittest.TestCase):
 
 	def testAppend(self):
 		"""
-		This method tests :meth:`foundations.io.File.append` method.
+		Tests :meth:`foundations.io.File.append` method.
 		"""
 
 		fileDescriptor, path = tempfile.mkstemp()
@@ -163,7 +178,7 @@ class FileTestCase(unittest.TestCase):
 
 	def testClear(self):
 		"""
-		This method tests :meth:`foundations.io.File.clear` method.
+		Tests :meth:`foundations.io.File.clear` method.
 		"""
 
 		fileDescriptor, path = tempfile.mkstemp()
@@ -178,12 +193,12 @@ class FileTestCase(unittest.TestCase):
 
 class SetDirectoryTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.io.setDirectory` definition units tests methods.
+	Defines :func:`foundations.io.setDirectory` definition units tests methods.
 	"""
 
 	def testSetDirectory(self):
 		"""
-		This method tests :func:`foundations.io.setDirectory` definition.
+		Tests :func:`foundations.io.setDirectory` definition.
 		"""
 
 		tempDirectory = tempfile.mkdtemp()
@@ -195,37 +210,84 @@ class SetDirectoryTestCase(unittest.TestCase):
 
 class CopyTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.io.copy` definition units tests methods.
+	Defines :func:`foundations.io.copy` definition units tests methods.
 	"""
 
 	def testCopy(self):
 		"""
-		This method tests :func:`foundations.io.copy` definition.
+		Tests :func:`foundations.io.copy` definition.
 		"""
 
 		tempDirectory = tempfile.mkdtemp()
-		destination = os.path.join(tempDirectory, os.path.basename(TEST_FILE))
-		foundations.io.copy(TEST_FILE, destination)
+		destination = os.path.join(tempDirectory, os.path.basename(TEXT_FILE))
+		foundations.io.copy(TEXT_FILE, destination)
 		self.assertTrue(os.path.exists(destination))
 		shutil.rmtree(tempDirectory)
 
 class RemoveTestCase(unittest.TestCase):
 	"""
-	This class defines :func:`foundations.io.remove` definition units tests methods.
+	Defines :func:`foundations.io.remove` definition units tests methods.
 	"""
 
 	def testRemove(self):
 		"""
-		This method tests :func:`foundations.io.remove` definition.
+		Tests :func:`foundations.io.remove` definition.
 		"""
 
 		tempDirectory = tempfile.mkdtemp()
-		destination = os.path.join(tempDirectory, os.path.basename(TEST_FILE))
-		foundations.io.copy(TEST_FILE, destination)
+		destination = os.path.join(tempDirectory, os.path.basename(TEXT_FILE))
+		foundations.io.copy(TEXT_FILE, destination)
 		foundations.io.remove(destination)
 		self.assertTrue(not os.path.exists(destination))
 		shutil.rmtree(tempDirectory)
 
+class IsReadableTestCase(unittest.TestCase):
+	"""
+	Defines :func:`foundations.io.isReadable` definition units tests methods.
+	"""
+
+	def testIsReadable(self):
+		"""
+		Tests :func:`foundations.io.isReadable` definition.
+		"""
+
+		tempDirectory = tempfile.mkdtemp()
+		self.assertTrue(foundations.io.isReadable(tempDirectory))
+		os.chmod(tempDirectory, stat.S_IROTH)
+		self.assertFalse(foundations.io.isReadable(tempDirectory))
+		os.chmod(tempDirectory, stat.S_IREAD)
+		shutil.rmtree(tempDirectory)
+
+class IsWritableTestCase(unittest.TestCase):
+	"""
+	Defines :func:`foundations.io.isWritable` definition units tests methods.
+	"""
+
+	def testIsWritable(self):
+		"""
+		Tests :func:`foundations.io.isWritable` definition.
+		"""
+
+		tempDirectory = tempfile.mkdtemp()
+		self.assertTrue(foundations.io.isWritable(tempDirectory))
+		os.chmod(tempDirectory, stat.S_IREAD)
+		self.assertFalse(foundations.io.isWritable(tempDirectory))
+		shutil.rmtree(tempDirectory)
+
+class IsBinaryFileTestCase(unittest.TestCase):
+	"""
+	Defines :func:`foundations.io.isBinaryFile` definition units tests methods.
+	"""
+
+	def testPathExists(self):
+		"""
+		Tests :func:`foundations.io.isBinaryFile` definition.
+		"""
+
+		self.assertTrue(foundations.io.isBinaryFile(LIBRARY))
+		self.assertFalse(foundations.io.isBinaryFile(TEXT_FILE))
+
 if __name__ == "__main__":
 	import foundations.tests.utilities
+
 	unittest.main()
