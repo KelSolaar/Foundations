@@ -3,23 +3,23 @@ echo ---------------------------------------------------------------------------
 echo Foundations - Files Gathering
 echo -------------------------------------------------------------------------------
 
-export PROJECT=$( dirname "${BASH_SOURCE[0]}" )/..
+export PROJECT_DIRECTORY=$(cd $( dirname "${BASH_SOURCE[0]}" )/..; pwd)
 
-export DOCUMENTATION=$PROJECT/docs/
-export RELEASES=$PROJECT/releases/
-export REPOSITORY=$RELEASES/repository/
-export UTILITIES=$PROJECT/utilities
+export DOCUMENTATION_DIRECTORY=$PROJECT_DIRECTORY/docs/
+export RELEASES_DIRECTORY=$PROJECT_DIRECTORY/releases/
+export REPOSITORY_DIRECTORY=$RELEASES_DIRECTORY/repository/
+export UTILITIES_DIRECTORY=$PROJECT_DIRECTORY/utilities
 
 #! Gathering folder cleanup.
-rm -rf $REPOSITORY
-mkdir -p $REPOSITORY/Foundations
+rm -rf $REPOSITORY_DIRECTORY
+mkdir -p $REPOSITORY_DIRECTORY/Foundations
 
 #! Foundations Changes gathering.
-cp -rf $RELEASES/Changes.html $REPOSITORY/Foundations/
+cp -rf $RELEASES_DIRECTORY/Changes.html $REPOSITORY_DIRECTORY/Foundations/
 
 #! Foundations Manual / Help files.
-cp -rf $DOCUMENTATION/help $REPOSITORY/Foundations/Help
-rm $REPOSITORY/Foundations/help/Foundations_Manual.rst
+cp -rf $DOCUMENTATION_DIRECTORY/help $REPOSITORY_DIRECTORY/Foundations/Help
+rm $REPOSITORY_DIRECTORY/Foundations/help/Foundations_Manual.rst
 
 #! Foundations Api files.
-cp -rf $DOCUMENTATION/sphinx/build/html $REPOSITORY/Foundations/Api
+cp -rf $DOCUMENTATION_DIRECTORY/sphinx/build/html $REPOSITORY_DIRECTORY/Foundations/Api
