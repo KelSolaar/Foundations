@@ -57,7 +57,6 @@ __all__ = ["LOGGER",
 		"filterPath",
 		"getFirstItem",
 		"getLastItem",
-		"isBinaryFile",
 		"repeat",
 		"dependencyResolver",
 		"isInternetAvailable",
@@ -91,7 +90,7 @@ def uniqify(sequence):
 	:type sequence: object
 	:return: Uniqified sequence.
 	:rtype: list
-	
+
 	:note: The sequence order is not maintained by this definition.
 	"""
 
@@ -187,29 +186,6 @@ def getLastItem(iterable, default=None):
 		return default
 
 	return iterable[-1]
-
-def isBinaryFile(file):
-	"""
-	Returns if given file is a binary file.
-
-	:param file: File path.
-	:type file: unicode
-	:return: Is file binary.
-	:rtype: bool
-	"""
-
-	fileHandle = open(file, "rb")
-	try:
-		chunkSize = 1024
-		while True:
-			chunk = fileHandle.read(chunkSize)
-			if chr(0) in chunk:
-				return True
-			if len(chunk) < chunkSize:
-				break
-	finally:
-		fileHandle.close()
-	return False
 
 def repeat(object, iterations=1):
 	"""

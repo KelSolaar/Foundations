@@ -62,7 +62,7 @@ class ConstantsTestCase(unittest.TestCase):
 								"majorVersion",
 								"minorVersion",
 								"changeVersion",
-								"releaseVersion",
+								"version",
 								"logger",
 								"verbosityLevel",
 								"verbosityLabels",
@@ -89,28 +89,28 @@ class ConstantsTestCase(unittest.TestCase):
 		Tests :attr:`foundations.globals.constants.Constants.majorVersion` attribute.
 		"""
 
-		self.assertRegexpMatches(Constants.releaseVersion, "\d")
+		self.assertRegexpMatches(Constants.version, "\d")
 
 	def testMinorVersionAttribute(self):
 		"""
 		Tests :attr:`foundations.globals.constants.Constants.minorVersion` attribute.
 		"""
 
-		self.assertRegexpMatches(Constants.releaseVersion, "\d")
+		self.assertRegexpMatches(Constants.version, "\d")
 
 	def testChangeVersionAttribute(self):
 		"""
 		Tests :attr:`foundations.globals.constants.Constants.changeVersion` attribute.
 		"""
 
-		self.assertRegexpMatches(Constants.releaseVersion, "\d")
+		self.assertRegexpMatches(Constants.version, "\d")
 
-	def testReleaseVersionAttribute(self):
+	def testversionAttribute(self):
 		"""
-		Tests :attr:`foundations.globals.constants.Constants.releaseVersion` attribute.
+		Tests :attr:`foundations.globals.constants.Constants.version` attribute.
 		"""
 
-		self.assertRegexpMatches(Constants.releaseVersion, "\d\.\d\.\d")
+		self.assertRegexpMatches(Constants.version, "\d\.\d\.\d")
 
 	def testLoggerAttribute(self):
 		"""

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="generator" content="Docutils 0.9.1: http://docutils.sourceforge.net/" />
+		<meta name="generator" content="Docutils 0.11: http://docutils.sourceforge.net/" />
 		<title></title>
 		<style type="text/css">
 /*<![CDATA[*/
@@ -115,7 +115,7 @@
 					<span class="target" id="introduction">Introduction</span>
 				</h1>
 				<p>
-					<strong>Foundations</strong> is the core package of <a class="reference external" href="http://github.com/KelSolaar/Umbra">Umbra</a>, <a class="reference external" href="http://github.com/KelSolaar/sIBL_GUI">sIBL_GUI</a>, <a class="reference external" href="http://github.com/KelSolaar/sIBL_Reporter">sIBL_Reporter</a>. It provides modules defining various utilities classes and definitions used in those packages.
+					<strong>Foundations</strong> is the core package of <a class="reference external" href="http://github.com/KelSolaar/Oncilla">Oncilla</a>, <a class="reference external" href="http://github.com/KelSolaar/Color">Color</a>, <a class="reference external" href="http://github.com/KelSolaar/Manager">Manager</a>, <a class="reference external" href="http://github.com/KelSolaar/Umbra">Umbra</a>, <a class="reference external" href="http://github.com/KelSolaar/sIBL_GUI">sIBL_GUI</a>, <a class="reference external" href="http://github.com/KelSolaar/sIBL_Reporter">sIBL_Reporter</a>. It provides modules defining various utilities objects used in those packages.
 				</p><br />
 				<!-- .installation -->
 			</div>
@@ -147,7 +147,7 @@ pip install Foundations
 easy_install Foundations
 </pre>
 				<p>
-					Alternatively, if you want to directly install from <a class="reference external" href="http://github.com/KelSolaar/Foundations">Github</a> source repository:
+					You can also directly install from <a class="reference external" href="http://github.com/KelSolaar/Foundations">Github</a> source repository:
 				</p>
 				<pre class="literal-block">
 git clone git://github.com/KelSolaar/Foundations.git
@@ -177,22 +177,22 @@ python setup.py install
 					</li>
 				</ul>
 				<pre class="code python literal-block">
-<span class="o">&gt;&gt;&gt;</span> <span class="n">person</span> <span class="o">=</span> <span class="n">Structure</span><span class="p">(</span><span class="n">firstName</span><span class="o">=</span><span class="s">&quot;Doe&quot;</span><span class="p">,</span> <span class="n">lastName</span><span class="o">=</span><span class="s">&quot;John&quot;</span><span class="p">,</span> <span class="n">gender</span><span class="o">=</span><span class="s">&quot;male&quot;</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">person</span><span class="o">.</span><span class="n">firstName</span>
-<span class="s">'Doe'</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">person</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-<span class="p">[</span><span class="s">'gender'</span><span class="p">,</span> <span class="s">'firstName'</span><span class="p">,</span> <span class="s">'lastName'</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">person</span><span class="p">[</span><span class="s">&quot;gender&quot;</span><span class="p">]</span>
-<span class="s">'male'</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">del</span><span class="p">(</span><span class="n">person</span><span class="p">[</span><span class="s">&quot;gender&quot;</span><span class="p">])</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">person</span><span class="p">[</span><span class="s">&quot;gender&quot;</span><span class="p">]</span>
-<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
-  <span class="n">File</span> <span class="s">&quot;&lt;console&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">KeyError</span><span class="p">:</span> <span class="s">'gender'</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">person</span><span class="o">.</span><span class="n">gender</span>
-<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
-  <span class="n">File</span> <span class="s">&quot;&lt;console&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">AttributeError</span><span class="p">:</span> <span class="s">'Structure'</span> <span class="nb">object</span> <span class="n">has</span> <span class="n">no</span> <span class="n">attribute</span> <span class="s">'gender'</span>
+<span class="operator">&gt;&gt;&gt;</span> <span class="name">person</span> <span class="operator">=</span> <span class="name">Structure</span><span class="punctuation">(</span><span class="name">firstName</span><span class="operator">=</span><span class="literal string">&quot;Doe&quot;</span><span class="punctuation">,</span> <span class="name">lastName</span><span class="operator">=</span><span class="literal string">&quot;John&quot;</span><span class="punctuation">,</span> <span class="name">gender</span><span class="operator">=</span><span class="literal string">&quot;male&quot;</span><span class="punctuation">)</span>
+<span class="operator">&gt;&gt;&gt;</span> <span class="name">person</span><span class="operator">.</span><span class="name">firstName</span>
+<span class="literal string">'Doe'</span>
+<span class="operator">&gt;&gt;&gt;</span> <span class="name">person</span><span class="operator">.</span><span class="name">keys</span><span class="punctuation">()</span>
+<span class="punctuation">[</span><span class="literal string">'gender'</span><span class="punctuation">,</span> <span class="literal string">'firstName'</span><span class="punctuation">,</span> <span class="literal string">'lastName'</span><span class="punctuation">]</span>
+<span class="operator">&gt;&gt;&gt;</span> <span class="name">person</span><span class="punctuation">[</span><span class="literal string">&quot;gender&quot;</span><span class="punctuation">]</span>
+<span class="literal string">'male'</span>
+<span class="operator">&gt;&gt;&gt;</span> <span class="keyword">del</span><span class="punctuation">(</span><span class="name">person</span><span class="punctuation">[</span><span class="literal string">&quot;gender&quot;</span><span class="punctuation">])</span>
+<span class="operator">&gt;&gt;&gt;</span> <span class="name">person</span><span class="punctuation">[</span><span class="literal string">&quot;gender&quot;</span><span class="punctuation">]</span>
+<span class="name">Traceback</span> <span class="punctuation">(</span><span class="name">most</span> <span class="name">recent</span> <span class="name">call</span> <span class="name">last</span><span class="punctuation">):</span>
+  <span class="name">File</span> <span class="literal string">&quot;&lt;console&gt;&quot;</span><span class="punctuation">,</span> <span class="name">line</span> <span class="literal number integer">1</span><span class="punctuation">,</span> <span class="operator word">in</span> <span class="operator">&lt;</span><span class="name">module</span><span class="operator">&gt;</span>
+<span class="name exception">KeyError</span><span class="punctuation">:</span> <span class="literal string">'gender'</span>
+<span class="operator">&gt;&gt;&gt;</span> <span class="name">person</span><span class="operator">.</span><span class="name">gender</span>
+<span class="name">Traceback</span> <span class="punctuation">(</span><span class="name">most</span> <span class="name">recent</span> <span class="name">call</span> <span class="name">last</span><span class="punctuation">):</span>
+  <span class="name">File</span> <span class="literal string">&quot;&lt;console&gt;&quot;</span><span class="punctuation">,</span> <span class="name">line</span> <span class="literal number integer">1</span><span class="punctuation">,</span> <span class="operator word">in</span> <span class="operator">&lt;</span><span class="name">module</span><span class="operator">&gt;</span>
+<span class="name exception">AttributeError</span><span class="punctuation">:</span> <span class="literal string">'Structure'</span> <span class="name builtin">object</span> <span class="name">has</span> <span class="name">no</span> <span class="name">attribute</span> <span class="literal string">'gender'</span>
 </pre>
 				<ul class="simple">
 					<li>
@@ -200,12 +200,12 @@ python setup.py install
 					</li>
 				</ul>
 				<pre class="code python literal-block">
-<span class="o">&gt;&gt;&gt;</span> <span class="n">person</span> <span class="o">=</span> <span class="n">Lookup</span><span class="p">(</span><span class="n">firstName</span><span class="o">=</span><span class="s">&quot;Doe&quot;</span><span class="p">,</span> <span class="n">lastName</span><span class="o">=</span><span class="s">&quot;John&quot;</span><span class="p">,</span> <span class="n">gender</span><span class="o">=</span><span class="s">&quot;male&quot;</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">person</span><span class="o">.</span><span class="n">getFirstKeyFromValue</span><span class="p">(</span><span class="s">&quot;Doe&quot;</span><span class="p">)</span>
-<span class="s">'firstName'</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">persons</span> <span class="o">=</span> <span class="n">foundations</span><span class="o">.</span><span class="n">foundations</span><span class="o">.</span><span class="n">dataStructures</span><span class="o">.</span><span class="n">Lookup</span><span class="p">(</span><span class="n">John</span><span class="o">=</span><span class="s">&quot;Doe&quot;</span><span class="p">,</span> <span class="n">Jane</span><span class="o">=</span><span class="s">&quot;Doe&quot;</span><span class="p">,</span> <span class="n">Luke</span><span class="o">=</span><span class="s">&quot;Skywalker&quot;</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">persons</span><span class="o">.</span><span class="n">getKeysFromValue</span><span class="p">(</span><span class="s">&quot;Doe&quot;</span><span class="p">)</span>
-<span class="p">[</span><span class="s">'Jane'</span><span class="p">,</span> <span class="s">'John'</span><span class="p">]</span>
+<span class="operator">&gt;&gt;&gt;</span> <span class="name">person</span> <span class="operator">=</span> <span class="name">Lookup</span><span class="punctuation">(</span><span class="name">firstName</span><span class="operator">=</span><span class="literal string">&quot;Doe&quot;</span><span class="punctuation">,</span> <span class="name">lastName</span><span class="operator">=</span><span class="literal string">&quot;John&quot;</span><span class="punctuation">,</span> <span class="name">gender</span><span class="operator">=</span><span class="literal string">&quot;male&quot;</span><span class="punctuation">)</span>
+<span class="operator">&gt;&gt;&gt;</span> <span class="name">person</span><span class="operator">.</span><span class="name">getFirstKeyFromValue</span><span class="punctuation">(</span><span class="literal string">&quot;Doe&quot;</span><span class="punctuation">)</span>
+<span class="literal string">'firstName'</span>
+<span class="operator">&gt;&gt;&gt;</span> <span class="name">persons</span> <span class="operator">=</span> <span class="name">foundations</span><span class="operator">.</span><span class="name">foundations</span><span class="operator">.</span><span class="name">dataStructures</span><span class="operator">.</span><span class="name">Lookup</span><span class="punctuation">(</span><span class="name">John</span><span class="operator">=</span><span class="literal string">&quot;Doe&quot;</span><span class="punctuation">,</span> <span class="name">Jane</span><span class="operator">=</span><span class="literal string">&quot;Doe&quot;</span><span class="punctuation">,</span> <span class="name">Luke</span><span class="operator">=</span><span class="literal string">&quot;Skywalker&quot;</span><span class="punctuation">)</span>
+<span class="operator">&gt;&gt;&gt;</span> <span class="name">persons</span><span class="operator">.</span><span class="name">getKeysFromValue</span><span class="punctuation">(</span><span class="literal string">&quot;Doe&quot;</span><span class="punctuation">)</span>
+<span class="punctuation">[</span><span class="literal string">'Jane'</span><span class="punctuation">,</span> <span class="literal string">'John'</span><span class="punctuation">]</span>
 </pre>
 				<ul class="simple">
 					<li>
@@ -213,14 +213,14 @@ python setup.py install
 					</li>
 				</ul>
 				<pre class="code python literal-block">
-<span class="o">&gt;&gt;&gt;</span> <span class="n">environment</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">(</span><span class="n">JOHN</span><span class="o">=</span><span class="s">&quot;DOE&quot;</span><span class="p">,</span> <span class="n">DOE</span><span class="o">=</span><span class="s">&quot;JOHN&quot;</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">environment</span><span class="o">.</span><span class="n">setValues</span><span class="p">()</span>
-<span class="bp">True</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">os</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&quot;JOHN&quot;</span><span class="p">]</span>
-<span class="s">'DOE'</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&quot;DOE&quot;</span><span class="p">]</span>
-<span class="s">'JOHN'</span>
+<span class="operator">&gt;&gt;&gt;</span> <span class="name">environment</span> <span class="operator">=</span> <span class="name">Environment</span><span class="punctuation">(</span><span class="name">JOHN</span><span class="operator">=</span><span class="literal string">&quot;DOE&quot;</span><span class="punctuation">,</span> <span class="name">DOE</span><span class="operator">=</span><span class="literal string">&quot;JOHN&quot;</span><span class="punctuation">)</span>
+<span class="operator">&gt;&gt;&gt;</span> <span class="name">environment</span><span class="operator">.</span><span class="name">setValues</span><span class="punctuation">()</span>
+<span class="name builtin pseudo">True</span>
+<span class="operator">&gt;&gt;&gt;</span> <span class="keyword namespace">import</span> <span class="name namespace">os</span>
+<span class="operator">&gt;&gt;&gt;</span> <span class="name">os</span><span class="operator">.</span><span class="name">environ</span><span class="punctuation">[</span><span class="literal string">&quot;JOHN&quot;</span><span class="punctuation">]</span>
+<span class="literal string">'DOE'</span>
+<span class="operator">&gt;&gt;&gt;</span> <span class="name">os</span><span class="operator">.</span><span class="name">environ</span><span class="punctuation">[</span><span class="literal string">&quot;DOE&quot;</span><span class="punctuation">]</span>
+<span class="literal string">'JOHN'</span>
 </pre>
 				<ul class="simple">
 					<li>
@@ -228,10 +228,10 @@ python setup.py install
 					</li>
 				</ul>
 				<pre class="code python literal-block">
-<span class="o">&gt;&gt;&gt;</span> <span class="n">getNiceName</span><span class="p">(</span><span class="s">&quot;getMeANiceName&quot;</span><span class="p">)</span>
-<span class="s">'Get Me A Nice Name'</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">getNiceName</span><span class="p">(</span><span class="s">&quot;__getMeANiceName&quot;</span><span class="p">)</span>
-<span class="s">'__Get Me A Nice Name'</span>
+<span class="operator">&gt;&gt;&gt;</span> <span class="name">getNiceName</span><span class="punctuation">(</span><span class="literal string">&quot;getMeANiceName&quot;</span><span class="punctuation">)</span>
+<span class="literal string">'Get Me A Nice Name'</span>
+<span class="operator">&gt;&gt;&gt;</span> <span class="name">getNiceName</span><span class="punctuation">(</span><span class="literal string">&quot;__getMeANiceName&quot;</span><span class="punctuation">)</span>
+<span class="literal string">'__Get Me A Nice Name'</span>
 </pre>
 				<ul class="simple">
 					<li>
@@ -239,8 +239,8 @@ python setup.py install
 					</li>
 				</ul>
 				<pre class="code python literal-block">
-<span class="o">&gt;&gt;&gt;</span> <span class="n">getSplitextBasename</span><span class="p">(</span><span class="s">&quot;/Users/JohnDoe/Documents/Test.txt&quot;</span><span class="p">)</span>
-<span class="s">'Test'</span>
+<span class="operator">&gt;&gt;&gt;</span> <span class="name">getSplitextBasename</span><span class="punctuation">(</span><span class="literal string">&quot;/Users/JohnDoe/Documents/Test.txt&quot;</span><span class="punctuation">)</span>
+<span class="literal string">'Test'</span>
 </pre>
 				<ul class="simple">
 					<li>
@@ -248,8 +248,8 @@ python setup.py install
 					</li>
 				</ul>
 				<pre class="code python literal-block">
-<span class="o">&gt;&gt;&gt;</span> <span class="n">getCommonPathsAncestor</span><span class="p">(</span><span class="s">&quot;/Users/JohnDoe/Documents&quot;</span><span class="p">,</span> <span class="s">&quot;/Users/JohnDoe/Documents/Test.txt&quot;</span><span class="p">)</span>
-<span class="s">'/Users/JohnDoe/Documents'</span>
+<span class="operator">&gt;&gt;&gt;</span> <span class="name">getCommonPathsAncestor</span><span class="punctuation">(</span><span class="literal string">&quot;/Users/JohnDoe/Documents&quot;</span><span class="punctuation">,</span> <span class="literal string">&quot;/Users/JohnDoe/Documents/Test.txt&quot;</span><span class="punctuation">)</span>
+<span class="literal string">'/Users/JohnDoe/Documents'</span>
 </pre>
 				<ul class="simple">
 					<li>
@@ -257,17 +257,17 @@ python setup.py install
 					</li>
 				</ul>
 				<pre class="code python literal-block">
-<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="nb">file</span> <span class="ow">in</span> <span class="n">filesWalker</span><span class="p">(</span><span class="s">&quot;./foundations/tests/testsFoundations/resources/standard/level_0&quot;</span><span class="p">):</span>
-<span class="o">...</span>	 <span class="k">print</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
-<span class="o">...</span>
-<span class="o">./</span><span class="n">foundations</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">testsFoundations</span><span class="o">/</span><span class="n">resources</span><span class="o">/</span><span class="n">standard</span><span class="o">/</span><span class="n">level_0</span><span class="o">/</span><span class="n">level_1</span><span class="o">/</span><span class="n">level_2</span><span class="o">/</span><span class="n">standard</span><span class="o">.</span><span class="n">sIBLT</span>
-<span class="o">./</span><span class="n">foundations</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">testsFoundations</span><span class="o">/</span><span class="n">resources</span><span class="o">/</span><span class="n">standard</span><span class="o">/</span><span class="n">level_0</span><span class="o">/</span><span class="n">level_1</span><span class="o">/</span><span class="n">loremIpsum</span><span class="o">.</span><span class="n">txt</span>
-<span class="o">./</span><span class="n">foundations</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">testsFoundations</span><span class="o">/</span><span class="n">resources</span><span class="o">/</span><span class="n">standard</span><span class="o">/</span><span class="n">level_0</span><span class="o">/</span><span class="n">level_1</span><span class="o">/</span><span class="n">standard</span><span class="o">.</span><span class="n">rc</span>
-<span class="o">./</span><span class="n">foundations</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">testsFoundations</span><span class="o">/</span><span class="n">resources</span><span class="o">/</span><span class="n">standard</span><span class="o">/</span><span class="n">level_0</span><span class="o">/</span><span class="n">standard</span><span class="o">.</span><span class="n">ibl</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="nb">file</span> <span class="ow">in</span> <span class="n">filesWalker</span><span class="p">(</span><span class="s">&quot;./foundations/tests/testsFoundations/resources/standard/level_0&quot;</span><span class="p">,</span> <span class="p">(</span><span class="s">&quot;\.sIBLT&quot;</span><span class="p">,)):</span>
-<span class="o">...</span>	 <span class="k">print</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
-<span class="o">...</span>
-<span class="o">./</span><span class="n">foundations</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">testsFoundations</span><span class="o">/</span><span class="n">resources</span><span class="o">/</span><span class="n">standard</span><span class="o">/</span><span class="n">level_0</span><span class="o">/</span><span class="n">level_1</span><span class="o">/</span><span class="n">level_2</span><span class="o">/</span><span class="n">standard</span><span class="o">.</span><span class="n">sIBLT</span>
+<span class="operator">&gt;&gt;&gt;</span> <span class="keyword">for</span> <span class="name builtin">file</span> <span class="operator word">in</span> <span class="name">filesWalker</span><span class="punctuation">(</span><span class="literal string">&quot;./foundations/tests/testsFoundations/resources/standard/level_0&quot;</span><span class="punctuation">):</span>
+<span class="operator">...</span>	 <span class="keyword">print</span><span class="punctuation">(</span><span class="name builtin">file</span><span class="punctuation">)</span>
+<span class="operator">...</span>
+<span class="operator">./</span><span class="name">foundations</span><span class="operator">/</span><span class="name">tests</span><span class="operator">/</span><span class="name">testsFoundations</span><span class="operator">/</span><span class="name">resources</span><span class="operator">/</span><span class="name">standard</span><span class="operator">/</span><span class="name">level_0</span><span class="operator">/</span><span class="name">level_1</span><span class="operator">/</span><span class="name">level_2</span><span class="operator">/</span><span class="name">standard</span><span class="operator">.</span><span class="name">sIBLT</span>
+<span class="operator">./</span><span class="name">foundations</span><span class="operator">/</span><span class="name">tests</span><span class="operator">/</span><span class="name">testsFoundations</span><span class="operator">/</span><span class="name">resources</span><span class="operator">/</span><span class="name">standard</span><span class="operator">/</span><span class="name">level_0</span><span class="operator">/</span><span class="name">level_1</span><span class="operator">/</span><span class="name">loremIpsum</span><span class="operator">.</span><span class="name">txt</span>
+<span class="operator">./</span><span class="name">foundations</span><span class="operator">/</span><span class="name">tests</span><span class="operator">/</span><span class="name">testsFoundations</span><span class="operator">/</span><span class="name">resources</span><span class="operator">/</span><span class="name">standard</span><span class="operator">/</span><span class="name">level_0</span><span class="operator">/</span><span class="name">level_1</span><span class="operator">/</span><span class="name">standard</span><span class="operator">.</span><span class="name">rc</span>
+<span class="operator">./</span><span class="name">foundations</span><span class="operator">/</span><span class="name">tests</span><span class="operator">/</span><span class="name">testsFoundations</span><span class="operator">/</span><span class="name">resources</span><span class="operator">/</span><span class="name">standard</span><span class="operator">/</span><span class="name">level_0</span><span class="operator">/</span><span class="name">standard</span><span class="operator">.</span><span class="name">ibl</span>
+<span class="operator">&gt;&gt;&gt;</span> <span class="keyword">for</span> <span class="name builtin">file</span> <span class="operator word">in</span> <span class="name">filesWalker</span><span class="punctuation">(</span><span class="literal string">&quot;./foundations/tests/testsFoundations/resources/standard/level_0&quot;</span><span class="punctuation">,</span> <span class="punctuation">(</span><span class="literal string">&quot;\.sIBLT&quot;</span><span class="punctuation">,)):</span>
+<span class="operator">...</span>	 <span class="keyword">print</span><span class="punctuation">(</span><span class="name builtin">file</span><span class="punctuation">)</span>
+<span class="operator">...</span>
+<span class="operator">./</span><span class="name">foundations</span><span class="operator">/</span><span class="name">tests</span><span class="operator">/</span><span class="name">testsFoundations</span><span class="operator">/</span><span class="name">resources</span><span class="operator">/</span><span class="name">standard</span><span class="operator">/</span><span class="name">level_0</span><span class="operator">/</span><span class="name">level_1</span><span class="operator">/</span><span class="name">level_2</span><span class="operator">/</span><span class="name">standard</span><span class="operator">.</span><span class="name">sIBLT</span>
 </pre><br />
 				<!-- .api -->
 			</div>

@@ -128,7 +128,7 @@ class SectionsFileParser(foundations.io.File):
 				 preserveOrder=True):
 		"""
 		Initializes the class.
-		
+
 		Usage::
 
 			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", \
@@ -136,7 +136,7 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser = SectionsFileParser()
 			>>> sectionsFileParser.content = content
 			>>> sectionsFileParser.parse(stripComments=False)
-			True
+			<foundations.parsers.SectionsFileParser object at 0x293892011>
 			>>> sectionsFileParser.sections.keys()
 			[u'Section A', u'Section B']
 			>>> sectionsFileParser.comments
@@ -593,7 +593,7 @@ class SectionsFileParser(foundations.io.File):
 	@property
 	def preserveOrder(self):
 		"""
-		This method is the property for **self.__preserveOrder** attribute.
+		Property for **self.__preserveOrder** attribute.
 
 		:return: self.__preserveOrder.
 		:rtype: bool
@@ -605,7 +605,7 @@ class SectionsFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(AssertionError)
 	def preserveOrder(self, value):
 		"""
-		This method is the setter method for **self.__preserveOrder** attribute.
+		Setter method for **self.__preserveOrder** attribute.
 
 		:param value: Attribute value.
 		:type value: bool
@@ -619,7 +619,7 @@ class SectionsFileParser(foundations.io.File):
 	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
 	def preserveOrder(self):
 		"""
-		This method is the deleter method for **self.__preserveOrder** attribute.
+		Deleter method for **self.__preserveOrder** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
@@ -695,7 +695,7 @@ class SectionsFileParser(foundations.io.File):
 			  stripQuotationMarkers=True,
 			  raiseParsingErrors=True):
 		"""
-		Process the file content and extract the sections / attributes
+		Process the file content and extracts the sections / attributes
 			as nested :class:`collections.OrderedDict` dictionaries or dictionaries.
 
 		Usage::
@@ -704,23 +704,23 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser = SectionsFileParser()
 			>>> sectionsFileParser.content = content
 			>>> sectionsFileParser.parse(stripComments=False)
-			True
+			<foundations.parsers.SectionsFileParser object at 0x860323123>
 			>>> sectionsFileParser.sections.keys()
 			[u'_defaults']
 			>>> sectionsFileParser.sections["_defaults"].values()
 			[u'Value A', u'Value B']
 			>>> sectionsFileParser.parse(stripComments=False, stripQuotationMarkers=False)
-			True
+			<foundations.parsers.SectionsFileParser object at 0x860323123>
 			>>> sectionsFileParser.sections["_defaults"].values()
 			[u'"Value A"', u'"Value B"']
 			>>> sectionsFileParser.comments
 			OrderedDict([(u'_defaults|#0', {u'content': u'Comment.', u'id': 0})])
 			>>> sectionsFileParser.parse()
-			True
+			<foundations.parsers.SectionsFileParser object at 0x860323123>
 			>>> sectionsFileParser.sections["_defaults"]
 			OrderedDict([(u'_defaults|Attribute 1', u'Value A'), (u'_defaults|Attribute 2', u'Value B')])
 			>>> sectionsFileParser.parse(namespaces=False)
-			True
+			<foundations.parsers.SectionsFileParser object at 0x860323123>
 			>>> sectionsFileParser.sections["_defaults"]
 			OrderedDict([(u'Attribute 1', u'Value A'), (u'Attribute 2', u'Value B')])
 
@@ -736,14 +736,14 @@ class SectionsFileParser(foundations.io.File):
 		:type stripQuotationMarkers: bool
 		:param raiseParsingErrors: Raise parsing errors.
 		:type raiseParsingErrors: bool
-		:return: Method success.
-		:rtype: bool
+		:return: SectionFileParser instance.
+		:rtype: SectionFileParser
 		"""
 
 		LOGGER.debug("> Reading sections from: '{0}'.".format(self.path))
 
 		if not self.content:
-			return False
+			self.read()
 
 		attributes = {} if not self.__preserveOrder else OrderedDict()
 		section = self.__defaultsSection
@@ -798,7 +798,7 @@ class SectionsFileParser(foundations.io.File):
 						attributes[attribute] = value.strip("".join(self.__quotationMarkers)) \
 							if stripQuotationMarkers else value
 					else:
-						attributes[attribute]= None
+						attributes[attribute] = None
 				else:
 					self.__parsingErrors.append(foundations.exceptions.AttributeStructureParsingError(
 						"Attribute structure is invalid: {0}".format(line), i + 1))
@@ -813,12 +813,12 @@ class SectionsFileParser(foundations.io.File):
 				"{0} | '{1}' structure is invalid, parsing exceptions occured!".format(self.__class__.__name__,
 																					   self.path))
 
-		return True
+		return self
 
 	def sectionExists(self, section):
 		"""
 		Checks if given section exists.
-		
+
 		Usage::
 
 			>>> content = ["[Section A]\\n", "; Comment.\\n", "Attribute 1 = \\"Value A\\"\\n", "\\n", \
@@ -826,7 +826,7 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser = SectionsFileParser()
 			>>> sectionsFileParser.content = content
 			>>> sectionsFileParser.parse()
-			True
+			<foundations.parsers.SectionsFileParser object at 0x845683844>
 			>>> sectionsFileParser.sectionExists("Section A")
 			True
 			>>> sectionsFileParser.sectionExists("Section C")
@@ -856,7 +856,7 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser = SectionsFileParser()
 			>>> sectionsFileParser.content = content
 			>>> sectionsFileParser.parse()
-			True
+			<foundations.parsers.SectionsFileParser object at 0x234564563>
 			>>> sectionsFileParser.attributeExists("Attribute 1", "Section A")
 			True
 			>>> sectionsFileParser.attributeExists("Attribute 2", "Section A")
@@ -889,7 +889,7 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser = SectionsFileParser()
 			>>> sectionsFileParser.content = content
 			>>> sectionsFileParser.parse()
-			True
+			<foundations.parsers.SectionsFileParser object at 0x125698322>
 			>>> sectionsFileParser.getAttributes("Section A")
 			OrderedDict([(u'Section A|Attribute 1', u'Value A')])
 			>>> sectionsFileParser.preserveOrder=False
@@ -932,7 +932,7 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser = SectionsFileParser()
 			>>> sectionsFileParser.content = content
 			>>> sectionsFileParser.parse()
-			True
+			<foundations.parsers.SectionsFileParser object at 0x845683844>
 			>>> sectionsFileParser.getAllAttributes()
 			OrderedDict([(u'Section A|Attribute 1', u'Value A'), (u'Section B|Attribute 2', u'Value B')])
 			>>> sectionsFileParser.preserveOrder=False
@@ -962,7 +962,7 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser = SectionsFileParser()
 			>>> sectionsFileParser.content = content
 			>>> sectionsFileParser.parse()
-			True
+			<foundations.parsers.SectionsFileParser object at 0x679302423>
 			>>> sectionsFileParser.getValue("Attribute 1", "Section A")
 			u'Value A'
 
@@ -997,7 +997,7 @@ class SectionsFileParser(foundations.io.File):
 			>>> sectionsFileParser = SectionsFileParser()
 			>>> sectionsFileParser.content = content
 			>>> sectionsFileParser.parse()
-			True
+			<foundations.parsers.SectionsFileParser object at 0x109304209>
 			>>> sectionsFileParser.setValue("Attribute 3", "Section C", "Value C")
 			True
 
@@ -1114,7 +1114,7 @@ class PlistFileParser(foundations.io.File):
 	def __init__(self, file=None):
 		"""
 		Initializes the class.
-		
+
 		Usage::
 
 			>>> plistFileParser = PlistFileParser("standard.plist")
@@ -1399,7 +1399,7 @@ class PlistFileParser(foundations.io.File):
 def getAttributeCompound(attribute, value=None, splitter="|", bindingIdentifier="@"):
 	"""
 	Returns an attribute compound.
-	
+
 	Usage::
 
 		>>> data = "@Link | Value | Boolean | Link Parameter"

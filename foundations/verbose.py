@@ -48,30 +48,63 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["THREADS_IDENTIFIERS",
-			"INDENT_LEVEL",
-			"LOGGER",
-			"LOGGING_DEFAULT_FORMATTER",
-			"LOGGING_EXTENDED_FORMATTER",
-			"LOGGING_STANDARD_FORMATTER",
-			"TRACER_LOGGING_FUNCTION",
-			"Streamer"
-			"StandardOutputStreamer",
-			"indentMessage",
-			"tracer",
-			"installLogger",
-			"uninstallLogger",
-			"getLoggingConsoleHandler",
-			"getLoggingFileHandler",
-			"getLoggingStreamHandler",
-			"removeLoggingHandler",
-			"setVerbosityLevel"]
+		   "INDENT_LEVEL",
+		   "toString",
+		   "LOGGER",
+		   "LOGGING_DEFAULT_FORMATTER",
+		   "LOGGING_EXTENDED_FORMATTER",
+		   "LOGGING_STANDARD_FORMATTER",
+		   "TRACER_LOGGING_FUNCTION",
+		   "Streamer"
+		   "StandardOutputStreamer",
+		   "indentMessage",
+		   "tracer",
+		   "installLogger",
+		   "uninstallLogger",
+		   "getLoggingConsoleHandler",
+		   "getLoggingFileHandler",
+		   "getLoggingStreamHandler",
+		   "removeLoggingHandler",
+		   "setVerbosityLevel"]
 
 THREADS_IDENTIFIERS = {}
 
 INDENT_LEVEL = 0
 
 #**********************************************************************************************************************
-#***	Logging classes and definitions.
+#***	Module attributes.
+#**********************************************************************************************************************
+def toUnicode(data, encoding=Constants.defaultCodec, errors=Constants.codecError):
+	"""
+	Converts given data to unicode string using package default settings, fighting **The Hell**!
+
+	Usage::
+
+		>>> toUnicode("myData")
+		u'myData'
+		>>> toUnicode("汉字/漢字")
+		u'\u6c49\u5b57/\u6f22\u5b57'
+
+	:param data: Data to convert.
+	:type data: object
+	:param encoding: File encoding codec.
+	:type encoding: unicode
+	:param errors: File encoding errors handling.
+	:type errors: unicode
+	:return: Unicode data.
+	:rtype: unicode
+	"""
+
+	if isinstance(data, type("")):
+		return data
+	else:
+		try:
+			return unicode(data, encoding, errors)
+		except TypeError:
+			return unicode(str(data), encoding, errors)
+
+#**********************************************************************************************************************
+#***	Logging classes and definitions monkey patching.
 #**********************************************************************************************************************
 def _LogRecord_getAttribute(self, attribute):
 	"""
@@ -96,6 +129,21 @@ def _LogRecord_getAttribute(self, attribute):
 
 logging.LogRecord.__getattribute__ = _LogRecord_getAttribute
 
+def _LogRecord_msg():
+	"""
+	Overrides logging.LogRecord.msg attribute to ensure variable content is stored as unicode.
+	"""
+
+	def _LogRecord_msgProperty(self):
+		return self.__msg
+
+	def _LogRecord_msgSetter(self, value):
+		self.__msg = toUnicode(value)
+
+	logging.LogRecord.msg = property(_LogRecord_msgProperty, _LogRecord_msgSetter)
+
+_LogRecord_msg()
+
 #**********************************************************************************************************************
 #***	Module attributes.
 #**********************************************************************************************************************
@@ -112,7 +160,7 @@ TRACER_LOGGING_FUNCTION = LOGGER.info
 #**********************************************************************************************************************
 class Streamer(object):
 	"""
-	Defines a stream object for :class:`logging.StreamHandler` logging handler. 
+	Defines a stream object for :class:`logging.StreamHandler` logging handler.
 	"""
 
 	def __init__(self, stream=None):
@@ -263,15 +311,15 @@ def tracer(object):
 	| Traces execution.
 	| Any method / definition decorated will have it's execution traced through debug messages.
 	| Both object entry and exit are logged.
-	
+
 	Entering in an object::
-		
+
 		INFO    : ---> foundations.environment.getUserApplicationDataDirectory() <<<---
-		
+
 	Exiting from an object::
-		
+
 		INFO   : <--- foundations.environment.getSystemApplicationDataDirectory() ^ '...' --->
-	
+
 	:param object: Object to decorate.
 	:type object: object
 	:return: Object.
@@ -304,14 +352,14 @@ def tracer(object):
 
 		positionalArgs = map(foundations.trace.formatArgument, zip(argsNames, args))
 		defaultedArgs = [foundations.trace.formatArgument((name, argsDefaults[name])) \
-						for name in argsNames[len(args):] if name not in kwargs]
+						 for name in argsNames[len(args):] if name not in kwargs]
 		namelessArgs = map(repr, args[argsCount:])
 		keywordArgs = map(foundations.trace.formatArgument, kwargs.items())
 		TRACER_LOGGING_FUNCTION(indentMessage("---> {0}({1}) <---".format(traceName,
-																", ".join(itertools.chain(positionalArgs,
-																						defaultedArgs,
-																						namelessArgs,
-																						keywordArgs)))))
+																		  ", ".join(itertools.chain(positionalArgs,
+																									defaultedArgs,
+																									namelessArgs,
+																									keywordArgs)))))
 
 		INDENT_LEVEL += 1
 		value = object(*args, **kwargs)

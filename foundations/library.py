@@ -86,10 +86,16 @@ class Library(object):
 	"""
 
 	__instances = {}
-	"""Libraries instances: Each library is instanced once and stored in this attribute. ( Dictionary )"""
+	"""
+	:param __instances: Libraries instances.
+	:type __instances: dict
+	"""
 
 	callback = ctypes.CFUNCTYPE(ctypes.c_void_p, ctypes.c_int, ctypes.c_char_p)
-	"""callback: Defines library callback default function.	( ctypes.CFUNCTYPE )"""
+	"""
+	:param callback: callback.
+	:type callback: ctypes.CFUNCTYPE
+	"""
 
 	@foundations.exceptions.handleExceptions(foundations.exceptions.LibraryInstantiationError)
 	def __new__(cls, *args, **kwargs):

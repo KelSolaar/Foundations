@@ -33,7 +33,6 @@ import re
 #**********************************************************************************************************************
 import foundations.common
 import foundations.verbose
-from foundations.globals.constants import Constants
 
 #**********************************************************************************************************************
 #***	Module attributes.
@@ -72,34 +71,7 @@ ASCII_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-def toString(data, encoding=Constants.defaultCodec, errors=Constants.codecError):
-	"""
-	Converts given data to unicode string using package default settings.
-
-	Usage::
-
-		>>> toString("myData")
-		u'myData'
-		>>> toString("汉字/漢字")
-		u'\u6c49\u5b57/\u6f22\u5b57'
-
-	:param data: Data to convert.
-	:type data: object
-	:param encoding: File encoding codec.
-	:type encoding: unicode
-	:param errors: File encoding errors handling.
-	:type errors: unicode
-	:return: Unicode data.
-	:rtype: unicode
-	"""
-
-	if isinstance(data, type("")):
-		return data
-	else:
-		try:
-			return unicode(data, encoding, errors)
-		except TypeError:
-			return unicode(str(data), encoding, errors)
+toString = foundations.verbose.toUnicode
 
 def getNiceName(name):
 	"""
@@ -279,7 +251,7 @@ def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 
 def replace(string, data):
 	"""
-	Replaces the data occurences in the string.
+	Replaces the data occurrences in the string.
 
 	Usage::
 
@@ -289,7 +261,7 @@ def replace(string, data):
 
 	:param string: String to manipulate.
 	:type string: unicode
-	:param data: Replacement occurences.
+	:param data: Replacement occurrences.
 	:type data: dict
 	:return: Manipulated string.
 	:rtype: unicode
@@ -301,7 +273,7 @@ def replace(string, data):
 
 def removeStrip(string, pattern):
 	"""
-	Removes the pattern occurences in the string and strip the result.
+	Removes the pattern occurrences in the string and strip the result.
 
 	Usage::
 
@@ -402,7 +374,7 @@ def getNormalizedPath(path):
 def getRandomSequence(length=8):
 	"""
 	Returns a random sequence.
-	
+
 	Usage::
 
 		>>> getRandomSequence()
@@ -440,10 +412,10 @@ def isEmail(data):
 		LOGGER.debug("> {0}' is not matched as email.".format(data))
 		return False
 
-def isWebsite(data):
+def isWebsite(url):
 	"""
-	Check if given data string is a website.
-	
+	Check if given url string is a website.
+
 	Usage::
 
 		>>> isWebsite("http://www.domain.com")
@@ -457,9 +429,9 @@ def isWebsite(data):
 	:rtype: bool
 	"""
 
-	if re.match(r"(http|ftp|https)://([\w\-\.]+)/?", data):
-		LOGGER.debug("> {0}' is matched as website.".format(data))
+	if re.match(r"(http|ftp|https)://([\w\-\.]+)/?", url):
+		LOGGER.debug("> {0}' is matched as website.".format(url))
 		return True
 	else:
-		LOGGER.debug("> {0}' is not matched as website.".format(data))
+		LOGGER.debug("> {0}' is not matched as website.".format(url))
 		return False
