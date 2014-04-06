@@ -1,11 +1,11 @@
-.. image:: https://badge.waffle.io/kelsolaar/foundations.png?label=ready&title=Ready 
- :target: https://waffle.io/kelsolaar/foundations
- :alt: 'Stories in Ready'
 Foundations
 ===========
 
 ..  image:: https://secure.travis-ci.org/KelSolaar/Foundations.png?branch=master
 ..  image:: https://gemnasium.com/KelSolaar/Foundations.png  
+.. image:: https://badge.waffle.io/kelsolaar/foundations.png?label=ready&title=Ready 
+ :target: https://waffle.io/kelsolaar/foundations
+ :alt: 'Stories in Ready'
 
 Introduction
 ------------
