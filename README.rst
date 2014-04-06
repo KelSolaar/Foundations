@@ -1,3 +1,6 @@
+.. image:: https://badge.waffle.io/kelsolaar/foundations.png?label=ready&title=Ready 
+ :target: https://waffle.io/kelsolaar/foundations
+ :alt: 'Stories in Ready'
 Foundations
 ===========
 
