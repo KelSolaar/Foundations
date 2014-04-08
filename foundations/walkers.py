@@ -84,9 +84,9 @@ def filesWalker(directory, filtersIn=None, filtersOut=None, flags=0):
 		LOGGER.debug("> Current filters out: '{0}'.".format(filtersOut))
 
 	for parentDirectory, directories, files in os.walk(directory, topdown=False, followlinks=True):
-		for item in files:
-			LOGGER.debug("> Current file: '{0}' in '{1}'.".format(item, directory))
-			path = foundations.strings.toForwardSlashes(os.path.join(parentDirectory, item))
+		for file in files:
+			LOGGER.debug("> Current file: '{0}' in '{1}'.".format(file, directory))
+			path = foundations.strings.toForwardSlashes(os.path.join(parentDirectory, file))
 			if os.path.isfile(path):
 				if not foundations.strings.filterWords((path,), filtersIn, filtersOut, flags):
 					continue
