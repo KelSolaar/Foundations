@@ -29,7 +29,7 @@ import weakref
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
-import foundations.dataStructures
+import foundations.data_structures
 import foundations.exceptions
 import foundations.verbose
 import foundations.walkers
@@ -46,12 +46,12 @@ __status__ = "Production"
 
 __all__ = ["LOGGER", "Attribute", "AbstractNode", "AbstractCompositeNode"]
 
-LOGGER = foundations.verbose.installLogger()
+LOGGER = foundations.verbose.install_logger()
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class Attribute(foundations.dataStructures.Structure):
+class Attribute(foundations.data_structures.Structure):
 	"""
 	Defines a storage object for the :class:`AbstractNode` class attributes.
 	"""
@@ -82,7 +82,7 @@ class Attribute(foundations.dataStructures.Structure):
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
-		foundations.dataStructures.Structure.__init__(self, **kwargs)
+		foundations.data_structures.Structure.__init__(self, **kwargs)
 
 		# --- Setting class attributes. ---
 		self.__name = None
@@ -105,7 +105,7 @@ class Attribute(foundations.dataStructures.Structure):
 		return self.__name
 
 	@name.setter
-	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
 	def name(self, value):
 		"""
 		Setter for **self.__name** attribute.
@@ -117,7 +117,7 @@ class Attribute(foundations.dataStructures.Structure):
 		self.__name = value
 
 	@name.deleter
-	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
 	def name(self):
 		"""
 		Deleter for **name** attribute.
@@ -149,7 +149,7 @@ class Attribute(foundations.dataStructures.Structure):
 		self.__value = value
 
 	@value.deleter
-	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
 	def value(self):
 		"""
 		Deleter for **value** attribute.
@@ -163,21 +163,21 @@ class Attribute(foundations.dataStructures.Structure):
 	#******************************************************************************************************************
 	def __hash__(self):
 		"""
-		Reimplements the :meth:`foundations.dataStructures.Structure.__hash__` method.
-		
+		Reimplements the :meth:`foundations.data_structures.Structure.__hash__` method.
+
 		:return: Object hash.
 		:rtype: int
-		
-		:note: :class:`foundations.dataStructures.Structure` inherits from **dict** and
+
+		:note: :class:`foundations.data_structures.Structure` inherits from **dict** and
 		should not be made hashable because of its mutability, however considering the fact the id
-		is used as the hash value, making the object hashable should be fairly safe. 
+		is used as the hash value, making the object hashable should be fairly safe.
 		"""
 
 		return hash(id(self))
 
  	def __repr__(self):
  		"""
- 		Reimplements the :meth:`foundations.dataStructures.Structure.__repr__` method.
+ 		Reimplements the :meth:`foundations.data_structures.Structure.__repr__` method.
 
  		:return: Object representation.
  		:rtype: unicode
@@ -185,11 +185,11 @@ class Attribute(foundations.dataStructures.Structure):
 
  		return "<{0} object at {1}>".format(self.__class__.__name__, hex(id(self)))
 
-class AbstractNode(foundations.dataStructures.Structure):
+class AbstractNode(foundations.data_structures.Structure):
 	"""
 	| Defines the base Node class.
 	| Although it can be instancied directly that class is meant to be subclassed.
-	
+
 	:note: Doesn't provide compositing capabilities, :class:`AbstractCompositeNode` class must be used for that purpose.
 	"""
 
@@ -199,22 +199,22 @@ class AbstractNode(foundations.dataStructures.Structure):
 	:type __family: unicode
 	"""
 
-	__instanceId = 1
+	__instance_id = 1
 	"""
-	:param __instanceId: Node id.
-	:type __instanceId: int
+	:param __instance_id: Node id.
+	:type __instance_id: int
 	"""
 
-	__nodesInstances = weakref.WeakValueDictionary()
+	__nodes_instances = weakref.WeakValueDictionary()
 	"""
-	:param __nodesInstances: Nodes instances.
-	:type __nodesInstances: dict
+	:param __nodes_instances: Nodes instances.
+	:type __nodes_instances: dict
 	"""
 
 	def __new__(cls, *args, **kwargs):
 		"""
 		Constructor of the class.
-		
+
 		:param \*args: Arguments.
 		:type \*args: \*
 		:param \*\*kwargs: Keywords arguments.
@@ -225,10 +225,10 @@ class AbstractNode(foundations.dataStructures.Structure):
 
 		instance = super(AbstractNode, cls).__new__(cls)
 
-		instance._AbstractNode__identity = AbstractNode._AbstractNode__instanceId
+		instance._AbstractNode__identity = AbstractNode._AbstractNode__instance_id
 
-		AbstractNode._AbstractNode__nodesInstances[instance.__identity] = instance
-		AbstractNode._AbstractNode__instanceId += 1
+		AbstractNode._AbstractNode__nodes_instances[instance.__identity] = instance
+		AbstractNode._AbstractNode__instance_id += 1
 		return instance
 
 	def __init__(self, name=None, **kwargs):
@@ -237,13 +237,13 @@ class AbstractNode(foundations.dataStructures.Structure):
 
 		Usage::
 
-			>>> nodeA = AbstractNode("MyNodeA")
-			>>> nodeA.identity
+			>>> node_a = AbstractNode("MyNodeA")
+			>>> node_a.identity
 			1
-			>>> nodeB = AbstractNode()
-			>>> nodeB.name
+			>>> node_b = AbstractNode()
+			>>> node_b.name
 			u'Abstract2'
-			>>> nodeB.identity
+			>>> node_b.identity
 			2
 
 		:param name: Node name.
@@ -254,11 +254,11 @@ class AbstractNode(foundations.dataStructures.Structure):
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
-		foundations.dataStructures.Structure.__init__(self, **kwargs)
+		foundations.data_structures.Structure.__init__(self, **kwargs)
 
 		# --- Setting class attributes. ---
 		self.__name = None
-		self.name = name or self.__getDefaultNodeName()
+		self.name = name or self.__get_default_node_name()
 
 	#******************************************************************************************************************
 	#***	Attributes properties.
@@ -275,7 +275,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 		return getattr(self, "_{0}__{1}".format(self.__class__.__name__, "family"))
 
 	@family.setter
-	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
 	def family(self, value):
 		"""
 		Setter for **self.__family** attribute.
@@ -288,7 +288,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 		"{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "family"))
 
 	@family.deleter
-	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
 	def family(self):
 		"""
 		Deleter for **self.__family** attribute.
@@ -298,38 +298,38 @@ class AbstractNode(foundations.dataStructures.Structure):
 		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "family"))
 
 	@property
-	def nodesInstances(self):
+	def nodes_instances(self):
 		"""
-		Property for **self.__nodesInstances** attribute.
+		Property for **self.__nodes_instances** attribute.
 
-		:return: self.__nodesInstances.
+		:return: self.__nodes_instances.
 		:rtype: WeakValueDictionary
 		"""
 
-		return self.__nodesInstances
+		return self.__nodes_instances
 
-	@nodesInstances.setter
-	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
-	def nodesInstances(self, value):
+	@nodes_instances.setter
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
+	def nodes_instances(self, value):
 		"""
-		Setter for **self.__nodesInstances** attribute.
+		Setter for **self.__nodes_instances** attribute.
 
 		:param value: Attribute value.
 		:type value: WeakValueDictionary
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "nodesInstances"))
+		"{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "nodes_instances"))
 
-	@nodesInstances.deleter
-	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
-	def nodesInstances(self):
+	@nodes_instances.deleter
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
+	def nodes_instances(self):
 		"""
-		Deleter for **self.__nodesInstances** attribute.
+		Deleter for **self.__nodes_instances** attribute.
 		"""
 
 		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "nodesInstances"))
+		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "nodes_instances"))
 
 	@property
 	def identity(self):
@@ -343,7 +343,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 		return self.__identity
 
 	@identity.setter
-	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
 	def identity(self, value):
 		"""
 		Setter for **self.__identity** attribute.
@@ -356,7 +356,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 		"{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "identity"))
 
 	@identity.deleter
-	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
 	def identity(self):
 		"""
 		Deleter for **self.__identity** attribute.
@@ -377,7 +377,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 		return self.__name
 
 	@name.setter
-	@foundations.exceptions.handleExceptions(AssertionError)
+	@foundations.exceptions.handle_exceptions(AssertionError)
 	def name(self, value):
 		"""
 		Setter for **self.__name** attribute.
@@ -391,7 +391,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 		self.__name = value
 
 	@name.deleter
-	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
 	def name(self):
 		"""
 		Deleter for **self.__name** attribute.
@@ -405,8 +405,8 @@ class AbstractNode(foundations.dataStructures.Structure):
 	#******************************************************************************************************************
 	def __repr__(self):
 		"""
-		Reimplements the :meth:`foundations.dataStructures.Structure.__repr__` method.
-		
+		Reimplements the :meth:`foundations.data_structures.Structure.__repr__` method.
+
 		:return: Object representation.
 		:rtype: unicode
 		"""
@@ -415,22 +415,22 @@ class AbstractNode(foundations.dataStructures.Structure):
 
 	def __hash__(self):
 		"""
-		Reimplements the :meth:`foundations.dataStructures.Structure.__hash__` method.
-		
+		Reimplements the :meth:`foundations.data_structures.Structure.__hash__` method.
+
 		:return: Object hash.
 		:rtype: int
-		
-		:note: :class:`foundations.dataStructures.Structure` inherits from **dict** and
+
+		:note: :class:`foundations.data_structures.Structure` inherits from **dict** and
 		should not be made hashable because of its mutability, however considering the fact the id
-		is used as the hash value, making the object hashable should be fairly safe. 
+		is used as the hash value, making the object hashable should be fairly safe.
 		"""
 
 		return hash(id(self))
 
-	def __getDefaultNodeName(self):
+	def __get_default_node_name(self):
 		"""
 		Gets the default Node name.
-		
+
 		:return: Node name.
 		:rtype: unicode
 		"""
@@ -438,14 +438,14 @@ class AbstractNode(foundations.dataStructures.Structure):
 		return "{0}{1}".format(self.family, self.__identity)
 
 	@classmethod
-	def getNodeByIdentity(cls, identity):
+	def get_node_by_identity(cls, identity):
 		"""
 		Returns the Node with given identity.
-	
+
 		Usage::
 
-			>>> nodeA = AbstractNode("MyNodeA")
-			>>> AbstractNode.getNodeByIdentity(1)
+			>>> node_a = AbstractNode("MyNodeA")
+			>>> AbstractNode.get_node_by_identity(1)
 			<AbstractNode object at 0x101043a80>
 
 		:param identity: Node identity.
@@ -456,32 +456,32 @@ class AbstractNode(foundations.dataStructures.Structure):
 		:note: Nodes identities are starting from '1' to nodes instances count.
 		"""
 
-		return cls.__nodesInstances.get(identity, None)
+		return cls.__nodes_instances.get(identity, None)
 
-	def listAttributes(self):
+	def list_attributes(self):
 		"""
 		Returns the Node attributes names.
 
 		Usage::
 
-			>>>	nodeA = AbstractNode("MyNodeA", attributeA=Attribute(), attributeB=Attribute())
-			>>> nodeA.listAttributes()
+			>>>	node_a = AbstractNode("MyNodeA", attributeA=Attribute(), attributeB=Attribute())
+			>>> node_a.list_attributes()
 			['attributeB', 'attributeA']
-			
+
 		:return: Attributes names.
 		:rtype: list
 		"""
 
 		return [attribute for attribute, value in self.iteritems() if issubclass(value.__class__, Attribute)]
 
-	def getAttributes(self):
+	def get_attributes(self):
 		"""
 		Returns the Node attributes.
 
 		Usage::
 
-			>>>	nodeA = AbstractNode("MyNodeA", attributeA=Attribute(value="A"), attributeB=Attribute(value="B"))
-			>>> nodeA.getAttributes()
+			>>>	node_a = AbstractNode("MyNodeA", attributeA=Attribute(value="A"), attributeB=Attribute(value="B"))
+			>>> node_a.get_attributes()
 			[<Attribute object at 0x7fa471d3b5e0>, <Attribute object at 0x101e6c4a0>]
 
 		:return: Attributes.
@@ -490,16 +490,16 @@ class AbstractNode(foundations.dataStructures.Structure):
 
 		return [attribute for attribute in self.itervalues() if issubclass(attribute.__class__, Attribute)]
 
-	def attributeExists(self, name):
+	def attribute_exists(self, name):
 		"""
 		Returns if given attribute exists in the node.
 
 		Usage::
 
-			>>>	nodeA = AbstractNode("MyNodeA", attributeA=Attribute(), attributeB=Attribute())
-			>>> nodeA.attributeExists("attributeA")
+			>>>	node_a = AbstractNode("MyNodeA", attributeA=Attribute(), attributeB=Attribute())
+			>>> node_a.attribute_exists("attributeA")
 			True
-			>>> nodeA.attributeExists("attributeC")
+			>>> node_a.attribute_exists("attributeC")
 			False
 
 		:param name: Attribute name.
@@ -513,19 +513,19 @@ class AbstractNode(foundations.dataStructures.Structure):
 				return True
 		return False
 
-	@foundations.exceptions.handleExceptions(foundations.exceptions.NodeAttributeTypeError)
-	def addAttribute(self, name, value):
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.NodeAttributeTypeError)
+	def add_attribute(self, name, value):
 		"""
 		Adds given attribute to the node.
 
 		Usage::
 
-			>>>	nodeA = AbstractNode()
-			>>> nodeA.addAttribute("attributeA", Attribute())
+			>>>	node_a = AbstractNode()
+			>>> node_a.add_attribute("attributeA", Attribute())
 			True
-			>>> nodeA.listAttributes()
+			>>> node_a.list_attributes()
 			[u'attributeA']
-	
+
 		:param name: Attribute name.
 		:type name: unicode
 		:param value: Attribute value.
@@ -538,23 +538,23 @@ class AbstractNode(foundations.dataStructures.Structure):
 			raise foundations.exceptions.NodeAttributeTypeError(
 			"Node attribute value must be a '{0}' class instance!".format(Attribute.__class__.__name__))
 
-		if self.attributeExists(name):
+		if self.attribute_exists(name):
 			raise foundations.exceptions.NodeAttributeExistsError("Node attribute '{0}' already exists!".format(name))
 
 		self[name] = value
 		return True
 
-	@foundations.exceptions.handleExceptions(foundations.exceptions.NodeAttributeExistsError)
-	def removeAttribute(self, name):
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.NodeAttributeExistsError)
+	def remove_attribute(self, name):
 		"""
 		Removes given attribute from the node.
 
 		Usage::
 
-			>>>	nodeA = AbstractNode("MyNodeA", attributeA=Attribute(), attributeB=Attribute())
-			>>> nodeA.removeAttribute("attributeA")
+			>>>	node_a = AbstractNode("MyNodeA", attributeA=Attribute(), attributeB=Attribute())
+			>>> node_a.remove_attribute("attributeA")
 			True
-			>>> nodeA.listAttributes()
+			>>> node_a.list_attributes()
 			['attributeB']
 
 		:param name: Attribute name.
@@ -563,7 +563,7 @@ class AbstractNode(foundations.dataStructures.Structure):
 		:rtype: bool
 		"""
 
-		if not self.attributeExists(name):
+		if not self.attribute_exists(name):
 			raise foundations.exceptions.NodeAttributeExistsError("Node attribute '{0}' doesn't exists!".format(name))
 
 		del self[name]
@@ -593,7 +593,7 @@ class AbstractCompositeNode(AbstractNode):
 		:type children: list
 		:param \*\*kwargs: Keywords arguments.
 		:type \*\*kwargs: \*\*
-		
+
 		:note: :data:`pickle.HIGHEST_PROTOCOL` must be used to pickle :class:`foundations.nodes.AbstractCompositeNode` class.
 		"""
 
@@ -607,7 +607,7 @@ class AbstractCompositeNode(AbstractNode):
 		self.__children = None
 		self.children = children or []
 
-		parent and parent.addChild(self)
+		parent and parent.add_child(self)
 
 	#******************************************************************************************************************
 	#***	Attributes properties.
@@ -624,7 +624,7 @@ class AbstractCompositeNode(AbstractNode):
 		return self.__parent
 
 	@parent.setter
-	@foundations.exceptions.handleExceptions(AssertionError)
+	@foundations.exceptions.handle_exceptions(AssertionError)
 	def parent(self, value):
 		"""
 		Setter for **self.__parent** attribute.
@@ -639,7 +639,7 @@ class AbstractCompositeNode(AbstractNode):
 		self.__parent = value
 
 	@parent.deleter
-	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
 	def parent(self):
 		"""
 		Deleter for **self.__parent** attribute.
@@ -660,7 +660,7 @@ class AbstractCompositeNode(AbstractNode):
 		return self.__children
 
 	@children.setter
-	@foundations.exceptions.handleExceptions(AssertionError)
+	@foundations.exceptions.handle_exceptions(AssertionError)
 	def children(self, value):
 		"""
 		Setter for **self.__children** attribute.
@@ -677,7 +677,7 @@ class AbstractCompositeNode(AbstractNode):
 		self.__children = value
 
 	@children.deleter
-	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
 	def children(self):
 		"""
 		Deleter for **self.__children** attribute.
@@ -692,7 +692,7 @@ class AbstractCompositeNode(AbstractNode):
 	def __eq__(self, object):
 		"""
 		Reimplements the :meth:`AbstractNode.__eq__` method.
-		
+
 		:param object: Comparing object.
 		:type object: object
 		:return: Equality.
@@ -713,12 +713,12 @@ class AbstractCompositeNode(AbstractNode):
 
 		Usage::
 
-			>>> nodeB = AbstractCompositeNode("MyNodeB")
-			>>> nodeC = AbstractCompositeNode("MyNodeC")
-			>>> nodeA = AbstractCompositeNode("MyNodeA", children=[nodeB, nodeC])
-			>>> nodeA.child(0)
+			>>> node_b = AbstractCompositeNode("MyNodeB")
+			>>> node_c = AbstractCompositeNode("MyNodeC")
+			>>> node_a = AbstractCompositeNode("MyNodeA", children=[node_b, node_c])
+			>>> node_a.child(0)
 			<AbstractCompositeNode object at 0x10107b6f0>
-			>>> nodeA.child(0).name
+			>>> node_a.child(0).name
 			u'MyNodeB'
 
 		:param index: Child index.
@@ -733,20 +733,20 @@ class AbstractCompositeNode(AbstractNode):
 		if index >= 0 and index < len(self.__children):
 			return self.__children[index]
 
-	def indexOf(self, child):
+	def index_of(self, child):
 		"""
 		Returns the given child index.
 
 		Usage::
 
-			>>> nodeA = AbstractCompositeNode("MyNodeA")
-			>>> nodeB = AbstractCompositeNode("MyNodeB", nodeA)
-			>>> nodeC = AbstractCompositeNode("MyNodeC", nodeA)
-			>>> nodeA.indexOf(nodeB)
+			>>> node_a = AbstractCompositeNode("MyNodeA")
+			>>> node_b = AbstractCompositeNode("MyNodeB", node_a)
+			>>> node_c = AbstractCompositeNode("MyNodeC", node_a)
+			>>> node_a.index_of(node_b)
 			0
-			>>> nodeA.indexOf(nodeC)
+			>>> node_a.index_of(node_c)
 			1
-	
+
 		:param child: Child node.
 		:type child: AbstractNode or AbstractCompositeNode or Object
 		:return: Child index.
@@ -763,32 +763,32 @@ class AbstractCompositeNode(AbstractNode):
 
 		Usage::
 
-			>>> nodeA = AbstractCompositeNode("MyNodeA")
-			>>> nodeB = AbstractCompositeNode("MyNodeB", nodeA)
-			>>> nodeC = AbstractCompositeNode("MyNodeC", nodeA)
-			>>> nodeB.row()
+			>>> node_a = AbstractCompositeNode("MyNodeA")
+			>>> node_b = AbstractCompositeNode("MyNodeB", node_a)
+			>>> node_c = AbstractCompositeNode("MyNodeC", node_a)
+			>>> node_b.row()
 			0
-			>>> nodeC.row()
-			1	
+			>>> node_c.row()
+			1
 
 		:return: Node row.
 		:rtype: int
 		"""
 
 		if self.__parent:
-			return self.__parent.indexOf(self)
+			return self.__parent.index_of(self)
 
-	def addChild(self, child):
+	def add_child(self, child):
 		"""
 		Adds given child to the node.
 
 		Usage::
 
-			>>> nodeA = AbstractCompositeNode("MyNodeA")
-			>>> nodeB = AbstractCompositeNode("MyNodeB")
-			>>> nodeA.addChild(nodeB)
+			>>> node_a = AbstractCompositeNode("MyNodeA")
+			>>> node_b = AbstractCompositeNode("MyNodeB")
+			>>> node_a.add_child(node_b)
 			True
-			>>> nodeA.children
+			>>> node_a.children
 			[<AbstractCompositeNode object at 0x10107afe0>]
 
 		:param child: Child node.
@@ -801,18 +801,18 @@ class AbstractCompositeNode(AbstractNode):
 		child.parent = self
 		return True
 
-	def removeChild(self, index):
+	def remove_child(self, index):
 		"""
 		Removes child at given index from the Node children.
 
 		Usage::
 
-			>>> nodeA = AbstractCompositeNode("MyNodeA")
-			>>> nodeB = AbstractCompositeNode("MyNodeB", nodeA)
-			>>> nodeC = AbstractCompositeNode("MyNodeC", nodeA)
-			>>> nodeA.removeChild(1)
+			>>> node_a = AbstractCompositeNode("MyNodeA")
+			>>> node_b = AbstractCompositeNode("MyNodeB", node_a)
+			>>> node_c = AbstractCompositeNode("MyNodeC", node_a)
+			>>> node_a.remove_child(1)
 			True
-			>>> [child.name for child in nodeA.children]
+			>>> [child.name for child in node_a.children]
 			[u'MyNodeB']
 
 		:param index: Node index.
@@ -828,19 +828,19 @@ class AbstractCompositeNode(AbstractNode):
 		child.parent = None
 		return child
 
-	def insertChild(self, child, index):
+	def insert_child(self, child, index):
 		"""
 		Inserts given child at given index.
 
 		Usage::
 
-			>>> nodeA = AbstractCompositeNode("MyNodeA")
-			>>> nodeB = AbstractCompositeNode("MyNodeB", nodeA)
-			>>> nodeC = AbstractCompositeNode("MyNodeC", nodeA)
-			>>> nodeD = AbstractCompositeNode("MyNodeD")
-			>>> nodeA.insertChild(nodeD, 1)
+			>>> node_a = AbstractCompositeNode("MyNodeA")
+			>>> node_b = AbstractCompositeNode("MyNodeB", node_a)
+			>>> node_c = AbstractCompositeNode("MyNodeC", node_a)
+			>>> node_d = AbstractCompositeNode("MyNodeD")
+			>>> node_a.insert_child(node_d, 1)
 			True
-			>>> [child.name for child in nodeA.children]
+			>>> [child.name for child in node_a.children]
 			[u'MyNodeB', u'MyNodeD', u'MyNodeC']
 
 		:param child: Child node.
@@ -858,32 +858,32 @@ class AbstractCompositeNode(AbstractNode):
 		child.parent = self
 		return child
 
-	def hasChildren(self):
+	def has_children(self):
 		"""
 		Returns if the Node has children.
 
 		Usage::
 
-			>>> nodeA = AbstractCompositeNode("MyNodeA")
-			>>> nodeA.hasChildren()
+			>>> node_a = AbstractCompositeNode("MyNodeA")
+			>>> node_a.has_children()
 			False
 
 		:return: Children count.
 		:rtype: int
 		"""
 
-		return True if self.childrenCount() > 0 else False
+		return True if self.children_count() > 0 else False
 
-	def childrenCount(self):
+	def children_count(self):
 		"""
 		Returns the children count.
 
 		Usage::
 
-			>>> nodeA = AbstractCompositeNode("MyNodeA")
-			>>> nodeB = AbstractCompositeNode("MyNodeB", nodeA)
-			>>> nodeC = AbstractCompositeNode("MyNodeC", nodeA)
-			>>> nodeA.childrenCount()
+			>>> node_a = AbstractCompositeNode("MyNodeA")
+			>>> node_b = AbstractCompositeNode("MyNodeB", node_a)
+			>>> node_c = AbstractCompositeNode("MyNodeC", node_a)
+			>>> node_a.children_count()
 			2
 
 		:return: Children count.
@@ -892,49 +892,49 @@ class AbstractCompositeNode(AbstractNode):
 
 		return len(self.__children)
 
-	def sortChildren(self, attribute=None, reverseOrder=False):
+	def sort_children(self, attribute=None, reverse_order=False):
 		"""
 		Sorts the children using either the given attribute or the Node name.
 
 		:param attribute: Attribute name used for sorting.
 		:type attribute: unicode
-		:param reverseOrder: Sort in reverse order.
-		:type reverseOrder: bool
+		:param reverse_order: Sort in reverse order.
+		:type reverse_order: bool
 		:return: Method success.
 		:rtype: bool
 		"""
 
-		sortedChildren = []
+		sorted_children = []
 		if attribute:
-			sortableChildren = []
-			unsortableChildren = []
+			sortable_children = []
+			unsortable_children = []
 			for child in self.__children:
-				if child.attributeExists(attribute):
-					sortableChildren.append(child)
+				if child.attribute_exists(attribute):
+					sortable_children.append(child)
 				else:
-					unsortableChildren.append(child)
-			sortedChildren = sorted(sortableChildren, key=lambda x: getattr(x, attribute).value, reverse=reverseOrder or False)
-			sortedChildren.extend(unsortableChildren)
+					unsortable_children.append(child)
+			sorted_children = sorted(sortable_children, key=lambda x: getattr(x, attribute).value, reverse=reverse_order or False)
+			sorted_children.extend(unsortable_children)
 		else:
-			sortedChildren = sorted(self.children, key=lambda x: (x.name), reverse=reverseOrder or False)
+			sorted_children = sorted(self.children, key=lambda x: (x.name), reverse=reverse_order or False)
 
-		self.__children = sortedChildren
+		self.__children = sorted_children
 
 		for child in self.__children:
-			child.sortChildren(attribute, reverseOrder)
+			child.sort_children(attribute, reverse_order)
 
 		return True
 
-	def findChildren(self, pattern=r".*", flags=0, candidates=None):
+	def find_children(self, pattern=r".*", flags=0, candidates=None):
 		"""
 		Finds the children matching the given patten.
 
 		Usage::
 
-			>>> nodeA = AbstractCompositeNode("MyNodeA")
-			>>> nodeB = AbstractCompositeNode("MyNodeB", nodeA)
-			>>> nodeC = AbstractCompositeNode("MyNodeC", nodeA)
-			>>> nodeA.findChildren("c", re.IGNORECASE)
+			>>> node_a = AbstractCompositeNode("MyNodeA")
+			>>> node_b = AbstractCompositeNode("MyNodeB", node_a)
+			>>> node_c = AbstractCompositeNode("MyNodeC", node_a)
+			>>> node_a.find_children("c", re.IGNORECASE)
 			[<AbstractCompositeNode object at 0x101078040>]
 
 		:param pattern: Matching pattern.
@@ -953,13 +953,13 @@ class AbstractCompositeNode(AbstractNode):
 		for child in self.__children:
 			if re.search(pattern, child.name, flags):
 				child not in candidates and candidates.append(child)
-			child.findChildren(pattern, flags, candidates)
+			child.find_children(pattern, flags, candidates)
 		return candidates
 
-	def findFamily(self, pattern=r".*", flags=0, node=None):
+	def find_family(self, pattern=r".*", flags=0, node=None):
 		"""
 		Returns the Nodes from given family.
-		
+
 		:param pattern: Matching pattern.
 		:type pattern: unicode
 		:param flags: Matching regex flags.
@@ -970,34 +970,34 @@ class AbstractCompositeNode(AbstractNode):
 		:rtype: list
 		"""
 
-		return [node for node in foundations.walkers.nodesWalker(node or self) if re.search(pattern, node.family, flags)]
+		return [node for node in foundations.walkers.nodes_walker(node or self) if re.search(pattern, node.family, flags)]
 
-	def listNode(self, tabLevel= -1):
+	def list_node(self, tab_level= -1):
 		"""
 		Lists the current Node and its children.
 
 		Usage::
 
-			>>> nodeA = AbstractCompositeNode("MyNodeA")
-			>>> nodeB = AbstractCompositeNode("MyNodeB", nodeA)
-			>>> nodeC = AbstractCompositeNode("MyNodeC", nodeA)
-			>>> print nodeA.listNode()
+			>>> node_a = AbstractCompositeNode("MyNodeA")
+			>>> node_b = AbstractCompositeNode("MyNodeB", node_a)
+			>>> node_c = AbstractCompositeNode("MyNodeC", node_a)
+			>>> print node_a.list_node()
 			|----'MyNodeA'
 					|----'MyNodeB'
 					|----'MyNodeC'
 
-		:param tabLevel: Tab level.
-		:type tabLevel: int
+		:param tab_level: Tab level.
+		:type tab_level: int
 		:return: Node listing.
 		:rtype: unicode
 		"""
 
 		output = ""
-		tabLevel += 1
-		for i in range(tabLevel):
+		tab_level += 1
+		for i in range(tab_level):
 			output += "\t"
 		output += "|----'{0}'\n".format(self.name)
 		for child in self.__children:
-			output += child.listNode(tabLevel)
-		tabLevel -= 1
+			output += child.list_node(tab_level)
+		tab_level -= 1
 		return output

@@ -46,42 +46,42 @@ __status__ = "Production"
 
 __all__ = ["LOGGER",
 			"ASCII_CHARACTERS",
-			"toString",
-			"getNiceName",
-			"getVersionRank",
-			"getSplitextBasename",
-			"getCommonAncestor",
-			"getCommonPathsAncestor",
-			"getWords",
-			"filterWords",
+			"to_string",
+			"get_nice_name",
+			"get_version_rank",
+			"get_splitext_basename",
+			"get_common_ancestor",
+			"get_common_paths_ancestor",
+			"get_words",
+			"filter_words",
 			"replace",
-			"removeStrip",
-			"toForwardSlashes",
-			"toBackwardSlashes",
-			"toPosixPath",
-			"getNormalizedPath",
-			"getRandomSequence",
-			"isEmail",
-			"isWebsite"]
+			"remove_strip",
+			"to_forward_slashes",
+			"to_backward_slashes",
+			"to_posix_path",
+			"get_normalized_path",
+			"get_random_sequence",
+			"is_email",
+			"is_website"]
 
-LOGGER = foundations.verbose.installLogger()
+LOGGER = foundations.verbose.install_logger()
 
 ASCII_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-toString = foundations.verbose.toUnicode
+to_string = foundations.verbose.to_unicode
 
-def getNiceName(name):
+def get_nice_name(name):
 	"""
 	Converts a string to nice string: **currentLogText** -> **Current Log Text**.
 
 	Usage::
 
-		>>> getNiceName("getMeANiceName")
+		>>> get_nice_name("getMeANiceName")
 		u'Get Me A Nice Name'
-		>>> getNiceName("__getMeANiceName")
+		>>> get_nice_name("__getMeANiceName")
 		u'__Get Me A Nice Name'
 
 	:param name: Current string to be nicified.
@@ -93,17 +93,17 @@ def getNiceName(name):
 	chunks = re.sub(r"(.)([A-Z][a-z]+)", r"\1 \2", name)
 	return " ".join(element.title() for element in re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", chunks).split())
 
-def getVersionRank(version):
+def get_version_rank(version):
 	"""
 	Converts a version string to it's rank.
 
 	Usage::
 
-		>>> getVersionRank("4.2.8")
+		>>> get_version_rank("4.2.8")
 		4002008000000
-		>>> getVersionRank("4.0")
+		>>> get_version_rank("4.0")
 		4000000000000
-		>>> getVersionRank("4.2.8").__class__
+		>>> get_version_rank("4.2.8").__class__
 		<type 'int'>
 
 	:param version: Current version to calculate rank.
@@ -112,18 +112,18 @@ def getVersionRank(version):
 	:rtype: int
 	"""
 
-	tokens = list(foundations.common.unpackDefault(filter(any, re.split("\.|-|,", version)), length=4, default=0))
+	tokens = list(foundations.common.unpack_default(filter(any, re.split("\.|-|,", version)), length=4, default=0))
 	rank = sum((int(1000 ** i) * int(tokens[-i]) for i in range(len(tokens), 0, -1)))
 	LOGGER.debug("> Rank: '{0}'.".format(rank))
 	return rank
 
-def getSplitextBasename(path):
+def get_splitext_basename(path):
 	"""
 	Gets the basename of a path without its extension.
 
 	Usage::
 
-		>>> getSplitextBasename("/Users/JohnDoe/Documents/Test.txt")
+		>>> get_splitext_basename("/Users/JohnDoe/Documents/Test.txt")
 		u'Test'
 
 	:param path: Path to extract the basename without extension.
@@ -132,19 +132,19 @@ def getSplitextBasename(path):
 	:rtype: unicode
 	"""
 
-	basename = foundations.common.getFirstItem(os.path.splitext(os.path.basename(os.path.normpath(path))))
+	basename = foundations.common.get_first_item(os.path.splitext(os.path.basename(os.path.normpath(path))))
 	LOGGER.debug("> Splitext basename: '{0}'.".format(basename))
 	return basename
 
-def getCommonAncestor(*args):
+def get_common_ancestor(*args):
 	"""
 	Gets common ancestor of given iterables.
 
 	Usage::
 
-		>>> getCommonAncestor(("1", "2", "3"), ("1", "2", "0"), ("1", "2", "3", "4"))
+		>>> get_common_ancestor(("1", "2", "3"), ("1", "2", "0"), ("1", "2", "3", "4"))
 		(u'1', u'2')
-		>>> getCommonAncestor("azerty", "azetty", "azello")
+		>>> get_common_ancestor("azerty", "azetty", "azello")
 		u'aze'
 
 	:param \*args: Iterables to retrieve common ancestor from.
@@ -156,19 +156,19 @@ def getCommonAncestor(*args):
 	array = map(set, zip(*args))
 	divergence = filter(lambda i: len(i) > 1, array)
 	if divergence:
-		ancestor = foundations.common.getFirstItem(args)[:array.index(foundations.common.getFirstItem(divergence))]
+		ancestor = foundations.common.get_first_item(args)[:array.index(foundations.common.get_first_item(divergence))]
 	else:
 		ancestor = min(args)
 	LOGGER.debug("> Common Ancestor: '{0}'".format(ancestor))
 	return ancestor
 
-def getCommonPathsAncestor(*args):
+def get_common_paths_ancestor(*args):
 	"""
 	Gets common paths ancestor of given paths.
 
 	Usage::
 
-		>>> getCommonPathsAncestor("/Users/JohnDoe/Documents", "/Users/JohnDoe/Documents/Test.txt")
+		>>> get_common_paths_ancestor("/Users/JohnDoe/Documents", "/Users/JohnDoe/Documents/Test.txt")
 		u'/Users/JohnDoe/Documents'
 
 	:param \*args: Paths to retrieve common ancestor from.
@@ -177,17 +177,17 @@ def getCommonPathsAncestor(*args):
 	:rtype: unicode
 	"""
 
-	pathAncestor = os.sep.join(getCommonAncestor(*[path.split(os.sep) for path in args]))
+	pathAncestor = os.sep.join(get_common_ancestor(*[path.split(os.sep) for path in args]))
 	LOGGER.debug("> Common Paths Ancestor: '{0}'".format(pathAncestor))
 	return pathAncestor
 
-def getWords(data):
+def get_words(data):
 	"""
 	Extracts the words from given string.
 
 	Usage::
 
-		>>> getWords("Users are: John Doe, Jane Doe, Z6PO.")
+		>>> get_words("Users are: John Doe, Jane Doe, Z6PO.")
 		[u'Users', u'are', u'John', u'Doe', u'Jane', u'Doe', u'Z6PO']
 
 	:param data: Data to extract words from.
@@ -200,23 +200,23 @@ def getWords(data):
 	LOGGER.debug("> Words: '{0}'".format(", ".join(words)))
 	return words
 
-def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
+def filter_words(words, filters_in=None, filters_out=None, flags=0):
 	"""
 	Filters the words using the given filters.
 
 	Usage::
 
-		>>> filterWords(["Users", "are", "John", "Doe", "Jane", "Doe", "Z6PO"], filtersIn=("John", "Doe"))
+		>>> filter_words(["Users", "are", "John", "Doe", "Jane", "Doe", "Z6PO"], filters_in=("John", "Doe"))
 		[u'John', u'Doe', u'Doe']
-		>>> filterWords(["Users", "are", "John", "Doe", "Jane", "Doe", "Z6PO"], filtersIn=("\w*r",))
+		>>> filter_words(["Users", "are", "John", "Doe", "Jane", "Doe", "Z6PO"], filters_in=("\w*r",))
 		[u'Users', u'are']
-		>>> filterWords(["Users", "are", "John", "Doe", "Jane", "Doe", "Z6PO"], filtersOut=("\w*o",))
+		>>> filter_words(["Users", "are", "John", "Doe", "Jane", "Doe", "Z6PO"], filters_out=("\w*o",))
 		[u'Users', u'are', u'Jane', u'Z6PO']
 
-	:param filtersIn: Regex filters in list.
-	:type filtersIn: tuple or list
-	:param filtersIn: Regex filters out list.
-	:type filtersIn: tuple or list
+	:param filters_in: Regex filters in list.
+	:type filters_in: tuple or list
+	:param filters_in: Regex filters out list.
+	:type filters_in: tuple or list
 	:param flags: Regex flags.
 	:type flags: int
 	:return: Filtered words.
@@ -225,9 +225,9 @@ def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 
 	filteredWords = []
 	for word in words:
-		if filtersIn:
+		if filters_in:
 			filterMatched = False
-			for filter in filtersIn:
+			for filter in filters_in:
 				if not re.search(filter, word, flags):
 					LOGGER.debug("> '{0}' word skipped, filter in '{1}' not matched!".format(word, filter))
 				else:
@@ -236,9 +236,9 @@ def filterWords(words, filtersIn=None, filtersOut=None, flags=0):
 			if not filterMatched:
 				continue
 
-		if filtersOut:
+		if filters_out:
 			filterMatched = False
-			for filter in filtersOut:
+			for filter in filters_out:
 				if re.search(filter, word, flags):
 					LOGGER.debug("> '{0}' word skipped, filter out '{1}' matched!".format(word, filter))
 					filterMatched = True
@@ -271,13 +271,13 @@ def replace(string, data):
 		string = string.replace(old, new)
 	return string
 
-def removeStrip(string, pattern):
+def remove_strip(string, pattern):
 	"""
 	Removes the pattern occurrences in the string and strip the result.
 
 	Usage::
 
-		>>> removeStrip("John Doe", "John")
+		>>> remove_strip("John Doe", "John")
 		u'Doe'
 
 	:param string: String to manipulate.
@@ -290,13 +290,13 @@ def removeStrip(string, pattern):
 
 	return string.replace(pattern, "").strip()
 
-def toForwardSlashes(data):
+def to_forward_slashes(data):
 	"""
 	Converts backward slashes to forward slashes.
 
 	Usage::
 
-		>>> toForwardSlashes("To\Forward\Slashes")
+		>>> to_forward_slashes("To\Forward\Slashes")
 		u'To/Forward/Slashes'
 
 	:param data: Data to convert.
@@ -309,13 +309,13 @@ def toForwardSlashes(data):
 	LOGGER.debug("> Data: '{0}' to forward slashes.".format(data))
 	return data
 
-def toBackwardSlashes(data):
+def to_backward_slashes(data):
 	"""
 	Converts forward slashes to backward slashes.
 
 	Usage::
 
-		>>> toBackwardSlashes("/Users/JohnDoe/Documents")
+		>>> to_backward_slashes("/Users/JohnDoe/Documents")
 		u'\\Users\\JohnDoe\\Documents'
 
 	:param data: Data to convert.
@@ -328,13 +328,13 @@ def toBackwardSlashes(data):
 	LOGGER.debug("> Data: '{0}' to backward slashes.".format(data))
 	return data
 
-def toPosixPath(path):
+def to_posix_path(path):
 	"""
 	Converts Windows path to Posix path while stripping drives letters and network server slashes.
 
 	Usage::
 
-		>>> toPosixPath("c:\\Users\\JohnDoe\\Documents")
+		>>> to_posix_path("c:\\Users\\JohnDoe\\Documents")
 		u'/Users/JohnDoe/Documents'
 
 	:param path: Windows path.
@@ -343,17 +343,17 @@ def toPosixPath(path):
 	:rtype: unicode
 	"""
 
-	posixPath = posixpath.normpath(toForwardSlashes(re.sub(r"[a-zA-Z]:\\|\\\\", "/", os.path.normpath(path))))
+	posixPath = posixpath.normpath(to_forward_slashes(re.sub(r"[a-zA-Z]:\\|\\\\", "/", os.path.normpath(path))))
 	LOGGER.debug("> Stripped converted to Posix path: '{0}'.".format(posixPath))
 	return posixPath
 
-def getNormalizedPath(path):
+def get_normalized_path(path):
 	"""
 	Normalizes a path, escaping slashes if needed on Windows.
 
 	Usage::
 
-		>>> getNormalizedPath("C:\\Users/johnDoe\\Documents")
+		>>> get_normalized_path("C:\\Users/johnDoe\\Documents")
 		u'C:\\Users\\JohnDoe\\Documents'
 
 	:param path: Path to normalize.
@@ -371,13 +371,13 @@ def getNormalizedPath(path):
 		LOGGER.debug("> Path: '{0}', normalized path.".format(path))
 		return path
 
-def getRandomSequence(length=8):
+def get_random_sequence(length=8):
 	"""
 	Returns a random sequence.
 
 	Usage::
 
-		>>> getRandomSequence()
+		>>> get_random_sequence()
 		u'N_mYO7g5'
 
 	:param length: Length of the sequence.
@@ -388,15 +388,15 @@ def getRandomSequence(length=8):
 
 	return "".join([random.choice(ASCII_CHARACTERS) for i in range(length)])
 
-def isEmail(data):
+def is_email(data):
 	"""
 	Check if given data string is an email.
 
 	Usage::
 
-		>>> isEmail("john.doe@domain.com")
+		>>> is_email("john.doe@domain.com")
 		True
-		>>> isEmail("john.doe:domain.com")
+		>>> is_email("john.doe:domain.com")
 		False
 
 	:param data: Data to check.
@@ -412,15 +412,15 @@ def isEmail(data):
 		LOGGER.debug("> {0}' is not matched as email.".format(data))
 		return False
 
-def isWebsite(url):
+def is_website(url):
 	"""
 	Check if given url string is a website.
 
 	Usage::
 
-		>>> isWebsite("http://www.domain.com")
+		>>> is_website("http://www.domain.com")
 		True
-		>>> isWebsite("domain.com")
+		>>> is_website("domain.com")
 		False
 
 	:param data: Data to check.

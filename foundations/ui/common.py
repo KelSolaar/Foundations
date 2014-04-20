@@ -22,7 +22,6 @@ from __future__ import unicode_literals
 #**********************************************************************************************************************
 #***	External imports.
 #**********************************************************************************************************************
-import inspect
 import os
 from PyQt4 import uic
 from PyQt4.QtGui import QApplication
@@ -44,9 +43,9 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["LOGGER", "RESOURCES_DIRECTORY", "DEFAULT_UI_FILE", "centerWidgetOnScreen", "QWidgetFactory"]
+__all__ = ["LOGGER", "RESOURCES_DIRECTORY", "DEFAULT_UI_FILE", "center_widget_on_screen", "QWidget_factory"]
 
-LOGGER = foundations.verbose.installLogger()
+LOGGER = foundations.verbose.install_logger()
 
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
 DEFAULT_UI_FILE = os.path.join(RESOURCES_DIRECTORY, "QWidget.ui")
@@ -54,9 +53,9 @@ DEFAULT_UI_FILE = os.path.join(RESOURCES_DIRECTORY, "QWidget.ui")
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-def centerWidgetOnScreen(widget, screen=None):
+def center_widget_on_screen(widget, screen=None):
 	"""
-	Centers the given Widget on the screen.
+	Centers given Widget on the screen.
 
 	:param widget: Current Widget.
 	:type widget: QWidget
@@ -67,18 +66,18 @@ def centerWidgetOnScreen(widget, screen=None):
 	"""
 
 	screen = screen and screen or QApplication.desktop().primaryScreen()
-	desktopWidth = QApplication.desktop().screenGeometry(screen).width()
-	desktopHeight = QApplication.desktop().screenGeometry(screen).height()
-	widget.move(desktopWidth / 2 - widget.sizeHint().width() / 2, desktopHeight / 2 - widget.sizeHint().height() / 2)
+	desktop_width = QApplication.desktop().screenGeometry(screen).width()
+	desktop_height = QApplication.desktop().screenGeometry(screen).height()
+	widget.move(desktop_width / 2 - widget.sizeHint().width() / 2, desktop_height / 2 - widget.sizeHint().height() / 2)
 	return True
 
-def QWidgetFactory(uiFile=None, *args, **kwargs):
+def QWidget_factory(ui_file=None, *args, **kwargs):
 	"""
 	Defines a class factory creating `QWidget <http://doc.qt.nokia.com/qwidget.html>`_ classes
 	using given ui file.
 
-	:param uiFile: Ui file.
-	:type uiFile: unicode
+	:param ui_file: Ui file.
+	:type ui_file: unicode
 	:param \*args: Arguments.
 	:type \*args: \*
 	:param \*\*kwargs: Keywords arguments.
@@ -87,15 +86,15 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 	:rtype: QWidget
 	"""
 
-	file = uiFile or DEFAULT_UI_FILE
-	if not foundations.common.pathExists(file):
+	file = ui_file or DEFAULT_UI_FILE
+	if not foundations.common.path_exists(file):
 		raise foundations.exceptions.FileExistsError("{0} | '{1}' ui file doesn't exists!".format(__name__, file))
 
 	Form, Base = uic.loadUiType(file)
 
 	class QWidget(Form, Base):
 		"""
-		Derives from :def:`QWidgetFactory` class factory definition.
+		Derives from :def:`QWidget_factory` class factory definition.
 		"""
 
 		def __init__(self, *args, **kwargs):
@@ -112,7 +111,7 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 
 			super(QWidget, self).__init__(*args, **kwargs)
 
-			self.__uiFile = file
+			self.__ui_file = file
 
 			self.__geometry = None
 
@@ -122,38 +121,38 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 		#***	Attributes properties.
 		#**************************************************************************************************************
 		@property
-		def uiFile(self):
+		def ui_file(self):
 			"""
-			Property for **self.__uiFile** attribute.
+			Property for **self.__ui_file** attribute.
 
-			:return: self.__uiFile.
+			:return: self.__ui_file.
 			:rtype: unicode
 			"""
 
-			return self.__uiFile
+			return self.__ui_file
 
-		@uiFile.setter
-		@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
-		def uiFile(self, value):
+		@ui_file.setter
+		@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
+		def ui_file(self, value):
 			"""
-			Setter for **self.__uiFile** attribute.
+			Setter for **self.__ui_file** attribute.
 
 			:param value: Attribute value.
 			:type value: unicode
 			"""
 
 			raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is read only!".format(
-			self.__class__.__name__, "uiFile"))
+			self.__class__.__name__, "ui_file"))
 
-		@uiFile.deleter
-		@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
-		def uiFile(self):
+		@ui_file.deleter
+		@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
+		def ui_file(self):
 			"""
-			Deleter for **self.__uiFile** attribute.
+			Deleter for **self.__ui_file** attribute.
 			"""
 
 			raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(
-			self.__class__.__name__, "uiFile"))
+			self.__class__.__name__, "ui_file"))
 
 		#******************************************************************************************************************
 		#***	Class methods.
@@ -173,7 +172,7 @@ def QWidgetFactory(uiFile=None, *args, **kwargs):
 			wasHidden = not self.isVisible()
 
 			if self.__geometry is None and wasHidden:
-				centerWidgetOnScreen(self)
+				center_widget_on_screen(self)
 
 			super(QWidget, self).show()
 

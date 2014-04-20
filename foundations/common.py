@@ -11,9 +11,9 @@
 	Defines **Foundations** package common utilities objects that don't fall in any specific category.
 
 **Others:**
-	:func:`isBinaryFile` from Jorge Orpinel:
+	:func:`is_binary_file` from Jorge Orpinel:
 	http://stackoverflow.com/questions/898669/how-can-i-detect-if-a-file-is-binary-non-text-in-python
-	:func:`dependencyResolver` from Louis Riviere: http://code.activestate.com/recipes/576570-dependency-resolver/
+	:func:`dependency_resolver` from Louis Riviere: http://code.activestate.com/recipes/576570-dependency-resolver/
 
 """
 
@@ -51,18 +51,18 @@ __all__ = ["LOGGER",
 		"DEFAULT_HOST_IP",
 		"wait",
 		"uniqify",
-		"unpackDefault",
-		"orderedUniqify",
-		"pathExists",
-		"filterPath",
-		"getFirstItem",
-		"getLastItem",
+		"unpack_default",
+		"ordered_uniqify",
+		"path_exists",
+		"filter_path",
+		"get_first_item",
+		"get_last_item",
 		"repeat",
-		"dependencyResolver",
-		"isInternetAvailable",
-		"getHostAddress"]
+		"dependency_resolver",
+		"is_internet_available",
+		"get_host_address"]
 
-LOGGER = foundations.verbose.installLogger()
+LOGGER = foundations.verbose.install_logger()
 
 CONNECTION_IPS = ["173.194.34.36",  # http://www.google.com
 				"173.194.34.55",  # http://www.google.co.uk
@@ -96,7 +96,7 @@ def uniqify(sequence):
 
 	return [key for key, group in itertools.groupby(sorted(sequence))]
 
-def orderedUniqify(sequence):
+def ordered_uniqify(sequence):
 	"""
 	Uniqifies the given hashable sequence while preserving its order.
 
@@ -109,7 +109,7 @@ def orderedUniqify(sequence):
 	items = set()
 	return [key for key in sequence if key not in items and not items.add(key)]
 
-def unpackDefault(iterable, length=3, default=None):
+def unpack_default(iterable, length=3, default=None):
 	"""
 	Unpacks given iterable maintaining given length and filling missing entries with given default.
 
@@ -125,7 +125,7 @@ def unpackDefault(iterable, length=3, default=None):
 
 	return itertools.islice(itertools.chain(iter(iterable), itertools.repeat(default)), length)
 
-def pathExists(path):
+def path_exists(path):
 	"""
 	Returns if given path exists.
 
@@ -140,7 +140,7 @@ def pathExists(path):
 	else:
 		return os.path.exists(path)
 
-def filterPath(path):
+def filter_path(path):
 	"""
 	Filters given path.
 
@@ -150,9 +150,9 @@ def filterPath(path):
 	:rtype: unicode
 	"""
 
-	return path if pathExists(path) else ""
+	return path if path_exists(path) else ""
 
-def getFirstItem(iterable, default=None):
+def get_first_item(iterable, default=None):
 	"""
 	Returns the first item of given iterable.
 
@@ -170,7 +170,7 @@ def getFirstItem(iterable, default=None):
 	for item in iterable:
 		return item
 
-def getLastItem(iterable, default=None):
+def get_last_item(iterable, default=None):
 	"""
 	Returns the last item of given iterable.
 
@@ -201,7 +201,7 @@ def repeat(object, iterations=1):
 
 	return [object() for i in range(iterations)]
 
-def dependencyResolver(dependencies):
+def dependency_resolver(dependencies):
 	"""
 	Resolves given dependencies.
 
@@ -212,15 +212,15 @@ def dependencyResolver(dependencies):
 	"""
 
 	items = dict((key, set(dependencies[key])) for key in dependencies)
-	resolvedDependencies = []
+	resolved_dependencies = []
 	while items:
 		batch = set(item for value in items.values() for item in value) - set(items.keys())
 		batch.update(key for key, value in items.items() if not value)
-		resolvedDependencies.append(batch)
+		resolved_dependencies.append(batch)
 		items = dict(((key, value - batch) for key, value in items.items() if value))
-	return resolvedDependencies
+	return resolved_dependencies
 
-def isInternetAvailable(ips=CONNECTION_IPS, timeout=1.0):
+def is_internet_available(ips=CONNECTION_IPS, timeout=1.0):
 	"""
 	Returns if an internet connection is available.
 
@@ -242,21 +242,21 @@ def isInternetAvailable(ips=CONNECTION_IPS, timeout=1.0):
 			continue
 	return False
 
-def getHostAddress(host=None, defaultAddress=DEFAULT_HOST_IP):
+def get_host_address(host=None, default_address=DEFAULT_HOST_IP):
 	"""
 	Returns the given host address.
 
 	:param host: Host to retrieve the address.
 	:type host: unicode
-	:param defaultAddress: Default address if the host is unreachable.
-	:type defaultAddress: unicode
+	:param default_address: Default address if the host is unreachable.
+	:type default_address: unicode
 	:return: Host address.
 	:rtype: unicode
 	"""
 
 	try:
 		return unicode(socket.gethostbyname(host or socket.gethostname()),
-					Constants.defaultCodec,
-					Constants.codecError)
+					Constants.default_codec,
+					Constants.codec_error)
 	except Exception as error:
-		return defaultAddress
+		return default_address

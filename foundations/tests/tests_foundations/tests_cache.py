@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 
 """
-**core.py**
+**tests_cache.py**
 
 **Platform:**
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Defines **Foundations** package core objects.
+	Defines units tests for :mod:`foundations.cache` module.
 
 **Others:**
 
@@ -23,12 +23,15 @@ from __future__ import unicode_literals
 #***	External imports.
 #**********************************************************************************************************************
 import sys
-import time
+if sys.version_info[:2] <= (2, 6):
+	import unittest2 as unittest
+else:
+	import unittest
 
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
-import foundations.verbose
+from foundations.cache import Cache
 
 #**********************************************************************************************************************
 #***	Module attributes.
@@ -40,44 +43,70 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["LOGGER",
-			"exit",
-			"wait"]
-
-LOGGER = foundations.verbose.install_logger()
+__all__ = ["RESOURCES_DIRECTORY",
+			"CacheTestCase"]
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-def exit(exit_code=0):
+class CacheTestCase(unittest.TestCase):
 	"""
-	Shuts down current process logging, associated handlers and then exits to system.
-	
-	:param exit_code: System exit code.
-	:type exit_code: Integer or String or Object
-
-	:note: **exit_code** argument is passed to Python :func:`sys.exit` definition.
+	Defines :class:`foundations.cache.Cache` class units tests methods.
 	"""
 
-	LOGGER.debug("> {0} | Exiting current process!".format(__name__))
+	def test_required_methods(self):
+		"""
+		Tests presence of required methods.
+		"""
 
-	LOGGER.debug("> Stopping logging handlers and logger!")
-	for handler in LOGGER.handlers:
-		foundations.verbose.remove_logging_handler(handler)
+		required_methods = ("add_content",
+							"remove_content",
+							"get_content",
+							"flush_content")
 
-	sys.exit(exit_code)
+		for method in required_methods:
+			self.assertIn(method, dir(Cache))
 
-def wait(wait_time):
-	"""
-	Halts current process exection for an user defined time.
+	def test_add_content(self):
+		"""
+		Tests :meth:`foundations.cache.Cache.add_content` method.
+		"""
 
-	:param wait_time: Current sleep time in seconds.
-	:type wait_time: float
-	:return: Definition success.
-	:rtype: bool
-	"""
+		cache = Cache()
+		self.assertTrue(cache.add_content(John="Doe", Luke="Skywalker"))
+		self.assertDictEqual(cache, {"John" : "Doe", "Luke" : "Skywalker"})
 
-	LOGGER.debug("> Waiting '{0}' seconds!".format(wait_time))
+	def test_removeContent(self):
+		"""
+		Tests :meth:`foundations.cache.Cache.remove_content` method.
+		"""
 
-	time.sleep(wait_time)
-	return True
+		cache = Cache()
+		cache.add_content(John="Doe", Luke="Skywalker")
+		self.assertTrue(cache.remove_content("John", "Luke"))
+		self.assertDictEqual(cache, {})
+
+	def test_get_content(self):
+		"""
+		Tests :meth:`foundations.cache.Cache.get_content` method.
+		"""
+
+		cache = Cache()
+		content = {"John" : "Doe", "Luke" : "Skywalker"}
+		cache.add_content(**content)
+		for key, value in content.iteritems():
+			self.assertEqual(cache.get_content(key), value)
+
+	def test_flush_content(self):
+		"""
+		Tests :meth:`foundations.cache.Cache.flush_content` method.
+		"""
+
+		cache = Cache()
+		cache.add_content(John="Doe", Luke="Skywalker")
+		self.assertTrue(cache.flush_content())
+		self.assertDictEqual(cache, {})
+
+if __name__ == "__main__":
+	import foundations.tests.utilities
+	unittest.main()

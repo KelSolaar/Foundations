@@ -23,7 +23,7 @@ from __future__ import unicode_literals
 #**********************************************************************************************************************
 #***	Internal imports.
 #**********************************************************************************************************************
-import foundations.dataStructures
+import foundations.data_structures
 import foundations.exceptions
 import inspect
 import foundations.verbose
@@ -40,7 +40,7 @@ __status__ = "Production"
 
 __all__ = ["LOGGER", "BACKGROUND_ANSI_ESCAPE_CODES", "FOREGROUND_ANSI_ESCAPE_CODES", "AnsiEscapeCodes", "colorize"]
 
-LOGGER = foundations.verbose.installLogger()
+LOGGER = foundations.verbose.install_logger()
 
 BACKGROUND_ANSI_ESCAPE_CODES = (("bBlack", "40m"),
 								("bRed", "41m"),
@@ -103,7 +103,7 @@ FOREGROUND_ANSI_ESCAPE_CODES = (("black", "30m"),
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-AnsiEscapeCodes = foundations.dataStructures.OrderedStructure()
+AnsiEscapeCodes = foundations.data_structures.OrderedStructure()
 
 def _setAnsiEscapeCodes():
 	"""

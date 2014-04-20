@@ -45,7 +45,7 @@ __status__ = "Production"
 
 __all__ = ["LOGGER", "Pkzip"]
 
-LOGGER = foundations.verbose.installLogger()
+LOGGER = foundations.verbose.install_logger()
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
@@ -62,9 +62,9 @@ class Pkzip(object):
 		Usage::
 
 			>>> import tempfile
-			>>> tempDirectory = tempfile.mkdtemp()
-			>>> zipFile = Pkzip("zipFile.zip")
-			>>> zipFile.extract(tempDirectory)
+			>>> temp_directory = tempfile.mkdtemp()
+			>>> zip_file = Pkzip("zip_file.zip")
+			>>> zip_file.extract(temp_directory)
 			True
 
 		:param archive: Archive to manipulate.
@@ -92,7 +92,7 @@ class Pkzip(object):
 		return self.__archive
 
 	@archive.setter
-	@foundations.exceptions.handleExceptions(AssertionError)
+	@foundations.exceptions.handle_exceptions(AssertionError)
 	def archive(self, value):
 		"""
 		Setter for **self.__archive** attribute.
@@ -108,7 +108,7 @@ class Pkzip(object):
 		self.__archive = value
 
 	@archive.deleter
-	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
 	def archive(self):
 		"""
 		Deleter for **self.__archive** attribute.
@@ -120,7 +120,7 @@ class Pkzip(object):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	@foundations.exceptions.handleExceptions(foundations.exceptions.DirectoryExistsError,
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.DirectoryExistsError,
 											 foundations.exceptions.FileExistsError,
 											 zipfile.BadZipfile)
 	def extract(self, target):
@@ -133,11 +133,11 @@ class Pkzip(object):
 		:rtype: bool
 		"""
 
-		if not foundations.common.pathExists(self.__archive):
+		if not foundations.common.path_exists(self.__archive):
 			raise foundations.exceptions.FileExistsError("{0} | '{1}' file doesn't exists!".format(
 				self.__class__.__name__, self.__archive))
 
-		if not foundations.common.pathExists(target):
+		if not foundations.common.path_exists(target):
 			raise foundations.exceptions.DirectoryExistsError("{0} | '{1}' directory doesn't exists!".format(
 				self.__class__.__name__, target))
 
@@ -151,7 +151,7 @@ class Pkzip(object):
 		directories.reverse()
 
 		for directory in directories:
-			not os.path.isdir(os.path.join(target, directory)) and foundations.io.setDirectory(
+			not os.path.isdir(os.path.join(target, directory)) and foundations.io.set_directory(
 				os.path.join(target, directory))
 
 		for file in files:

@@ -50,27 +50,27 @@ class Constants():
 	Defines **Foundations** package default constants.
 	"""
 
-	applicationName = "Foundations"
+	application_name = "Foundations"
 	"""
-	:param applicationName: Package Application name.
-	:type applicationName: unicode
+	:param application_name: Package Application name.
+	:type application_name: unicode
 	"""
-	majorVersion = "2"
+	major_version = "2"
 	"""
-	:param majorVersion: Package major version.
-	:type majorVersion: unicode
+	:param major_version: Package major version.
+	:type major_version: unicode
 	"""
-	minorVersion = "1"
+	minor_version = "1"
 	"""
-	:param minorVersion: Package minor version.
-	:type minorVersion: unicode
+	:param minor_version: Package minor version.
+	:type minor_version: unicode
 	"""
-	changeVersion = "0"
+	change_version = "0"
 	"""
-	:param changeVersion: Package change version.
-	:type changeVersion: unicode
+	:param change_version: Package change version.
+	:type change_version: unicode
 	"""
-	version = ".".join((majorVersion, minorVersion, changeVersion))
+	version = ".".join((major_version, minor_version, change_version))
 	"""
 	:param version: Package version.
 	:type version: unicode
@@ -81,58 +81,58 @@ class Constants():
 	:param logger: Package logger name.
 	:type logger: unicode
 	"""
-	verbosityLevel = 3
+	verbosity_level = 3
 	"""
-	:param verbosityLevel: Default logging verbosity level.
-	:type verbosityLevel: int
+	:param verbosity_level: Default logging verbosity level.
+	:type verbosity_level: int
 	"""
-	verbosityLabels = ("Critical", "Error", "Warning", "Info", "Debug")
+	verbosity_labels = ("Critical", "Error", "Warning", "Info", "Debug")
 	"""
-	:param verbosityLabels: Logging verbosity labels.
-	:type verbosityLabels: tuple
+	:param verbosity_labels: Logging verbosity labels.
+	:type verbosity_labels: tuple
 	"""
-	loggingDefaultFormatter = "Default"
+	logging_default_formatter = "Default"
 	"""
-	:param loggingDefaultFormatter: Default logging formatter name.
-	:type loggingDefaultFormatter: unicode
+	:param logging_default_formatter: Default logging formatter name.
+	:type logging_default_formatter: unicode
 	"""
-	loggingSeparators = "*" * 96
+	logging_separators = "*" * 96
 	"""
-	:param loggingSeparators: Logging separators.
-	:type loggingSeparators: unicode
-	"""
-
-	defaultCodec = "utf-8"
-	"""
-	:param defaultCodec: Default codec.
-	:type defaultCodec: unicode
-	"""
-	codecError = "ignore"
-	"""
-	:param codecError: Default codec error behavior.
-	:type codecError: unicode
+	:param logging_separators: Logging separators.
+	:type logging_separators: unicode
 	"""
 
-	applicationDirectory = os.sep.join(("Foundations", ".".join((majorVersion, minorVersion))))
+	default_codec = "utf-8"
 	"""
-	:param applicationDirectory: Package Application directory.
-	:type applicationDirectory: unicode
+	:param default_codec: Default codec.
+	:type default_codec: unicode
+	"""
+	codec_error = "ignore"
+	"""
+	:param codec_error: Default codec error behavior.
+	:type codec_error: unicode
+	"""
+
+	application_directory = os.sep.join(("Foundations", ".".join((major_version, minor_version))))
+	"""
+	:param application_directory: Package Application directory.
+	:type application_directory: unicode
 	"""
 	if platform.system() == "Windows" or platform.system() == "Microsoft" or platform.system() == "Darwin":
-		providerDirectory = "HDRLabs"
+		provider_directory = "HDRLabs"
 		"""
-		:param providerDirectory: Package provider directory.
-		:type providerDirectory: unicode
+		:param provider_directory: Package provider directory.
+		:type provider_directory: unicode
 		"""
 	elif platform.system() == "Linux":
-		providerDirectory = ".HDRLabs"
+		provider_directory = ".HDRLabs"
 		"""
-		:param providerDirectory: Package provider directory.
-		:type providerDirectory: unicode
+		:param provider_directory: Package provider directory.
+		:type provider_directory: unicode
 		"""
 
-	nullObject = "None"
+	null_object = "None"
 	"""
-	:param nullObject: Default null object string.
-	:type nullObject: unicode
+	:param null_object: Default null object string.
+	:type null_object: unicode
 	"""

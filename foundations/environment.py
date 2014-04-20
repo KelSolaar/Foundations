@@ -47,11 +47,11 @@ __status__ = "Production"
 
 __all__ = ["LOGGER",
 		"Environment"
-		"getTemporaryDirectory",
-		"getSystemApplicationDataDirectory",
-		"getUserApplicationDataDirectory"]
+		"get_temporary_directory",
+		"get_system_application_data_directory",
+		"get_user_application_data_directory"]
 
-LOGGER = foundations.verbose.installLogger()
+LOGGER = foundations.verbose.install_logger()
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
@@ -68,7 +68,7 @@ class Environment(object):
 		Usage::
 
 			>>> environment = Environment(JOHN="DOE", DOE="JOHN")
-			>>> environment.setValues()
+			>>> environment.set_values()
 			True
 			>>> import os
 			>>> os.environ["JOHN"]
@@ -86,7 +86,7 @@ class Environment(object):
 
 		# --- Setting class attributes. ---
 		self.__variables = {}
-		self.__addVariables(*args, **kwargs)
+		self.__add_variables(*args, **kwargs)
 
 	#******************************************************************************************************************
 	#***	Attributes properties.
@@ -103,7 +103,7 @@ class Environment(object):
 		return self.__variables
 
 	@variables.setter
-	@foundations.exceptions.handleExceptions(AssertionError)
+	@foundations.exceptions.handle_exceptions(AssertionError)
 	def variables(self, value):
 		"""
 		Setter for **self.__variables** attribute.
@@ -122,7 +122,7 @@ class Environment(object):
 		self.__variables = value
 
 	@variables.deleter
-	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
 	def variables(self):
 		"""
 		Deleter for **self.__variables** attribute.
@@ -134,7 +134,7 @@ class Environment(object):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	def __addVariables(self, *args, **kwargs):
+	def __add_variables(self, *args, **kwargs):
 		"""
 		Adds given variables to __variables attribute.
 
@@ -148,16 +148,16 @@ class Environment(object):
 			self.__variables[variable] = None
 		self.__variables.update(kwargs)
 
-	def getValues(self, *args):
+	def get_values(self, *args):
 		"""
 		Gets environment variables values.
 
 		Usage::
 
 			>>> environment = Environment("HOME")
-			>>> environment.getValues()
+			>>> environment.get_values()
 			{'HOME': u'/Users/JohnDoe'}
-			>>> environment.getValues("USER")
+			>>> environment.get_values("USER")
 			{'HOME': u'/Users/JohnDoe', 'USER': u'JohnDoe'}
 
 		:param \*args: Additional variables names to retrieve values from.
@@ -166,7 +166,7 @@ class Environment(object):
 		:rtype: dict
 		"""
 
-		args and self.__addVariables(*args)
+		args and self.__add_variables(*args)
 
 		LOGGER.debug("> Object environment variables: '{0}'.".format(
 		",".join((key for key in self.__variables if key))))
@@ -174,17 +174,17 @@ class Environment(object):
 
 		for variable in self.__variables:
 			value = os.environ.get(variable, None)
-			self.__variables[variable] = foundations.strings.toString(value) if value else None
+			self.__variables[variable] = foundations.strings.to_string(value) if value else None
 		return self.__variables
 
-	def setValues(self, **kwargs):
+	def set_values(self, **kwargs):
 		"""
 		Sets environment variables values.
 
 		Usage::
 
 			>>> environment = Environment()
-			>>> environment.setValues(JOHN="DOE", DOE="JOHN")
+			>>> environment.set_values(JOHN="DOE", DOE="JOHN")
 			True
 			>>> import os
 			>>> os.environ["JOHN"]
@@ -209,7 +209,7 @@ class Environment(object):
 			os.environ[key] = value
 		return True
 
-	def getValue(self, variable=None):
+	def get_value(self, variable=None):
 		"""
 		Gets given environment variable value.
 
@@ -222,13 +222,13 @@ class Environment(object):
 		"""
 
 		if variable:
-			self.getValues(variable)
+			self.get_values(variable)
 			return self.__variables[variable]
 		else:
-			self.getValues()
-			return foundations.common.getFirstItem(self.__variables.values())
+			self.get_values()
+			return foundations.common.get_first_item(self.__variables.values())
 
-	def setValue(self, variable, value):
+	def set_value(self, variable, value):
 		"""
 		Sets given environment variable with given value.
 
@@ -240,9 +240,9 @@ class Environment(object):
 		:rtype: bool
 		"""
 
-		return self.setValues(**{variable : value})
+		return self.set_values(**{variable : value})
 
-def getTemporaryDirectory():
+def get_temporary_directory():
 	"""
 	Returns the system temporary directory.
 
@@ -250,9 +250,9 @@ def getTemporaryDirectory():
 	:rtype: unicode
 	"""
 
-	return foundations.strings.toString(tempfile.gettempdir())
+	return foundations.strings.to_string(tempfile.gettempdir())
 
-def getSystemApplicationDataDirectory():
+def get_system_application_data_directory():
 	"""
 	Returns the system Application data directory.
 
@@ -269,21 +269,21 @@ def getSystemApplicationDataDirectory():
 
 	if platform.system() == "Windows" or platform.system() == "Microsoft":
 		environment = Environment("APPDATA")
-		return environment.getValue()
+		return environment.get_value()
 	elif platform.system() == "Darwin":
 		environment = Environment("HOME")
-		return os.path.join(environment.getValue(), "Library", "Preferences")
+		return os.path.join(environment.get_value(), "Library", "Preferences")
 	elif platform.system() == "Linux":
 		environment = Environment("HOME")
-		return environment.getValue()
+		return environment.get_value()
 
-def getUserApplicationDataDirectory():
+def get_user_application_data_directory():
 	"""
 	| Returns the user Application directory.
-	| The difference between :func:`getUserApplicationDataDirectory`
-		and :func:`getSystemApplicationDataDirectory` definitions is that :func:`getUserApplicationDataDirectory` definition
-		will append :attr:`foundations.globals.constants.Constants.providerDirectory`
-		and :attr:`foundations.globals.constants.Constants.applicationDirectory` attributes values to the path returned.
+	| The difference between :func:`get_user_application_data_directory`
+		and :func:`get_system_application_data_directory` definitions is that :func:`get_user_application_data_directory` definition
+		will append :attr:`foundations.globals.constants.Constants.provider_directory`
+		and :attr:`foundations.globals.constants.Constants.application_directory` attributes values to the path returned.
 	| If the user Application directory is not available, the function will fallback to system temporary directory.
  
 	Examples directories::
@@ -297,15 +297,15 @@ def getUserApplicationDataDirectory():
 	:rtype: unicode
 	"""
 
-	systemApplicationDataDirectory = getSystemApplicationDataDirectory()
-	if not foundations.common.pathExists(systemApplicationDataDirectory):
+	system_application_data_directory = get_system_application_data_directory()
+	if not foundations.common.path_exists(system_application_data_directory):
 		LOGGER.error("!> Undefined or non existing system Application data directory, using 'HOME' directory as fallback!")
-		systemApplicationDataDirectory = Environment("HOME").getValue()
+		system_application_data_directory = Environment("HOME").get_value()
 
-	if not foundations.common.pathExists(systemApplicationDataDirectory):
-		temporaryDirectory = getTemporaryDirectory()
+	if not foundations.common.path_exists(system_application_data_directory):
+		temporary_directory = get_temporary_directory()
 		LOGGER.error("!> Undefined or non existing 'HOME' directory, using system temporary directory as fallback!")
-		systemApplicationDataDirectory = temporaryDirectory
+		system_application_data_directory = temporary_directory
 
-	return os.path.join(systemApplicationDataDirectory, Constants.providerDirectory, Constants.applicationDirectory)
+	return os.path.join(system_application_data_directory, Constants.provider_directory, Constants.application_directory)
 

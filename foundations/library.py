@@ -30,7 +30,7 @@ import platform
 #***	Internal imports.
 #**********************************************************************************************************************
 import foundations.common
-import foundations.dataStructures
+import foundations.data_structures
 import foundations.exceptions
 import foundations.verbose
 
@@ -46,12 +46,12 @@ __status__ = "Production"
 
 __all__ = ["LOGGER", "LibraryHook", "Library"]
 
-LOGGER = foundations.verbose.installLogger()
+LOGGER = foundations.verbose.install_logger()
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class LibraryHook(foundations.dataStructures.Structure):
+class LibraryHook(foundations.data_structures.Structure):
 	"""
 	Defines a library hook used by the :class:`Library` class to bind target library functions.
 	"""
@@ -62,20 +62,20 @@ class LibraryHook(foundations.dataStructures.Structure):
 		
 		Usage::
 			
-			LibraryHook(name="FreeImage_GetVersion", argumentsTypes=None, returnValue=ctypes.c_char_p)
+			LibraryHook(name="FreeImage_GetVersion", arguments_types=None, return_value=ctypes.c_char_p)
 
 		:param name: Name of the target library function to bind.
 		:type name: unicode
-		:param argumentsTypes: Required function arguments type (Refer to Python `ctypes - 15.17.1.7
+		:param arguments_types: Required function arguments type (Refer to Python `ctypes - 15.17.1.7
 			<http://docs.python.org/library/ctypes.html#specifying-the-required-argument-types-function-prototypes>`_
 			module for more informations). ( List )
-		:param returnValue: Function return type (Refer to Python `ctypes - 15.17.1.8
+		:param return_value: Function return type (Refer to Python `ctypes - 15.17.1.8
 			<http://docs.python.org/library/ctypes.html#return-types>`_ module for more informations). ( Object )
 		"""
 
 		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
-		foundations.dataStructures.Structure.__init__(self, **kwargs)
+		foundations.data_structures.Structure.__init__(self, **kwargs)
 
 class Library(object):
 	"""
@@ -97,7 +97,7 @@ class Library(object):
 	:type callback: ctypes.CFUNCTYPE
 	"""
 
-	@foundations.exceptions.handleExceptions(foundations.exceptions.LibraryInstantiationError)
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.LibraryInstantiationError)
 	def __new__(cls, *args, **kwargs):
 		"""
 		Constructor of the class.
@@ -110,8 +110,8 @@ class Library(object):
 		:rtype: Library
 		"""
 
-		path = foundations.common.getFirstItem(args)
-		if foundations.common.pathExists(path):
+		path = foundations.common.get_first_item(args)
+		if foundations.common.path_exists(path):
 			if not path in cls._Library__instances:
 				cls._Library__instances[path] = object.__new__(cls)
 			return cls._Library__instances[path]
@@ -119,8 +119,8 @@ class Library(object):
 			raise foundations.exceptions.LibraryInstantiationError(
 			"{0} | '{1}' library path doesn't exists!".format(cls.__class__.__name__, path))
 
-	@foundations.exceptions.handleExceptions(foundations.exceptions.LibraryInitializationError)
-	def __init__(self, path, functions=None, bindLibrary=True):
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.LibraryInitializationError)
+	def __init__(self, path, functions=None, bind_library=True):
 		"""
 		Initializes the class.
 		
@@ -128,7 +128,7 @@ class Library(object):
 			
 			>>> import ctypes 
 			>>> path = "FreeImage.dll"
-			>>> functions = (LibraryHook(name="FreeImage_GetVersion", argumentsTypes=None, returnValue=ctypes.c_char_p),)
+			>>> functions = (LibraryHook(name="FreeImage_GetVersion", arguments_types=None, return_value=ctypes.c_char_p),)
 			>>> library = Library(path, functions)
 			>>> library.FreeImage_GetVersion()
 			'3.15.1'
@@ -137,8 +137,8 @@ class Library(object):
 		:type path: unicode
 		:param functions: Binding functions list.
 		:type functions: tuple
-		:param bindLibrary: Library will be binded on initialization.
-		:type bindLibrary: bool
+		:param bind_library: Library will be binded on initialization.
+		:type bind_library: bool
 		"""
 
 		if hasattr(self.instances[path], "_Library__initialized"):
@@ -157,17 +157,17 @@ class Library(object):
 		self.__library = None
 
 		if platform.system() == "Windows" or platform.system() == "Microsoft":
-			loadingFunction = ctypes.windll
+			loading_function = ctypes.windll
 		else:
-			loadingFunction = ctypes.cdll
+			loading_function = ctypes.cdll
 
 		if self.path:
-			self.__library = loadingFunction.LoadLibrary(path)
+			self.__library = loading_function.LoadLibrary(path)
 		else:
 			raise foundations.exceptions.LibraryInitializationError("{0} | '{1}' library not found!".format(
 			self.__class__.__name__, path))
 
-		bindLibrary and self.bindLibrary()
+		bind_library and self.bind_library()
 
 	#******************************************************************************************************************
 	#***	Attributes properties.
@@ -184,7 +184,7 @@ class Library(object):
 		return self.__instances
 
 	@instances.setter
-	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
 	def instances(self, value):
 		"""
 		Setter for **self.__instances** attribute.
@@ -197,7 +197,7 @@ class Library(object):
 		"{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "instances"))
 
 	@instances.deleter
-	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
 	def instances(self):
 		"""
 		Deleter for **self.__instances** attribute.
@@ -218,7 +218,7 @@ class Library(object):
 		return self.__initialized
 
 	@initialized.setter
-	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
 	def initialized(self, value):
 		"""
 		Setter for **self.__initialized** attribute.
@@ -231,7 +231,7 @@ class Library(object):
 		"{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "initialized"))
 
 	@initialized.deleter
-	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
 	def initialized(self):
 		"""
 		Deleter for **self.__initialized** attribute.
@@ -252,7 +252,7 @@ class Library(object):
 		return self.__path
 
 	@path.setter
-	@foundations.exceptions.handleExceptions(AssertionError)
+	@foundations.exceptions.handle_exceptions(AssertionError)
 	def path(self, value):
 		"""
 		Setter for **self.__path** attribute.
@@ -268,7 +268,7 @@ class Library(object):
 		self.__path = value
 
 	@path.deleter
-	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
 	def path(self):
 		"""
 		Deleter for **self.__path** attribute.
@@ -289,7 +289,7 @@ class Library(object):
 		return self.__functions
 
 	@functions.setter
-	@foundations.exceptions.handleExceptions(AssertionError)
+	@foundations.exceptions.handle_exceptions(AssertionError)
 	def functions(self, value):
 		"""
 		Setter for **self.__functions** attribute.
@@ -306,7 +306,7 @@ class Library(object):
 		self.__functions = value
 
 	@functions.deleter
-	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
 	def functions(self):
 		"""
 		Deleter for **self.__functions** attribute.
@@ -327,7 +327,7 @@ class Library(object):
 		return self.__library
 
 	@library.setter
-	@foundations.exceptions.handleExceptions(AssertionError)
+	@foundations.exceptions.handle_exceptions(AssertionError)
 	def library(self, value):
 		"""
 		Setter for **self.__library** attribute.
@@ -339,7 +339,7 @@ class Library(object):
 		self.__library = value
 
 	@library.deleter
-	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
 	def library(self):
 		"""
 		Deleter for **self.__library** attribute.
@@ -351,7 +351,7 @@ class Library(object):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	def bindFunction(self, function):
+	def bind_function(self, function):
 		"""
 		Binds given function to a class object attribute.
 
@@ -359,9 +359,9 @@ class Library(object):
 			
 			>>> import ctypes 
 			>>> path = "FreeImage.dll"
-			>>> function = LibraryHook(name="FreeImage_GetVersion", argumentsTypes=None, returnValue=ctypes.c_char_p)
-			>>> library = Library(path, bindLibrary=False)
-			>>> library.bindFunction(function)
+			>>> function = LibraryHook(name="FreeImage_GetVersion", arguments_types=None, return_value=ctypes.c_char_p)
+			>>> library = Library(path, bind_library=False)
+			>>> library.bind_function(function)
 			True
 			>>> library.FreeImage_GetVersion()
 			'3.15.1'
@@ -374,15 +374,15 @@ class Library(object):
 
 		LOGGER.debug("> Binding '{0}' library '{1}' function.".format(self.__class__.__name__, function.name))
 
-		functionObject = getattr(self.__library, function.name)
-		setattr(self, function.name, functionObject)
-		if function.argumentsTypes:
-			functionObject.argtypes = function.argumentsTypes
-		if function.returnValue:
-			functionObject.restype = function.returnValue
+		function_object = getattr(self.__library, function.name)
+		setattr(self, function.name, function_object)
+		if function.arguments_types:
+			function_object.argtypes = function.arguments_types
+		if function.return_value:
+			function_object.restype = function.return_value
 		return True
 
-	def bindLibrary(self):
+	def bind_library(self):
 		"""
 		Binds the Library using functions registered in the **self.__functions** attribute.
 
@@ -390,9 +390,9 @@ class Library(object):
 			
 			>>> import ctypes 
 			>>> path = "FreeImage.dll"
-			>>> functions = (LibraryHook(name="FreeImage_GetVersion", argumentsTypes=None, returnValue=ctypes.c_char_p),)
-			>>> library = Library(path, functions, bindLibrary=False)
-			>>> library.bindLibrary()
+			>>> functions = (LibraryHook(name="FreeImage_GetVersion", arguments_types=None, return_value=ctypes.c_char_p),)
+			>>> library = Library(path, functions, bind_library=False)
+			>>> library.bind_library()
 			True
 			>>> library.FreeImage_GetVersion()
 			'3.15.1'
@@ -403,5 +403,5 @@ class Library(object):
 
 		if self.__functions:
 			for function in self.__functions:
-				self.bindFunction(function)
+				self.bind_function(function)
 		return True

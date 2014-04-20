@@ -36,7 +36,7 @@ __status__ = "Production"
 
 __all__ = ["LOGGER", "Cache"]
 
-LOGGER = foundations.verbose.installLogger()
+LOGGER = foundations.verbose.install_logger()
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
@@ -62,14 +62,14 @@ class Cache(dict):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	def addContent(self, **content):
+	def add_content(self, **content):
 		"""
 		Adds given content to the cache.
 
 		Usage::
 		
 			>>> cache = Cache()
-			>>> cache.addContent(John="Doe", Luke="Skywalker")
+			>>> cache.add_content(John="Doe", Luke="Skywalker")
 			True
 			>>> cache
 			{'Luke': 'Skywalker', 'John': 'Doe'}
@@ -85,16 +85,16 @@ class Cache(dict):
 		self.update(**content)
 		return True
 
-	def removeContent(self, *keys):
+	def remove_content(self, *keys):
 		"""
 		Removes given content from the cache.
 
 		Usage::
 			
 			>>> cache = Cache()
-			>>> cache.addContent(John="Doe", Luke="Skywalker")
+			>>> cache.add_content(John="Doe", Luke="Skywalker")
 			True
-			>>> cache.removeContent("Luke", "John")
+			>>> cache.remove_content("Luke", "John")
 			True
 			>>> cache
 			{}			
@@ -114,16 +114,16 @@ class Cache(dict):
 			del self[key]
 		return True
 
-	def getContent(self, key):
+	def get_content(self, key):
 		"""
 		Gets given content from the cache.
 
 		Usage::
 
 			>>> cache = Cache()
-			>>> cache.addContent(John="Doe", Luke="Skywalker")
+			>>> cache.add_content(John="Doe", Luke="Skywalker")
 			True
-			>>> cache.getContent("Luke")
+			>>> cache.get_content("Luke")
 			'Skywalker'
 			
 		:param key: Content to retrieve.
@@ -136,16 +136,16 @@ class Cache(dict):
 
 		return self.get(key)
 
-	def flushContent(self):
+	def flush_content(self):
 		"""
 		Flushes the cache content.
 
 		Usage::
 
 			>>> cache = Cache()
-			>>> cache.addContent(John="Doe", Luke="Skywalker")
+			>>> cache.add_content(John="Doe", Luke="Skywalker")
 			True
-			>>> cache.flushContent()
+			>>> cache.flush_content()
 			True
 			>>> cache
 			{}

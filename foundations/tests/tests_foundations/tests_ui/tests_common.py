@@ -2,15 +2,16 @@
 # -*- coding: utf-8 -*-
 
 """
-**tests.py**
+**tests_common.py**
 
 **Platform:**
 	Windows, Linux, Mac Os X.
 
 **Description:**
-	Runs the tests suite.
+	Defines units tests for :mod:`foundations.ui.common` module.
 
 **Others:**
+
 """
 
 #**********************************************************************************************************************
@@ -27,6 +28,12 @@ if sys.version_info[:2] <= (2, 6):
 	import unittest2 as unittest
 else:
 	import unittest
+from PyQt4.QtGui import QWidget
+
+#**********************************************************************************************************************
+#***	Internal imports.
+#**********************************************************************************************************************
+import foundations.ui.common
 
 #**********************************************************************************************************************
 #***	Module attributes.
@@ -38,36 +45,30 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["tests_suite"]
+__all__ = ["RESOURCES_DIRECTORY", "UI_TESTS_FILE", "APPLICATION", "QWidget_factoryTestCase"]
+
+RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "../resources/ui")
+UI_TESTS_FILE = os.path.join(RESOURCES_DIRECTORY, "Tests_Widget.ui")
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-def _set_package_directory():
+class QWidget_factoryTestCase(unittest.TestCase):
 	"""
-	Sets the package directory in the path.
-
-	:return: Definition success.
-	:rtype: bool
+	Defines :func:`foundations.ui.common.QWidget_factory` definition units tests methods.
 	"""
 
-	package_directory = os.path.normpath(os.path.join(os.path.dirname(__file__), "../"))
-	package_directory not in sys.path and sys.path.append(package_directory)
-	return True
+	def test_qwidget_factory(self):
+		"""
+		Tests :func:`foundations.ui.common.QWidget_factory` definition.
+		"""
 
-_set_package_directory()
-
-def tests_suite():
-	"""
-	Runs the tests suite.
-	
-	:return: Tests suite.
-	:rtype: TestSuite
-	"""
-
-	tests_loader = unittest.TestLoader()
-	return tests_loader.discover(os.path.dirname(__file__))
+		widget = foundations.ui.common.QWidget_factory(UI_TESTS_FILE)
+		self.assertTrue(hasattr(widget, "ui_file"))
+		self.assertEqual(widget.__class__, QWidget.__class__)
+		widget = foundations.ui.common.QWidget_factory()
+		self.assertEqual(widget.__class__, QWidget.__class__)
 
 if __name__ == "__main__":
 	import foundations.tests.utilities
-	unittest.TextTestRunner(verbosity=2).run(tests_suite())
+	unittest.main()

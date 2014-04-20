@@ -46,9 +46,9 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["LOGGER", "File", "setDirectory", "copy", "remove", "isWritable", "isReadable", "isBinaryFile"]
+__all__ = ["LOGGER", "File", "set_directory", "copy", "remove", "is_writable", "is_readable", "is_binary_file"]
 
-LOGGER = foundations.verbose.installLogger()
+LOGGER = foundations.verbose.install_logger()
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
@@ -100,7 +100,7 @@ class File(object):
 		return self.__path
 
 	@path.setter
-	@foundations.exceptions.handleExceptions(AssertionError)
+	@foundations.exceptions.handle_exceptions(AssertionError)
 	def path(self, value):
 		"""
 		Setter for **self.__path** attribute.
@@ -114,7 +114,7 @@ class File(object):
 		self.__path = value
 
 	@path.deleter
-	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
 	def path(self):
 		"""
 		Deleter for **self.__path** attribute.
@@ -135,7 +135,7 @@ class File(object):
 		return self.__content
 
 	@content.setter
-	@foundations.exceptions.handleExceptions(AssertionError)
+	@foundations.exceptions.handle_exceptions(AssertionError)
 	def content(self, value):
 		"""
 		Setter for **self.__content** attribute.
@@ -149,7 +149,7 @@ class File(object):
 		self.__content = value
 
 	@content.deleter
-	@foundations.exceptions.handleExceptions(foundations.exceptions.ProgrammingError)
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
 	def content(self):
 		"""
 		Deleter for **self.__content** attribute.
@@ -161,10 +161,10 @@ class File(object):
 	#******************************************************************************************************************
 	#***	Class methods.
 	#******************************************************************************************************************
-	@foundations.exceptions.handleExceptions(foundations.exceptions.UrlReadError,
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.UrlReadError,
 											 foundations.exceptions.FileReadError,
 											 IOError)
-	def cache(self, mode="r", encoding=Constants.defaultCodec, errors=Constants.codecError):
+	def cache(self, mode="r", encoding=Constants.default_codec, errors=Constants.codec_error):
 		"""
 		Reads given file content and stores it in the content cache.
 
@@ -180,7 +180,7 @@ class File(object):
 
 		self.uncache()
 
-		if foundations.strings.isWebsite(self.__path):
+		if foundations.strings.is_website(self.__path):
 			try:
 				LOGGER.debug("> Caching '{0}' online file content.".format(self.__path))
 				self.__content = urllib2.urlopen(self.__path).readlines()
@@ -188,8 +188,8 @@ class File(object):
 			except urllib2.URLError as error:
 				raise foundations.exceptions.UrlReadError(
 					"!> {0} | '{1}' url is not readable: '{2}'.".format(self.__class__.__name__, self.__path, error))
-		elif foundations.common.pathExists(self.__path):
-			if not isReadable(self.__path):
+		elif foundations.common.path_exists(self.__path):
+			if not is_readable(self.__path):
 				raise foundations.exceptions.FileReadError(
 					"!> {0} | '{1}' file is not readable!".format(self.__class__.__name__, self.__path))
 
@@ -222,8 +222,8 @@ class File(object):
 
 		return "".join(self.__content) if self.cache() else ""
 
-	@foundations.exceptions.handleExceptions(foundations.exceptions.UrlWriteError, foundations.exceptions.FileWriteError)
-	def write(self, mode="w", encoding=Constants.defaultCodec, errors=Constants.codecError):
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.UrlWriteError, foundations.exceptions.FileWriteError)
+	def write(self, mode="w", encoding=Constants.default_codec, errors=Constants.codec_error):
 		"""
 		Writes content to defined file.
 
@@ -237,12 +237,12 @@ class File(object):
 		:rtype: bool
 		"""
 
-		if foundations.strings.isWebsite(self.__path):
+		if foundations.strings.is_website(self.__path):
 			raise foundations.exceptions.UrlWriteError(
 					"!> {0} | '{1}' url is not writable!".format(self.__class__.__name__, self.__path))
 
-		if foundations.common.pathExists(self.__path):
-			if not isWritable(self.__path):
+		if foundations.common.path_exists(self.__path):
+			if not is_writable(self.__path):
 				raise foundations.exceptions.FileWriteError(
 					"!> {0} | '{1}' file is not writable!".format(self.__class__.__name__, self.__path))
 
@@ -253,8 +253,8 @@ class File(object):
 			return True
 		return False
 
-	@foundations.exceptions.handleExceptions(foundations.exceptions.UrlWriteError, foundations.exceptions.FileWriteError)
-	def append(self, mode="a", encoding=Constants.defaultCodec, errors=Constants.codecError):
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.UrlWriteError, foundations.exceptions.FileWriteError)
+	def append(self, mode="a", encoding=Constants.default_codec, errors=Constants.codec_error):
 		"""
 		Appends content to defined file.
 
@@ -268,12 +268,12 @@ class File(object):
 		:rtype: bool
 		"""
 
-		if foundations.strings.isWebsite(self.__path):
+		if foundations.strings.is_website(self.__path):
 			raise foundations.exceptions.UrlWriteError(
 					"!> {0} | '{1}' url is not writable!".format(self.__class__.__name__, self.__path))
 
-		if foundations.common.pathExists(self.__path):
-			if not isWritable(self.__path):
+		if foundations.common.path_exists(self.__path):
+			if not is_writable(self.__path):
 				raise foundations.exceptions.FileWriteError(
 					"!> {0} | '{1}' file is not writable!".format(self.__class__.__name__, self.__path))
 
@@ -284,8 +284,8 @@ class File(object):
 			return True
 		return False
 
-	@foundations.exceptions.handleExceptions(foundations.exceptions.UrlWriteError)
-	def clear(self, encoding=Constants.defaultCodec):
+	@foundations.exceptions.handle_exceptions(foundations.exceptions.UrlWriteError)
+	def clear(self, encoding=Constants.default_codec):
 		"""
 		Clears the defined file content.
 
@@ -295,7 +295,7 @@ class File(object):
 		:rtype: bool
 		"""
 
-		if foundations.strings.isWebsite(self.__path):
+		if foundations.strings.is_website(self.__path):
 			raise foundations.exceptions.UrlWriteError(
 					"!> {0} | '{1}' url is not writable!".format(self.__class__.__name__, self.__path))
 
@@ -305,8 +305,8 @@ class File(object):
 		else:
 			return False
 
-@foundations.exceptions.handleExceptions(foundations.exceptions.DirectoryCreationError)
-def setDirectory(path):
+@foundations.exceptions.handle_exceptions(foundations.exceptions.DirectoryCreationError)
+def set_directory(path):
 	"""
 	| Creates a directory with given path.
 	| The directory creation is delegated to
@@ -319,7 +319,7 @@ def setDirectory(path):
 	"""
 
 	try:
-		if not foundations.common.pathExists(path):
+		if not foundations.common.path_exists(path):
 			LOGGER.debug("> Creating directory: '{0}'.".format(path))
 			os.makedirs(path)
 			return True
@@ -329,7 +329,7 @@ def setDirectory(path):
 	except Exception as error:
 		raise foundations.exceptions.DirectoryCreationError("!> {0} | Cannot create '{1}' directory: '{2}'".format(__name__, path, error))
 
-@foundations.exceptions.handleExceptions(foundations.exceptions.PathCopyError)
+@foundations.exceptions.handle_exceptions(foundations.exceptions.PathCopyError)
 def copy(source, destination):
 	"""
 	Copies given file or directory to destination.
@@ -353,7 +353,7 @@ def copy(source, destination):
 	except Exception as error:
 		raise foundations.exceptions.PathCopyError("!> {0} | Cannot copy '{1}' path: '{2}'".format(__name__, source, error))
 
-@foundations.exceptions.handleExceptions(foundations.exceptions.PathRemoveError)
+@foundations.exceptions.handle_exceptions(foundations.exceptions.PathRemoveError)
 def remove(path):
 	"""
 	Removes given path.
@@ -375,7 +375,7 @@ def remove(path):
 	except Exception as error:
 		raise foundations.exceptions.PathRemoveError("!> {0} | Cannot remove '{1}' path: '{2}'".format(__name__, path, error))
 
-def isReadable(path):
+def is_readable(path):
 	"""
 	Returns if given path is readable.
 
@@ -392,7 +392,7 @@ def isReadable(path):
 		LOGGER.debug("> '{0}' path is not readable.".format(path))
 		return False
 
-def isWritable(path):
+def is_writable(path):
 	"""
 	Returns if given path is writable.
 
@@ -409,7 +409,7 @@ def isWritable(path):
 		LOGGER.debug("> '{0}' path is not writable.".format(path))
 		return False
 
-def isBinaryFile(file):
+def is_binary_file(file):
 	"""
 	Returns if given file is a binary file.
 
@@ -419,15 +419,15 @@ def isBinaryFile(file):
 	:rtype: bool
 	"""
 
-	fileHandle = open(file, "rb")
+	file_handle = open(file, "rb")
 	try:
-		chunkSize = 1024
+		chunk_size = 1024
 		while True:
-			chunk = fileHandle.read(chunkSize)
+			chunk = file_handle.read(chunk_size)
 			if chr(0) in chunk:
 				return True
-			if len(chunk) < chunkSize:
+			if len(chunk) < chunk_size:
 				break
 	finally:
-		fileHandle.close()
+		file_handle.close()
 	return False

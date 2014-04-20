@@ -7,7 +7,7 @@ before_install:
   - git clone -b hdrlabs git://github.com/KelSolaar/FreeImage.git
   - cd FreeImage
   - make -j 4
-  - cp libfreeimage-3.15.1.so ../Foundations/foundations/tests/testsFoundations/resources/libraries/freeImage/libfreeimage.so
+  - cp libfreeimage-3.15.1.so ../Foundations/foundations/tests/tests_foundations/resources/libraries/freeimage/libfreeimage.so
   - cd ..
   - curl -O -L http://downloads.sourceforge.net/project/pyqt/sip/sip-4.13.3/sip-4.13.3.tar.gz
   - tar -xvf sip-4.13.3.tar.gz

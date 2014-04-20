@@ -43,16 +43,16 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["LOGGER",
-		"executionTime",
+		"execution_time",
 		"memoize",
-		"systemExit"]
+		"system_exit"]
 
-LOGGER = foundations.verbose.installLogger()
+LOGGER = foundations.verbose.install_logger()
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-def executionTime(object):
+def execution_time(object):
 	"""
 	| Implements execution timing.
 	| Any method / definition decorated will have it's execution timed through information messages.
@@ -64,7 +64,7 @@ def executionTime(object):
 	"""
 
 	@functools.wraps(object)
-	def executionTimeWrapper(*args, **kwargs):
+	def execution_time_wrapper(*args, **kwargs):
 		"""
 		Implements execution timing.
 
@@ -76,19 +76,19 @@ def executionTime(object):
 		:rtype: object
 		"""
 
-		startTime = time.time()
+		start_time = time.time()
 
 		value = object(*args, **kwargs)
 
-		endTime = time.time()
+		end_time = time.time()
 
 		sys.stdout.write("{0} | '{1}' object processed during '{2:f}' ms!\n".format(__name__,
 																				object.__name__,
-																				(endTime - startTime) * 1000.0))
+																				(end_time - start_time) * 1000.0))
 
 		return value
 
-	return executionTimeWrapper
+	return execution_time_wrapper
 
 def memoize(cache=None):
 	"""
@@ -104,7 +104,7 @@ def memoize(cache=None):
 	if cache is None:
 		cache = {}
 
-	def memoizeDecorator(object):
+	def memoize_decorator(object):
 		"""
 		Implements method / definition memoization.
 
@@ -115,7 +115,7 @@ def memoize(cache=None):
 		"""
 
 		@functools.wraps(object)
-		def memoizeWrapper(*args, **kwargs):
+		def memoize_wrapper(*args, **kwargs):
 			"""
 			Implements method / definition memoization.
 
@@ -137,11 +137,11 @@ def memoize(cache=None):
 
 			return cache[key]
 
-		return memoizeWrapper
+		return memoize_wrapper
 
-	return memoizeDecorator
+	return memoize_decorator
 
-def systemExit(object):
+def system_exit(object):
 	"""
 	Handles proper system exit in case of critical exception.
 
@@ -152,7 +152,7 @@ def systemExit(object):
 	"""
 
 	@functools.wraps(object)
-	def systemExitWrapper(*args, **kwargs):
+	def system_exit_wrapper(*args, **kwargs):
 		"""
 		Handles proper system exit in case of critical exception.
 
@@ -166,7 +166,7 @@ def systemExit(object):
 			if object(*args, **kwargs):
 				foundations.core.exit(0)
 		except Exception as error:
-			sys.stderr.write("\n".join(foundations.exceptions.formatException(*sys.exc_info())))
+			sys.stderr.write("\n".join(foundations.exceptions.format_exception(*sys.exc_info())))
 			foundations.core.exit(1)
 
-	return systemExitWrapper
+	return system_exit_wrapper

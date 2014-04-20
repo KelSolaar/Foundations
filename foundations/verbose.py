@@ -49,7 +49,7 @@ __status__ = "Production"
 
 __all__ = ["THREADS_IDENTIFIERS",
 		   "INDENT_LEVEL",
-		   "toString",
+		   "to_string",
 		   "LOGGER",
 		   "LOGGING_DEFAULT_FORMATTER",
 		   "LOGGING_EXTENDED_FORMATTER",
@@ -57,15 +57,15 @@ __all__ = ["THREADS_IDENTIFIERS",
 		   "TRACER_LOGGING_FUNCTION",
 		   "Streamer"
 		   "StandardOutputStreamer",
-		   "indentMessage",
+		   "indent_message",
 		   "tracer",
-		   "installLogger",
-		   "uninstallLogger",
-		   "getLoggingConsoleHandler",
-		   "getLoggingFileHandler",
-		   "getLoggingStreamHandler",
-		   "removeLoggingHandler",
-		   "setVerbosityLevel"]
+		   "install_logger",
+		   "uninstall_logger",
+		   "get_logging_console_handler",
+		   "get_logging_file_handler",
+		   "get_logging_stream_handler",
+		   "remove_logging_handler",
+		   "set_verbosity_level"]
 
 THREADS_IDENTIFIERS = {}
 
@@ -74,15 +74,15 @@ INDENT_LEVEL = 0
 #**********************************************************************************************************************
 #***	Module attributes.
 #**********************************************************************************************************************
-def toUnicode(data, encoding=Constants.defaultCodec, errors=Constants.codecError):
+def to_unicode(data, encoding=Constants.default_codec, errors=Constants.codec_error):
 	"""
 	Converts given data to unicode string using package default settings, fighting **The Hell**!
 
 	Usage::
 
-		>>> toUnicode("myData")
+		>>> to_unicode("myData")
 		u'myData'
-		>>> toUnicode("汉字/漢字")
+		>>> to_unicode("汉字/漢字")
 		u'\u6c49\u5b57/\u6f22\u5b57'
 
 	:param data: Data to convert.
@@ -106,7 +106,7 @@ def toUnicode(data, encoding=Constants.defaultCodec, errors=Constants.codecError
 #**********************************************************************************************************************
 #***	Logging classes and definitions monkey patching.
 #**********************************************************************************************************************
-def _LogRecord_getAttribute(self, attribute):
+def _LogRecord__getattribute__(self, attribute):
 	"""
 	Overrides logging.LogRecord.__getattribute__ method
 	in order to manipulate requested attributes values.
@@ -118,16 +118,16 @@ def _LogRecord_getAttribute(self, attribute):
 	"""
 
 	if attribute == "__dict__":
-		threadIdent = threading.currentThread().ident
-		if not threadIdent in THREADS_IDENTIFIERS:
-			THREADS_IDENTIFIERS[threadIdent] = (threading.currentThread().name,
+		thread_ident = threading.currentThread().ident
+		if not thread_ident in THREADS_IDENTIFIERS:
+			THREADS_IDENTIFIERS[thread_ident] = (threading.currentThread().name,
 												hashlib.md5(threading.currentThread().name).hexdigest()[:8])
-		object.__getattribute__(self, attribute)["threadName"] = THREADS_IDENTIFIERS[threadIdent][1]
+		object.__getattribute__(self, attribute)["threadName"] = THREADS_IDENTIFIERS[thread_ident][1]
 		return object.__getattribute__(self, attribute)
 	else:
 		return object.__getattribute__(self, attribute)
 
-logging.LogRecord.__getattribute__ = _LogRecord_getAttribute
+logging.LogRecord.__getattribute__ = _LogRecord__getattribute__
 
 def _LogRecord_msg():
 	"""
@@ -138,7 +138,7 @@ def _LogRecord_msg():
 		return self.__msg
 
 	def _LogRecord_msgSetter(self, value):
-		self.__msg = toUnicode(value)
+		self.__msg = to_unicode(value)
 
 	logging.LogRecord.msg = property(_LogRecord_msgProperty, _LogRecord_msgSetter)
 
@@ -294,7 +294,7 @@ class StandardOutputStreamer(object):
 			handler.stream.write(message)
 		return True
 
-def indentMessage(message):
+def indent_message(message):
 	"""
 	Idents given message using the attr`INDENT_LEVEL` attribute value.
 
@@ -314,11 +314,11 @@ def tracer(object):
 
 	Entering in an object::
 
-		INFO    : ---> foundations.environment.getUserApplicationDataDirectory() <<<---
+		INFO    : ---> foundations.environment.get_user_application_data_directory() <<<---
 
 	Exiting from an object::
 
-		INFO   : <--- foundations.environment.getSystemApplicationDataDirectory() ^ '...' --->
+		INFO   : <--- foundations.environment.get_system_application_data_directory() ^ '...' --->
 
 	:param object: Object to decorate.
 	:type object: object
@@ -327,8 +327,8 @@ def tracer(object):
 	"""
 
 	@functools.wraps(object)
-	@functools.partial(foundations.trace.validateTracer, object)
-	def tracerWrapper(*args, **kwargs):
+	@functools.partial(foundations.trace.validate_tracer, object)
+	def tracer_wrapper(*args, **kwargs):
 		"""
 		Traces execution.
 
@@ -342,36 +342,36 @@ def tracer(object):
 
 		global INDENT_LEVEL
 
-		traceName = foundations.trace.getTraceName(object)
+		trace_name = foundations.trace.get_trace_name(object)
 
 		code = object.func_code
-		argsCount = code.co_argcount
-		argsNames = code.co_varnames[:argsCount]
-		functionDefaults = object.func_defaults or list()
-		argsDefaults = dict(zip(argsNames[-len(functionDefaults):], functionDefaults))
+		args_count = code.co_argcount
+		args_names = code.co_varnames[:args_count]
+		function_defaults = object.func_defaults or list()
+		args_defaults = dict(zip(args_names[-len(function_defaults):], function_defaults))
 
-		positionalArgs = map(foundations.trace.formatArgument, zip(argsNames, args))
-		defaultedArgs = [foundations.trace.formatArgument((name, argsDefaults[name])) \
-						 for name in argsNames[len(args):] if name not in kwargs]
-		namelessArgs = map(repr, args[argsCount:])
-		keywordArgs = map(foundations.trace.formatArgument, kwargs.items())
-		TRACER_LOGGING_FUNCTION(indentMessage("---> {0}({1}) <---".format(traceName,
-																		  ", ".join(itertools.chain(positionalArgs,
-																									defaultedArgs,
-																									namelessArgs,
-																									keywordArgs)))))
+		positional_args = map(foundations.trace.format_argument, zip(args_names, args))
+		defaulted_args = [foundations.trace.format_argument((name, args_defaults[name])) \
+						 for name in args_names[len(args):] if name not in kwargs]
+		nameless_args = map(repr, args[args_count:])
+		keyword_args = map(foundations.trace.format_argument, kwargs.items())
+		TRACER_LOGGING_FUNCTION(indent_message("---> {0}({1}) <---".format(trace_name,
+																		  ", ".join(itertools.chain(positional_args,
+																									defaulted_args,
+																									nameless_args,
+																									keyword_args)))))
 
 		INDENT_LEVEL += 1
 		value = object(*args, **kwargs)
 		INDENT_LEVEL -= 1
 
-		TRACER_LOGGING_FUNCTION(indentMessage("<--- {0} ^ {1} --->".format(traceName, repr(value))))
+		TRACER_LOGGING_FUNCTION(indent_message("<--- {0} ^ {1} --->".format(trace_name, repr(value))))
 
 		return value
 
-	return tracerWrapper
+	return tracer_wrapper
 
-def installLogger(logger=None, module=None):
+def install_logger(logger=None, module=None):
 	"""
 	Installs given logger in given module or default logger in caller introspected module.
 
@@ -389,11 +389,11 @@ def installLogger(logger=None, module=None):
 		module = sys.modules.get(inspect.currentframe().f_back.f_globals["__name__"])
 	setattr(module, "LOGGER", logger)
 
-	foundations.trace.registerModule(module)
+	foundations.trace.register_module(module)
 
 	return logger
 
-def uninstallLogger(logger=None, module=None):
+def uninstall_logger(logger=None, module=None):
 	"""
 	Uninstalls given logger in given module or default logger in caller introspected module.
 
@@ -412,7 +412,7 @@ def uninstallLogger(logger=None, module=None):
 	hasattr(module, "LOGGER") and delattr(module, "LOGGER")
 	return True
 
-def getLoggingConsoleHandler(logger=None, formatter=LOGGING_DEFAULT_FORMATTER):
+def get_logging_console_handler(logger=None, formatter=LOGGING_DEFAULT_FORMATTER):
 	"""
 	Adds a logging console handler to given logger or default logger.
 
@@ -425,12 +425,12 @@ def getLoggingConsoleHandler(logger=None, formatter=LOGGING_DEFAULT_FORMATTER):
 	"""
 
 	logger = LOGGER if logger is None else logger
-	loggingConsoleHandler = logging.StreamHandler(sys.__stdout__)
-	loggingConsoleHandler.setFormatter(formatter)
-	logger.addHandler(loggingConsoleHandler)
-	return loggingConsoleHandler
+	logging_console_handler = logging.StreamHandler(sys.__stdout__)
+	logging_console_handler.setFormatter(formatter)
+	logger.addHandler(logging_console_handler)
+	return logging_console_handler
 
-def getLoggingFileHandler(logger=None, file=None, formatter=LOGGING_DEFAULT_FORMATTER):
+def get_logging_file_handler(logger=None, file=None, formatter=LOGGING_DEFAULT_FORMATTER):
 	"""
 	Adds a logging file handler to given logger or default logger using given file.
 
@@ -446,12 +446,12 @@ def getLoggingFileHandler(logger=None, file=None, formatter=LOGGING_DEFAULT_FORM
 
 	logger = LOGGER if logger is None else logger
 	file = tempfile.NamedTemporaryFile().name if file is None else file
-	loggingFileHandler = logging.FileHandler(file)
-	loggingFileHandler.setFormatter(formatter)
-	logger.addHandler(loggingFileHandler)
-	return loggingFileHandler
+	logging_file_handler = logging.FileHandler(file)
+	logging_file_handler.setFormatter(formatter)
+	logger.addHandler(logging_file_handler)
+	return logging_file_handler
 
-def getLoggingStreamHandler(logger=None, formatter=LOGGING_DEFAULT_FORMATTER):
+def get_logging_stream_handler(logger=None, formatter=LOGGING_DEFAULT_FORMATTER):
 	"""
 	Adds a logging stream handler to given logger or default logger using given file.
 
@@ -466,12 +466,12 @@ def getLoggingStreamHandler(logger=None, formatter=LOGGING_DEFAULT_FORMATTER):
 	"""
 
 	logger = LOGGER if logger is None else logger
-	loggingStreamHandler = logging.StreamHandler(Streamer())
-	loggingStreamHandler.setFormatter(formatter)
-	logger.addHandler(loggingStreamHandler)
-	return loggingStreamHandler
+	logging_stream_handler = logging.StreamHandler(Streamer())
+	logging_stream_handler.setFormatter(formatter)
+	logger.addHandler(logging_stream_handler)
+	return logging_stream_handler
 
-def removeLoggingHandler(handler, logger=None):
+def remove_logging_handler(handler, logger=None):
 	"""
 	Removes given logging handler from given logger.
 
@@ -488,7 +488,7 @@ def removeLoggingHandler(handler, logger=None):
 	logger.removeHandler(handler)
 	return True
 
-def setVerbosityLevel(verbosityLevel=3, logger=None):
+def set_verbosity_level(verbosity_level=3, logger=None):
 	"""
 	Defines logging verbosity level.
 
@@ -500,8 +500,8 @@ def setVerbosityLevel(verbosityLevel=3, logger=None):
 		3: Info.
 		4: Debug.
 
-	:param verbosityLevel: Verbosity level.
-	:type verbosityLevel: int
+	:param verbosity_level: Verbosity level.
+	:type verbosity_level: int
 	:param logger: Logger to set the verbosity level to.
 	:type logger: Logger
 	:return: Definition success.
@@ -509,19 +509,19 @@ def setVerbosityLevel(verbosityLevel=3, logger=None):
 	"""
 
 	logger = LOGGER if logger is None else logger
-	if verbosityLevel == 0:
+	if verbosity_level == 0:
 		logger.setLevel(logging.CRITICAL)
 		logging.disable(logging.ERROR)
-	elif verbosityLevel == 1:
+	elif verbosity_level == 1:
 		logger.setLevel(logging.ERROR)
 		logging.disable(logging.WARNING)
-	elif verbosityLevel == 2:
+	elif verbosity_level == 2:
 		logger.setLevel(logging.WARNING)
 		logging.disable(logging.INFO)
-	elif verbosityLevel == 3:
+	elif verbosity_level == 3:
 		logger.setLevel(logging.INFO)
 		logging.disable(logging.DEBUG)
-	elif verbosityLevel == 4:
+	elif verbosity_level == 4:
 		logger.setLevel(logging.DEBUG)
 		logging.disable(logging.NOTSET)
 	return True

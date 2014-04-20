@@ -34,12 +34,12 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["LOGGER", "attributeWarfare", "baseWarfare"]
+__all__ = ["LOGGER", "attribute_warfare", "base_warfare"]
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-def attributeWarfare(object):
+def attribute_warfare(object):
 	"""
 	Alterates object attributes using guerilla / monkey patching.
 	
@@ -49,7 +49,7 @@ def attributeWarfare(object):
 	:rtype: object
 	"""
 
-	def attributeWarfareWrapper(attribute):
+	def attribute_warfare_wrapper(attribute):
 		"""
 		Alterates object attributes using guerilla / monkey patching.
 		
@@ -62,9 +62,9 @@ def attributeWarfare(object):
 		setattr(object, attribute.__name__, attribute)
 		return attribute
 
-	return attributeWarfareWrapper
+	return attribute_warfare_wrapper
 
-def baseWarfare(name, bases, attributes):
+def base_warfare(name, bases, attributes):
 	"""
 	Adds any number of attributes to an existing class.
 	
@@ -80,7 +80,7 @@ def baseWarfare(name, bases, attributes):
 
 	assert len(bases) == 1, "{0} | '{1}' object has multiple bases!".format(__name__, name)
 
-	base = foundations.common.getFirstItem(bases)
+	base = foundations.common.get_first_item(bases)
 	for name, value in attributes.iteritems():
 		if name != "__metaclass__":
 			setattr(base, name, value)
