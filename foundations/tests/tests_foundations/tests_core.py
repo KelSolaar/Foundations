@@ -5,10 +5,10 @@
 **tests_core.py**
 
 **Platform:**
-	Windows, Linux, Mac Os X.
+    Windows, Linux, Mac Os X.
 
 **Description:**
-	Defines units tests for :mod:`foundations.core` module.
+    Defines units tests for :mod:`foundations.core` module.
 
 **Others:**
 
@@ -18,9 +18,9 @@ from __future__ import unicode_literals
 
 import sys
 if sys.version_info[:2] <= (2, 6):
-	import unittest2 as unittest
+    import unittest2 as unittest
 else:
-	import unittest
+    import unittest
 
 import foundations.core
 
@@ -34,4 +34,4 @@ __status__ = "Production"
 __all__ = []
 
 if __name__ == "__main__":
-	unittest.main()
+    unittest.main()

@@ -5,10 +5,10 @@
 **pkzip.py**
 
 **Platform:**
-	Windows, Linux, Mac Os X.
+    Windows, Linux, Mac Os X.
 
 **Description:**
-	Provides archives files manipulation objects.
+    Provides archives files manipulation objects.
 
 **Others:**
 
@@ -36,110 +36,110 @@ __all__ = ["LOGGER", "Pkzip"]
 LOGGER = foundations.verbose.install_logger()
 
 class Pkzip(object):
-	"""
-	Defines methods to manipulate zip files.
-	"""
+    """
+    Defines methods to manipulate zip files.
+    """
 
-	def __init__(self, archive=None):
-		"""
-		Initializes the class.
+    def __init__(self, archive=None):
+        """
+        Initializes the class.
 
-		Usage::
+        Usage::
 
-			>>> import tempfile
-			>>> temp_directory = tempfile.mkdtemp()
-			>>> zip_file = Pkzip("zip_file.zip")
-			>>> zip_file.extract(temp_directory)
-			True
+            >>> import tempfile
+            >>> temp_directory = tempfile.mkdtemp()
+            >>> zip_file = Pkzip("zip_file.zip")
+            >>> zip_file.extract(temp_directory)
+            True
 
-		:param archive: Archive to manipulate.
-		:type archive: unicode
-		"""
+        :param archive: Archive to manipulate.
+        :type archive: unicode
+        """
 
-		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
+        LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
-		# --- Setting class attributes. ---
-		self.__archive = None
-		self.archive = archive
+        # --- Setting class attributes. ---
+        self.__archive = None
+        self.archive = archive
 
-	@property
-	def archive(self):
-		"""
-		Property for **self.__archive** attribute.
+    @property
+    def archive(self):
+        """
+        Property for **self.__archive** attribute.
 
-		:return: self.__archive.
-		:rtype: unicode
-		"""
+        :return: self.__archive.
+        :rtype: unicode
+        """
 
-		return self.__archive
+        return self.__archive
 
-	@archive.setter
-	@foundations.exceptions.handle_exceptions(AssertionError)
-	def archive(self, value):
-		"""
-		Setter for **self.__archive** attribute.
+    @archive.setter
+    @foundations.exceptions.handle_exceptions(AssertionError)
+    def archive(self, value):
+        """
+        Setter for **self.__archive** attribute.
 
-		:param value: Attribute value.
-		:type value: unicode
-		"""
+        :param value: Attribute value.
+        :type value: unicode
+        """
 
-		if value is not None:
-			assert type(value) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
-				"archive", value)
-			assert os.path.exists(value), "'{0}' attribute: '{1}' file doesn't exists!".format("archive", value)
-		self.__archive = value
+        if value is not None:
+            assert type(value) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
+                "archive", value)
+            assert os.path.exists(value), "'{0}' attribute: '{1}' file doesn't exists!".format("archive", value)
+        self.__archive = value
 
-	@archive.deleter
-	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
-	def archive(self):
-		"""
-		Deleter for **self.__archive** attribute.
-		"""
+    @archive.deleter
+    @foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
+    def archive(self):
+        """
+        Deleter for **self.__archive** attribute.
+        """
 
-		raise foundations.exceptions.ProgrammingError(
-			"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "archive"))
+        raise foundations.exceptions.ProgrammingError(
+            "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "archive"))
 
-	@foundations.exceptions.handle_exceptions(foundations.exceptions.DirectoryExistsError,
-											 foundations.exceptions.FileExistsError,
-											 zipfile.BadZipfile)
-	def extract(self, target):
-		"""
-		Extracts the archive file to given directory.
+    @foundations.exceptions.handle_exceptions(foundations.exceptions.DirectoryExistsError,
+                                             foundations.exceptions.FileExistsError,
+                                             zipfile.BadZipfile)
+    def extract(self, target):
+        """
+        Extracts the archive file to given directory.
 
-		:param target: Target extraction directory.
-		:type target: unicode
-		:return: Method success.
-		:rtype: bool
-		"""
+        :param target: Target extraction directory.
+        :type target: unicode
+        :return: Method success.
+        :rtype: bool
+        """
 
-		if not foundations.common.path_exists(self.__archive):
-			raise foundations.exceptions.FileExistsError("{0} | '{1}' file doesn't exists!".format(
-				self.__class__.__name__, self.__archive))
+        if not foundations.common.path_exists(self.__archive):
+            raise foundations.exceptions.FileExistsError("{0} | '{1}' file doesn't exists!".format(
+                self.__class__.__name__, self.__archive))
 
-		if not foundations.common.path_exists(target):
-			raise foundations.exceptions.DirectoryExistsError("{0} | '{1}' directory doesn't exists!".format(
-				self.__class__.__name__, target))
+        if not foundations.common.path_exists(target):
+            raise foundations.exceptions.DirectoryExistsError("{0} | '{1}' directory doesn't exists!".format(
+                self.__class__.__name__, target))
 
-		archive = zipfile.ZipFile(self.__archive)
-		content = archive.namelist()
+        archive = zipfile.ZipFile(self.__archive)
+        content = archive.namelist()
 
-		directories = [item for item in content if item.endswith("/")]
-		files = [item for item in content if not item.endswith("/")]
+        directories = [item for item in content if item.endswith("/")]
+        files = [item for item in content if not item.endswith("/")]
 
-		directories.sort()
-		directories.reverse()
+        directories.sort()
+        directories.reverse()
 
-		for directory in directories:
-			not os.path.isdir(os.path.join(target, directory)) and foundations.io.set_directory(
-				os.path.join(target, directory))
+        for directory in directories:
+            not os.path.isdir(os.path.join(target, directory)) and foundations.io.set_directory(
+                os.path.join(target, directory))
 
-		for file in files:
-			LOGGER.info("{0} | Extracting '{1}' file!".format(self.__class__.__name__, file))
-			with open(os.path.join(target, file), "w") as output:
-				buffer = StringIO(archive.read(file))
-				bufferSize = 2 ** 20
-				data = buffer.read(bufferSize)
-				while data:
-					output.write(data)
-					data = buffer.read(bufferSize)
-		return True
+        for file in files:
+            LOGGER.info("{0} | Extracting '{1}' file!".format(self.__class__.__name__, file))
+            with open(os.path.join(target, file), "w") as output:
+                buffer = StringIO(archive.read(file))
+                bufferSize = 2 ** 20
+                data = buffer.read(bufferSize)
+                while data:
+                    output.write(data)
+                    data = buffer.read(bufferSize)
+        return True

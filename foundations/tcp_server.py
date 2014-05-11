@@ -5,10 +5,10 @@
 **tcp_server.py**
 
 **Platform:**
-	Windows, Linux, Mac Os X.
+    Windows, Linux, Mac Os X.
 
 **Description:**
-	Defines the :class:`TCPServer` class and other helpers objects needed to run a **Python** socket server.
+    Defines the :class:`TCPServer` class and other helpers objects needed to run a **Python** socket server.
 
 **Others:**
 
@@ -36,259 +36,259 @@ __all__ = ["LOGGER", "EchoRequestsHandler", "TCPServer"]
 LOGGER = foundations.verbose.install_logger()
 
 class EchoRequestsHandler(SocketServer.BaseRequestHandler):
-	"""
-	Defines the default echo requests handler.
-	"""
+    """
+    Defines the default echo requests handler.
+    """
 
-	def handle(self):
-		"""
-		Reimplements the :meth:`SocketServer.BaseRequestHandler.handle` method.
-	
-		:return: Method success.
-		:rtype: bool
-		"""
+    def handle(self):
+        """
+        Reimplements the :meth:`SocketServer.BaseRequestHandler.handle` method.
 
-		while True:
-			data = self.request.recv(1024)
-			if not data:
-				break
+        :return: Method success.
+        :rtype: bool
+        """
 
-			self.request.send(data)
-		return True
+        while True:
+            data = self.request.recv(1024)
+            if not data:
+                break
+
+            self.request.send(data)
+        return True
 
 class TCPServer(object):
-	"""
-	Defines a TCP server.
-	"""
+    """
+    Defines a TCP server.
+    """
 
-	def __init__(self, address, port, handler=EchoRequestsHandler):
-		"""
-		Initializes the class.
-		
-		Usage::
-			
-			>>> tcp_server = TCPServer("127.0.0.1", 16384)
-			>>> tcp_server.start()
-			True
-			>>> tcp_server.stop()
-			True
+    def __init__(self, address, port, handler=EchoRequestsHandler):
+        """
+        Initializes the class.
 
-		:param address: Server address.
-		:type address: unicode
-		:param port: Server port list.
-		:type port: int
-		:param handler: Request handler. ( SocketServer.BaseRequestHandler )
-		"""
+        Usage::
 
-		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
+            >>> tcp_server = TCPServer("127.0.0.1", 16384)
+            >>> tcp_server.start()
+            True
+            >>> tcp_server.stop()
+            True
 
-		self.__address = None
-		self.address = address
-		self.__port = None
-		self.port = port
-		self.__handler = None
-		self.handler = handler
+        :param address: Server address.
+        :type address: unicode
+        :param port: Server port list.
+        :type port: int
+        :param handler: Request handler. ( SocketServer.BaseRequestHandler )
+        """
 
-		self.__server = None
-		self.__worker = None
-		self.__online = False
+        LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
-	@property
-	def address(self):
-		"""
-		Property for **self.__address** attribute.
+        self.__address = None
+        self.address = address
+        self.__port = None
+        self.port = port
+        self.__handler = None
+        self.handler = handler
 
-		:return: self.__address.
-		:rtype: unicode
-		"""
+        self.__server = None
+        self.__worker = None
+        self.__online = False
 
-		return self.__address
+    @property
+    def address(self):
+        """
+        Property for **self.__address** attribute.
 
-	@address.setter
-	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
-	def address(self, value):
-		"""
-		Setter for **self.__address** attribute.
+        :return: self.__address.
+        :rtype: unicode
+        """
 
-		:param value: Attribute value.
-		:type value: unicode
-		"""
+        return self.__address
 
-		if value is not None:
-			assert type(value) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
-			"address", value)
-		self.__address = value
+    @address.setter
+    @foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
+    def address(self, value):
+        """
+        Setter for **self.__address** attribute.
 
-	@address.deleter
-	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
-	def address(self):
-		"""
-		Deleter for **self.__address** attribute.
-		"""
+        :param value: Attribute value.
+        :type value: unicode
+        """
 
-		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "address"))
+        if value is not None:
+            assert type(value) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
+            "address", value)
+        self.__address = value
 
-	@property
-	def port(self):
-		"""
-		Property for **self.__port** attribute.
+    @address.deleter
+    @foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
+    def address(self):
+        """
+        Deleter for **self.__address** attribute.
+        """
 
-		:return: self.__port.
-		:rtype: int
-		"""
+        raise foundations.exceptions.ProgrammingError(
+        "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "address"))
 
-		return self.__port
+    @property
+    def port(self):
+        """
+        Property for **self.__port** attribute.
 
-	@port.setter
-	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
-	def port(self, value):
-		"""
-		Setter for **self.__port** attribute.
+        :return: self.__port.
+        :rtype: int
+        """
 
-		:param value: Attribute value.
-		:type value: int
-		"""
+        return self.__port
 
-		if value is not None:
-			assert type(value) is int, "'{0}' attribute: '{1}' type is not 'int'!".format(
-			"port", value)
-			assert type(value) >= 0 and type(value) >= 65535, \
-			"'{0}' attribute: '{1}' value must be in 0-65535 range!".format("port", value)
-		self.__port = value
+    @port.setter
+    @foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
+    def port(self, value):
+        """
+        Setter for **self.__port** attribute.
 
-	@port.deleter
-	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
-	def port(self):
-		"""
-		Deleter for **self.__port** attribute.
-		"""
+        :param value: Attribute value.
+        :type value: int
+        """
 
-		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "port"))
+        if value is not None:
+            assert type(value) is int, "'{0}' attribute: '{1}' type is not 'int'!".format(
+            "port", value)
+            assert type(value) >= 0 and type(value) >= 65535, \
+            "'{0}' attribute: '{1}' value must be in 0-65535 range!".format("port", value)
+        self.__port = value
 
-	@property
-	def handler(self):
-		"""
-		Property for **self.__handler** attribute.
+    @port.deleter
+    @foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
+    def port(self):
+        """
+        Deleter for **self.__port** attribute.
+        """
 
-		:return: self.__handler.
-		:rtype: unicode
-		"""
+        raise foundations.exceptions.ProgrammingError(
+        "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "port"))
 
-		return self.__handler
+    @property
+    def handler(self):
+        """
+        Property for **self.__handler** attribute.
 
-	@handler.setter
-	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
-	def handler(self, value):
-		"""
-		Setter for **self.__handler** attribute.
+        :return: self.__handler.
+        :rtype: unicode
+        """
 
-		:param value: Attribute value. ( SocketServer.BaseRequestHandler )
-		"""
+        return self.__handler
 
-		if value is not None:
-			assert issubclass(value, SocketServer.BaseRequestHandler), \
-			"'{0}' attribute: '{1}' is not 'SocketServer.BaseRequestHandler' subclass!".format("handler", value)
-		self.__handler = value
-		self.__handler.container = self
+    @handler.setter
+    @foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
+    def handler(self, value):
+        """
+        Setter for **self.__handler** attribute.
 
-	@handler.deleter
-	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
-	def handler(self):
-		"""
-		Deleter for **self.__handler** attribute.
-		"""
+        :param value: Attribute value. ( SocketServer.BaseRequestHandler )
+        """
 
-		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "handler"))
+        if value is not None:
+            assert issubclass(value, SocketServer.BaseRequestHandler), \
+            "'{0}' attribute: '{1}' is not 'SocketServer.BaseRequestHandler' subclass!".format("handler", value)
+        self.__handler = value
+        self.__handler.container = self
 
-	@property
-	def online(self):
-		"""
-		Property for **self.__online** attribute.
+    @handler.deleter
+    @foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
+    def handler(self):
+        """
+        Deleter for **self.__handler** attribute.
+        """
 
-		:return: self.__online.
-		:rtype: unicode
-		"""
+        raise foundations.exceptions.ProgrammingError(
+        "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "handler"))
 
-		return self.__online
+    @property
+    def online(self):
+        """
+        Property for **self.__online** attribute.
 
-	@online.setter
-	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
-	def online(self, value):
-		"""
-		Setter for **self.__online** attribute.
+        :return: self.__online.
+        :rtype: unicode
+        """
 
-		:param value: Attribute value.
-		:type value: bool
-		"""
+        return self.__online
 
-		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "online"))
+    @online.setter
+    @foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
+    def online(self, value):
+        """
+        Setter for **self.__online** attribute.
 
-	@online.deleter
-	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
-	def online(self):
-		"""
-		Deleter for **self.__online** attribute.
-		"""
+        :param value: Attribute value.
+        :type value: bool
+        """
 
-		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "online"))
+        raise foundations.exceptions.ProgrammingError(
+        "{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "online"))
 
-	@foundations.exceptions.handle_exceptions(foundations.exceptions.ServerOperationError)
-	def start(self):
-		"""
-		Starts the TCP server.
+    @online.deleter
+    @foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
+    def online(self):
+        """
+        Deleter for **self.__online** attribute.
+        """
 
-		:return: Method success.
-		:rtype: bool
-		"""
+        raise foundations.exceptions.ProgrammingError(
+        "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "online"))
 
-		if self.__online:
-			raise foundations.exceptions.ServerOperationError(
-			"{0} | '{1}' TCP Server is already online!".format(self.__class__.__name__, self))
+    @foundations.exceptions.handle_exceptions(foundations.exceptions.ServerOperationError)
+    def start(self):
+        """
+        Starts the TCP server.
 
-		try:
-			self.__server = SocketServer.TCPServer((self.__address, self.__port), self.__handler)
-			self.__worker = threading.Thread(target=self.__server.serve_forever)
-			self.__worker.setDaemon(True)
-			self.__worker.start()
-			self.__online = True
-			LOGGER.info(
-			"{0} | TCP Server successfully started with '{1}' address on '{2}' port using '{3}' requests handler!".format(
-			self.__class__.__name__, self.__address, self.__port, self.__handler.__name__))
-			return True
-		except socket.error as error:
-			if error.errno in (errno.EADDRINUSE, errno.EADDRNOTAVAIL):
-				LOGGER.warning(
-				"!> {0} | Cannot start TCP Server, address is already in use on port '{1}'!".format(
-				self.__class__.__name__, self.__port))
-			else:
-				raise error
+        :return: Method success.
+        :rtype: bool
+        """
 
-	@foundations.exceptions.handle_exceptions(foundations.exceptions.ServerOperationError)
-	def stop(self, terminate=False):
-		"""
-		Stops the TCP server.
+        if self.__online:
+            raise foundations.exceptions.ServerOperationError(
+            "{0} | '{1}' TCP Server is already online!".format(self.__class__.__name__, self))
 
-		:return: Method success.
-		:rtype: bool
-		"""
+        try:
+            self.__server = SocketServer.TCPServer((self.__address, self.__port), self.__handler)
+            self.__worker = threading.Thread(target=self.__server.serve_forever)
+            self.__worker.setDaemon(True)
+            self.__worker.start()
+            self.__online = True
+            LOGGER.info(
+            "{0} | TCP Server successfully started with '{1}' address on '{2}' port using '{3}' requests handler!".format(
+            self.__class__.__name__, self.__address, self.__port, self.__handler.__name__))
+            return True
+        except socket.error as error:
+            if error.errno in (errno.EADDRINUSE, errno.EADDRNOTAVAIL):
+                LOGGER.warning(
+                "!> {0} | Cannot start TCP Server, address is already in use on port '{1}'!".format(
+                self.__class__.__name__, self.__port))
+            else:
+                raise error
 
-		if not self.__online:
-			raise foundations.exceptions.ServerOperationError(
-			"{0} | '{1}' TCP Server is not online!".format(self.__class__.__name__, self))
+    @foundations.exceptions.handle_exceptions(foundations.exceptions.ServerOperationError)
+    def stop(self, terminate=False):
+        """
+        Stops the TCP server.
 
-		if not terminate:
-			self.__server.shutdown()
-		else:
-			self.__server._BaseServer__shutdown_request = True
+        :return: Method success.
+        :rtype: bool
+        """
 
-		self.__server = None
-		self.__worker = None
-		self.__online = False
+        if not self.__online:
+            raise foundations.exceptions.ServerOperationError(
+            "{0} | '{1}' TCP Server is not online!".format(self.__class__.__name__, self))
 
-		LOGGER.info("{0} | TCP Server successfully stopped!".format(self.__class__.__name__))
-		return True
+        if not terminate:
+            self.__server.shutdown()
+        else:
+            self.__server._BaseServer__shutdown_request = True
+
+        self.__server = None
+        self.__worker = None
+        self.__online = False
+
+        LOGGER.info("{0} | TCP Server successfully stopped!".format(self.__class__.__name__))
+        return True

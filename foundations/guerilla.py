@@ -5,13 +5,13 @@
 **guerilla.py**
 
 **Platform:**
-	Windows, Linux, Mac Os X.
+    Windows, Linux, Mac Os X.
 
 **Description:**
-	Defines various guerilla / monkey patching objects.
+    Defines various guerilla / monkey patching objects.
 
 **Others:**
-	Portions of the code by Guido Van Rossum: http://mail.python.org/pipermail/python-dev/2008-January/076194.html
+    Portions of the code by Guido Van Rossum: http://mail.python.org/pipermail/python-dev/2008-January/076194.html
 """
 
 from __future__ import unicode_literals
@@ -28,48 +28,48 @@ __status__ = "Production"
 __all__ = ["LOGGER", "attribute_warfare", "base_warfare"]
 
 def attribute_warfare(object):
-	"""
-	Alterates object attributes using guerilla / monkey patching.
-	
-	:param object: Object to alterate.
-	:type object: object
-	:return: Object.
-	:rtype: object
-	"""
+    """
+    Alterates object attributes using guerilla / monkey patching.
 
-	def attribute_warfare_wrapper(attribute):
-		"""
-		Alterates object attributes using guerilla / monkey patching.
-		
-		:param attribute: Attribute to alterate.
-		:type attribute: object
-		:return: Object.
-		:rtype: object
-		"""
+    :param object: Object to alterate.
+    :type object: object
+    :return: Object.
+    :rtype: object
+    """
 
-		setattr(object, attribute.__name__, attribute)
-		return attribute
+    def attribute_warfare_wrapper(attribute):
+        """
+        Alterates object attributes using guerilla / monkey patching.
 
-	return attribute_warfare_wrapper
+        :param attribute: Attribute to alterate.
+        :type attribute: object
+        :return: Object.
+        :rtype: object
+        """
+
+        setattr(object, attribute.__name__, attribute)
+        return attribute
+
+    return attribute_warfare_wrapper
 
 def base_warfare(name, bases, attributes):
-	"""
-	Adds any number of attributes to an existing class.
-	
-	:param name: Name.
-	:type name: unicode
-	:param bases: Bases.
-	:type bases: list
-	:param attributes: Attributes.
-	:type attributes: dict
-	:return: Base.
-	:rtype: object
-	"""
+    """
+    Adds any number of attributes to an existing class.
 
-	assert len(bases) == 1, "{0} | '{1}' object has multiple bases!".format(__name__, name)
+    :param name: Name.
+    :type name: unicode
+    :param bases: Bases.
+    :type bases: list
+    :param attributes: Attributes.
+    :type attributes: dict
+    :return: Base.
+    :rtype: object
+    """
 
-	base = foundations.common.get_first_item(bases)
-	for name, value in attributes.iteritems():
-		if name != "__metaclass__":
-			setattr(base, name, value)
-	return base
+    assert len(bases) == 1, "{0} | '{1}' object has multiple bases!".format(__name__, name)
+
+    base = foundations.common.get_first_item(bases)
+    for name, value in attributes.iteritems():
+        if name != "__metaclass__":
+            setattr(base, name, value)
+    return base

@@ -5,10 +5,10 @@
 **core.py**
 
 **Platform:**
-	Windows, Linux, Mac Os X.
+    Windows, Linux, Mac Os X.
 
 **Description:**
-	Defines **Foundations** package core objects.
+    Defines **Foundations** package core objects.
 
 **Others:**
 
@@ -29,40 +29,40 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["LOGGER",
-			"exit",
-			"wait"]
+            "exit",
+            "wait"]
 
 LOGGER = foundations.verbose.install_logger()
 
 def exit(exit_code=0):
-	"""
-	Shuts down current process logging, associated handlers and then exits to system.
-	
-	:param exit_code: System exit code.
-	:type exit_code: Integer or String or Object
+    """
+    Shuts down current process logging, associated handlers and then exits to system.
 
-	:note: **exit_code** argument is passed to Python :func:`sys.exit` definition.
-	"""
+    :param exit_code: System exit code.
+    :type exit_code: Integer or String or Object
 
-	LOGGER.debug("> {0} | Exiting current process!".format(__name__))
+    :note: **exit_code** argument is passed to Python :func:`sys.exit` definition.
+    """
 
-	LOGGER.debug("> Stopping logging handlers and logger!")
-	for handler in LOGGER.handlers:
-		foundations.verbose.remove_logging_handler(handler)
+    LOGGER.debug("> {0} | Exiting current process!".format(__name__))
 
-	sys.exit(exit_code)
+    LOGGER.debug("> Stopping logging handlers and logger!")
+    for handler in LOGGER.handlers:
+        foundations.verbose.remove_logging_handler(handler)
+
+    sys.exit(exit_code)
 
 def wait(wait_time):
-	"""
-	Halts current process exection for an user defined time.
+    """
+    Halts current process exection for an user defined time.
 
-	:param wait_time: Current sleep time in seconds.
-	:type wait_time: float
-	:return: Definition success.
-	:rtype: bool
-	"""
+    :param wait_time: Current sleep time in seconds.
+    :type wait_time: float
+    :return: Definition success.
+    :rtype: bool
+    """
 
-	LOGGER.debug("> Waiting '{0}' seconds!".format(wait_time))
+    LOGGER.debug("> Waiting '{0}' seconds!".format(wait_time))
 
-	time.sleep(wait_time)
-	return True
+    time.sleep(wait_time)
+    return True

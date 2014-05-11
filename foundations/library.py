@@ -5,10 +5,10 @@
 **library.py**
 
 **Platform:**
-	Windows, Linux, Mac Os X.
+    Windows, Linux, Mac Os X.
 
 **Description:**
-	Provides objects for C / C++ libraries binding.
+    Provides objects for C / C++ libraries binding.
 
 **Others:**
 
@@ -37,350 +37,350 @@ __all__ = ["LOGGER", "LibraryHook", "Library"]
 LOGGER = foundations.verbose.install_logger()
 
 class LibraryHook(foundations.data_structures.Structure):
-	"""
-	Defines a library hook used by the :class:`Library` class to bind target library functions.
-	"""
+    """
+    Defines a library hook used by the :class:`Library` class to bind target library functions.
+    """
 
-	def __init__(self, **kwargs):
-		"""
-		Initializes the class.
-		
-		Usage::
-			
-			LibraryHook(name="FreeImage_GetVersion", arguments_types=None, return_value=ctypes.c_char_p)
+    def __init__(self, **kwargs):
+        """
+        Initializes the class.
 
-		:param name: Name of the target library function to bind.
-		:type name: unicode
-		:param arguments_types: Required function arguments type (Refer to Python `ctypes - 15.17.1.7
-			<http://docs.python.org/library/ctypes.html#specifying-the-required-argument-types-function-prototypes>`_
-			module for more informations). ( List )
-		:param return_value: Function return type (Refer to Python `ctypes - 15.17.1.8
-			<http://docs.python.org/library/ctypes.html#return-types>`_ module for more informations). ( Object )
-		"""
+        Usage::
 
-		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
+            LibraryHook(name="FreeImage_GetVersion", arguments_types=None, return_value=ctypes.c_char_p)
 
-		foundations.data_structures.Structure.__init__(self, **kwargs)
+        :param name: Name of the target library function to bind.
+        :type name: unicode
+        :param arguments_types: Required function arguments type (Refer to Python `ctypes - 15.17.1.7
+            <http://docs.python.org/library/ctypes.html#specifying-the-required-argument-types-function-prototypes>`_
+            module for more informations). ( List )
+        :param return_value: Function return type (Refer to Python `ctypes - 15.17.1.8
+            <http://docs.python.org/library/ctypes.html#return-types>`_ module for more informations). ( Object )
+        """
+
+        LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
+
+        foundations.data_structures.Structure.__init__(self, **kwargs)
 
 class Library(object):
-	"""
-	| Defines methods to bind a C / C++ Library.
-	| The class is a singleton and will bind only one time a given library.
-		Each unique library instance is stored in :attr:`Library.instances` attribute
-		and get returned if the library is requested again through a new instantiation.
-	"""
+    """
+    | Defines methods to bind a C / C++ Library.
+    | The class is a singleton and will bind only one time a given library.
+        Each unique library instance is stored in :attr:`Library.instances` attribute
+        and get returned if the library is requested again through a new instantiation.
+    """
 
-	__instances = {}
-	"""
-	:param __instances: Libraries instances.
-	:type __instances: dict
-	"""
+    __instances = {}
+    """
+    :param __instances: Libraries instances.
+    :type __instances: dict
+    """
 
-	callback = ctypes.CFUNCTYPE(ctypes.c_void_p, ctypes.c_int, ctypes.c_char_p)
-	"""
-	:param callback: callback.
-	:type callback: ctypes.CFUNCTYPE
-	"""
+    callback = ctypes.CFUNCTYPE(ctypes.c_void_p, ctypes.c_int, ctypes.c_char_p)
+    """
+    :param callback: callback.
+    :type callback: ctypes.CFUNCTYPE
+    """
 
-	@foundations.exceptions.handle_exceptions(foundations.exceptions.LibraryInstantiationError)
-	def __new__(cls, *args, **kwargs):
-		"""
-		Constructor of the class.
-		
-		:param \*args: Arguments.
-		:type \*args: \*
-		:param \*\*kwargs: Keywords arguments.
-		:type \*\*kwargs: \*\*
-		:return: Class instance.
-		:rtype: Library
-		"""
+    @foundations.exceptions.handle_exceptions(foundations.exceptions.LibraryInstantiationError)
+    def __new__(cls, *args, **kwargs):
+        """
+        Constructor of the class.
 
-		path = foundations.common.get_first_item(args)
-		if foundations.common.path_exists(path):
-			if not path in cls._Library__instances:
-				cls._Library__instances[path] = object.__new__(cls)
-			return cls._Library__instances[path]
-		else:
-			raise foundations.exceptions.LibraryInstantiationError(
-			"{0} | '{1}' library path doesn't exists!".format(cls.__class__.__name__, path))
+        :param \*args: Arguments.
+        :type \*args: \*
+        :param \*\*kwargs: Keywords arguments.
+        :type \*\*kwargs: \*\*
+        :return: Class instance.
+        :rtype: Library
+        """
 
-	@foundations.exceptions.handle_exceptions(foundations.exceptions.LibraryInitializationError)
-	def __init__(self, path, functions=None, bind_library=True):
-		"""
-		Initializes the class.
-		
-		Usage::
-			
-			>>> import ctypes 
-			>>> path = "FreeImage.dll"
-			>>> functions = (LibraryHook(name="FreeImage_GetVersion", arguments_types=None, return_value=ctypes.c_char_p),)
-			>>> library = Library(path, functions)
-			>>> library.FreeImage_GetVersion()
-			'3.15.1'
+        path = foundations.common.get_first_item(args)
+        if foundations.common.path_exists(path):
+            if not path in cls._Library__instances:
+                cls._Library__instances[path] = object.__new__(cls)
+            return cls._Library__instances[path]
+        else:
+            raise foundations.exceptions.LibraryInstantiationError(
+            "{0} | '{1}' library path doesn't exists!".format(cls.__class__.__name__, path))
 
-		:param path: Library path.
-		:type path: unicode
-		:param functions: Binding functions list.
-		:type functions: tuple
-		:param bind_library: Library will be binded on initialization.
-		:type bind_library: bool
-		"""
+    @foundations.exceptions.handle_exceptions(foundations.exceptions.LibraryInitializationError)
+    def __init__(self, path, functions=None, bind_library=True):
+        """
+        Initializes the class.
 
-		if hasattr(self.instances[path], "_Library__initialized"):
-			return
+        Usage::
 
-		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
+            >>> import ctypes
+            >>> path = "FreeImage.dll"
+            >>> functions = (LibraryHook(name="FreeImage_GetVersion", arguments_types=None, return_value=ctypes.c_char_p),)
+            >>> library = Library(path, functions)
+            >>> library.FreeImage_GetVersion()
+            '3.15.1'
 
-		# --- Setting class attributes. ---
-		self.__initialized = True
+        :param path: Library path.
+        :type path: unicode
+        :param functions: Binding functions list.
+        :type functions: tuple
+        :param bind_library: Library will be binded on initialization.
+        :type bind_library: bool
+        """
 
-		self.__path = None
-		self.path = path
-		self.__functions = None
-		self.functions = functions
+        if hasattr(self.instances[path], "_Library__initialized"):
+            return
 
-		self.__library = None
+        LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
-		if platform.system() == "Windows" or platform.system() == "Microsoft":
-			loading_function = ctypes.windll
-		else:
-			loading_function = ctypes.cdll
+        # --- Setting class attributes. ---
+        self.__initialized = True
 
-		if self.path:
-			self.__library = loading_function.LoadLibrary(path)
-		else:
-			raise foundations.exceptions.LibraryInitializationError("{0} | '{1}' library not found!".format(
-			self.__class__.__name__, path))
+        self.__path = None
+        self.path = path
+        self.__functions = None
+        self.functions = functions
 
-		bind_library and self.bind_library()
+        self.__library = None
 
-	@property
-	def instances(self):
-		"""
-		Property for **self.__instances** attribute.
+        if platform.system() == "Windows" or platform.system() == "Microsoft":
+            loading_function = ctypes.windll
+        else:
+            loading_function = ctypes.cdll
 
-		:return: self.__instances.
-		:rtype: WeakValueDictionary
-		"""
+        if self.path:
+            self.__library = loading_function.LoadLibrary(path)
+        else:
+            raise foundations.exceptions.LibraryInitializationError("{0} | '{1}' library not found!".format(
+            self.__class__.__name__, path))
 
-		return self.__instances
+        bind_library and self.bind_library()
 
-	@instances.setter
-	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
-	def instances(self, value):
-		"""
-		Setter for **self.__instances** attribute.
+    @property
+    def instances(self):
+        """
+        Property for **self.__instances** attribute.
 
-		:param value: Attribute value.
-		:type value: WeakValueDictionary
-		"""
+        :return: self.__instances.
+        :rtype: WeakValueDictionary
+        """
 
-		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "instances"))
+        return self.__instances
 
-	@instances.deleter
-	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
-	def instances(self):
-		"""
-		Deleter for **self.__instances** attribute.
-		"""
+    @instances.setter
+    @foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
+    def instances(self, value):
+        """
+        Setter for **self.__instances** attribute.
 
-		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "instances"))
+        :param value: Attribute value.
+        :type value: WeakValueDictionary
+        """
 
-	@property
-	def initialized(self):
-		"""
-		Property for **self.__initialized** attribute.
+        raise foundations.exceptions.ProgrammingError(
+        "{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "instances"))
 
-		:return: self.__initialized.
-		:rtype: unicode
-		"""
+    @instances.deleter
+    @foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
+    def instances(self):
+        """
+        Deleter for **self.__instances** attribute.
+        """
 
-		return self.__initialized
+        raise foundations.exceptions.ProgrammingError(
+        "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "instances"))
 
-	@initialized.setter
-	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
-	def initialized(self, value):
-		"""
-		Setter for **self.__initialized** attribute.
+    @property
+    def initialized(self):
+        """
+        Property for **self.__initialized** attribute.
 
-		:param value: Attribute value.
-		:type value: unicode
-		"""
+        :return: self.__initialized.
+        :rtype: unicode
+        """
 
-		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "initialized"))
+        return self.__initialized
 
-	@initialized.deleter
-	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
-	def initialized(self):
-		"""
-		Deleter for **self.__initialized** attribute.
-		"""
+    @initialized.setter
+    @foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
+    def initialized(self, value):
+        """
+        Setter for **self.__initialized** attribute.
 
-		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "initialized"))
+        :param value: Attribute value.
+        :type value: unicode
+        """
 
-	@property
-	def path(self):
-		"""
-		Property for **self.__path** attribute.
+        raise foundations.exceptions.ProgrammingError(
+        "{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "initialized"))
 
-		:return: self.__path.
-		:rtype: unicode
-		"""
+    @initialized.deleter
+    @foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
+    def initialized(self):
+        """
+        Deleter for **self.__initialized** attribute.
+        """
 
-		return self.__path
+        raise foundations.exceptions.ProgrammingError(
+        "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "initialized"))
 
-	@path.setter
-	@foundations.exceptions.handle_exceptions(AssertionError)
-	def path(self, value):
-		"""
-		Setter for **self.__path** attribute.
+    @property
+    def path(self):
+        """
+        Property for **self.__path** attribute.
 
-		:param value: Attribute value.
-		:type value: unicode
-		"""
+        :return: self.__path.
+        :rtype: unicode
+        """
 
-		if value is not None:
-			assert type(value) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
-			"path", value)
-			assert os.path.exists(value), "'{0}' attribute: '{1}' file doesn't exists!".format("path", value)
-		self.__path = value
+        return self.__path
 
-	@path.deleter
-	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
-	def path(self):
-		"""
-		Deleter for **self.__path** attribute.
-		"""
+    @path.setter
+    @foundations.exceptions.handle_exceptions(AssertionError)
+    def path(self, value):
+        """
+        Setter for **self.__path** attribute.
 
-		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "path"))
+        :param value: Attribute value.
+        :type value: unicode
+        """
 
-	@property
-	def functions(self):
-		"""
-		Property for **self.__functions** attribute.
+        if value is not None:
+            assert type(value) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
+            "path", value)
+            assert os.path.exists(value), "'{0}' attribute: '{1}' file doesn't exists!".format("path", value)
+        self.__path = value
 
-		:return: self.__functions.
-		:rtype: tuple
-		"""
+    @path.deleter
+    @foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
+    def path(self):
+        """
+        Deleter for **self.__path** attribute.
+        """
 
-		return self.__functions
+        raise foundations.exceptions.ProgrammingError(
+        "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "path"))
 
-	@functions.setter
-	@foundations.exceptions.handle_exceptions(AssertionError)
-	def functions(self, value):
-		"""
-		Setter for **self.__functions** attribute.
+    @property
+    def functions(self):
+        """
+        Property for **self.__functions** attribute.
 
-		:param value: Attribute value.
-		:type value: tuple
-		"""
+        :return: self.__functions.
+        :rtype: tuple
+        """
 
-		if value is not None:
-			assert type(value) is tuple, "'{0}' attribute: '{1}' type is not 'tuple'!".format("functions", value)
-			for element in value:
-				assert type(element) is LibraryHook, "'{0}' attribute: '{1}' type is not 'LibraryHook'!".format(
-				"functions", element)
-		self.__functions = value
+        return self.__functions
 
-	@functions.deleter
-	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
-	def functions(self):
-		"""
-		Deleter for **self.__functions** attribute.
-		"""
+    @functions.setter
+    @foundations.exceptions.handle_exceptions(AssertionError)
+    def functions(self, value):
+        """
+        Setter for **self.__functions** attribute.
 
-		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "functions"))
+        :param value: Attribute value.
+        :type value: tuple
+        """
 
-	@property
-	def library(self):
-		"""
-		Property for **self.__library** attribute.
+        if value is not None:
+            assert type(value) is tuple, "'{0}' attribute: '{1}' type is not 'tuple'!".format("functions", value)
+            for element in value:
+                assert type(element) is LibraryHook, "'{0}' attribute: '{1}' type is not 'LibraryHook'!".format(
+                "functions", element)
+        self.__functions = value
 
-		:return: self.__library.
-		:rtype: object
-		"""
+    @functions.deleter
+    @foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
+    def functions(self):
+        """
+        Deleter for **self.__functions** attribute.
+        """
 
-		return self.__library
+        raise foundations.exceptions.ProgrammingError(
+        "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "functions"))
 
-	@library.setter
-	@foundations.exceptions.handle_exceptions(AssertionError)
-	def library(self, value):
-		"""
-		Setter for **self.__library** attribute.
+    @property
+    def library(self):
+        """
+        Property for **self.__library** attribute.
 
-		:param value: Attribute value.
-		:type value: object
-		"""
+        :return: self.__library.
+        :rtype: object
+        """
 
-		self.__library = value
+        return self.__library
 
-	@library.deleter
-	@foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
-	def library(self):
-		"""
-		Deleter for **self.__library** attribute.
-		"""
+    @library.setter
+    @foundations.exceptions.handle_exceptions(AssertionError)
+    def library(self, value):
+        """
+        Setter for **self.__library** attribute.
 
-		raise foundations.exceptions.ProgrammingError(
-		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "library"))
+        :param value: Attribute value.
+        :type value: object
+        """
 
-	def bind_function(self, function):
-		"""
-		Binds given function to a class object attribute.
+        self.__library = value
 
-		Usage::
-			
-			>>> import ctypes 
-			>>> path = "FreeImage.dll"
-			>>> function = LibraryHook(name="FreeImage_GetVersion", arguments_types=None, return_value=ctypes.c_char_p)
-			>>> library = Library(path, bind_library=False)
-			>>> library.bind_function(function)
-			True
-			>>> library.FreeImage_GetVersion()
-			'3.15.1'
+    @library.deleter
+    @foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
+    def library(self):
+        """
+        Deleter for **self.__library** attribute.
+        """
 
-		:param function: Function to bind.
-		:type function: LibraryHook
-		:return: Method success.
-		:rtype: bool
-		"""
+        raise foundations.exceptions.ProgrammingError(
+        "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "library"))
 
-		LOGGER.debug("> Binding '{0}' library '{1}' function.".format(self.__class__.__name__, function.name))
+    def bind_function(self, function):
+        """
+        Binds given function to a class object attribute.
 
-		function_object = getattr(self.__library, function.name)
-		setattr(self, function.name, function_object)
-		if function.arguments_types:
-			function_object.argtypes = function.arguments_types
-		if function.return_value:
-			function_object.restype = function.return_value
-		return True
+        Usage::
 
-	def bind_library(self):
-		"""
-		Binds the Library using functions registered in the **self.__functions** attribute.
+            >>> import ctypes
+            >>> path = "FreeImage.dll"
+            >>> function = LibraryHook(name="FreeImage_GetVersion", arguments_types=None, return_value=ctypes.c_char_p)
+            >>> library = Library(path, bind_library=False)
+            >>> library.bind_function(function)
+            True
+            >>> library.FreeImage_GetVersion()
+            '3.15.1'
 
-		Usage::
-			
-			>>> import ctypes 
-			>>> path = "FreeImage.dll"
-			>>> functions = (LibraryHook(name="FreeImage_GetVersion", arguments_types=None, return_value=ctypes.c_char_p),)
-			>>> library = Library(path, functions, bind_library=False)
-			>>> library.bind_library()
-			True
-			>>> library.FreeImage_GetVersion()
-			'3.15.1'
+        :param function: Function to bind.
+        :type function: LibraryHook
+        :return: Method success.
+        :rtype: bool
+        """
 
-		:return: Method success.
-		:rtype: bool
-		"""
+        LOGGER.debug("> Binding '{0}' library '{1}' function.".format(self.__class__.__name__, function.name))
 
-		if self.__functions:
-			for function in self.__functions:
-				self.bind_function(function)
-		return True
+        function_object = getattr(self.__library, function.name)
+        setattr(self, function.name, function_object)
+        if function.arguments_types:
+            function_object.argtypes = function.arguments_types
+        if function.return_value:
+            function_object.restype = function.return_value
+        return True
+
+    def bind_library(self):
+        """
+        Binds the Library using functions registered in the **self.__functions** attribute.
+
+        Usage::
+
+            >>> import ctypes
+            >>> path = "FreeImage.dll"
+            >>> functions = (LibraryHook(name="FreeImage_GetVersion", arguments_types=None, return_value=ctypes.c_char_p),)
+            >>> library = Library(path, functions, bind_library=False)
+            >>> library.bind_library()
+            True
+            >>> library.FreeImage_GetVersion()
+            '3.15.1'
+
+        :return: Method success.
+        :rtype: bool
+        """
+
+        if self.__functions:
+            for function in self.__functions:
+                self.bind_function(function)
+        return True
