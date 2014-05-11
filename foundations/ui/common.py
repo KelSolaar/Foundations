@@ -14,28 +14,16 @@
 
 """
 
-#**********************************************************************************************************************
-#***	Future imports.
-#**********************************************************************************************************************
 from __future__ import unicode_literals
 
-#**********************************************************************************************************************
-#***	External imports.
-#**********************************************************************************************************************
 import os
 from PyQt4 import uic
 from PyQt4.QtGui import QApplication
 
-#**********************************************************************************************************************
-#***	Internal imports.
-#**********************************************************************************************************************
 import foundations.common
 import foundations.exceptions
 import foundations.verbose
 
-#**********************************************************************************************************************
-#***	Module attributes.
-#**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
 __copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
@@ -50,9 +38,6 @@ LOGGER = foundations.verbose.install_logger()
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
 DEFAULT_UI_FILE = os.path.join(RESOURCES_DIRECTORY, "QWidget.ui")
 
-#**********************************************************************************************************************
-#***	Module classes and definitions.
-#**********************************************************************************************************************
 def center_widget_on_screen(widget, screen=None):
 	"""
 	Centers given Widget on the screen.
@@ -117,9 +102,6 @@ def QWidget_factory(ui_file=None, *args, **kwargs):
 
 			self.setupUi(self)
 
-		#**************************************************************************************************************
-		#***	Attributes properties.
-		#**************************************************************************************************************
 		@property
 		def ui_file(self):
 			"""
@@ -154,9 +136,6 @@ def QWidget_factory(ui_file=None, *args, **kwargs):
 			raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(
 			self.__class__.__name__, "ui_file"))
 
-		#******************************************************************************************************************
-		#***	Class methods.
-		#******************************************************************************************************************
 		def show(self, setGeometry=True):
 			"""
 			Reimplements the :meth:`QWidget.show` method.

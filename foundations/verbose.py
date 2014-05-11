@@ -14,14 +14,8 @@
 
 """
 
-#**********************************************************************************************************************
-#***	Future imports.
-#**********************************************************************************************************************
 from __future__ import unicode_literals
 
-#**********************************************************************************************************************
-#***	External imports.
-#**********************************************************************************************************************
 import functools
 import hashlib
 import inspect
@@ -31,15 +25,9 @@ import sys
 import threading
 import tempfile
 
-#**********************************************************************************************************************
-#***	Internal imports.
-#**********************************************************************************************************************
 import foundations.trace
 from foundations.globals.constants import Constants
 
-#**********************************************************************************************************************
-#***	Module attributes.
-#**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
 __copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
@@ -71,9 +59,6 @@ THREADS_IDENTIFIERS = {}
 
 INDENT_LEVEL = 0
 
-#**********************************************************************************************************************
-#***	Module attributes.
-#**********************************************************************************************************************
 def to_unicode(data, encoding=Constants.default_codec, errors=Constants.codec_error):
 	"""
 	Converts given data to unicode string using package default settings, fighting **The Hell**!
@@ -103,9 +88,6 @@ def to_unicode(data, encoding=Constants.default_codec, errors=Constants.codec_er
 		except TypeError:
 			return unicode(str(data), encoding, errors)
 
-#**********************************************************************************************************************
-#***	Logging classes and definitions monkey patching.
-#**********************************************************************************************************************
 def _LogRecord__getattribute__(self, attribute):
 	"""
 	Overrides logging.LogRecord.__getattribute__ method
@@ -144,9 +126,6 @@ def _LogRecord_msg():
 
 _LogRecord_msg()
 
-#**********************************************************************************************************************
-#***	Module attributes.
-#**********************************************************************************************************************
 LOGGER = logging.getLogger(Constants.logger)
 
 LOGGING_DEFAULT_FORMATTER = logging.Formatter("%(levelname)-8s: %(message)s")
@@ -155,9 +134,6 @@ LOGGING_STANDARD_FORMATTER = logging.Formatter()
 
 TRACER_LOGGING_FUNCTION = LOGGER.info
 
-#**********************************************************************************************************************
-#***	Module classes and definitions.
-#**********************************************************************************************************************
 class Streamer(object):
 	"""
 	Defines a stream object for :class:`logging.StreamHandler` logging handler.
@@ -173,9 +149,6 @@ class Streamer(object):
 
 		self.__stream = []
 
-	#******************************************************************************************************************
-	#***	Attributes properties.
-	#******************************************************************************************************************
 	@property
 	def stream(self):
 		"""
@@ -208,9 +181,6 @@ class Streamer(object):
 
 		raise Exception("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "stream"))
 
-	#******************************************************************************************************************
-	#***	Class methods.
-	#******************************************************************************************************************
 	def write(self, message):
 		"""
 		Provides write ability to the class.
@@ -244,9 +214,6 @@ class StandardOutputStreamer(object):
 
 		self.__logger = logger
 
-	#******************************************************************************************************************
-	#***	Attributes properties.
-	#******************************************************************************************************************
 	@property
 	def logger(self):
 		"""
@@ -277,9 +244,6 @@ class StandardOutputStreamer(object):
 
 		raise Exception("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "logger"))
 
-	#******************************************************************************************************************
-	#***	Class methods.
-	#******************************************************************************************************************
 	def write(self, message):
 		"""
 		Writes given message to logger handlers.

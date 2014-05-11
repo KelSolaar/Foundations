@@ -14,31 +14,19 @@
 
 """
 
-#**********************************************************************************************************************
-#***	Future imports.
-#**********************************************************************************************************************
 from __future__ import unicode_literals
 
-#**********************************************************************************************************************
-#***	External imports.
-#**********************************************************************************************************************
 import codecs
 import os
 import shutil
 import urllib2
 
-#**********************************************************************************************************************
-#***	Internal imports.
-#**********************************************************************************************************************
 import foundations.common
 import foundations.verbose
 import foundations.exceptions
 import foundations.strings
 from foundations.globals.constants import Constants
 
-#**********************************************************************************************************************
-#***	Module attributes.
-#**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
 __copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
@@ -50,9 +38,6 @@ __all__ = ["LOGGER", "File", "set_directory", "copy", "remove", "is_writable", "
 
 LOGGER = foundations.verbose.install_logger()
 
-#**********************************************************************************************************************
-#***	Module classes and definitions.
-#**********************************************************************************************************************
 class File(object):
 	"""
 	Defines methods to read / write and append to files or retrieve online file content.
@@ -85,9 +70,6 @@ class File(object):
 		self.__content = None
 		self.content = content or []
 
-	#******************************************************************************************************************
-	#***	Attributes properties.
-	#******************************************************************************************************************
 	@property
 	def path(self):
 		"""
@@ -158,9 +140,6 @@ class File(object):
 		raise foundations.exceptions.ProgrammingError(
 			"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "content"))
 
-	#******************************************************************************************************************
-	#***	Class methods.
-	#******************************************************************************************************************
 	@foundations.exceptions.handle_exceptions(foundations.exceptions.UrlReadError,
 											 foundations.exceptions.FileReadError,
 											 IOError)

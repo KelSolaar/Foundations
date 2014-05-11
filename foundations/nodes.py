@@ -15,28 +15,16 @@
 	PyQt4 Model View Programming Tutorials by Yasin Uludag: http://www.yasinuludag.com/blog/?p=98
 """
 
-#**********************************************************************************************************************
-#***	Future imports.
-#**********************************************************************************************************************
 from __future__ import unicode_literals
 
-#**********************************************************************************************************************
-#***	External imports.
-#**********************************************************************************************************************
 import re
 import weakref
 
-#**********************************************************************************************************************
-#***	Internal imports.
-#**********************************************************************************************************************
 import foundations.data_structures
 import foundations.exceptions
 import foundations.verbose
 import foundations.walkers
 
-#**********************************************************************************************************************
-#***	Module attributes.
-#**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
 __copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
@@ -48,9 +36,6 @@ __all__ = ["LOGGER", "Attribute", "AbstractNode", "AbstractCompositeNode"]
 
 LOGGER = foundations.verbose.install_logger()
 
-#**********************************************************************************************************************
-#***	Module classes and definitions.
-#**********************************************************************************************************************
 class Attribute(foundations.data_structures.Structure):
 	"""
 	Defines a storage object for the :class:`AbstractNode` class attributes.
@@ -90,9 +75,6 @@ class Attribute(foundations.data_structures.Structure):
 		self.__value = None
 		self.value = value
 
-	#******************************************************************************************************************
-	#***	Attributes properties.
-	#******************************************************************************************************************
 	@property
 	def name(self):
 		"""
@@ -158,9 +140,6 @@ class Attribute(foundations.data_structures.Structure):
 		raise foundations.exceptions.ProgrammingError(
 		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "value"))
 
-	#******************************************************************************************************************
-	#***	Class methods.
-	#******************************************************************************************************************
 	def __hash__(self):
 		"""
 		Reimplements the :meth:`foundations.data_structures.Structure.__hash__` method.
@@ -260,9 +239,6 @@ class AbstractNode(foundations.data_structures.Structure):
 		self.__name = None
 		self.name = name or self.__get_default_node_name()
 
-	#******************************************************************************************************************
-	#***	Attributes properties.
-	#******************************************************************************************************************
 	@property
 	def family(self):
 		"""
@@ -400,9 +376,6 @@ class AbstractNode(foundations.data_structures.Structure):
 		raise foundations.exceptions.ProgrammingError(
 		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "name"))
 
-	#******************************************************************************************************************
-	#***	Class methods.
-	#******************************************************************************************************************
 	def __repr__(self):
 		"""
 		Reimplements the :meth:`foundations.data_structures.Structure.__repr__` method.
@@ -609,9 +582,6 @@ class AbstractCompositeNode(AbstractNode):
 
 		parent and parent.add_child(self)
 
-	#******************************************************************************************************************
-	#***	Attributes properties.
-	#******************************************************************************************************************
 	@property
 	def parent(self):
 		"""
@@ -686,9 +656,6 @@ class AbstractCompositeNode(AbstractNode):
 		raise foundations.exceptions.ProgrammingError(
 		"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "children"))
 
-	#******************************************************************************************************************
-	#***	Class methods.
-	#******************************************************************************************************************
 	def __eq__(self, object):
 		"""
 		Reimplements the :meth:`AbstractNode.__eq__` method.

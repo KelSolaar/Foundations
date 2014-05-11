@@ -14,14 +14,8 @@
 
 """
 
-#**********************************************************************************************************************
-#***	Future imports.
-#**********************************************************************************************************************
 from __future__ import unicode_literals
 
-#**********************************************************************************************************************
-#***	External imports.
-#**********************************************************************************************************************
 import datetime
 import os
 import tempfile
@@ -34,18 +28,12 @@ else:
 	import unittest
 	from collections import OrderedDict
 
-#**********************************************************************************************************************
-#***	Internal imports.
-#**********************************************************************************************************************
 import foundations.namespace
 import foundations.parsers
 import foundations.walkers
 from foundations.parsers import PlistFileParser
 from foundations.parsers import SectionsFileParser
 
-#**********************************************************************************************************************
-#***	Module attributes.
-#**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
 __copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
@@ -389,9 +377,6 @@ PLIST_FILE_CONTENT = {"Dictionary A": {"String C": "My Value C", "String B": "My
 					  "Boolean A": True,
 					  "Data A": "My Value B"}
 
-#**********************************************************************************************************************
-#***	Module classes and definitions.
-#**********************************************************************************************************************
 class TestSectionsFileParser(unittest.TestCase):
 	"""
 	Defines :class:`foundations.parsers.SectionsFileParser` class units tests methods.

@@ -14,14 +14,8 @@
 
 """
 
-#**********************************************************************************************************************
-#***	Future imports.
-#**********************************************************************************************************************
 from __future__ import unicode_literals
 
-#**********************************************************************************************************************
-#***	External imports.
-#**********************************************************************************************************************
 import inspect
 import sys
 if sys.version_info[:2] <= (2, 6):
@@ -29,9 +23,6 @@ if sys.version_info[:2] <= (2, 6):
 else:
 	import unittest
 
-#**********************************************************************************************************************
-#***	Internal imports.
-#**********************************************************************************************************************
 import foundations.trace
 import foundations.tests.tests_foundations.resources.dummy
 from foundations.tests.tests_foundations.resources.dummy import Dummy
@@ -39,9 +30,6 @@ from foundations.tests.tests_foundations.resources.dummy import dummy1
 from foundations.tests.tests_foundations.resources.dummy import dummy2
 from foundations.tests.tests_foundations.resources.dummy import dummy3
 
-#**********************************************************************************************************************
-#***	Module attributes.
-#**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
 __copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
@@ -94,9 +82,6 @@ TRACABLE_DEFINITIONS = {"dummy1" : dummy1,
 						"dummy3" : dummy3}
 UNTRACABLE_DEFINITIONS = {"dummy2" : dummy2}
 
-#**********************************************************************************************************************
-#***	Module classes and definitions.
-#**********************************************************************************************************************
 class TestIsReadOnly(unittest.TestCase):
 	"""
 	Defines :func:`foundations.trace.is_read_only` definition units tests methods.

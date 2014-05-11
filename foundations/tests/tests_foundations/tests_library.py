@@ -13,14 +13,8 @@
 
 """
 
-#**********************************************************************************************************************
-#***	Future imports.
-#**********************************************************************************************************************
 from __future__ import unicode_literals
 
-#**********************************************************************************************************************
-#***	External imports.
-#**********************************************************************************************************************
 import ctypes
 import os
 import platform
@@ -30,15 +24,9 @@ if sys.version_info[:2] <= (2, 6):
 else:
 	import unittest
 
-#**********************************************************************************************************************
-#***	Internal imports.
-#**********************************************************************************************************************
 from foundations.library import Library
 from foundations.library import LibraryHook
 
-#**********************************************************************************************************************
-#***	Module attributes.
-#**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
 __copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
@@ -75,9 +63,6 @@ LIBRARIES_FUNCTIONS = {"freeimage" : (LibraryHook(name="FreeImage_GetVersion",
 LIBRARIES_TESTS_CASES = {"freeimage" : {"FreeImage_GetVersion" : "3.15.1",
 						"FreeImage_GetCopyrightMessage" : "This program uses FreeImage, a free, open source image library supporting all common bitmap formats. See http://freeimage.sourceforge.net for details"}}
 
-#**********************************************************************************************************************
-#***	Module classes and definitions.
-#**********************************************************************************************************************
 class TestLibrary(unittest.TestCase):
 	"""
 	Defines :class:`foundations.library.Library` class units tests methods.

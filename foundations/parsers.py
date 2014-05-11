@@ -15,14 +15,8 @@
 	Portions of the code from Fredrik Lundh: http://effbot.org/zone/element-iterparse.htm
 """
 
-#**********************************************************************************************************************
-#***	Future imports.
-#**********************************************************************************************************************
 from __future__ import unicode_literals
 
-#**********************************************************************************************************************
-#***	External imports.
-#**********************************************************************************************************************
 import base64
 import datetime
 import re
@@ -34,9 +28,6 @@ if sys.version_info[:2] <= (2, 6):
 else:
 	from collections import OrderedDict
 
-#**********************************************************************************************************************
-#***	Internal imports.
-#**********************************************************************************************************************
 import foundations.common
 import foundations.data_structures
 import foundations.exceptions
@@ -46,9 +37,6 @@ import foundations.strings
 import foundations.verbose
 import foundations.walkers
 
-#**********************************************************************************************************************
-#***	Module attributes.
-#**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
 __copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
@@ -60,9 +48,6 @@ __all__ = ["LOGGER", "AttributeCompound", "SectionsFileParser", "PlistFileParser
 
 LOGGER = foundations.verbose.install_logger()
 
-#**********************************************************************************************************************
-#***	Module classes and definitions.
-#**********************************************************************************************************************
 class AttributeCompound(foundations.data_structures.Structure):
 	"""
 	Defines a storage object for attributes compounds usually encountered in
@@ -192,9 +177,6 @@ class SectionsFileParser(foundations.io.File):
 			self.__comments = OrderedDict()
 		self.__parsing_errors = []
 
-	#******************************************************************************************************************
-	#***	Attributes properties.
-	#******************************************************************************************************************
 	@property
 	def splitters(self):
 		"""
@@ -625,9 +607,6 @@ class SectionsFileParser(foundations.io.File):
 		raise foundations.exceptions.ProgrammingError(
 			"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "preserve_order"))
 
-	#******************************************************************************************************************
-	#***	Class methods.
-	#******************************************************************************************************************
 	def __getitem__(self, section):
 		"""
 		Reimplements the :meth:`object.__getitem__` method.
@@ -1148,9 +1127,6 @@ class PlistFileParser(foundations.io.File):
 								"real": lambda x: float(x.text),
 								"integer": lambda x: int(x.text)}
 
-	#******************************************************************************************************************
-	#***	Attributes properties.
-	#******************************************************************************************************************
 	@property
 	def elements(self):
 		"""
@@ -1259,9 +1235,6 @@ class PlistFileParser(foundations.io.File):
 		raise foundations.exceptions.ProgrammingError(
 			"{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "unserializers"))
 
-	#******************************************************************************************************************
-	#***	Class methods.
-	#******************************************************************************************************************
 	@foundations.exceptions.handle_exceptions(foundations.exceptions.FileStructureParsingError)
 	def parse(self, raise_parsing_errors=True):
 		"""
