@@ -17,6 +17,7 @@
 from __future__ import unicode_literals
 
 import sys
+
 if sys.version_info[:2] <= (2, 6):
     import unittest2 as unittest
 else:
@@ -32,10 +33,11 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["TestSetNamespace",
-        "TestGetNamespace",
-        "TestRemoveNamespace",
-        "TestGetRoot",
-        "TestGetLeaf"]
+           "TestGetNamespace",
+           "TestRemoveNamespace",
+           "TestGetRoot",
+           "TestGetLeaf"]
+
 
 class TestSetNamespace(unittest.TestCase):
     """
@@ -50,6 +52,7 @@ class TestSetNamespace(unittest.TestCase):
         self.assertIsInstance(foundations.namespace.set_namespace("Namespace", "Attribute"), unicode)
         self.assertEqual(foundations.namespace.set_namespace("Namespace", "Attribute"), "Namespace|Attribute")
         self.assertEqual(foundations.namespace.set_namespace("Namespace", "Attribute", ":"), "Namespace:Attribute")
+
 
 class TestGetNamespace(unittest.TestCase):
     """
@@ -67,6 +70,7 @@ class TestGetNamespace(unittest.TestCase):
         self.assertEqual(foundations.namespace.get_namespace("Namespace|Attribute|Value", root_only=True), "Namespace")
         self.assertIsNone(foundations.namespace.get_namespace("Namespace"))
 
+
 class TestRemoveNamespace(unittest.TestCase):
     """
     Defines :func:`foundations.namespace.remove_namespace` definition units tests methods.
@@ -81,7 +85,9 @@ class TestRemoveNamespace(unittest.TestCase):
         self.assertEqual(foundations.namespace.remove_namespace("Namespace|Attribute"), "Attribute")
         self.assertEqual(foundations.namespace.remove_namespace("Namespace:Attribute", ":"), "Attribute")
         self.assertEqual(foundations.namespace.remove_namespace("Namespace|Attribute|Value"), "Value")
-        self.assertEqual(foundations.namespace.remove_namespace("Namespace|Attribute|Value", root_only=True), "Attribute|Value")
+        self.assertEqual(foundations.namespace.remove_namespace(
+            "Namespace|Attribute|Value", root_only=True), "Attribute|Value")
+
 
 class TestGetRoot(unittest.TestCase):
     """
@@ -97,6 +103,7 @@ class TestGetRoot(unittest.TestCase):
         self.assertEqual(foundations.namespace.get_root("Namespace|Attribute"), "Namespace")
         self.assertEqual(foundations.namespace.get_root("Namespace:Attribute", ":"), "Namespace")
 
+
 class TestGetLeaf(unittest.TestCase):
     """
     Defines :func:`foundations.namespace.get_leaf` definition units tests methods.
@@ -111,6 +118,8 @@ class TestGetLeaf(unittest.TestCase):
         self.assertEqual(foundations.namespace.get_leaf("Namespace|Attribute"), "Attribute")
         self.assertEqual(foundations.namespace.get_leaf("Namespace:Attribute", ":"), "Attribute")
 
+
 if __name__ == "__main__":
     import foundations.tests.utilities
+
     unittest.main()

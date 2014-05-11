@@ -28,16 +28,17 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["LOGGER",
-            "NAMESPACE_SPLITTER",
-            "set_namespace",
-            "get_namespace",
-            "remove_namespace",
-            "get_root",
-            "get_leaf"]
+           "NAMESPACE_SPLITTER",
+           "set_namespace",
+           "get_namespace",
+           "remove_namespace",
+           "get_root",
+           "get_leaf"]
 
 LOGGER = foundations.verbose.install_logger()
 
 NAMESPACE_SPLITTER = "|"
+
 
 def set_namespace(namespace, attribute, namespace_splitter=NAMESPACE_SPLITTER):
     """
@@ -61,6 +62,7 @@ def set_namespace(namespace, attribute, namespace_splitter=NAMESPACE_SPLITTER):
     long_name = "{0}{1}{2}".format(namespace, namespace_splitter, attribute)
     LOGGER.debug("> Namespace: '{0}', attribute: '{1}', long name: '{2}'.".format(namespace, attribute, long_name))
     return long_name
+
 
 def get_namespace(attribute, namespace_splitter=NAMESPACE_SPLITTER, root_only=False):
     """
@@ -88,9 +90,10 @@ def get_namespace(attribute, namespace_splitter=NAMESPACE_SPLITTER, root_only=Fa
         LOGGER.debug("> Attribute: '{0}', namespace: '{1}'.".format(attribute, Constants.null_object))
     else:
         namespace = foundations.common.get_first_item(attribute_tokens) if root_only else \
-        namespace_splitter.join(attribute_tokens[0:-1])
+            namespace_splitter.join(attribute_tokens[0:-1])
         LOGGER.debug("> Attribute: '{0}', namespace: '{1}'.".format(attribute, namespace))
         return namespace
+
 
 def remove_namespace(attribute, namespace_splitter=NAMESPACE_SPLITTER, root_only=False):
     """
@@ -115,9 +118,10 @@ def remove_namespace(attribute, namespace_splitter=NAMESPACE_SPLITTER, root_only
 
     attribute_tokens = attribute.split(namespace_splitter)
     stripped_attribute = root_only and namespace_splitter.join(attribute_tokens[1:]) or \
-                        attribute_tokens[len(attribute_tokens) - 1]
+                         attribute_tokens[len(attribute_tokens) - 1]
     LOGGER.debug("> Attribute: '{0}', stripped attribute: '{1}'.".format(attribute, stripped_attribute))
     return stripped_attribute
+
 
 def get_root(attribute, namespace_splitter=NAMESPACE_SPLITTER):
     """
@@ -137,6 +141,7 @@ def get_root(attribute, namespace_splitter=NAMESPACE_SPLITTER):
     """
 
     return get_namespace(attribute, namespace_splitter, root_only=True)
+
 
 def get_leaf(attribute, namespace_splitter=NAMESPACE_SPLITTER):
     """

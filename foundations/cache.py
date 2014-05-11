@@ -29,6 +29,7 @@ __all__ = ["LOGGER", "Cache"]
 
 LOGGER = foundations.verbose.install_logger()
 
+
 class Cache(dict):
     """
     Defines the cache object and provides various methods to interact with its content.

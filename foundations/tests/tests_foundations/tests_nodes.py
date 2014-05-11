@@ -19,6 +19,7 @@ from __future__ import unicode_literals
 import pickle
 import re
 import sys
+
 if sys.version_info[:2] <= (2, 6):
     import unittest2 as unittest
 else:
@@ -37,6 +38,7 @@ __status__ = "Production"
 
 __all__ = ["TestAttribute", "TestAbstractNode", "AbstractCompositeNode"]
 
+
 class TestAttribute(unittest.TestCase):
     """
     Defines :class:`foundations.nodes.Attribute` class units tests methods.
@@ -48,10 +50,11 @@ class TestAttribute(unittest.TestCase):
         """
 
         required_attributes = ("name",
-                            "value")
+                               "value")
 
         for attribute in required_attributes:
             self.assertIn(attribute, dir(Attribute))
+
 
 class TestAbstractNode(unittest.TestCase):
     """
@@ -64,9 +67,9 @@ class TestAbstractNode(unittest.TestCase):
         """
 
         required_attributes = ("family",
-                            "identity",
-                            "nodes_instances",
-                            "name")
+                               "identity",
+                               "nodes_instances",
+                               "name")
 
         for attribute in required_attributes:
             self.assertIn(attribute, dir(AbstractNode))
@@ -130,7 +133,7 @@ class TestAbstractNode(unittest.TestCase):
         Tests :meth:`foundations.nodes.AbstractNode.get_attributes` method.
         """
 
-        attributes = {"attributeA" : Attribute(), "attributeB" : Attribute()}
+        attributes = {"attributeA": Attribute(), "attributeB": Attribute()}
 
         node_a = AbstractNode("MyNodeA", **attributes)
         for attribute in attributes.itervalues():
@@ -141,7 +144,7 @@ class TestAbstractNode(unittest.TestCase):
         Tests :meth:`foundations.nodes.AbstractNode.attribute_exists` method.
         """
 
-        attributes = {"attributeA" : Attribute(), "attributeB" : Attribute()}
+        attributes = {"attributeA": Attribute(), "attributeB": Attribute()}
 
         node_a = AbstractNode("MyNodeA", **attributes)
         for attribute in attributes:
@@ -154,7 +157,7 @@ class TestAbstractNode(unittest.TestCase):
         Tests :meth:`foundations.nodes.AbstractNode.add_attribute` method.
         """
 
-        attributes = {"attributeA" : Attribute(), "attributeB" : Attribute()}
+        attributes = {"attributeA": Attribute(), "attributeB": Attribute()}
 
         node_a = AbstractNode("MyNodeA")
         for attribute, value in attributes.iteritems():
@@ -166,7 +169,7 @@ class TestAbstractNode(unittest.TestCase):
         Tests :meth:`foundations.nodes.AbstractNode.remove_attribute` method.
         """
 
-        attributes = {"attributeA" : Attribute(), "attributeB" : Attribute()}
+        attributes = {"attributeA": Attribute(), "attributeB": Attribute()}
 
         node_a = AbstractNode("MyNodeA")
         for attribute, value in attributes.iteritems():
@@ -189,6 +192,7 @@ class TestAbstractNode(unittest.TestCase):
         data = pickle.loads(data)
         self.assertEqual(node_a, data)
 
+
 class TestAbstractCompositeNode(unittest.TestCase):
     """
     Defines :class:`foundations.nodes.AbstractCompositeNode` class units tests methods.
@@ -200,11 +204,11 @@ class TestAbstractCompositeNode(unittest.TestCase):
         """
 
         required_attributes = ("family",
-                            "identity",
-                            "nodes_instances",
-                            "name",
-                            "parent",
-                            "children")
+                               "identity",
+                               "nodes_instances",
+                               "name",
+                               "parent",
+                               "children")
 
         for attribute in required_attributes:
             self.assertIn(attribute, dir(AbstractCompositeNode))
@@ -346,12 +350,17 @@ class TestAbstractCompositeNode(unittest.TestCase):
         """
 
         node_a = AbstractCompositeNode("MyNodeA", attributeA=Attribute(value="A"), attributeB=Attribute(value="1"))
-        node_c = AbstractCompositeNode("MyNodeC", node_a, attributeA=Attribute(value="C"), attributeB=Attribute(value="3"))
-        node_b = AbstractCompositeNode("MyNodeB", node_a, attributeA=Attribute(value="B"), attributeB=Attribute(value="2"))
+        node_c = AbstractCompositeNode(
+            "MyNodeC", node_a, attributeA=Attribute(value="C"), attributeB=Attribute(value="3"))
+        node_b = AbstractCompositeNode(
+            "MyNodeB", node_a, attributeA=Attribute(value="B"), attributeB=Attribute(value="2"))
         node_g = AbstractCompositeNode("MyNodeG", node_b, attributeA=Attribute(value="G"))
-        node_e = AbstractCompositeNode("MyNodeE", node_b, attributeA=Attribute(value="E"), attributeB=Attribute(value="5"))
-        node_f = AbstractCompositeNode("MyNodeF", node_b, attributeA=Attribute(value="F"), attributeB=Attribute(value="6"))
-        node_d = AbstractCompositeNode("MyNodeD", node_b, attributeA=Attribute(value="D"), attributeB=Attribute(value="4"))
+        node_e = AbstractCompositeNode(
+            "MyNodeE", node_b, attributeA=Attribute(value="E"), attributeB=Attribute(value="5"))
+        node_f = AbstractCompositeNode(
+            "MyNodeF", node_b, attributeA=Attribute(value="F"), attributeB=Attribute(value="6"))
+        node_d = AbstractCompositeNode(
+            "MyNodeD", node_b, attributeA=Attribute(value="D"), attributeB=Attribute(value="4"))
 
         self.assertTrue(node_a.sort_children())
         self.assertEqual(node_a.children[0], node_b)
@@ -447,14 +456,19 @@ class TestAbstractCompositeNode(unittest.TestCase):
         """
 
         node_a = AbstractCompositeNode("MyNodeA", attributeA=Attribute(value="A"), attributeB=Attribute(value="1"))
-        node_b = AbstractCompositeNode("MyNodeB", node_a, attributeA=Attribute(value="B"), attributeB=Attribute(value="2"))
-        node_c = AbstractCompositeNode("MyNodeC", node_a, attributeA=Attribute(value="C"), attributeB=Attribute(value="3"))
-        node_d = AbstractCompositeNode("MyNodeD", node_b, attributeA=Attribute(value="D"), attributeB=Attribute(value="4"))
+        node_b = AbstractCompositeNode(
+            "MyNodeB", node_a, attributeA=Attribute(value="B"), attributeB=Attribute(value="2"))
+        node_c = AbstractCompositeNode(
+            "MyNodeC", node_a, attributeA=Attribute(value="C"), attributeB=Attribute(value="3"))
+        node_d = AbstractCompositeNode(
+            "MyNodeD", node_b, attributeA=Attribute(value="D"), attributeB=Attribute(value="4"))
 
         data = pickle.dumps(node_a, pickle.HIGHEST_PROTOCOL)
         data = pickle.loads(data)
         self.assertEqual(node_a, data)
 
+
 if __name__ == "__main__":
     import foundations.tests.utilities
+
     unittest.main()

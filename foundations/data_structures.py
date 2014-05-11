@@ -17,6 +17,7 @@
 from __future__ import unicode_literals
 
 import sys
+
 if sys.version_info[:2] <= (2, 6):
     from ordereddict import OrderedDict
 else:
@@ -32,12 +33,13 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["LOGGER",
-            "NestedAttribute",
-            "Structure",
-            "OrderedStructure",
-            "Lookup"]
+           "NestedAttribute",
+           "Structure",
+           "OrderedStructure",
+           "Lookup"]
 
 LOGGER = foundations.verbose.install_logger()
+
 
 class NestedAttribute(object):
     """
@@ -90,6 +92,7 @@ class NestedAttribute(object):
 
         namespaces = attribute.split(".")
         object.__delattr__(reduce(object.__getattribute__, namespaces[:-1], self), namespaces[-1])
+
 
 class Structure(dict):
     """
@@ -181,6 +184,7 @@ class Structure(dict):
 
         dict.update(self, *args, **kwargs)
         self.__dict__.update(*args, **kwargs)
+
 
 class OrderedStructure(OrderedDict):
     """
@@ -292,6 +296,7 @@ class OrderedStructure(OrderedDict):
                 if self._OrderedDict__root:
                     OrderedDict.__delitem__(self, attribute)
         OrderedDict.__delattr__(self, attribute)
+
 
 class Lookup(dict):
     """

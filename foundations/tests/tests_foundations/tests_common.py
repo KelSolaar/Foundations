@@ -43,6 +43,7 @@ __all__ = ["TestUniqify",
            "TestDependencyResolver",
            "TestGetHostAddress"]
 
+
 class TestUniqify(unittest.TestCase):
     """
     Defines :func:`foundations.common.uniqify` definition units tests methods.
@@ -60,6 +61,7 @@ class TestUniqify(unittest.TestCase):
         sequence = ({1: "A"}, {1: "A"}, {2: "B"}, {3: "C"})
         self.assertListEqual(sorted(foundations.common.uniqify(sequence)), [{1: "A"}, {2: "B"}, {3: "C"}])
 
+
 class TestOrderedUniqify(unittest.TestCase):
     """
     Defines :func:`foundations.common.ordered_uniqify` definition units tests methods.
@@ -74,6 +76,7 @@ class TestOrderedUniqify(unittest.TestCase):
         self.assertListEqual(foundations.common.ordered_uniqify(sequence), ["A", "B", "C"])
         sequence = ((1, "A"), (2, "B"), (2, "B"), (3, "C"))
         self.assertListEqual(foundations.common.ordered_uniqify(sequence), [(1, "A"), (2, "B"), (3, "C")])
+
 
 class TestUnpackDefault(unittest.TestCase):
     """
@@ -90,6 +93,7 @@ class TestUnpackDefault(unittest.TestCase):
         self.assertListEqual(list(foundations.common.unpack_default((1, 2, 3, 4), length=5, default="Default")),
                              [1, 2, 3, 4, "Default"])
 
+
 class TestPathExists(unittest.TestCase):
     """
     Defines :func:`foundations.common.path_exists` definition units tests methods.
@@ -104,6 +108,7 @@ class TestPathExists(unittest.TestCase):
         self.assertTrue(foundations.common.path_exists(__file__))
         self.assertFalse(foundations.common.path_exists(""))
 
+
 class TestFilterPath(unittest.TestCase):
     """
     Defines :func:`foundations.common.filter_path` definition units tests methods.
@@ -116,6 +121,7 @@ class TestFilterPath(unittest.TestCase):
 
         self.assertEqual(foundations.common.filter_path(None), "")
         self.assertEqual(foundations.common.filter_path(__file__), __file__)
+
 
 class TestGetFirstItem(unittest.TestCase):
     """
@@ -134,6 +140,7 @@ class TestGetFirstItem(unittest.TestCase):
         self.assertEqual(foundations.common.get_first_item(("Nemo",)), "Nemo")
         self.assertEqual(foundations.common.get_first_item(("Nemo", "John", "Doe")), "Nemo")
 
+
 class TestGetLastItem(unittest.TestCase):
     """
     Defines :func:`foundations.common.get_last_item` definition units tests methods.
@@ -151,6 +158,7 @@ class TestGetLastItem(unittest.TestCase):
         self.assertEqual(foundations.common.get_last_item(("Nemo",)), "Nemo")
         self.assertEqual(foundations.common.get_last_item(("Nemo", "John", "Doe")), "Doe")
 
+
 class TestRepeat(unittest.TestCase):
     """
     Defines :func:`foundations.common.repeat` definition units tests methods.
@@ -166,6 +174,7 @@ class TestRepeat(unittest.TestCase):
 
         self.assertEqual(len(foundations.common.repeat(lambda: foo(True), 10)), 10)
         self.assertEqual(foundations.common.repeat(lambda: foo(True), 2), [True, True])
+
 
 class TestDependencyResolver(unittest.TestCase):
     """
@@ -184,6 +193,7 @@ class TestDependencyResolver(unittest.TestCase):
         self.assertEquals(foundations.common.dependency_resolver(dependencies),
                           [set(["a", "b"]), set(["c", "f"]), set(["d"])])
 
+
 class TestGetHostAddress(unittest.TestCase):
     """
     Defines :func:`foundations.common.get_host_address` definition units tests methods.
@@ -196,6 +206,7 @@ class TestGetHostAddress(unittest.TestCase):
 
         self.assertIsInstance(foundations.common.get_host_address(), unicode)
         self.assertEqual(foundations.common.get_host_address(-1), foundations.common.DEFAULT_HOST_IP)
+
 
 if __name__ == "__main__":
     import foundations.tests.utilities

@@ -18,6 +18,7 @@ from __future__ import unicode_literals
 
 import os
 import sys
+
 if sys.version_info[:2] <= (2, 6):
     import unittest2 as unittest
 else:
@@ -38,6 +39,7 @@ __all__ = ["RESOURCES_DIRECTORY", "UI_TESTS_FILE", "APPLICATION", "TestQWidget_f
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "../resources/ui")
 UI_TESTS_FILE = os.path.join(RESOURCES_DIRECTORY, "Tests_Widget.ui")
 
+
 class TestQWidget_factory(unittest.TestCase):
     """
     Defines :func:`foundations.ui.common.QWidget_factory` definition units tests methods.
@@ -54,6 +56,8 @@ class TestQWidget_factory(unittest.TestCase):
         widget = foundations.ui.common.QWidget_factory()
         self.assertEqual(widget.__class__, QWidget.__class__)
 
+
 if __name__ == "__main__":
     import foundations.tests.utilities
+
     unittest.main()

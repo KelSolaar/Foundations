@@ -19,6 +19,7 @@ import os
 import shutil
 import tempfile
 import sys
+
 if sys.version_info[:2] <= (2, 6):
     import unittest2 as unittest
 else:
@@ -38,9 +39,10 @@ __all__ = ["RESOURCES_DIRECTORY", "TEST_FILE", "TREE_HIERARCHY", "TestPkzip"]
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
 TEST_FILE = os.path.join(RESOURCES_DIRECTORY, "standard.zip")
 TREE_HIERARCHY = ("level_0", "lorem_ipsum.txt", "standard.ibl", "standard.rc", "standard.sIBLT",
-                    "level_0/standard.ibl", "level_0/level_1",
-                    "level_0/level_1/lorem_ipsum.txt", "level_0/level_1/standard.rc", "level_0/level_1/level_2/",
-                    "level_0/level_1/level_2/standard.sIBLT")
+                  "level_0/standard.ibl", "level_0/level_1",
+                  "level_0/level_1/lorem_ipsum.txt", "level_0/level_1/standard.rc", "level_0/level_1/level_2/",
+                  "level_0/level_1/level_2/standard.sIBLT")
+
 
 class TestPkzip(unittest.TestCase):
     """
@@ -80,6 +82,8 @@ class TestPkzip(unittest.TestCase):
             self.assertTrue(os.path.exists(os.path.join(temp_directory, item)))
         shutil.rmtree(temp_directory)
 
+
 if __name__ == "__main__":
     import foundations.tests.utilities
+
     unittest.main()

@@ -33,30 +33,31 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["LOGGER",
-            "ASCII_CHARACTERS",
-            "to_string",
-            "get_nice_name",
-            "get_version_rank",
-            "get_splitext_basename",
-            "get_common_ancestor",
-            "get_common_paths_ancestor",
-            "get_words",
-            "filter_words",
-            "replace",
-            "remove_strip",
-            "to_forward_slashes",
-            "to_backward_slashes",
-            "to_posix_path",
-            "get_normalized_path",
-            "get_random_sequence",
-            "is_email",
-            "is_website"]
+           "ASCII_CHARACTERS",
+           "to_string",
+           "get_nice_name",
+           "get_version_rank",
+           "get_splitext_basename",
+           "get_common_ancestor",
+           "get_common_paths_ancestor",
+           "get_words",
+           "filter_words",
+           "replace",
+           "remove_strip",
+           "to_forward_slashes",
+           "to_backward_slashes",
+           "to_posix_path",
+           "get_normalized_path",
+           "get_random_sequence",
+           "is_email",
+           "is_website"]
 
 LOGGER = foundations.verbose.install_logger()
 
 ASCII_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"
 
 to_string = foundations.verbose.to_unicode
+
 
 def get_nice_name(name):
     """
@@ -77,6 +78,7 @@ def get_nice_name(name):
 
     chunks = re.sub(r"(.)([A-Z][a-z]+)", r"\1 \2", name)
     return " ".join(element.title() for element in re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", chunks).split())
+
 
 def get_version_rank(version):
     """
@@ -102,6 +104,7 @@ def get_version_rank(version):
     LOGGER.debug("> Rank: '{0}'.".format(rank))
     return rank
 
+
 def get_splitext_basename(path):
     """
     Gets the basename of a path without its extension.
@@ -120,6 +123,7 @@ def get_splitext_basename(path):
     basename = foundations.common.get_first_item(os.path.splitext(os.path.basename(os.path.normpath(path))))
     LOGGER.debug("> Splitext basename: '{0}'.".format(basename))
     return basename
+
 
 def get_common_ancestor(*args):
     """
@@ -147,6 +151,7 @@ def get_common_ancestor(*args):
     LOGGER.debug("> Common Ancestor: '{0}'".format(ancestor))
     return ancestor
 
+
 def get_common_paths_ancestor(*args):
     """
     Gets common paths ancestor of given paths.
@@ -162,9 +167,10 @@ def get_common_paths_ancestor(*args):
     :rtype: unicode
     """
 
-    pathAncestor = os.sep.join(get_common_ancestor(*[path.split(os.sep) for path in args]))
-    LOGGER.debug("> Common Paths Ancestor: '{0}'".format(pathAncestor))
-    return pathAncestor
+    path_ancestor = os.sep.join(get_common_ancestor(*[path.split(os.sep) for path in args]))
+    LOGGER.debug("> Common Paths Ancestor: '{0}'".format(path_ancestor))
+    return path_ancestor
+
 
 def get_words(data):
     """
@@ -184,6 +190,7 @@ def get_words(data):
     words = re.findall(r"\w+", data)
     LOGGER.debug("> Words: '{0}'".format(", ".join(words)))
     return words
+
 
 def filter_words(words, filters_in=None, filters_out=None, flags=0):
     """
@@ -208,31 +215,32 @@ def filter_words(words, filters_in=None, filters_out=None, flags=0):
     :rtype: list
     """
 
-    filteredWords = []
+    filtered_words = []
     for word in words:
         if filters_in:
-            filterMatched = False
+            filter_matched = False
             for filter in filters_in:
                 if not re.search(filter, word, flags):
                     LOGGER.debug("> '{0}' word skipped, filter in '{1}' not matched!".format(word, filter))
                 else:
-                    filterMatched = True
+                    filter_matched = True
                     break
-            if not filterMatched:
+            if not filter_matched:
                 continue
 
         if filters_out:
-            filterMatched = False
+            filter_matched = False
             for filter in filters_out:
                 if re.search(filter, word, flags):
                     LOGGER.debug("> '{0}' word skipped, filter out '{1}' matched!".format(word, filter))
-                    filterMatched = True
+                    filter_matched = True
                     break
-            if filterMatched:
+            if filter_matched:
                 continue
-        filteredWords.append(word)
-    LOGGER.debug("> Filtered words: '{0}'".format(", ".join(filteredWords)))
-    return filteredWords
+        filtered_words.append(word)
+    LOGGER.debug("> Filtered words: '{0}'".format(", ".join(filtered_words)))
+    return filtered_words
+
 
 def replace(string, data):
     """
@@ -256,6 +264,7 @@ def replace(string, data):
         string = string.replace(old, new)
     return string
 
+
 def remove_strip(string, pattern):
     """
     Removes the pattern occurrences in the string and strip the result.
@@ -274,6 +283,7 @@ def remove_strip(string, pattern):
     """
 
     return string.replace(pattern, "").strip()
+
 
 def to_forward_slashes(data):
     """
@@ -294,6 +304,7 @@ def to_forward_slashes(data):
     LOGGER.debug("> Data: '{0}' to forward slashes.".format(data))
     return data
 
+
 def to_backward_slashes(data):
     """
     Converts forward slashes to backward slashes.
@@ -313,6 +324,7 @@ def to_backward_slashes(data):
     LOGGER.debug("> Data: '{0}' to backward slashes.".format(data))
     return data
 
+
 def to_posix_path(path):
     """
     Converts Windows path to Posix path while stripping drives letters and network server slashes.
@@ -328,9 +340,10 @@ def to_posix_path(path):
     :rtype: unicode
     """
 
-    posixPath = posixpath.normpath(to_forward_slashes(re.sub(r"[a-zA-Z]:\\|\\\\", "/", os.path.normpath(path))))
-    LOGGER.debug("> Stripped converted to Posix path: '{0}'.".format(posixPath))
-    return posixPath
+    posix_path = posixpath.normpath(to_forward_slashes(re.sub(r"[a-zA-Z]:\\|\\\\", "/", os.path.normpath(path))))
+    LOGGER.debug("> Stripped converted to Posix path: '{0}'.".format(posix_path))
+    return posix_path
+
 
 def get_normalized_path(path):
     """
@@ -356,6 +369,7 @@ def get_normalized_path(path):
         LOGGER.debug("> Path: '{0}', normalized path.".format(path))
         return path
 
+
 def get_random_sequence(length=8):
     """
     Returns a random sequence.
@@ -372,6 +386,7 @@ def get_random_sequence(length=8):
     """
 
     return "".join([random.choice(ASCII_CHARACTERS) for i in range(length)])
+
 
 def is_email(data):
     """
@@ -396,6 +411,7 @@ def is_email(data):
     else:
         LOGGER.debug("> {0}' is not matched as email.".format(data))
         return False
+
 
 def is_website(url):
     """

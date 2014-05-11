@@ -29,10 +29,11 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["LOGGER",
-            "exit",
-            "wait"]
+           "exit",
+           "wait"]
 
 LOGGER = foundations.verbose.install_logger()
+
 
 def exit(exit_code=0):
     """
@@ -51,6 +52,7 @@ def exit(exit_code=0):
         foundations.verbose.remove_logging_handler(handler)
 
     sys.exit(exit_code)
+
 
 def wait(wait_time):
     """

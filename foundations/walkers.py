@@ -32,6 +32,7 @@ __all__ = ["LOGGER", "files_walker", "depth_walker", "dictionaries_walker", "nod
 
 LOGGER = foundations.verbose.install_logger()
 
+
 def files_walker(directory, filters_in=None, filters_out=None, flags=0):
     """
     Defines a generator used to walk files using given filters.
@@ -80,6 +81,7 @@ def files_walker(directory, filters_in=None, filters_out=None, flags=0):
 
                 yield path
 
+
 def depth_walker(directory, maximum_depth=1):
     """
     Defines a generator used to walk into directories using given maximum depth.
@@ -114,6 +116,7 @@ def depth_walker(directory, maximum_depth=1):
         if base_depth + maximum_depth <= parent_directory.count(separator):
             del directories[:]
 
+
 def dictionaries_walker(dictionary, path=()):
     """
     Defines a generator used to walk into nested dictionaries.
@@ -145,6 +148,7 @@ def dictionaries_walker(dictionary, path=()):
         else:
             for value in dictionaries_walker(dictionary[key], path + (key,)):
                 yield value
+
 
 def nodes_walker(node, ascendants=False):
     """

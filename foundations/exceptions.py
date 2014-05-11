@@ -90,6 +90,7 @@ LOGGER = foundations.verbose.install_logger()
 
 EXCEPTIONS_FRAME_SYMBOL = "_exceptions__frame__"
 
+
 def get_inner_most_frame(trcback):
     """
     Returns the inner most frame of given traceback.
@@ -102,6 +103,7 @@ def get_inner_most_frame(trcback):
 
     frames = inspect.getinnerframes(trcback)
     return frames.pop()[0] if frames else None
+
 
 def extract_stack(frame, context=10, exceptionsFrameSymbol=EXCEPTIONS_FRAME_SYMBOL):
     """
@@ -134,6 +136,7 @@ def extract_stack(frame, context=10, exceptionsFrameSymbol=EXCEPTIONS_FRAME_SYMB
 
     return list(reversed(stack))
 
+
 def extract_arguments(frame):
     """
     Extracts the arguments from given frame.
@@ -164,6 +167,7 @@ def extract_arguments(frame):
 
     return [arg.id for arg in node.args.args], node.args.vararg, node.args.kwarg
 
+
 def extract_locals(trcback):
     """
     Extracts the frames locals of given traceback.
@@ -191,6 +195,7 @@ def extract_locals(trcback):
         output.append(((name, file_name, line_number), (arguments, nameless_args, keyword_args, locals)))
     return output
 
+
 def extract_exception(*args):
     """
     Extracts the exception from given arguments or from :func:`sys.exc_info`.
@@ -210,6 +215,7 @@ def extract_exception(*args):
     trcback = trcbacks[0] if trcbacks else trcback
 
     return cls, instance, trcback
+
 
 def format_exception(cls, instance, trcback, context=1):
     """
@@ -240,6 +246,7 @@ def format_exception(cls, instance, trcback, context=1):
         output.append("{0}".format(line))
     return output
 
+
 def format_report(cls, instance, trcback, context=1):
     """
     Formats a report using given exception.
@@ -259,7 +266,7 @@ def format_report(cls, instance, trcback, context=1):
     header = []
     header.append("Exception in '{0}'.".format(get_inner_most_frame(trcback).f_code.co_name))
     header.append("Exception class: '{0}'.".format(cls.__name__))
-    header.append("Exception description: '{0}'.".format(instance.__doc__ and instance.__doc__.strip() or \
+    header.append("Exception description: '{0}'.".format(instance.__doc__ and instance.__doc__.strip() or
                                                          Constants.null_object))
     for i, line in enumerate(str(instance).split("\n")):
         header.append("Exception message line no. '{0}' : '{1}'.".format(i + 1, line))
@@ -284,6 +291,7 @@ def format_report(cls, instance, trcback, context=1):
 
     return header, frames, trcback
 
+
 def base_exception_handler(*args):
     """
     Provides the base exception handler.
@@ -307,6 +315,7 @@ def base_exception_handler(*args):
 
     return True
 
+
 def install_exception_handler(handler=None):
     """
     Installs the given exceptions handler.
@@ -320,6 +329,7 @@ def install_exception_handler(handler=None):
     sys.excepthook = handler if handler is not None else base_exception_handler
     return True
 
+
 def uninstall_exception_handler():
     """
     Uninstalls the exceptions handler.
@@ -330,6 +340,7 @@ def uninstall_exception_handler():
 
     sys.excepthook = sys.__excepthook__
     return True
+
 
 def handle_exceptions(*args):
     """
@@ -393,6 +404,7 @@ def handle_exceptions(*args):
 
     return handle_exceptions_decorator
 
+
 class AbstractError(Exception):
     """
     Defines the abstract base class for all **Foundations** package exceptions.
@@ -451,12 +463,14 @@ class AbstractError(Exception):
 
         return str(self.__value)
 
+
 class ExecutionError(AbstractError):
     """
     Defines execution exception.
     """
 
     pass
+
 
 class BreakIteration(AbstractError):
     """
@@ -465,6 +479,7 @@ class BreakIteration(AbstractError):
 
     pass
 
+
 class AbstractParsingError(AbstractError):
     """
     Defines the abstract base class for parsing related exception.
@@ -472,12 +487,14 @@ class AbstractParsingError(AbstractError):
 
     pass
 
+
 class FileStructureParsingError(AbstractParsingError):
     """
     Defines exception raised while parsing file structure.
     """
 
     pass
+
 
 class AttributeStructureParsingError(AbstractParsingError):
     """
@@ -550,12 +567,14 @@ class AttributeStructureParsingError(AbstractParsingError):
         else:
             return str(self.value)
 
+
 class AbstractIOError(AbstractError):
     """
     Defines the abstract base class for io related exception.
     """
 
     pass
+
 
 class FileReadError(AbstractIOError):
     """
@@ -564,12 +583,14 @@ class FileReadError(AbstractIOError):
 
     pass
 
+
 class FileWriteError(AbstractIOError):
     """
     Defines file write exception.
     """
 
     pass
+
 
 class UrlReadError(AbstractIOError):
     """
@@ -578,12 +599,14 @@ class UrlReadError(AbstractIOError):
 
     pass
 
+
 class UrlWriteError(AbstractIOError):
     """
     Defines file write exception.
     """
 
     pass
+
 
 class DirectoryCreationError(AbstractIOError):
     """
@@ -592,12 +615,14 @@ class DirectoryCreationError(AbstractIOError):
 
     pass
 
+
 class PathCopyError(AbstractIOError):
     """
     Defines path copy exception.
     """
 
     pass
+
 
 class PathRemoveError(AbstractIOError):
     """
@@ -606,12 +631,14 @@ class PathRemoveError(AbstractIOError):
 
     pass
 
+
 class AbstractOsError(AbstractError):
     """
     Defines the abstract base class for os related exception.
     """
 
     pass
+
 
 class PathExistsError(AbstractOsError):
     """
@@ -620,12 +647,14 @@ class PathExistsError(AbstractOsError):
 
     pass
 
+
 class DirectoryExistsError(PathExistsError):
     """
     Defines non existing directory exception.
     """
 
     pass
+
 
 class FileExistsError(PathExistsError):
     """
@@ -634,12 +663,14 @@ class FileExistsError(PathExistsError):
 
     pass
 
+
 class AbstractObjectError(AbstractError):
     """
     Defines the abstract base class for object related exception.
     """
 
     pass
+
 
 class ObjectTypeError(AbstractObjectError):
     """
@@ -648,12 +679,14 @@ class ObjectTypeError(AbstractObjectError):
 
     pass
 
+
 class ObjectExistsError(AbstractObjectError):
     """
     Defines non existing object exception.
     """
 
     pass
+
 
 class AbstractUserError(AbstractError):
     """
@@ -662,12 +695,14 @@ class AbstractUserError(AbstractError):
 
     pass
 
+
 class ProgrammingError(AbstractUserError):
     """
     Defines programming exception.
     """
 
     pass
+
 
 class UserError(AbstractUserError):
     """
@@ -676,12 +711,14 @@ class UserError(AbstractUserError):
 
     pass
 
+
 class AbstractNodeError(AbstractError):
     """
     Defines the abstract base class for Node related exception.
     """
 
     pass
+
 
 class NodeAttributeTypeError(AbstractNodeError, ObjectTypeError):
     """
@@ -690,12 +727,14 @@ class NodeAttributeTypeError(AbstractNodeError, ObjectTypeError):
 
     pass
 
+
 class NodeAttributeExistsError(AbstractNodeError, ObjectExistsError):
     """
     Defines non existing Node attribute exception.
     """
 
     pass
+
 
 class AbstractLibraryError(AbstractError):
     """
@@ -704,12 +743,14 @@ class AbstractLibraryError(AbstractError):
 
     pass
 
+
 class LibraryInstantiationError(AbstractLibraryError):
     """
     Defines :mod:`library` module :class:`library.Library` class instantiation exception.
     """
 
     pass
+
 
 class LibraryInitializationError(AbstractLibraryError):
     """
@@ -718,12 +759,14 @@ class LibraryInitializationError(AbstractLibraryError):
 
     pass
 
+
 class LibraryExecutionError(AbstractLibraryError):
     """
     Defines :mod:`library` module :class:`library.Library` class execution exception.
     """
 
     pass
+
 
 class AbstractServerError(AbstractError):
     """
@@ -732,12 +775,14 @@ class AbstractServerError(AbstractError):
 
     pass
 
+
 class ServerOperationError(AbstractServerError):
     """
     Defines :mod:`tcp_server` module :class:`tcp_server.TCPServer` class operations exception.
     """
 
     pass
+
 
 class AnsiEscapeCodeExistsError(AbstractError):
     """

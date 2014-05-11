@@ -31,11 +31,12 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["LOGGER",
-        "execution_time",
-        "memoize",
-        "system_exit"]
+           "execution_time",
+           "memoize",
+           "system_exit"]
 
 LOGGER = foundations.verbose.install_logger()
+
 
 def execution_time(object):
     """
@@ -68,12 +69,13 @@ def execution_time(object):
         end_time = time.time()
 
         sys.stdout.write("{0} | '{1}' object processed during '{2:f}' ms!\n".format(__name__,
-                                                                                object.__name__,
-                                                                                (end_time - start_time) * 1000.0))
+                                                                                    object.__name__,
+                                                                                    (end_time - start_time) * 1000.0))
 
         return value
 
     return execution_time_wrapper
+
 
 def memoize(cache=None):
     """
@@ -125,6 +127,7 @@ def memoize(cache=None):
         return memoize_wrapper
 
     return memoize_decorator
+
 
 def system_exit(object):
     """

@@ -733,6 +733,7 @@ ANSI_ESCAPE_CODES = {"bBlack": "\033[40m",
                      "yellowBWhite": "\033[33m\033[47m",
                      "yellowBYellow": "\033[33m\033[43m"}
 
+
 class TestAnsiEscapeCodes(unittest.TestCase):
     """
     Defines :class:`foundations.shell.AnsiEscapeCodes` class units tests methods.
@@ -752,6 +753,7 @@ class TestAnsiEscapeCodes(unittest.TestCase):
         for attribute, value in ANSI_ESCAPE_CODES.iteritems():
             self.assertEqual(value, getattr(AnsiEscapeCodes, attribute))
 
+
 class TestColorize(unittest.TestCase):
     """
     Defines :func:`foundations.shell.colorize` definition units tests methods.
@@ -766,6 +768,8 @@ class TestColorize(unittest.TestCase):
         self.assertEqual(foundations.shell.colorize("Hello", "bCyan"), "\x1b[46mHello\x1b[0m")
         self.assertEqual(foundations.shell.colorize("Hello", "boldRedBCyan"), "\x1b[1;31m\x1b[46mHello\x1b[0m")
 
+
 if __name__ == "__main__":
     import foundations.tests.utilities
+
     unittest.main()

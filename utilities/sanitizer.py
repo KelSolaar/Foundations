@@ -43,6 +43,7 @@ STATEMENTS_SUBSTITUTE = ("(\n)(?P<bleach>\s*if\s+__name__\s+==\s+[\"']__main__[\
 
 STATEMENT_IGNORE = ("@handle_exceptions(ZeroDivisionError)",)
 
+
 def bleach(file):
     """
     Sanitizes given python module.

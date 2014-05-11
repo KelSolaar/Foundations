@@ -37,9 +37,10 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["TestEnvironment",
-        "TestGetTemporaryDirectory",
-        "TestGetSystemApplicationDataDirectory",
-        "TestGetUserApplicationDataDirectory", ]
+           "TestGetTemporaryDirectory",
+           "TestGetSystemApplicationDataDirectory",
+           "TestGetUserApplicationDataDirectory", ]
+
 
 class TestEnvironment(unittest.TestCase):
     """
@@ -62,9 +63,9 @@ class TestEnvironment(unittest.TestCase):
         """
 
         required_methods = ("get_values",
-                        "set_values",
-                        "get_value",
-                        "set_value")
+                            "set_values",
+                            "get_value",
+                            "set_value")
 
         for method in required_methods:
             self.assertIn(method, dir(Environment))
@@ -129,6 +130,7 @@ class TestEnvironment(unittest.TestCase):
         self.assertIn("JANE", os.environ)
         self.assertEqual(environment.get_value("JANE"), "DOE")
 
+
 class TestGetTemporaryDirectory(unittest.TestCase):
     """
     Defines :func:`foundations.common.get_temporary_directory` definition units tests methods.
@@ -144,6 +146,7 @@ class TestGetTemporaryDirectory(unittest.TestCase):
         self.assertTrue(os.path.exists(path))
         self.assertEqual(path, tempfile.gettempdir())
 
+
 class TestGetSystemApplicationDataDirectory(unittest.TestCase):
     """
     Defines :func:`foundations.common.get_system_application_data_directory` definition units tests methods.
@@ -158,6 +161,7 @@ class TestGetSystemApplicationDataDirectory(unittest.TestCase):
         self.assertIsInstance(path, unicode)
         self.assertTrue(os.path.exists(path))
 
+
 class TestGetUserApplicationDataDirectory(unittest.TestCase):
     """
     Defines :func:`foundations.common.get_user_application_data_directory` definition units tests methods.
@@ -171,6 +175,8 @@ class TestGetUserApplicationDataDirectory(unittest.TestCase):
         path = foundations.environment.get_user_application_data_directory()
         self.assertIsInstance(path, unicode)
 
+
 if __name__ == "__main__":
     import foundations.tests.utilities
+
     unittest.main()

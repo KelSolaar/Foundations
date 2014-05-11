@@ -17,6 +17,7 @@ from __future__ import unicode_literals
 
 import socket
 import sys
+
 if sys.version_info[:2] <= (2, 6):
     import unittest2 as unittest
 else:
@@ -80,6 +81,7 @@ class TestTCPServer(unittest.TestCase):
         self.assertTrue(tcp_server.stop())
         self.assertEqual(tcp_server.online, False)
 
+
 class TestEchoRequestsHandler(unittest.TestCase):
     """
     Defines :class:`foundations.tcp_server.EchoRequestsHandler` class units tests methods.
@@ -110,6 +112,8 @@ class TestEchoRequestsHandler(unittest.TestCase):
         connection.close()
         tcp_server.stop()
 
+
 if __name__ == "__main__":
     import foundations.tests.utilities
+
     unittest.main()

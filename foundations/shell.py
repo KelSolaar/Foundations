@@ -93,27 +93,30 @@ FOREGROUND_ANSI_ESCAPE_CODES = (("black", "30m"),
 
 AnsiEscapeCodes = foundations.data_structures.OrderedStructure()
 
-def _setAnsiEscapeCodes():
+
+def _set_ansi_escape_codes():
     """
     Injects *ANSI* escape codes into :class:`AnsiEscapeCodes` class.
     """
 
     AnsiEscapeCodes["reset"] = "\033[0m"
 
-    for foregroundCodeName, foregroundCode in FOREGROUND_ANSI_ESCAPE_CODES:
-        AnsiEscapeCodes[foregroundCodeName] = "\033[{0}".format(foregroundCode)
+    for foreground_code_name, foreground_code in FOREGROUND_ANSI_ESCAPE_CODES:
+        AnsiEscapeCodes[foreground_code_name] = "\033[{0}".format(foreground_code)
 
-    for backgroundCodeName, backgroundCode in BACKGROUND_ANSI_ESCAPE_CODES:
-        AnsiEscapeCodes[backgroundCodeName] = "\033[{0}".format(backgroundCode)
+    for background_code_name, background_code in BACKGROUND_ANSI_ESCAPE_CODES:
+        AnsiEscapeCodes[background_code_name] = "\033[{0}".format(background_code)
 
-    for backgroundCodeName, backgroundCode in BACKGROUND_ANSI_ESCAPE_CODES:
-        for foregroundCodeName, foregroundCode in FOREGROUND_ANSI_ESCAPE_CODES:
-            AnsiEscapeCodes["{0}{1}".format(foregroundCodeName,
-                                            "{0}{1}".format(backgroundCodeName[0].upper(),
-                                                            backgroundCodeName[1:]))] = "\033[{0}\033[{1}".format(
-                foregroundCode, backgroundCode)
+    for background_code_name, background_code in BACKGROUND_ANSI_ESCAPE_CODES:
+        for foreground_code_name, foreground_code in FOREGROUND_ANSI_ESCAPE_CODES:
+            AnsiEscapeCodes["{0}{1}".format(foreground_code_name,
+                                            "{0}{1}".format(background_code_name[0].upper(),
+                                                            background_code_name[1:]))] = "\033[{0}\033[{1}".format(
+                foreground_code, background_code)
 
-_setAnsiEscapeCodes()
+
+_set_ansi_escape_codes()
+
 
 def colorize(text, color):
     """
@@ -127,10 +130,10 @@ def colorize(text, color):
     :rtype: unicode
     """
 
-    escapeCode = getattr(AnsiEscapeCodes, color, None)
-    if escapeCode is None:
+    escape_code = getattr(AnsiEscapeCodes, color, None)
+    if escape_code is None:
         raise foundations.exceptions.AnsiEscapeCodeExistsError(
             "'{0}' | '{1}' 'ANSI' escape code name doesn't exists!".format(
                 inspect.getmodulename(__file__), color))
 
-    return "{0}{1}{2}".format(escapeCode, text, AnsiEscapeCodes.reset)
+    return "{0}{1}{2}".format(escape_code, text, AnsiEscapeCodes.reset)

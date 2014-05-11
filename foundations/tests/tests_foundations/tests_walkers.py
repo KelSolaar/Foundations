@@ -18,6 +18,7 @@ from __future__ import unicode_literals
 import os
 import re
 import sys
+
 if sys.version_info[:2] <= (2, 6):
     import unittest2 as unittest
 else:
@@ -35,36 +36,37 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["RESOURCES_DIRECTORY",
-            "ROOT_DIRECTORY",
-            "FILES_TREE_HIERARCHY",
-            "TREE_HIERARCHY",
-            "CHINESE_ROOT_DIRECTORY",
-            "CHINESE_FILES_TREE_HIERARCHY",
-            "CHINESE_TREE_HIERARCHY",
-            "TestFilesWalker",
-            "TestDepthWalker",
-            "TestDictionariesWalker",
-            "TestNodesWalker"]
+           "ROOT_DIRECTORY",
+           "FILES_TREE_HIERARCHY",
+           "TREE_HIERARCHY",
+           "CHINESE_ROOT_DIRECTORY",
+           "CHINESE_FILES_TREE_HIERARCHY",
+           "CHINESE_TREE_HIERARCHY",
+           "TestFilesWalker",
+           "TestDepthWalker",
+           "TestDictionariesWalker",
+           "TestNodesWalker"]
 
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
 ROOT_DIRECTORY = "standard"
 FILES_TREE_HIERARCHY = ("lorem_ipsum.txt", "standard.ibl", "standard.rc", "standard.sIBLT",
-                    "level_0/standard.ibl",
-                    "level_0/level_1/lorem_ipsum.txt", "level_0/level_1/standard.rc",
-                    "level_0/level_1/level_2/standard.sIBLT")
+                        "level_0/standard.ibl",
+                        "level_0/level_1/lorem_ipsum.txt", "level_0/level_1/standard.rc",
+                        "level_0/level_1/level_2/standard.sIBLT")
 TREE_HIERARCHY = ((["level_0"], ["lorem_ipsum.txt", "standard.ibl", "standard.rc", "standard.sIBLT"]),
-                    (["level_1"], ["standard.ibl"]),
-                    (["level_2"], ["lorem_ipsum.txt", "standard.rc"]),
-                    ([], ["standard.sIBLT"]))
+                  (["level_1"], ["standard.ibl"]),
+                  (["level_2"], ["lorem_ipsum.txt", "standard.rc"]),
+                  ([], ["standard.sIBLT"]))
 CHINESE_ROOT_DIRECTORY = "标准"
 CHINESE_FILES_TREE_HIERARCHY = ("内容.txt",
-                            "0级/无效.txt",
-                            "0级/1级/空虚.txt",
-                            "0级/1级/2级/内容.txt", "0级/1级/2级/物.txt")
+                                "0级/无效.txt",
+                                "0级/1级/空虚.txt",
+                                "0级/1级/2级/内容.txt", "0级/1级/2级/物.txt")
 CHINESE_TREE_HIERARCHY = ((["0级"], ["内容.txt"]),
-                    (["1级"], ["无效.txt"]),
-                    (["2级"], ["空虚.txt"]),
-                    ([], ["内容.txt", "物.txt"]))
+                          (["1级"], ["无效.txt"]),
+                          (["2级"], ["空虚.txt"]),
+                          ([], ["内容.txt", "物.txt"]))
+
 
 class TestFilesWalker(unittest.TestCase):
     """
@@ -81,21 +83,23 @@ class TestFilesWalker(unittest.TestCase):
             self.assertTrue(os.path.exists(path))
 
         reference_paths = [foundations.strings.replace(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY, path),
-                                            {"/" : "|", "\\" : "|"}) for path in FILES_TREE_HIERARCHY]
+                                                       {"/": "|", "\\": "|"}) for path in FILES_TREE_HIERARCHY]
         walker_files = \
-        [foundations.strings.replace(path, {"/" : "|", "\\" : "|"}) for path in foundations.walkers.files_walker(root_directory)]
+            [foundations.strings.replace(path, {"/": "|", "\\": "|"})
+             for path in foundations.walkers.files_walker(root_directory)]
         for item in reference_paths:
             self.assertIn(item, walker_files)
 
         walker_files = \
-        [foundations.strings.replace(path, {"/" : "|", "\\" : "|"}) \
-        for path in foundations.walkers.files_walker(root_directory, filters_out=("\.rc$",))]
+            [foundations.strings.replace(path, {"/": "|", "\\": "|"})
+             for path in foundations.walkers.files_walker(root_directory, filters_out=("\.rc$",))]
         for item in walker_files:
             self.assertTrue(not re.search(r"\.rc$", item))
 
         walker_files = \
-        [foundations.strings.replace(path, {"/" : "|", "\\" : "|"}) \
-        for path in foundations.walkers.files_walker(root_directory, filters_out=("\.ibl", "\.rc$", "\.sIBLT$", "\.txt$"))]
+            [foundations.strings.replace(path, {"/": "|", "\\": "|"})
+             for path in
+             foundations.walkers.files_walker(root_directory, filters_out=("\.ibl", "\.rc$", "\.sIBLT$", "\.txt$"))]
         self.assertTrue(not walker_files)
 
     def test_files_walker_international(self):
@@ -107,24 +111,26 @@ class TestFilesWalker(unittest.TestCase):
         for path in foundations.walkers.files_walker(root_directory):
             self.assertTrue(os.path.exists(path))
 
-
         reference_paths = [foundations.strings.replace(os.path.join(RESOURCES_DIRECTORY, CHINESE_ROOT_DIRECTORY, path),
-                                            {"/" : "|", "\\" : "|"}) for path in CHINESE_FILES_TREE_HIERARCHY]
+                                                       {"/": "|", "\\": "|"}) for path in CHINESE_FILES_TREE_HIERARCHY]
         walker_files = \
-        [foundations.strings.replace(path, {"/" : "|", "\\" : "|"}) for path in foundations.walkers.files_walker(root_directory)]
+            [foundations.strings.replace(path, {"/": "|", "\\": "|"})
+             for path in foundations.walkers.files_walker(root_directory)]
         for item in reference_paths:
             self.assertIn(item, walker_files)
 
         walker_files = \
-        [foundations.strings.replace(path, {"/" : "|", "\\" : "|"}) \
-        for path in foundations.walkers.files_walker(root_directory, filters_out=("\.rc$",))]
+            [foundations.strings.replace(path, {"/": "|", "\\": "|"})
+             for path in foundations.walkers.files_walker(root_directory, filters_out=("\.rc$",))]
         for item in walker_files:
             self.assertTrue(not re.search(r"\.rc$", item))
 
         walker_files = \
-        [foundations.strings.replace(path, {"/" : "|", "\\" : "|"}) \
-        for path in foundations.walkers.files_walker(root_directory, filters_out=("\.ibl", "\.rc$", "\.sIBLT$", "\.txt$"))]
+            [foundations.strings.replace(path, {"/": "|", "\\": "|"})
+             for path in
+             foundations.walkers.files_walker(root_directory, filters_out=("\.ibl", "\.rc$", "\.sIBLT$", "\.txt$"))]
         self.assertTrue(not walker_files)
+
 
 class TestDepthWalker(unittest.TestCase):
     """
@@ -137,7 +143,8 @@ class TestDepthWalker(unittest.TestCase):
         """
 
         for i, value in \
-        enumerate(foundations.walkers.depth_walker(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY), maximum_depth=2)):
+                enumerate(foundations.walkers.depth_walker(os.path.join(RESOURCES_DIRECTORY, ROOT_DIRECTORY),
+                                                           maximum_depth=2)):
             parent_directory, directories, files = value
             self.assertEqual((directories, sorted(files)), (TREE_HIERARCHY[i][0], sorted(TREE_HIERARCHY[i][1])))
 
@@ -147,9 +154,12 @@ class TestDepthWalker(unittest.TestCase):
         """
 
         for i, value in \
-        enumerate(foundations.walkers.depth_walker(os.path.join(RESOURCES_DIRECTORY, CHINESE_ROOT_DIRECTORY), maximum_depth=2)):
+                enumerate(foundations.walkers.depth_walker(os.path.join(RESOURCES_DIRECTORY, CHINESE_ROOT_DIRECTORY),
+                                                           maximum_depth=2)):
             parent_directory, directories, files = value
-            self.assertEqual((directories, sorted(files)), (CHINESE_TREE_HIERARCHY[i][0], sorted(CHINESE_TREE_HIERARCHY[i][1])))
+            self.assertEqual(
+                (directories, sorted(files)), (CHINESE_TREE_HIERARCHY[i][0], sorted(CHINESE_TREE_HIERARCHY[i][1])))
+
 
 class TestDictionariesWalker(unittest.TestCase):
     """
@@ -161,8 +171,8 @@ class TestDictionariesWalker(unittest.TestCase):
         Tests :func:`foundations.walkers.dictionaries_walker` definition.
         """
 
-        nested_dictionary = {"Level 1A":{"Level 2A": { "Level 3A" : "Higher Level"}},
-                            "Level 1B" : "Lower level", "Level 1C" : {}}
+        nested_dictionary = {"Level 1A": {"Level 2A": {"Level 3A": "Higher Level"}},
+                             "Level 1B": "Lower level", "Level 1C": {}}
         yielded_values = ((("Level 1A", "Level 2A"), "Level 3A", "Higher Level"), ((), "Level 1B", "Lower level"))
         for value in foundations.walkers.dictionaries_walker(nested_dictionary):
             self.assertIsInstance(value, tuple)
@@ -171,6 +181,7 @@ class TestDictionariesWalker(unittest.TestCase):
             self.assertIsInstance(path, tuple)
             self.assertIsInstance(key, unicode)
             self.assertIsInstance(value, unicode)
+
 
 class TestNodesWalker(unittest.TestCase):
     """
@@ -197,6 +208,8 @@ class TestNodesWalker(unittest.TestCase):
         values = [node_g, node_f, node_d, node_b, node_a]
         self.assertEquals(list(foundations.walkers.nodes_walker(node_h, ascendants=True)), values)
 
+
 if __name__ == "__main__":
     import foundations.tests.utilities
+
     unittest.main()

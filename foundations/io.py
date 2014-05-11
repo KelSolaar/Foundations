@@ -38,6 +38,7 @@ __all__ = ["LOGGER", "File", "set_directory", "copy", "remove", "is_writable", "
 
 LOGGER = foundations.verbose.install_logger()
 
+
 class File(object):
     """
     Defines methods to read / write and append to files or retrieve online file content.
@@ -141,8 +142,8 @@ class File(object):
             "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "content"))
 
     @foundations.exceptions.handle_exceptions(foundations.exceptions.UrlReadError,
-                                             foundations.exceptions.FileReadError,
-                                             IOError)
+                                              foundations.exceptions.FileReadError,
+                                              IOError)
     def cache(self, mode="r", encoding=Constants.default_codec, errors=Constants.codec_error):
         """
         Reads given file content and stores it in the content cache.
@@ -201,7 +202,8 @@ class File(object):
 
         return "".join(self.__content) if self.cache() else ""
 
-    @foundations.exceptions.handle_exceptions(foundations.exceptions.UrlWriteError, foundations.exceptions.FileWriteError)
+    @foundations.exceptions.handle_exceptions(foundations.exceptions.UrlWriteError,
+                                              foundations.exceptions.FileWriteError)
     def write(self, mode="w", encoding=Constants.default_codec, errors=Constants.codec_error):
         """
         Writes content to defined file.
@@ -218,7 +220,7 @@ class File(object):
 
         if foundations.strings.is_website(self.__path):
             raise foundations.exceptions.UrlWriteError(
-                    "!> {0} | '{1}' url is not writable!".format(self.__class__.__name__, self.__path))
+                "!> {0} | '{1}' url is not writable!".format(self.__class__.__name__, self.__path))
 
         if foundations.common.path_exists(self.__path):
             if not is_writable(self.__path):
@@ -232,7 +234,8 @@ class File(object):
             return True
         return False
 
-    @foundations.exceptions.handle_exceptions(foundations.exceptions.UrlWriteError, foundations.exceptions.FileWriteError)
+    @foundations.exceptions.handle_exceptions(foundations.exceptions.UrlWriteError,
+                                              foundations.exceptions.FileWriteError)
     def append(self, mode="a", encoding=Constants.default_codec, errors=Constants.codec_error):
         """
         Appends content to defined file.
@@ -249,7 +252,7 @@ class File(object):
 
         if foundations.strings.is_website(self.__path):
             raise foundations.exceptions.UrlWriteError(
-                    "!> {0} | '{1}' url is not writable!".format(self.__class__.__name__, self.__path))
+                "!> {0} | '{1}' url is not writable!".format(self.__class__.__name__, self.__path))
 
         if foundations.common.path_exists(self.__path):
             if not is_writable(self.__path):
@@ -276,13 +279,14 @@ class File(object):
 
         if foundations.strings.is_website(self.__path):
             raise foundations.exceptions.UrlWriteError(
-                    "!> {0} | '{1}' url is not writable!".format(self.__class__.__name__, self.__path))
+                "!> {0} | '{1}' url is not writable!".format(self.__class__.__name__, self.__path))
 
         if self.uncache():
             LOGGER.debug("> Clearing '{0}' file content.".format(self.__path))
             return self.write(encoding=encoding)
         else:
             return False
+
 
 @foundations.exceptions.handle_exceptions(foundations.exceptions.DirectoryCreationError)
 def set_directory(path):
@@ -306,7 +310,9 @@ def set_directory(path):
             LOGGER.debug("> '{0}' directory already exist, skipping creation!".format(path))
             return True
     except Exception as error:
-        raise foundations.exceptions.DirectoryCreationError("!> {0} | Cannot create '{1}' directory: '{2}'".format(__name__, path, error))
+        raise foundations.exceptions.DirectoryCreationError(
+            "!> {0} | Cannot create '{1}' directory: '{2}'".format(__name__, path, error))
+
 
 @foundations.exceptions.handle_exceptions(foundations.exceptions.PathCopyError)
 def copy(source, destination):
@@ -330,7 +336,9 @@ def copy(source, destination):
             shutil.copytree(source, destination)
         return True
     except Exception as error:
-        raise foundations.exceptions.PathCopyError("!> {0} | Cannot copy '{1}' path: '{2}'".format(__name__, source, error))
+        raise foundations.exceptions.PathCopyError(
+            "!> {0} | Cannot copy '{1}' path: '{2}'".format(__name__, source, error))
+
 
 @foundations.exceptions.handle_exceptions(foundations.exceptions.PathRemoveError)
 def remove(path):
@@ -352,7 +360,9 @@ def remove(path):
             shutil.rmtree(path)
         return True
     except Exception as error:
-        raise foundations.exceptions.PathRemoveError("!> {0} | Cannot remove '{1}' path: '{2}'".format(__name__, path, error))
+        raise foundations.exceptions.PathRemoveError(
+            "!> {0} | Cannot remove '{1}' path: '{2}'".format(__name__, path, error))
+
 
 def is_readable(path):
     """
@@ -371,6 +381,7 @@ def is_readable(path):
         LOGGER.debug("> '{0}' path is not readable.".format(path))
         return False
 
+
 def is_writable(path):
     """
     Returns if given path is writable.
@@ -387,6 +398,7 @@ def is_writable(path):
     else:
         LOGGER.debug("> '{0}' path is not writable.".format(path))
         return False
+
 
 def is_binary_file(file):
     """

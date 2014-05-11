@@ -19,6 +19,7 @@ import ctypes
 import os
 import platform
 import sys
+
 if sys.version_info[:2] <= (2, 6):
     import unittest2 as unittest
 else:
@@ -35,12 +36,12 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["RESOURCES_DIRECTORY",
-            "LIBRARIES_DIRECTORY",
-            "FREEIMAGE_LIBRARY",
-            "LIBRARIES",
-            "LIBRARIES_FUNCTIONS",
-            "LIBRARIES_TESTS_CASES",
-            "TestLibrary"]
+           "LIBRARIES_DIRECTORY",
+           "FREEIMAGE_LIBRARY",
+           "LIBRARIES",
+           "LIBRARIES_FUNCTIONS",
+           "LIBRARIES_TESTS_CASES",
+           "TestLibrary"]
 
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
 LIBRARIES_DIRECTORY = os.path.join(RESOURCES_DIRECTORY, "libraries")
@@ -51,17 +52,18 @@ elif platform.system() == "Darwin":
 elif platform.system() == "Linux":
     FREEIMAGE_LIBRARY = os.path.join(LIBRARIES_DIRECTORY, "freeimage/libfreeimage.so")
 
-LIBRARIES = {"freeimage" : os.path.normpath(os.path.join(os.path.dirname(__file__), FREEIMAGE_LIBRARY))}
+LIBRARIES = {"freeimage": os.path.normpath(os.path.join(os.path.dirname(__file__), FREEIMAGE_LIBRARY))}
 
-LIBRARIES_FUNCTIONS = {"freeimage" : (LibraryHook(name="FreeImage_GetVersion",
-                                                arguments_types=None,
-                                                return_value=ctypes.c_char_p),
-                                LibraryHook(name="FreeImage_GetCopyrightMessage",
-                                            arguments_types=None,
-                                            return_value=ctypes.c_char_p))}
+LIBRARIES_FUNCTIONS = {"freeimage": (LibraryHook(name="FreeImage_GetVersion",
+                                                 arguments_types=None,
+                                                 return_value=ctypes.c_char_p),
+                                     LibraryHook(name="FreeImage_GetCopyrightMessage",
+                                                 arguments_types=None,
+                                                 return_value=ctypes.c_char_p))}
 
-LIBRARIES_TESTS_CASES = {"freeimage" : {"FreeImage_GetVersion" : "3.15.1",
-                        "FreeImage_GetCopyrightMessage" : "This program uses FreeImage, a free, open source image library supporting all common bitmap formats. See http://freeimage.sourceforge.net for details"}}
+LIBRARIES_TESTS_CASES = {"freeimage": {"FreeImage_GetVersion": "3.15.1",
+                                       "FreeImage_GetCopyrightMessage": "This program uses FreeImage, a free, open source image library supporting all common bitmap formats. See http://freeimage.sourceforge.net for details"}}
+
 
 class TestLibrary(unittest.TestCase):
     """
@@ -74,11 +76,11 @@ class TestLibrary(unittest.TestCase):
         """
 
         required_attributes = ("callback",
-                                "instances",
-                                "initialized",
-                                "path",
-                                "functions",
-                                "library")
+                               "instances",
+                               "initialized",
+                               "path",
+                               "functions",
+                               "library")
         for attribute in required_attributes:
             self.assertIn(attribute, dir(Library))
 
@@ -128,6 +130,8 @@ class TestLibrary(unittest.TestCase):
             for function, value in LIBRARIES_TESTS_CASES[name].iteritems():
                 self.assertEqual(getattr(library, function)(), value)
 
+
 if __name__ == "__main__":
     import foundations.tests.utilities
+
     unittest.main()

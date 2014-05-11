@@ -32,46 +32,46 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["REGISTERED_MODULES",
-            "TRACER_SYMBOL",
-            "UNTRACABLE_SYMBOL",
-            "TRACER_HOOK",
-            "UNTRACABLE_NAMES",
-            "NULL_OBJECT_NAME",
-            "TRACE_NAMES_CACHE",
-            "TRACE_WALKER_CACHE",
-            "is_read_only",
-            "set_tracer_hook",
-            "get_tracer_hook",
-            "is_traced",
-            "is_base_traced",
-            "is_untracable",
-            "set_traced",
-            "set_untraced",
-            "set_untracable",
-            "trace_walker",
-            "get_object_name",
-            "get_trace_name",
-            "get_method_name",
-            "is_static_method",
-            "is_class_method",
-            "format_argument",
-            "validate_tracer",
-            "tracer",
-            "untracer",
-            "untracable",
-            "trace_function",
-            "untrace_function",
-            "trace_method",
-            "untrace_method",
-            "trace_property",
-            "untrace_property",
-            "trace_class",
-            "untrace_class",
-            "trace_module",
-            "untrace_module",
-            "register_module",
-            "install_tracer",
-            "evaluate_trace_request"]
+           "TRACER_SYMBOL",
+           "UNTRACABLE_SYMBOL",
+           "TRACER_HOOK",
+           "UNTRACABLE_NAMES",
+           "NULL_OBJECT_NAME",
+           "TRACE_NAMES_CACHE",
+           "TRACE_WALKER_CACHE",
+           "is_read_only",
+           "set_tracer_hook",
+           "get_tracer_hook",
+           "is_traced",
+           "is_base_traced",
+           "is_untracable",
+           "set_traced",
+           "set_untraced",
+           "set_untracable",
+           "trace_walker",
+           "get_object_name",
+           "get_trace_name",
+           "get_method_name",
+           "is_static_method",
+           "is_class_method",
+           "format_argument",
+           "validate_tracer",
+           "tracer",
+           "untracer",
+           "untracable",
+           "trace_function",
+           "untrace_function",
+           "trace_method",
+           "untrace_method",
+           "trace_property",
+           "untrace_property",
+           "trace_class",
+           "untrace_class",
+           "trace_module",
+           "untrace_module",
+           "register_module",
+           "install_tracer",
+           "evaluate_trace_request"]
 
 REGISTERED_MODULES = set()
 
@@ -86,6 +86,7 @@ NULL_OBJECT_NAME = "None"
 
 TRACE_NAMES_CACHE = {}
 TRACE_WALKER_CACHE = {}
+
 
 def is_read_only(object):
     """
@@ -105,6 +106,7 @@ def is_read_only(object):
     except (TypeError, AttributeError):
         return True
 
+
 def set_tracer_hook(object, hook):
     """
     Sets given object tracer hook on given object.
@@ -120,6 +122,7 @@ def set_tracer_hook(object, hook):
     setattr(object, TRACER_HOOK, hook)
     return True
 
+
 def get_tracer_hook(object):
     """
     Returns given object tracer hook.
@@ -133,6 +136,7 @@ def get_tracer_hook(object):
     if hasattr(object, TRACER_HOOK):
         return getattr(object, TRACER_HOOK)
 
+
 def is_traced(object):
     """
     Returns if given object is traced.
@@ -144,6 +148,7 @@ def is_traced(object):
     """
 
     return hasattr(object, TRACER_SYMBOL)
+
 
 def is_base_traced(cls):
     """
@@ -160,6 +165,7 @@ def is_base_traced(cls):
             return True
     return False
 
+
 def is_untracable(object):
     """
     Returns if given object is untracable.
@@ -171,6 +177,7 @@ def is_untracable(object):
     """
 
     return hasattr(object, UNTRACABLE_SYMBOL)
+
 
 def set_traced(object):
     """
@@ -184,6 +191,7 @@ def set_traced(object):
 
     setattr(object, TRACER_SYMBOL, True)
     return True
+
 
 def set_untraced(object):
     """
@@ -199,6 +207,7 @@ def set_untraced(object):
         delattr(object, TRACER_SYMBOL)
     return True
 
+
 def set_untracable(object):
     """
     Sets given object as untraced.
@@ -211,6 +220,7 @@ def set_untracable(object):
 
     setattr(object, UNTRACABLE_SYMBOL, True)
     return True
+
 
 def trace_walker(module):
     """
@@ -239,6 +249,7 @@ def trace_walker(module):
             yield cls, accessor.fset
             yield cls, accessor.fdel
 
+
 def get_object_name(object):
     """
     Returns given object name.
@@ -257,6 +268,7 @@ def get_object_name(object):
         return object.__class__.__name__
     else:
         return NULL_OBJECT_NAME
+
 
 def get_trace_name(object):
     """
@@ -290,10 +302,11 @@ def get_trace_name(object):
         for (cls, member) in members:
             if object in (cls, untracer(member)):
                 TRACE_NAMES_CACHE[object] = trace_name = \
-                ".".join(map(get_object_name, filter(lambda x: x is not None, (module, cls, member))))
+                    ".".join(map(get_object_name, filter(lambda x: x is not None, (module, cls, member))))
                 break
 
     return trace_name
+
 
 def get_method_name(method):
     """
@@ -310,6 +323,7 @@ def get_method_name(method):
         name = "_{0}{1}".format(get_object_name(method.im_class), name)
     return name
 
+
 def is_static_method(method):
     """
     Returns if given method is a static method.
@@ -321,6 +335,7 @@ def is_static_method(method):
     """
 
     return type(method) is type(lambda x: None)
+
 
 def is_class_method(method):
     """
@@ -336,6 +351,7 @@ def is_class_method(method):
         return False
 
     return method.im_self is not None
+
 
 def format_argument(argumentValue):
     """
@@ -353,6 +369,7 @@ def format_argument(argumentValue):
     """
 
     return "{0}={1!r}".format(*argumentValue)
+
 
 def validate_tracer(*args):
     """
@@ -372,6 +389,7 @@ def validate_tracer(*args):
     set_traced(wrapped)
 
     return wrapped
+
 
 def tracer(object):
     """
@@ -405,17 +423,19 @@ def tracer(object):
         args_defaults = dict(zip(args_names[-len(function_defaults):], function_defaults))
 
         positional_args = map(format_argument, zip(args_names, args))
-        defaulted_args = [format_argument((name, args_defaults[name])) for name in args_names[len(args):] if name not in kwargs]
+        defaulted_args = [format_argument((name, args_defaults[name]))
+                          for name in args_names[len(args):] if name not in kwargs]
         nameless_args = map(repr, args[args_count:])
         keyword_args = map(format_argument, kwargs.items())
         sys.stdout.write("{0}({1})\n".format(get_trace_name(object),
-                                            ", ".join(itertools.chain(positional_args,
-                                                                    defaulted_args,
-                                                                    nameless_args,
-                                                                    keyword_args))))
+                                             ", ".join(itertools.chain(positional_args,
+                                                                       defaulted_args,
+                                                                       nameless_args,
+                                                                       keyword_args))))
         return object(*args, **kwargs)
 
     return tracer_wrapper
+
 
 def untracer(object):
     """
@@ -431,6 +451,7 @@ def untracer(object):
         return get_tracer_hook(object)
     return object
 
+
 def untracable(object):
     """
     Marks decorated object as non tracable.
@@ -442,7 +463,7 @@ def untracable(object):
     """
 
     @functools.wraps(object)
-    def untracableWrapper(*args, **kwargs):
+    def untracable_wrapper(*args, **kwargs):
         """
         Marks decorated object as non tracable.
 
@@ -456,9 +477,10 @@ def untracable(object):
 
         return object(*args, **kwargs)
 
-    set_untracable(untracableWrapper)
+    set_untracable(untracable_wrapper)
 
-    return untracableWrapper
+    return untracable_wrapper
+
 
 def trace_function(module, function, tracer=tracer):
     """
@@ -484,6 +506,7 @@ def trace_function(module, function, tracer=tracer):
     setattr(module, name, tracer(function))
     return True
 
+
 def untrace_function(module, function):
     """
     Untraces given module function.
@@ -502,6 +525,7 @@ def untrace_function(module, function):
     name = get_object_name(function)
     setattr(module, name, untracer(function))
     return True
+
 
 def trace_method(cls, method, tracer=tracer):
     """
@@ -532,6 +556,7 @@ def trace_method(cls, method, tracer=tracer):
         setattr(cls, name, tracer(method))
     return True
 
+
 def untrace_method(cls, method):
     """
     Untraces given class method.
@@ -556,6 +581,7 @@ def untrace_method(cls, method):
         setattr(cls, name, untracer(method))
     return True
 
+
 def trace_property(cls, accessor, tracer=tracer):
     """
     Traces given class property using given tracer.
@@ -579,6 +605,7 @@ def trace_property(cls, accessor, tracer=tracer):
                                 tracer(accessor.fdel)))
     return True
 
+
 def untrace_property(cls, accessor):
     """
     Untraces given class property.
@@ -599,6 +626,7 @@ def untrace_property(cls, accessor):
                                 untracer(accessor.fset),
                                 untracer(accessor.fdel)))
     return True
+
 
 def trace_class(cls, tracer=tracer, pattern=r".*", flags=0):
     """
@@ -641,6 +669,7 @@ def trace_class(cls, tracer=tracer, pattern=r".*", flags=0):
 
     return True
 
+
 def untrace_class(cls):
     """
     Untraces given class.
@@ -663,6 +692,7 @@ def untrace_class(cls):
     set_untraced(cls)
 
     return True
+
 
 def trace_module(module, tracer=tracer, pattern=r".*", flags=0):
     """
@@ -705,6 +735,7 @@ def trace_module(module, tracer=tracer, pattern=r".*", flags=0):
 
     return True
 
+
 def untrace_module(module):
     """
     Untraces given module members.
@@ -725,6 +756,7 @@ def untrace_module(module):
 
     return True
 
+
 def register_module(module=None):
     """
     Registers given module or caller introspected module in the candidates modules for tracing.
@@ -743,6 +775,7 @@ def register_module(module=None):
 
     REGISTERED_MODULES.add(module)
     return True
+
 
 def install_tracer(tracer=tracer, pattern=r".*", flags=0):
     """
@@ -765,6 +798,7 @@ def install_tracer(tracer=tracer, pattern=r".*", flags=0):
         trace_module(module, tracer)
     return True
 
+
 def uninstall_tracer(pattern=r".*", flags=0):
     """
     Installs the tracer in the candidates modules for tracing matching given pattern.
@@ -786,6 +820,7 @@ def uninstall_tracer(pattern=r".*", flags=0):
 
         untrace_module(module)
     return True
+
 
 def evaluate_trace_request(data, tracer=tracer):
     """

@@ -19,6 +19,7 @@ from __future__ import unicode_literals
 import logging
 import os
 import sys
+
 if sys.version_info[:2] <= (2, 6):
     import unittest2 as unittest
 else:
@@ -37,16 +38,17 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["TestStreamer",
-        "TestStandardOutputStreamer",
-        "TestIndentMessage",
-        "TestTracer",
-        "TestInstallLogger",
-        "TestUninstallLogger",
-        "TestGetLoggingConsoleHandler",
-        "TestGetLoggingFileHandler",
-        "TestGetLoggingStreamHandler",
-        "TestRemoveLoggingHandler",
-        "TestSetVerbosityLevel"]
+           "TestStandardOutputStreamer",
+           "TestIndentMessage",
+           "TestTracer",
+           "TestInstallLogger",
+           "TestUninstallLogger",
+           "TestGetLoggingConsoleHandler",
+           "TestGetLoggingFileHandler",
+           "TestGetLoggingStreamHandler",
+           "TestRemoveLoggingHandler",
+           "TestSetVerbosityLevel"]
+
 
 class TestStreamer(unittest.TestCase):
     """
@@ -74,6 +76,7 @@ class TestStreamer(unittest.TestCase):
         for method in required_methods:
             self.assertIn(method, dir(foundations.verbose.Streamer))
 
+
 class TestStandardOutputStreamer(unittest.TestCase):
     """
     Defines :class:`foundations.core.StandardOutputStreamer` class units tests methods.
@@ -99,6 +102,7 @@ class TestStandardOutputStreamer(unittest.TestCase):
         for method in required_methods:
             self.assertIn(method, dir(foundations.verbose.StandardOutputStreamer))
 
+
 class TestIndentMessage(unittest.TestCase):
     """
     Defines :func:`foundations.verbose.indent_message` definition units tests methods.
@@ -110,6 +114,7 @@ class TestIndentMessage(unittest.TestCase):
         """
 
         self.assertIsInstance(foundations.verbose.indent_message("message"), unicode)
+
 
 class TestTracer(unittest.TestCase):
     """
@@ -124,6 +129,7 @@ class TestTracer(unittest.TestCase):
         object = foundations.verbose.tracer(dummy1)
         self.assertTrue(foundations.trace.is_traced(object))
         self.assertEqual(object(), foundations.tests.tests_foundations.resources.dummy.GLOBAL_RETURN_VALUE)
+
 
 class TestInstallLogger(unittest.TestCase):
     """
@@ -141,6 +147,7 @@ class TestInstallLogger(unittest.TestCase):
         self.assertIsInstance(LOGGER, logging.Logger)
         foundations.verbose.uninstall_logger()
 
+
 class TestUninstallLogger(unittest.TestCase):
     """
     Defines :func:`foundations.verbose.uninstall_logger` definition units tests methods.
@@ -155,6 +162,7 @@ class TestUninstallLogger(unittest.TestCase):
         self.assertTrue(hasattr(sys.modules.get(__name__), "LOGGER"))
         foundations.verbose.uninstall_logger()
         self.assertTrue(not hasattr(sys.modules.get(__name__), "LOGGER"))
+
 
 class TestGetLoggingConsoleHandler(unittest.TestCase):
     """
@@ -173,6 +181,7 @@ class TestGetLoggingConsoleHandler(unittest.TestCase):
         del LOGGER.handlers[:]
         foundations.verbose.uninstall_logger()
 
+
 class TestGetLoggingFileHandler(unittest.TestCase):
     """
     Defines :func:`foundations.verbose.get_logging_file_handler` definition units tests methods.
@@ -186,7 +195,7 @@ class TestGetLoggingFileHandler(unittest.TestCase):
         foundations.verbose.install_logger()
         file_descriptor, path = tempfile.mkstemp()
         handler = foundations.verbose.get_logging_file_handler(file=path,
-                                                            formatter=foundations.verbose.LOGGING_STANDARD_FORMATTER)
+                                                               formatter=foundations.verbose.LOGGING_STANDARD_FORMATTER)
         self.assertIsInstance(handler, logging.Handler)
         self.assertIn(handler, LOGGER.handlers)
         message = "This is a test error message!"
@@ -197,6 +206,7 @@ class TestGetLoggingFileHandler(unittest.TestCase):
         del LOGGER.handlers[:]
         foundations.verbose.uninstall_logger()
         os.close(file_descriptor)
+
 
 class TestGetLoggingStreamHandler(unittest.TestCase):
     """
@@ -209,7 +219,8 @@ class TestGetLoggingStreamHandler(unittest.TestCase):
         """
 
         foundations.verbose.install_logger()
-        handler = foundations.verbose.get_logging_stream_handler(formatter=foundations.verbose.LOGGING_STANDARD_FORMATTER)
+        handler = foundations.verbose.get_logging_stream_handler(
+            formatter=foundations.verbose.LOGGING_STANDARD_FORMATTER)
         self.assertIsInstance(handler, logging.Handler)
         self.assertIn(handler, LOGGER.handlers)
         message = "This is a test error message!"
@@ -217,6 +228,7 @@ class TestGetLoggingStreamHandler(unittest.TestCase):
         self.assertEqual(message, handler.stream.stream.pop().strip())
         del LOGGER.handlers[:]
         foundations.verbose.uninstall_logger()
+
 
 class TestRemoveLoggingHandler(unittest.TestCase):
     """
@@ -234,6 +246,7 @@ class TestRemoveLoggingHandler(unittest.TestCase):
         self.assertListEqual(LOGGER.handlers, list())
         foundations.verbose.uninstall_logger()
 
+
 class TestSetVerbosityLevel(unittest.TestCase):
     """
     Defines :func:`foundations.verbose.set_verbosity_level` definition units tests methods.
@@ -245,11 +258,12 @@ class TestSetVerbosityLevel(unittest.TestCase):
         """
 
         foundations.verbose.install_logger()
-        levels = {logging.CRITICAL:0, logging.ERROR:1, logging.WARNING:2, logging.INFO:3, logging.DEBUG:4  }
+        levels = {logging.CRITICAL: 0, logging.ERROR: 1, logging.WARNING: 2, logging.INFO: 3, logging.DEBUG: 4}
         for level, value in levels.iteritems():
             foundations.verbose.set_verbosity_level(value)
             self.assertEqual(level, LOGGER.level)
         foundations.verbose.uninstall_logger()
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -36,6 +36,7 @@ __all__ = ["LOGGER", "Attribute", "AbstractNode", "AbstractCompositeNode"]
 
 LOGGER = foundations.verbose.install_logger()
 
+
 class Attribute(foundations.data_structures.Structure):
     """
     Defines a storage object for the :class:`AbstractNode` class attributes.
@@ -106,7 +107,7 @@ class Attribute(foundations.data_structures.Structure):
         """
 
         raise foundations.exceptions.ProgrammingError(
-        "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "name"))
+            "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "name"))
 
     @property
     def value(self):
@@ -138,7 +139,7 @@ class Attribute(foundations.data_structures.Structure):
         """
 
         raise foundations.exceptions.ProgrammingError(
-        "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "value"))
+            "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "value"))
 
     def __hash__(self):
         """
@@ -163,6 +164,7 @@ class Attribute(foundations.data_structures.Structure):
         """
 
         return "<{0} object at {1}>".format(self.__class__.__name__, hex(id(self)))
+
 
 class AbstractNode(foundations.data_structures.Structure):
     """
@@ -261,7 +263,7 @@ class AbstractNode(foundations.data_structures.Structure):
         """
 
         raise foundations.exceptions.ProgrammingError(
-        "{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "family"))
+            "{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "family"))
 
     @family.deleter
     @foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
@@ -271,7 +273,7 @@ class AbstractNode(foundations.data_structures.Structure):
         """
 
         raise foundations.exceptions.ProgrammingError(
-        "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "family"))
+            "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "family"))
 
     @property
     def nodes_instances(self):
@@ -295,7 +297,7 @@ class AbstractNode(foundations.data_structures.Structure):
         """
 
         raise foundations.exceptions.ProgrammingError(
-        "{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "nodes_instances"))
+            "{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "nodes_instances"))
 
     @nodes_instances.deleter
     @foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
@@ -305,7 +307,7 @@ class AbstractNode(foundations.data_structures.Structure):
         """
 
         raise foundations.exceptions.ProgrammingError(
-        "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "nodes_instances"))
+            "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "nodes_instances"))
 
     @property
     def identity(self):
@@ -329,7 +331,7 @@ class AbstractNode(foundations.data_structures.Structure):
         """
 
         raise foundations.exceptions.ProgrammingError(
-        "{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "identity"))
+            "{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "identity"))
 
     @identity.deleter
     @foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
@@ -339,7 +341,7 @@ class AbstractNode(foundations.data_structures.Structure):
         """
 
         raise foundations.exceptions.ProgrammingError(
-        "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "identity"))
+            "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "identity"))
 
     @property
     def name(self):
@@ -374,7 +376,7 @@ class AbstractNode(foundations.data_structures.Structure):
         """
 
         raise foundations.exceptions.ProgrammingError(
-        "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "name"))
+            "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "name"))
 
     def __repr__(self):
         """
@@ -509,7 +511,7 @@ class AbstractNode(foundations.data_structures.Structure):
 
         if not issubclass(value.__class__, Attribute):
             raise foundations.exceptions.NodeAttributeTypeError(
-            "Node attribute value must be a '{0}' class instance!".format(Attribute.__class__.__name__))
+                "Node attribute value must be a '{0}' class instance!".format(Attribute.__class__.__name__))
 
         if self.attribute_exists(name):
             raise foundations.exceptions.NodeAttributeExistsError("Node attribute '{0}' already exists!".format(name))
@@ -541,6 +543,7 @@ class AbstractNode(foundations.data_structures.Structure):
 
         del self[name]
         return True
+
 
 class AbstractCompositeNode(AbstractNode):
     """
@@ -605,7 +608,7 @@ class AbstractCompositeNode(AbstractNode):
 
         if value is not None:
             assert issubclass(value.__class__, AbstractNode), "'{0}' attribute: '{1}' is not a '{2}' subclass!".format(
-            "parent", value, AbstractNode.__class__.__name__)
+                "parent", value, AbstractNode.__class__.__name__)
         self.__parent = value
 
     @parent.deleter
@@ -616,7 +619,7 @@ class AbstractCompositeNode(AbstractNode):
         """
 
         raise foundations.exceptions.ProgrammingError(
-        "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "name"))
+            "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "name"))
 
     @property
     def children(self):
@@ -642,8 +645,9 @@ class AbstractCompositeNode(AbstractNode):
         if value is not None:
             assert type(value) is list, "'{0}' attribute: '{1}' type is not 'list'!".format("children", value)
             for element in value:
-                assert issubclass(element.__class__, AbstractNode), "'{0}' attribute: '{1}' is not a '{2}' subclass!".format(
-                "children", element, AbstractNode.__class__.__name__)
+                assert issubclass(element.__class__,
+                                  AbstractNode), "'{0}' attribute: '{1}' is not a '{2}' subclass!".format(
+                    "children", element, AbstractNode.__class__.__name__)
         self.__children = value
 
     @children.deleter
@@ -654,7 +658,7 @@ class AbstractCompositeNode(AbstractNode):
         """
 
         raise foundations.exceptions.ProgrammingError(
-        "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "children"))
+            "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "children"))
 
     def __eq__(self, object):
         """
@@ -880,7 +884,8 @@ class AbstractCompositeNode(AbstractNode):
                     sortable_children.append(child)
                 else:
                     unsortable_children.append(child)
-            sorted_children = sorted(sortable_children, key=lambda x: getattr(x, attribute).value, reverse=reverse_order or False)
+            sorted_children = sorted(sortable_children, key=lambda x: getattr(
+                x, attribute).value, reverse=reverse_order or False)
             sorted_children.extend(unsortable_children)
         else:
             sorted_children = sorted(self.children, key=lambda x: (x.name), reverse=reverse_order or False)
@@ -937,9 +942,10 @@ class AbstractCompositeNode(AbstractNode):
         :rtype: list
         """
 
-        return [node for node in foundations.walkers.nodes_walker(node or self) if re.search(pattern, node.family, flags)]
+        return [node for node in foundations.walkers.nodes_walker(node or self) if
+                re.search(pattern, node.family, flags)]
 
-    def list_node(self, tab_level= -1):
+    def list_node(self, tab_level=-1):
         """
         Lists the current Node and its children.
 

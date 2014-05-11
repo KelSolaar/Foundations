@@ -48,6 +48,7 @@ __all__ = ["LOGGER", "AttributeCompound", "SectionsFileParser", "PlistFileParser
 
 LOGGER = foundations.verbose.install_logger()
 
+
 class AttributeCompound(foundations.data_structures.Structure):
     """
     Defines a storage object for attributes compounds usually encountered in
@@ -80,6 +81,7 @@ class AttributeCompound(foundations.data_structures.Structure):
         LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
         foundations.data_structures.Structure.__init__(self, **kwargs)
+
 
 class SectionsFileParser(foundations.io.File):
     """
@@ -204,7 +206,8 @@ class SectionsFileParser(foundations.io.File):
             for element in value:
                 assert type(element) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
                     "splitters", element)
-                assert len(element) == 1, "'{0}' attribute: '{1}' has multiples characters!".format("splitter", element)
+                assert len(element) == 1, "'{0}' attribute: '{1}' has multiples characters!".format(
+                    "splitter", element)
                 assert not re.search(r"\w", element), "'{0}' attribute: '{1}' is an alphanumeric character!".format(
                     "splitter", element)
         self.__splitters = value
@@ -737,7 +740,7 @@ class SectionsFileParser(foundations.io.File):
                     comment = namespaces and foundations.namespace.set_namespace(section, "{0}{1}".format(
                         self.__comment_marker, commentId), self.__namespace_splitter) or \
                               "{0}{1}".format(self.__comment_marker, commentId)
-                    self.__comments[comment] = {"id": commentId, "content": strip_whitespaces and \
+                    self.__comments[comment] = {"id": commentId, "content": strip_whitespaces and
                                                                             search.group(
                                                                                 "comment").strip() or search.group(
                         "comment")}
@@ -850,7 +853,7 @@ class SectionsFileParser(foundations.io.File):
         """
 
         if foundations.namespace.remove_namespace(attribute, root_only=True) in self.get_attributes(section,
-                                                                                                 strip_namespaces=True):
+                                                                                                    strip_namespaces=True):
             LOGGER.debug("> '{0}' attribute exists in '{1}' section.".format(attribute, section))
             return True
         else:
@@ -1037,10 +1040,10 @@ class SectionsFileParser(foundations.io.File):
 
         LOGGER.debug("> Setting '{0}' file content.".format(self.path))
         attribute_template = "{{0}} {0} {{1}}\n".format(splitter) if spaces_around_splitter else \
-                            "{{0}}{0}{{1}}\n".format(splitter)
-        attribute_template = foundations.strings.replace(attribute_template, {"{{" : "{", "}}" : "}"})
+            "{{0}}{0}{{1}}\n".format(splitter)
+        attribute_template = foundations.strings.replace(attribute_template, {"{{": "{", "}}": "}"})
         comment_template = space_after_comment_limiter and "{0} {{0}}\n".format(comment_limiter) or \
-                          "{0}{{0}}\n".format(comment_limiter)
+                           "{0}{{0}}\n".format(comment_limiter)
         if self.__defaults_section in self.__sections:
             LOGGER.debug("> Appending '{0}' default section.".format(self.__defaults_section))
             if self.__comments:
@@ -1051,8 +1054,8 @@ class SectionsFileParser(foundations.io.File):
                         self.content.append(comment_template.format(value))
             for attribute, value in self.__sections[self.__defaults_section].iteritems():
                 attribute = namespaces and attribute or foundations.namespace.remove_namespace(attribute,
-                                                                                              self.__namespace_splitter,
-                                                                                              root_only=True)
+                                                                                               self.__namespace_splitter,
+                                                                                               root_only=True)
                 value = value or ""
                 LOGGER.debug("> Appending '{0}' attribute with '{1}' value.".format(attribute, value))
                 self.content.append(attribute_template.format(attribute, value))
@@ -1075,8 +1078,8 @@ class SectionsFileParser(foundations.io.File):
                 else:
                     LOGGER.debug("> Appending '{0}' section.".format(section))
                     attribute = namespaces and attribute or foundations.namespace.remove_namespace(attribute,
-                                                                                                  self.__namespace_splitter,
-                                                                                                  root_only=True)
+                                                                                                   self.__namespace_splitter,
+                                                                                                   root_only=True)
                     value = value or ""
                     LOGGER.debug("> Appending '{0}' attribute with '{1}' value.".format(attribute, value))
                     self.content.append(attribute_template.format(attribute, value))
@@ -1084,6 +1087,7 @@ class SectionsFileParser(foundations.io.File):
                 self.content.append("\n")
         foundations.io.File.write(self)
         return True
+
 
 class PlistFileParser(foundations.io.File):
     """
@@ -1368,6 +1372,7 @@ class PlistFileParser(foundations.io.File):
 
         values = self.filter_values(r"^{0}$".format(element))
         return foundations.common.get_first_item(values)
+
 
 def get_attribute_compound(attribute, value=None, splitter="|", binding_identifier="@"):
     """

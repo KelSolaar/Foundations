@@ -30,6 +30,7 @@ __status__ = "Production"
 
 __all__ = ["Constants"]
 
+
 class Constants():
     """
     Defines **Foundations** package default constants.

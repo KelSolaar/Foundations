@@ -20,6 +20,7 @@ import os
 import shutil
 import tempfile
 import sys
+
 if sys.version_info[:2] <= (2, 6):
     import unittest2 as unittest
 else:
@@ -40,6 +41,7 @@ RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
 TEST_FILE = os.path.join(RESOURCES_DIRECTORY, "standard.ibl")
 TEST_DIRECTORY = os.path.join(RESOURCES_DIRECTORY, "standard")
 
+
 class TestRotatingBackup(unittest.TestCase):
     """
     Defines :class:`foundations.rotating_backup.RotatingBackup` class units tests methods.
@@ -51,8 +53,8 @@ class TestRotatingBackup(unittest.TestCase):
         """
 
         required_attributes = ("source",
-                            "destination",
-                            "count")
+                               "destination",
+                               "count")
 
         for attribute in required_attributes:
             self.assertIn(attribute, dir(RotatingBackup))
@@ -78,11 +80,14 @@ class TestRotatingBackup(unittest.TestCase):
         self.assertTrue(os.path.exists(os.path.join(temp_directory, os.path.basename(TEST_FILE))))
         for i in range(1, 4):
             rotating_backup.backup()
-            self.assertTrue(os.path.exists(os.path.join(temp_directory, os.path.basename("{0}.{1}".format(TEST_FILE, i)))))
+            self.assertTrue(
+                os.path.exists(os.path.join(temp_directory, os.path.basename("{0}.{1}".format(TEST_FILE, i)))))
         rotating_backup.backup()
         self.assertFalse(os.path.exists(os.path.join(temp_directory, os.path.basename("{0}.4".format(TEST_FILE)))))
         shutil.rmtree(temp_directory)
 
+
 if __name__ == "__main__":
     import foundations.tests.utilities
+
     unittest.main()

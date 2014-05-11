@@ -18,6 +18,7 @@ from __future__ import unicode_literals
 
 import pickle
 import sys
+
 if sys.version_info[:2] <= (2, 6):
     import unittest2 as unittest
 else:
@@ -33,9 +34,10 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["TestNestedAttribute",
-            "TestStructure",
-            "TestOrderedStructure",
-            "TestLookup"]
+           "TestStructure",
+           "TestOrderedStructure",
+           "TestLookup"]
+
 
 class TestNestedAttribute(unittest.TestCase):
     """
@@ -51,6 +53,7 @@ class TestNestedAttribute(unittest.TestCase):
         nest.my.deeply.nested.attribute = 64
         self.assertTrue(hasattr(nest, "nest.my.deeply.nested.attribute"))
         self.assertEqual(nest.my.deeply.nested.attribute, 64)
+
 
 class TestStructure(unittest.TestCase):
     """
@@ -69,19 +72,19 @@ class TestStructure(unittest.TestCase):
         self.assertEqual(structure["John"], "Nemo")
         structure["John"] = "Vador"
         self.assertEqual(structure["John"], "Vador")
-        del(structure["John"])
+        del (structure["John"])
         self.assertNotIn("John", structure)
         self.assertFalse(hasattr(structure, "John"))
         structure.John = "Doe"
         self.assertIn("John", structure)
         self.assertTrue(hasattr(structure, "John"))
-        del(structure.John)
+        del (structure.John)
         self.assertNotIn("John", structure)
         self.assertFalse(hasattr(structure, "John"))
         structure = foundations.data_structures.Structure(John=None, Jane=None)
         self.assertIsNone(structure.John)
         self.assertIsNone(structure["John"])
-        structure.update(**{"John" : "Doe", "Jane" : "Doe"})
+        structure.update(**{"John": "Doe", "Jane": "Doe"})
         self.assertEqual(structure.John, "Doe")
         self.assertEqual(structure["John"], "Doe")
 
@@ -100,6 +103,7 @@ class TestStructure(unittest.TestCase):
         data = pickle.loads(data)
         self.assertEqual(structure, data)
 
+
 class TestOrderedStructure(unittest.TestCase):
     """
     Defines :class:`foundations.data_structures.OrderedStructure` class units tests methods.
@@ -111,8 +115,8 @@ class TestOrderedStructure(unittest.TestCase):
         """
 
         structure = foundations.data_structures.OrderedStructure([("personA", "John"),
-                                                                ("personB", "Jane"),
-                                                                ("personC", "Luke")])
+                                                                  ("personB", "Jane"),
+                                                                  ("personC", "Luke")])
         self.assertIn("personA", structure)
         self.assertTrue(hasattr(structure, "personA"))
         self.assertListEqual(["personA", "personB", "personC"], structure.keys())
@@ -120,10 +124,11 @@ class TestOrderedStructure(unittest.TestCase):
         self.assertEquals("Anakin", structure.personA)
         structure.personA = "John"
         self.assertEquals("John", structure["personA"])
-        del(structure.personA)
+        del (structure.personA)
         self.assertTrue("personA" not in structure)
-        del(structure["personB"])
+        del (structure["personB"])
         self.assertTrue(not hasattr(structure, "personB"))
+
 
 class TestLookup(unittest.TestCase):
     """
@@ -145,6 +150,7 @@ class TestLookup(unittest.TestCase):
 
         lookup = foundations.data_structures.Lookup(John="Doe", Jane="Doe", Luke="Skywalker")
         self.assertListEqual(["Jane", "John"], lookup.get_keys_from_value("Doe"))
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -35,6 +35,7 @@ __all__ = ["LOGGER", "Pkzip"]
 
 LOGGER = foundations.verbose.install_logger()
 
+
 class Pkzip(object):
     """
     Defines methods to manipulate zip files.
@@ -100,8 +101,8 @@ class Pkzip(object):
             "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "archive"))
 
     @foundations.exceptions.handle_exceptions(foundations.exceptions.DirectoryExistsError,
-                                             foundations.exceptions.FileExistsError,
-                                             zipfile.BadZipfile)
+                                              foundations.exceptions.FileExistsError,
+                                              zipfile.BadZipfile)
     def extract(self, target):
         """
         Extracts the archive file to given directory.

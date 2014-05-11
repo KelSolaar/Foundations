@@ -65,6 +65,7 @@ FILE_CONTENT = [
     "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\n",
     "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n"]
 
+
 class TestFile(unittest.TestCase):
     """
     Defines :class:`foundations.io.File` class units tests methods.
@@ -76,7 +77,7 @@ class TestFile(unittest.TestCase):
         """
 
         required_attributes = ("path",
-                              "content")
+                               "content")
 
         for attribute in required_attributes:
             self.assertIn(attribute, dir(File))
@@ -87,11 +88,11 @@ class TestFile(unittest.TestCase):
         """
 
         required_methods = ("cache",
-                           "uncache",
-                           "read",
-                           "write",
-                           "append",
-                           "clear")
+                            "uncache",
+                            "read",
+                            "write",
+                            "append",
+                            "clear")
 
         for method in required_methods:
             self.assertIn(method, dir(File))
@@ -176,6 +177,7 @@ class TestFile(unittest.TestCase):
         self.assertListEqual(io_file.content, [])
         os.close(file_descriptor)
 
+
 class TestSetDirectory(unittest.TestCase):
     """
     Defines :func:`foundations.io.set_directory` definition units tests methods.
@@ -193,6 +195,7 @@ class TestSetDirectory(unittest.TestCase):
         self.assertTrue(os.path.exists(directory))
         shutil.rmtree(temp_directory)
 
+
 class TestCopy(unittest.TestCase):
     """
     Defines :func:`foundations.io.copy` definition units tests methods.
@@ -208,6 +211,7 @@ class TestCopy(unittest.TestCase):
         foundations.io.copy(TEXT_FILE, destination)
         self.assertTrue(os.path.exists(destination))
         shutil.rmtree(temp_directory)
+
 
 class TestRemove(unittest.TestCase):
     """
@@ -226,6 +230,7 @@ class TestRemove(unittest.TestCase):
         self.assertTrue(not os.path.exists(destination))
         shutil.rmtree(temp_directory)
 
+
 class TestIsReadable(unittest.TestCase):
     """
     Defines :func:`foundations.io.is_readable` definition units tests methods.
@@ -243,6 +248,7 @@ class TestIsReadable(unittest.TestCase):
         os.chmod(temp_directory, stat.S_IREAD)
         shutil.rmtree(temp_directory)
 
+
 class TestIsWritable(unittest.TestCase):
     """
     Defines :func:`foundations.io.is_writable` definition units tests methods.
@@ -259,6 +265,7 @@ class TestIsWritable(unittest.TestCase):
         self.assertFalse(foundations.io.is_writable(temp_directory))
         shutil.rmtree(temp_directory)
 
+
 class TestIsBinaryFile(unittest.TestCase):
     """
     Defines :func:`foundations.io.is_binary_file` definition units tests methods.
@@ -271,6 +278,7 @@ class TestIsBinaryFile(unittest.TestCase):
 
         self.assertTrue(foundations.io.is_binary_file(LIBRARY))
         self.assertFalse(foundations.io.is_binary_file(TEXT_FILE))
+
 
 if __name__ == "__main__":
     import foundations.tests.utilities

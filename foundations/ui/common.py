@@ -38,6 +38,7 @@ LOGGER = foundations.verbose.install_logger()
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
 DEFAULT_UI_FILE = os.path.join(RESOURCES_DIRECTORY, "QWidget.ui")
 
+
 def center_widget_on_screen(widget, screen=None):
     """
     Centers given Widget on the screen.
@@ -55,6 +56,7 @@ def center_widget_on_screen(widget, screen=None):
     desktop_height = QApplication.desktop().screenGeometry(screen).height()
     widget.move(desktop_width / 2 - widget.sizeHint().width() / 2, desktop_height / 2 - widget.sizeHint().height() / 2)
     return True
+
 
 def QWidget_factory(ui_file=None, *args, **kwargs):
     """
@@ -78,6 +80,7 @@ def QWidget_factory(ui_file=None, *args, **kwargs):
     Form, Base = uic.loadUiType(file)
 
     class QWidget(Form, Base):
+
         """
         Derives from :def:`QWidget_factory` class factory definition.
         """
@@ -124,7 +127,7 @@ def QWidget_factory(ui_file=None, *args, **kwargs):
             """
 
             raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is read only!".format(
-            self.__class__.__name__, "ui_file"))
+                self.__class__.__name__, "ui_file"))
 
         @ui_file.deleter
         @foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
@@ -134,7 +137,7 @@ def QWidget_factory(ui_file=None, *args, **kwargs):
             """
 
             raise foundations.exceptions.ProgrammingError("{0} | '{1}' attribute is not deletable!".format(
-            self.__class__.__name__, "ui_file"))
+                self.__class__.__name__, "ui_file"))
 
         def show(self, setGeometry=True):
             """

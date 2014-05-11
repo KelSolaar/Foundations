@@ -35,37 +35,38 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["LOGGER",
-        "CONNECTION_IPS",
-        "DEFAULT_HOST_IP",
-        "wait",
-        "uniqify",
-        "unpack_default",
-        "ordered_uniqify",
-        "path_exists",
-        "filter_path",
-        "get_first_item",
-        "get_last_item",
-        "repeat",
-        "dependency_resolver",
-        "is_internet_available",
-        "get_host_address"]
+           "CONNECTION_IPS",
+           "DEFAULT_HOST_IP",
+           "wait",
+           "uniqify",
+           "unpack_default",
+           "ordered_uniqify",
+           "path_exists",
+           "filter_path",
+           "get_first_item",
+           "get_last_item",
+           "repeat",
+           "dependency_resolver",
+           "is_internet_available",
+           "get_host_address"]
 
 LOGGER = foundations.verbose.install_logger()
 
 CONNECTION_IPS = ["173.194.34.36",  # http://www.google.com
-                "173.194.34.55",  # http://www.google.co.uk
-                "65.55.206.154",  # http://www.live.com
-                "173.252.110.27",  # http://www.facebook.com
-                "199.16.156.230",  # http://www.twitter.com
-                "98.139.183.24",  # http://www.yahoo.com
-                "77.238.178.122",  # http://www.yahoo.co.uk
-                "198.252.206.16",  # http://www.stackoverflow.com
-                "82.94.164.162",  # http://www.python.org
-                "65.196.127.226",  # http://www.nsa.gov :D
-                "www.google.com",
-                "www.facebook.com",
-                "www.twitter.com"]
+                  "173.194.34.55",  # http://www.google.co.uk
+                  "65.55.206.154",  # http://www.live.com
+                  "173.252.110.27",  # http://www.facebook.com
+                  "199.16.156.230",  # http://www.twitter.com
+                  "98.139.183.24",  # http://www.yahoo.com
+                  "77.238.178.122",  # http://www.yahoo.co.uk
+                  "198.252.206.16",  # http://www.stackoverflow.com
+                  "82.94.164.162",  # http://www.python.org
+                  "65.196.127.226",  # http://www.nsa.gov :D
+                  "www.google.com",
+                  "www.facebook.com",
+                  "www.twitter.com"]
 DEFAULT_HOST_IP = "127.0.0.1"
+
 
 def uniqify(sequence):
     """
@@ -81,6 +82,7 @@ def uniqify(sequence):
 
     return [key for key, group in itertools.groupby(sorted(sequence))]
 
+
 def ordered_uniqify(sequence):
     """
     Uniqifies the given hashable sequence while preserving its order.
@@ -93,6 +95,7 @@ def ordered_uniqify(sequence):
 
     items = set()
     return [key for key in sequence if key not in items and not items.add(key)]
+
 
 def unpack_default(iterable, length=3, default=None):
     """
@@ -110,6 +113,7 @@ def unpack_default(iterable, length=3, default=None):
 
     return itertools.islice(itertools.chain(iter(iterable), itertools.repeat(default)), length)
 
+
 def path_exists(path):
     """
     Returns if given path exists.
@@ -125,6 +129,7 @@ def path_exists(path):
     else:
         return os.path.exists(path)
 
+
 def filter_path(path):
     """
     Filters given path.
@@ -136,6 +141,7 @@ def filter_path(path):
     """
 
     return path if path_exists(path) else ""
+
 
 def get_first_item(iterable, default=None):
     """
@@ -155,6 +161,7 @@ def get_first_item(iterable, default=None):
     for item in iterable:
         return item
 
+
 def get_last_item(iterable, default=None):
     """
     Returns the last item of given iterable.
@@ -172,6 +179,7 @@ def get_last_item(iterable, default=None):
 
     return iterable[-1]
 
+
 def repeat(object, iterations=1):
     """
     Repeats given object iterations times.
@@ -185,6 +193,7 @@ def repeat(object, iterations=1):
     """
 
     return [object() for i in range(iterations)]
+
 
 def dependency_resolver(dependencies):
     """
@@ -204,6 +213,7 @@ def dependency_resolver(dependencies):
         resolved_dependencies.append(batch)
         items = dict(((key, value - batch) for key, value in items.items() if value))
     return resolved_dependencies
+
 
 def is_internet_available(ips=CONNECTION_IPS, timeout=1.0):
     """
@@ -227,6 +237,7 @@ def is_internet_available(ips=CONNECTION_IPS, timeout=1.0):
             continue
     return False
 
+
 def get_host_address(host=None, default_address=DEFAULT_HOST_IP):
     """
     Returns the given host address.
@@ -241,7 +252,7 @@ def get_host_address(host=None, default_address=DEFAULT_HOST_IP):
 
     try:
         return unicode(socket.gethostbyname(host or socket.gethostname()),
-                    Constants.default_codec,
-                    Constants.codec_error)
+                       Constants.default_codec,
+                       Constants.codec_error)
     except Exception as error:
         return default_address

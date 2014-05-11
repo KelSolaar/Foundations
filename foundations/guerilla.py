@@ -27,6 +27,7 @@ __status__ = "Production"
 
 __all__ = ["LOGGER", "attribute_warfare", "base_warfare"]
 
+
 def attribute_warfare(object):
     """
     Alterates object attributes using guerilla / monkey patching.
@@ -51,6 +52,7 @@ def attribute_warfare(object):
         return attribute
 
     return attribute_warfare_wrapper
+
 
 def base_warfare(name, bases, attributes):
     """

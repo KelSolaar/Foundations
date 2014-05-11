@@ -101,91 +101,91 @@ STANDARD_FILES_SECTIONS_AND_ATTRIBUTES = {"component": OrderedDict([("Component"
                                                                                      "Informations|Url",
                                                                                      "Informations|Description"]})]),
                                           "ibl_set": OrderedDict([("Header",
-                                                                  {"stripped": ["ICOfile",
-                                                                                "Name",
-                                                                                "Author",
-                                                                                "Location",
-                                                                                "Comment",
-                                                                                "GEOlat",
-                                                                                "GEOlong",
-                                                                                "Link",
-                                                                                "Date",
-                                                                                "Time",
-                                                                                "Height",
-                                                                                "North"],
-                                                                   "namespaced": ["Header|ICOfile",
-                                                                                  "Header|Name",
-                                                                                  "Header|Author",
-                                                                                  "Header|Location",
-                                                                                  "Header|Comment",
-                                                                                  "Header|GEOlat",
-                                                                                  "Header|GEOlong",
-                                                                                  "Header|Link",
-                                                                                  "Header|Date",
-                                                                                  "Header|Time",
-                                                                                  "Header|Height",
-                                                                                  "Header|North"]}),
-                                                                 ("Background",
-                                                                  {"stripped": ["BGfile",
-                                                                                "BGmap",
-                                                                                "BGu",
-                                                                                "BGv",
-                                                                                "BGheight"],
-                                                                   "namespaced": ["Background|BGfile",
-                                                                                  "Background|BGmap",
-                                                                                  "Background|BGu",
-                                                                                  "Background|BGv",
-                                                                                  "Background|BGheight"]}),
-                                                                 ("Enviroment",
-                                                                  {"stripped": ["EVfile",
-                                                                                "EVmap",
-                                                                                "EVu",
-                                                                                "EVv",
-                                                                                "EVheight",
-                                                                                "EVmulti",
-                                                                                "EVgamma"],
-                                                                   "namespaced": ["Enviroment|EVfile",
-                                                                                  "Enviroment|EVmap",
-                                                                                  "Enviroment|EVu",
-                                                                                  "Enviroment|EVv",
-                                                                                  "Enviroment|EVheight",
-                                                                                  "Enviroment|EVmulti",
-                                                                                  "Enviroment|EVgamma"]}),
-                                                                 ("Reflection",
-                                                                  {"stripped": ["REFfile",
-                                                                                "REFmap",
-                                                                                "REFu",
-                                                                                "REFv",
-                                                                                "REFheight",
-                                                                                "REFmulti",
-                                                                                "REFgamma"],
-                                                                   "namespaced": ["Reflection|REFfile",
-                                                                                  "Reflection|REFmap",
-                                                                                  "Reflection|REFu",
-                                                                                  "Reflection|REFv",
-                                                                                  "Reflection|REFheight",
-                                                                                  "Reflection|REFmulti",
-                                                                                  "Reflection|REFgamma"]}),
-                                                                 ("Sun",
-                                                                  {"stripped": ["SUNcolor",
-                                                                                "SUNmulti",
-                                                                                "SUNu",
-                                                                                "SUNv"],
-                                                                   "namespaced": ["Sun|SUNcolor",
-                                                                                  "Sun|SUNmulti",
-                                                                                  "Sun|SUNu",
-                                                                                  "Sun|SUNv"]}),
-                                                                 ("Light1",
-                                                                  {"stripped": ["LIGHTname",
-                                                                                "LIGHTcolor",
-                                                                                "LIGHTmulti",
-                                                                                "LIGHTu",
-                                                                                "LIGHTv"],
-                                                                   "namespaced": ["Light1|LIGHTname",
-                                                                                  "Light1|LIGHTcolor",
-                                                                                  "Light1|LIGHTmulti",
-                                                                                  "Light1|LIGHTu",
-                                                                                  "Light1|LIGHTv"]})]),
+                                                                   {"stripped": ["ICOfile",
+                                                                                 "Name",
+                                                                                 "Author",
+                                                                                 "Location",
+                                                                                 "Comment",
+                                                                                 "GEOlat",
+                                                                                 "GEOlong",
+                                                                                 "Link",
+                                                                                 "Date",
+                                                                                 "Time",
+                                                                                 "Height",
+                                                                                 "North"],
+                                                                    "namespaced": ["Header|ICOfile",
+                                                                                   "Header|Name",
+                                                                                   "Header|Author",
+                                                                                   "Header|Location",
+                                                                                   "Header|Comment",
+                                                                                   "Header|GEOlat",
+                                                                                   "Header|GEOlong",
+                                                                                   "Header|Link",
+                                                                                   "Header|Date",
+                                                                                   "Header|Time",
+                                                                                   "Header|Height",
+                                                                                   "Header|North"]}),
+                                                                  ("Background",
+                                                                   {"stripped": ["BGfile",
+                                                                                 "BGmap",
+                                                                                 "BGu",
+                                                                                 "BGv",
+                                                                                 "BGheight"],
+                                                                    "namespaced": ["Background|BGfile",
+                                                                                   "Background|BGmap",
+                                                                                   "Background|BGu",
+                                                                                   "Background|BGv",
+                                                                                   "Background|BGheight"]}),
+                                                                  ("Enviroment",
+                                                                   {"stripped": ["EVfile",
+                                                                                 "EVmap",
+                                                                                 "EVu",
+                                                                                 "EVv",
+                                                                                 "EVheight",
+                                                                                 "EVmulti",
+                                                                                 "EVgamma"],
+                                                                    "namespaced": ["Enviroment|EVfile",
+                                                                                   "Enviroment|EVmap",
+                                                                                   "Enviroment|EVu",
+                                                                                   "Enviroment|EVv",
+                                                                                   "Enviroment|EVheight",
+                                                                                   "Enviroment|EVmulti",
+                                                                                   "Enviroment|EVgamma"]}),
+                                                                  ("Reflection",
+                                                                   {"stripped": ["REFfile",
+                                                                                 "REFmap",
+                                                                                 "REFu",
+                                                                                 "REFv",
+                                                                                 "REFheight",
+                                                                                 "REFmulti",
+                                                                                 "REFgamma"],
+                                                                    "namespaced": ["Reflection|REFfile",
+                                                                                   "Reflection|REFmap",
+                                                                                   "Reflection|REFu",
+                                                                                   "Reflection|REFv",
+                                                                                   "Reflection|REFheight",
+                                                                                   "Reflection|REFmulti",
+                                                                                   "Reflection|REFgamma"]}),
+                                                                  ("Sun",
+                                                                   {"stripped": ["SUNcolor",
+                                                                                 "SUNmulti",
+                                                                                 "SUNu",
+                                                                                 "SUNv"],
+                                                                    "namespaced": ["Sun|SUNcolor",
+                                                                                   "Sun|SUNmulti",
+                                                                                   "Sun|SUNu",
+                                                                                   "Sun|SUNv"]}),
+                                                                  ("Light1",
+                                                                   {"stripped": ["LIGHTname",
+                                                                                 "LIGHTcolor",
+                                                                                 "LIGHTmulti",
+                                                                                 "LIGHTu",
+                                                                                 "LIGHTv"],
+                                                                    "namespaced": ["Light1|LIGHTname",
+                                                                                   "Light1|LIGHTcolor",
+                                                                                   "Light1|LIGHTmulti",
+                                                                                   "Light1|LIGHTu",
+                                                                                   "Light1|LIGHTv"]})]),
                                           "template": OrderedDict([("Template",
                                                                     {"stripped": ["Name",
                                                                                   "Path",
@@ -317,18 +317,18 @@ RANDOM_ATTRIBUTES = {"component": {"Component|Name": "core.database",
                                    "Informations|Author": "Thomas Mansencal",
                                    "Informations|Email": "thomas.mansencal@gmail.com"},
                      "ibl_set": {"Header|ICOfile": "Icon.jpg",
-                                "Header|Name": "Standard",
-                                "Header|Comment": "Testing Foundations with units tests = fun!",
-                                "Background|BGfile": "Standard_Background.jpg",
-                                "Background|BGmap": "1",
-                                "Enviroment|EVfile": "Standard_Lighting.jpg",
-                                "Enviroment|EVmap": "1",
-                                "Reflection|REFfile": "Standard_Reflection.jpg",
-                                "Reflection|REFmap": "1",
-                                "Sun|SUNcolor": "240,250,255",
-                                "Sun|SUNmulti": "1.0",
-                                "Light1|LIGHTcolor": "250,220,190",
-                                "Light1|LIGHTmulti": "0.75"},
+                                 "Header|Name": "Standard",
+                                 "Header|Comment": "Testing Foundations with units tests = fun!",
+                                 "Background|BGfile": "Standard_Background.jpg",
+                                 "Background|BGmap": "1",
+                                 "Enviroment|EVfile": "Standard_Lighting.jpg",
+                                 "Enviroment|EVmap": "1",
+                                 "Reflection|REFfile": "Standard_Reflection.jpg",
+                                 "Reflection|REFmap": "1",
+                                 "Sun|SUNcolor": "240,250,255",
+                                 "Sun|SUNmulti": "1.0",
+                                 "Light1|LIGHTcolor": "250,220,190",
+                                 "Light1|LIGHTmulti": "0.75"},
                      "template": {"Template|Name": "@Name | Standard | String | Template Name",
                                   "Template|Path": "@Path | | String | Template Path",
                                   "sIBL File Attributes|Background|BGfile": "@BGfile",
@@ -346,7 +346,7 @@ RANDOM_ATTRIBUTES = {"component": {"Component|Name": "core.database",
 RANDOM_COMMENTS = {"component": {"Component|#0": {"content": "Component comment for tests purpose.", "id": 0},
                                  "Informations|#1": {"content": "Informations comment for tests purpose.", "id": 1}},
                    "ibl_set": {"Header|#0": {"content": "Header comment for tests purpose.", "id": 0},
-                              "Header|#1": {"content": "Additional header comment for tests purpose.", "id": 1}},
+                               "Header|#1": {"content": "Additional header comment for tests purpose.", "id": 1}},
                    "template": {"Template|#0": {"content": "Template comment for tests purpose.", "id": 0},
                                 "sIBL File Attributes|#1": {"content":
                                                                 "sIBL File Attributes comment for tests purpose.",
@@ -377,6 +377,7 @@ PLIST_FILE_CONTENT = {"Dictionary A": {"String C": "My Value C", "String B": "My
                       "Boolean A": True,
                       "Data A": "My Value B"}
 
+
 class TestSectionsFileParser(unittest.TestCase):
     """
     Defines :class:`foundations.parsers.SectionsFileParser` class units tests methods.
@@ -388,18 +389,18 @@ class TestSectionsFileParser(unittest.TestCase):
         """
 
         required_attributes = ("path",
-                              "content",
-                              "splitters",
-                              "namespace_splitter",
-                              "comment_limiters",
-                              "comment_marker",
-                              "quotation_markers",
-                              "raw_section_content_identifier",
-                              "defaults_section",
-                              "sections",
-                              "comments",
-                              "parsing_errors",
-                              "preserve_order")
+                               "content",
+                               "splitters",
+                               "namespace_splitter",
+                               "comment_limiters",
+                               "comment_marker",
+                               "quotation_markers",
+                               "raw_section_content_identifier",
+                               "defaults_section",
+                               "sections",
+                               "comments",
+                               "parsing_errors",
+                               "preserve_order")
 
         for attribute in required_attributes:
             self.assertIn(attribute, dir(SectionsFileParser))
@@ -410,13 +411,13 @@ class TestSectionsFileParser(unittest.TestCase):
         """
 
         required_methods = ("parse",
-                           "section_exists",
-                           "attribute_exists",
-                           "get_attributes",
-                           "get_all_attributes",
-                           "get_value",
-                           "set_value",
-                           "write")
+                            "section_exists",
+                            "attribute_exists",
+                            "get_attributes",
+                            "get_all_attributes",
+                            "get_value",
+                            "set_value",
+                            "write")
 
         for method in required_methods:
             self.assertIn(method, dir(SectionsFileParser))
@@ -429,7 +430,7 @@ class TestSectionsFileParser(unittest.TestCase):
         sections_file_parser = SectionsFileParser(IBL_SET_FILE)
         sections_file_parser.parse()
         self.assertListEqual(sections_file_parser["Header"].keys(),
-                            STANDARD_FILES_SECTIONS_AND_ATTRIBUTES.get("ibl_set").get("Header").get("namespaced"))
+                             STANDARD_FILES_SECTIONS_AND_ATTRIBUTES.get("ibl_set").get("Header").get("namespaced"))
 
     def test__setitem__(self):
         """
@@ -437,7 +438,7 @@ class TestSectionsFileParser(unittest.TestCase):
         """
 
         sections_file_parser = SectionsFileParser()
-        section = {"Attribute A" : "Value A"}
+        section = {"Attribute A": "Value A"}
         sections_file_parser["Header"] = section
         self.assertEqual(sections_file_parser["Header"], sections_file_parser.sections["Header"])
 
@@ -500,7 +501,7 @@ class TestSectionsFileParser(unittest.TestCase):
         sections_file_parser.parse()
         for attribute, value in CHINESE_IBL_SET_FILE_RANDOM_ATTRIBUTES.iteritems():
             self.assertEqual(value, sections_file_parser.get_value(foundations.namespace.get_leaf(attribute),
-                                                                foundations.namespace.get_root(attribute)))
+                                                                   foundations.namespace.get_root(attribute)))
 
     def test_sections(self):
         """
@@ -558,7 +559,7 @@ class TestSectionsFileParser(unittest.TestCase):
         for type, file in STANDARD_FILES.iteritems():
             sections_file_parser = SectionsFileParser(file)
             sections_file_parser.parse(raw_sections=STANDARD_FILES_RAW_SECTIONS[type],
-                                                                   namespaces=False)
+                                       namespaces=False)
             for section in STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type]:
                 for attribute in sections_file_parser.sections[section]:
                     self.assertIn(attribute, STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type][section]["stripped"])
@@ -608,7 +609,8 @@ class TestSectionsFileParser(unittest.TestCase):
         for type, file in STANDARD_FILES.iteritems():
             sections_file_parser = SectionsFileParser(file)
             sections_file_parser.parse(raw_sections=STANDARD_FILES_RAW_SECTIONS[type])
-            self.assertTrue(sections_file_parser.section_exists(STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type].keys()[0]))
+            self.assertTrue(sections_file_parser.section_exists(
+                STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type].keys()[0]))
             self.assertFalse(sections_file_parser.section_exists("Unknown"))
 
     def test_attribute_exists(self):
@@ -622,10 +624,10 @@ class TestSectionsFileParser(unittest.TestCase):
             for attribute in RANDOM_ATTRIBUTES[type]:
                 self.assertTrue(
                     sections_file_parser.attribute_exists(attribute, foundations.namespace.get_namespace(attribute,
-                                                                                                     root_only=True)))
+                                                                                                         root_only=True)))
                 self.assertFalse(
                     sections_file_parser.attribute_exists("Unknown", foundations.namespace.get_namespace(attribute,
-                                                                                                     root_only=True)))
+                                                                                                         root_only=True)))
 
     def test_get_attributes(self):
         """
@@ -637,7 +639,7 @@ class TestSectionsFileParser(unittest.TestCase):
             sections_file_parser.parse(raw_sections=STANDARD_FILES_RAW_SECTIONS[type])
             for section in STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type]:
                 self.assertListEqual(sections_file_parser.get_attributes(section,
-                                                                      strip_namespaces=True).keys(),
+                                                                         strip_namespaces=True).keys(),
                                      STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type][section]["stripped"])
                 self.assertListEqual(sections_file_parser.get_attributes(section).keys(),
                                      STANDARD_FILES_SECTIONS_AND_ATTRIBUTES[type][section]["namespaced"])
@@ -665,9 +667,10 @@ class TestSectionsFileParser(unittest.TestCase):
             sections_file_parser = SectionsFileParser(file, preserve_order=False)
             sections_file_parser.parse(raw_sections=STANDARD_FILES_RAW_SECTIONS[type])
             for attribute, value in RANDOM_ATTRIBUTES[type].iteritems():
-                self.assertEqual(sections_file_parser.get_value(attribute, foundations.namespace.get_namespace(attribute,
-                                                                                                           root_only=True)),
-                                 value)
+                self.assertEqual(
+                    sections_file_parser.get_value(attribute, foundations.namespace.get_namespace(attribute,
+                                                                                                  root_only=True)),
+                    value)
             self.assertEqual(sections_file_parser.get_value("attribute", "section", default=None), None)
             self.assertEqual(sections_file_parser.get_value("attribute", "section", default=list()), list())
 
@@ -709,8 +712,8 @@ class TestSectionsFileParser(unittest.TestCase):
         for type, file in STANDARD_FILES.iteritems():
             read_sections_file_parser = SectionsFileParser(file)
             read_sections_file_parser.parse(namespaces=True,
-                                        strip_comments=False,
-                                        raw_sections=STANDARD_FILES_RAW_SECTIONS[type])
+                                            strip_comments=False,
+                                            raw_sections=STANDARD_FILES_RAW_SECTIONS[type])
 
             file_descriptor, path = tempfile.mkstemp()
             write_sections_file_parser = SectionsFileParser(unicode(path))
@@ -720,8 +723,8 @@ class TestSectionsFileParser(unittest.TestCase):
 
             checking_sections_file_parser = SectionsFileParser(write_sections_file_parser.path)
             checking_sections_file_parser.parse(namespaces=False,
-                                            strip_comments=False,
-                                            raw_sections=STANDARD_FILES_RAW_SECTIONS[type])
+                                                strip_comments=False,
+                                                raw_sections=STANDARD_FILES_RAW_SECTIONS[type])
             self.assertDictEqual(read_sections_file_parser.sections, checking_sections_file_parser.sections)
             os.close(file_descriptor)
 
@@ -739,6 +742,7 @@ class TestSectionsFileParser(unittest.TestCase):
         checking_sections_file_parser.parse()
         os.close(file_descriptor)
 
+
 class TestPlistFileParser(unittest.TestCase):
     """
     Defines :class:`foundations.parsers.PlistFileParser` class units tests methods.
@@ -750,10 +754,10 @@ class TestPlistFileParser(unittest.TestCase):
         """
 
         required_attributes = ("path",
-                              "content",
-                              "elements",
-                              "parsing_errors",
-                              "unserializers")
+                               "content",
+                               "elements",
+                               "parsing_errors",
+                               "unserializers")
 
         for attribute in required_attributes:
             self.assertIn(attribute, dir(PlistFileParser))
@@ -764,9 +768,9 @@ class TestPlistFileParser(unittest.TestCase):
         """
 
         required_methods = ("parse",
-                           "element_exists",
-                           "filter_values",
-                           "get_value")
+                            "element_exists",
+                            "filter_values",
+                            "get_value")
 
         for method in required_methods:
             self.assertIn(method, dir(PlistFileParser))
@@ -799,10 +803,12 @@ class TestPlistFileParser(unittest.TestCase):
         plist_file_parser.parse()
         self.assertEqual(plist_file_parser.filter_values(r"String A"), [PLIST_FILE_CONTENT["String A"]])
         self.assertEqual(sorted(plist_file_parser.filter_values(r"String.*")), sorted([PLIST_FILE_CONTENT["String A"],
-                                                                                    PLIST_FILE_CONTENT["Dictionary A"][
-                                                                                        "String B"],
-                                                                                    PLIST_FILE_CONTENT["Dictionary A"][
-                                                                                        "String C"]]))
+                                                                                       PLIST_FILE_CONTENT[
+                                                                                           "Dictionary A"][
+                                                                                           "String B"],
+                                                                                       PLIST_FILE_CONTENT[
+                                                                                           "Dictionary A"][
+                                                                                           "String C"]]))
         self.assertEqual(plist_file_parser.filter_values(r"Date A"), [PLIST_FILE_CONTENT["Date A"]])
 
     def test_get_value(self):
@@ -815,6 +821,7 @@ class TestPlistFileParser(unittest.TestCase):
         for item in foundations.walkers.dictionaries_walker(PLIST_FILE_CONTENT):
             path, element, value = item
             self.assertEqual(value, plist_file_parser.get_value(element))
+
 
 class TestGetAttributeCompound(unittest.TestCase):
     """
@@ -845,6 +852,7 @@ class TestGetAttributeCompound(unittest.TestCase):
 
         data = "@Link"
         self.assertEqual(compound.link, foundations.parsers.get_attribute_compound("Attribute", data).link)
+
 
 if __name__ == "__main__":
     import foundations.tests.utilities

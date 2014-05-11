@@ -36,6 +36,7 @@ __all__ = ["LOGGER", "LibraryHook", "Library"]
 
 LOGGER = foundations.verbose.install_logger()
 
+
 class LibraryHook(foundations.data_structures.Structure):
     """
     Defines a library hook used by the :class:`Library` class to bind target library functions.
@@ -61,6 +62,7 @@ class LibraryHook(foundations.data_structures.Structure):
         LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
         foundations.data_structures.Structure.__init__(self, **kwargs)
+
 
 class Library(object):
     """
@@ -102,7 +104,7 @@ class Library(object):
             return cls._Library__instances[path]
         else:
             raise foundations.exceptions.LibraryInstantiationError(
-            "{0} | '{1}' library path doesn't exists!".format(cls.__class__.__name__, path))
+                "{0} | '{1}' library path doesn't exists!".format(cls.__class__.__name__, path))
 
     @foundations.exceptions.handle_exceptions(foundations.exceptions.LibraryInitializationError)
     def __init__(self, path, functions=None, bind_library=True):
@@ -150,7 +152,7 @@ class Library(object):
             self.__library = loading_function.LoadLibrary(path)
         else:
             raise foundations.exceptions.LibraryInitializationError("{0} | '{1}' library not found!".format(
-            self.__class__.__name__, path))
+                self.__class__.__name__, path))
 
         bind_library and self.bind_library()
 
@@ -176,7 +178,7 @@ class Library(object):
         """
 
         raise foundations.exceptions.ProgrammingError(
-        "{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "instances"))
+            "{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "instances"))
 
     @instances.deleter
     @foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
@@ -186,7 +188,7 @@ class Library(object):
         """
 
         raise foundations.exceptions.ProgrammingError(
-        "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "instances"))
+            "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "instances"))
 
     @property
     def initialized(self):
@@ -210,7 +212,7 @@ class Library(object):
         """
 
         raise foundations.exceptions.ProgrammingError(
-        "{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "initialized"))
+            "{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "initialized"))
 
     @initialized.deleter
     @foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
@@ -220,7 +222,7 @@ class Library(object):
         """
 
         raise foundations.exceptions.ProgrammingError(
-        "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "initialized"))
+            "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "initialized"))
 
     @property
     def path(self):
@@ -245,7 +247,7 @@ class Library(object):
 
         if value is not None:
             assert type(value) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
-            "path", value)
+                "path", value)
             assert os.path.exists(value), "'{0}' attribute: '{1}' file doesn't exists!".format("path", value)
         self.__path = value
 
@@ -257,7 +259,7 @@ class Library(object):
         """
 
         raise foundations.exceptions.ProgrammingError(
-        "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "path"))
+            "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "path"))
 
     @property
     def functions(self):
@@ -284,7 +286,7 @@ class Library(object):
             assert type(value) is tuple, "'{0}' attribute: '{1}' type is not 'tuple'!".format("functions", value)
             for element in value:
                 assert type(element) is LibraryHook, "'{0}' attribute: '{1}' type is not 'LibraryHook'!".format(
-                "functions", element)
+                    "functions", element)
         self.__functions = value
 
     @functions.deleter
@@ -295,7 +297,7 @@ class Library(object):
         """
 
         raise foundations.exceptions.ProgrammingError(
-        "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "functions"))
+            "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "functions"))
 
     @property
     def library(self):
@@ -328,7 +330,7 @@ class Library(object):
         """
 
         raise foundations.exceptions.ProgrammingError(
-        "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "library"))
+            "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "library"))
 
     def bind_function(self, function):
         """

@@ -18,6 +18,7 @@ from __future__ import unicode_literals
 
 import inspect
 import sys
+
 if sys.version_info[:2] <= (2, 6):
     import unittest2 as unittest
 else:
@@ -38,49 +39,50 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["IsReadOnly",
-        "TestSetTracerHook",
-        "TestGetTracerHook",
-        "TestIsTraced",
-        "TestIsBaseTraced",
-        "TestIsUntracable",
-        "TestSetTraced",
-        "TestSetUntraced",
-        "TestTraceWalker"
-        "TestGetObjectName",
-        "TestGetTraceName",
-        "TestGetMethodName",
-        "TestIsStaticMethod",
-        "TestIsClassMethod",
-        "TestValidateTracer"
-        "TestTracer",
-        "TestUntracer",
-        "TestUntracable",
-        "TestTraceFunction",
-        "TestUntraceFunction",
-        "TestTraceMethod",
-        "TestUntraceMethod",
-        "TestTraceProperty",
-        "TestUntraceProperty",
-        "TestTraceClass",
-        "TestUntraceClass",
-        "TestTraceModule",
-        "TestUntraceModule",
-        "TestRegisterModule",
-        "TestInstallTracer",
-        "TestUninstallTracer",
-        "TestEvaluateTraceRequest"]
+           "TestSetTracerHook",
+           "TestGetTracerHook",
+           "TestIsTraced",
+           "TestIsBaseTraced",
+           "TestIsUntracable",
+           "TestSetTraced",
+           "TestSetUntraced",
+           "TestTraceWalker"
+           "TestGetObjectName",
+           "TestGetTraceName",
+           "TestGetMethodName",
+           "TestIsStaticMethod",
+           "TestIsClassMethod",
+           "TestValidateTracer"
+           "TestTracer",
+           "TestUntracer",
+           "TestUntracable",
+           "TestTraceFunction",
+           "TestUntraceFunction",
+           "TestTraceMethod",
+           "TestUntraceMethod",
+           "TestTraceProperty",
+           "TestUntraceProperty",
+           "TestTraceClass",
+           "TestUntraceClass",
+           "TestTraceModule",
+           "TestUntraceModule",
+           "TestRegisterModule",
+           "TestInstallTracer",
+           "TestUninstallTracer",
+           "TestEvaluateTraceRequest"]
 
-TRACABLE_METHODS = {"_Dummy__private_method" : Dummy._Dummy__private_method,
-                    "public_method" : Dummy.public_method,
-                    "static_method" : Dummy.static_method,
-                    "class_method" : Dummy.class_method}
-UNTRACABLE_METHODS = {"__str__" : Dummy.__str__,
-                    "__repr__" : Dummy.__repr__,
-                    "untraced_public" : Dummy.untraced_public}
+TRACABLE_METHODS = {"_Dummy__private_method": Dummy._Dummy__private_method,
+                    "public_method": Dummy.public_method,
+                    "static_method": Dummy.static_method,
+                    "class_method": Dummy.class_method}
+UNTRACABLE_METHODS = {"__str__": Dummy.__str__,
+                      "__repr__": Dummy.__repr__,
+                      "untraced_public": Dummy.untraced_public}
 
-TRACABLE_DEFINITIONS = {"dummy1" : dummy1,
-                        "dummy3" : dummy3}
-UNTRACABLE_DEFINITIONS = {"dummy2" : dummy2}
+TRACABLE_DEFINITIONS = {"dummy1": dummy1,
+                        "dummy3": dummy3}
+UNTRACABLE_DEFINITIONS = {"dummy2": dummy2}
+
 
 class TestIsReadOnly(unittest.TestCase):
     """
@@ -103,6 +105,7 @@ class TestIsReadOnly(unittest.TestCase):
         self.assertFalse(foundations.trace.is_read_only(Writable))
         self.assertFalse(foundations.trace.is_read_only(Writable()))
 
+
 class TestSetTracerHook(unittest.TestCase):
     """
     Defines :func:`foundations.trace.set_tracer_hook` definition units tests methods.
@@ -116,6 +119,7 @@ class TestSetTracerHook(unittest.TestCase):
         object, hook = lambda: None, ""
         self.assertTrue(foundations.trace.set_tracer_hook(object, hook))
         self.assertTrue(hasattr(object, foundations.trace.TRACER_HOOK))
+
 
 class TestGetTracerHook(unittest.TestCase):
     """
@@ -131,6 +135,7 @@ class TestGetTracerHook(unittest.TestCase):
         foundations.trace.set_tracer_hook(object, hook),
         self.assertEqual(foundations.trace.get_tracer_hook(object), hook)
 
+
 class TestIsTraced(unittest.TestCase):
     """
     Defines :func:`foundations.trace.is_traced` definition units tests methods.
@@ -145,6 +150,7 @@ class TestIsTraced(unittest.TestCase):
         foundations.trace.set_traced(object)
         self.assertTrue(foundations.trace.is_traced(object))
         self.assertFalse(foundations.trace.is_traced(lambda: None))
+
 
 class TestIsBaseTraced(unittest.TestCase):
     """
@@ -167,6 +173,7 @@ class TestIsBaseTraced(unittest.TestCase):
 
         foundations.trace.untrace_class(Dummy)
 
+
 class TestIsUntracable(unittest.TestCase):
     """
     Defines :func:`foundations.trace.is_untracable` definition units tests methods.
@@ -181,6 +188,7 @@ class TestIsUntracable(unittest.TestCase):
         self.assertTrue(foundations.trace.is_untracable(object))
         self.assertFalse(foundations.trace.is_untracable(lambda: None))
 
+
 class TestSetTraced(unittest.TestCase):
     """
     Defines :func:`foundations.trace.set_traced` definition units tests methods.
@@ -194,6 +202,7 @@ class TestSetTraced(unittest.TestCase):
         object = lambda: None
         self.assertTrue(foundations.trace.set_traced(object))
         self.assertTrue(hasattr(object, foundations.trace.TRACER_SYMBOL))
+
 
 class TestSetUntraced(unittest.TestCase):
     """
@@ -210,6 +219,7 @@ class TestSetUntraced(unittest.TestCase):
         self.assertTrue(foundations.trace.set_untraced(object))
         self.assertFalse(hasattr(object, foundations.trace.TRACER_SYMBOL))
 
+
 class TestSetUntracable(unittest.TestCase):
     """
     Defines :func:`foundations.trace.set_untracable` definition units tests methods.
@@ -222,6 +232,7 @@ class TestSetUntracable(unittest.TestCase):
 
         object = foundations.trace.untracable(lambda: None)
         self.assertTrue(hasattr(object, foundations.trace.UNTRACABLE_SYMBOL))
+
 
 class TestTraceWalker(unittest.TestCase):
     """
@@ -251,6 +262,7 @@ class TestTraceWalker(unittest.TestCase):
         for accessor in (Dummy.attribute.fget, Dummy.attribute.fset, Dummy.attribute.fdel):
             self.assertIn((Dummy, accessor), members)
 
+
 class TestGetObjectName(unittest.TestCase):
     """
     Defines :func:`foundations.trace.get_object_name` definition units tests methods.
@@ -263,9 +275,10 @@ class TestGetObjectName(unittest.TestCase):
 
         self.assertEqual(foundations.trace.get_object_name(Dummy.attribute), "attribute")
         self.assertEqual(foundations.trace.get_object_name(foundations.trace.get_object_name),
-                        foundations.trace.get_object_name.__name__)
+                         foundations.trace.get_object_name.__name__)
         self.assertEqual(foundations.trace.get_object_name(Dummy), "Dummy")
         self.assertEqual(foundations.trace.get_object_name(Dummy()), "Dummy")
+
 
 class TestGetTraceName(unittest.TestCase):
     """
@@ -278,13 +291,14 @@ class TestGetTraceName(unittest.TestCase):
         """
 
         self.assertEqual(foundations.trace.get_trace_name(dummy1),
-                        "foundations.tests.tests_foundations.resources.dummy.dummy1")
+                         "foundations.tests.tests_foundations.resources.dummy.dummy1")
         self.assertEqual(foundations.trace.get_trace_name(Dummy.public_method),
-                        "foundations.tests.tests_foundations.resources.dummy.Dummy.public_method")
+                         "foundations.tests.tests_foundations.resources.dummy.Dummy.public_method")
         self.assertEqual(foundations.trace.get_trace_name(Dummy._Dummy__private_method),
-                        "foundations.tests.tests_foundations.resources.dummy.Dummy.__private_method")
+                         "foundations.tests.tests_foundations.resources.dummy.Dummy.__private_method")
         self.assertEqual(foundations.trace.get_trace_name(Dummy.attribute),
-                        "foundations.tests.tests_foundations.resources.dummy.Dummy.attribute")
+                         "foundations.tests.tests_foundations.resources.dummy.Dummy.attribute")
+
 
 class TestGetMethodName(unittest.TestCase):
     """
@@ -299,6 +313,7 @@ class TestGetMethodName(unittest.TestCase):
         self.assertEqual(foundations.trace.get_method_name(Dummy.public_method), "public_method")
         self.assertEqual(foundations.trace.get_method_name(Dummy._Dummy__private_method), "_Dummy__private_method")
 
+
 class TestIsStaticMethod(unittest.TestCase):
     """
     Defines :func:`foundations.trace.is_static_method` definition units tests methods.
@@ -312,6 +327,7 @@ class TestIsStaticMethod(unittest.TestCase):
         self.assertTrue(foundations.trace.is_static_method(Dummy.static_method))
         self.assertFalse(foundations.trace.is_static_method(Dummy.public_method))
 
+
 class TestIsClassMethod(unittest.TestCase):
     """
     Defines :func:`foundations.trace.is_class_method` definition units tests methods.
@@ -322,8 +338,10 @@ class TestIsClassMethod(unittest.TestCase):
         Tests :func:`foundations.trace.is_class_method` definition.
         """
 
-        for key, value in {Dummy.class_method : True, Dummy.public_method : False, Dummy.static_method : False}.iteritems():
+        for key, value in {Dummy.class_method: True, Dummy.public_method: False,
+                           Dummy.static_method: False}.iteritems():
             self.assertEqual(foundations.trace.is_class_method(key), value)
+
 
 class TestFormatArgument(unittest.TestCase):
     """
@@ -336,6 +354,7 @@ class TestFormatArgument(unittest.TestCase):
         """
 
         self.assertEqual(foundations.trace.format_argument(("x", range(3))), "x=[0, 1, 2]")
+
 
 class TestValidateTracer(unittest.TestCase):
     """
@@ -356,6 +375,7 @@ class TestValidateTracer(unittest.TestCase):
         self.assertFalse(foundations.trace.is_traced(wrapped))
         self.assertEqual(wrapped, dummy2)
 
+
 class TestTracer(unittest.TestCase):
     """
     Defines :func:`foundations.trace.tracer` definition units tests methods.
@@ -370,6 +390,7 @@ class TestTracer(unittest.TestCase):
         self.assertTrue(foundations.trace.is_traced(object))
         self.assertEqual(object(), foundations.tests.tests_foundations.resources.dummy.GLOBAL_RETURN_VALUE)
 
+
 class TestUntracer(unittest.TestCase):
     """
     Defines :func:`foundations.trace.untracer` definition units tests methods.
@@ -383,6 +404,7 @@ class TestUntracer(unittest.TestCase):
         object = foundations.trace.tracer(dummy1)
         self.assertEqual(foundations.trace.untracer(object), dummy1)
         self.assertEqual(foundations.trace.untracer(dummy1), dummy1)
+
 
 class TestUntracable(unittest.TestCase):
     """
@@ -402,6 +424,7 @@ class TestUntracable(unittest.TestCase):
         self.assertFalse(foundations.trace.is_traced(object))
         self.assertEqual(object(), dummy2())
 
+
 class TestTraceFunction(unittest.TestCase):
     """
     Defines :func:`foundations.trace.trace_function` definition units tests functions.
@@ -418,6 +441,7 @@ class TestTraceFunction(unittest.TestCase):
             self.assertTrue(foundations.trace.trace_function(module, function))
             self.assertTrue(foundations.trace.is_traced(getattr(module, name)))
             foundations.trace.untrace_function(module, getattr(module, name))
+
 
 class TestUntraceFunction(unittest.TestCase):
     """
@@ -436,6 +460,7 @@ class TestUntraceFunction(unittest.TestCase):
             self.assertTrue(foundations.trace.untrace_function(module, getattr(module, name)))
             self.assertFalse(foundations.trace.is_traced(getattr(module, name)))
             self.assertEqual(function, getattr(module, name))
+
 
 class TestTraceMethod(unittest.TestCase):
     """
@@ -457,6 +482,7 @@ class TestTraceMethod(unittest.TestCase):
             self.assertFalse(foundations.trace.is_traced(method))
             self.assertFalse(foundations.trace.trace_method(Dummy, getattr(Dummy, name)))
             self.assertFalse(foundations.trace.is_traced(getattr(Dummy, name)))
+
 
 class TestUntraceMethod(unittest.TestCase):
     """
@@ -481,6 +507,8 @@ class TestUntraceMethod(unittest.TestCase):
             self.assertFalse(foundations.trace.untrace_method(Dummy, getattr(Dummy, name)))
             self.assertFalse(foundations.trace.is_traced(getattr(Dummy, name)))
             self.assertEqual(method, getattr(Dummy, name))
+
+
 class TestTraceProperty(unittest.TestCase):
     """
     Defines :func:`foundations.trace.trace_property` definition units tests propertys.
@@ -495,6 +523,7 @@ class TestTraceProperty(unittest.TestCase):
         self.assertFalse(foundations.trace.is_traced(accessor))
         self.assertTrue(foundations.trace.trace_property(Dummy, accessor))
         foundations.trace.untrace_property(Dummy, getattr(Dummy, name))
+
 
 class TestUntraceProperty(unittest.TestCase):
     """
@@ -514,6 +543,7 @@ class TestUntraceProperty(unittest.TestCase):
         self.assertEqual(getattr(Dummy, name).fget, fget)
         self.assertEqual(getattr(Dummy, name).fset, fset)
         self.assertEqual(getattr(Dummy, name).fdel, fdel)
+
 
 class TestTraceClass(unittest.TestCase):
     """
@@ -554,6 +584,7 @@ class TestTraceClass(unittest.TestCase):
 
         foundations.trace.untrace_class(Dummy)
 
+
 class TestUntraceClass(unittest.TestCase):
     """
     Defines :func:`foundations.trace.untrace_class` definition units tests methods.
@@ -580,6 +611,7 @@ class TestUntraceClass(unittest.TestCase):
             self.assertFalse(foundations.trace.is_traced(accessor.fget))
             self.assertFalse(foundations.trace.is_traced(accessor.fset))
             self.assertFalse(foundations.trace.is_traced(accessor.fdel))
+
 
 class TestTraceModule(unittest.TestCase):
     """
@@ -617,6 +649,7 @@ class TestTraceModule(unittest.TestCase):
 
         foundations.trace.untrace_module(module)
 
+
 class TestUntraceModule(unittest.TestCase):
     """
     Defines :func:`foundations.trace.untrace_module` definition units tests methods.
@@ -639,6 +672,7 @@ class TestUntraceModule(unittest.TestCase):
             self.assertFalse(foundations.trace.is_traced(getattr(module, name)))
             self.assertEqual(definition, getattr(module, name))
 
+
 class TestRegisterModule(unittest.TestCase):
     """
     Defines :func:`foundations.trace.register_module` definition units tests methods.
@@ -660,6 +694,7 @@ class TestRegisterModule(unittest.TestCase):
         self.assertIn(sys.modules[__name__], foundations.trace.REGISTERED_MODULES)
 
         foundations.trace.REGISTERED_MODULES = foundations.trace.REGISTERED_MODULES
+
 
 class TestInstallTracer(unittest.TestCase):
     """
@@ -684,6 +719,7 @@ class TestInstallTracer(unittest.TestCase):
 
         foundations.trace.REGISTERED_MODULES = foundations.trace.REGISTERED_MODULES
 
+
 class TestUninstallTracer(unittest.TestCase):
     """
     Defines :func:`foundations.trace.uninstall_tracer` definition units tests methods.
@@ -707,6 +743,7 @@ class TestUninstallTracer(unittest.TestCase):
 
         foundations.trace.REGISTERED_MODULES = foundations.trace.REGISTERED_MODULES
 
+
 class TestEvaluateTraceRequest(unittest.TestCase):
     """
     Defines :func:`foundations.trace.evaluate_trace_request` definition units tests methods.
@@ -719,28 +756,31 @@ class TestEvaluateTraceRequest(unittest.TestCase):
 
         module = foundations.tests.tests_foundations.resources.dummy
 
-        self.assertTrue(foundations.trace.evaluate_trace_request("'foundations.tests.tests_foundations.resources.dummy'"))
-        self.assertTrue(foundations.trace.is_traced(module))
-
-        foundations.trace.untrace_module(module)
-
-        self.assertTrue(foundations.trace.evaluate_trace_request("['foundations.tests.tests_foundations.resources.dummy']"))
+        self.assertTrue(foundations.trace.evaluate_trace_request(
+            "'foundations.tests.tests_foundations.resources.dummy'"))
         self.assertTrue(foundations.trace.is_traced(module))
 
         foundations.trace.untrace_module(module)
 
         self.assertTrue(foundations.trace.evaluate_trace_request(
-        "{'foundations.tests.tests_foundations.resources.dummy' : (r'.*', 0)}"))
+            "['foundations.tests.tests_foundations.resources.dummy']"))
         self.assertTrue(foundations.trace.is_traced(module))
 
         foundations.trace.untrace_module(module)
 
         self.assertTrue(foundations.trace.evaluate_trace_request(
-        "{'foundations.tests.tests_foundations.resources.dummy' : (r'^(?:(?!dummy1).)*$', 0)}"))
+            "{'foundations.tests.tests_foundations.resources.dummy' : (r'.*', 0)}"))
+        self.assertTrue(foundations.trace.is_traced(module))
+
+        foundations.trace.untrace_module(module)
+
+        self.assertTrue(foundations.trace.evaluate_trace_request(
+            "{'foundations.tests.tests_foundations.resources.dummy' : (r'^(?:(?!dummy1).)*$', 0)}"))
         self.assertTrue(foundations.trace.is_traced(module))
         self.assertFalse(foundations.trace.is_traced(getattr(module, "dummy1")))
 
         foundations.trace.untrace_module(module)
+
 
 if __name__ == "__main__":
     unittest.main()

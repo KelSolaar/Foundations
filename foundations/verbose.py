@@ -59,6 +59,7 @@ THREADS_IDENTIFIERS = {}
 
 INDENT_LEVEL = 0
 
+
 def to_unicode(data, encoding=Constants.default_codec, errors=Constants.codec_error):
     """
     Converts given data to unicode string using package default settings, fighting **The Hell**!
@@ -88,6 +89,7 @@ def to_unicode(data, encoding=Constants.default_codec, errors=Constants.codec_er
         except TypeError:
             return unicode(str(data), encoding, errors)
 
+
 def _LogRecord__getattribute__(self, attribute):
     """
     Overrides logging.LogRecord.__getattribute__ method
@@ -103,13 +105,15 @@ def _LogRecord__getattribute__(self, attribute):
         thread_ident = threading.currentThread().ident
         if not thread_ident in THREADS_IDENTIFIERS:
             THREADS_IDENTIFIERS[thread_ident] = (threading.currentThread().name,
-                                                hashlib.md5(threading.currentThread().name).hexdigest()[:8])
+                                                 hashlib.md5(threading.currentThread().name).hexdigest()[:8])
         object.__getattribute__(self, attribute)["threadName"] = THREADS_IDENTIFIERS[thread_ident][1]
         return object.__getattribute__(self, attribute)
     else:
         return object.__getattribute__(self, attribute)
 
+
 logging.LogRecord.__getattribute__ = _LogRecord__getattribute__
+
 
 def _LogRecord_msg():
     """
@@ -124,6 +128,7 @@ def _LogRecord_msg():
 
     logging.LogRecord.msg = property(_LogRecord_msgProperty, _LogRecord_msgSetter)
 
+
 _LogRecord_msg()
 
 LOGGER = logging.getLogger(Constants.logger)
@@ -133,6 +138,7 @@ LOGGING_EXTENDED_FORMATTER = logging.Formatter("%(asctime)s - %(threadName)s - %
 LOGGING_STANDARD_FORMATTER = logging.Formatter()
 
 TRACER_LOGGING_FUNCTION = LOGGER.info
+
 
 class Streamer(object):
     """
@@ -198,6 +204,7 @@ class Streamer(object):
 
         pass
 
+
 class StandardOutputStreamer(object):
     """
     | Defines a redirection object intented to be used for :data:`sys.stdout` and :data:`sys.stderr` streams.
@@ -258,6 +265,7 @@ class StandardOutputStreamer(object):
             handler.stream.write(message)
         return True
 
+
 def indent_message(message):
     """
     Idents given message using the attr`INDENT_LEVEL` attribute value.
@@ -269,6 +277,7 @@ def indent_message(message):
     """
 
     return "{0}{1}".format(" " * 4 * INDENT_LEVEL, message)
+
 
 def tracer(object):
     """
@@ -315,15 +324,15 @@ def tracer(object):
         args_defaults = dict(zip(args_names[-len(function_defaults):], function_defaults))
 
         positional_args = map(foundations.trace.format_argument, zip(args_names, args))
-        defaulted_args = [foundations.trace.format_argument((name, args_defaults[name])) \
-                         for name in args_names[len(args):] if name not in kwargs]
+        defaulted_args = [foundations.trace.format_argument((name, args_defaults[name]))
+                          for name in args_names[len(args):] if name not in kwargs]
         nameless_args = map(repr, args[args_count:])
         keyword_args = map(foundations.trace.format_argument, kwargs.items())
         TRACER_LOGGING_FUNCTION(indent_message("---> {0}({1}) <---".format(trace_name,
-                                                                          ", ".join(itertools.chain(positional_args,
-                                                                                                    defaulted_args,
-                                                                                                    nameless_args,
-                                                                                                    keyword_args)))))
+                                                                           ", ".join(itertools.chain(positional_args,
+                                                                                                     defaulted_args,
+                                                                                                     nameless_args,
+                                                                                                     keyword_args)))))
 
         INDENT_LEVEL += 1
         value = object(*args, **kwargs)
@@ -334,6 +343,7 @@ def tracer(object):
         return value
 
     return tracer_wrapper
+
 
 def install_logger(logger=None, module=None):
     """
@@ -357,6 +367,7 @@ def install_logger(logger=None, module=None):
 
     return logger
 
+
 def uninstall_logger(logger=None, module=None):
     """
     Uninstalls given logger in given module or default logger in caller introspected module.
@@ -376,6 +387,7 @@ def uninstall_logger(logger=None, module=None):
     hasattr(module, "LOGGER") and delattr(module, "LOGGER")
     return True
 
+
 def get_logging_console_handler(logger=None, formatter=LOGGING_DEFAULT_FORMATTER):
     """
     Adds a logging console handler to given logger or default logger.
@@ -393,6 +405,7 @@ def get_logging_console_handler(logger=None, formatter=LOGGING_DEFAULT_FORMATTER
     logging_console_handler.setFormatter(formatter)
     logger.addHandler(logging_console_handler)
     return logging_console_handler
+
 
 def get_logging_file_handler(logger=None, file=None, formatter=LOGGING_DEFAULT_FORMATTER):
     """
@@ -415,6 +428,7 @@ def get_logging_file_handler(logger=None, file=None, formatter=LOGGING_DEFAULT_F
     logger.addHandler(logging_file_handler)
     return logging_file_handler
 
+
 def get_logging_stream_handler(logger=None, formatter=LOGGING_DEFAULT_FORMATTER):
     """
     Adds a logging stream handler to given logger or default logger using given file.
@@ -435,6 +449,7 @@ def get_logging_stream_handler(logger=None, formatter=LOGGING_DEFAULT_FORMATTER)
     logger.addHandler(logging_stream_handler)
     return logging_stream_handler
 
+
 def remove_logging_handler(handler, logger=None):
     """
     Removes given logging handler from given logger.
@@ -451,6 +466,7 @@ def remove_logging_handler(handler, logger=None):
     logger.handlers and LOGGER.debug("> Stopping handler: '{0}'.".format(handler))
     logger.removeHandler(handler)
     return True
+
 
 def set_verbosity_level(verbosity_level=3, logger=None):
     """

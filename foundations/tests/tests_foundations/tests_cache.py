@@ -17,6 +17,7 @@
 from __future__ import unicode_literals
 
 import sys
+
 if sys.version_info[:2] <= (2, 6):
     import unittest2 as unittest
 else:
@@ -32,7 +33,8 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["RESOURCES_DIRECTORY",
-            "TestCache"]
+           "TestCache"]
+
 
 class TestCache(unittest.TestCase):
     """
@@ -59,7 +61,7 @@ class TestCache(unittest.TestCase):
 
         cache = Cache()
         self.assertTrue(cache.add_content(John="Doe", Luke="Skywalker"))
-        self.assertDictEqual(cache, {"John" : "Doe", "Luke" : "Skywalker"})
+        self.assertDictEqual(cache, {"John": "Doe", "Luke": "Skywalker"})
 
     def test_removeContent(self):
         """
@@ -77,7 +79,7 @@ class TestCache(unittest.TestCase):
         """
 
         cache = Cache()
-        content = {"John" : "Doe", "Luke" : "Skywalker"}
+        content = {"John": "Doe", "Luke": "Skywalker"}
         cache.add_content(**content)
         for key, value in content.iteritems():
             self.assertEqual(cache.get_content(key), value)
@@ -92,6 +94,8 @@ class TestCache(unittest.TestCase):
         self.assertTrue(cache.flush_content())
         self.assertDictEqual(cache, {})
 
+
 if __name__ == "__main__":
     import foundations.tests.utilities
+
     unittest.main()

@@ -17,6 +17,7 @@ from __future__ import unicode_literals
 
 import os
 import sys
+
 if sys.version_info[:2] <= (2, 6):
     import unittest2 as unittest
 else:
@@ -31,6 +32,7 @@ __status__ = "Production"
 
 __all__ = ["tests_suite"]
 
+
 def _set_package_directory():
     """
     Sets the package directory in the path.
@@ -43,7 +45,9 @@ def _set_package_directory():
     package_directory not in sys.path and sys.path.append(package_directory)
     return True
 
+
 _set_package_directory()
+
 
 def tests_suite():
     """
@@ -56,6 +60,8 @@ def tests_suite():
     tests_loader = unittest.TestLoader()
     return tests_loader.discover(os.path.dirname(__file__))
 
+
 if __name__ == "__main__":
     import foundations.tests.utilities
+
     unittest.TextTestRunner(verbosity=2).run(tests_suite())

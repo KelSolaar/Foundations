@@ -34,12 +34,13 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["LOGGER",
-        "Environment"
-        "get_temporary_directory",
-        "get_system_application_data_directory",
-        "get_user_application_data_directory"]
+           "Environment"
+           "get_temporary_directory",
+           "get_system_application_data_directory",
+           "get_user_application_data_directory"]
 
 LOGGER = foundations.verbose.install_logger()
+
 
 class Environment(object):
     """
@@ -98,9 +99,9 @@ class Environment(object):
             assert type(value) is dict, "'{0}' attribute: '{1}' type is not 'dict'!".format("variables", value)
             for key, element in value.iteritems():
                 assert type(key) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
-                "variables", key)
+                    "variables", key)
                 assert type(element) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
-                "variables", element)
+                    "variables", element)
         self.__variables = value
 
     @variables.deleter
@@ -111,7 +112,7 @@ class Environment(object):
         """
 
         raise foundations.exceptions.ProgrammingError(
-        "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "variables"))
+            "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "variables"))
 
     def __add_variables(self, *args, **kwargs):
         """
@@ -148,7 +149,7 @@ class Environment(object):
         args and self.__add_variables(*args)
 
         LOGGER.debug("> Object environment variables: '{0}'.".format(
-        ",".join((key for key in self.__variables if key))))
+            ",".join((key for key in self.__variables if key))))
         LOGGER.debug("> Available system environment variables: '{0}'".format(os.environ.keys()))
 
         for variable in self.__variables:
@@ -219,7 +220,8 @@ class Environment(object):
         :rtype: bool
         """
 
-        return self.set_values(**{variable : value})
+        return self.set_values(**{variable: value})
+
 
 def get_temporary_directory():
     """
@@ -230,6 +232,7 @@ def get_temporary_directory():
     """
 
     return foundations.strings.to_string(tempfile.gettempdir())
+
 
 def get_system_application_data_directory():
     """
@@ -256,6 +259,7 @@ def get_system_application_data_directory():
         environment = Environment("HOME")
         return environment.get_value()
 
+
 def get_user_application_data_directory():
     """
     | Returns the user Application directory.
@@ -278,7 +282,8 @@ def get_user_application_data_directory():
 
     system_application_data_directory = get_system_application_data_directory()
     if not foundations.common.path_exists(system_application_data_directory):
-        LOGGER.error("!> Undefined or non existing system Application data directory, using 'HOME' directory as fallback!")
+        LOGGER.error(
+            "!> Undefined or non existing system Application data directory, using 'HOME' directory as fallback!")
         system_application_data_directory = Environment("HOME").get_value()
 
     if not foundations.common.path_exists(system_application_data_directory):
@@ -286,4 +291,5 @@ def get_user_application_data_directory():
         LOGGER.error("!> Undefined or non existing 'HOME' directory, using system temporary directory as fallback!")
         system_application_data_directory = temporary_directory
 
-    return os.path.join(system_application_data_directory, Constants.provider_directory, Constants.application_directory)
+    return os.path.join(system_application_data_directory, Constants.provider_directory,
+                        Constants.application_directory)

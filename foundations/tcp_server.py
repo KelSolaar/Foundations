@@ -35,6 +35,7 @@ __all__ = ["LOGGER", "EchoRequestsHandler", "TCPServer"]
 
 LOGGER = foundations.verbose.install_logger()
 
+
 class EchoRequestsHandler(SocketServer.BaseRequestHandler):
     """
     Defines the default echo requests handler.
@@ -55,6 +56,7 @@ class EchoRequestsHandler(SocketServer.BaseRequestHandler):
 
             self.request.send(data)
         return True
+
 
 class TCPServer(object):
     """
@@ -116,7 +118,7 @@ class TCPServer(object):
 
         if value is not None:
             assert type(value) is unicode, "'{0}' attribute: '{1}' type is not 'unicode'!".format(
-            "address", value)
+                "address", value)
         self.__address = value
 
     @address.deleter
@@ -127,7 +129,7 @@ class TCPServer(object):
         """
 
         raise foundations.exceptions.ProgrammingError(
-        "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "address"))
+            "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "address"))
 
     @property
     def port(self):
@@ -152,9 +154,9 @@ class TCPServer(object):
 
         if value is not None:
             assert type(value) is int, "'{0}' attribute: '{1}' type is not 'int'!".format(
-            "port", value)
+                "port", value)
             assert type(value) >= 0 and type(value) >= 65535, \
-            "'{0}' attribute: '{1}' value must be in 0-65535 range!".format("port", value)
+                "'{0}' attribute: '{1}' value must be in 0-65535 range!".format("port", value)
         self.__port = value
 
     @port.deleter
@@ -165,7 +167,7 @@ class TCPServer(object):
         """
 
         raise foundations.exceptions.ProgrammingError(
-        "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "port"))
+            "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "port"))
 
     @property
     def handler(self):
@@ -189,7 +191,7 @@ class TCPServer(object):
 
         if value is not None:
             assert issubclass(value, SocketServer.BaseRequestHandler), \
-            "'{0}' attribute: '{1}' is not 'SocketServer.BaseRequestHandler' subclass!".format("handler", value)
+                "'{0}' attribute: '{1}' is not 'SocketServer.BaseRequestHandler' subclass!".format("handler", value)
         self.__handler = value
         self.__handler.container = self
 
@@ -201,7 +203,7 @@ class TCPServer(object):
         """
 
         raise foundations.exceptions.ProgrammingError(
-        "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "handler"))
+            "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "handler"))
 
     @property
     def online(self):
@@ -225,7 +227,7 @@ class TCPServer(object):
         """
 
         raise foundations.exceptions.ProgrammingError(
-        "{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "online"))
+            "{0} | '{1}' attribute is read only!".format(self.__class__.__name__, "online"))
 
     @online.deleter
     @foundations.exceptions.handle_exceptions(foundations.exceptions.ProgrammingError)
@@ -235,7 +237,7 @@ class TCPServer(object):
         """
 
         raise foundations.exceptions.ProgrammingError(
-        "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "online"))
+            "{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "online"))
 
     @foundations.exceptions.handle_exceptions(foundations.exceptions.ServerOperationError)
     def start(self):
@@ -248,7 +250,7 @@ class TCPServer(object):
 
         if self.__online:
             raise foundations.exceptions.ServerOperationError(
-            "{0} | '{1}' TCP Server is already online!".format(self.__class__.__name__, self))
+                "{0} | '{1}' TCP Server is already online!".format(self.__class__.__name__, self))
 
         try:
             self.__server = SocketServer.TCPServer((self.__address, self.__port), self.__handler)
@@ -257,14 +259,14 @@ class TCPServer(object):
             self.__worker.start()
             self.__online = True
             LOGGER.info(
-            "{0} | TCP Server successfully started with '{1}' address on '{2}' port using '{3}' requests handler!".format(
-            self.__class__.__name__, self.__address, self.__port, self.__handler.__name__))
+                "{0} | TCP Server successfully started with '{1}' address on '{2}' port using '{3}' requests handler!".format(
+                    self.__class__.__name__, self.__address, self.__port, self.__handler.__name__))
             return True
         except socket.error as error:
             if error.errno in (errno.EADDRINUSE, errno.EADDRNOTAVAIL):
                 LOGGER.warning(
-                "!> {0} | Cannot start TCP Server, address is already in use on port '{1}'!".format(
-                self.__class__.__name__, self.__port))
+                    "!> {0} | Cannot start TCP Server, address is already in use on port '{1}'!".format(
+                        self.__class__.__name__, self.__port))
             else:
                 raise error
 
@@ -279,7 +281,7 @@ class TCPServer(object):
 
         if not self.__online:
             raise foundations.exceptions.ServerOperationError(
-            "{0} | '{1}' TCP Server is not online!".format(self.__class__.__name__, self))
+                "{0} | '{1}' TCP Server is not online!".format(self.__class__.__name__, self))
 
         if not terminate:
             self.__server.shutdown()

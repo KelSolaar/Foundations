@@ -26,12 +26,13 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["GLOBAL_RETURN_VALUE",
-        "Dummy",
-        "dummy1",
-        "dummy2",
-        "dummy3"]
+           "Dummy",
+           "dummy1",
+           "dummy2",
+           "dummy3"]
 
 GLOBAL_RETURN_VALUE = range(10)
+
 
 class Dummy(object):
     """
@@ -77,12 +78,15 @@ class Dummy(object):
     def class_method(cls):
         return cls.class_method.__name__
 
+
 def dummy1():
     return GLOBAL_RETURN_VALUE
+
 
 @foundations.trace.untracable
 def dummy2():
     return GLOBAL_RETURN_VALUE
+
 
 def dummy3():
     return GLOBAL_RETURN_VALUE
