@@ -72,9 +72,9 @@ __all__ = ["RESOURCES_DIRECTORY",
 		   "SCRIPT_RAW_SECTION",
 		   "CHINESE_IBL_SET_FILE",
 		   "CHINESE_IBL_SET_FILE_RANDOM_ATTRIBUTES",
-		   "SectionsFileParserTestCase",
-		   "PlistFileParserTestCase",
-		   "GetAttributeCompoundTestCase"]
+		   "TestSectionsFileParser",
+		   "TestPlistFileParser",
+		   "TestGetAttributeCompound"]
 
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
 COMPONENT_FILE = os.path.join(RESOURCES_DIRECTORY, "standard.rc")
@@ -392,7 +392,7 @@ PLIST_FILE_CONTENT = {"Dictionary A": {"String C": "My Value C", "String B": "My
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class SectionsFileParserTestCase(unittest.TestCase):
+class TestSectionsFileParser(unittest.TestCase):
 	"""
 	Defines :class:`foundations.parsers.SectionsFileParser` class units tests methods.
 	"""
@@ -754,7 +754,7 @@ class SectionsFileParserTestCase(unittest.TestCase):
 		checking_sections_file_parser.parse()
 		os.close(file_descriptor)
 
-class PlistFileParserTestCase(unittest.TestCase):
+class TestPlistFileParser(unittest.TestCase):
 	"""
 	Defines :class:`foundations.parsers.PlistFileParser` class units tests methods.
 	"""
@@ -831,7 +831,7 @@ class PlistFileParserTestCase(unittest.TestCase):
 			path, element, value = item
 			self.assertEqual(value, plist_file_parser.get_value(element))
 
-class GetAttributeCompoundTestCase(unittest.TestCase):
+class TestGetAttributeCompound(unittest.TestCase):
 	"""
 	Defines :func:`foundations.parsers.get_attribute_compound` definition units tests methods.
 	"""

@@ -45,7 +45,7 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["RESOURCES_DIRECTORY", "TEST_FILE", "TREE_HIERARCHY", "PkzipTestCase"]
+__all__ = ["RESOURCES_DIRECTORY", "TEST_FILE", "TREE_HIERARCHY", "TestPkzip"]
 
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
 TEST_FILE = os.path.join(RESOURCES_DIRECTORY, "standard.zip")
@@ -57,7 +57,7 @@ TREE_HIERARCHY = ("level_0", "lorem_ipsum.txt", "standard.ibl", "standard.rc", "
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class PkzipTestCase(unittest.TestCase):
+class TestPkzip(unittest.TestCase):
 	"""
 	Defines :class:`foundations.pkzip.Pkzip` class units tests methods.
 	"""

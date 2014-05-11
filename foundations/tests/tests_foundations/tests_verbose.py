@@ -48,22 +48,22 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["StreamerTestCase",
-		"StandardOutputStreamerTestCase",
-		"IndentMessageTestCase",
-		"TracerTestCase",
-		"InstallLoggerTestCase",
-		"UninstallLoggerTestCase",
-		"GetLoggingConsoleHandlerTestCase",
-		"GetLoggingFileHandlerTestCase",
-		"GetLoggingStreamHandlerTestCase",
-		"RemoveLoggingHandlerTestCase",
-		"SetVerbosityLevelTestCase"]
+__all__ = ["TestStreamer",
+		"TestStandardOutputStreamer",
+		"TestIndentMessage",
+		"TestTracer",
+		"TestInstallLogger",
+		"TestUninstallLogger",
+		"TestGetLoggingConsoleHandler",
+		"TestGetLoggingFileHandler",
+		"TestGetLoggingStreamHandler",
+		"TestRemoveLoggingHandler",
+		"TestSetVerbosityLevel"]
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class StreamerTestCase(unittest.TestCase):
+class TestStreamer(unittest.TestCase):
 	"""
 	Defines :class:`foundations.verbose.Streamer` class units tests methods.
 	"""
@@ -89,7 +89,7 @@ class StreamerTestCase(unittest.TestCase):
 		for method in required_methods:
 			self.assertIn(method, dir(foundations.verbose.Streamer))
 
-class StandardOutputStreamerTestCase(unittest.TestCase):
+class TestStandardOutputStreamer(unittest.TestCase):
 	"""
 	Defines :class:`foundations.core.StandardOutputStreamer` class units tests methods.
 	"""
@@ -114,7 +114,7 @@ class StandardOutputStreamerTestCase(unittest.TestCase):
 		for method in required_methods:
 			self.assertIn(method, dir(foundations.verbose.StandardOutputStreamer))
 
-class IndentMessageTestCase(unittest.TestCase):
+class TestIndentMessage(unittest.TestCase):
 	"""
 	Defines :func:`foundations.verbose.indent_message` definition units tests methods.
 	"""
@@ -126,7 +126,7 @@ class IndentMessageTestCase(unittest.TestCase):
 
 		self.assertIsInstance(foundations.verbose.indent_message("message"), unicode)
 
-class TracerTestCase(unittest.TestCase):
+class TestTracer(unittest.TestCase):
 	"""
 	Defines :func:`foundations.trace.tracer` definition units tests methods.
 	"""
@@ -140,7 +140,7 @@ class TracerTestCase(unittest.TestCase):
 		self.assertTrue(foundations.trace.is_traced(object))
 		self.assertEqual(object(), foundations.tests.tests_foundations.resources.dummy.GLOBAL_RETURN_VALUE)
 
-class InstallLoggerTestCase(unittest.TestCase):
+class TestInstallLogger(unittest.TestCase):
 	"""
 	Defines :func:`foundations.verbose.install_logger` definition units tests methods.
 	"""
@@ -156,7 +156,7 @@ class InstallLoggerTestCase(unittest.TestCase):
 		self.assertIsInstance(LOGGER, logging.Logger)
 		foundations.verbose.uninstall_logger()
 
-class UninstallLoggerTestCase(unittest.TestCase):
+class TestUninstallLogger(unittest.TestCase):
 	"""
 	Defines :func:`foundations.verbose.uninstall_logger` definition units tests methods.
 	"""
@@ -171,7 +171,7 @@ class UninstallLoggerTestCase(unittest.TestCase):
 		foundations.verbose.uninstall_logger()
 		self.assertTrue(not hasattr(sys.modules.get(__name__), "LOGGER"))
 
-class GetLoggingConsoleHandlerTestCase(unittest.TestCase):
+class TestGetLoggingConsoleHandler(unittest.TestCase):
 	"""
 	Defines :func:`foundations.verbose.get_logging_console_handler` definition units tests methods.
 	"""
@@ -188,7 +188,7 @@ class GetLoggingConsoleHandlerTestCase(unittest.TestCase):
 		del LOGGER.handlers[:]
 		foundations.verbose.uninstall_logger()
 
-class GetLoggingFileHandlerTestCase(unittest.TestCase):
+class TestGetLoggingFileHandler(unittest.TestCase):
 	"""
 	Defines :func:`foundations.verbose.get_logging_file_handler` definition units tests methods.
 	"""
@@ -213,7 +213,7 @@ class GetLoggingFileHandlerTestCase(unittest.TestCase):
 		foundations.verbose.uninstall_logger()
 		os.close(file_descriptor)
 
-class GetLoggingStreamHandlerTestCase(unittest.TestCase):
+class TestGetLoggingStreamHandler(unittest.TestCase):
 	"""
 	Defines :func:`foundations.verbose.get_logging_stream_handler` definition units tests methods.
 	"""
@@ -233,7 +233,7 @@ class GetLoggingStreamHandlerTestCase(unittest.TestCase):
 		del LOGGER.handlers[:]
 		foundations.verbose.uninstall_logger()
 
-class RemoveLoggingHandlerTestCase(unittest.TestCase):
+class TestRemoveLoggingHandler(unittest.TestCase):
 	"""
 	Defines :func:`foundations.verbose.remove_logging_handler` definition units tests methods.
 	"""
@@ -249,7 +249,7 @@ class RemoveLoggingHandlerTestCase(unittest.TestCase):
 		self.assertListEqual(LOGGER.handlers, list())
 		foundations.verbose.uninstall_logger()
 
-class SetVerbosityLevelTestCase(unittest.TestCase):
+class TestSetVerbosityLevel(unittest.TestCase):
 	"""
 	Defines :func:`foundations.verbose.set_verbosity_level` definition units tests methods.
 	"""

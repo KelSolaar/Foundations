@@ -53,10 +53,10 @@ __all__ = ["RESOURCES_DIRECTORY",
 			"CHINESE_ROOT_DIRECTORY",
 			"CHINESE_FILES_TREE_HIERARCHY",
 			"CHINESE_TREE_HIERARCHY",
-			"FilesWalkerTestCase",
-			"DepthWalkerTestCase",
-			"DictionariesWalkerTestCase",
-			"NodesWalkerTestCase"]
+			"TestFilesWalker",
+			"TestDepthWalker",
+			"TestDictionariesWalker",
+			"TestNodesWalker"]
 
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
 ROOT_DIRECTORY = "standard"
@@ -81,7 +81,7 @@ CHINESE_TREE_HIERARCHY = ((["0级"], ["内容.txt"]),
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class FilesWalkerTestCase(unittest.TestCase):
+class TestFilesWalker(unittest.TestCase):
 	"""
 	Defines :func:`foundations.walkers.files_walker` definition units tests methods.
 	"""
@@ -141,7 +141,7 @@ class FilesWalkerTestCase(unittest.TestCase):
 		for path in foundations.walkers.files_walker(root_directory, filters_out=("\.ibl", "\.rc$", "\.sIBLT$", "\.txt$"))]
 		self.assertTrue(not walker_files)
 
-class DepthWalkerTestCase(unittest.TestCase):
+class TestDepthWalker(unittest.TestCase):
 	"""
 	Defines :func:`foundations.walkers.depth_walker` definition units tests methods.
 	"""
@@ -166,7 +166,7 @@ class DepthWalkerTestCase(unittest.TestCase):
 			parent_directory, directories, files = value
 			self.assertEqual((directories, sorted(files)), (CHINESE_TREE_HIERARCHY[i][0], sorted(CHINESE_TREE_HIERARCHY[i][1])))
 
-class DictionariesWalkerTestCase(unittest.TestCase):
+class TestDictionariesWalker(unittest.TestCase):
 	"""
 	Defines :func:`foundations.walkers.dictionaries_walker` definition units tests methods.
 	"""
@@ -187,7 +187,7 @@ class DictionariesWalkerTestCase(unittest.TestCase):
 			self.assertIsInstance(key, unicode)
 			self.assertIsInstance(value, unicode)
 
-class NodesWalkerTestCase(unittest.TestCase):
+class TestNodesWalker(unittest.TestCase):
 	"""
 	Defines :func:`foundations.walkers.nodes_walker` definition units tests methods.
 	"""

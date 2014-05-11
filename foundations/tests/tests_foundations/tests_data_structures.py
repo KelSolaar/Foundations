@@ -44,15 +44,15 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["NestedAttributeTestCase",
-			"StructureTestCase",
-			"OrderedStructureTestCase",
-			"LookupTestCase"]
+__all__ = ["TestNestedAttribute",
+			"TestStructure",
+			"TestOrderedStructure",
+			"TestLookup"]
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class NestedAttributeTestCase(unittest.TestCase):
+class TestNestedAttribute(unittest.TestCase):
 	"""
 	Defines :class:`foundations.data_structures.NestedAttribute` class units tests methods.
 	"""
@@ -67,7 +67,7 @@ class NestedAttributeTestCase(unittest.TestCase):
 		self.assertTrue(hasattr(nest, "nest.my.deeply.nested.attribute"))
 		self.assertEqual(nest.my.deeply.nested.attribute, 64)
 
-class StructureTestCase(unittest.TestCase):
+class TestStructure(unittest.TestCase):
 	"""
 	Defines :class:`foundations.data_structures.Structure` class units tests methods.
 	"""
@@ -115,7 +115,7 @@ class StructureTestCase(unittest.TestCase):
 		data = pickle.loads(data)
 		self.assertEqual(structure, data)
 
-class OrderedStructureTestCase(unittest.TestCase):
+class TestOrderedStructure(unittest.TestCase):
 	"""
 	Defines :class:`foundations.data_structures.OrderedStructure` class units tests methods.
 	"""
@@ -140,7 +140,7 @@ class OrderedStructureTestCase(unittest.TestCase):
 		del(structure["personB"])
 		self.assertTrue(not hasattr(structure, "personB"))
 
-class LookupTestCase(unittest.TestCase):
+class TestLookup(unittest.TestCase):
 	"""
 	Defines :class:`foundations.data_structures.Lookup` class units tests methods.
 	"""

@@ -46,27 +46,27 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["ToStringTestCase",
-		"GetNiceNameTestCase",
-		"GetVersionRankTestCase",
-		"GetSplitextBasenameTestCase",
-		"GetCommonAncestorTestCase",
-		"GetCommonPathsAncestorTestCase",
-		"GetWordsTestCase",
-		"FilterWordsTestCase",
-		"ReplaceTestCase",
-		"ToForwardSlashesTestCase",
-		"ToBackwardSlashesTestCase",
-		"ToPosixPathTestCase",
-		"GetNormalizedPathTestCase",
-		"GetRandomSequenceTestCase",
-		"IsEmailTestCase",
-		"IsWebsiteTestCase"]
+__all__ = ["TestToString",
+		"TestGetNiceName",
+		"TestGetVersionRank",
+		"TestGetSplitextBasename",
+		"TestGetCommonAncestor",
+		"TestGetCommonPathsAncestor",
+		"TestGetWords",
+		"TestFilterWords",
+		"TestReplace",
+		"TestToForwardSlashes",
+		"TestToBackwardSlashes",
+		"TestToPosixPath",
+		"TestGetNormalizedPath",
+		"TestGetRandomSequence",
+		"TestIsEmail",
+		"TestIsWebsite"]
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class ToStringTestCase(unittest.TestCase):
+class TestToString(unittest.TestCase):
 	"""
 	Defines :func:`foundations.strings.to_string` definition units tests methods.
 	"""
@@ -82,7 +82,7 @@ class ToStringTestCase(unittest.TestCase):
 		self.assertIsInstance(foundations.strings.to_string(None), unicode)
 		self.assertIsInstance(foundations.strings.to_string(True), unicode)
 
-class GetNiceNameTestCase(unittest.TestCase):
+class TestGetNiceName(unittest.TestCase):
 	"""
 	Defines :func:`foundations.strings.get_nice_name` definition units tests methods.
 	"""
@@ -99,7 +99,7 @@ class GetNiceNameTestCase(unittest.TestCase):
 		self.assertEqual(foundations.strings.get_nice_name("Test Get NiceName"), "Test Get Nice Name")
 		self.assertEqual(foundations.strings.get_nice_name("testGetMeANiceName"), "Test Get Me A Nice Name")
 
-class GetVersionRankTestCase(unittest.TestCase):
+class TestGetVersionRank(unittest.TestCase):
 	"""
 	Defines :func:`foundations.strings.get_version_rank` definition units tests methods.
 	"""
@@ -117,7 +117,7 @@ class GetVersionRankTestCase(unittest.TestCase):
 		self.assertEqual(foundations.strings.get_version_rank("4.0"), 4000000000000)
 		self.assertEqual(foundations.strings.get_version_rank(""), 0)
 
-class GetSplitextBasenameTestCase(unittest.TestCase):
+class TestGetSplitextBasename(unittest.TestCase):
 	"""
 	Defines :func:`foundations.strings.get_splitext_basename` definition units tests methods.
 	"""
@@ -132,7 +132,7 @@ class GetSplitextBasenameTestCase(unittest.TestCase):
 		self.assertEqual(foundations.strings.get_splitext_basename("/Users/JohnDoe/Documents/Test"), "Test")
 		self.assertEqual(foundations.strings.get_splitext_basename("/Users/JohnDoe/Documents/Test/"), "Test")
 
-class GetCommonAncestorTestCase(unittest.TestCase):
+class TestGetCommonAncestor(unittest.TestCase):
 	"""
 	Defines :func:`foundations.strings.get_common_ancestor` definition units tests methods.
 	"""
@@ -150,7 +150,7 @@ class GetCommonAncestorTestCase(unittest.TestCase):
 		"/Users/JohnDoe/Documents")
 		self.assertFalse(foundations.strings.get_common_ancestor("azerty", "qwerty"))
 
-class GetCommonPathsAncestorTestCase(unittest.TestCase):
+class TestGetCommonPathsAncestor(unittest.TestCase):
 	"""
 	Defines :func:`foundations.strings.get_common_paths_ancestor` definition units tests methods.
 	"""
@@ -172,7 +172,7 @@ class GetCommonPathsAncestorTestCase(unittest.TestCase):
 														"{0}{1}".format(os.sep,
 														os.sep.join(("Users", "JohnDoe", "Documents", "Test.txt")))))
 
-class GetWordsTestCase(unittest.TestCase):
+class TestGetWords(unittest.TestCase):
 	"""
 	Defines :func:`foundations.strings.get_words` definition units tests methods.
 	"""
@@ -188,7 +188,7 @@ class GetWordsTestCase(unittest.TestCase):
 		self.assertListEqual(foundations.strings.get_words("Users are: John Doe, Jane Doe, Z6PO."),
 							"Users are John Doe Jane Doe Z6PO".split())
 
-class FilterWordsTestCase(unittest.TestCase):
+class TestFilterWords(unittest.TestCase):
 	"""
 	Defines :func:`foundations.strings.filter_words` definition units tests methods.
 	"""
@@ -220,7 +220,7 @@ class FilterWordsTestCase(unittest.TestCase):
 												filters_out=("Users",)),
 												[])
 
-class ReplaceTestCase(unittest.TestCase):
+class TestReplace(unittest.TestCase):
 	"""
 	Defines :func:`foundations.strings.replace` definition units tests methods.
 	"""
@@ -236,7 +236,7 @@ class ReplaceTestCase(unittest.TestCase):
 		self.assertEqual(foundations.strings.replace("To@Forward@Slashes@Test@Case", {"@":"|", "|":"@"}),
 						"To@Forward@Slashes@Test@Case")
 
-class RemoveStripTestCase(unittest.TestCase):
+class TestRemoveStrip(unittest.TestCase):
 	"""
 	Defines :func:`foundations.strings.remove_strip` definition units tests methods.
 	"""
@@ -250,7 +250,7 @@ class RemoveStripTestCase(unittest.TestCase):
 		self.assertEqual(foundations.strings.remove_strip("John Doe", "John"), "Doe")
 		self.assertEqual(foundations.strings.remove_strip("John Doe", "Doe"), "John")
 
-class ToForwardSlashesTestCase(unittest.TestCase):
+class TestToForwardSlashes(unittest.TestCase):
 	"""
 	Defines :func:`foundations.strings.to_forward_slashes` definition units tests methods.
 	"""
@@ -265,7 +265,7 @@ class ToForwardSlashesTestCase(unittest.TestCase):
 						"To/Forward/Slashes/Test/Case")
 		self.assertEqual(foundations.strings.to_forward_slashes("\\Users/JohnDoe\\Documents"), "/Users/JohnDoe/Documents")
 
-class ToBackwardSlashesTestCase(unittest.TestCase):
+class TestToBackwardSlashes(unittest.TestCase):
 	"""
 	Defines :func:`foundations.strings.to_backward_slashes` definition units tests methods.
 	"""
@@ -280,7 +280,7 @@ class ToBackwardSlashesTestCase(unittest.TestCase):
 						"To\\Forward\\Slashes\\Test\\Case")
 		self.assertEqual(foundations.strings.to_backward_slashes("/Users/JohnDoe/Documents"), "\\Users\\JohnDoe\\Documents")
 
-class ToPosixPathTestCase(unittest.TestCase):
+class TestToPosixPath(unittest.TestCase):
 	"""
 	Defines :func:`foundations.strings.to_posix_path` definition units tests methods.
 	"""
@@ -295,7 +295,7 @@ class ToPosixPathTestCase(unittest.TestCase):
 		self.assertEqual(foundations.strings.to_posix_path("\\Server\\Users\\JohnDoe\\Documents"),
 						"/Server/Users/JohnDoe/Documents")
 
-class GetNormalizedPathTestCase(unittest.TestCase):
+class TestGetNormalizedPath(unittest.TestCase):
 	"""
 	Defines :func:`foundations.strings.get_normalized_path` definition units tests methods.
 	"""
@@ -317,7 +317,7 @@ class GetNormalizedPathTestCase(unittest.TestCase):
 			self.assertEqual(foundations.strings.get_normalized_path("/Users/JohnDoe/Documents/"), "/Users/JohnDoe/Documents")
 			self.assertEqual(foundations.strings.get_normalized_path("/Users\JohnDoe/Documents"), "/Users\JohnDoe/Documents")
 
-class IsEmailTestCase(unittest.TestCase):
+class TestIsEmail(unittest.TestCase):
 	"""
 	Defines :func:`foundations.strings.is_email` definition units tests methods.
 	"""
@@ -333,7 +333,7 @@ class IsEmailTestCase(unittest.TestCase):
 		self.assertFalse(foundations.strings.is_email("john.doe"))
 		self.assertFalse(foundations.strings.is_email("john.doe@domain"))
 
-class IsWebsiteTestCase(unittest.TestCase):
+class TestIsWebsite(unittest.TestCase):
 	"""
 	Defines :func:`foundations.strings.is_website` definition units tests methods.
 	"""
@@ -352,7 +352,7 @@ class IsWebsiteTestCase(unittest.TestCase):
 		self.assertFalse(foundations.strings.is_website(".com"))
 		self.assertFalse(foundations.strings.is_website("domain.com"))
 
-class GetRandomSequenceTestCase(unittest.TestCase):
+class TestGetRandomSequence(unittest.TestCase):
 	"""
 	Defines :func:`foundations.strings.get_random_sequence` definition units tests methods.
 	"""

@@ -46,7 +46,7 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["RESOURCES_DIRECTORY", "TEST_FILE", "TEST_DIRECTORY", "RotatingBackupTestCase"]
+__all__ = ["RESOURCES_DIRECTORY", "TEST_FILE", "TEST_DIRECTORY", "TestRotatingBackup"]
 
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
 TEST_FILE = os.path.join(RESOURCES_DIRECTORY, "standard.ibl")
@@ -55,7 +55,7 @@ TEST_DIRECTORY = os.path.join(RESOURCES_DIRECTORY, "standard")
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class RotatingBackupTestCase(unittest.TestCase):
+class TestRotatingBackup(unittest.TestCase):
 	"""
 	Defines :class:`foundations.rotating_backup.RotatingBackup` class units tests methods.
 	"""

@@ -52,7 +52,7 @@ __all__ = ["RESOURCES_DIRECTORY",
 			"LIBRARIES",
 			"LIBRARIES_FUNCTIONS",
 			"LIBRARIES_TESTS_CASES",
-			"LibraryTestCase"]
+			"TestLibrary"]
 
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
 LIBRARIES_DIRECTORY = os.path.join(RESOURCES_DIRECTORY, "libraries")
@@ -78,7 +78,7 @@ LIBRARIES_TESTS_CASES = {"freeimage" : {"FreeImage_GetVersion" : "3.15.1",
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class LibraryTestCase(unittest.TestCase):
+class TestLibrary(unittest.TestCase):
 	"""
 	Defines :class:`foundations.library.Library` class units tests methods.
 	"""

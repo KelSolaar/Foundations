@@ -48,15 +48,15 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["EnvironmentTestCase",
-		"GetTemporaryDirectoryTestCase",
-		"GetSystemApplicationDataDirectoryTestCase",
-		"GetUserApplicationDataDirectoryTestCase", ]
+__all__ = ["TestEnvironment",
+		"TestGetTemporaryDirectory",
+		"TestGetSystemApplicationDataDirectory",
+		"TestGetUserApplicationDataDirectory", ]
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class EnvironmentTestCase(unittest.TestCase):
+class TestEnvironment(unittest.TestCase):
 	"""
 	Defines :class:`foundations.environment.Environment` class units tests methods.
 	"""
@@ -144,7 +144,7 @@ class EnvironmentTestCase(unittest.TestCase):
 		self.assertIn("JANE", os.environ)
 		self.assertEqual(environment.get_value("JANE"), "DOE")
 
-class GetTemporaryDirectoryTestCase(unittest.TestCase):
+class TestGetTemporaryDirectory(unittest.TestCase):
 	"""
 	Defines :func:`foundations.common.get_temporary_directory` definition units tests methods.
 	"""
@@ -159,7 +159,7 @@ class GetTemporaryDirectoryTestCase(unittest.TestCase):
 		self.assertTrue(os.path.exists(path))
 		self.assertEqual(path, tempfile.gettempdir())
 
-class GetSystemApplicationDataDirectoryTestCase(unittest.TestCase):
+class TestGetSystemApplicationDataDirectory(unittest.TestCase):
 	"""
 	Defines :func:`foundations.common.get_system_application_data_directory` definition units tests methods.
 	"""
@@ -173,7 +173,7 @@ class GetSystemApplicationDataDirectoryTestCase(unittest.TestCase):
 		self.assertIsInstance(path, unicode)
 		self.assertTrue(os.path.exists(path))
 
-class GetUserApplicationDataDirectoryTestCase(unittest.TestCase):
+class TestGetUserApplicationDataDirectory(unittest.TestCase):
 	"""
 	Defines :func:`foundations.common.get_user_application_data_directory` definition units tests methods.
 	"""

@@ -45,7 +45,7 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["ANSI_ESCAPE_CODES", "AnsiEscapeCodesTestCase", "ColorizeTestCase"]
+__all__ = ["ANSI_ESCAPE_CODES", "TestAnsiEscapeCodes", "TestColorize"]
 
 ANSI_ESCAPE_CODES = {"bBlack": "\033[40m",
 					 "bBlue": "\033[44m",
@@ -748,7 +748,7 @@ ANSI_ESCAPE_CODES = {"bBlack": "\033[40m",
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class AnsiEscapeCodesTestCase(unittest.TestCase):
+class TestAnsiEscapeCodes(unittest.TestCase):
 	"""
 	Defines :class:`foundations.shell.AnsiEscapeCodes` class units tests methods.
 	"""
@@ -767,7 +767,7 @@ class AnsiEscapeCodesTestCase(unittest.TestCase):
 		for attribute, value in ANSI_ESCAPE_CODES.iteritems():
 			self.assertEqual(value, getattr(AnsiEscapeCodes, attribute))
 
-class ColorizeTestCase(unittest.TestCase):
+class TestColorize(unittest.TestCase):
 	"""
 	Defines :func:`foundations.shell.colorize` definition units tests methods.
 	"""

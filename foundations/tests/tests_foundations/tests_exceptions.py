@@ -49,17 +49,17 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["EXCEPTIONS"
-		"GetInnerMostFrameCase",
-		"ExtractStackCase",
-		"ExtractArgumentsCase",
-		"ExtractLocalsCase",
-		"ExtractExceptionCase",
-		"FormatExceptionCase",
-		"FormatReportCase",
-		"InstallExceptionHandlerCase",
-		"UninstallExceptionHandlerCase",
-		"ExceptionsTestCase",
-		"AttributeStructureParsingErrorTestCase"]
+		"TestGetInnerMostFrame",
+		"TestExtractStack",
+		"TestExtractArguments",
+		"TestExtractLocals",
+		"TestExtractException",
+		"TestFormatException",
+		"TestFormatReport",
+		"TestInstallExceptionHandler",
+		"TestUninstallExceptionHandler",
+		"TestExceptions",
+		"TestAttributeStructureParsingError"]
 
 EXCEPTIONS = []
 
@@ -80,7 +80,7 @@ _gather_exceptions()
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class GetInnerMostFrameCase(unittest.TestCase):
+class TestGetInnerMostFrame(unittest.TestCase):
 	"""
 	Defines :func:`foundations.exceptions.get_inner_most_frame` definition units tests methods.
 	"""
@@ -97,7 +97,7 @@ class GetInnerMostFrameCase(unittest.TestCase):
 			self.assertIsInstance(foundations.exceptions.get_inner_most_frame(trcback), types.FrameType)
 			self.assertEqual(foundations.exceptions.get_inner_most_frame(None), None)
 
-class ExtractStackCase(unittest.TestCase):
+class TestExtractStack(unittest.TestCase):
 	"""
 	Defines :func:`foundations.exceptions.extract_stack` definition units tests methods.
 	"""
@@ -121,7 +121,7 @@ class ExtractStackCase(unittest.TestCase):
 				self.assertIsInstance(context, list)
 				self.assertIsInstance(index, int)
 
-class ExtractArgumentsCase(unittest.TestCase):
+class TestExtractArguments(unittest.TestCase):
 	"""
 	Defines :func:`foundations.exceptions.extract_arguments` definition units tests methods.
 	"""
@@ -149,7 +149,7 @@ class ExtractArgumentsCase(unittest.TestCase):
 			self.assertEqual(nameless_args, "args")
 			self.assertEqual(keyword_args, "kwargs")
 
-class ExtractLocalsCase(unittest.TestCase):
+class TestExtractLocals(unittest.TestCase):
 	"""
 	Defines :func:`foundations.exceptions.extract_locals` definition units tests methods.
 	"""
@@ -184,7 +184,7 @@ class ExtractLocalsCase(unittest.TestCase):
 				self.assertIsInstance(keyword_args, dict)
 				self.assertIsInstance(locals, dict)
 
-class ExtractExceptionCase(unittest.TestCase):
+class TestExtractException(unittest.TestCase):
 	"""
 	Defines :func:`foundations.exceptions.extract_exception` definition units tests methods.
 	"""
@@ -206,7 +206,7 @@ class ExtractExceptionCase(unittest.TestCase):
 			self.assertIsInstance(instance, Exception)
 			self.assertIsInstance(trcback, types.TracebackType)
 
-class FormatExceptionCase(unittest.TestCase):
+class TestFormatException(unittest.TestCase):
 	"""
 	Defines :func:`foundations.exceptions.format_exception` definition units tests methods.
 	"""
@@ -224,7 +224,7 @@ class FormatExceptionCase(unittest.TestCase):
 			for line in output:
 				self.assertIsInstance(line, unicode)
 
-class FormatReportCase(unittest.TestCase):
+class TestFormatReport(unittest.TestCase):
 	"""
 	Defines :func:`foundations.exceptions.format_report` definition units tests methods.
 	"""
@@ -244,7 +244,7 @@ class FormatReportCase(unittest.TestCase):
 			for line in itertools.chain(header, frames, trcback):
 				self.assertIsInstance(line, unicode)
 
-class InstallExceptionHandlerCase(unittest.TestCase):
+class TestInstallExceptionHandler(unittest.TestCase):
 	"""
 	Defines :func:`foundations.exceptions.install_exception_handler` definition units tests methods.
 	"""
@@ -259,7 +259,7 @@ class InstallExceptionHandlerCase(unittest.TestCase):
 		self.assertNotEqual(sys.excepthook, except_hook)
 		foundations.exceptions.uninstall_exception_handler()
 
-class UninstallExceptionHandlerCase(unittest.TestCase):
+class TestUninstallExceptionHandler(unittest.TestCase):
 	"""
 	Defines :func:`foundations.exceptions.uninstall_exception_handler` definition units tests methods.
 	"""
@@ -274,7 +274,7 @@ class UninstallExceptionHandlerCase(unittest.TestCase):
 		self.assertTrue(foundations.exceptions.uninstall_exception_handler())
 		self.assertEqual(sys.excepthook, except_hook)
 
-class ExceptionsTestCase(unittest.TestCase):
+class TestExceptions(unittest.TestCase):
 	"""
 	Defines :mod:`foundations.exceptions` module exceptions classes units tests methods.
 	"""
@@ -303,7 +303,7 @@ class ExceptionsTestCase(unittest.TestCase):
 			exception_instance = exception(0)
 			self.assertIsInstance(exception_instance.__str__(), str)
 
-class AttributeStructureParsingErrorTestCase(unittest.TestCase):
+class TestAttributeStructureParsingError(unittest.TestCase):
 	"""
 	Defines :class:`foundations.exceptions.AttributeStructureParsingError` class units tests methods.
 	"""

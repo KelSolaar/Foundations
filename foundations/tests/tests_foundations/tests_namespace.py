@@ -43,16 +43,16 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["SetNamespaceTestCase",
-		"GetNamespaceTestCase",
-		"RemoveNamespaceTestCase",
-		"GetRootTestCase",
-		"GetLeafTestCase"]
+__all__ = ["TestSetNamespace",
+		"TestGetNamespace",
+		"TestRemoveNamespace",
+		"TestGetRoot",
+		"TestGetLeaf"]
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class SetNamespaceTestCase(unittest.TestCase):
+class TestSetNamespace(unittest.TestCase):
 	"""
 	Defines :func:`foundations.namespace.set_namespace` definition units tests methods.
 	"""
@@ -66,7 +66,7 @@ class SetNamespaceTestCase(unittest.TestCase):
 		self.assertEqual(foundations.namespace.set_namespace("Namespace", "Attribute"), "Namespace|Attribute")
 		self.assertEqual(foundations.namespace.set_namespace("Namespace", "Attribute", ":"), "Namespace:Attribute")
 
-class GetNamespaceTestCase(unittest.TestCase):
+class TestGetNamespace(unittest.TestCase):
 	"""
 	Defines :func:`foundations.namespace.get_namespace` definition units tests methods.
 	"""
@@ -82,7 +82,7 @@ class GetNamespaceTestCase(unittest.TestCase):
 		self.assertEqual(foundations.namespace.get_namespace("Namespace|Attribute|Value", root_only=True), "Namespace")
 		self.assertIsNone(foundations.namespace.get_namespace("Namespace"))
 
-class RemoveNamespaceTestCase(unittest.TestCase):
+class TestRemoveNamespace(unittest.TestCase):
 	"""
 	Defines :func:`foundations.namespace.remove_namespace` definition units tests methods.
 	"""
@@ -98,7 +98,7 @@ class RemoveNamespaceTestCase(unittest.TestCase):
 		self.assertEqual(foundations.namespace.remove_namespace("Namespace|Attribute|Value"), "Value")
 		self.assertEqual(foundations.namespace.remove_namespace("Namespace|Attribute|Value", root_only=True), "Attribute|Value")
 
-class GetRootTestCase(unittest.TestCase):
+class TestGetRoot(unittest.TestCase):
 	"""
 	Defines :func:`foundations.namespace.get_root` definition units tests methods.
 	"""
@@ -112,7 +112,7 @@ class GetRootTestCase(unittest.TestCase):
 		self.assertEqual(foundations.namespace.get_root("Namespace|Attribute"), "Namespace")
 		self.assertEqual(foundations.namespace.get_root("Namespace:Attribute", ":"), "Namespace")
 
-class GetLeafTestCase(unittest.TestCase):
+class TestGetLeaf(unittest.TestCase):
 	"""
 	Defines :func:`foundations.namespace.get_leaf` definition units tests methods.
 	"""

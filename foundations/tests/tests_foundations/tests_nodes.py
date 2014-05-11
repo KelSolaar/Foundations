@@ -47,12 +47,12 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["AttributeTestCase", "AbstractNodeTestCase", "AbstractCompositeNode"]
+__all__ = ["TestAttribute", "TestAbstractNode", "AbstractCompositeNode"]
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class AttributeTestCase(unittest.TestCase):
+class TestAttribute(unittest.TestCase):
 	"""
 	Defines :class:`foundations.nodes.Attribute` class units tests methods.
 	"""
@@ -68,7 +68,7 @@ class AttributeTestCase(unittest.TestCase):
 		for attribute in required_attributes:
 			self.assertIn(attribute, dir(Attribute))
 
-class AbstractNodeTestCase(unittest.TestCase):
+class TestAbstractNode(unittest.TestCase):
 	"""
 	Defines :class:`foundations.nodes.AbstractNode` class units tests methods.
 	"""
@@ -204,7 +204,7 @@ class AbstractNodeTestCase(unittest.TestCase):
 		data = pickle.loads(data)
 		self.assertEqual(node_a, data)
 
-class AbstractCompositeNodeTestCase(unittest.TestCase):
+class TestAbstractCompositeNode(unittest.TestCase):
 	"""
 	Defines :class:`foundations.nodes.AbstractCompositeNode` class units tests methods.
 	"""

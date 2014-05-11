@@ -44,21 +44,21 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["UniqifyTestCase",
-		   "OrderedUniqifyTestCase",
-		   "UnpackDefaultTestCase",
-		   "PathExistsTestCase",
-		   "FilterPathTestCase",
-		   "GetFirstItemTestCase",
-		   "GetLastItemTestCase",
-		   "RepeatTestCase",
-		   "DependencyResolverTestCase",
-		   "GetHostAddressTestCase"]
+__all__ = ["TestUniqify",
+		   "TestOrderedUniqify",
+		   "TestUnpackDefault",
+		   "TestPathExists",
+		   "TestFilterPath",
+		   "TestGetFirstItem",
+		   "TestGetLastItem",
+		   "TestRepeat",
+		   "TestDependencyResolver",
+		   "TestGetHostAddress"]
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class UniqifyTestCase(unittest.TestCase):
+class TestUniqify(unittest.TestCase):
 	"""
 	Defines :func:`foundations.common.uniqify` definition units tests methods.
 	"""
@@ -75,7 +75,7 @@ class UniqifyTestCase(unittest.TestCase):
 		sequence = ({1: "A"}, {1: "A"}, {2: "B"}, {3: "C"})
 		self.assertListEqual(sorted(foundations.common.uniqify(sequence)), [{1: "A"}, {2: "B"}, {3: "C"}])
 
-class OrderedUniqifyTestCase(unittest.TestCase):
+class TestOrderedUniqify(unittest.TestCase):
 	"""
 	Defines :func:`foundations.common.ordered_uniqify` definition units tests methods.
 	"""
@@ -90,7 +90,7 @@ class OrderedUniqifyTestCase(unittest.TestCase):
 		sequence = ((1, "A"), (2, "B"), (2, "B"), (3, "C"))
 		self.assertListEqual(foundations.common.ordered_uniqify(sequence), [(1, "A"), (2, "B"), (3, "C")])
 
-class UnpackDefaultTestCase(unittest.TestCase):
+class TestUnpackDefault(unittest.TestCase):
 	"""
 	Defines :func:`foundations.common.unpack_default` definition units tests methods.
 	"""
@@ -105,7 +105,7 @@ class UnpackDefaultTestCase(unittest.TestCase):
 		self.assertListEqual(list(foundations.common.unpack_default((1, 2, 3, 4), length=5, default="Default")),
 							 [1, 2, 3, 4, "Default"])
 
-class PathExistsTestCase(unittest.TestCase):
+class TestPathExists(unittest.TestCase):
 	"""
 	Defines :func:`foundations.common.path_exists` definition units tests methods.
 	"""
@@ -119,7 +119,7 @@ class PathExistsTestCase(unittest.TestCase):
 		self.assertTrue(foundations.common.path_exists(__file__))
 		self.assertFalse(foundations.common.path_exists(""))
 
-class FilterPathTestCase(unittest.TestCase):
+class TestFilterPath(unittest.TestCase):
 	"""
 	Defines :func:`foundations.common.filter_path` definition units tests methods.
 	"""
@@ -132,7 +132,7 @@ class FilterPathTestCase(unittest.TestCase):
 		self.assertEqual(foundations.common.filter_path(None), "")
 		self.assertEqual(foundations.common.filter_path(__file__), __file__)
 
-class GetFirstItemTestCase(unittest.TestCase):
+class TestGetFirstItem(unittest.TestCase):
 	"""
 	Defines :func:`foundations.common.get_first_item` definition units tests methods.
 	"""
@@ -149,7 +149,7 @@ class GetFirstItemTestCase(unittest.TestCase):
 		self.assertEqual(foundations.common.get_first_item(("Nemo",)), "Nemo")
 		self.assertEqual(foundations.common.get_first_item(("Nemo", "John", "Doe")), "Nemo")
 
-class GetLastItemTestCase(unittest.TestCase):
+class TestGetLastItem(unittest.TestCase):
 	"""
 	Defines :func:`foundations.common.get_last_item` definition units tests methods.
 	"""
@@ -166,7 +166,7 @@ class GetLastItemTestCase(unittest.TestCase):
 		self.assertEqual(foundations.common.get_last_item(("Nemo",)), "Nemo")
 		self.assertEqual(foundations.common.get_last_item(("Nemo", "John", "Doe")), "Doe")
 
-class RepeatTestCase(unittest.TestCase):
+class TestRepeat(unittest.TestCase):
 	"""
 	Defines :func:`foundations.common.repeat` definition units tests methods.
 	"""
@@ -182,7 +182,7 @@ class RepeatTestCase(unittest.TestCase):
 		self.assertEqual(len(foundations.common.repeat(lambda: foo(True), 10)), 10)
 		self.assertEqual(foundations.common.repeat(lambda: foo(True), 2), [True, True])
 
-class DependencyResolverTestCase(unittest.TestCase):
+class TestDependencyResolver(unittest.TestCase):
 	"""
 	Defines :func:`foundations.common.dependency_resolver` definition units tests methods.
 	"""
@@ -199,7 +199,7 @@ class DependencyResolverTestCase(unittest.TestCase):
 		self.assertEquals(foundations.common.dependency_resolver(dependencies),
 						  [set(["a", "b"]), set(["c", "f"]), set(["d"])])
 
-class GetHostAddressTestCase(unittest.TestCase):
+class TestGetHostAddress(unittest.TestCase):
 	"""
 	Defines :func:`foundations.common.get_host_address` definition units tests methods.
 	"""

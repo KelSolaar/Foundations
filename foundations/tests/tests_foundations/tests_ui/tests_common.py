@@ -45,7 +45,7 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["RESOURCES_DIRECTORY", "UI_TESTS_FILE", "APPLICATION", "QWidget_factoryTestCase"]
+__all__ = ["RESOURCES_DIRECTORY", "UI_TESTS_FILE", "APPLICATION", "TestQWidget_factory"]
 
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "../resources/ui")
 UI_TESTS_FILE = os.path.join(RESOURCES_DIRECTORY, "Tests_Widget.ui")
@@ -53,7 +53,7 @@ UI_TESTS_FILE = os.path.join(RESOURCES_DIRECTORY, "Tests_Widget.ui")
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class QWidget_factoryTestCase(unittest.TestCase):
+class TestQWidget_factory(unittest.TestCase):
 	"""
 	Defines :func:`foundations.ui.common.QWidget_factory` definition units tests methods.
 	"""

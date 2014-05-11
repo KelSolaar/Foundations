@@ -54,13 +54,13 @@ __all__ = ["RESOURCES_DIRECTORY",
 		   "LIBRARY",
 		   "TEXT_FILE",
 		   "FILE_CONTENT",
-		   "FileTestCase",
-		   "SetDirectoryTestCase",
-		   "CopyTestCase",
-		   "RemoveTestCase",
-		   "IsReadableTestCase",
-		   "IsWritableTestCase",
-		   "IsBinaryFileTestCase"]
+		   "TestFile",
+		   "TestSetDirectory",
+		   "TestCopy",
+		   "TestRemove",
+		   "TestIsReadable",
+		   "TestIsWritable",
+		   "TestIsBinaryFile"]
 
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
 LIBRARIES_DIRECTORY = os.path.join(RESOURCES_DIRECTORY, "libraries")
@@ -80,7 +80,7 @@ FILE_CONTENT = [
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class FileTestCase(unittest.TestCase):
+class TestFile(unittest.TestCase):
 	"""
 	Defines :class:`foundations.io.File` class units tests methods.
 	"""
@@ -191,7 +191,7 @@ class FileTestCase(unittest.TestCase):
 		self.assertListEqual(io_file.content, [])
 		os.close(file_descriptor)
 
-class SetDirectoryTestCase(unittest.TestCase):
+class TestSetDirectory(unittest.TestCase):
 	"""
 	Defines :func:`foundations.io.set_directory` definition units tests methods.
 	"""
@@ -208,7 +208,7 @@ class SetDirectoryTestCase(unittest.TestCase):
 		self.assertTrue(os.path.exists(directory))
 		shutil.rmtree(temp_directory)
 
-class CopyTestCase(unittest.TestCase):
+class TestCopy(unittest.TestCase):
 	"""
 	Defines :func:`foundations.io.copy` definition units tests methods.
 	"""
@@ -224,7 +224,7 @@ class CopyTestCase(unittest.TestCase):
 		self.assertTrue(os.path.exists(destination))
 		shutil.rmtree(temp_directory)
 
-class RemoveTestCase(unittest.TestCase):
+class TestRemove(unittest.TestCase):
 	"""
 	Defines :func:`foundations.io.remove` definition units tests methods.
 	"""
@@ -241,7 +241,7 @@ class RemoveTestCase(unittest.TestCase):
 		self.assertTrue(not os.path.exists(destination))
 		shutil.rmtree(temp_directory)
 
-class IsReadableTestCase(unittest.TestCase):
+class TestIsReadable(unittest.TestCase):
 	"""
 	Defines :func:`foundations.io.is_readable` definition units tests methods.
 	"""
@@ -258,7 +258,7 @@ class IsReadableTestCase(unittest.TestCase):
 		os.chmod(temp_directory, stat.S_IREAD)
 		shutil.rmtree(temp_directory)
 
-class IsWritableTestCase(unittest.TestCase):
+class TestIsWritable(unittest.TestCase):
 	"""
 	Defines :func:`foundations.io.is_writable` definition units tests methods.
 	"""
@@ -274,7 +274,7 @@ class IsWritableTestCase(unittest.TestCase):
 		self.assertFalse(foundations.io.is_writable(temp_directory))
 		shutil.rmtree(temp_directory)
 
-class IsBinaryFileTestCase(unittest.TestCase):
+class TestIsBinaryFile(unittest.TestCase):
 	"""
 	Defines :func:`foundations.io.is_binary_file` definition units tests methods.
 	"""

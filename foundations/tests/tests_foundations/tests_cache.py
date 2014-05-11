@@ -44,12 +44,12 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["RESOURCES_DIRECTORY",
-			"CacheTestCase"]
+			"TestCache"]
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class CacheTestCase(unittest.TestCase):
+class TestCache(unittest.TestCase):
 	"""
 	Defines :class:`foundations.cache.Cache` class units tests methods.
 	"""

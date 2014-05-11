@@ -44,13 +44,13 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["TCPServerTestCase", "EchoRequestsHandlerTestCase"]
+__all__ = ["TestTCPServer", "TestEchoRequestsHandler"]
 
 
 #**********************************************************************************************************************
 #***	Module classes and definitions.
 #**********************************************************************************************************************
-class TCPServerTestCase(unittest.TestCase):
+class TestTCPServer(unittest.TestCase):
 	"""
 	Defines :class:`foundations.tcp_server.TCPServer` class units tests methods.
 	"""
@@ -95,7 +95,7 @@ class TCPServerTestCase(unittest.TestCase):
 		self.assertTrue(tcp_server.stop())
 		self.assertEqual(tcp_server.online, False)
 
-class EchoRequestsHandlerTestCase(unittest.TestCase):
+class TestEchoRequestsHandler(unittest.TestCase):
 	"""
 	Defines :class:`foundations.tcp_server.EchoRequestsHandler` class units tests methods.
 	"""
