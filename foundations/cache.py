@@ -5,28 +5,19 @@
 **cache.py**
 
 **Platform:**
-	Windows, Linux, Mac Os X.
+    Windows, Linux, Mac Os X.
 
 **Description:**
-	Defines caching related classes.
+    Defines caching related classes.
 
 **Others:**
 
 """
 
-#**********************************************************************************************************************
-#***	Future imports.
-#**********************************************************************************************************************
 from __future__ import unicode_literals
 
-#**********************************************************************************************************************
-#***	Internal imports.
-#**********************************************************************************************************************
 import foundations.verbose
 
-#**********************************************************************************************************************
-#***	Module attributes.
-#**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
 __copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
@@ -36,125 +27,120 @@ __status__ = "Production"
 
 __all__ = ["LOGGER", "Cache"]
 
-LOGGER = foundations.verbose.installLogger()
+LOGGER = foundations.verbose.install_logger()
 
-#**********************************************************************************************************************
-#***	Module classes and definitions.
-#**********************************************************************************************************************
+
 class Cache(dict):
-	"""
-	Defines the cache object and provides various methods to interact with its content.
-	
-	Usage:
-		
-	"""
+    """
+    Defines the cache object and provides various methods to interact with its content.
 
-	def __init__(self, **kwargs):
-		"""
-		Initializes the class.
+    Usage:
 
-		:param \*\*kwargs: Key / Value pairs.
-		:type \*\*kwargs: dict
-		"""
+    """
 
-		dict.__init__(self, **kwargs)
+    def __init__(self, **kwargs):
+        """
+        Initializes the class.
 
-	#******************************************************************************************************************
-	#***	Class methods.
-	#******************************************************************************************************************
-	def addContent(self, **content):
-		"""
-		Adds given content to the cache.
+        :param \*\*kwargs: Key / Value pairs.
+        :type \*\*kwargs: dict
+        """
 
-		Usage::
-		
-			>>> cache = Cache()
-			>>> cache.addContent(John="Doe", Luke="Skywalker")
-			True
-			>>> cache
-			{'Luke': 'Skywalker', 'John': 'Doe'}
+        dict.__init__(self, **kwargs)
 
-		:param \*\*content: Content to add.
-		:type \*\*content: \*\*
-		:return: Method success.
-		:rtype: bool
-		"""
+    def add_content(self, **content):
+        """
+        Adds given content to the cache.
 
-		LOGGER.debug("> Adding '{0}' content to the cache.".format(self.__class__.__name__, content))
+        Usage::
 
-		self.update(**content)
-		return True
+            >>> cache = Cache()
+            >>> cache.add_content(John="Doe", Luke="Skywalker")
+            True
+            >>> cache
+            {'Luke': 'Skywalker', 'John': 'Doe'}
 
-	def removeContent(self, *keys):
-		"""
-		Removes given content from the cache.
+        :param \*\*content: Content to add.
+        :type \*\*content: \*\*
+        :return: Method success.
+        :rtype: bool
+        """
 
-		Usage::
-			
-			>>> cache = Cache()
-			>>> cache.addContent(John="Doe", Luke="Skywalker")
-			True
-			>>> cache.removeContent("Luke", "John")
-			True
-			>>> cache
-			{}			
-			
-		:param \*keys: Content to remove.
-		:type \*keys: \*
-		:return: Method success.
-		:rtype: bool
-		"""
+        LOGGER.debug("> Adding '{0}' content to the cache.".format(self.__class__.__name__, content))
 
-		LOGGER.debug("> Removing '{0}' content from the cache.".format(self.__class__.__name__, keys))
+        self.update(**content)
+        return True
 
-		for key in keys:
-			if not key in self:
-				raise KeyError("{0} | '{1}' key doesn't exists in cache content!".format(self.__class__.__name__, key))
+    def remove_content(self, *keys):
+        """
+        Removes given content from the cache.
 
-			del self[key]
-		return True
+        Usage::
 
-	def getContent(self, key):
-		"""
-		Gets given content from the cache.
+            >>> cache = Cache()
+            >>> cache.add_content(John="Doe", Luke="Skywalker")
+            True
+            >>> cache.remove_content("Luke", "John")
+            True
+            >>> cache
+            {}
 
-		Usage::
+        :param \*keys: Content to remove.
+        :type \*keys: \*
+        :return: Method success.
+        :rtype: bool
+        """
 
-			>>> cache = Cache()
-			>>> cache.addContent(John="Doe", Luke="Skywalker")
-			True
-			>>> cache.getContent("Luke")
-			'Skywalker'
-			
-		:param key: Content to retrieve.
-		:type key: object
-		:return: Content.
-		:rtype: object
-		"""
+        LOGGER.debug("> Removing '{0}' content from the cache.".format(self.__class__.__name__, keys))
 
-		LOGGER.debug("> Retrieving '{0}' content from the cache.".format(self.__class__.__name__, key))
+        for key in keys:
+            if not key in self:
+                raise KeyError("{0} | '{1}' key doesn't exists in cache content!".format(self.__class__.__name__, key))
 
-		return self.get(key)
+            del self[key]
+        return True
 
-	def flushContent(self):
-		"""
-		Flushes the cache content.
+    def get_content(self, key):
+        """
+        Gets given content from the cache.
 
-		Usage::
+        Usage::
 
-			>>> cache = Cache()
-			>>> cache.addContent(John="Doe", Luke="Skywalker")
-			True
-			>>> cache.flushContent()
-			True
-			>>> cache
-			{}
-			
-		:return: Method success.
-		:rtype: bool
-		"""
+            >>> cache = Cache()
+            >>> cache.add_content(John="Doe", Luke="Skywalker")
+            True
+            >>> cache.get_content("Luke")
+            'Skywalker'
 
-		LOGGER.debug("> Flushing cache content.".format(self.__class__.__name__))
+        :param key: Content to retrieve.
+        :type key: object
+        :return: Content.
+        :rtype: object
+        """
 
-		self.clear()
-		return True
+        LOGGER.debug("> Retrieving '{0}' content from the cache.".format(self.__class__.__name__, key))
+
+        return self.get(key)
+
+    def flush_content(self):
+        """
+        Flushes the cache content.
+
+        Usage::
+
+            >>> cache = Cache()
+            >>> cache.add_content(John="Doe", Luke="Skywalker")
+            True
+            >>> cache.flush_content()
+            True
+            >>> cache
+            {}
+
+        :return: Method success.
+        :rtype: bool
+        """
+
+        LOGGER.debug("> Flushing cache content.".format(self.__class__.__name__))
+
+        self.clear()
+        return True

@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 
 """
-**utilities.py**
+**tests_decorators.py**
 
 **Platform:**
     Windows, Linux, Mac Os X.
 
 **Description:**
-    Defines tests suite logging configuration.
+    Defines units tests for :mod:`foundations.decorators` module.
 
 **Others:**
 
@@ -16,7 +16,14 @@
 
 from __future__ import unicode_literals
 
-import foundations.verbose
+import sys
+
+if sys.version_info[:2] <= (2, 6):
+    import unittest2 as unittest
+else:
+    import unittest
+
+import foundations.decorators
 
 __author__ = "Thomas Mansencal"
 __copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
@@ -25,7 +32,7 @@ __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
-__all__ = ["LOGGER"]
+__all__ = []
 
-LOGGER = foundations.verbose.install_logger()
-foundations.verbose.get_logging_console_handler()
+if __name__ == "__main__":
+    unittest.main()

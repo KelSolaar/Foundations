@@ -5,34 +5,22 @@
 **constants.py**
 
 **Platform:**
-	Windows, Linux, Mac Os X.
+    Windows, Linux, Mac Os X.
 
 **Description:**
-	Defines **Foundations** package default constants through the :class:`Constants` class.
+    Defines **Foundations** package default constants through the :class:`Constants` class.
 
 **Others:**
 
 """
 
-#**********************************************************************************************************************
-#***	Future imports.
-#**********************************************************************************************************************
 from __future__ import unicode_literals
 
-#**********************************************************************************************************************
-#***	External imports.
-#**********************************************************************************************************************
 import os
 import platform
 
-#**********************************************************************************************************************
-#***	Internal imports.
-#**********************************************************************************************************************
 import foundations
 
-#**********************************************************************************************************************
-#***	Module attributes.
-#**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
 __copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
@@ -42,97 +30,95 @@ __status__ = "Production"
 
 __all__ = ["Constants"]
 
-#**********************************************************************************************************************
-#***	Module classes and definitions.
-#**********************************************************************************************************************
+
 class Constants():
-	"""
-	Defines **Foundations** package default constants.
-	"""
+    """
+    Defines **Foundations** package default constants.
+    """
 
-	applicationName = "Foundations"
-	"""
-	:param applicationName: Package Application name.
-	:type applicationName: unicode
-	"""
-	majorVersion = "2"
-	"""
-	:param majorVersion: Package major version.
-	:type majorVersion: unicode
-	"""
-	minorVersion = "1"
-	"""
-	:param minorVersion: Package minor version.
-	:type minorVersion: unicode
-	"""
-	changeVersion = "0"
-	"""
-	:param changeVersion: Package change version.
-	:type changeVersion: unicode
-	"""
-	version = ".".join((majorVersion, minorVersion, changeVersion))
-	"""
-	:param version: Package version.
-	:type version: unicode
-	"""
+    application_name = "Foundations"
+    """
+    :param application_name: Package Application name.
+    :type application_name: unicode
+    """
+    major_version = "2"
+    """
+    :param major_version: Package major version.
+    :type major_version: unicode
+    """
+    minor_version = "1"
+    """
+    :param minor_version: Package minor version.
+    :type minor_version: unicode
+    """
+    change_version = "0"
+    """
+    :param change_version: Package change version.
+    :type change_version: unicode
+    """
+    version = ".".join((major_version, minor_version, change_version))
+    """
+    :param version: Package version.
+    :type version: unicode
+    """
 
-	logger = "Foundations_Logger"
-	"""
-	:param logger: Package logger name.
-	:type logger: unicode
-	"""
-	verbosityLevel = 3
-	"""
-	:param verbosityLevel: Default logging verbosity level.
-	:type verbosityLevel: int
-	"""
-	verbosityLabels = ("Critical", "Error", "Warning", "Info", "Debug")
-	"""
-	:param verbosityLabels: Logging verbosity labels.
-	:type verbosityLabels: tuple
-	"""
-	loggingDefaultFormatter = "Default"
-	"""
-	:param loggingDefaultFormatter: Default logging formatter name.
-	:type loggingDefaultFormatter: unicode
-	"""
-	loggingSeparators = "*" * 96
-	"""
-	:param loggingSeparators: Logging separators.
-	:type loggingSeparators: unicode
-	"""
+    logger = "Foundations_Logger"
+    """
+    :param logger: Package logger name.
+    :type logger: unicode
+    """
+    verbosity_level = 3
+    """
+    :param verbosity_level: Default logging verbosity level.
+    :type verbosity_level: int
+    """
+    verbosity_labels = ("Critical", "Error", "Warning", "Info", "Debug")
+    """
+    :param verbosity_labels: Logging verbosity labels.
+    :type verbosity_labels: tuple
+    """
+    logging_default_formatter = "Default"
+    """
+    :param logging_default_formatter: Default logging formatter name.
+    :type logging_default_formatter: unicode
+    """
+    logging_separators = "*" * 96
+    """
+    :param logging_separators: Logging separators.
+    :type logging_separators: unicode
+    """
 
-	defaultCodec = "utf-8"
-	"""
-	:param defaultCodec: Default codec.
-	:type defaultCodec: unicode
-	"""
-	codecError = "ignore"
-	"""
-	:param codecError: Default codec error behavior.
-	:type codecError: unicode
-	"""
+    default_codec = "utf-8"
+    """
+    :param default_codec: Default codec.
+    :type default_codec: unicode
+    """
+    codec_error = "ignore"
+    """
+    :param codec_error: Default codec error behavior.
+    :type codec_error: unicode
+    """
 
-	applicationDirectory = os.sep.join(("Foundations", ".".join((majorVersion, minorVersion))))
-	"""
-	:param applicationDirectory: Package Application directory.
-	:type applicationDirectory: unicode
-	"""
-	if platform.system() == "Windows" or platform.system() == "Microsoft" or platform.system() == "Darwin":
-		providerDirectory = "HDRLabs"
-		"""
-		:param providerDirectory: Package provider directory.
-		:type providerDirectory: unicode
-		"""
-	elif platform.system() == "Linux":
-		providerDirectory = ".HDRLabs"
-		"""
-		:param providerDirectory: Package provider directory.
-		:type providerDirectory: unicode
-		"""
+    application_directory = os.sep.join(("Foundations", ".".join((major_version, minor_version))))
+    """
+    :param application_directory: Package Application directory.
+    :type application_directory: unicode
+    """
+    if platform.system() == "Windows" or platform.system() == "Microsoft" or platform.system() == "Darwin":
+        provider_directory = "HDRLabs"
+        """
+        :param provider_directory: Package provider directory.
+        :type provider_directory: unicode
+        """
+    elif platform.system() == "Linux":
+        provider_directory = ".HDRLabs"
+        """
+        :param provider_directory: Package provider directory.
+        :type provider_directory: unicode
+        """
 
-	nullObject = "None"
-	"""
-	:param nullObject: Default null object string.
-	:type nullObject: unicode
-	"""
+    null_object = "None"
+    """
+    :param null_object: Default null object string.
+    :type null_object: unicode
+    """

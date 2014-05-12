@@ -5,45 +5,33 @@
 **exceptions.py**
 
 **Platform:**
-	Windows, Linux, Mac Os X.
+    Windows, Linux, Mac Os X.
 
 **Description:**
-	Defines **Foundations** package exceptions and others exception handling related objects.
+    Defines **Foundations** package exceptions and others exception handling related objects.
 
 **Others:**
 
 """
 
-#**********************************************************************************************************************
-#***	Future imports.
-#**********************************************************************************************************************
 from __future__ import unicode_literals
 
-#**********************************************************************************************************************
-#***	External imports.
-#**********************************************************************************************************************
 import ast
 import functools
 import inspect
 import sys
 
 if sys.version_info[:2] <= (2, 6):
-	from ordereddict import OrderedDict
+    from ordereddict import OrderedDict
 else:
-	from collections import OrderedDict
+    from collections import OrderedDict
 import textwrap
 import traceback
 import types
 
-#**********************************************************************************************************************
-#***	Internal imports.
-#**********************************************************************************************************************
 import foundations.verbose
 from foundations.globals.constants import Constants
 
-#**********************************************************************************************************************
-#***	Module attributes.
-#**********************************************************************************************************************
 __author__ = "Thomas Mansencal"
 __copyright__ = "Copyright (C) 2008 - 2014 - Thomas Mansencal"
 __license__ = "GPL V3.0 - http://www.gnu.org/licenses/"
@@ -52,723 +40,753 @@ __email__ = "thomas.mansencal@gmail.com"
 __status__ = "Production"
 
 __all__ = ["LOGGER",
-		   "getInnerMostFrame",
-		   "extractStack",
-		   "extractArguments",
-		   "extractLocals",
-		   "extractException",
-		   "formatException",
-		   "formatReport",
-		   "baseExceptionHandler",
-		   "installExceptionHandler",
-		   "uninstallExceptionHandler",
-		   "handleExceptions",
-		   "AbstractError",
-		   "ExecutionError",
-		   "BreakIteration",
-		   "AbstractParsingError",
-		   "FileStructureParsingError",
-		   "AttributeStructureParsingError",
-		   "AbstractIOError",
-		   "FileReadError",
-		   "FileWriteError",
-		   "UrlReadError",
-		   "UrlWriteError",
-		   "DirectoryCreationError",
-		   "PathCopyError",
-		   "PathRemoveError",
-		   "AbstractOsError",
-		   "PathExistsError",
-		   "DirectoryExistsError",
-		   "FileExistsError",
-		   "AbstractObjectError",
-		   "ObjectTypeError",
-		   "ObjectExistsError",
-		   "AbstractUserError",
-		   "ProgrammingError",
-		   "UserError",
-		   "AbstractNodeError",
-		   "NodeAttributeTypeError",
-		   "NodeAttributeExistsError",
-		   "AbstractLibraryError",
-		   "LibraryInstantiationError",
-		   "LibraryInitializationError",
-		   "LibraryExecutionError",
-		   "AbstractServerError",
-		   "ServerOperationError",
-		   "AnsiEscapeCodeExistsError"]
+           "get_inner_most_frame",
+           "extract_stack",
+           "extract_arguments",
+           "extract_locals",
+           "extract_exception",
+           "format_exception",
+           "format_report",
+           "base_exception_handler",
+           "install_exception_handler",
+           "uninstall_exception_handler",
+           "handle_exceptions",
+           "AbstractError",
+           "ExecutionError",
+           "BreakIteration",
+           "AbstractParsingError",
+           "FileStructureParsingError",
+           "AttributeStructureParsingError",
+           "AbstractIOError",
+           "FileReadError",
+           "FileWriteError",
+           "UrlReadError",
+           "UrlWriteError",
+           "DirectoryCreationError",
+           "PathCopyError",
+           "PathRemoveError",
+           "AbstractOsError",
+           "PathExistsError",
+           "DirectoryExistsError",
+           "FileExistsError",
+           "AbstractObjectError",
+           "ObjectTypeError",
+           "ObjectExistsError",
+           "AbstractUserError",
+           "ProgrammingError",
+           "UserError",
+           "AbstractNodeError",
+           "NodeAttributeTypeError",
+           "NodeAttributeExistsError",
+           "AbstractLibraryError",
+           "LibraryInstantiationError",
+           "LibraryInitializationError",
+           "LibraryExecutionError",
+           "AbstractServerError",
+           "ServerOperationError",
+           "AnsiEscapeCodeExistsError"]
 
-LOGGER = foundations.verbose.installLogger()
+LOGGER = foundations.verbose.install_logger()
 
 EXCEPTIONS_FRAME_SYMBOL = "_exceptions__frame__"
 
-#**********************************************************************************************************************
-#***	Module classes and definitions.
-#**********************************************************************************************************************
-def getInnerMostFrame(trcback):
-	"""
-	Returns the inner most frame of given traceback.
 
-	:param trcback: Traceback.
-	:type trcback: Traceback
-	:return: Frame.
-	:rtype: Frame
-	"""
+def get_inner_most_frame(trcback):
+    """
+    Returns the inner most frame of given traceback.
 
-	frames = inspect.getinnerframes(trcback)
-	return frames.pop()[0] if frames else None
+    :param trcback: Traceback.
+    :type trcback: Traceback
+    :return: Frame.
+    :rtype: Frame
+    """
 
-def extractStack(frame, context=10, exceptionsFrameSymbol=EXCEPTIONS_FRAME_SYMBOL):
-	"""
-	Extracts the stack from given frame while excluded any symbolized frame.
+    frames = inspect.getinnerframes(trcback)
+    return frames.pop()[0] if frames else None
 
-	:param frame: Frame.
-	:type frame: Frame
-	:param context: Context to extract.
-	:type context: int
-	:param exceptionsFrameSymbol: Stack trace frame tag.
-	:type exceptionsFrameSymbol: unicode
-	:return: Stack.
-	:rtype: list
-	"""
 
-	decode = lambda x: unicode(x, Constants.defaultCodec, Constants.codecError)
+def extract_stack(frame, context=10, exceptionsFrameSymbol=EXCEPTIONS_FRAME_SYMBOL):
+    """
+    Extracts the stack from given frame while excluded any symbolized frame.
 
-	stack = []
+    :param frame: Frame.
+    :type frame: Frame
+    :param context: Context to extract.
+    :type context: int
+    :param exceptionsFrameSymbol: Stack trace frame tag.
+    :type exceptionsFrameSymbol: unicode
+    :return: Stack.
+    :rtype: list
+    """
 
-	for frame, fileName, lineNumber, name, context, index in inspect.getouterframes(frame, context):
-		if frame.f_locals.get(exceptionsFrameSymbol):
-			continue
+    decode = lambda x: unicode(x, Constants.default_codec, Constants.codec_error)
 
-		stack.append((frame,
-					  decode(fileName),
-					  lineNumber,
-					  decode(name),
-					  context if context is not None else [],
-					  index if index is not None else -1))
+    stack = []
 
-	return list(reversed(stack))
+    for frame, file_name, line_number, name, context, index in inspect.getouterframes(frame, context):
+        if frame.f_locals.get(exceptionsFrameSymbol):
+            continue
 
-def extractArguments(frame):
-	"""
-	Extracts the arguments from given frame.
+        stack.append((frame,
+                      decode(file_name),
+                      line_number,
+                      decode(name),
+                      context if context is not None else [],
+                      index if index is not None else -1))
 
-	:param frame: Frame.
-	:type frame: object
-	:return: Arguments.
-	:rtype: tuple
-	"""
+    return list(reversed(stack))
 
-	arguments = ([], None, None)
-	try:
-		source = textwrap.dedent("".join(inspect.getsourcelines(frame)[0]).replace("\\\n", ""))
-	except (IOError, TypeError) as error:
-		return arguments
 
-	try:
-		node = ast.parse(source)
-	except:
-		return arguments
+def extract_arguments(frame):
+    """
+    Extracts the arguments from given frame.
 
-	if not node.body:
-		return arguments
+    :param frame: Frame.
+    :type frame: object
+    :return: Arguments.
+    :rtype: tuple
+    """
 
-	node = node.body[0]
-	if not isinstance(node, ast.FunctionDef):
-		return arguments
+    arguments = ([], None, None)
+    try:
+        source = textwrap.dedent("".join(inspect.getsourcelines(frame)[0]).replace("\\\n", ""))
+    except (IOError, TypeError) as error:
+        return arguments
 
-	return [arg.id for arg in node.args.args], node.args.vararg, node.args.kwarg
+    try:
+        node = ast.parse(source)
+    except:
+        return arguments
 
-def extractLocals(trcback):
-	"""
-	Extracts the frames locals of given traceback.
+    if not node.body:
+        return arguments
 
-	:param trcback: Traceback.
-	:type trcback: Traceback
-	:return: Frames locals.
-	:rtype: list
-	"""
+    node = node.body[0]
+    if not isinstance(node, ast.FunctionDef):
+        return arguments
 
-	output = []
-	stack = extractStack(getInnerMostFrame(trcback))
-	for frame, fileName, lineNumber, name, context, index in stack:
-		argsNames, nameless, keyword = extractArguments(frame)
-		arguments, namelessArgs, keywordArgs, locals = OrderedDict(), [], {}, {}
-		for key, data in frame.f_locals.iteritems():
-			if key == nameless:
-				namelessArgs = map(repr, frame.f_locals.get(nameless, ()))
-			elif key == keyword:
-				keywordArgs = dict((arg, repr(value)) for arg, value in frame.f_locals.get(keyword, {}).iteritems())
-			elif key in argsNames:
-				arguments[key] = repr(data)
-			else:
-				locals[key] = repr(data)
-		output.append(((name, fileName, lineNumber), (arguments, namelessArgs, keywordArgs, locals)))
-	return output
+    return [arg.id for arg in node.args.args], node.args.vararg, node.args.kwarg
 
-def extractException(*args):
-	"""
-	Extracts the exception from given arguments or from :func:`sys.exc_info`.
 
-	:param \*args: Arguments.
-	:type \*args: \*
-	:return: Extracted exception.
-	:rtype: tuple
-	"""
+def extract_locals(trcback):
+    """
+    Extracts the frames locals of given traceback.
 
-	cls, instance, trcback = sys.exc_info()
+    :param trcback: Traceback.
+    :type trcback: Traceback
+    :return: Frames locals.
+    :rtype: list
+    """
 
-	exceptions = filter(lambda x: issubclass(type(x), BaseException), args)
-	trcbacks = filter(lambda x: issubclass(type(x), types.TracebackType), args)
+    output = []
+    stack = extract_stack(get_inner_most_frame(trcback))
+    for frame, file_name, line_number, name, context, index in stack:
+        args_names, nameless, keyword = extract_arguments(frame)
+        arguments, nameless_args, keyword_args, locals = OrderedDict(), [], {}, {}
+        for key, data in frame.f_locals.iteritems():
+            if key == nameless:
+                nameless_args = map(repr, frame.f_locals.get(nameless, ()))
+            elif key == keyword:
+                keyword_args = dict((arg, repr(value)) for arg, value in frame.f_locals.get(keyword, {}).iteritems())
+            elif key in args_names:
+                arguments[key] = repr(data)
+            else:
+                locals[key] = repr(data)
+        output.append(((name, file_name, line_number), (arguments, nameless_args, keyword_args, locals)))
+    return output
 
-	cls, instance = (type(exceptions[0]), exceptions[0]) if exceptions else (cls, instance)
-	trcback = trcbacks[0] if trcbacks else trcback
 
-	return cls, instance, trcback
+def extract_exception(*args):
+    """
+    Extracts the exception from given arguments or from :func:`sys.exc_info`.
 
-def formatException(cls, instance, trcback, context=1):
-	"""
-	| Formats given exception.
-	| The code produce a similar output to :func:`traceback.format_exception` except that it allows frames to be excluded
-		from the stack if the given stack trace frame tag is found in the frame locals and set **True**.
+    :param \*args: Arguments.
+    :type \*args: \*
+    :return: Extracted exception.
+    :rtype: tuple
+    """
 
-	:param cls: Exception class.
-	:type cls: object
-	:param instance: Exception instance.
-	:type instance: object
-	:param trcback: Traceback.
-	:type trcback: Traceback
-	:param context: Context being included.
-	:type context: int
-	:return: Formated exception.
-	:rtype: list
-	"""
+    cls, instance, trcback = sys.exc_info()
 
-	stack = extractStack(getInnerMostFrame(trcback), context=context)
-	output = []
-	output.append("Traceback (most recent call last):")
-	for frame, fileName, lineNumber, name, context, index in stack:
-		output.append("  File \"{0}\", line {1}, in {2}".format(fileName, lineNumber, name))
-		for line in context:
-			output.append("    {0}".format(line.strip()))
-	for line in traceback.format_exception_only(cls, instance):
-		output.append("{0}".format(line))
-	return output
+    exceptions = filter(lambda x: issubclass(type(x), BaseException), args)
+    trcbacks = filter(lambda x: issubclass(type(x), types.TracebackType), args)
 
-def formatReport(cls, instance, trcback, context=1):
-	"""
-	Formats a report using given exception.
+    cls, instance = (type(exceptions[0]), exceptions[0]) if exceptions else (cls, instance)
+    trcback = trcbacks[0] if trcbacks else trcback
 
-	:param cls: Exception class.
-	:type cls: object
-	:param instance: Exception instance.
-	:type instance: object
-	:param trcback: Traceback.
-	:type trcback: Traceback
-	:param context: Context being included.
-	:type context: int
-	:return: Formated report.
-	:rtype: tuple
-	"""
+    return cls, instance, trcback
 
-	header = []
-	header.append("Exception in '{0}'.".format(getInnerMostFrame(trcback).f_code.co_name))
-	header.append("Exception class: '{0}'.".format(cls.__name__))
-	header.append("Exception description: '{0}'.".format(instance.__doc__ and instance.__doc__.strip() or \
-														 Constants.nullObject))
-	for i, line in enumerate(str(instance).split("\n")):
-		header.append("Exception message line no. '{0}' : '{1}'.".format(i + 1, line))
 
-	frames = []
-	for frame, locals in extractLocals(trcback):
-		frames.append("Frame '{0}' in '{1}' at line '{2}':".format(*frame))
-		arguments, namelessArgs, keywordArgs, locals = locals
-		any((arguments, namelessArgs, keywordArgs)) and frames.append("{0:>40}".format("Arguments:"))
-		for key, value in arguments.iteritems():
-			frames.append("{0:>40} = {1}".format(key, value))
-		for value in namelessArgs:
-			frames.append("{0:>40}".format(value))
-		for key, value in sorted(keywordArgs.iteritems()):
-			frames.append("{0:>40} = {1}".format(key, value))
-		locals and frames.append("{0:>40}".format("Locals:"))
-		for key, value in sorted(locals.iteritems()):
-			frames.append("{0:>40} = {1}".format(key, value))
-		frames.append("")
+def format_exception(cls, instance, trcback, context=1):
+    """
+    | Formats given exception.
+    | The code produce a similar output to :func:`traceback.format_exception` except that it allows frames to be excluded
+        from the stack if the given stack trace frame tag is found in the frame locals and set **True**.
 
-	trcback = formatException(cls, instance, trcback)
+    :param cls: Exception class.
+    :type cls: object
+    :param instance: Exception instance.
+    :type instance: object
+    :param trcback: Traceback.
+    :type trcback: Traceback
+    :param context: Context being included.
+    :type context: int
+    :return: Formated exception.
+    :rtype: list
+    """
 
-	return header, frames, trcback
+    stack = extract_stack(get_inner_most_frame(trcback), context=context)
+    output = []
+    output.append("Traceback (most recent call last):")
+    for frame, file_name, line_number, name, context, index in stack:
+        output.append("  File \"{0}\", line {1}, in {2}".format(file_name, line_number, name))
+        for line in context:
+            output.append("    {0}".format(line.strip()))
+    for line in traceback.format_exception_only(cls, instance):
+        output.append("{0}".format(line))
+    return output
 
-def baseExceptionHandler(*args):
-	"""
-	Provides the base exception handler.
 
-	:param \*args: Arguments.
-	:type \*args: \*
-	:return: Definition success.
-	:rtype: bool
-	"""
+def format_report(cls, instance, trcback, context=1):
+    """
+    Formats a report using given exception.
 
-	header, frames, trcback = formatReport(*extractException(*args))
+    :param cls: Exception class.
+    :type cls: object
+    :param instance: Exception instance.
+    :type instance: object
+    :param trcback: Traceback.
+    :type trcback: Traceback
+    :param context: Context being included.
+    :type context: int
+    :return: Formated report.
+    :rtype: tuple
+    """
 
-	LOGGER.error("!> {0}".format(Constants.loggingSeparators))
-	map(lambda x: LOGGER.error("!> {0}".format(x)), header)
+    header = []
+    header.append("Exception in '{0}'.".format(get_inner_most_frame(trcback).f_code.co_name))
+    header.append("Exception class: '{0}'.".format(cls.__name__))
+    header.append("Exception description: '{0}'.".format(instance.__doc__ and instance.__doc__.strip() or
+                                                         Constants.null_object))
+    for i, line in enumerate(str(instance).split("\n")):
+        header.append("Exception message line no. '{0}' : '{1}'.".format(i + 1, line))
 
-	LOGGER.error("!> {0}".format(Constants.loggingSeparators))
-	map(lambda x: LOGGER.error("!> {0}".format(x)), frames)
+    frames = []
+    for frame, locals in extract_locals(trcback):
+        frames.append("Frame '{0}' in '{1}' at line '{2}':".format(*frame))
+        arguments, nameless_args, keyword_args, locals = locals
+        any((arguments, nameless_args, keyword_args)) and frames.append("{0:>40}".format("Arguments:"))
+        for key, value in arguments.iteritems():
+            frames.append("{0:>40} = {1}".format(key, value))
+        for value in nameless_args:
+            frames.append("{0:>40}".format(value))
+        for key, value in sorted(keyword_args.iteritems()):
+            frames.append("{0:>40} = {1}".format(key, value))
+        locals and frames.append("{0:>40}".format("Locals:"))
+        for key, value in sorted(locals.iteritems()):
+            frames.append("{0:>40} = {1}".format(key, value))
+        frames.append("")
 
-	LOGGER.error("!> {0}".format(Constants.loggingSeparators))
-	sys.stderr.write("\n".join(trcback))
+    trcback = format_exception(cls, instance, trcback)
 
-	return True
+    return header, frames, trcback
 
-def installExceptionHandler(handler=None):
-	"""
-	Installs the given exceptions handler.
 
-	:param handler: Exception handler.
-	:type handler: object
-	:return: Definition success.
-	:rtype: bool
-	"""
+def base_exception_handler(*args):
+    """
+    Provides the base exception handler.
 
-	sys.excepthook = handler if handler is not None else baseExceptionHandler
-	return True
+    :param \*args: Arguments.
+    :type \*args: \*
+    :return: Definition success.
+    :rtype: bool
+    """
 
-def uninstallExceptionHandler():
-	"""
-	Uninstalls the exceptions handler.
+    header, frames, trcback = format_report(*extract_exception(*args))
 
-	:return: Definition success.
-	:rtype: bool
-	"""
+    LOGGER.error("!> {0}".format(Constants.logging_separators))
+    map(lambda x: LOGGER.error("!> {0}".format(x)), header)
 
-	sys.excepthook = sys.__excepthook__
-	return True
+    LOGGER.error("!> {0}".format(Constants.logging_separators))
+    map(lambda x: LOGGER.error("!> {0}".format(x)), frames)
 
-def handleExceptions(*args):
-	"""
-	| Handles exceptions.
-	| It's possible to specify an user defined exception handler,
-		if not, :func:`baseExceptionHandler` handler will be used.
-	| The decorator uses given exceptions objects
-		or the default Python `Exception <http://docs.python.org/library/exceptions.html#exceptions.Exception>`_ class.
+    LOGGER.error("!> {0}".format(Constants.logging_separators))
+    sys.stderr.write("\n".join(trcback))
 
-	Usage::
+    return True
 
-		@handleExceptions(ZeroDivisionError)
-		def raiseAnException(value):
-			'''
-			Raises a 'ZeroDivisionError' exception.
-			'''
 
-			return value / 0
+def install_exception_handler(handler=None):
+    """
+    Installs the given exceptions handler.
 
-			:param \*args: Arguments.
-			:type \*args: \*
+    :param handler: Exception handler.
+    :type handler: object
+    :return: Definition success.
+    :rtype: bool
+    """
 
-	:return: Object.
-	:rtype: object
-	"""
+    sys.excepthook = handler if handler is not None else base_exception_handler
+    return True
 
-	exceptions = tuple(filter(lambda x: issubclass(x, Exception),
-							  filter(lambda x: isinstance(x, (type, types.ClassType)), args)))
-	handlers = filter(lambda x: inspect.isfunction(x), args) or (baseExceptionHandler,)
 
-	def handleExceptionsDecorator(object):
-		"""
-		Handles exceptions.
+def uninstall_exception_handler():
+    """
+    Uninstalls the exceptions handler.
 
-		:param object: Object to decorate.
-		:type object: object
-		:return: Object.
-		:rtype: object
-		"""
+    :return: Definition success.
+    :rtype: bool
+    """
 
-		@functools.wraps(object)
-		def handleExceptionsWrapper(*args, **kwargs):
-			"""
-			Handles exceptions.
+    sys.excepthook = sys.__excepthook__
+    return True
 
-			:param \*args: Arguments.
-			:type \*args: \*
-			:param \*\*kwargs: Keywords arguments.
-			:type \*\*kwargs: \*\*
-			"""
 
-			_exceptions__frame__ = True
+def handle_exceptions(*args):
+    """
+    | Handles exceptions.
+    | It's possible to specify an user defined exception handler,
+        if not, :func:`base_exception_handler` handler will be used.
+    | The decorator uses given exceptions objects
+        or the default Python `Exception <http://docs.python.org/library/exceptions.html#exceptions.Exception>`_ class.
 
-			try:
-				return object(*args, **kwargs)
-			except exceptions as error:
-				for handler in handlers:
-					handler(error)
+    Usage::
 
-		return handleExceptionsWrapper
+        @handle_exceptions(ZeroDivisionError)
+        def raiseAnException(value):
+            '''
+            Raises a 'ZeroDivisionError' exception.
+            '''
 
-	return handleExceptionsDecorator
+            return value / 0
+
+            :param \*args: Arguments.
+            :type \*args: \*
+
+    :return: Object.
+    :rtype: object
+    """
+
+    exceptions = tuple(filter(lambda x: issubclass(x, Exception),
+                              filter(lambda x: isinstance(x, (type, types.ClassType)), args)))
+    handlers = filter(lambda x: inspect.isfunction(x), args) or (base_exception_handler,)
+
+    def handle_exceptions_decorator(object):
+        """
+        Handles exceptions.
+
+        :param object: Object to decorate.
+        :type object: object
+        :return: Object.
+        :rtype: object
+        """
+
+        @functools.wraps(object)
+        def handle_exceptions_wrapper(*args, **kwargs):
+            """
+            Handles exceptions.
+
+            :param \*args: Arguments.
+            :type \*args: \*
+            :param \*\*kwargs: Keywords arguments.
+            :type \*\*kwargs: \*\*
+            """
+
+            _exceptions__frame__ = True
+
+            try:
+                return object(*args, **kwargs)
+            except exceptions as error:
+                for handler in handlers:
+                    handler(error)
+
+        return handle_exceptions_wrapper
+
+    return handle_exceptions_decorator
+
 
 class AbstractError(Exception):
-	"""
-	Defines the abstract base class for all **Foundations** package exceptions.
-	"""
+    """
+    Defines the abstract base class for all **Foundations** package exceptions.
+    """
 
-	def __init__(self, value):
-		"""
-		Initializes the class.
+    def __init__(self, value):
+        """
+        Initializes the class.
 
-		:param value: Error value or message.
-		:type value: unicode
-		"""
+        :param value: Error value or message.
+        :type value: unicode
+        """
 
-		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
+        LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
-		# --- Setting class attributes. ---
-		self.__value = value
+        # --- Setting class attributes. ---
+        self.__value = value
 
-	#******************************************************************************************************************
-	#***	Attributes properties.
-	#******************************************************************************************************************
-	@property
-	def value(self):
-		"""
-		Property for **self.__value** attribute.
+    @property
+    def value(self):
+        """
+        Property for **self.__value** attribute.
 
-		:return: self.__value.
-		:rtype: object
-		"""
+        :return: self.__value.
+        :rtype: object
+        """
 
-		return self.__value
+        return self.__value
 
-	@value.setter
-	def value(self, value):
-		"""
-		Setter for **self.__value** attribute.
+    @value.setter
+    def value(self, value):
+        """
+        Setter for **self.__value** attribute.
 
-		:param value: Attribute value.
-		:type value: object
-		"""
+        :param value: Attribute value.
+        :type value: object
+        """
 
-		self.__value = value
+        self.__value = value
 
-	@value.deleter
-	def value(self):
-		"""
-		Deleter for **self.__value** attribute.
-		"""
+    @value.deleter
+    def value(self):
+        """
+        Deleter for **self.__value** attribute.
+        """
 
-		raise Exception("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "value"))
+        raise Exception("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "value"))
 
-	#******************************************************************************************************************
-	#***	Class methods.
-	#******************************************************************************************************************
-	def __str__(self):
-		"""
-		Returns the exception representation.
+    def __str__(self):
+        """
+        Returns the exception representation.
 
-		:return: Exception representation.
-		:rtype: unicode
-		"""
+        :return: Exception representation.
+        :rtype: unicode
+        """
 
-		return str(self.__value)
+        return str(self.__value)
+
 
 class ExecutionError(AbstractError):
-	"""
-	Defines execution exception.
-	"""
+    """
+    Defines execution exception.
+    """
 
-	pass
+    pass
+
 
 class BreakIteration(AbstractError):
-	"""
-	Breaks nested loop iteration.
-	"""
+    """
+    Breaks nested loop iteration.
+    """
 
-	pass
+    pass
+
 
 class AbstractParsingError(AbstractError):
-	"""
-	Defines the abstract base class for parsing related exception.
-	"""
+    """
+    Defines the abstract base class for parsing related exception.
+    """
 
-	pass
+    pass
+
 
 class FileStructureParsingError(AbstractParsingError):
-	"""
-	Defines exception raised while parsing file structure.
-	"""
+    """
+    Defines exception raised while parsing file structure.
+    """
 
-	pass
+    pass
+
 
 class AttributeStructureParsingError(AbstractParsingError):
-	"""
-	Defines exception raised while parsing attribute structure.
-	"""
+    """
+    Defines exception raised while parsing attribute structure.
+    """
 
-	def __init__(self, value, line=None):
-		"""
-		Initializes the class.
+    def __init__(self, value, line=None):
+        """
+        Initializes the class.
 
-		:param value: Error value or message.
-		:type value: unicode
-		:param line: Line number where exception occured.
-		:type line: int
-		"""
+        :param value: Error value or message.
+        :type value: unicode
+        :param line: Line number where exception occured.
+        :type line: int
+        """
 
-		LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
+        LOGGER.debug("> Initializing '{0}()' class.".format(self.__class__.__name__))
 
-		AbstractParsingError.__init__(self, value)
+        AbstractParsingError.__init__(self, value)
 
-		# --- Setting class attributes. ---
-		self.__line = None
-		self.line = line
+        # --- Setting class attributes. ---
+        self.__line = None
+        self.line = line
 
-	#******************************************************************************************************************
-	#***	Attributes properties.
-	#******************************************************************************************************************
-	@property
-	def line(self):
-		"""
-		Property for **self.__line** attribute.
+    @property
+    def line(self):
+        """
+        Property for **self.__line** attribute.
 
-		:return: self.__line.
-		:rtype: int
-		"""
+        :return: self.__line.
+        :rtype: int
+        """
 
-		return self.__line
+        return self.__line
 
-	@line.setter
-	@handleExceptions(AssertionError)
-	def line(self, value):
-		"""
-		Setter for **self.__line** attribute.
+    @line.setter
+    @handle_exceptions(AssertionError)
+    def line(self, value):
+        """
+        Setter for **self.__line** attribute.
 
-		:param value: Attribute value.
-		:type value: int
-		"""
+        :param value: Attribute value.
+        :type value: int
+        """
 
-		if value is not None:
-			assert type(value) is int, "'{0}' attribute: '{1}' type is not 'int'!".format("line", value)
-			assert value > 0, "'{0}' attribute: '{1}' need to be exactly positive!".format("line", value)
-		self.__line = value
+        if value is not None:
+            assert type(value) is int, "'{0}' attribute: '{1}' type is not 'int'!".format("line", value)
+            assert value > 0, "'{0}' attribute: '{1}' need to be exactly positive!".format("line", value)
+        self.__line = value
 
-	@line.deleter
-	@handleExceptions(Exception)
-	def line(self):
-		"""
-		Deleter for **self.__line** attribute.
-		"""
+    @line.deleter
+    @handle_exceptions(Exception)
+    def line(self):
+        """
+        Deleter for **self.__line** attribute.
+        """
 
-		raise Exception("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "line"))
+        raise Exception("{0} | '{1}' attribute is not deletable!".format(self.__class__.__name__, "line"))
 
-	#******************************************************************************************************************
-	#***	Class methods.
-	#******************************************************************************************************************
-	def __str__(self):
-		"""
-		Returns the exception representation.
+    def __str__(self):
+        """
+        Returns the exception representation.
 
-		:return: Exception representation.
-		:rtype: unicode
-		"""
+        :return: Exception representation.
+        :rtype: unicode
+        """
 
-		if self.__line:
-			return "Line '{0}': '{1}'.".format(self.__line, str(self.value))
-		else:
-			return str(self.value)
+        if self.__line:
+            return "Line '{0}': '{1}'.".format(self.__line, str(self.value))
+        else:
+            return str(self.value)
+
 
 class AbstractIOError(AbstractError):
-	"""
-	Defines the abstract base class for io related exception.
-	"""
+    """
+    Defines the abstract base class for io related exception.
+    """
 
-	pass
+    pass
+
 
 class FileReadError(AbstractIOError):
-	"""
-	Defines file read exception.
-	"""
+    """
+    Defines file read exception.
+    """
 
-	pass
+    pass
+
 
 class FileWriteError(AbstractIOError):
-	"""
-	Defines file write exception.
-	"""
+    """
+    Defines file write exception.
+    """
 
-	pass
+    pass
+
 
 class UrlReadError(AbstractIOError):
-	"""
-	Defines url read exception.
-	"""
+    """
+    Defines url read exception.
+    """
 
-	pass
+    pass
+
 
 class UrlWriteError(AbstractIOError):
-	"""
-	Defines file write exception.
-	"""
+    """
+    Defines file write exception.
+    """
 
-	pass
+    pass
+
 
 class DirectoryCreationError(AbstractIOError):
-	"""
-	Defines directory creation exception.
-	"""
+    """
+    Defines directory creation exception.
+    """
 
-	pass
+    pass
+
 
 class PathCopyError(AbstractIOError):
-	"""
-	Defines path copy exception.
-	"""
+    """
+    Defines path copy exception.
+    """
 
-	pass
+    pass
+
 
 class PathRemoveError(AbstractIOError):
-	"""
-	Defines path remove exception.
-	"""
+    """
+    Defines path remove exception.
+    """
 
-	pass
+    pass
+
 
 class AbstractOsError(AbstractError):
-	"""
-	Defines the abstract base class for os related exception.
-	"""
+    """
+    Defines the abstract base class for os related exception.
+    """
 
-	pass
+    pass
+
 
 class PathExistsError(AbstractOsError):
-	"""
-	Defines non existing path exception.
-	"""
+    """
+    Defines non existing path exception.
+    """
 
-	pass
+    pass
+
 
 class DirectoryExistsError(PathExistsError):
-	"""
-	Defines non existing directory exception.
-	"""
+    """
+    Defines non existing directory exception.
+    """
 
-	pass
+    pass
+
 
 class FileExistsError(PathExistsError):
-	"""
-	Defines non existing file exception.
-	"""
+    """
+    Defines non existing file exception.
+    """
 
-	pass
+    pass
+
 
 class AbstractObjectError(AbstractError):
-	"""
-	Defines the abstract base class for object related exception.
-	"""
+    """
+    Defines the abstract base class for object related exception.
+    """
 
-	pass
+    pass
+
 
 class ObjectTypeError(AbstractObjectError):
-	"""
-	Defines invalid object type exception.
-	"""
+    """
+    Defines invalid object type exception.
+    """
 
-	pass
+    pass
+
 
 class ObjectExistsError(AbstractObjectError):
-	"""
-	Defines non existing object exception.
-	"""
+    """
+    Defines non existing object exception.
+    """
 
-	pass
+    pass
+
 
 class AbstractUserError(AbstractError):
-	"""
-	Defines the abstract base class for user related exception.
-	"""
+    """
+    Defines the abstract base class for user related exception.
+    """
 
-	pass
+    pass
+
 
 class ProgrammingError(AbstractUserError):
-	"""
-	Defines programming exception.
-	"""
+    """
+    Defines programming exception.
+    """
 
-	pass
+    pass
+
 
 class UserError(AbstractUserError):
-	"""
-	Defines user exception.
-	"""
+    """
+    Defines user exception.
+    """
 
-	pass
+    pass
+
 
 class AbstractNodeError(AbstractError):
-	"""
-	Defines the abstract base class for Node related exception.
-	"""
+    """
+    Defines the abstract base class for Node related exception.
+    """
 
-	pass
+    pass
+
 
 class NodeAttributeTypeError(AbstractNodeError, ObjectTypeError):
-	"""
-	Defines the abstract base class for Node attributes type related exception.
-	"""
+    """
+    Defines the abstract base class for Node attributes type related exception.
+    """
 
-	pass
+    pass
+
 
 class NodeAttributeExistsError(AbstractNodeError, ObjectExistsError):
-	"""
-	Defines non existing Node attribute exception.
-	"""
+    """
+    Defines non existing Node attribute exception.
+    """
 
-	pass
+    pass
+
 
 class AbstractLibraryError(AbstractError):
-	"""
-	Defines the abstract base class for :mod:`library` module exception.
-	"""
+    """
+    Defines the abstract base class for :mod:`library` module exception.
+    """
 
-	pass
+    pass
+
 
 class LibraryInstantiationError(AbstractLibraryError):
-	"""
-	Defines :mod:`library` module :class:`library.Library` class instantiation exception.
-	"""
+    """
+    Defines :mod:`library` module :class:`library.Library` class instantiation exception.
+    """
 
-	pass
+    pass
+
 
 class LibraryInitializationError(AbstractLibraryError):
-	"""
-	Defines :mod:`library` module :class:`library.Library` class initialization exception.
-	"""
+    """
+    Defines :mod:`library` module :class:`library.Library` class initialization exception.
+    """
 
-	pass
+    pass
+
 
 class LibraryExecutionError(AbstractLibraryError):
-	"""
-	Defines :mod:`library` module :class:`library.Library` class execution exception.
-	"""
+    """
+    Defines :mod:`library` module :class:`library.Library` class execution exception.
+    """
 
-	pass
+    pass
+
 
 class AbstractServerError(AbstractError):
-	"""
-	Defines the abstract base class for :mod:`tcpServer` module exception.
-	"""
+    """
+    Defines the abstract base class for :mod:`tcp_server` module exception.
+    """
 
-	pass
+    pass
+
 
 class ServerOperationError(AbstractServerError):
-	"""
-	Defines :mod:`tcpServer` module :class:`tcpServer.TCPServer` class operations exception.
-	"""
+    """
+    Defines :mod:`tcp_server` module :class:`tcp_server.TCPServer` class operations exception.
+    """
 
-	pass
+    pass
+
 
 class AnsiEscapeCodeExistsError(AbstractError):
-	"""
-	Defines exception used for non existing *ANSI* escape codes.
-	"""
+    """
+    Defines exception used for non existing *ANSI* escape codes.
+    """
 
-	pass
+    pass
